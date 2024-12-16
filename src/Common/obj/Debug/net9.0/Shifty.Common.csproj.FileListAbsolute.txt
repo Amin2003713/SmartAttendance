@@ -1,0 +1,12 @@
+D:\Projects\Shifty\Shifty\src\Common\bin\Debug\net9.0\Shifty.Common.deps.json
+D:\Projects\Shifty\Shifty\src\Common\bin\Debug\net9.0\Shifty.Common.dll
+D:\Projects\Shifty\Shifty\src\Common\bin\Debug\net9.0\Shifty.Common.pdb
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.csproj.AssemblyReference.cache
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.AssemblyInfoInputs.cache
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.AssemblyInfo.cs
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.csproj.CoreCompileInputs.cache
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.dll
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\refint\Shifty.Common.dll
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\Shifty.Common.pdb
+D:\Projects\Shifty\Shifty\src\Common\obj\Debug\net9.0\ref\Shifty.Common.dll
