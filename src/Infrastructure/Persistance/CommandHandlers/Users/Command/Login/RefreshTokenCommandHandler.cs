@@ -40,7 +40,7 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
             var jwt = await _jwtService.GenerateAsync(user);
             var updateRefreshToken = new RefreshToken
             {
-                UserId = user.Id,
+                UserId = user!.Id,
                 ExpiryTime = DateTime.Now.AddDays(jwt.refreshToken_expiresIn),
                 Token = jwt.refresh_token
             };
