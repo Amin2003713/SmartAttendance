@@ -11,7 +11,7 @@ using Shifty.Persistence.Db;
 
 namespace Shifty.Persistence.Migrations.Application
 {
-    [DbContext(typeof(CleanArchWriteDbContext))]
+    [DbContext(typeof(WriteOnlyDbContext))]
     [Migration("20241216131229_Initial")]
     partial class Initial
     {

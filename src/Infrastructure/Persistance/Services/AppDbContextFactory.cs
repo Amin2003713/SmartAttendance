@@ -1,16 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Persistence.Db;
+using Shifty.Persistence.TenantServices;
 
 namespace Shifty.Persistence.Services
 {
-    public class AppDbContextFactory : DesignTimeDbContextFactoryBase<AppDbContext>
+    public class AppDbContextFactory(ITenantService services) : DesignTimeDbContextFactoryBase<AppDbContext>
     {
-        public AppDbContextFactory()
-        { }
-
-        protected override AppDbContext CreateNewInstance(DbContextOptions<AppDbContext> options)
-        {
-            return new AppDbContext(options);
-        }
+        protected override AppDbContext CreateNewInstance(DbContextOptions<AppDbContext> options ) =>
+            new AppDbContext(options , services);
     }
 }

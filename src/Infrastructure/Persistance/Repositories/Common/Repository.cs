@@ -14,12 +14,12 @@ namespace Shifty.Persistence.Repositories
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
-        protected readonly CleanArchWriteDbContext DbContext;
+        protected readonly WriteOnlyDbContext DbContext;
         public DbSet<TEntity> Entities { get; }
         public virtual IQueryable<TEntity> Table => Entities;
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public Repository(CleanArchWriteDbContext dbContext)
+        public Repository(WriteOnlyDbContext dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<TEntity>();

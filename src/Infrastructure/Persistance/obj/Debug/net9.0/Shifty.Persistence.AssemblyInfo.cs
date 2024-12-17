@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shifty.Persistence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41f4395bf91b9e40ce4c8367fd546f06bc185b7c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0826a65216502f4fc2738011af8cc690d7e5d89")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shifty.Persistence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shifty.Persistence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

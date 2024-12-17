@@ -246,6 +246,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Finbuckle.MultiTenant": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -332,6 +336,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Finbuckle.MultiTenant.AspNetCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Finbuckle.MultiTenant.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Mapster": {
               "target": "Package",
               "version": "[7.4.0, )"
@@ -625,6 +637,18 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Finbuckle.MultiTenant": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Finbuckle.MultiTenant.AspNetCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Finbuckle.MultiTenant.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",

@@ -20,4 +20,19 @@ public class RegisterAdminCommand : IRequest<bool>
     public string ProfilePicture { get; set; }
 
     public string Address { get; set; }
+
+    public CoInfo CompanyInfo { get; set; }
+
 }
+
+public class CoInfo
+{
+    public string Name { get; set; }
+    public string Address { get; set; }
+    public string WebSite { get; set; }
+    public string PhoneNumber { get; set; }
+    public string ApplicationAccessDomain { get; set; }
+}
+
+
+

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shifty.Domain.Common.BaseClasses;
+using Shifty.Domain.Tenants;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Shifty.Domain.Users

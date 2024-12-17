@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Shifty.ApiFramework.Configuration;
+using Shifty.ApiFramework.TenentServices;
 using Shifty.Application;
 using Shifty.Common;
 using Shifty.Common.General;
@@ -28,7 +29,7 @@ namespace Shifty.Api.Services
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddWebApi(Configuration, _siteSetting);
-            services.AddPersistance(Configuration);
+            services.AddPersistence(Configuration);
             services.AddCommon(Configuration);
             services.AddApplication();
         }
@@ -43,7 +44,6 @@ namespace Shifty.Api.Services
         {
             if (env.IsDevelopment() || env.IsStaging())
             {
-                IdentityModelEventSource.ShowPII = true; 
                 app.UseDeveloperExceptionPage();
             }
 

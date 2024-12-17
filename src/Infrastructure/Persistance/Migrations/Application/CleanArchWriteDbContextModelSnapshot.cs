@@ -10,7 +10,7 @@ using Shifty.Persistence.Db;
 
 namespace Shifty.Persistence.Migrations.Application
 {
-    [DbContext(typeof(CleanArchWriteDbContext))]
+    [DbContext(typeof(WriteOnlyDbContext))]
     partial class CleanArchWriteDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -7,6 +7,7 @@ namespace Shifty.Common.General
         public string WriteDatabaseConnectionString { get; set; }
 
         public string ReadDatabaseConnectionString { get; set; }
+        public string TenantStore { get; set; }
 
         public string AuthenticationServerUri { get; set; }
 

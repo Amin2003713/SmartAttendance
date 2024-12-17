@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Shifty.Application.Users.Requests;
+using System.Text.RegularExpressions;
 
 namespace Shifty.Application.Users.Validators;
 
@@ -71,6 +72,28 @@ public class SingUpAdminRequestValidator : AbstractValidator<SingUpAdminRequest>
 
         RuleFor(x => x.MobileNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
 
+        When(x => x.CompanyInfo != null
+            , () =>
+              {
+                  RuleFor(x => x.CompanyInfo.Name).
+                      NotEmpty().
+                      WithMessage("Company name is required.").
+                      MaximumLength(100).
+                      WithMessage("Company name cannot exceed 100 characters.");
+
+                  RuleFor(x => x.CompanyInfo.Address).
+                      NotEmpty().
+                      WithMessage("Company address is required.").
+                      MaximumLength(200).
+                      WithMessage("Company address cannot exceed 200 characters.");
+
+                  RuleFor(x => x.CompanyInfo.ApplicationAccessDomain).
+                      NotEmpty().
+                      WithMessage("Company website is required.").
+                      Must(BeAValidDomain).
+                      WithMessage("Website contains forbidden characters or invalid format.");
+              });
+
         // RuleFor(x => x.Password).NotEmpty().WithMessage("رمز عبور الزامیست").MinimumLength(6).WithMessage("رمز عبور باید حداقل 6 کاراکتر باشد");
         //
         // RuleFor(x => x.ConfirmPassword).
@@ -78,5 +101,12 @@ public class SingUpAdminRequestValidator : AbstractValidator<SingUpAdminRequest>
         //     WithMessage("تایید رمز عبور الزامیست").
         //     Equal(x => x.Password).
         //     WithMessage("رمز عبور و تایید آن باید یکسان باشند");
+    }
+
+    private bool BeAValidDomain(string website)
+    {
+        return true;
+        var forbiddenCharsPattern = @"[^a-zA-Z0-9\-\.]";
+        return Regex.IsMatch(website, forbiddenCharsPattern) && website.Contains('.');
     }
 }

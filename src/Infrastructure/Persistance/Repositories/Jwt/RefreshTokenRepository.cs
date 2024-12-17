@@ -9,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories
 {
-    public class RefreshTokenRepository : Repository<RefreshToken>, IRefreshTokenRepository, IScopedDependency
+    public class RefreshTokenRepository(WriteOnlyDbContext dbContext) : Repository<RefreshToken>(dbContext), IRefreshTokenRepository, IScopedDependency
     {
-        public RefreshTokenRepository(CleanArchWriteDbContext dbContext)
-           : base(dbContext)
-        {
-        }
         public async Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken)
         {
             var token = await TableNoTracking.SingleOrDefaultAsync(x => x.UserId == refreshToken.UserId, cancellationToken);

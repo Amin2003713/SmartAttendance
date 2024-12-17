@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Finbuckle.MultiTenant;
+using Finbuckle.MultiTenant.Abstractions;
+using Microsoft.AspNetCore.Authorization;
+using Shifty.Domain.Tenants;
 
 namespace Shifty.Api.Controllers.v1
 {
@@ -12,7 +15,7 @@ namespace Shifty.Api.Controllers.v1
     [ValidateModelState]
     [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class BaseControllerV1 : ControllerBase
+    public class BaseControllerV1() : ControllerBase
     {
   
 
@@ -27,5 +30,6 @@ namespace Shifty.Api.Controllers.v1
 
         protected ILogger Logger => GetService<ILogger>();
 
+        protected IMultiTenantContext<ShiftyTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<ShiftyTenantInfo>();
     }
 }

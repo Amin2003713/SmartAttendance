@@ -1,4 +1,5 @@
-﻿using Shifty.ApiFramework.Tools;
+﻿using Finbuckle.MultiTenant.Abstractions;
+using Shifty.ApiFramework.Tools;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Shifty.Application.Users.Command.Login;
 using Shifty.Application.Users.Command.RefreshToken;
 using Shifty.Application.Users.Requests;
 using Shifty.Domain.Enums;
+using Shifty.Domain.Tenants;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,8 +17,17 @@ using System.Threading.Tasks;
 namespace Shifty.Api.Controllers.v1.Users
 {
     [ApiVersion("1")]
-    public class UserController : BaseControllerV1
+    public class UserController(IMultiTenantContextAccessor<ShiftyTenantInfo> accessor) : BaseControllerV1
     {
+
+        [HttpPost("Test")]
+        [SwaggerOperation("Test ")]
+        [AllowAnonymous]
+        public virtual async Task<ApiResult<string>> test( CancellationToken cancellationToken)
+        {
+            return new ApiResult<string>($"{accessor.MultiTenantContext.TenantInfo?.Identifier}");
+        }
+
         [HttpPost("Admins/sign-up")]
         [SwaggerOperation("sign up user")]
         [AllowAnonymous]

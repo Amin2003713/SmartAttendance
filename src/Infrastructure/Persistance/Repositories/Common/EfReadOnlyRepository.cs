@@ -14,7 +14,7 @@ namespace Shifty.Persistence.Repositories
     public class EfReadOnlyRepository<TEntity> : IReanOnlyRepository<TEntity>
         where TEntity : class, IEntity
     {
-        protected readonly CleanArchReadOnlyDbContext DbContext;
+        protected readonly ReadOnlyDbContext DbContext;
 
         public DbSet<TEntity> Entities { get; }
 
@@ -22,7 +22,7 @@ namespace Shifty.Persistence.Repositories
 
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public EfReadOnlyRepository(CleanArchReadOnlyDbContext dbContext)
+        public EfReadOnlyRepository(ReadOnlyDbContext dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<TEntity>();

@@ -1,4 +1,5 @@
-﻿using Shifty.Domain.Users;
+﻿using Shifty.Application.Users.Command.CreateUser.Admin;
+using Shifty.Domain.Users;
 using System;
 
 namespace Shifty.Application.Users.Requests;
@@ -38,5 +39,7 @@ public class SingUpAdminRequest
 
 
     public string Address { get; set; }
+
+    public CoInfo CompanyInfo { get; set; }
 
 }

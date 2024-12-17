@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories
 {
-    public class UserRepository(CleanArchWriteDbContext dbContext) : Repository<User>(dbContext), IUserRepository, IScopedDependency
+    public class UserRepository(WriteOnlyDbContext dbContext) : Repository<User>(dbContext), IUserRepository, IScopedDependency
     {
         public Task<User> GetByUserAndPass(string username, string password, CancellationToken cancellationToken)
         {
