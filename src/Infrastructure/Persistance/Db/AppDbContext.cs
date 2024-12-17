@@ -11,14 +11,24 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options, ITenantService tenantService) : IdentityDbContext<User, Role, Guid>(options), IAppDbContext
+public class AppDbContext : IdentityDbContext<User, Role, Guid>, IAppDbContext
 {
-   
+    private readonly ITenantService _tenantService;
+
+    public AppDbContext()
+    {
+        
+    }
+    public AppDbContext(DbContextOptions<AppDbContext> options, ITenantService tenantService) : base(options)
+    {
+        _tenantService = tenantService;
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
-            var connectionString = tenantService.GetConnectionString();
+            var connectionString = _tenantService.GetConnectionString();
             optionsBuilder.UseSqlServer(connectionString);
         }
 

@@ -20,26 +20,27 @@ namespace Shifty.Persistence.Services
             services.AddScoped<IPasswordHasher<TenantAdmin>, PasswordHasher<TenantAdmin>>();
 
             services.AddScoped<ITenantService , TenantServiceImplementation>();
+            services.AddScoped<TenantMigrationService>();
 
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.AddDbContext<TenantDbContext>(options => options.UseSqlServer(appOptions.TenantStore));
 
+            services.AddScoped<ReadOnlyDbContext>();
+            services.AddScoped<WriteOnlyDbContext>();
+
             services.AddScoped((serviceProvider) =>
                                   {
 
-                                      var tenantInfo = serviceProvider.GetRequiredService<ShiftyTenantInfo>();
                                       var tenantService = serviceProvider.GetRequiredService<ITenantService>();
-                                      return tenantInfo != null ? new ReadOnlyDbContext(CreateContextOptions(tenantInfo.GetConnectionString()) , tenantService) : null!;
+                                      return tenantService != null ? new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , tenantService) : default!;
                                   });
 
             services.AddScoped((serviceProvider) =>
                                   {
-
                                       var tenantService = serviceProvider.GetRequiredService<ITenantService>();
-                                      var tenantInfo    = serviceProvider.GetRequiredService<ShiftyTenantInfo>();
-                                      return tenantInfo != null ? new WriteOnlyDbContext(CreateContextOptions(tenantInfo.GetConnectionString()) , tenantService) : null!;
+                                      return tenantService != null ? new WriteOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , tenantService) : default!;
                                   });
 
             services.AddScoped<IAppDbContext, AppDbContext>(((serviceProvider) =>

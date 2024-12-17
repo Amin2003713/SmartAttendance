@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.ApiFramework.TenentServices
 {
-    public class TenantValidationMiddleware(RequestDelegate next , ITenantService tenantService)
+    public class TenantValidationMiddleware(RequestDelegate next , ITenantService tenantService , TenantMigrationService migrationService , ReadOnlyDbContext context)
     {
         public async Task Invoke(HttpContext context, TenantDbContext tenantDbContext)
         {
@@ -51,6 +51,8 @@ namespace Shifty.ApiFramework.TenentServices
 
             if (!context.Request.Path.Value!.EndsWith("/Login") || !context.Request.Path.Value!.EndsWith("Admins/sign-up"))
             {
+                await migrationService.MigrateTenantDatabaseAsync();
+
                 if (!context.Request.Headers.TryGetValue("X-User-Name", out var userName))
                 {
                     context.Response.StatusCode = 400; // Bad Request

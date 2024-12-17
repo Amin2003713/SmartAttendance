@@ -4,9 +4,17 @@ using Shifty.Persistence.TenantServices;
 
 namespace Shifty.Persistence.Services
 {
-    public class AppDbContextFactory(ITenantService services) : DesignTimeDbContextFactoryBase<AppDbContext>
+    public class AppDbContextFactory : DesignTimeDbContextFactoryBase<AppDbContext>
     {
+        public AppDbContextFactory()
+        {
+            
+        }
+        public AppDbContextFactory(ITenantService services)
+        {
+        }
+
         protected override AppDbContext CreateNewInstance(DbContextOptions<AppDbContext> options ) =>
-            new AppDbContext(options , services);
+            new AppDbContext();
     }
 }

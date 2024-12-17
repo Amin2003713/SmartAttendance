@@ -6,7 +6,7 @@ namespace Shifty.Persistence.TenantServices;
 
 public interface ITenantService
 {
-    IMultiTenantContext<ShiftyTenantInfo> _httpContextAccessor { get; set; }
+    IMultiTenantContext<ShiftyTenantInfo>? _httpContextAccessor { get; set; }
     string GetConnectionString();
     string GetName();
     string GetId();
