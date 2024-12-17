@@ -1,7 +1,7 @@
-﻿using Shifty.Domain.Entities;
-using Shifty.Domain.IRepositories;
+﻿using Shifty.Domain.IRepositories;
 using Shifty.Persistence.Db;
 using Microsoft.EntityFrameworkCore;
+using Shifty.Domain.Common.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

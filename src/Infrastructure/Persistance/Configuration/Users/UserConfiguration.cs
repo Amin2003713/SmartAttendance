@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Entities.Users;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shifty.Domain.Users;
 
 
 namespace Shifty.Persistence.Configuration.Users

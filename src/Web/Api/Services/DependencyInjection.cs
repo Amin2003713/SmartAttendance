@@ -1,43 +1,40 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using HealthChecks.UI.Client;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using PolyCache;
+using Shifty.Api.Filters;
+using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Seeder;
+using Shifty.ApiFramework.Swagger;
+using Shifty.Common;
+using Shifty.Common.Behaviours;
+using Shifty.Common.General;
+using Shifty.Common.Utilities;
+using Shifty.Domain.IRepositories;
+using Shifty.Domain.Users;
+using Shifty.Persistence.Db;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using System;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Shifty.Api
+namespace Shifty.Api.Services
 {
-    using ApiFramework.Attributes;
-    using ApiFramework.Swagger;
-    using Common;
-    using Common.Behaviours;
-    using Common.General;
-    using Common.Utilities;
-    using Domain.Entities.Users;
-    using Domain.IRepositories;
-    using Filters;
-    using FluentValidation;
-    using FluentValidation.AspNetCore;
-    using HealthChecks.UI.Client;
-    using MediatR;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.IdentityModel.Tokens;
-    using Microsoft.OpenApi.Models;
-    using Persistence.Db;
-    using PolyCache;
-    using Swashbuckle.AspNetCore.SwaggerGen;
-    using Swashbuckle.AspNetCore.SwaggerUI;
-    using System;
-    using System.Linq;
-    using System.Net;
-    using System.Reflection;
-    using System.Security.Claims;
-    using System.Text;
-    using System.Threading.Tasks;
-
     public static class DependencyInjection
     {
         public static IServiceCollection AddWebApi(this IServiceCollection services, IConfiguration configuration, SiteSettings siteSettings)
@@ -58,9 +55,7 @@ namespace Shifty.Api
             services.AddCustomIdentity();
             services.AddJwtAuthentication(siteSettings.JwtSettings);
             services.AddCleanArchControllers();
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddPolyCache(configuration);
-            services.AddCustomFluentValidation();
 
             services.AddHealthChecks()
                     .AddSqlServer(appOptions.WriteDatabaseConnectionString)
@@ -385,10 +380,6 @@ namespace Shifty.Api
             .AddDefaultTokenProviders();
         }
 
-        public static void AddCustomFluentValidation(this IServiceCollection services)
-        {
-            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
-        }
     }
 }
 

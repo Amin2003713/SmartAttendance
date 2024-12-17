@@ -1,4 +1,4 @@
-namespace Shifty.Domain.Exceptions;
+namespace Shifty.Domain.Users.Exceptions;
 
 // ReSharper disable once InconsistentNaming
 

@@ -104,12 +104,12 @@
         }
       }
     },
-    "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj": {
+    "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj",
-        "projectName": "Shifty.Application",
-        "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj",
+        "projectUniqueName": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj",
+        "projectName": "Shifty.ApplicationLogic",
+        "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj",
         "packagesPath": "C:\\Users\\amin1\\.nuget\\packages\\",
         "outputPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\obj\\",
         "projectStyle": "PackageReference",
@@ -158,6 +158,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.5.1, )"
+            },
             "Mapster": {
               "target": "Package",
               "version": "[7.4.0, )"
@@ -299,8 +307,8 @@
               "D:\\Projects\\Shifty\\Shifty\\src\\Common\\Shifty.Common.csproj": {
                 "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Common\\Shifty.Common.csproj"
               },
-              "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj": {
-                "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj"
+              "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj": {
+                "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj"
               },
               "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Domain\\Shifty.Domain.csproj": {
                 "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Domain\\Shifty.Domain.csproj"

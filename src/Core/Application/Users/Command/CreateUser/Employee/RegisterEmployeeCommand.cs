@@ -1,7 +1,9 @@
-﻿using Shifty.Domain.Entities.Users;
-using MediatR;
+﻿using MediatR;
 using Shifty.Domain.Enums;
+using Shifty.Domain.Users;
 using System.Collections.Generic;
+
+namespace Shifty.ApplicationLogic.Users.Command.CreateUser.Employee;
 
 public record RegisterEmployeeCommand(
     string FirstName

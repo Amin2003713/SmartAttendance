@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Shifty.Common;
 using Shifty.Common.General;
-using Shifty.Domain.Entities;
+using Shifty.Domain.Common.BaseClasses;
 using Shifty.Domain.IRepositories;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Jwt;

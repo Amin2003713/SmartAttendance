@@ -60,6 +60,43 @@
           }
         }
       },
+      "FluentValidation.AspNetCore/11.3.0": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "11.5.1",
+          "FluentValidation.DependencyInjectionExtensions": "11.5.1"
+        },
+        "compile": {
+          "lib/net6.0/FluentValidation.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/FluentValidation.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidation": "11.5.1",
+          "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -2044,10 +2081,12 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "Shifty.Application/1.0.0": {
+      "Shifty.ApplicationLogic/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "FluentValidation.AspNetCore": "11.3.0",
+          "FluentValidation.DependencyInjectionExtensions": "11.5.1",
           "Mapster": "7.4.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
@@ -2055,10 +2094,10 @@
           "Shifty.Domain": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Shifty.Application.dll": {}
+          "bin/placeholder/Shifty.ApplicationLogic.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Shifty.Application.dll": {}
+          "bin/placeholder/Shifty.ApplicationLogic.dll": {}
         }
       },
       "Shifty.Common/1.0.0": {
@@ -2159,6 +2198,42 @@
         "lib/netstandard2.0/FluentValidation.xml",
         "lib/netstandard2.1/FluentValidation.dll",
         "lib/netstandard2.1/FluentValidation.xml"
+      ]
+    },
+    "FluentValidation.AspNetCore/11.3.0": {
+      "sha512": "jtFVgKnDFySyBlPS8bZbTKEEwJZnn11rXXJ2SQnjDhZ56rQqybBg9Joq4crRLz3y0QR8WoOq4iE4piV81w/Djg==",
+      "type": "package",
+      "path": "fluentvalidation.aspnetcore/11.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+        "fluentvalidation.aspnetcore.nuspec",
+        "lib/net5.0/FluentValidation.AspNetCore.dll",
+        "lib/net5.0/FluentValidation.AspNetCore.xml",
+        "lib/net6.0/FluentValidation.AspNetCore.dll",
+        "lib/net6.0/FluentValidation.AspNetCore.xml",
+        "lib/netcoreapp3.1/FluentValidation.AspNetCore.dll",
+        "lib/netcoreapp3.1/FluentValidation.AspNetCore.xml"
+      ]
+    },
+    "FluentValidation.DependencyInjectionExtensions/11.5.1": {
+      "sha512": "iWM0LS1MDYX06pcjMEQKqHirl2zkjHlNV23mEJSoR1IZI7KQmTa0RcTtGEJpj5+iHvBCfrzP2mYKM4FtRKVb+A==",
+      "type": "package",
+      "path": "fluentvalidation.dependencyinjectionextensions/11.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
+        "fluentvalidation.dependencyinjectionextensions.nuspec",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",
+        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll",
+        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -5743,10 +5818,10 @@
         "version.txt"
       ]
     },
-    "Shifty.Application/1.0.0": {
+    "Shifty.ApplicationLogic/1.0.0": {
       "type": "project",
-      "path": "../../Core/Application/Shifty.Application.csproj",
-      "msbuildProject": "../../Core/Application/Shifty.Application.csproj"
+      "path": "../../Core/Application/Shifty.ApplicationLogic.csproj",
+      "msbuildProject": "../../Core/Application/Shifty.ApplicationLogic.csproj"
     },
     "Shifty.Common/1.0.0": {
       "type": "project",
@@ -5771,7 +5846,7 @@
       "Microsoft.Extensions.Configuration.FileExtensions >= 9.0.0",
       "Microsoft.Extensions.Configuration.Json >= 9.0.0",
       "PolyCache >= 1.2.1",
-      "Shifty.Application >= 1.0.0",
+      "Shifty.ApplicationLogic >= 1.0.0",
       "Shifty.Common >= 1.0.0",
       "Shifty.Domain >= 1.0.0"
     ]
@@ -5812,8 +5887,8 @@
             "D:\\Projects\\Shifty\\Shifty\\src\\Common\\Shifty.Common.csproj": {
               "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Common\\Shifty.Common.csproj"
             },
-            "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj": {
-              "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj"
+            "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj": {
+              "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj"
             },
             "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Domain\\Shifty.Domain.csproj": {
               "projectPath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Domain\\Shifty.Domain.csproj"

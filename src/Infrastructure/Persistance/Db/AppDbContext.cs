@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Shifty.Domain.Common.BaseClasses;
+using Shifty.Domain.Users;
+using System;
 
 namespace Shifty.Persistence.Db
 {
     using Common.Utilities;
-    using Domain.Entities;
-    using Domain.Entities.Users;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using System.Threading;

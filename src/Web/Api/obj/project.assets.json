@@ -3151,10 +3151,12 @@
           "bin/placeholder/Shifty.ApiFramework.dll": {}
         }
       },
-      "Shifty.Application/1.0.0": {
+      "Shifty.ApplicationLogic/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "FluentValidation.AspNetCore": "11.3.0",
+          "FluentValidation.DependencyInjectionExtensions": "11.5.1",
           "Mapster": "7.4.0",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
@@ -3162,10 +3164,10 @@
           "Shifty.Domain": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Shifty.Application.dll": {}
+          "bin/placeholder/Shifty.ApplicationLogic.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Shifty.Application.dll": {}
+          "bin/placeholder/Shifty.ApplicationLogic.dll": {}
         }
       },
       "Shifty.Common/1.0.0": {
@@ -3214,7 +3216,7 @@
           "Microsoft.Extensions.Configuration.FileExtensions": "9.0.0",
           "Microsoft.Extensions.Configuration.Json": "9.0.0",
           "PolyCache": "1.2.1",
-          "Shifty.Application": "1.0.0",
+          "Shifty.ApplicationLogic": "1.0.0",
           "Shifty.Common": "1.0.0",
           "Shifty.Domain": "1.0.0"
         },
@@ -8109,10 +8111,10 @@
       "path": "../ApiFramework/Shifty.ApiFramework.csproj",
       "msbuildProject": "../ApiFramework/Shifty.ApiFramework.csproj"
     },
-    "Shifty.Application/1.0.0": {
+    "Shifty.ApplicationLogic/1.0.0": {
       "type": "project",
-      "path": "../../Core/Application/Shifty.Application.csproj",
-      "msbuildProject": "../../Core/Application/Shifty.Application.csproj"
+      "path": "../../Core/Application/Shifty.ApplicationLogic.csproj",
+      "msbuildProject": "../../Core/Application/Shifty.ApplicationLogic.csproj"
     },
     "Shifty.Common/1.0.0": {
       "type": "project",

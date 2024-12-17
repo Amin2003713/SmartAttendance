@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Domain.Entities.Users;
 using Shifty.Domain.Enums;
+using Shifty.Domain.Users;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,5 +1,4 @@
 ﻿using Shifty.Common;
-using Shifty.Domain.Entities.Users;
 using Shifty.Domain.IRepositories;
 using Shifty.Persistence.Db;
 using Microsoft.EntityFrameworkCore;

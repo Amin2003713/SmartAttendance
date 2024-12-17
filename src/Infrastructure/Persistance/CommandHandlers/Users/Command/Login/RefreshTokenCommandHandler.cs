@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Users.Command.RefreshToken;
+using Shifty.ApplicationLogic.Users.Command.RefreshToken;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
-using Shifty.Domain.Entities.Users;
 using Shifty.Domain.IRepositories;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Jwt;

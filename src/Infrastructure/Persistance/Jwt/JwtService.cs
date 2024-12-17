@@ -1,9 +1,9 @@
 ﻿using Shifty.Common;
 using Shifty.Common.General;
-using Shifty.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Shifty.Application.Users.Command.RefreshToken
+namespace Shifty.ApplicationLogic.Users.Command.RefreshToken
 {
     public class RefreshTokenCommand : IRequest<RefreshTokenResponse>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shifty.Domain.Entities
+namespace Shifty.Domain.Common.BaseClasses
 {
     public interface IEntity
     {

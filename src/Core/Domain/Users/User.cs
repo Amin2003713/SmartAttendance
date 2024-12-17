@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shifty.Domain.Common.BaseClasses;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Shifty.Domain.Entities.Users
+namespace Shifty.Domain.Users
 {
     public class User : IdentityUser<Guid>, IEntity
     {

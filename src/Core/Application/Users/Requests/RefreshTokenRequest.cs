@@ -1,9 +1,8 @@
-﻿namespace Shifty.ApplicationLogic.Users.Command.RefreshToken
+﻿namespace Shifty.ApplicationLogic.Users.Requests
 {
-    public class RefreshTokenResponse
+    public class RefreshTokenRequest
     {
         public string RefreshToken { get; set; }
-
         public string AccessToken { get; set; }
     }
 }

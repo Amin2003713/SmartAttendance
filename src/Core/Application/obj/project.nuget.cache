@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Hd2r5o8zbuo=",
+  "dgSpecHash": "lGZqmTvVeX4=",
   "success": true,
-  "projectFilePath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.Application.csproj",
+  "projectFilePath": "D:\\Projects\\Shifty\\Shifty\\src\\Core\\Application\\Shifty.ApplicationLogic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\amin1\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\amin1\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\amin1\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\amin1\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
     "C:\\Users\\amin1\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
     "C:\\Users\\amin1\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",

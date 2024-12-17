@@ -1,7 +1,7 @@
 ﻿<Solution>
   <Folder Name="/Shifty.Server/" />
   <Folder Name="/Shifty.Server/Core/">
-    <Project Path="src\Core\Application\Shifty.Application.csproj" />
+    <Project Path="src\Core\Application\Shifty.ApplicationLogic.csproj" />
     <Project Path="src\Core\Domain\Shifty.Domain.csproj" />
   </Folder>
   <Folder Name="/Shifty.Server/Infrastructure/">

@@ -1,8 +1,8 @@
-﻿namespace Shifty.Persistence
-{
-    using Shifty.Persistence.Db;
-    using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Shifty.Persistence.Db;
 
+namespace Shifty.Persistence.Services
+{
     public class AppDbContextFactory : DesignTimeDbContextFactoryBase<AppDbContext>
     {
         public AppDbContextFactory()

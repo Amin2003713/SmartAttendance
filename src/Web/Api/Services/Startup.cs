@@ -1,19 +1,18 @@
+using Autofac;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
+using Shifty.ApiFramework.Configuration;
+using Shifty.ApplicationLogic;
+using Shifty.Common;
+using Shifty.Common.General;
+using Shifty.Persistence.Services;
 
-namespace Shifty.Api
+namespace Shifty.Api.Services
 {
-    using ApiFramework.Configuration;
-    using Application;
-    using Autofac;
-    using Common;
-    using Common.General;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Persistence;
-
     public class Startup
     {
         private readonly SiteSettings _siteSetting;
@@ -31,7 +30,7 @@ namespace Shifty.Api
             services.AddWebApi(Configuration, _siteSetting);
             services.AddPersistance(Configuration);
             services.AddCommon(Configuration);
-            services.AddApplication(Configuration);
+            services.AddApplication();
         }
 
         //Register Services to Autofac ContainerBuilder

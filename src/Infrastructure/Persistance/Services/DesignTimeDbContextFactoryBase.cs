@@ -1,10 +1,10 @@
-﻿namespace Shifty.Persistence
-{
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-    using Microsoft.Extensions.Configuration;
-    using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System;
 
+namespace Shifty.Persistence.Services
+{
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";

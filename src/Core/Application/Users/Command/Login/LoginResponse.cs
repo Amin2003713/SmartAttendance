@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Domain.Entities.Users;
 using Shifty.Domain.Enums;
+using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Shifty.Application.Users.Command.Login
+namespace Shifty.ApplicationLogic.Users.Command.Login
 {
     public class LoginResponse
     {

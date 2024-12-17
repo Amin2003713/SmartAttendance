@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Shifty.Application.Users.Command.Login
+namespace Shifty.ApplicationLogic.Users.Command.Login
 {
     public class LoginCommand : IRequest<LoginResponse>
     {

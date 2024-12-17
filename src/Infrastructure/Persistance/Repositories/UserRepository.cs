@@ -1,9 +1,9 @@
 ﻿using Shifty.Common;
 using Shifty.Common.Utilities;
-using Shifty.Domain.Entities.Users;
 using Shifty.Domain.IRepositories;
 using Shifty.Persistence.Db;
 using Microsoft.EntityFrameworkCore;
+using Shifty.Domain.Users;
 using System;
 using System.Linq;
 using System.Threading;

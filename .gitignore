@@ -4,6 +4,10 @@ bin/
 obj/
 src/Core/Application/bin
 src/Core/Application/obj
+src/Web/Api/obj
+
+bin
+obj
 
 src/*/obj
 src/*/bin

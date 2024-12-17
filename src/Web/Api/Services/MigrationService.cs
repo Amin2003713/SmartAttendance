@@ -1,14 +1,13 @@
-﻿using Shifty.Persistence.Db;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Shifty.Persistence.Db;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shifty.Api
+namespace Shifty.Api.Services
 {
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using System;
-
     public interface IMigrationService
     {
         Task ApplyMigrations();

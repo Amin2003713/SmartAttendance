@@ -2,6 +2,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Shifty.Api.Services;
 
 namespace Shifty.Api
 {

@@ -1,13 +1,12 @@
-﻿using System.Reflection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Shifty.Common.General;
+using Shifty.Persistence.Db;
+using System.Reflection;
 
-namespace Shifty.Persistence
+namespace Shifty.Persistence.Services
 {
-    using Common.General;
-    using Db;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-
     public static class DependencyInjection
     {
         public static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration configuration)

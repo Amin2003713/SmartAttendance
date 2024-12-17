@@ -1,5 +1,4 @@
-﻿using Shifty.Domain.Entities.Users;
-using Shifty.Domain.Users;
+﻿using Shifty.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,5 +1,5 @@
-﻿using Shifty.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Shifty.Domain.Common.BaseClasses;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
