@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.ApplicationLogic.Users.Requests;
+using Shifty.Application.Users.Requests;
 
-namespace Shifty.ApplicationLogic.Users.Validators
+namespace Shifty.Application.Users.Validators
 {
     public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {

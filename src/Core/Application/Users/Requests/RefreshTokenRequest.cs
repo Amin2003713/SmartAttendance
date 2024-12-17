@@ -1,4 +1,4 @@
-﻿namespace Shifty.ApplicationLogic.Users.Requests
+﻿namespace Shifty.Application.Users.Requests
 {
     public class RefreshTokenRequest
     {

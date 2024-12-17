@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Shifty.ApplicationLogic.Users.Command.CreateUser.Employee;
+using Shifty.Application.Users.Command.CreateUser.Employee;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Users;

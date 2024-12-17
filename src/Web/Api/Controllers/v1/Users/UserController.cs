@@ -2,11 +2,11 @@
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shifty.ApplicationLogic.Users.Command.CreateUser.Admin;
-using Shifty.ApplicationLogic.Users.Command.CreateUser.Employee;
-using Shifty.ApplicationLogic.Users.Command.Login;
-using Shifty.ApplicationLogic.Users.Command.RefreshToken;
-using Shifty.ApplicationLogic.Users.Requests;
+using Shifty.Application.Users.Command.CreateUser.Admin;
+using Shifty.Application.Users.Command.CreateUser.Employee;
+using Shifty.Application.Users.Command.Login;
+using Shifty.Application.Users.Command.RefreshToken;
+using Shifty.Application.Users.Requests;
 using Shifty.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading;

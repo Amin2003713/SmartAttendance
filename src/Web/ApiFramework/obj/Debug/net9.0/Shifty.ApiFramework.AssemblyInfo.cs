@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Shifty.ApiFramework")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f15c3aedea2e3419c72e41fa4e008282dcf90b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41f4395bf91b9e40ce4c8367fd546f06bc185b7c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Shifty.ApiFramework")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Shifty.ApiFramework")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

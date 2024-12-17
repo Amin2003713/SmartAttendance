@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Shifty.ApiFramework.Configuration;
-using Shifty.ApplicationLogic;
+using Shifty.Application;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Persistence.Services;

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Shifty.Domain.Users;
 
-namespace Shifty.ApplicationLogic.Users.Command.CreateUser.Admin;
+namespace Shifty.Application.Users.Command.CreateUser.Admin;
 
 public class RegisterAdminCommand : IRequest<bool>
 {

@@ -3,7 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
-namespace Shifty.ApplicationLogic
+namespace Shifty.Application
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
