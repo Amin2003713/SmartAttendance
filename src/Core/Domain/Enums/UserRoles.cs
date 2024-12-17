@@ -7,8 +7,8 @@ namespace Shifty.Domain.Enums;
 [Flags]
 public enum UserRoles : byte
 {
-    None = 0
-    , Admin = 1 << 0
+    None = 0,
+    Admin = 1 << 0
     , // 1
     Employee = 1 << 1
     , // 2
