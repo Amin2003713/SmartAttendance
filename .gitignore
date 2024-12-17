@@ -2,6 +2,11 @@
 # .NET Core build folders
 bin/
 obj/
+src/Core/Application/bin
+src/Core/Application/obj
+
+src/*/obj
+src/*/bin
 
 # Common node modules locations
 /node_modules
