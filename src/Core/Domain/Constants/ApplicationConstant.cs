@@ -15,4 +15,5 @@ public static class ApplicationConstant
         "User Id=sa;Password=0Lx[~1W@zab^NT05u'364BwlQo;";
 
 #endif
+    public const string CodeGenerator = "THERE WEAR ONES A CHILE THAT DIED HAHAH .";
 }

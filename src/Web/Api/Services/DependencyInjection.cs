@@ -24,6 +24,7 @@ using Shifty.Common;
 using Shifty.Common.Behaviours;
 using Shifty.Common.General;
 using Shifty.Common.Utilities;
+using Shifty.Domain.Constants;
 using Shifty.Domain.IRepositories;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
@@ -387,7 +388,8 @@ public static class DependencyInjection
                                              identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
                                          })
-                .AddEntityFrameworkStores<WriteOnlyDbContext>()
+                .AddEntityFrameworkStores<WriteOnlyDbContext>().
+                AddTokenProvider<PhoneNumberTokenProvider<User>>(ApplicationConstant.CodeGenerator)
                 .AddDefaultTokenProviders();
     }
 

@@ -7,7 +7,9 @@ using Shifty.Application.Users.Command.CreateUser.Admin;
 using Shifty.Application.Users.Command.CreateUser.Employee;
 using Shifty.Application.Users.Command.Login;
 using Shifty.Application.Users.Command.RefreshToken;
+using Shifty.Application.Users.Command.SendActivationCode;
 using Shifty.Application.Users.Requests;
+using Shifty.Application.Users.Requests.SendActivationCode;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Tenants;
 using Swashbuckle.AspNetCore.Annotations;
@@ -20,25 +22,43 @@ namespace Shifty.Api.Controllers.v1.Users
     public class UserController(IMultiTenantContextAccessor<ShiftyTenantInfo> accessor) : BaseControllerV1
     {
 
-        [HttpPost("Test")]
-        [SwaggerOperation("Test ")]
-        [AllowAnonymous]
-        public virtual async Task<ApiResult<string>> test( CancellationToken cancellationToken)
-        {
-            return new ApiResult<string>($"{accessor.MultiTenantContext.TenantInfo?.Identifier}");
-        }
-
         [HttpPost("Admins/sign-up")]
         [SwaggerOperation("sign up user")]
         [AllowAnonymous]
-        public virtual async Task<ApiResult<bool>> SingUpAsync([FromBody] SingUpAdminRequest request,
-            CancellationToken cancellationToken)
+        public virtual async Task<ApiResult<bool>> SingUpAsync([FromBody] SingUpAdminRequest request, CancellationToken cancellationToken)
         {
             var command = request.Adapt<RegisterAdminCommand>();
 
             var result = await Mediator.Send(command, cancellationToken);
             return new ApiResult<bool>(result);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost("Admins/Send_Activation_code")]
+        [SwaggerOperation("sign up user")]
+        [AllowAnonymous]
+        public virtual async Task<ApiResult<SendActivationCodeResponse>> SendActivationCode([FromBody] SendActivationCodeRequest request, CancellationToken cancellationToken)
+        {
+            var command = request.Adapt<SendActivationCodeCommand>();
+
+            var result = await Mediator.Send(command, cancellationToken);
+            return new ApiResult<SendActivationCodeResponse>(result);
+        }
+
 
         [HttpPost("Employee/sign-up")]
         [SwaggerOperation("sign up user")]
