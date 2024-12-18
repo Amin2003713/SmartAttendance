@@ -8,6 +8,7 @@ using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.TenantServices;
+using System;
 using System.Reflection;
 
 namespace Shifty.Persistence.Services
@@ -20,45 +21,20 @@ namespace Shifty.Persistence.Services
             services.AddScoped<IPasswordHasher<TenantAdmin>, PasswordHasher<TenantAdmin>>();
 
             services.AddScoped<ITenantService , TenantServiceImplementation>();
-            services.AddScoped<TenantMigrationService>();
 
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=localhost;Database=Shifty;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true;"));
+            services.AddScoped<IAppDbContext, AppDbContext>();
             services.AddDbContext<TenantDbContext>(options => options.UseSqlServer(appOptions.TenantStore));
-
-            services.AddScoped<ReadOnlyDbContext>();
-            services.AddScoped<WriteOnlyDbContext>();
-
-            services.AddScoped((serviceProvider) =>
-                                  {
-
-                                      var tenantService = serviceProvider.GetRequiredService<ITenantService>();
-                                      return tenantService != null ? new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , tenantService) : default!;
-                                  });
-
-            services.AddScoped((serviceProvider) =>
-                                  {
-                                      var tenantService = serviceProvider.GetRequiredService<ITenantService>();
-                                      return tenantService != null ? new WriteOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , tenantService) : default!;
-                                  });
-
-            services.AddScoped<IAppDbContext, AppDbContext>(((serviceProvider) =>
-                                                                {
-                                                                    var tenantService = serviceProvider.GetRequiredService<ITenantService>();
-                                                                    return new AppDbContext(CreateContextOptions(tenantService.GetConnectionString()), tenantService);
-                                                                }));
+            services.AddDbContext<ReadOnlyDbContext>(options => options.UseSqlServer(appOptions.ReadDatabaseConnectionString));
+            services.AddDbContext<WriteOnlyDbContext>(options => options.UseSqlServer(appOptions.WriteDatabaseConnectionString));
+            services.AddAndMigrateTenantDatabases(configuration);
+            services.AddScoped<DatabaseMigrationService>();
+            services.AddScoped<Seeder.Seeder>();
 
             return services;
-
-            DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
-            {
-                var contextOptions = new DbContextOptionsBuilder<AppDbContext>()
-                                     .UseSqlServer(connectionString)
-                                     .Options;
-
-                return contextOptions;
-            }
         }
     }
 }

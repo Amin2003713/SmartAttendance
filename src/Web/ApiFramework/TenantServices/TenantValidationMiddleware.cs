@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Shifty.ApiFramework.TenentServices
 {
-    public class TenantValidationMiddleware(RequestDelegate next , ITenantService tenantService , TenantMigrationService migrationService , ReadOnlyDbContext context)
+    public class TenantValidationMiddleware(RequestDelegate next , ITenantService tenantService)
     {
         public async Task Invoke(HttpContext context, TenantDbContext tenantDbContext)
         {
-            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.EndsWith("Admins/sign-up"))
+            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("Tenant"))
             {
                 // If not, skip tenant validation and pass the request to the next middleware
                 await next(context);
@@ -49,10 +49,8 @@ namespace Shifty.ApiFramework.TenentServices
                 return;
             }
 
-            if (!context.Request.Path.Value!.EndsWith("/Login") || !context.Request.Path.Value!.EndsWith("Admins/sign-up"))
+            if (!context.Request.Path.Value!.Contains("Tenant"))
             {
-                await migrationService.MigrateTenantDatabaseAsync();
-
                 if (!context.Request.Headers.TryGetValue("X-User-Name", out var userName))
                 {
                     context.Response.StatusCode = 400; // Bad Request
@@ -61,7 +59,7 @@ namespace Shifty.ApiFramework.TenentServices
                 }
 
                 // Validate if the user exists in the tenant's database
-                await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , tenantService);
+                await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()));
                 var userExists = await tenantDb.Users.AnyAsync(u => u.Id == userName);
                 
                 if (!userExists)

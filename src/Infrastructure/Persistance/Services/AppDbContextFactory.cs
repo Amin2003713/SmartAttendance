@@ -15,6 +15,6 @@ namespace Shifty.Persistence.Services
         }
 
         protected override AppDbContext CreateNewInstance(DbContextOptions<AppDbContext> options ) =>
-            new AppDbContext();
+            new AppDbContext(options);
     }
 }

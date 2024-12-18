@@ -18,7 +18,6 @@ using Microsoft.OpenApi.Models;
 using PolyCache;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Attributes;
-using Shifty.ApiFramework.Seeder;
 using Shifty.ApiFramework.Swagger;
 using Shifty.ApiFramework.TenentServices;
 using Shifty.Common;

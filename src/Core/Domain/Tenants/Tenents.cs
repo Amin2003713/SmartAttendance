@@ -24,10 +24,10 @@ public class ShiftyTenantInfo : ITenantInfo
     public List<Payments>? Payments { get; set; } = [];
 
     public string GetConnectionString() 
-        => $"Server={ApplicationConstant.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.MultipleActiveResultSets};{ApplicationConstant.Encrypt};{ApplicationConstant.UserNameAndPass};";
+        => $"Server={ApplicationConstant.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.MultipleActiveResultSets};{ApplicationConstant.Encrypt};{ApplicationConstant.UserNameAndPass}";
 }
 
-public class TenantAdmin  : IdentityUser<Guid>, IEntity
+public class TenantAdmin  : IdentityUser<Guid>
 {
   
     public string FirstName { get; set; }
@@ -67,13 +67,21 @@ public class TenantAdmin  : IdentityUser<Guid>, IEntity
     public DateTime LastLoginDate { get; set; }
 }
 
-public class Payments : BaseEntity
+public class Payments 
 {
     public string ShiftyTenantInfoId { get; set; }
     public ShiftyTenantInfo ShiftyTenantInfo { get; set; }
+    public bool IsActive { get; set; } = false;
+    public Guid CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public Guid? ModifiedBy { get; set; }
+    public DateTime ModifiedAt { get; set; } = DateTime.Now;
+    public Guid? DeletedBy { get; set; }
+    public DateTime? DeletedAt { get; set; }
+    public Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
 }
 
-public class Company : BaseEntity
+public class Company 
 {
     public string Name { get; set; }
 
@@ -87,4 +95,12 @@ public class Company : BaseEntity
     public string TenantInfosId { get; set; }
     public ShiftyTenantInfo TenantInfos { get; set; }
 
+    public bool IsActive { get; set; } = false;
+    public Guid CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public Guid? ModifiedBy { get; set; }
+    public DateTime ModifiedAt { get; set; } = DateTime.Now;
+    public Guid? DeletedBy { get; set; }
+    public DateTime? DeletedAt { get; set; }
+    public Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
 }

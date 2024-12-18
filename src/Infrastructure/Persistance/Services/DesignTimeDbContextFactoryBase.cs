@@ -18,6 +18,7 @@ namespace Shifty.Persistence.Services
             return Create(basePath, Environment.GetEnvironmentVariable(AspNetCoreEnvironment));
         }
 
+
         protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
 
         private TContext Create(string basePath, string environmentName)
@@ -33,7 +34,7 @@ namespace Shifty.Persistence.Services
             var appOptions = configuration.GetSection("AppOptions:WriteDatabaseConnectionString");
             var connectionString = appOptions.Value;
 
-            return Create(connectionString);
+            return Create("Server=localhost;Database=Shifty;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true;");
         }
 
         private TContext Create(string connectionString)

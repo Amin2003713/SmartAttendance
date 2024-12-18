@@ -2,6 +2,7 @@
 using Shifty.Domain.Users;
 using Shifty.Persistence.TenantServices;
 using System;
+using System.Linq;
 
 namespace Shifty.Persistence.Db;
 
@@ -11,30 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-public class AppDbContext : IdentityDbContext<User, Role, Guid>, IAppDbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User, Role, Guid>(options), IAppDbContext
 {
-    private readonly ITenantService _tenantService;
-
-    public AppDbContext()
-    {
-        
-    }
-    public AppDbContext(DbContextOptions<AppDbContext> options, ITenantService tenantService) : base(options)
-    {
-        _tenantService = tenantService;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var connectionString = _tenantService.GetConnectionString();
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-
-        base.OnConfiguring(optionsBuilder);
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

@@ -53,28 +53,3 @@ public class TenantServiceImplementation : ITenantService
     }
 }
 
-public class TenantMigrationService(IServiceProvider serviceProvider)
-{
-    public async Task MigrateTenantDatabaseAsync()
-    {
-        // Update the connection string for the tenant
-        var tenantService = serviceProvider.GetRequiredService<ITenantService>();
-        
-
-        // Use the TenantDbContext for migrations
-        using var scope   = serviceProvider.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<WriteOnlyDbContext>();
-
-        context = new WriteOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()), tenantService);
-        
-        if(await context.Database.EnsureCreatedAsync() && (await context.Database.GetPendingMigrationsAsync()).Any())
-            await context.Database.MigrateAsync();
-    }
-
-    DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
-    {
-        var contextOptions = new DbContextOptionsBuilder<AppDbContext>().UseSqlServer(connectionString).Options;
-
-        return contextOptions;
-    }
-}

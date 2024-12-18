@@ -40,6 +40,4 @@ public class SingUpAdminRequest
 
     public string Address { get; set; }
 
-    public CoInfo CompanyInfo { get; set; }
-
 }

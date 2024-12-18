@@ -2,19 +2,20 @@
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Users;
-using Shifty.Persistence.Db;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shifty.ApiFramework.Seeder;
+namespace Shifty.Persistence.Services.Seeder;
 
-public class Seeder(RoleManager<Role> roleManager)
+public  class Seeder(IServiceProvider provider)
 {
 
 
-    public async Task SeedRoles()
+    public  async Task SeedRoles ()
     {
+    var     roleManager = provider.GetRequiredService<RoleManager<Role>>(); 
+
             foreach (var role in Enum.GetValues<UserRoles>())
             {
                 var roleName  = role.ToString();
