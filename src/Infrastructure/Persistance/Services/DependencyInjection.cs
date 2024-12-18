@@ -21,7 +21,7 @@ namespace Shifty.Persistence.Services
             var appOptions = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
             services.AddScoped<IPasswordHasher<TenantAdmin>, PasswordHasher<TenantAdmin>>();
 
-            services.AddScoped<ITenantService , TenantServiceImplementation>();
+            services.AddScoped<ITenantServiceExtension , ITenantServiceExtension>();
 
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
@@ -52,7 +52,7 @@ namespace Shifty.Persistence.Services
             services.AddScoped<IAppDbContext, AppDbContext>();
 
             services.AddAndMigrateTenantDatabases(configuration);
-            services.AddScoped<DatabaseMigrationService>();
+            services.AddScoped<RunTimeDatabaseMigrationService>();
             services.AddScoped<Seeder.Seeder>();
             Console.WriteLine(appOptions.ReadDatabaseConnectionString);
             return services;

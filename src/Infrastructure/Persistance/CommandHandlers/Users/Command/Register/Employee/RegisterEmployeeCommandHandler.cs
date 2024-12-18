@@ -10,7 +10,7 @@ using Shifty.Persistence.Services.Seeder;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Command.CreateUser.Employee;
+namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee;
 
 public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seeder seeder) : IRequestHandler<RegisterEmployeeCommand, bool>
 {

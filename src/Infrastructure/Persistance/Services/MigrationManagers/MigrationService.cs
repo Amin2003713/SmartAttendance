@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Shifty.Api.Services;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shifty.Api.Services
+namespace Shifty.Persistence.Services.MigrationManagers
 {
-    public interface IMigrationService
-    {
-        Task ApplyMigrations();
-    }
-
     public class MigrationService(IServiceProvider serviceProvider) : IMigrationService
     {
         public async Task ApplyMigrations()
@@ -20,7 +15,7 @@ namespace Shifty.Api.Services
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-            // Apply Migration
+            // Apply MigrationManagers
             try
             {
                 if((await context.Database.GetPendingMigrationsAsync()).Any())
@@ -28,9 +23,7 @@ namespace Shifty.Api.Services
             }
             catch (Exception ex)
             {
-                // Log the error or handle it in some way
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred while migrating the database.");
+                return;
             }
         }
     }

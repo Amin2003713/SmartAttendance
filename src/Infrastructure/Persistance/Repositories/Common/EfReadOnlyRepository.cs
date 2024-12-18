@@ -1,17 +1,14 @@
-﻿using Shifty.Domain.IRepositories;
-using Shifty.Persistence.Db;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Common.BaseClasses;
-using System;
-using System.Collections.Generic;
+using Shifty.Domain.IRepositories;
+using Shifty.Persistence.Db;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.Repositories
+namespace Shifty.Persistence.Repositories.Common
 {
-    public class EfReadOnlyRepository<TEntity> : IReanOnlyRepository<TEntity>
+    public class EfReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
         where TEntity : class, IEntity
     {
         protected readonly ReadOnlyDbContext DbContext;

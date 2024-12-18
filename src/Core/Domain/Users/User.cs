@@ -3,7 +3,6 @@ using Shifty.Domain.Common.BaseClasses;
 using Shifty.Domain.Tenants;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Shifty.Domain.Users
 {
@@ -68,13 +67,5 @@ namespace Shifty.Domain.Users
 
 
         public void SetUserName() => UserName = NationalCode;
-    }
-
-
-
-    public enum GenderType
-    {
-        [Display(  Name = "مرد")] Male = 1
-        , [Display(Name = "زن")] Female = 2
     }
 }

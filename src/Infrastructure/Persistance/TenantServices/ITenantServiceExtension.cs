@@ -1,12 +1,13 @@
-﻿using Finbuckle.MultiTenant.Abstractions;
+﻿#nullable enable
+using Finbuckle.MultiTenant.Abstractions;
 using Shifty.Domain.Tenants;
 using System;
 
 namespace Shifty.Persistence.TenantServices;
 
-public interface ITenantService
+public interface ITenantServiceExtension
 {
-    IMultiTenantContext<ShiftyTenantInfo>? _httpContextAccessor { get; set; }
+    IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
     string GetConnectionString();
     string GetName();
     string GetId();

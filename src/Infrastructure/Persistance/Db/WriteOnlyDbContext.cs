@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shifty.Persistence.TenantServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shifty.Persistence.Db
 {

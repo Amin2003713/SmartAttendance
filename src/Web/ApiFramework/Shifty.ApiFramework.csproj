@@ -41,4 +41,8 @@
         <ProjectReference Include="..\..\Infrastructure\Persistance\Shifty.Persistence.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Middleware\" />
+    </ItemGroup>
+
 </Project>

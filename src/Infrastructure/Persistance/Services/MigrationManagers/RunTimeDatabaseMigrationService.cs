@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Services
 {
-    public class DatabaseMigrationService(IServiceProvider services, IConfiguration configuration)
+    public class RunTimeDatabaseMigrationService(IServiceProvider services, IConfiguration configuration , Seeder.Seeder seeder)
     {
         public async Task<bool> MigrateTenantDatabasesAsync(string tenantId)
         {
@@ -49,14 +49,15 @@ namespace Shifty.Persistence.Services
                     Console.WriteLine($"Applying Migrations for '{tenant.Id}' tenant.");
                     Console.ResetColor();
                     await dbContext.Database.MigrateAsync();
-                
+
+                    await seeder.Seed();
 
                 return true;
             }
             catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Migration Error: {e.Message}");
+                Console.WriteLine($"MigrationManagers Error: {e.Message}");
                 Console.ResetColor();
                 return false;
             }

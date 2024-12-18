@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Shifty.Application.Users.Requests;
-
-namespace Shifty.Application.Users.Validators
+﻿namespace Shifty.Application.Tenants.Validators
 {
     // public class LoginRequestValidator : AbstractValidator<LoginRequest>
     // {

@@ -2,7 +2,7 @@
 
 namespace Shifty.Common.General
 {
-    public class AppOptions  : IAppOptions
+    public interface IAppOptions
     {
         public string WriteDatabaseConnectionString { get; set; }
 

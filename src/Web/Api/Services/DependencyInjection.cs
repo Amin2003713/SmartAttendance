@@ -18,8 +18,8 @@ using Microsoft.OpenApi.Models;
 using PolyCache;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Attributes;
+using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
-using Shifty.ApiFramework.TenentServices;
 using Shifty.Common;
 using Shifty.Common.Behaviours;
 using Shifty.Common.General;
@@ -28,6 +28,7 @@ using Shifty.Domain.IRepositories;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
+using Shifty.Persistence.Services.MigrationManagers;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -390,4 +391,10 @@ public static class DependencyInjection
                 .AddDefaultTokenProviders();
     }
 
+
+
+    public static async void ConfigureAutomaticMigrations(this WebApplication app)
+    {
+        // var autoMigration = app.Services.GetRequiredService<>();
+    }
 }

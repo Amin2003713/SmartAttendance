@@ -10,7 +10,10 @@ namespace Shifty.Persistence.Services.Seeder;
 
 public  class Seeder(IServiceProvider provider)
 {
-
+    public async Task Seed()
+    {
+        await SeedRoles();
+    }
 
     public  async Task SeedRoles ()
     {
@@ -36,4 +39,6 @@ public  class Seeder(IServiceProvider provider)
                 Console.WriteLine($"Error creating role {roleName}: {string.Join(", ", addRoleResult.Errors.Select(e => e.Description))}");
             }
     }
+
+  
 }

@@ -1,5 +1,4 @@
 ﻿using Finbuckle.MultiTenant;
-using Finbuckle.MultiTenant.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,14 +9,14 @@ using Shifty.Persistence.TenantServices;
 using System;
 using System.Threading.Tasks;
 
-namespace Shifty.ApiFramework.TenentServices
+namespace Shifty.ApiFramework.Middleware.Tenant
 {
-    public class TenantValidationMiddleware(RequestDelegate next , ITenantService tenantService , IServiceProvider provider)
+    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , IServiceProvider provider)
     {
         public async Task Invoke(HttpContext context, TenantDbContext tenantDbContext)
         {
             var appOption = provider.GetRequiredService<IAppOptions>();
-            tenantService._httpContextAccessor = context.GetMultiTenantContext<ShiftyTenantInfo>();
+            tenantService.TenantContextAccessor = context.GetMultiTenantContext<ShiftyTenantInfo>();
 
             if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("/Admins/sign-up"))
             {

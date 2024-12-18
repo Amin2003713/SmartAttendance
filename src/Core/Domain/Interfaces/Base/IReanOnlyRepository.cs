@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Domain.IRepositories
 {
-    public interface IReanOnlyRepository<TEntity> where TEntity : class, IEntity
+    public interface IReadOnlyRepository<TEntity> where TEntity : class, IEntity
     {
         DbSet<TEntity> Entities { get; }
 
