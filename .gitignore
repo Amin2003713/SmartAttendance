@@ -2,12 +2,22 @@
 # .NET Core build folders
 bin/
 obj/
-src/Core/Application/bin
-src/Core/Application/obj
-src/Web/Api/obj
+src/Core/Application/bin/*
+src/Core/Application/obj/*
+src/Core/Domain/bin/*
+src/Core/Domain/obj/*
+src/Web/Api/obj/*
+src/Web/Api/bin/*
+src/Web/ApiFramework/obj/*
+src/Web/ApiFramework/bin/*
 
-bin
-obj
+src/Infrastructure/Persistance/obj/*
+src/Infrastructure/Persistance/bin/*
+src/Common/bin/*
+src/Common/obj/*
+
+bin/*
+obj/*
 
 src/*/obj
 src/*/bin
