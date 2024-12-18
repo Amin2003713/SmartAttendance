@@ -1,6 +1,8 @@
 ﻿using Shifty.Application.Users.Command.CreateUser.Admin;
+using Shifty.Domain.Enums;
 using Shifty.Domain.Users;
 using System;
+using System.Collections.Generic;
 
 namespace Shifty.Application.Users.Requests;
 
@@ -15,6 +17,7 @@ public class SingUpEmployeeRequest
     public string MobileNumber { get; set; }
     public string PersonnelNumber { get; set; }
 
+    public List<string> RolesList { get; set; }
     public Guid? DepartmentId { get; set; }
 }
 

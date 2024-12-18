@@ -6,6 +6,7 @@ using Shifty.Domain.IRepositories;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Jwt;
 using Shifty.Persistence.Repositories;
+using Shifty.Persistence.Repositories.Common;
 
 namespace Shifty.ApiFramework.Configuration
 {

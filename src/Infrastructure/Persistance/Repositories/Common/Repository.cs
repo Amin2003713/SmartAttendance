@@ -1,8 +1,7 @@
-﻿using Shifty.Domain.IRepositories;
-using Shifty.Persistence.Db;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Common.BaseClasses;
-using Shifty.Persistence.TenantServices;
+using Shifty.Domain.IRepositories;
+using Shifty.Persistence.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.Repositories
+namespace Shifty.Persistence.Repositories.Common
 {
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
@@ -20,18 +19,12 @@ namespace Shifty.Persistence.Repositories
         public virtual IQueryable<TEntity> Table => Entities;
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public Repository(ITenantService tenantService)
+        public Repository(WriteOnlyDbContext dbContext)
         {
-            DbContext = new WriteOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()));
+            DbContext = dbContext;
             Entities = DbContext.Set<TEntity>();
         }
 
-       private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
-        {
-            var contextOptions = new DbContextOptionsBuilder<AppDbContext>().UseSqlServer(connectionString).Options;
-
-            return contextOptions;
-        }
         #region Async Method
         public virtual ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
         {

@@ -6,12 +6,13 @@ using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Users;
 using Shifty.Domain.Users.Exceptions;
+using Shifty.Persistence.Services.Seeder;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.CreateUser.Employee;
 
-public class RegisterEmployeeCommandHandler(UserManager<User> userManager) : IRequestHandler<RegisterEmployeeCommand, bool>
+public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seeder seeder) : IRequestHandler<RegisterEmployeeCommand, bool>
 {
     public async Task<bool> Handle(RegisterEmployeeCommand request, CancellationToken cancellationToken)
     {
@@ -21,12 +22,11 @@ public class RegisterEmployeeCommandHandler(UserManager<User> userManager) : IRe
         var user = request.Adapt<User>();
 
         user.SetUserName();
-        var createUserResult = await userManager.CreateAsync(user, request.Mobile);
-
+        var createUserResult = await userManager.CreateAsync(user, request.MobileNumber);
 
         foreach (var role in request.RolesList)
         {
-            var result = await userManager.AddToRoleAsync(user, role.ToString());
+            var result = await userManager.AddToRoleAsync(user, role);
 
             if(!result.Succeeded)
                 throw new ShiftyException(ApiResultStatusCode.ServerError , UserErrors.There_was_An_Error_While_Adding_User_To_Roles ,  result.Errors);

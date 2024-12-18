@@ -12,6 +12,6 @@ public record RegisterEmployeeCommand(
     , string NationalCode
     , GenderType Gender
     , bool IsLeader
-    , string Mobile
-    , List<UserRoles> RolesList
+    , string MobileNumber
+    , List<string> RolesList
 ) : IRequest<bool>;

@@ -1,16 +1,17 @@
-﻿using Shifty.Common;
+﻿using Microsoft.EntityFrameworkCore;
+using Shifty.Common;
 using Shifty.Domain.IRepositories;
-using Shifty.Persistence.Db;
-using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Users;
+using Shifty.Persistence.Db;
+using Shifty.Persistence.Repositories.Common;
 using Shifty.Persistence.TenantServices;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.Repositories
+namespace Shifty.Persistence.Repositories.Jwt
 {
-    public class RefreshTokenRepository(ITenantService dbContext) : Repository<RefreshToken>(dbContext), IRefreshTokenRepository, IScopedDependency
+    public class RefreshTokenRepository(WriteOnlyDbContext dbContext) : Repository<RefreshToken>(dbContext), IRefreshTokenRepository, IScopedDependency
     {
         public async Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken)
         {
