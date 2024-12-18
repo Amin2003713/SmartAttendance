@@ -2,6 +2,7 @@
 using Shifty.Persistence.Db;
 using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Common.BaseClasses;
+using Shifty.Persistence.TenantServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,18 @@ namespace Shifty.Persistence.Repositories
         public virtual IQueryable<TEntity> Table => Entities;
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public Repository(WriteOnlyDbContext dbContext)
+        public Repository(ITenantService tenantService)
         {
-            DbContext = dbContext;
+            DbContext = new WriteOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()));
             Entities = DbContext.Set<TEntity>();
         }
 
+       private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
+        {
+            var contextOptions = new DbContextOptionsBuilder<AppDbContext>().UseSqlServer(connectionString).Options;
+
+            return contextOptions;
+        }
         #region Async Method
         public virtual ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
         {

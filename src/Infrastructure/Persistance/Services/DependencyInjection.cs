@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Finbuckle.MultiTenant;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,16 +26,43 @@ namespace Shifty.Persistence.Services
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=localhost;Database=Shifty;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true;"));
-            services.AddScoped<IAppDbContext, AppDbContext>();
             services.AddDbContext<TenantDbContext>(options => options.UseSqlServer(appOptions.TenantStore));
-            services.AddDbContext<ReadOnlyDbContext>(options => options.UseSqlServer(appOptions.ReadDatabaseConnectionString));
-            services.AddDbContext<WriteOnlyDbContext>(options => options.UseSqlServer(appOptions.WriteDatabaseConnectionString));
+
+
+            services.AddScoped<WriteOnlyDbContext>(provider =>
+                                                     {
+                                                         var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
+                                                         var appptions = provider.GetService<IAppOptions>();
+                                                         var tenantId            = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>();
+
+                                                         var options = CreateContextOptions(tenantId?.TenantInfo?.GetConnectionString() ?? appptions.ReadDatabaseConnectionString); // Implement this
+                                                         return new WriteOnlyDbContext(options);
+                                                     });
+            services.AddScoped<ReadOnlyDbContext>(provider =>
+                                                   {
+                                                       var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
+                                                       var appptions           = provider.GetService<IAppOptions>();
+                                                       var tenantId            = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>();
+
+                                                       var options = CreateContextOptions(tenantId.TenantInfo.GetConnectionString() ??
+                                                                                          appptions.ReadDatabaseConnectionString); // Implement this
+                                                       return new ReadOnlyDbContext(options);
+                                                   });
+            
+            services.AddScoped<IAppDbContext, AppDbContext>();
+
             services.AddAndMigrateTenantDatabases(configuration);
             services.AddScoped<DatabaseMigrationService>();
             services.AddScoped<Seeder.Seeder>();
-
+            Console.WriteLine(appOptions.ReadDatabaseConnectionString);
             return services;
         }
+
+        private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
+        {
+            var contextOptions = new DbContextOptionsBuilder<AppDbContext>().UseSqlServer(connectionString).Options;
+            return contextOptions;
+        }
     }
+
 }

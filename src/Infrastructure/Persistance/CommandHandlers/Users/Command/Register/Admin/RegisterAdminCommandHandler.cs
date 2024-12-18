@@ -7,8 +7,6 @@ using Shifty.Common.Exceptions;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
-using Shifty.Persistence.Db;
-using Shifty.Persistence.Services;
 using Shifty.Persistence.Services.Seeder;
 using System;
 using System.Threading;
@@ -17,7 +15,7 @@ using System.Threading.Tasks;
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Admin
 {
     public class RegisterAdminCommandHandler(
-         UserManager<User> userManager
+         UserManager<User> userManager , Seeder seeder
         ) : IRequestHandler<RegisterAdminCommand, bool>
     {
         public async Task<bool> Handle(RegisterAdminCommand request, CancellationToken cancellationToken)
@@ -31,6 +29,8 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Admin
                 user.SetUserName();
 
                 var createUserResult = await userManager.CreateAsync(user, request.MobileNumber);
+
+                await seeder.SeedRoles();
 
                 var assignRoleResult = await userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
 

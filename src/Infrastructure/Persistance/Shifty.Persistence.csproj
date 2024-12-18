@@ -36,4 +36,8 @@
       <Folder Include="Migrations\Application\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Db\WriteOnlyDbContext.cs" />
+    </ItemGroup>
+
 </Project>

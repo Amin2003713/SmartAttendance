@@ -48,7 +48,8 @@ public static class DependencyInjection
         var appOptions             = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
         var distributedCacheConfig = configuration.GetSection(nameof(DistributedCacheConfig)).Get<DistributedCacheConfig>();
 
-        
+
+        services.AddScoped<IAppOptions, AppOptions>(_ => appOptions);
 
         services.AddSingleton<IMultiTenantContext<ShiftyTenantInfo>, MultiTenantContext<ShiftyTenantInfo>>();
 
@@ -385,7 +386,7 @@ public static class DependencyInjection
                                              identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
                                          })
-                .AddEntityFrameworkStores<AppDbContext>()
+                .AddEntityFrameworkStores<WriteOnlyDbContext>()
                 .AddDefaultTokenProviders();
     }
 
