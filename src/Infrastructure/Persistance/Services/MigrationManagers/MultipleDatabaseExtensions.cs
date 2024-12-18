@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Common.General;
 using Shifty.Persistence.Db;
-using Shifty.Persistence.TenantServices;
 using System;
 using System.Linq;
 
-namespace Shifty.Persistence.Services;
+namespace Shifty.Persistence.Services.MigrationManagers;
 
 public static class MultipleDatabaseExtensions
 {

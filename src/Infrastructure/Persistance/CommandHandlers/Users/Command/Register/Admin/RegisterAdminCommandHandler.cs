@@ -2,9 +2,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Shifty.Application.Users.Command.CreateUser.Admin;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Enums;
+using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Services.Seeder;
@@ -15,7 +17,8 @@ using System.Threading.Tasks;
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Admin
 {
     public class RegisterAdminCommandHandler(
-         UserManager<User> userManager , Seeder seeder
+          ITenantAdminRepository userManager 
+         , Seeder seeder
         ) : IRequestHandler<RegisterAdminCommand, bool>
     {
         public async Task<bool> Handle(RegisterAdminCommand request, CancellationToken cancellationToken)
@@ -25,16 +28,11 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Admin
                 if (request is null)
                     throw new InvalidNullInputException(nameof(request));
 
-                var user = request.Adapt<User>();
-                user.SetUserName();
+                var user = request.Adapt<TenantAdmin>();
 
-                var createUserResult = await userManager.CreateAsync(user, request.MobileNumber);
+                var createUserResult = await userManager.CreateAsync(user, request.MobileNumber , cancellationToken);
 
-                await seeder.SeedRoles();
-
-                var assignRoleResult = await userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
-
-                return createUserResult.Succeeded && assignRoleResult.Succeeded;
+                return createUserResult;
             }
             catch (Exception e)
             {

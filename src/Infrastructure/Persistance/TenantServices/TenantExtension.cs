@@ -4,6 +4,7 @@ using Finbuckle.MultiTenant.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Shifty.Common;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.TenantServices;
 
-public class TenantExtension : ITenantServiceExtension
+public class TenantExtension : IScopedDependency , ITenantServiceExtension 
 {
     public IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
 

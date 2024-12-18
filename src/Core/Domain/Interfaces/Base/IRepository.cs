@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Domain.IRepositories
+namespace Shifty.Domain.Interfaces.Base
 {
     public interface IRepository<TEntity> where TEntity : class, IEntity
     {

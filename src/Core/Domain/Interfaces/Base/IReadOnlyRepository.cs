@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Domain.IRepositories
+namespace Shifty.Domain.Interfaces.Base
 {
     public interface IReadOnlyRepository<TEntity> where TEntity : class, IEntity
     {

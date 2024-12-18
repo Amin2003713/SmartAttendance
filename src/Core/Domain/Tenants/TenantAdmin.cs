@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shifty.Domain.Common.BaseClasses;
 using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
 
 namespace Shifty.Domain.Tenants
 {
-    public class TenantAdmin  : IdentityUser<Guid>
+    public class TenantAdmin  : IdentityUser<Guid>, IEntity
     {
   
         public string FirstName { get; set; }

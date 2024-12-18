@@ -18,7 +18,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             var appOption = provider.GetRequiredService<IAppOptions>();
             tenantService.TenantContextAccessor = context.GetMultiTenantContext<ShiftyTenantInfo>();
 
-            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("/Admins/sign-up"))
+            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("/AdminsPanel/"))
             {
                 await next(context);
                 return;
@@ -55,7 +55,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             if (appOption is not null)
                 appOption.ReadDatabaseConnectionString = appOption.WriteDatabaseConnectionString = tenant.GetConnectionString();
 
-            if (!context.Request.Path.Value!.Contains("/api/") || !context.Request.Path.Value.Contains("/Admins/sign-up"))
+            if (context.Request.Path.Value!.Contains("/api/") || !context.Request.Path.Value.Contains("/AdminsPanel/"))
             {
                 if (!context.Request.Headers.TryGetValue("X-User-Name", out var userName))
                 {

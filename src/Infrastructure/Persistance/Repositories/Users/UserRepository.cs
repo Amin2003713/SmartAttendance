@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Common;
 using Shifty.Common.Utilities;
-using Shifty.Domain.IRepositories;
+using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Users
 {
-    public class UserRepository(WriteOnlyDbContext dbContext) : Repository<User>(dbContext), IUserRepository, IScopedDependency
+    public class UserRepository(WriteOnlyDbContext dbContext) : Repository<User , WriteOnlyDbContext>(dbContext), IUserRepository, IScopedDependency
     {
         public Task<User> GetByUserAndPass(string username, string password, CancellationToken cancellationToken)
         {

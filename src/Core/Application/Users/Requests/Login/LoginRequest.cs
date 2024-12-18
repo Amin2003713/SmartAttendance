@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Users.Requests;
+﻿namespace Shifty.Application.Users.Requests.Login;
 
 public class LoginRequest
 {

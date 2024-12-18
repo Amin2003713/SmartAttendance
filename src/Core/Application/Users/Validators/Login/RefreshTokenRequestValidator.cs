@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Users.Requests;
+using Shifty.Application.Users.Requests.Login;
 
-namespace Shifty.Application.Users.Validators
+namespace Shifty.Application.Users.Validators.Login
 {
     public class RefreshTokenRequestValidator : AbstractValidator<RefreshTokenRequest>
     {

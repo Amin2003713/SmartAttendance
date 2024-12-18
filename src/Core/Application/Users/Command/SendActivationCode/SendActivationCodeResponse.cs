@@ -1,5 +1,4 @@
-﻿using MediatR;
-using System;
+﻿using System;
 
 namespace Shifty.Application.Users.Command.SendActivationCode
 {
@@ -7,10 +6,5 @@ namespace Shifty.Application.Users.Command.SendActivationCode
     {
         public DateTime SentDateTime { get; set; }
         public bool WasSuccess { get; set; }
-    }
-
-    public class SendActivationCodeCommand : IRequest<SendActivationCodeResponse>
-    {
-        public string UserId { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.IRepositories;
+using Shifty.Domain.Interfaces.Base;
 using Shifty.Persistence.Db;
 using System;
 using System.Collections.Generic;
@@ -11,15 +11,16 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Common
 {
-    public class Repository<TEntity> : IRepository<TEntity>
-        where TEntity : class, IEntity
+    public class Repository<TEntity , TReadDb> : IRepository<TEntity>
+        where TEntity : class, IEntity 
+        where TReadDb : DbContext 
     {
-        protected readonly WriteOnlyDbContext DbContext;
+        protected readonly TReadDb DbContext;
         public DbSet<TEntity> Entities { get; }
         public virtual IQueryable<TEntity> Table => Entities;
         public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public Repository(WriteOnlyDbContext dbContext)
+        public Repository(TReadDb dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<TEntity>();

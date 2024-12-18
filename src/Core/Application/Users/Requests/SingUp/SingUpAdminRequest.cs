@@ -1,6 +1,6 @@
 ﻿using Shifty.Domain.Users;
 
-namespace Shifty.Application.Users.Requests
+namespace Shifty.Application.Users.Requests.SingUp
 {
     public class SingUpAdminRequest
     {

@@ -25,7 +25,7 @@ using Shifty.Common.Behaviours;
 using Shifty.Common.General;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Constants;
-using Shifty.Domain.IRepositories;
+using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;

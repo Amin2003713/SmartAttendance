@@ -8,6 +8,7 @@ using Shifty.Common.General;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
+using Shifty.Persistence.Services.MigrationManagers;
 using Shifty.Persistence.TenantServices;
 using System;
 using System.Reflection;
@@ -21,8 +22,9 @@ namespace Shifty.Persistence.Services
             var appOptions = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
             services.AddScoped<IPasswordHasher<TenantAdmin>, PasswordHasher<TenantAdmin>>();
 
-            services.AddScoped<ITenantServiceExtension , ITenantServiceExtension>();
+            // services.AddScoped<ITenantServiceExtension , TenantExtension>();
 
+           services.AddKeyedScoped<UserManager<TenantAdmin>>("Admins");
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 

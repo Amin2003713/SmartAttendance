@@ -21,7 +21,7 @@ namespace Shifty.Application.Users.Command.Login
 
       
 
-        public static UserInfo CreateInstance(User user, List<string> rolesList)
+        public static UserInfo CreateInstance<TUser>(TUser user, List<string> rolesList)
         {
             var userInfo =  user.Adapt<UserInfo>();
             userInfo.RolesList = rolesList;

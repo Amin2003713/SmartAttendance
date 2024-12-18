@@ -1,10 +1,8 @@
-﻿using Shifty.Application.Users.Command.CreateUser.Admin;
-using Shifty.Domain.Enums;
-using Shifty.Domain.Users;
+﻿using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
 
-namespace Shifty.Application.Users.Requests;
+namespace Shifty.Application.Users.Requests.SingUp;
 
 public class SingUpEmployeeRequest
 {

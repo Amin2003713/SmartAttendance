@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Shifty.Application.Users.Requests;
+using Shifty.Application.Users.Requests.SingUp;
 using System.Text.RegularExpressions;
 
-namespace Shifty.Application.Users.Validators
+namespace Shifty.Application.Users.Validators.SingUp
 {
     public class SingUpAdminRequestValidator : AbstractValidator<SingUpAdminRequest>
     {

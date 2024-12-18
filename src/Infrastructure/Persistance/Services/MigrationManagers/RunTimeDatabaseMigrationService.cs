@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.Services
+namespace Shifty.Persistence.Services.MigrationManagers
 {
     public class RunTimeDatabaseMigrationService(IServiceProvider services, IConfiguration configuration , Seeder.Seeder seeder)
     {

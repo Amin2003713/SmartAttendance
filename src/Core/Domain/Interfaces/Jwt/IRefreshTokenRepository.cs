@@ -1,8 +1,9 @@
-﻿using Shifty.Domain.Users;
+﻿using Shifty.Domain.Interfaces.Base;
+using Shifty.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Domain.IRepositories
+namespace Shifty.Domain.Interfaces.Jwt
 {
     public interface IRefreshTokenRepository : IRepository<RefreshToken>
     {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Api.Services;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;

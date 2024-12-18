@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.IRepositories;
+using Shifty.Domain.Interfaces.Base;
 using Shifty.Persistence.Db;
 using System.Linq;
 using System.Threading;

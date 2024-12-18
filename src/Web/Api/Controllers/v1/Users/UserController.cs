@@ -9,7 +9,9 @@ using Shifty.Application.Users.Command.Login;
 using Shifty.Application.Users.Command.RefreshToken;
 using Shifty.Application.Users.Command.SendActivationCode;
 using Shifty.Application.Users.Requests;
+using Shifty.Application.Users.Requests.Login;
 using Shifty.Application.Users.Requests.SendActivationCode;
+using Shifty.Application.Users.Requests.SingUp;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Tenants;
 using Swashbuckle.AspNetCore.Annotations;
@@ -22,7 +24,7 @@ namespace Shifty.Api.Controllers.v1.Users
     public class UserController(IMultiTenantContextAccessor<ShiftyTenantInfo> accessor) : BaseControllerV1
     {
 
-        [HttpPost("Admins/sign-up")]
+        [HttpPost("AdminsPanel/sign-up")]
         [SwaggerOperation("sign up user")]
         [AllowAnonymous]
         public virtual async Task<ApiResult<bool>> SingUpAsync([FromBody] SingUpAdminRequest request, CancellationToken cancellationToken)
@@ -34,7 +36,16 @@ namespace Shifty.Api.Controllers.v1.Users
         }
 
 
+        [HttpPost("AdminsPanel/login")]
+        [SwaggerOperation("login by username and password")]
+        [AllowAnonymous]
+        public virtual async Task<ApiResult<LoginResponse>> AdminsLoginAsync([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        {
+            var command = request.Adapt<AdminsLoginCommand>();
 
+            var result = await Mediator.Send(command, cancellationToken);
+            return new ApiResult<LoginResponse>(result);
+        }
 
 
 

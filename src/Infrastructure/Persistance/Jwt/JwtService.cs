@@ -1,8 +1,11 @@
-﻿using Shifty.Common;
+﻿using Finbuckle.MultiTenant;
+using Shifty.Common;
 using Shifty.Common.General;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
@@ -15,13 +18,28 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Jwt
 {
-    public class JwtService(IOptionsSnapshot<SiteSettings> settings, UserManager<User> userManager) : IJwtService, IScopedDependency
+    public class JwtService<TUser> : IJwtService<TUser>, IScopedDependency where TUser : IdentityUser<Guid>
     {
-        private readonly SiteSettings _siteSetting = settings.Value;
-        private readonly UserManager<User> _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+        private readonly SiteSettings _siteSetting;
+        private readonly UserManager<TUser> _userManager;
+
+        public JwtService(IOptionsSnapshot<SiteSettings> settings, IServiceProvider provider)
+        {
+            _siteSetting = settings?.Value ?? throw new ArgumentNullException(nameof(settings));
+
+            // Dynamically resolve UserManager<TUser> from the service provider
+            
+
+            // Skip certain logic if TUser is TenantAdmin
+            if (typeof(TUser) != typeof(TenantAdmin))
+            {
+                _userManager = provider.GetService<UserManager<TUser>>()
+                               ?? throw new InvalidOperationException($"UserManager<{typeof(TUser).Name}> is not registered in the DI container.");
+            }
+        }
 
 
-       public async Task<AccessToken> GenerateAsync(User user)
+        public async Task<AccessToken> GenerateAsync(TUser user)
 {
     
     // Load keys securely
@@ -93,13 +111,15 @@ namespace Shifty.Persistence.Jwt
             }
         }
 
-        private async Task<IEnumerable<Claim>> GetClaimsAsync(User user)
+        private async Task<IEnumerable<Claim>> GetClaimsAsync(TUser user)
         {
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
 
-            var userRoles = await _userManager.GetRolesAsync(user);
+            var userRoles = new List<string>();
+            if (typeof(TUser) != typeof(TenantAdmin))
+                 userRoles = (List<string>)await _userManager.GetRolesAsync(user);
 
             foreach (var role in userRoles)
             {

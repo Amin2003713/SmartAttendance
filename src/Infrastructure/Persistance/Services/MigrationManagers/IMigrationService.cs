@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Shifty.Api.Services
+namespace Shifty.Persistence.Services.MigrationManagers
 {
     public interface IMigrationService
     {

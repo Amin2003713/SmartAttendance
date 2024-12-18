@@ -5,7 +5,7 @@ using System;
 
 namespace Shifty.Persistence.TenantServices;
 
-public interface ITenantServiceExtension
+public interface ITenantServiceExtension 
 {
     IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
     string GetConnectionString();
