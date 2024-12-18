@@ -1,5 +1,9 @@
 ### DotnetCore template
 # .NET Core build folders
+
+**/bin/
+**/obj/
+
 bin/
 obj/
 src/Core/Application/bin/*
