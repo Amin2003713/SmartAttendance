@@ -19,7 +19,7 @@ namespace Shifty.Application.Users.Requests.SingUp
 
 
 
-        public string ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
 
 
         public string Address { get; set; }

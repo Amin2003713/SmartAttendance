@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Shifty.Domain.Tenants
 {
-    public class TenantAdmin  : IdentityUser<Guid>, IEntity
+    public class TenantAdmin  : IdentityUser<Guid>
     {
   
         public string FirstName { get; set; }

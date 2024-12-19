@@ -1,12 +1,15 @@
 ﻿using Shifty.Domain.Interfaces.Base;
 using Shifty.Domain.Tenants;
+using Shifty.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Domain.Interfaces.Users
 {
-    public interface ITenantAdminRepository : IRepository<TenantAdmin>
+    public interface ITenantAdminRepository 
     {
+     
+
         Task<bool> UserExists(string username, CancellationToken cancellationToken);
 
         // Creates a new user asynchronously
@@ -26,5 +29,10 @@ namespace Shifty.Domain.Interfaces.Users
 
         // Deletes a user by username
         Task DeleteUserAsync(string username, CancellationToken cancellationToken);
+
+
+
+        // Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken);
+        // Task<bool> ValidateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken);
     }
 }

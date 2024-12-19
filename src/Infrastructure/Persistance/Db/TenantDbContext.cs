@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
-using Shifty.Persistence.Configuration.Tenant.User;
+
 using Shifty.Persistence.Configuration.Users;
 using System;
 
@@ -17,13 +17,81 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
     public DbSet<Company> Companies { get; set; }
 
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        // Apply configurations for entities
-        modelBuilder.ApplyConfiguration(new ShiftyTenantInfoConfiguration());
-        modelBuilder.ApplyConfiguration(new PaymentsConfiguration());
-        modelBuilder.ApplyConfiguration(new CompanyConfiguration());
-        modelBuilder.ApplyConfiguration(new TenantAdminConfiguration());
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
 
-    }
+    // TenantInfo Entity Configuration
+    modelBuilder.Entity<ShiftyTenantInfo>(builder =>
+    {
+        // Primary Key
+        builder.HasKey(t => t.Id);
+
+        // Relationships
+        builder.HasOne(t => t.User)
+               .WithMany(u => u.Tenants)
+               .HasForeignKey(t => t.UserId)
+               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
+
+        builder.HasOne(t => t.Company)
+               .WithOne(c => c.TenantInfos)
+               .HasForeignKey<Company>(c => c.TenantInfosId)
+               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
+
+        builder.HasMany(t => t.Payments)
+               .WithOne(p => p.ShiftyTenantInfo)
+               .HasForeignKey(p => p.ShiftyTenantInfoId)
+               .OnDelete(DeleteBehavior.Cascade); // Cascade delete behavior
+
+        // Additional Properties
+        builder.Property(t => t.Name).IsRequired().HasMaxLength(100);
+    });
+
+    // Payments Entity Configuration
+    modelBuilder.Entity<Payments>(builder =>
+    {
+        // Primary Key
+        builder.HasKey(p => p.Id);
+
+        // Properties
+        builder.Property(p => p.CreatedAt).ValueGeneratedOnAdd();
+
+        // Uncomment to configure optional fields
+        // builder.Property(p => p.Amount).IsRequired();
+        // builder.Property(p => p.Status).HasMaxLength(20);
+    });
+
+    // Company Entity Configuration
+    modelBuilder.Entity<Company>(builder =>
+    {
+        // Primary Key
+        builder.HasKey(c => c.Id);
+
+        // Relationships
+        builder.HasOne(c => c.TenantInfos)
+               .WithOne(t => t.Company)
+               .HasForeignKey<Company>(c => c.TenantInfosId)
+               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
+
+        // Additional Properties
+        builder.Property(c => c.Name).IsRequired().HasMaxLength(150);
+    });
+
+    // TenantAdmin Entity Configuration
+    modelBuilder.Entity<TenantAdmin>(builder =>
+    {
+        // Primary Key
+        builder.HasKey(u => u.Id);
+
+        // Relationships
+        builder.HasMany(u => u.Tenants)
+               .WithOne(t => t.User)
+               .HasForeignKey(t => t.UserId)
+               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
+
+        // Additional Properties
+        builder.Property(u => u.UserName).IsRequired().HasMaxLength(100);
+    });
+}
+
 }

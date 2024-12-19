@@ -10,7 +10,7 @@ public interface ITenantServiceExtension
     IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
     string GetConnectionString();
     string GetName();
-    string GetId();
+    string? GetId();
     string GetIdentifier();
     Guid GetOwnerId();
 

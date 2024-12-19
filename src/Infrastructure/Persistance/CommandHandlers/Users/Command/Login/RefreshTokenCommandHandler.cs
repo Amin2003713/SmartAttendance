@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 {
-    public class RefreshTokenCommandHandler(UserManager<User> userManager, IJwtService<User> jwtService, IRefreshTokenRepository refreshTokenRepository)
+    public class RefreshTokenCommandHandler(UserManager<User> userManager, IJwtService jwtService, IRefreshTokenRepository refreshTokenRepository)
         : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
     {
         private readonly UserManager<User> _userManager = userManager                             ?? throw new ArgumentNullException(nameof(userManager));
-        private readonly IJwtService<User> _jwtService = jwtService                                     ?? throw new ArgumentNullException(nameof(jwtService));
+        private readonly IJwtService _jwtService = jwtService                                     ?? throw new ArgumentNullException(nameof(jwtService));
         private readonly IRefreshTokenRepository _refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
 
         public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)

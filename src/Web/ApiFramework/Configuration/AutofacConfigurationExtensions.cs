@@ -22,7 +22,7 @@ namespace Shifty.ApiFramework.Configuration
             var commonAssembly = typeof(SiteSettings).Assembly;
             var entitiesAssembly = typeof(IEntity).Assembly;
             var dataAssembly = typeof(AppDbContext).Assembly;
-            var servicesAssembly = typeof(JwtService<>).Assembly;
+            var servicesAssembly = typeof(JwtService).Assembly;
 
             containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
                 .AssignableTo<IScopedDependency>()

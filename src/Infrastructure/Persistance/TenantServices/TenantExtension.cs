@@ -23,7 +23,7 @@ public class TenantExtension : IScopedDependency , ITenantServiceExtension
     public string GetName() =>
         TenantContextAccessor?.TenantInfo!.Name!;
 
-    public string GetId() =>
+    public string? GetId() =>
         TenantContextAccessor?.TenantInfo!.Id!;
 
     public string GetIdentifier() =>

@@ -305,7 +305,7 @@ public static class DependencyInjection
                                                            ValidateIssuer = true, //default : false
                                                            ValidIssuer = jwtSettings.Issuer,
 
-                                                           TokenDecryptionKey = new SymmetricSecurityKey(encryptionKey)
+                                                           // TokenDecryptionKey = new SymmetricSecurityKey(encryptionKey)
                                                        };
 
                                                        options.RequireHttpsMetadata = false;
@@ -335,7 +335,7 @@ public static class DependencyInjection
                                                                                   //    context.Fail("This token has no security stamp");
 
                                                                                   //Find user and token from database and perform your custom validation
-                                                                                  var userId = claimsIdentity.GetUserId<int>();
+                                                                                  var userId = Guid.Parse(claimsIdentity.GetUserId<string>());
                                                                                   var user = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
 
                                                                                   //if (user.SecurityStamp != Guid.Parse(securityStamp))
