@@ -22,7 +22,7 @@ public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seed
         var user = request.Adapt<User>();
 
         user.SetUserName();
-        var createUserResult = await userManager.CreateAsync(user, request.MobileNumber);
+        var createUserResult = await userManager.CreateAsync(user, request.PhoneNumber);
 
         foreach (var role in request.RolesList)
         {

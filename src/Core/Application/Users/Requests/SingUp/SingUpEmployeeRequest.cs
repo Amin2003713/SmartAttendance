@@ -16,5 +16,7 @@ public class SingUpEmployeeRequest
     public string PersonnelNumber { get; set; }
 
     public List<string> RolesList { get; set; }
+
+    public string Address { get; set; }
     public Guid? DepartmentId { get; set; }
 }
