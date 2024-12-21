@@ -15,7 +15,7 @@ public class RegisterAdminCommand : IRequest<bool>
 
     public GenderType Gender { get; set; }
 
-    public string MobileNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     public string ProfilePicture { get; set; }
 

@@ -1,17 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Common.General;
+using Shifty.Domain.Enums;
+using Shifty.Domain.Tenants;
+using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Services.MigrationManagers
 {
-    public class RunTimeDatabaseMigrationService(IServiceProvider services, IConfiguration configuration , Seeder.Seeder seeder)
+    public class RunTimeDatabaseMigrationService(IServiceProvider services, IConfiguration configuration , Seeder.Seeder seeder , IPasswordHasher<User> passwordHasher)
     {
-        public async Task<bool> MigrateTenantDatabasesAsync(string tenantId)
+        public async Task<bool> MigrateTenantDatabasesAsync(string tenantId, TenantAdmin adminUser , CancellationToken cancellationToken)
         {
             try
             {
@@ -19,40 +25,64 @@ namespace Shifty.Persistence.Services.MigrationManagers
                 using var scopeTenant     = services.CreateScope();
                 var       tenantDbContext = scopeTenant.ServiceProvider.GetRequiredService<TenantDbContext>();
 
-                if ((await tenantDbContext.Database.GetPendingMigrationsAsync()).Any())
+                if ((await tenantDbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Applying BaseDb Migrations.");
                     Console.ResetColor();
-                    await tenantDbContext.Database.MigrateAsync(); // apply migrations on baseDbContext
+                    await tenantDbContext.Database.MigrateAsync(cancellationToken: cancellationToken); // apply migrations on baseDbContext
                 }
 
-                var tenant = await tenantDbContext.TenantInfo.FirstOrDefaultAsync(a=>a.Id == tenantId);
-                var appOptions  = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
+                var appOptions = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
 
                 
-                    var connectionString = string.IsNullOrEmpty(tenant.GetConnectionString())
+                    var connectionString = string.IsNullOrEmpty(tenantId)
                         ? appOptions.WriteDatabaseConnectionString
-                        : tenant.GetConnectionString();
+                        : tenantId;
 
                     // Application Db Context (app - per tenant)
                     using var scopeApplication = services.CreateScope();
-                    var       dbContext        = scopeApplication.ServiceProvider.GetRequiredService<AppDbContext>();
+                    var       dbContext        = scopeApplication.ServiceProvider.GetService<AppDbContext>();
                     dbContext.Database.SetConnectionString(connectionString);
 
                     // await dbContext.Database.EnsureCreatedAsync();
 
-                    if (!(await dbContext.Database.GetPendingMigrationsAsync()).Any())
+                    if (!(await dbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
                         return true;
 
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine($"Applying Migrations for '{tenant.Id}' tenant.");
+                    Console.WriteLine($"Applying Migrations for '{tenantId}' tenant.");
                     Console.ResetColor();
-                    await dbContext.Database.MigrateAsync();
+                    await dbContext.Database.MigrateAsync(cancellationToken: cancellationToken);
 
-                    await seeder.Seed();
+                    try
+                    {
+                        await seeder.Seed(dbContext, cancellationToken);
 
-                return true;
+
+                        var user = adminUser.Adapt<User>();
+
+                        user.SetPasswordHash(passwordHasher.HashPassword(user, user.PhoneNumber!)) ;
+
+                        dbContext.Users.Add(user);
+
+                        await dbContext.SaveChangesAsync(cancellationToken);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return false;
+                    }
+                    finally
+                    {
+                        var adminRoles =await dbContext.Roles.FirstOrDefaultAsync(a=>a.Name == UserRoles.Admin.ToString(), cancellationToken: cancellationToken);
+                        if (adminRoles != null)
+                        {
+                            dbContext.UserRoles.Add(new IdentityUserRole<Guid>(){RoleId = adminRoles.Id, UserId = adminUser.Id});
+                            await dbContext.SaveChangesAsync(cancellationToken);
+                        }
+                    }
+                    
             }
             catch (Exception e)
             {
@@ -61,6 +91,8 @@ namespace Shifty.Persistence.Services.MigrationManagers
                 Console.ResetColor();
                 return false;
             }
+
+            return true;
         }
     }
 }

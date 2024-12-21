@@ -15,7 +15,7 @@ namespace Shifty.Application.Users.Requests.SingUp
         public GenderType Gender { get; set; }
 
 
-        public string MobileNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
 
 

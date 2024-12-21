@@ -1,42 +1,43 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Users;
+using Shifty.Persistence.Db;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Services.Seeder;
 
 public  class Seeder(IServiceProvider provider)
 {
-    public async Task Seed()
+    public async Task Seed(AppDbContext dbContext , CancellationToken  cancellationToken)
     {
-        await SeedRoles();
+        await SeedRoles(dbContext , cancellationToken);
     }
 
-    public  async Task SeedRoles ()
+    public  async Task SeedRoles(AppDbContext dbContext, CancellationToken cancellationToken)
     {
-    var     roleManager = provider.GetRequiredService<RoleManager<Role>>(); 
 
             foreach (var role in Enum.GetValues<UserRoles>())
             {
-                var roleName  = role.ToString();
-                var roleExist = await roleManager.RoleExistsAsync(roleName);
-                if (roleExist)
+                if(await dbContext.Roles.AnyAsync(r => r.Name == role.ToString(), cancellationToken: cancellationToken))
                     continue;
-            
-                var addRoleResult = await roleManager.CreateAsync(new Role
+
+                var newRole = new Role()
                 {
-                    Name = roleName,
-                    Description = $"{roleName} role"
-                });
-            
-                if (addRoleResult.Succeeded)
-                    continue;
-            
-                // Handle error, logging or throw exception
-                Console.WriteLine($"Error creating role {roleName}: {string.Join(", ", addRoleResult.Errors.Select(e => e.Description))}");
+                    Name = role.ToString(),
+                    Id = Guid.CreateVersion7(),
+                    Description = role.ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    IsActive = true,
+                    NormalizedName = role.ToString().ToUpper(),
+                };
+
+                dbContext.Roles.Add(newRole);
+                await dbContext.SaveChangesAsync(cancellationToken);
             }
     }
 

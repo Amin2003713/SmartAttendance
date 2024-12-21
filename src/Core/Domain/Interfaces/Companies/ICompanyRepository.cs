@@ -1,0 +1,26 @@
+﻿using Shifty.Domain.Tenants;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Shifty.Domain.Interfaces.Companies
+{
+    public interface ICompanyRepository
+    {
+        Task<bool> IdentifierExistsAsync(string identifierId , CancellationToken cancellationToken);
+
+        Task<ShiftyTenantInfo> GetByIdAsync(string tenantId , CancellationToken cancellationToken);
+
+        Task<IEnumerable<ShiftyTenantInfo>> GetAllAsync(CancellationToken cancellationToken);
+
+        Task<ShiftyTenantInfo> GetByIdentifierAsync(string code , CancellationToken cancellationToken);
+
+        Task<bool> CanCreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken);
+
+        Task<bool> NationalIdExistsAsync(string nationalId , CancellationToken cancellationToken);
+
+        Task<bool> RegistrationNumberExistsAsync(string registrationNumber , CancellationToken cancellationToken);
+
+        Task<bool> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken);
+    }
+}

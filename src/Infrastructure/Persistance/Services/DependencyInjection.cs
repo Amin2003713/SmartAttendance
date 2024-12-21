@@ -37,7 +37,8 @@ namespace Shifty.Persistence.Services
                                                          var appptions = provider.GetService<IAppOptions>();
                                                          var tenantId            = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>();
 
-                                                         var options = CreateContextOptions(tenantId?.TenantInfo?.GetConnectionString() ?? appptions.ReadDatabaseConnectionString); // Implement this
+                                                         var options = CreateContextOptions(tenantId?.TenantInfo?.GetConnectionString() ??
+                                                                                            appptions.ReadDatabaseConnectionString); // Implement this
                                                          return new WriteOnlyDbContext(options);
                                                      });
             services.AddScoped<ReadOnlyDbContext>(provider =>
@@ -46,10 +47,21 @@ namespace Shifty.Persistence.Services
                                                        var appptions           = provider.GetService<IAppOptions>();
                                                        var tenantId            = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>();
 
-                                                       var options = CreateContextOptions(tenantId.TenantInfo.GetConnectionString() ??
+                                                       var options = CreateContextOptions(tenantId?.TenantInfo?.GetConnectionString() ??
                                                                                           appptions.ReadDatabaseConnectionString); // Implement this
                                                        return new ReadOnlyDbContext(options);
                                                    });
+
+            services.AddScoped<AppDbContext>(provider =>
+                                                  {
+                                                      var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
+                                                      var appptions           = provider.GetService<IAppOptions>();
+                                                      var tenantId            = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>();
+
+                                                      var options = CreateContextOptions(tenantId?.TenantInfo?.GetConnectionString() ??
+                                                                                         appptions.ReadDatabaseConnectionString); // Implement this
+                                                      return new AppDbContext(options);
+                                                  });
             
             services.AddScoped<IAppDbContext, AppDbContext>();
 

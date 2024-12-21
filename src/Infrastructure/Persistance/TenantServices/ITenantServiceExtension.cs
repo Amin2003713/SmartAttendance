@@ -14,5 +14,6 @@ public interface ITenantServiceExtension
     string GetIdentifier();
     Guid GetOwnerId();
 
-    Guid GetTenantCompanyId();
+    string GetDomain();
+    ShiftyTenantInfo GetTenantInfo();
 }

@@ -28,7 +28,7 @@ namespace Shifty.Application.Users.Validators.SingUp
 
             RuleFor(x => x.Gender).NotNull().WithMessage("جنسیت الزامیست");
 
-            RuleFor(x => x.MobileNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
 
             // RuleFor(x => x.Password).NotEmpty().WithMessage("رمز عبور الزامیست").MinimumLength(6).WithMessage("رمز عبور باید حداقل 6 کاراکتر باشد");
             //

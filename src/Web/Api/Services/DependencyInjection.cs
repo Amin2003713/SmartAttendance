@@ -323,32 +323,10 @@ public static class DependencyInjection
                                                                                     },
                                                            OnTokenValidated = async context =>
                                                                               {
-                                                                                  //var signInManager = context.HttpContext.RequestServices.GetRequiredService<SignInManager<User>>();
-                                                                                  var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-
-                                                                                  var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
-                                                                                  if (claimsIdentity?.Claims.Any() != true)
-                                                                                      context.Fail("This token has no claims.");
-
-                                                                                  //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
-                                                                                  //if (!securityStamp.HasValue())
-                                                                                  //    context.Fail("This token has no security stamp");
-
-                                                                                  //Find user and token from database and perform your custom validation
-                                                                                  var userId = Guid.Parse(claimsIdentity.GetUserId<string>());
-                                                                                  var user = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
-
-                                                                                  //if (user.SecurityStamp != Guid.Parse(securityStamp))
-                                                                                  //    context.Fail("Token security stamp is not valid.");
-
-                                                                                  //var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
-                                                                                  //if (validatedUser == null)
-                                                                                  //    context.Fail("Token security stamp is not valid.");
-
-                                                                                  if (!user.IsActive)
-                                                                                      context.Fail("User is not active.");
-
-                                                                                  await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
+                                                                                  if (context.Request.Path.Value!.Contains("/AdminsPanel/"))
+                                                                                      await AddLoginRecordForAdmins(context);
+                                                                                  else
+                                                                                    await AddLoginRecordForUsers(context);
                                                                               },
                                                            OnChallenge = context =>
                                                                          {
@@ -358,6 +336,64 @@ public static class DependencyInjection
                                                                          }
                                                        };
                                                    });
+    }
+
+    private static async Task AddLoginRecordForAdmins(TokenValidatedContext context)
+    {
+        var userRepository = context.HttpContext.RequestServices.GetRequiredService<ITenantAdminRepository>();
+
+        var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
+        if (claimsIdentity?.Claims.Any() != true)
+            context.Fail("This token has no claims.");
+
+        //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
+        //if (!securityStamp.HasValue())
+        //    context.Fail("This token has no security stamp");
+
+        //Find user and token from database and perform your custom validation
+        var userId = Guid.Parse(claimsIdentity.GetUserId<string>());
+        var user   = await userRepository.GetByIdeAsync(userId , context.HttpContext.RequestAborted);
+
+        //if (user.SecurityStamp != Guid.Parse(securityStamp))
+        //    context.Fail("Token security stamp is not valid.");
+
+        //var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
+        //if (validatedUser == null)
+        //    context.Fail("Token security stamp is not valid.");
+
+        if (!user.IsActive)
+            context.Fail("User is not active.");
+
+        await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
+    }
+
+    private static async Task AddLoginRecordForUsers(TokenValidatedContext context)
+    {
+        var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+
+        var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
+        if (claimsIdentity?.Claims.Any() != true)
+            context.Fail("This token has no claims.");
+
+        //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
+        //if (!securityStamp.HasValue())
+        //    context.Fail("This token has no security stamp");
+
+        //Find user and token from database and perform your custom validation
+        var userId = Guid.Parse(claimsIdentity.GetUserId<string>());
+        var user   = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
+
+        //if (user.SecurityStamp != Guid.Parse(securityStamp))
+        //    context.Fail("Token security stamp is not valid.");
+
+        //var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
+        //if (validatedUser == null)
+        //    context.Fail("Token security stamp is not valid.");
+
+        if (!user.IsActive)
+            context.Fail("User is not active.");
+
+        await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
     }
 
     public static void AddCleanArchControllers(this IServiceCollection services)

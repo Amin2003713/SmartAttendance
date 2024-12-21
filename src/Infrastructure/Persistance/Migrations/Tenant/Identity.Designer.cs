@@ -25,7 +25,7 @@ namespace Shifty.Persistence.Migrations.Tenant
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Company", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.Payments", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +123,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.ShiftyTenantInfo", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(64)
@@ -153,7 +153,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("TenantInfo");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantAdmin", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.TenantAdmin", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -276,20 +276,20 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Company", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.Company", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.ShiftyTenantInfo", "TenantInfos")
+                    b.HasOne("Shifty.Domain.Companies.ShiftyTenantInfo", "TenantInfos")
                         .WithOne("Company")
-                        .HasForeignKey("Shifty.Domain.Tenants.Company", "TenantInfosId")
+                        .HasForeignKey("Shifty.Domain.Companies.Company", "TenantInfosId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("TenantInfos");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.Payments", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.ShiftyTenantInfo", "ShiftyTenantInfo")
+                    b.HasOne("Shifty.Domain.Companies.ShiftyTenantInfo", "ShiftyTenantInfo")
                         .WithMany("Payments")
                         .HasForeignKey("ShiftyTenantInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -298,10 +298,10 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("ShiftyTenantInfo");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.ShiftyTenantInfo", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.TenantAdmin", "User")
-                        .WithMany("Tenants")
+                    b.HasOne("Shifty.Domain.Companies.TenantAdmin", "User")
+                        .WithMany("Companies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -309,16 +309,16 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.ShiftyTenantInfo", b =>
                 {
                     b.Navigation("Company");
 
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantAdmin", b =>
+            modelBuilder.Entity("Shifty.Domain.Companies.TenantAdmin", b =>
                 {
-                    b.Navigation("Tenants");
+                    b.Navigation("Companies");
                 });
 #pragma warning restore 612, 618
         }

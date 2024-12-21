@@ -1,5 +1,4 @@
-﻿using Finbuckle.MultiTenant.Abstractions;
-using Shifty.ApiFramework.Tools;
+﻿using Shifty.ApiFramework.Tools;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +12,6 @@ using Shifty.Application.Users.Requests.Login;
 using Shifty.Application.Users.Requests.SendActivationCode;
 using Shifty.Application.Users.Requests.SingUp;
 using Shifty.Domain.Enums;
-using Shifty.Domain.Tenants;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +19,7 @@ using System.Threading.Tasks;
 namespace Shifty.Api.Controllers.v1.Users
 {
     [ApiVersion("1")]
-    public class UserController(IMultiTenantContextAccessor<ShiftyTenantInfo> accessor) : BaseControllerV1
+    public class UserController() : BaseControllerV1
     {
 
         [HttpPost("AdminsPanel/sign-up")]

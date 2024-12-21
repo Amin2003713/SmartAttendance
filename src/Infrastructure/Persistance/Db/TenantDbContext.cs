@@ -14,7 +14,6 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
 {
     public DbSet<TenantAdmin> Users { get; set; }
     public DbSet<Payments> Payments { get; set; }
-    public DbSet<Company> Companies { get; set; }
 
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,10 +32,6 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
                .HasForeignKey(t => t.UserId)
                .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
 
-        builder.HasOne(t => t.Company)
-               .WithOne(c => c.TenantInfos)
-               .HasForeignKey<Company>(c => c.TenantInfosId)
-               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
 
         builder.HasMany(t => t.Payments)
                .WithOne(p => p.ShiftyTenantInfo)
@@ -61,21 +56,6 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
         // builder.Property(p => p.Status).HasMaxLength(20);
     });
 
-    // Company Entity Configuration
-    modelBuilder.Entity<Company>(builder =>
-    {
-        // Primary Key
-        builder.HasKey(c => c.Id);
-
-        // Relationships
-        builder.HasOne(c => c.TenantInfos)
-               .WithOne(t => t.Company)
-               .HasForeignKey<Company>(c => c.TenantInfosId)
-               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
-
-        // Additional Properties
-        builder.Property(c => c.Name).IsRequired().HasMaxLength(150);
-    });
 
     // TenantAdmin Entity Configuration
     modelBuilder.Entity<TenantAdmin>(builder =>

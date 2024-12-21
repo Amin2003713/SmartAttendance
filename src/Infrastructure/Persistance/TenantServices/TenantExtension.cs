@@ -32,8 +32,11 @@ public class TenantExtension : IScopedDependency , ITenantServiceExtension
     public Guid GetOwnerId() =>
         (Guid)TenantContextAccessor?.TenantInfo!.UserId!;
 
-    public Guid GetTenantCompanyId() =>
-        (Guid)TenantContextAccessor?.TenantInfo!.CompanyId!;
+    public string GetDomain() =>
+        TenantContextAccessor?.TenantInfo!.Identifier!;
+    
+    public ShiftyTenantInfo GetTenantInfo() =>
+        TenantContextAccessor?.TenantInfo!;
 
 
     private string GetTenantIdFromRequest() =>

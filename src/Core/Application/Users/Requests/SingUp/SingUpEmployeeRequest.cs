@@ -12,7 +12,7 @@ public class SingUpEmployeeRequest
     public string NationalCode { get; set; }
     public GenderType Gender { get; set; }
     public bool IsLeader { get; set; }
-    public string MobileNumber { get; set; }
+    public string PhoneNumber { get; set; }
     public string PersonnelNumber { get; set; }
 
     public List<string> RolesList { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Shifty.Domain.Interfaces.Base;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace Shifty.Domain.Interfaces.Users
 
         // Retrieves a user by username
         Task<TenantAdmin> GetByUsernameAsync(string username, CancellationToken cancellationToken);
+        Task<TenantAdmin> GetByIdeAsync(Guid id, CancellationToken cancellationToken);
 
         // Updates the password of an existing user
         Task UpdatePasswordAsync(string username, string newPassword, CancellationToken cancellationToken);
@@ -34,5 +36,6 @@ namespace Shifty.Domain.Interfaces.Users
 
         // Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken);
         // Task<bool> ValidateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken);
+        Task UpdateLastLoginDateAsync(TenantAdmin user, CancellationToken httpContextRequestAborted);
     }
 }

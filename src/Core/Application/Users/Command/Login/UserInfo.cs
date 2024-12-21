@@ -13,11 +13,11 @@ namespace Shifty.Application.Users.Command.Login
         public string NationalCode { get; set; }
         public GenderType Gender { get; set; }
         public bool IsTeamLeader { get; set; }
-        public string MobileNumber { get; set; }
-        public string EmployeeId { get; set; }
-        public string ProfilePicture { get; set; }
+        public string PhoneNumber { get; set; }
+        public string? EmployeeId { get; set; }
+        public string? ProfilePicture { get; set; }
         public string Address { get; set; }
-        public List<string> RolesList { get; set; }
+        public List<string>? RolesList { get; set; } = [];
 
       
 

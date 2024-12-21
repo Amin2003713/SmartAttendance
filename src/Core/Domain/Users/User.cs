@@ -22,18 +22,15 @@ namespace Shifty.Domain.Users
         public bool IsTeamLeader { get; set; }
 
 
-        public string MobileNumber { get; set; }
+        public string? EmployeeId { get; set; } = null!;
 
+        public string? ProfilePicture { get; set; } = null!;
 
-        public string EmployeeId { get; set; }
-
-        public string ProfilePicture { get; set; }
-
-        public string NotificationToken { get; set; }
+        public string? NotificationToken { get; set; } = null!;
 
         public string Address { get; set; }
 
-        public string SimSerialNumber { get; set; }
+        public string? SimSerialNumber { get; set; } = null!;
 
 
         public bool IsActive { get; set; }
@@ -67,5 +64,8 @@ namespace Shifty.Domain.Users
 
 
         public void SetUserName() => UserName = NationalCode;
+
+        public void SetPasswordHash(string hashPassword) =>
+            PasswordHash = hashPassword;
     }
 }

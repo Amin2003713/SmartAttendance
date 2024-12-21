@@ -12,8 +12,8 @@ using Shifty.Persistence.Db;
 namespace Shifty.Persistence.Migrations.Tenant
 {
     [DbContext(typeof(TenantDbContext))]
-    [Migration("20241217152016_updateUpdate")]
-    partial class updateUpdate
+    [Migration("20241219100834_REmoveCompany")]
+    partial class REmoveCompany
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,66 +25,7 @@ namespace Shifty.Persistence.Migrations.Tenant
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Shifty.Domain.Companies.Company", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ApplicationAccessDomain")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenantInfosId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("WebSite")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantInfosId")
-                        .IsUnique();
-
-                    b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Companies.Payments", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.Payments", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +54,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ShiftyTenantInfoId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
@@ -123,20 +63,45 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Companies.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EconomicCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Identifier")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NationalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegistrationNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -146,14 +111,15 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.HasKey("Id");
 
                     b.HasIndex("Identifier")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Identifier] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("TenantInfo");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Companies.TenantAdmin", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.TenantAdmin", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -163,7 +129,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -188,11 +153,9 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("bit");
 
                     b.Property<string>("FatherName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
@@ -205,7 +168,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -215,7 +177,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("MobileNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedAt")
@@ -225,7 +186,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NationalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -244,7 +204,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -254,39 +213,29 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Companies.Company", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.Payments", b =>
                 {
-                    b.HasOne("Shifty.Domain.Companies.ShiftyTenantInfo", "TenantInfos")
-                        .WithOne("Company")
-                        .HasForeignKey("Shifty.Domain.Companies.Company", "TenantInfosId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("TenantInfos");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Companies.Payments", b =>
-                {
-                    b.HasOne("Shifty.Domain.Companies.ShiftyTenantInfo", "ShiftyTenantInfo")
+                    b.HasOne("Shifty.Domain.Tenants.ShiftyTenantInfo", "ShiftyTenantInfo")
                         .WithMany("Payments")
                         .HasForeignKey("ShiftyTenantInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ShiftyTenantInfo");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Companies.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
                 {
-                    b.HasOne("Shifty.Domain.Companies.TenantAdmin", "User")
-                        .WithMany("Companies")
+                    b.HasOne("Shifty.Domain.Tenants.TenantAdmin", "User")
+                        .WithMany("Tenants")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -294,16 +243,14 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Companies.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
                 {
-                    b.Navigation("Company");
-
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Companies.TenantAdmin", b =>
+            modelBuilder.Entity("Shifty.Domain.Tenants.TenantAdmin", b =>
                 {
-                    b.Navigation("Companies");
+                    b.Navigation("Tenants");
                 });
 #pragma warning restore 612, 618
         }

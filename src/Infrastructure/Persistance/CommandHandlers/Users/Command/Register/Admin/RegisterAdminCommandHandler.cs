@@ -18,7 +18,6 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Admin
 {
     public class RegisterAdminCommandHandler(
           ITenantAdminRepository userManager 
-         , Seeder seeder
         ) : IRequestHandler<RegisterAdminCommand, bool>
     {
         public async Task<bool> Handle(RegisterAdminCommand request, CancellationToken cancellationToken)
@@ -30,7 +29,7 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Admin
 
                 var user = request.Adapt<TenantAdmin>();
 
-                var createUserResult = await userManager.CreateAsync(user, request.MobileNumber , cancellationToken);
+                var createUserResult = await userManager.CreateAsync(user, request.PhoneNumber, cancellationToken);
 
                 return createUserResult;
             }

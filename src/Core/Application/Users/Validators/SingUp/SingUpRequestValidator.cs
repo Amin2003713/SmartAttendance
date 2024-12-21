@@ -29,7 +29,7 @@ public class SingUpRequestValidator : AbstractValidator<SingUpEmployeeRequest>
 
         RuleFor(x => x.IsLeader).NotNull().WithMessage("وضعیت سرگروه الزامیست");
 
-        RuleFor(x => x.MobileNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
+        RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
 
         RuleFor(x => x.PersonnelNumber).NotEmpty().WithMessage("شماره پرسنلی الزامیست");
 

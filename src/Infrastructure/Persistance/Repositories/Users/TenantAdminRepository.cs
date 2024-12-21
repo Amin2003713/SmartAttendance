@@ -30,6 +30,7 @@ namespace Shifty.Persistence.Repositories.Users
             try
             {
                 user.SetUserName();
+                user.SetIdentityFields();
                 if (await UserExists(user.UserName, cancellationToken))
                     throw new ShiftyException(ApiResultStatusCode.BadRequest, "User already exists.");
                 // Hash the user's password before saving
@@ -48,6 +49,13 @@ namespace Shifty.Persistence.Repositories.Users
 
         public async Task<TenantAdmin> GetByUsernameAsync(string username, CancellationToken cancellationToken) =>
             await TableNoTracking.FirstOrDefaultAsync(u => u.UserName == username, cancellationToken: cancellationToken);
+
+        public async Task<TenantAdmin> GetByIdeAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var user = await TableNoTracking.SingleOrDefaultAsync(a=>a.Id == id, cancellationToken);
+
+            return user ?? throw new ShiftyException(ApiResultStatusCode.NotFound, "User does not exist.");
+        }
 
         public async Task UpdatePasswordAsync(string username, string newPassword, CancellationToken cancellationToken)
         {
@@ -92,6 +100,11 @@ namespace Shifty.Persistence.Repositories.Users
             }
         }
 
+        public async Task UpdateLastLoginDateAsync(TenantAdmin user, CancellationToken httpContextRequestAborted)
+        {
+            user.LastLoginDate = DateTime.Now;
+            await UpdateUserAsync(user, httpContextRequestAborted); 
+        }
 
 
         // public async Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken)
