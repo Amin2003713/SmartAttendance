@@ -4,6 +4,7 @@ using System;
 
 namespace Shifty.Application.Companies.Validators;
 
+
 public class CreateCompanyRequestValidator : AbstractValidator<CreateCompanyRequest>
 {
     public CreateCompanyRequestValidator()

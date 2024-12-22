@@ -3,6 +3,7 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shifty.ApiFramework.Tools;
+using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Application.Companies.Requests;
 using Shifty.Application.Tenants.Command;
 using Shifty.Domain.Tenants;
@@ -25,5 +26,14 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
     
         var result = await Mediator.Send(command, cancellationToken);
         return new ApiResult<CreateCompanyResponse>(result);
+    }
+
+    [HttpGet("GetInfo/{request}")]
+    [SwaggerOperation("Create a new tenant.")]
+    [AllowAnonymous]
+    public virtual async Task<ApiResult<GetCompanyInfoResponse>> GetCompanyInfo(string request , CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(new GetCompanyInfoQuery(request) , cancellationToken);
+        return new ApiResult<GetCompanyInfoResponse>(result);
     }
 }
