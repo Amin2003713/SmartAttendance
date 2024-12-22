@@ -22,5 +22,6 @@ namespace Shifty.Domain.Interfaces.Companies
         Task<bool> RegistrationNumberExistsAsync(string registrationNumber , CancellationToken cancellationToken);
 
         Task<bool> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken);
+        Task<bool> ExistsAsync(string identifierId, CancellationToken cancellationToken);
     }
 }

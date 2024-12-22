@@ -32,10 +32,10 @@ namespace Shifty.Api.Filters
 
         private void HandleException(ExceptionContext context)
         {
-            Type type = context.Exception.GetType();
-            if (_exceptionHandlers.ContainsKey(type))
+            var type = context.Exception.GetType();
+            if (_exceptionHandlers.TryGetValue(type , out var handler))
             {
-                _exceptionHandlers[type].Invoke(context);
+                handler.Invoke(context);
                 return;
             }
 

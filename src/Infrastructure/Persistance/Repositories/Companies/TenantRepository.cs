@@ -58,6 +58,12 @@ namespace Shifty.Persistence.Repositories.Tenants
             }
         }
 
+        public async Task<bool> ExistsAsync(string identifierId , CancellationToken cancellationToken) =>
+            await TableNoTracking
+                .AnyAsync(x => x.Identifier == identifierId ||
+                               x.Id         == identifierId,
+                    cancellationToken);
+
 
         public async Task<ShiftyTenantInfo> GetByIdAsync(string tenantId, CancellationToken cancellationToken)
         {
