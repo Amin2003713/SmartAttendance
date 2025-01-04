@@ -84,7 +84,8 @@ public static class DependencyInjection
         services.AddRouting();
 
         services.AddMultiTenant<ShiftyTenantInfo>()
-                .WithHostStrategy("__tenant__.*") // Use host strategy to extract tenant info
+                .WithHostStrategy("__tenant__.*") 
+                .WithHeaderStrategy()// Use host strategy to extract tenant info
                 .WithEFCoreStore<TenantDbContext, ShiftyTenantInfo>();
         return services;
     }
