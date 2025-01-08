@@ -6,6 +6,6 @@ public class LoginRequest
 
     public string Password { get; set; }
 
-    public string Refresh_token { get; set; }
+    public string? Refresh_token { get; set; }
 }
 

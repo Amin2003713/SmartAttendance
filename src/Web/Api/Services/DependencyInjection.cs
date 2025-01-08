@@ -432,8 +432,4 @@ public static class DependencyInjection
 
 
 
-    public static async void ConfigureAutomaticMigrations(this WebApplication app)
-    {
-        // var autoMigration = app.Services.GetRequiredService<>();
-    }
 }

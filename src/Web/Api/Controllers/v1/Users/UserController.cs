@@ -83,23 +83,13 @@ namespace Shifty.Api.Controllers.v1.Users
         [HttpPost("login")]
         [SwaggerOperation("login by username and password")]
         [AllowAnonymous]
-        public virtual async Task<ApiResult<LoginResponse>> LoginAsync([FromBody] LoginRequest request, CancellationToken cancellationToken)
-        {
-            var command = request.Adapt<LoginCommand>();
-
-            var result = await Mediator.Send(command, cancellationToken);
-            return new ApiResult<LoginResponse>(result);
-        }
+        public virtual async Task<ApiResult<LoginResponse>> LoginAsync([FromBody] LoginRequest request, CancellationToken cancellationToken) =>
+            new ApiResult<LoginResponse>(await Mediator.Send(request.Adapt<LoginCommand>() , cancellationToken));
 
         [HttpPost("refreshToken")]
         [SwaggerOperation("get new refresh and access token")]
         [AllowAnonymous]
-        public virtual async Task<ApiResult<RefreshTokenResponse>> RefreshTokenAsync([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken)
-        {
-            var command = request.Adapt<RefreshTokenCommand>();
-
-            var result = await Mediator.Send(command, cancellationToken);
-            return new ApiResult<RefreshTokenResponse>(result);
-        }
+        public virtual async Task<ApiResult<RefreshTokenResponse>> RefreshTokenAsync([FromBody] RefreshTokenRequest request, CancellationToken cancellationToken) =>
+            new ApiResult<RefreshTokenResponse>(await Mediator.Send(request.Adapt<RefreshTokenCommand>() , cancellationToken));
     }
 }

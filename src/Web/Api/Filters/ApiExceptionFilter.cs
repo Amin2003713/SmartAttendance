@@ -1,9 +1,11 @@
 ﻿using Shifty.ApiFramework.Tools;
 using Shifty.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shifty.Api.Filters
 {
@@ -51,16 +53,19 @@ namespace Shifty.Api.Filters
 
         private void HandleValidationException(ExceptionContext context)
         {
-            var exception = context.Exception as ValidationException;
-            List<string> errorList = new List<string>();
-            foreach (var error in exception.Errors.Values)
+            if (context.Exception is ValidationException exception)
             {
-                errorList.AddRange(error);
+                // Flatten the validation errors into a list of strings
+                var errorList = exception.Errors.Values.SelectMany(errors => errors).ToList();
+
+                // Set the result to a BadRequestObjectResult
+                context.Result = new BadRequestObjectResult(new
+                {
+                    Message = "Validation failed" , Errors = errorList ,
+                });
+
+                context.ExceptionHandled = true;
             }
-
-            context.Result = new ApiResult<int>(-1, StatusCodes.Status400BadRequest, errorList.ToArray());
-
-            context.ExceptionHandled = true;
         }
 
         private void HandleNotFoundException(ExceptionContext context)

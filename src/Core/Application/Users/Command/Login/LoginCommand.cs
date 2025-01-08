@@ -8,7 +8,7 @@ namespace Shifty.Application.Users.Command.Login
 
         public string Password { get; set; }
 
-        public string Refresh_token { get; set; }
+        public string? Refresh_token { get; set; }
     }
 
 
