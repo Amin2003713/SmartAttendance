@@ -62,6 +62,7 @@ namespace Shifty.Api.Filters
                 context.Result = new BadRequestObjectResult(new
                 {
                     Message = "Validation failed" , Errors = errorList ,
+
                 });
 
                 context.ExceptionHandled = true;

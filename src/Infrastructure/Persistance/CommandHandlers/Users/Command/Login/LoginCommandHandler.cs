@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Mapster;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Shifty.Application.Users.Command.Login;
 using Shifty.Common;
@@ -44,12 +45,9 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 
             await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken: refreshToken, cancellationToken);
 
-            return new LoginResponse
-            {
-                RefreshToken = refreshToken.Token,
-                Token = jwt.access_token,
-                UserInfo =  UserInfo.CreateInstance(user ,roles.ToList() )
-            };
+            var loginResult = user.Adapt<LoginResponse>();
+
+            return loginResult.AddToken(refreshToken : refreshToken.Token , token : jwt.access_token , rolesList : roles.ToList() ?? [] );
         }
     }
 }

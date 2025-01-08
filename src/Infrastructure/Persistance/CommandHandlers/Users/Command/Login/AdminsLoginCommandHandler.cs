@@ -38,7 +38,9 @@ public class AdminsLoginCommandHandler(ITenantAdminRepository userManager, IJwtS
 
         return new LoginResponse
         {
-            RefreshToken = refreshToken.Token, Token = jwt.access_token, UserInfo = UserInfo.CreateInstance(user, [])
+            RefreshToken = refreshToken.Token,
+            Token = jwt.access_token,
+            // RolesList = await userManager.
         };
     }
 }
