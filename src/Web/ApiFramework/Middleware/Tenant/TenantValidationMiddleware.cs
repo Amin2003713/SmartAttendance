@@ -63,16 +63,49 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     await context.Response.WriteAsync("User Name is missing.");
                     return;
                 }
+                
+               
 
                 // Validate if the user exists in the tenant's database
                 await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()));
-                var userExists = await tenantDb.Users.AnyAsync(u => u.UserName == userName[0].ToString());
+                var userExists = await tenantDb.Users.SingleOrDefaultAsync(u => u.UserName == userName[0].ToString());
                 
-                if (!userExists)
+                if (userExists is null)
                 {
                     context.Response.StatusCode = 403; // Forbidden
                     await context.Response.WriteAsync("User does not exist in this tenant's database.");
                     return;
+                }
+
+                if (!context.Request.Headers.TryGetValue("X_Device_Type" , out var deviceType))
+                {
+                    context.Response.StatusCode = 400; // Bad Request
+                    await context.Response.WriteAsync("Device type is missing.");
+                    return;
+                }
+
+                if (deviceType != "Browser")
+                {
+                    if (!context.Request.Headers.TryGetValue("__Hardware__" , out var hardwareId))
+                    {
+                        context.Response.StatusCode = 400; // Bad Request
+                        await context.Response.WriteAsync("Hardware Id is missing.");
+                        return;
+                    }
+
+                    if(userExists.HardwareId is null)
+                    {
+                        userExists.HardwareId = hardwareId[0];
+                        tenantDb.Users.Update(userExists);
+                        await tenantDb.SaveChangesAsync();
+                    }
+
+                    if (userExists.HardwareId != hardwareId[0])
+                    {
+                        context.Response.StatusCode = 400; // Bad Request
+                        await context.Response.WriteAsync("Hardware Id is not matching contact Your Administrator.");
+                        return;
+                    }
                 }
             }
 

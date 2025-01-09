@@ -30,7 +30,7 @@ namespace Shifty.Domain.Users
 
         public string Address { get; set; }
 
-        public string? SimSerialNumber { get; set; } = null!;
+        public string? HardwareId { get; set; } = null!;
 
 
         public bool IsActive { get; set; }
