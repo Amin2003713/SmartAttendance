@@ -1,6 +1,7 @@
 ﻿using Shifty.ApiFramework.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Linq;
 
 namespace Shifty.ApiFramework.Attributes
 {
@@ -8,19 +9,13 @@ namespace Shifty.ApiFramework.Attributes
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!context.ModelState.IsValid)
-            {
-                var modelStateEntries = context.ModelState.Values;
+            if (context.ModelState.IsValid)
+                return;
 
-                foreach (var item in modelStateEntries)
-                {
-                    foreach (var error in item.Errors)
-                    {
-                        ApiResult resultObject = new ApiResult(error.ErrorMessage);
-                        context.Result = new JsonResult(resultObject);
-                    }
-                }
-            }
+            var modelStateEntries = context.ModelState.Values;
+
+            foreach (var error in modelStateEntries.SelectMany(item => item.Errors))
+                context.Result = new BadRequestObjectResult(error.ErrorMessage);
         }
     }
 }

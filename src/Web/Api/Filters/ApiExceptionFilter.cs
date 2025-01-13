@@ -1,6 +1,7 @@
 ﻿using Shifty.ApiFramework.Tools;
 using Shifty.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -25,6 +26,7 @@ namespace Shifty.Api.Filters
             };
         }
 
+
         public override void OnException(ExceptionContext context)
         {
             HandleException(context);
@@ -46,7 +48,12 @@ namespace Shifty.Api.Filters
 
         private void HandleUnknownException(ExceptionContext context)
         {
-            context.Result = new ApiResult<int>(-1, StatusCodes.Status500InternalServerError, new string[] { "an error occurred", context.Exception.Message });
+            context.Result = new ObjectResult(new ApiProblemDetails()
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Title = context.Exception.Source,
+                Detail = context.Exception.Message,
+            });
 
             context.ExceptionHandled = true;
         }
@@ -73,15 +80,18 @@ namespace Shifty.Api.Filters
         {
             var exception = context.Exception as NotFoundException;
 
-            context.Result = new ApiResult<int>(-1, StatusCodes.Status404NotFound, new string[] { "your resource not found", exception.Message });
-
+            context.Result = new NotFoundObjectResult(exception?.Message);
+            
             context.ExceptionHandled = true;
         }
         private void HandleExistingRecordException(ExceptionContext context)
         {
             var exception = context.Exception as ExistingRecordException;
 
-            context.Result = new ApiResult<int>(-1, StatusCodes.Status500InternalServerError, new string[] { exception.Message });
+            context.Result = new ObjectResult(exception?.Message)
+            {
+                StatusCode = StatusCodes.Status500InternalServerError ,
+            };
 
             context.ExceptionHandled = true;
         }

@@ -1,8 +1,8 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shifty.ApiFramework.Tools;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Application.Companies.Requests;
 using Shifty.Application.Tenants.Command;
@@ -11,29 +11,42 @@ using Swashbuckle.AspNetCore.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Api.Controllers.v1.Tenants;
+namespace Shifty.Api.Controllers.v1.Companies;
 
 [ApiVersion("1")]
 public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> accessor) : BaseControllerV1
 {
 
+    /// <summary>
+    /// Creates a new company (tenant).
+    /// </summary>
+    /// <param name="request">The request containing the details of the company to create.</param>
+    /// <returns>The response containing the created company details.</returns>
+    /// <response code="200">Returns the created company details.</response>
+    /// <response code="400">If the request is invalid or the company could not be created.</response>
     [HttpPost("AdminsPanel/CreateCompany")]
-    [SwaggerOperation("Create a new tenant.")]
+    [SwaggerOperation("Create a new company (tenant).")]
     [Authorize]
-    public virtual async Task<ApiResult<CreateCompanyResponse>> CreateCompany([FromBody] CreateCompanyRequest request , CancellationToken cancellationToken)
-    {
-        var command = request.Adapt<CreateCompanyCommand>();
-    
-        var result = await Mediator.Send(command, cancellationToken);
-        return new ApiResult<CreateCompanyResponse>(result);
-    }
+    [ProducesResponseType(typeof(CreateCompanyResponse) , 200)]
+    [ProducesResponseType(typeof(BadRequestResult) ,      400)]
+    public virtual async Task<CreateCompanyResponse> CreateCompany([FromBody] CreateCompanyRequest request , CancellationToken cancellationToken) =>
+        await Mediator.Send(request.Adapt<CreateCompanyCommand>() , cancellationToken);
 
+
+    /// <summary>
+    /// Retrieves detailed information about a company by its identifier.
+    /// </summary>
+    /// <param name="request">The unique identifier of the company.</param>
+    /// <returns>The response containing the company's detailed information.</returns>
+    /// <response code="200">Returns the company's detailed information.</response>
+    /// <response code="400">If the request is invalid (e.g., the identifier is missing or incorrect).</response>
+    /// <response code="404">If the company with the specified identifier is not found.</response>
     [HttpGet("GetInfo/{request}")]
-    [SwaggerOperation("Create a new tenant.")]
+    [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
     [AllowAnonymous]
-    public virtual async Task<ApiResult<GetCompanyInfoResponse>> GetCompanyInfo(string request , CancellationToken cancellationToken)
-    {
-        var result = await Mediator.Send(new GetCompanyInfoQuery(request) , cancellationToken);
-        return new ApiResult<GetCompanyInfoResponse>(result);
-    }
+    [ProducesResponseType(typeof(GetCompanyInfoResponse) , StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BadRequestResult) ,       StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(NotFoundResult) ,         StatusCodes.Status404NotFound)]
+    public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo(string request , CancellationToken cancellationToken) =>
+        await Mediator.Send(new GetCompanyInfoQuery(request) , cancellationToken);
 }

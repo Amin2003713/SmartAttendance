@@ -34,6 +34,11 @@
         <ProjectReference Include="..\ApiFramework\Shifty.ApiFramework.csproj"/>
     </ItemGroup>
 
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn> <!-- Suppress missing XML doc warnings -->
+    </PropertyGroup>
+    
     <ItemGroup>
       <Content Update="appsettings.Staging.json">
         <DependentUpon>appsettings.json</DependentUpon>
