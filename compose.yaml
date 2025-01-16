@@ -55,6 +55,8 @@ services:
     build:
       dockerfile: src/Web/Api/Dockerfile
     container_name: shiftyApi
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
     ports:
       - "5011:443"
       - "5010:8080"

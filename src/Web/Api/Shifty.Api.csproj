@@ -7,9 +7,10 @@
         <DockerfileContext>..\..\..</DockerfileContext>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <LangVersion>latestmajor</LangVersion>
+        <EnableHotReload>true</EnableHotReload>
 
 
-<!--         <InvariantGlobalization>false</InvariantGlobalization> -->
+        <!--         <InvariantGlobalization>false</InvariantGlobalization> -->
     </PropertyGroup>
 
     <ItemGroup>

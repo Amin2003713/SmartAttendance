@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
@@ -20,90 +21,84 @@ namespace Shifty.ApiFramework.Aspire;
 
 public static class AspireExtensions
 {
-    public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+     public static IServiceCollection AddServiceDefaults(this IServiceCollection services)
     {
-        builder.Services.Configure<OtlpExporterOptions>(options =>
-                                                        {
-                                                            options.Headers = $"x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
-                                                        });
-
-       builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resourceBuilder =>
-    {
-        // Add service name and version to the resource
-        resourceBuilder.AddService(
-            serviceName: builder.Environment.ApplicationName,
-            serviceVersion: "1.0.0",
-            autoGenerateServiceInstanceId: true);
-
-
-        // Add additional attributes (e.g., environment, deployment region)
-        resourceBuilder.AddAttributes(new Dictionary<string, object>
+        services.Configure<OtlpExporterOptions>(options =>
         {
-            ["deployment.environment"] = builder.Environment.EnvironmentName,
-            ["region"] = "us-east-1"
+            options.Headers = $"x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
         });
-    })
-    .WithMetrics(metrics =>
-    {
-        // Add default instrumentation
-        metrics.AddAspNetCoreInstrumentation()
-               .AddHttpClientInstrumentation()
-               .AddRuntimeInstrumentation();
 
-        // Add custom metrics
-        metrics.AddMeter(ApplicationConstant.ApplicationName);
+        services.AddOpenTelemetry()
+            .ConfigureResource(resourceBuilder =>
+            {
+                resourceBuilder.AddService(
+                    serviceName: ApplicationConstant.ApplicationName,
+                    serviceVersion: "1.0.0",
+                    autoGenerateServiceInstanceId: true);
 
-        builder.Services.AddRequestTimeouts(
-            configure: static timeouts =>
-                           timeouts.AddPolicy("HealthChecks" , TimeSpan.FromSeconds(5)));
+                resourceBuilder.AddAttributes(new Dictionary<string, object>
+                {
+                    ["deployment.environment"] =
+#if DEBUG
+                        "Development"
+#else
+                        "Production"
+#endif
+                    ,
+                    ["region"] = "us-east-1"
+                });
+            })
+            .WithMetrics(metrics =>
+            {
+                metrics.AddAspNetCoreInstrumentation()
+                       .AddHttpClientInstrumentation()
+                       .AddRuntimeInstrumentation();
 
-        builder.Services.AddOutputCache(
-            configureOptions: static caching =>
-                                  caching.AddPolicy("HealthChecks" , build: static policy => policy.Expire(TimeSpan.FromSeconds(10))));
-        // Export metrics to Prometheus or an OpenTelemetry Collector
-        metrics.AddOtlpExporter(options =>
+                metrics.AddMeter(ApplicationConstant.ApplicationName);
+
+                metrics.AddOtlpExporter(options =>
+                {
+                    options.Endpoint = new Uri(ApplicationConstant.OpenTelemetryEndpoint);
+                });
+            })
+            .WithTracing(tracing =>
+            {
+                tracing.AddSource(ApplicationConstant.ApplicationName)
+                       .AddAspNetCoreInstrumentation()
+                       .AddHttpClientInstrumentation();
+
+                tracing.SetSampler(new ParentBasedSampler(new TraceIdRatioBasedSampler(0.5)));
+
+                tracing.AddOtlpExporter(options =>
+                {
+                    options.Endpoint = new Uri(ApplicationConstant.OpenTelemetryEndpoint);
+                });
+            });
+
+        services.AddLogging(builder =>
         {
-            options.Endpoint = new Uri(ApplicationConstant.OpenTelemetryEndpoint); // OpenTelemetry Collector endpoint
+            builder.AddOpenTelemetry(options =>
+            {
+                options.IncludeFormattedMessage = true;
+                options.IncludeScopes = true;
+                options.ParseStateValues = true;
+
+                options.AddOtlpExporter(otlpOptions =>
+                {
+                    otlpOptions.Endpoint = new Uri(ApplicationConstant.OpenTelemetryEndpoint);
+                });
+            });
         });
-    })
-    .WithTracing(tracing =>
-    {
-        // Add default instrumentation
-        tracing.AddSource(builder.Environment.ApplicationName)
-               .AddAspNetCoreInstrumentation()
-               .AddHttpClientInstrumentation();
 
-        // Configure sampling
-        tracing.SetSampler(new ParentBasedSampler(new TraceIdRatioBasedSampler(0.5)));
-
-        // Export traces to Jaeger or an OpenTelemetry Collector
-        tracing.AddOtlpExporter(options =>
-        {
-            options.Endpoint = new Uri("http://otel-collector:4317"); // OpenTelemetry Collector endpoint
-        });
-    });
-
-// Add OpenTelemetry logging
-builder.Logging.AddOpenTelemetry(options =>
-{
-    options.IncludeFormattedMessage = true;
-    options.IncludeScopes = true;
-    options.ParseStateValues = true;
-
-    // Export logs to an OpenTelemetry Collector
-    options.AddOtlpExporter(otlpOptions =>
-    {
-        otlpOptions.Endpoint = new Uri("http://otel-collector:4317");
-    });
-});
-
-        return builder;
+        return services;
     }
 
-    private static TBuilder AddOpenTelemetryExporters<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    private static TBuilder AddOpenTelemetryExporters<TBuilder>(
+        this TBuilder builder
+        , IConfiguration configuration)
+        where TBuilder : IHostApplicationBuilder
     {
-        var useOtlpExporter = !string.IsNullOrWhiteSpace(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]);
+        var useOtlpExporter = !string.IsNullOrWhiteSpace(configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]);
 
         if (useOtlpExporter)
         {
@@ -111,7 +106,7 @@ builder.Logging.AddOpenTelemetry(options =>
         }
 
         // Uncomment the following lines to enable the Azure Monitor exporter (requires the Azure.Monitor.OpenTelemetry.AspNetCore package)
-        //if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
+        //if (!string.IsNullOrEmpty(configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
         //{
         //    builder.Services.AddOpenTelemetry()
         //       .UseAzureMonitor();
@@ -120,42 +115,46 @@ builder.Logging.AddOpenTelemetry(options =>
         return builder;
     }
 
-    public static TBuilder AddDefaultHealthChecks<TBuilder>(this TBuilder builder , AppOptions options) where TBuilder : IHostApplicationBuilder
+    public static IServiceCollection AddDefaultHealthChecks(this IServiceCollection services , AppOptions options)
     {
-        builder.Services.AddHealthChecks().
-                AddCheck("sqlServerHealth"
-                    , () =>
-                      {
-                          try
-                          {
-                              using var connection = new SqlConnection(options.TenantStore);
-                              connection.Open();
-                              return HealthCheckResult.Healthy();
-                          }
-                          catch (Exception ex)
-                          {
-                              return HealthCheckResult.Unhealthy(ex.Message);
-                          }
-                      }
-                    , new[]
-                    {
-                        "live"
-                    })
-               // Add a default liveness check to ensure app is responsive
-               .AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
+        services.AddHealthChecks().
+                 AddCheck("sqlServerHealth"
+                     , () =>
+                       {
+                           try
+                           {
+                               using var connection = new SqlConnection(options.TenantStore);
+                               connection.Open();
+                               return HealthCheckResult.Healthy();
+                           }
+                           catch (Exception ex)
+                           {
+                               return HealthCheckResult.Unhealthy(ex.Message);
+                           }
+                       }
+                     , new[]
+                     {
+                         "live"
+                     }).
+                 AddCheck("self"
+                     , () => HealthCheckResult.Healthy()
+                     , new[]
+                     {
+                         "live"
+                     });
 
-        return builder;
+        return services;
     }
 
-    public static WebApplication MapDefaultEndpoints(this WebApplication app)
+    public static IApplicationBuilder UseDefaultEndpoints(this IApplicationBuilder app)
     {
-        app.MapGroup("/health").CacheOutput("HealthChecks").WithRequestTimeout("HealthChecks");
-        app.MapHealthChecks("/health");
-        app.MapHealthChecks("/alive"
+        app.UseHealthChecks("/health");
+        app.UseHealthChecks("/alive"
             , new HealthCheckOptions
             {
-                Predicate = r => r.Tags.Contains("live") ,
+                Predicate = r => r.Tags.Contains("live")
             });
+
         return app;
     }
 }

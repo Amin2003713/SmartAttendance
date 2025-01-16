@@ -4,6 +4,7 @@ namespace Shifty.Application.Companies.Requests
 {
     public class InitialCompanyRequest
     {
+        public required string OrganizationName { get; set; }
         public required string Domain { get; set; }
         public string? LandLine { get; set; } = null!;
 

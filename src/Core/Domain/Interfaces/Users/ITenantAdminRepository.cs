@@ -14,9 +14,9 @@ namespace Shifty.Domain.Interfaces.Users
         Task<bool> UserExists(string phoneNumber , CancellationToken cancellationToken);
 
         // Creates a new user asynchronously
-        Task<TenantAdmin> CreateAsync(TenantAdmin user , string companyId , CancellationToken cancellationToken);
+        Task<TenantAdmin> CreateAsync(TenantAdmin user , ShiftyTenantInfo company , CancellationToken cancellationToken);
 
-        Task<TenantAdmin> GetByCompanyAsync(string companyId , CancellationToken cancellationToken);
+        Task<TenantAdmin> GetByCompanyOrPhoneNumberAsync(string companyId , string phoneNumber , CancellationToken cancellationToken);
 
     }
 }

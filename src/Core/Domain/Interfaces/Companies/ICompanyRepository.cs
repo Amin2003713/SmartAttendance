@@ -11,7 +11,7 @@ namespace Shifty.Domain.Interfaces.Companies
         Task<ShiftyTenantInfo> GetByIdAsync(string tenantId , CancellationToken cancellationToken);
         Task<IEnumerable<ShiftyTenantInfo>> GetAllAsync(CancellationToken cancellationToken);
         Task<ShiftyTenantInfo> GetByIdentifierAsync(string code , CancellationToken cancellationToken);
-        Task<ShiftyTenantInfo> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken);
+        Task<ShiftyTenantInfo> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken , bool saveNow = true);
         Task<bool> ExistsAsync(string identifierId, CancellationToken cancellationToken);
         Task<(bool IsValid , string message)> ValidateDomain(string identifierId, CancellationToken cancellationToken);
     }

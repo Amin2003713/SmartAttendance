@@ -6,6 +6,7 @@ namespace Shifty.Application.Companies.Command.InitialCompany;
 public class InitialCompanyCommand : IRequest<IActionResult>
 {
     public required string Domain { get; set; }
+    public required string OrganizationName { get; set; }
     public string? LandLine { get; set; } = null!;
 
 

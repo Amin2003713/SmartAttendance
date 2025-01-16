@@ -1,4 +1,5 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
+using IdentityModel.Client;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
     /// <returns>The response containing the created company details.</returns>
     /// <response code="200">Returns the created company details.</response>
     /// <response code="400">If the request is invalid or the company could not be created.</response>
-    [HttpPost("AdminsPanel/InitialCompany")]
+    [HttpPost("Panel/Initialize_Company")]
     [SwaggerOperation("""
                       create the Tenant Admin With Full privileges 
                       Create a new company (tenant)
@@ -60,10 +61,10 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
     /// <response code="200">Returns the company's detailed information.</response>
     /// <response code="400">If the request is invalid (e.g., the identifier is missing or incorrect).</response>
     /// <response code="404">If the company with the specified identifier is not found.</response>
-    [HttpGet("GetInfo/{request}")]
+    [HttpGet("Get_Info/{request}")]
     [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
-    [AllowAnonymous]
     [ProducesResponseType(typeof(GetCompanyInfoResponse) , StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UnauthorizedResult) ,           StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(BadRequestResult) ,       StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(NotFoundResult) ,         StatusCodes.Status404NotFound)]
     public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo(string request , CancellationToken cancellationToken) =>
@@ -71,7 +72,7 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
 
 
     
-        [HttpGet("Panel/CheckDomain/{domain}")]
+        [HttpGet("Panel/Check_Domain/{domain}")]
         [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(CheckDomainResponse) , StatusCodes.Status200OK)]

@@ -34,14 +34,18 @@ namespace Shifty.Persistence.Repositories.Tenants
         }
 
 
-        public async Task<ShiftyTenantInfo> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken)
+        public async Task<ShiftyTenantInfo> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken , bool saveNow = true)
         {
-            if(!await ExistsAsync(tenantInfo?.Identifier! , cancellationToken))
+            if(await IdentifierExistsAsync(tenantInfo?.Identifier! , cancellationToken))
                 throw new ShiftyException(ApiResultStatusCode.BadRequest , "Tenant cannot be created");
 
             try
             {
                 Entities.Add(tenantInfo);
+
+                if (!saveNow)
+                    return tenantInfo;
+
                 await DbContext.SaveChangesAsync(cancellationToken);
                 return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo.Identifier, cancellationToken) ?? null!;
             }

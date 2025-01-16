@@ -27,17 +27,24 @@ namespace Shifty.Persistence.Repositories.Users
 
 
 
-        public async Task<TenantAdmin> CreateAsync(TenantAdmin user , string companyId , CancellationToken cancellationToken)
+        public async Task<TenantAdmin> CreateAsync(TenantAdmin user , ShiftyTenantInfo company , CancellationToken cancellationToken)
         {
+
             try
             {
-                var userResult = await GetByCompanyAsync(companyId , cancellationToken);
+                var userResult = await GetByCompanyOrPhoneNumber(company.Id , user.PhoneNumber , cancellationToken);
                 if (userResult != null)
+                {
+                    userResult.AddCompany(company);
+                    await Entities.AddAsync(user , cancellationToken);
+                    await dbContext.SaveChangesAsync(cancellationToken);
                     return userResult;
+                }
 
                 await Entities.AddAsync(user , cancellationToken);
-                 await dbContext.SaveChangesAsync(cancellationToken);
-                 return user;
+                await dbContext.SaveChangesAsync(cancellationToken);
+                return user;
+
             }
             catch (Exception e)
             {
@@ -45,8 +52,13 @@ namespace Shifty.Persistence.Repositories.Users
             }
         }
 
-        public async Task<TenantAdmin> GetByCompanyAsync(string companyId , CancellationToken cancellationToken) =>
-            (await TableNoTracking.SingleOrDefaultAsync(a => a.Tenants.Exists(w => w.Id == companyId) , cancellationToken)) ??
+        public async Task<TenantAdmin> GetByCompanyOrPhoneNumberAsync(string companyId , string phoneNumber , CancellationToken cancellationToken) =>
+            (await GetByCompanyOrPhoneNumber(companyId , phoneNumber , cancellationToken)) ??
             throw new ShiftyException(ApiResultStatusCode.NotFound , "User does not exist.");
+
+
+        private async Task<TenantAdmin> GetByCompanyOrPhoneNumber(string companyId , string phoneNumber , CancellationToken cancellationToken) =>
+            (await TableNoTracking.SingleOrDefaultAsync(a => a.PhoneNumber == phoneNumber || a.Tenants.Any(w => w.Id == companyId) , cancellationToken)) ??
+            null!;
     }
 }

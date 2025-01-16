@@ -19,9 +19,12 @@ public class InitialCompanyRequestValidator : AbstractValidator<InitialCompanyRe
 
     // TenantId is required and must match a valid format
     RuleFor(x => x.Domain)
-        .NotEmpty().WithMessage("شناسه شرکت الزامی است.")
-        .Matches("^[a-zA-Z0-9-]+$").WithMessage("شناسه شرکت فقط می‌تواند شامل حروف الفبا، اعداد، و خط فاصله باشد.");
+        .NotEmpty().WithMessage("شناسه سازمان الزامی است.")
+        .Matches("^[a-zA-Z0-9-]+$").WithMessage("شناسه سازمان فقط می‌تواند شامل حروف الفبا، اعداد، و خط فاصله باشد.");
 
+    RuleFor(x => x.OrganizationName).
+        NotEmpty().
+        WithMessage("نام سازمان الزامی است.");
 
     // // Address is optional but must not exceed 250 characters if provided
     // RuleFor(x => x.Address)

@@ -10,7 +10,7 @@ public static class ApplicationConstant
 
 
     public const string UserNameAndPass =
-        "User User Id=sa;Password=8CCA6B60A3EF40A59128@6D2824C9AEDC";
+        "User Id=sa;Password=8CCA6B60A3EF40A59128@6D2824C9AEDC";
 
     public const string CodeGenerator = "THERE WEAR ONES A CHILE THAT DIED HAHA .";
 

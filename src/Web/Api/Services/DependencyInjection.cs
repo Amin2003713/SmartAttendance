@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PolyCache;
 using Shifty.Api.Filters;
+using Shifty.ApiFramework.Aspire;
 using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
@@ -87,6 +88,10 @@ public static class DependencyInjection
                 .WithHostStrategy("__tenant__.*") 
                 .WithHeaderStrategy()// Use host strategy to extract tenant info
                 .WithEFCoreStore<TenantDbContext, ShiftyTenantInfo>();
+
+        services.AddServiceDefaults();
+        services.AddDefaultHealthChecks(appOptions);
+
         return services;
     }
 
@@ -112,13 +117,6 @@ public static class DependencyInjection
         app.UseAuthentication();
         app.UseAuthorization();
 
-        using (var scope = app.ApplicationServices.CreateScope())
-        {
-            var serviceProvider = scope.ServiceProvider;
-            var migrationSvc    = serviceProvider.GetRequiredService<IMigrationService>();
-            migrationSvc.ApplyMigrations();
-        }
-
         app.UseEndpoints(endpoints =>
                          {
                              if (env.IsDevelopment() || env.IsStaging())
@@ -136,7 +134,9 @@ public static class DependencyInjection
                              //     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                              // });
                          });
-       
+
+
+        app.UseDefaultEndpoints();
 
         return app;
     }

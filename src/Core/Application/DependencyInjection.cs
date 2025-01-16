@@ -17,6 +17,7 @@ namespace Shifty.Application
         {
 
             services.AddCustomFluentValidation();
+            ConfigureMaster();
             return services;
         }
 
@@ -28,7 +29,8 @@ namespace Shifty.Application
 
         private static void ConfigureMaster()
         {
-            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().Map(dest => dest.Identifier , src => src.Domain);
+            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().Map(dest => dest.Identifier , src => src.Domain).Map(dest => dest.Name
+                , src => src.OrganizationName);
         }
     }
 }

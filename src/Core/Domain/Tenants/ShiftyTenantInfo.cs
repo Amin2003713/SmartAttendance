@@ -16,14 +16,15 @@ public class ShiftyTenantInfo : ITenantInfo
 
     public string? LandLine { get; set; } = null!;
 
-    public string Address { get; set; }
-    public Guid UserId { get; set; }
+    public string? Address { get; set; } = null!;
+    public Guid? UserId { get; set; } = null!;
     public TenantAdmin? User { get; set; } = null!;
     public List<Payments>? Payments { get; set; } = [];
 
 
     public string GetConnectionString() 
         => $"Server={ApplicationConstant.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.MultipleActiveResultSets};{ApplicationConstant.Encrypt};{ApplicationConstant.UserNameAndPass}";
+
 }
 
 public class Logo
