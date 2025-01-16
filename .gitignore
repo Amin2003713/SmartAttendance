@@ -4,6 +4,12 @@
 **/bin/
 **/obj/
 
+./data/**
+data/
+
+./docker-compose.override.yml
+./docker-compose.dcproj
+
 bin/
 obj/
 src/Core/Application/bin/*
