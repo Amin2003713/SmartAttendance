@@ -19,12 +19,7 @@ public static class MultipleDatabaseExtensions
             var       tenantDbContext = scopeTenant.ServiceProvider.GetRequiredService<TenantDbContext>();
 
             if ((await tenantDbContext.Database.GetPendingMigrationsAsync()).Any())
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Applying BaseDb Migrations.");
-                Console.ResetColor();
                 await tenantDbContext.Database.MigrateAsync(); // apply migrations on baseDbContext
-            }
 
 
             var tenantsInDb = await tenantDbContext.TenantInfo.ToListAsync();

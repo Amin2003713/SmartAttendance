@@ -1,0 +1,6 @@
+services:
+  shifty.api:
+    image: ${DOCKER_REGISTRY-}shiftyapi
+    build:
+      context: .
+      dockerfile: src/Web/Api/Dockerfile

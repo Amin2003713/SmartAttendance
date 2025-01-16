@@ -31,7 +31,7 @@ namespace Shifty.Persistence.Services
             services.AddDbContext<TenantDbContext>(options => options.UseSqlServer(appOptions.TenantStore));
 
 
-            services.AddScoped<WriteOnlyDbContext>(provider =>
+            services.AddScoped(provider =>
                                                      {
                                                          var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
                                                          var appptions = provider.GetService<IAppOptions>();
@@ -41,7 +41,7 @@ namespace Shifty.Persistence.Services
                                                                                             appptions.ReadDatabaseConnectionString); // Implement this
                                                          return new WriteOnlyDbContext(options);
                                                      });
-            services.AddScoped<ReadOnlyDbContext>(provider =>
+            services.AddScoped(provider =>
                                                    {
                                                        var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
                                                        var appptions           = provider.GetService<IAppOptions>();
@@ -52,7 +52,7 @@ namespace Shifty.Persistence.Services
                                                        return new ReadOnlyDbContext(options);
                                                    });
 
-            services.AddScoped<AppDbContext>(provider =>
+            services.AddScoped(provider =>
                                                   {
                                                       var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
                                                       var appptions           = provider.GetService<IAppOptions>();

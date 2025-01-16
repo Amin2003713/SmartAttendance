@@ -21,7 +21,8 @@ services:
       - ./data/mssql/log:/var/opt/mssql/log
     restart: always
 
-  minio:
+  shiftyMinioFileDb:
+    container_name: shiftyMinioFileDb
     image: docker.io/bitnami/minio
     ports:
       - '9000:9000'
@@ -34,27 +35,39 @@ services:
       - MINIO_ROOT_USER=AminShifty1382
       - MINIO_ROOT_PASSWORD=AminShifty1382403
         
-        
+    
+  shiftyAspireService:
+      image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard
+      container_name: shiftyAspireService
+      ports:
+        - "18888:18888"
+        - "4317:18889"
+      networks:
+        - app-network
+      environment:
+        - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
+        - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
+        - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
+
+      restart: unless-stopped      
   
-  webapi:
+  shiftyApi:
     build:
       dockerfile: src/Web/Api/Dockerfile
-    container_name: webapi
+    container_name: shiftyApi
     ports:
-      - "5010:5010"
-      - "5011:5011"
+      - "5011:443"
+      - "5010:8080"
     depends_on:
       - sqlserver
-      - minio
+      - shiftyMinioFileDb
+      - shiftyAspireService
     networks:
       - app-network
     volumes:
-      - /Data:/app/data
+      - ./data/Web:/app/src
     restart: always
 
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  minio-data:

@@ -1,11 +1,11 @@
-﻿# Default ignored files
+# Default ignored files
 /shelf/
 /workspace.xml
 # Rider ignored files
-/modules.xml
 /projectSettingsUpdater.xml
+/modules.xml
 /contentModel.xml
-/.idea.Shifty.iml
+/.idea.Shifty.sln.iml
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
