@@ -3,10 +3,12 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shifty.ApiFramework.Tools;
+using Shifty.Application.Companies.Command.InitialCompany;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Application.Companies.Requests;
-using Shifty.Application.Tenants.Command;
 using Shifty.Domain.Tenants;
+using Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,13 +26,30 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
     /// <returns>The response containing the created company details.</returns>
     /// <response code="200">Returns the created company details.</response>
     /// <response code="400">If the request is invalid or the company could not be created.</response>
-    [HttpPost("AdminsPanel/CreateCompany")]
-    [SwaggerOperation("Create a new company (tenant).")]
-    [Authorize]
-    [ProducesResponseType(typeof(CreateCompanyResponse) , 200)]
-    [ProducesResponseType(typeof(BadRequestResult) ,      400)]
-    public virtual async Task<CreateCompanyResponse> CreateCompany([FromBody] CreateCompanyRequest request , CancellationToken cancellationToken) =>
-        await Mediator.Send(request.Adapt<CreateCompanyCommand>() , cancellationToken);
+    [HttpPost("AdminsPanel/InitialCompany")]
+    [SwaggerOperation("""
+                      create the Tenant Admin With Full privileges 
+                      Create a new company (tenant)
+                      initiate a new DataBase For the Company
+                      At least Send Activation Sms
+                      """)]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(CreatedResult) , StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status400BadRequest)]
+    public virtual async Task<IActionResult> InitialCompany([FromBody] InitialCompanyRequest request , CancellationToken cancellationToken) =>
+        await Mediator.Send(request.Adapt<InitialCompanyCommand>() , cancellationToken);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /// <summary>
@@ -49,4 +68,13 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
     [ProducesResponseType(typeof(NotFoundResult) ,         StatusCodes.Status404NotFound)]
     public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo(string request , CancellationToken cancellationToken) =>
         await Mediator.Send(new GetCompanyInfoQuery(request) , cancellationToken);
+
+
+    
+        [HttpGet("Panel/CheckDomain/{domain}")]
+        [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(CheckDomainResponse) , StatusCodes.Status200OK)]
+        public virtual async Task<CheckDomainResponse> CheckDomain(string domain , CancellationToken cancellationToken) =>
+            await Mediator.Send(new CheckDomainQuery(domain) , cancellationToken);
 }

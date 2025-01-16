@@ -17,30 +17,14 @@ namespace Shifty.Persistence.Services.MigrationManagers
 {
     public class RunTimeDatabaseMigrationService(IServiceProvider services, IConfiguration configuration , Seeder.Seeder seeder , IPasswordHasher<User> passwordHasher)
     {
-        public async Task<bool> MigrateTenantDatabasesAsync(string tenantId, TenantAdmin adminUser , CancellationToken cancellationToken)
+        public async Task<bool> MigrateTenantDatabasesAsync(string connectionString, TenantAdmin adminUser , CancellationToken cancellationToken)
         {
             try
             {
-                // Tenant Db Context (reference context)
+                ArgumentNullException.ThrowIfNull(connectionString);
+
                 using var scopeTenant     = services.CreateScope();
-                var       tenantDbContext = scopeTenant.ServiceProvider.GetRequiredService<TenantDbContext>();
 
-                if ((await tenantDbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Applying BaseDb Migrations.");
-                    Console.ResetColor();
-                    await tenantDbContext.Database.MigrateAsync(cancellationToken: cancellationToken); // apply migrations on baseDbContext
-                }
-
-                var appOptions = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
-
-                
-                    var connectionString = string.IsNullOrEmpty(tenantId)
-                        ? appOptions.WriteDatabaseConnectionString
-                        : tenantId;
-
-                    // Application Db Context (app - per tenant)
                     using var scopeApplication = services.CreateScope();
                     var       dbContext        = scopeApplication.ServiceProvider.GetService<AppDbContext>();
                     dbContext.Database.SetConnectionString(connectionString);
@@ -50,13 +34,12 @@ namespace Shifty.Persistence.Services.MigrationManagers
                     if (!(await dbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
                         return true;
 
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine($"Applying Migrations for '{tenantId}' tenant.");
-                    Console.ResetColor();
-                    await dbContext.Database.MigrateAsync(cancellationToken: cancellationToken);
 
                     try
                     {
+                        await dbContext.Database.MigrateAsync(cancellationToken: cancellationToken);
+
+
                         await seeder.Seed(dbContext, cancellationToken);
 
 

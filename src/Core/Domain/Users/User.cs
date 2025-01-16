@@ -9,10 +9,10 @@ namespace Shifty.Domain.Users
     public class User : IdentityUser<Guid>, IEntity
     {
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
 
         public string FatherName { get; set; }
-
         public string NationalCode { get; set; }
 
 

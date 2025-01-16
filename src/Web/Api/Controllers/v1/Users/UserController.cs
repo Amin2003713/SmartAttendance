@@ -22,26 +22,6 @@ namespace Shifty.Api.Controllers.v1.Users
     [ApiVersion("1")]
     public class UserController() : BaseControllerV1
     {
-
-        /// <summary>
-        /// Registers a new admin user.
-        /// </summary>
-        /// <param name="request">The request containing the admin user's details.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>True if the registration was successful; otherwise, false.</returns>
-        /// <response code="200">Returns true if the registration was successful.</response>
-        /// <response code="400">If the request is invalid (e.g., missing required fields or invalid data).</response>
-        /// <response code="500">If an internal server error occurs during registration.</response>
-        [HttpPost("AdminsPanel/sign-up")]
-        [SwaggerOperation("Register a new admin user.")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(bool) ,             StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BadRequestResult) , StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiProblemDetails) ,   StatusCodes.Status500InternalServerError)]
-        public virtual async Task<bool> SingUpAsync([FromBody] SingUpAdminRequest request , CancellationToken cancellationToken) =>
-            await Mediator.Send(request.Adapt<RegisterAdminCommand>() , cancellationToken);
-
-
         /// <summary>
         /// Authenticates an admin user by username and password.
         /// </summary>

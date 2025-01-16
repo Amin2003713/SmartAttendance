@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using MediatR;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
-using Shifty.Application.Tenants.Command;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
 using System.Threading;

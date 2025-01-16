@@ -1,6 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Shifty.Application.Companies.Command.InitialCompany;
+using Shifty.Domain.Tenants;
 using System.Reflection;
 
 namespace Shifty.Application
@@ -21,6 +24,11 @@ namespace Shifty.Application
         {
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+        }
+
+        private static void ConfigureMaster()
+        {
+            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().Map(dest => dest.Identifier , src => src.Domain);
         }
     }
 }

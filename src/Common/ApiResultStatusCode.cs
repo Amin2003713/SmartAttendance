@@ -23,6 +23,12 @@ namespace Shifty.Common
         LogicError = 5,
 
         [Display(Name = "خطای احراز هویت")]
-        UnAuthorized = 6
+        UnAuthorized = 6,
+            
+        [Display(Name = "خطای پایگاه داده")]
+        DataBaseError = 7 ,
+        
+        [Display(Name = "موجودیت تکراری")]
+        Conflict = 8 ,
     }
 }

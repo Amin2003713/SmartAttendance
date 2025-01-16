@@ -50,10 +50,6 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
 
         // Properties
         builder.Property(p => p.CreatedAt).ValueGeneratedOnAdd();
-
-        // Uncomment to configure optional fields
-        // builder.Property(p => p.Amount).IsRequired();
-        // builder.Property(p => p.Status).HasMaxLength(20);
     });
 
 
@@ -68,9 +64,6 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
                .WithOne(t => t.User)
                .HasForeignKey(t => t.UserId)
                .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
-
-        // Additional Properties
-        builder.Property(u => u.UserName).IsRequired().HasMaxLength(100);
     });
 }
 

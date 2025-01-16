@@ -18,7 +18,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             var appOption = provider.GetRequiredService<IAppOptions>();
             tenantService.TenantContextAccessor = context.GetMultiTenantContext<ShiftyTenantInfo>();
 
-            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("/AdminsPanel/"))
+            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("/Panel/"))
             {
                 await next(context);
                 return;

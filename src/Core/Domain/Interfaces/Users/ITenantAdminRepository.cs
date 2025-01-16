@@ -11,31 +11,12 @@ namespace Shifty.Domain.Interfaces.Users
     {
      
 
-        Task<bool> UserExists(string username, CancellationToken cancellationToken);
+        Task<bool> UserExists(string phoneNumber , CancellationToken cancellationToken);
 
         // Creates a new user asynchronously
-        Task<bool> CreateAsync(TenantAdmin user, string password, CancellationToken cancellationToken);
+        Task<TenantAdmin> CreateAsync(TenantAdmin user , string companyId , CancellationToken cancellationToken);
 
-        // Retrieves a user by username
-        Task<TenantAdmin> GetByUsernameAsync(string username, CancellationToken cancellationToken);
-        Task<TenantAdmin> GetByIdeAsync(Guid id, CancellationToken cancellationToken);
+        Task<TenantAdmin> GetByCompanyAsync(string companyId , CancellationToken cancellationToken);
 
-        // Updates the password of an existing user
-        Task UpdatePasswordAsync(string username, string newPassword, CancellationToken cancellationToken);
-
-        // Validates the password for a given username
-        bool ValidatePasswordAsync(TenantAdmin user, string password, CancellationToken cancellationToken);
-
-        // Updates an existing user's details
-        Task UpdateUserAsync(TenantAdmin user, CancellationToken cancellationToken);
-
-        // Deletes a user by username
-        Task DeleteUserAsync(string username, CancellationToken cancellationToken);
-
-
-
-        // Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken);
-        // Task<bool> ValidateRefreshTokenAsync(RefreshToken refreshToken, CancellationToken cancellationToken);
-        Task UpdateLastLoginDateAsync(TenantAdmin user, CancellationToken httpContextRequestAborted);
     }
 }

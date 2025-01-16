@@ -1,0 +1,60 @@
+﻿version: '3.9'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=8CCA6B60A3EF40A59128@6D2824C9AEDC
+      - MSSQL_PID=Developer
+      - MSSQL_BACKUP_DIR=/var/opt/mssql/backups
+      - MSSQL_LCID=1033
+      - TZ=Etc/UTC
+    ports:
+      - "5012:1433"
+    networks:
+      - app-network
+    volumes:
+      - ./data/mssql/backups:/var/opt/mssql/backups
+      - ./data/mssql/data:/var/opt/mssql/data
+      - ./data/mssql/log:/var/opt/mssql/log
+    restart: always
+
+  minio:
+    image: docker.io/bitnami/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    networks:
+      - app-network
+    volumes:
+      - ./data/minio:/data
+    environment:
+      - MINIO_ROOT_USER=AminShifty1382
+      - MINIO_ROOT_PASSWORD=AminShifty1382403
+        
+        
+  
+  webapi:
+    build:
+      dockerfile: src/Web/Api/Dockerfile
+    container_name: webapi
+    ports:
+      - "5010:5010"
+      - "5011:5011"
+    depends_on:
+      - sqlserver
+      - minio
+    networks:
+      - app-network
+    volumes:
+      - /Data:/app/data
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  minio-data:

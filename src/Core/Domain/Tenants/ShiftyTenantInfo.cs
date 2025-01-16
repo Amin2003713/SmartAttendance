@@ -11,19 +11,26 @@ namespace Shifty.Domain.Tenants;
 public class ShiftyTenantInfo : ITenantInfo
 {
     public string? Id { get; set; } = Guid.CreateVersion7().ToString();
-    public string? Identifier { get; set; }
-    public string? Name { get; set; } 
-    public string NationalId { get; set; } 
-    public string RegistrationNumber { get; set; } 
-    public string EconomicCode { get; set; } 
-    public string Address { get; set; } 
-    public string PostalCode { get; set; } 
-    public string PhoneNumber { get; set; } 
-    public string Email { get; set; }
+    public  string? Identifier { get; set; }
+    public string? Name { get; set; }
+
+    public string? LandLine { get; set; } = null!;
+
+    public string Address { get; set; }
     public Guid UserId { get; set; }
     public TenantAdmin? User { get; set; } = null!;
     public List<Payments>? Payments { get; set; } = [];
 
+
     public string GetConnectionString() 
         => $"Server={ApplicationConstant.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.MultipleActiveResultSets};{ApplicationConstant.Encrypt};{ApplicationConstant.UserNameAndPass}";
 }
+
+public class Logo
+{
+    public Guid Id { get; set; }
+    public string? Value { get; set; }
+    public DateTime CreateAt { get; set; }
+    public Guid CompanyId { get; set; }
+}
+

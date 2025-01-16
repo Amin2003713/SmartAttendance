@@ -66,7 +66,7 @@ public static class DependencyInjection
         services.AddHttpContextAccessor();
         services.AddCustomIdentity();
         services.AddJwtAuthentication(siteSettings.JwtSettings);
-        services.AddCleanArchControllers();
+        services.AddServiceControllers();
         services.AddPolyCache(configuration);
 
         // services.AddHealthChecks()
@@ -287,7 +287,6 @@ public static class DependencyInjection
                                    }).AddJwtBearer(options =>
                                                    {
                                                        var secretKey     = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
-                                                       var encryptionKey = Encoding.UTF8.GetBytes(jwtSettings.EncryptKey);
 
                                                        var validationParameters = new TokenValidationParameters
                                                        {
@@ -305,8 +304,6 @@ public static class DependencyInjection
 
                                                            ValidateIssuer = true, //default : false
                                                            ValidIssuer = jwtSettings.Issuer,
-
-                                                           // TokenDecryptionKey = new SymmetricSecurityKey(encryptionKey)
                                                        };
 
                                                        options.RequireHttpsMetadata = false;
@@ -322,13 +319,7 @@ public static class DependencyInjection
 
                                                                                         return Task.CompletedTask;
                                                                                     },
-                                                           OnTokenValidated = async context =>
-                                                                              {
-                                                                                  if (context.Request.Path.Value!.Contains("/AdminsPanel/"))
-                                                                                      await AddLoginRecordForAdmins(context);
-                                                                                  else
-                                                                                    await AddLoginRecordForUsers(context);
-                                                                              },
+                                                           OnTokenValidated = async context => await AddLoginRecordForUsers(context) ,
                                                            OnChallenge = context =>
                                                                          {
                                                                              if (context.AuthenticateFailure != null)
@@ -337,35 +328,6 @@ public static class DependencyInjection
                                                                          }
                                                        };
                                                    });
-    }
-
-    private static async Task AddLoginRecordForAdmins(TokenValidatedContext context)
-    {
-        var userRepository = context.HttpContext.RequestServices.GetRequiredService<ITenantAdminRepository>();
-
-        var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
-        if (claimsIdentity?.Claims.Any() != true)
-            context.Fail("This token has no claims.");
-
-        //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
-        //if (!securityStamp.HasValue())
-        //    context.Fail("This token has no security stamp");
-
-        //Find user and token from database and perform your custom validation
-        var userId = Guid.Parse(claimsIdentity.GetUserId<string>());
-        var user   = await userRepository.GetByIdeAsync(userId , context.HttpContext.RequestAborted);
-
-        //if (user.SecurityStamp != Guid.Parse(securityStamp))
-        //    context.Fail("Token security stamp is not valid.");
-
-        //var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
-        //if (validatedUser == null)
-        //    context.Fail("Token security stamp is not valid.");
-
-        if (!user.IsActive)
-            context.Fail("User is not active.");
-
-        await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
     }
 
     private static async Task AddLoginRecordForUsers(TokenValidatedContext context)
@@ -397,7 +359,7 @@ public static class DependencyInjection
         await userRepository.UpdateLastLoginDateAsync(user, context.HttpContext.RequestAborted);
     }
 
-    public static void AddCleanArchControllers(this IServiceCollection services)
+    private static void AddServiceControllers(this IServiceCollection services)
     {
         services.AddControllers(options =>
                                 {
@@ -408,7 +370,7 @@ public static class DependencyInjection
         services.AddCors();
     }
 
-    public static void AddCustomIdentity(this IServiceCollection services)
+    private static void AddCustomIdentity(this IServiceCollection services)
     {
         services.AddIdentity<User, Role>(identityOptions =>
                                          {
@@ -424,6 +386,10 @@ public static class DependencyInjection
 
                                              identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
+                                             identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
+                                             identityOptions.Lockout.MaxFailedAccessAttempts    = 10;
+                                             identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                                             identityOptions.Lockout.AllowedForNewUsers = true;
                                          })
                 .AddEntityFrameworkStores<WriteOnlyDbContext>().
                 AddTokenProvider<PhoneNumberTokenProvider<User>>(ApplicationConstant.CodeGenerator)
