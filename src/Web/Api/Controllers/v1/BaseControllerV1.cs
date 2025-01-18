@@ -1,6 +1,8 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Shifty.ApiFramework.Tools;
 using Shifty.Domain.Tenants;
 
 namespace Shifty.Api.Controllers.v1
@@ -15,6 +17,7 @@ namespace Shifty.Api.Controllers.v1
     [ValidateModelState]
     [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status400BadRequest)]
     public class BaseControllerV1() : ControllerBase
     {
   
