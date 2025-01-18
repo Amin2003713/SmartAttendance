@@ -46,10 +46,10 @@ services:
     networks:
       - app-network
     environment:
-      - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
-      - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
-      - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
-    
+    - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
+    - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
+    - DASHBOARD__OTLP__AUTHMODE=ApiKey
+    - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
     restart: unless-stopped
   
   # Shifty API
@@ -63,9 +63,7 @@ services:
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
-      - prometheus
-      - grafana
-      - otel-collector
+      - shiftyAspireService
     networks:
       - app-network
     volumes:
