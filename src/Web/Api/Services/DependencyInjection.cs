@@ -89,9 +89,7 @@ public static class DependencyInjection
                 .WithHeaderStrategy()// Use host strategy to extract tenant info
                 .WithEFCoreStore<TenantDbContext, ShiftyTenantInfo>();
 
-        services.AddServiceDefaults();
-        services.AddDefaultHealthChecks(appOptions);
-
+        services.AddAspire();
         return services;
     }
 
@@ -109,6 +107,8 @@ public static class DependencyInjection
 
         app.UseMultiTenant();
         app.UseMiddleware<TenantValidationMiddleware>(); // Add this before your endpoints
+
+
 
         app.UseAppSwagger(configuration);
         app.UseStaticFiles();
@@ -135,8 +135,6 @@ public static class DependencyInjection
                              // });
                          });
 
-
-        app.UseDefaultEndpoints();
 
         return app;
     }
@@ -277,7 +275,7 @@ public static class DependencyInjection
     }
     #endregion
 
-    public static void AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
+    private static void AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings)
     {
         services.AddAuthentication(options =>
                                    {

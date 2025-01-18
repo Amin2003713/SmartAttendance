@@ -14,7 +14,10 @@ namespace Shifty.Domain.Tenants
         public List<ShiftyTenantInfo> Tenants { get; set; } = [];
         public DateTime RegisteredAt { get; set; }   = DateTime.Now;
 
-        public void AddCompany(ShiftyTenantInfo company) =>
+        public void AddCompany(ShiftyTenantInfo company)
+        {
+            company.UserId = this.Id;
             Tenants.Add(company);
+        }
     }
 }

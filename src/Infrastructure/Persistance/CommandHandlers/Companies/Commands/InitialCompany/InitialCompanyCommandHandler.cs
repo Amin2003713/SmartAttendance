@@ -25,10 +25,10 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             if (request is null)
                 throw new InvalidNullInputException(nameof(request));
 
+            var adminUser = await CreateAdminUser(request , cancellationToken);
 
-            var company = await InitialCompany(request , cancellationToken);
+            var company = await InitialCompany(request , adminUser.Id , cancellationToken);
 
-            var adminUser = await CreateAdminUser(request  , company , cancellationToken);
 
             if (!await MigrateDatabaseAsync(company , adminUser , cancellationToken))
                 throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't migrate database");
@@ -36,9 +36,9 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             return new CreatedResult();
         }
 
-        private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , ShiftyTenantInfo company , CancellationToken cancellationToken)
+        private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , CancellationToken cancellationToken)
         {
-            var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>() , company , cancellationToken);
+            var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>(), cancellationToken);
 
             if (tenantAdmin == null)
                 throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't create Admin User");
@@ -47,7 +47,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
         }
 
 
-        private async Task<ShiftyTenantInfo> InitialCompany(InitialCompanyCommand request , CancellationToken cancellationToken)
+        private async Task<ShiftyTenantInfo> InitialCompany(InitialCompanyCommand request , Guid userId , CancellationToken cancellationToken)
         {
             try
             {
@@ -56,8 +56,9 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
                     throw new ShiftyException(ApiResultStatusCode.BadRequest , validation.message);
 
                 var company = request.Adapt<ShiftyTenantInfo>();
+                company.UserId = userId;
 
-                var createResult = await repository.CreateAsync(company , cancellationToken , false);
+                var createResult = await repository.CreateAsync(company , cancellationToken);
 
                 if (createResult is null)
                     throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't create company Server error");

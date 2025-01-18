@@ -19,6 +19,6 @@ public static class ApplicationConstant
     public const string MinioAccessKey        = "DwCnnRFdBHjVgNCFWZM8";
     public const string MinioSecretKey        = "xqLBtGiy9sqnwSgZboADOqJ6MP6nBowbnB35bbKA";
     public const string ApplicationName       = "Shifty";
-    public const string OpenTelemetryEndpoint = "http://otel-collector:4317";
-    public const string ApplicationMetrics    = $"{ApplicationName}.metrics";
+    public const string OpenTelemetryEndpoint = "http://shiftyAspireService:18888";
+    
 }
