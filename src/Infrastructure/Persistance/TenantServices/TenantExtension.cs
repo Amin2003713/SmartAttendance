@@ -18,28 +18,28 @@ public class TenantExtension : IScopedDependency , ITenantServiceExtension
     public IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
 
     public string GetConnectionString() =>
-        TenantContextAccessor?.TenantInfo!.GetConnectionString()!;
+        TenantContextAccessor?.TenantInfo?.GetConnectionString()! ?? null!;
 
     public string GetName() =>
-        TenantContextAccessor?.TenantInfo!.Name!;
+        TenantContextAccessor?.TenantInfo?.Name! ?? null!;
 
     public string? GetId() =>
-        TenantContextAccessor?.TenantInfo!.Id!;
+        TenantContextAccessor?.TenantInfo?.Id ?? null;
 
     public string GetIdentifier() =>
-        TenantContextAccessor?.TenantInfo!.Identifier!;
+        TenantContextAccessor?.TenantInfo?.Identifier! ?? null!;
 
     public Guid GetOwnerId() =>
-        (Guid)TenantContextAccessor?.TenantInfo!.UserId!;
+        (Guid)TenantContextAccessor?.TenantInfo?.UserId!;
 
     public string GetDomain() =>
-        TenantContextAccessor?.TenantInfo!.Identifier!;
+        TenantContextAccessor?.TenantInfo?.Identifier! ?? null!;
     
     public ShiftyTenantInfo GetTenantInfo() =>
-        TenantContextAccessor?.TenantInfo!;
+        TenantContextAccessor?.TenantInfo ?? null!;
 
 
     private string GetTenantIdFromRequest() =>
-        TenantContextAccessor?.TenantInfo!.Name!;
+        TenantContextAccessor?.TenantInfo?.Name! ?? null!;
 }
 

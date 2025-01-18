@@ -64,6 +64,11 @@ namespace Shifty.Persistence.Repositories.Common
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
+        public Task<TEntity> GetSingle(Expression<Func<TEntity , bool>> prediction , CancellationToken cancellationToken)
+        {
+            return Entities.SingleOrDefaultAsync(prediction , cancellationToken);
+        }
+
         public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));

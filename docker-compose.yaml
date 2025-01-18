@@ -51,15 +51,17 @@ services:
     - DASHBOARD__OTLP__AUTHMODE=ApiKey
     - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
     restart: unless-stopped
-  
+           #shiftybacj.ir 
   # Shifty API
   shiftyApi:
     build:
       dockerfile: src/Web/Api/Dockerfile
     container_name: shiftyApi
     ports:
-      - "5011:443"
-      - "5010:8080"
+      - "192.168.10.155:5011:443"
+      - "192.168.10.155:5010:8080"
+      - "5021:443"
+      - "5020:8080"
     depends_on:
       - sqlserver
       - shiftyMinioFileDb

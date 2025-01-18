@@ -43,7 +43,6 @@ public static class AspireExtensions
 
                                  builder.AddOtlpExporter(option =>
                                                          {
-                                                             option.Endpoint = new Uri("http://shiftyAspireService:4317");
                                                              option.Headers  = $"x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
                                                          });
                              }).
@@ -53,7 +52,6 @@ public static class AspireExtensions
 
                                  builder.AddOtlpExporter(option =>
                                                          {
-                                                             option.Endpoint = new Uri("http://shiftyAspireService:4317");
                                                              option.Headers  = $"x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
                                                          });
                              });
@@ -65,7 +63,6 @@ public static class AspireExtensions
                                                                 {
                                                                     options.AddOtlpExporter(option =>
                                                                                             {
-                                                                                                option.Endpoint = new Uri("http://shiftyAspireService:4317");
                                                                                                 option.Headers =
                                                                                                     "x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
                                                                                             });

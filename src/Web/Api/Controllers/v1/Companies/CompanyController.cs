@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shifty.ApiFramework.Tools;
 using Shifty.Application.Companies.Command.InitialCompany;
+using Shifty.Application.Companies.Queries.CheckDomain;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Application.Companies.Requests;
 using Shifty.Domain.Tenants;
@@ -41,41 +42,29 @@ public class CompanyController(IMultiTenantContextAccessor<ShiftyTenantInfo> acc
         await Mediator.Send(request.Adapt<InitialCompanyCommand>() , cancellationToken);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     /// <summary>
     /// Retrieves detailed information about a company by its identifier.
     /// </summary>
-    /// <param name="request">The unique identifier of the company.</param>
+    /// <param name="domain">The unique identifier of the company.</param>
     /// <returns>The response containing the company's detailed information.</returns>
     /// <response code="200">Returns the company's detailed information.</response>
     /// <response code="400">If the request is invalid (e.g., the identifier is missing or incorrect).</response>
     /// <response code="404">If the company with the specified identifier is not found.</response>
-    [HttpGet("Get_Info/{request}")]
+    [HttpGet("Get_Info")]
     [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
     [ProducesResponseType(typeof(GetCompanyInfoResponse) , StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedResult) ,           StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(BadRequestResult) ,       StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(NotFoundResult) ,         StatusCodes.Status404NotFound)]
-    public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo(string request , CancellationToken cancellationToken) =>
-        await Mediator.Send(new GetCompanyInfoQuery(request) , cancellationToken);
+    public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo([FromQuery]string domain , CancellationToken cancellationToken) =>
+        await Mediator.Send(new GetCompanyInfoQuery(domain) , cancellationToken);
 
 
     
-        [HttpGet("Panel/Check_Domain/{domain}")]
+        [HttpGet("Panel/Check_Domain")]
         [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(CheckDomainResponse) , StatusCodes.Status200OK)]
-        public virtual async Task<CheckDomainResponse> CheckDomain(string domain , CancellationToken cancellationToken) =>
+        public virtual async Task<CheckDomainResponse> CheckDomain([FromQuery]string domain , CancellationToken cancellationToken) =>
             await Mediator.Send(new CheckDomainQuery(domain) , cancellationToken);
 }

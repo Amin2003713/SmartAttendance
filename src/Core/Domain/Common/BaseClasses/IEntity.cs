@@ -6,15 +6,17 @@ namespace Shifty.Domain.Common.BaseClasses
     {
         bool IsActive { get; set; }
 
-        Guid CreatedBy { get; set; }
+        Guid? CreatedBy { get; set; }
         DateTime CreatedAt { get; set; }
 
         Guid? ModifiedBy { get; set; }
-        DateTime ModifiedAt { get; set; }
+        DateTime? ModifiedAt { get; set; }
 
         Guid? DeletedBy { get; set; }
         DateTime? DeletedAt { get; set; }
 
         Guid Id { get; set; }
     }
+
+
 }

@@ -134,7 +134,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CreatedBy")
+                    b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -149,7 +149,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -223,7 +223,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CreatedBy")
+                    b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -274,7 +274,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedBy")

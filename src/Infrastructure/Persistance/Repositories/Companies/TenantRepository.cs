@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Shifty.Application.Common;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
@@ -12,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.Repositories.Tenants
+namespace Shifty.Persistence.Repositories.Companies
 {
     public class CompanyRepository : ICompanyRepository , IScopedDependency
     {

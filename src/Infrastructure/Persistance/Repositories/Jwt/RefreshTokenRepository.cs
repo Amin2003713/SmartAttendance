@@ -32,7 +32,7 @@ namespace Shifty.Persistence.Repositories.Jwt
         {
             var result = await TableNoTracking.SingleOrDefaultAsync(x => x.UserId == refreshToken.UserId, cancellationToken);
             if (result == null || result.Token != refreshToken.Token)
-                throw new ShiftyException("RefreshToken is not valid");
+                throw new ShiftyException( ApiResultStatusCode.BadRequest, "RefreshToken is not valid");
             return true;
         }
     }

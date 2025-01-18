@@ -10,7 +10,7 @@ namespace Shifty.Common.Exceptions
         public ValidationException()
             : base("One or more validation failures have occurred.")
         {
-            Errors = new Dictionary<string, string[]>();
+            Errors = new Dictionary<string , List<string>>();
         }
 
         public ValidationException(IEnumerable<ValidationFailure> failures)
@@ -22,12 +22,12 @@ namespace Shifty.Common.Exceptions
             foreach (var failureGroup in failureGroups)
             {
                 var propertyName = failureGroup.Key;
-                var propertyFailures = failureGroup.ToArray();
+                var propertyFailures = failureGroup.ToList();
 
                 Errors.Add(propertyName, propertyFailures);
             }
         }
 
-        public IDictionary<string, string[]> Errors { get; }
+        public Dictionary<string , List<string>> Errors { get; }
     }
 }

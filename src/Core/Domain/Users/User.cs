@@ -8,6 +8,7 @@ namespace Shifty.Domain.Users
 {
     public class User : IdentityUser<Guid>, IEntity
     {
+        public override Guid Id { get; set; } =Guid.CreateVersion7(DateTimeOffset.Now);
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -32,40 +33,28 @@ namespace Shifty.Domain.Users
 
         public string? HardwareId { get; set; } = null!;
 
-
-        public bool IsActive { get; set; } = false;
-
-        public Guid CreatedBy { get; set; } 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        public Guid? ModifiedBy { get; set; }
-        public DateTime ModifiedAt { get; set; }
-
-        public Guid? DeletedBy { get; set; }
-        public DateTime? DeletedAt { get; set; }
         public DateTime LastLoginDate { get; set; }
 
-        // [ForeignKey(nameof(Department))]
-        // public Guid? DepartmentId { get; set; }
+        public bool IsActive { get; set; } = true;
+        public Guid? CreatedBy { get; set; } = null;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public Guid? ModifiedBy { get; set; } = null;
+        public DateTime? ModifiedAt { get; set; } = null!;
+        public Guid? DeletedBy { get; set; } = null!;
+        public DateTime? DeletedAt { get; set; } = null!;
 
-        // public virtual Department Department { get; set; }
-        //
-        // // Relationships
-        // public virtual ICollection<UserRole> UserRoles { get; set; }
-        // public virtual ICollection<MissionUser> MissionAssignments { get; set; }
-        // public virtual ICollection<Record> Records { get; set; }
-        // public virtual ICollection<MissionRecord> MissionRecords { get; set; }
-        // public virtual ICollection<Leave> LeaveRequests { get; set; }
-        // public virtual ICollection<Department> ManagedDepartments { get; set; }
-        // public virtual ICollection<MessageUser> MessageRecipients { get; set; }
-        // public virtual ICollection<Message> SentMessages { get; set; }
-        // public virtual ICollection<Payslip> Payslips { get; set; }
 
 
 
         public void SetUserName() => UserName = PhoneNumber;
 
-        public void SetPasswordHash(string hashPassword) =>
+        public void SetPasswordHash(string hashPassword)
+        {
+            UserName = PhoneNumber;
+            NormalizedUserName = PhoneNumber!.ToUpper();
+            SecurityStamp = Guid.NewGuid().ToString();
+            ConcurrencyStamp = Guid.NewGuid().ToString();
             PasswordHash = hashPassword;
+        }
     }
 }

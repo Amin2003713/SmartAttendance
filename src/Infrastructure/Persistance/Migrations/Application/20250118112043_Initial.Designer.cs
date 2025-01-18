@@ -12,7 +12,7 @@ using Shifty.Persistence.Db;
 namespace Shifty.Persistence.Migrations.Application
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241221075601_Initial")]
+    [Migration("20250118112043_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -137,7 +137,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CreatedBy")
+                    b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -152,7 +152,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -217,7 +217,6 @@ namespace Shifty.Persistence.Migrations.Application
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -227,7 +226,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CreatedBy")
+                    b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -247,7 +246,6 @@ namespace Shifty.Persistence.Migrations.Application
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FatherName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -256,6 +254,9 @@ namespace Shifty.Persistence.Migrations.Application
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<string>("HardwareId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -276,14 +277,13 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NationalCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -310,9 +310,6 @@ namespace Shifty.Persistence.Migrations.Application
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SimSerialNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")

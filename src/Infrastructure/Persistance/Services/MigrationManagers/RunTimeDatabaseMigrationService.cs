@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Common.General;
 using Shifty.Common.Utilities;
+using Shifty.Domain.Constants;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
@@ -16,13 +17,21 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Services.MigrationManagers
 {
-    public class RunTimeDatabaseMigrationService(IServiceProvider services, IConfiguration configuration , Seeder.Seeder seeder , IPasswordHasher<User> passwordHasher)
+    public class RunTimeDatabaseMigrationService(
+        IServiceProvider services
+        , IConfiguration configuration
+        , Seeder.Seeder seeder
+        , IPasswordHasher<User> passwordHasher
+        , UserManager<User> userManager)
     {
-        public async Task<bool> MigrateTenantDatabasesAsync(string connectionString, TenantAdmin adminUser , CancellationToken cancellationToken)
+        public IConfiguration Configuration { get; } = configuration;
+
+        public async Task<string> MigrateTenantDatabasesAsync(string connectionString, TenantAdmin adminUser , CancellationToken cancellationToken)
         {
             try
             {
                 ArgumentNullException.ThrowIfNull(connectionString);
+
 
                 using var scopeTenant     = services.CreateScope();
 
@@ -33,7 +42,7 @@ namespace Shifty.Persistence.Services.MigrationManagers
                     // await dbContext.Database.EnsureCreatedAsync();
 
                     if (!(await dbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
-                        return true;
+                        return null;
 
 
                     try
@@ -51,20 +60,22 @@ namespace Shifty.Persistence.Services.MigrationManagers
                         dbContext.Users.Add(user);
 
                         await dbContext.SaveChangesAsync(cancellationToken);
+
+                        return await GenerateCode(user);
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
-                        return false;
+                        return null;
                     }
                     finally
                     {
                         var adminRoles =await dbContext.Roles.FirstOrDefaultAsync(a=>a.Name == UserRoles.Admin.ToString(), cancellationToken: cancellationToken);
-                        if (adminRoles != null)
-                        {
-                            dbContext.UserRoles.Add(new IdentityUserRole<Guid>(){RoleId = adminRoles.Id, UserId = adminUser.Id});
-                            await dbContext.SaveChangesAsync(cancellationToken);
-                        }
+                        if (adminRoles == null)
+
+                        dbContext.UserRoles.Add(new IdentityUserRole<Guid>(){RoleId = adminRoles.Id, UserId = adminUser.Id});
+                        await dbContext.SaveChangesAsync(cancellationToken);
+
                     }
                     
             }
@@ -73,10 +84,13 @@ namespace Shifty.Persistence.Services.MigrationManagers
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"MigrationManagers Error: {e.Message}");
                 Console.ResetColor();
-                return false;
+                return null;
             }
+        }
 
-            return true;
+        private async Task<string> GenerateCode(User user)
+        {
+            return await userManager.GenerateTwoFactorTokenAsync(user , ApplicationConstant.CodeGenerator);
         }
     }
 }

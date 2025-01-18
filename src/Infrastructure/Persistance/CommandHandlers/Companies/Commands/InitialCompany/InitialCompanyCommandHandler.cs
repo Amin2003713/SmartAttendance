@@ -30,10 +30,9 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             var company = await InitialCompany(request , adminUser.Id , cancellationToken);
 
 
-            if (!await MigrateDatabaseAsync(company , adminUser , cancellationToken))
-                throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't migrate database");
+            var userCode = (await MigrateDatabaseAsync(company , adminUser , cancellationToken));
 
-            return new CreatedResult();
+            return new OkObjectResult(userCode);
         }
 
         private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , CancellationToken cancellationToken)
@@ -71,10 +70,8 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             }
         }
 
-        private async Task<bool> MigrateDatabaseAsync(ShiftyTenantInfo company , TenantAdmin adminUser , CancellationToken cancellationToken)
-        {
-            var connectionString = company.GetConnectionString();
-            return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(connectionString , adminUser , cancellationToken);
-        }
+        private async Task<string> MigrateDatabaseAsync(ShiftyTenantInfo company , TenantAdmin adminUser , CancellationToken cancellationToken) =>
+            (await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company.GetConnectionString() , adminUser , cancellationToken)) ??
+            throw new ShiftyException(ApiResultStatusCode.DataBaseError , $"Activation code sent error ");
     }
 }

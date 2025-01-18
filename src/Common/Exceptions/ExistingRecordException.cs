@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Shifty.Common.Exceptions
 {
@@ -23,5 +24,27 @@ namespace Shifty.Common.Exceptions
             : base($"Entity \"{name}\" ({key}) was not found.")
         {
         }
+    }
+
+    public class TenantParamsMissMatchException   : Exception
+    {
+        public TenantParamsMissMatchException()
+            : base("One or more tenant parameters are missing.")
+        {
+            Errors = new Dictionary<string , string[]>();
+        }
+
+        public TenantParamsMissMatchException(string message)
+            : base(message)
+        {
+        }
+
+        public TenantParamsMissMatchException(string message , Exception innerException)
+            : base(message , innerException)
+        {
+        }
+
+        public IDictionary<string , string[]> Errors { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Shifty.Application.Companies.Queries.CheckDomain;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;

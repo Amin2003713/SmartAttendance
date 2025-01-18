@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Shifty.Application.Users.Command.CreateUser.Employee;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
+using Shifty.Common.Utilities;
 using Shifty.Domain.Users;
 using Shifty.Domain.Users.Exceptions;
 using Shifty.Persistence.Services.Seeder;
@@ -22,7 +23,7 @@ public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seed
         var user = request.Adapt<User>();
 
         user.SetUserName();
-        var createUserResult = await userManager.CreateAsync(user, request.PhoneNumber);
+        var createUserResult = await userManager.CreateAsync(user, PasswordGenerator.GeneratePassword());
 
         foreach (var role in request.RolesList)
         {

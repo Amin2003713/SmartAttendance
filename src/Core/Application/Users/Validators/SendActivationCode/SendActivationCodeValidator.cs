@@ -7,6 +7,6 @@ namespace Shifty.Application.Users.Validators.SendActivationCode
     {
 
         public SendActivationCodeValidator() =>
-            RuleFor(a=>a.UserId).NotEmpty().WithMessage("UserId cannot be empty");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
     }
 }

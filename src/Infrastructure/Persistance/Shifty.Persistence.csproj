@@ -33,8 +33,4 @@
         <ProjectReference Include="..\..\Core\Domain\Shifty.Domain.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Migrations\Application\" />
-    </ItemGroup>
-
 </Project>

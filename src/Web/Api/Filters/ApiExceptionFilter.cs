@@ -1,7 +1,6 @@
 ﻿using Shifty.ApiFramework.Tools;
 using Shifty.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -12,12 +11,10 @@ namespace Shifty.Api.Filters
 {
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {
-
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
         public ApiExceptionFilter()
         {
-            // Register known exception types and handlers.
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
                 { typeof(ValidationException), HandleValidationException },
@@ -30,14 +27,13 @@ namespace Shifty.Api.Filters
         public override void OnException(ExceptionContext context)
         {
             HandleException(context);
-
             base.OnException(context);
         }
 
         private void HandleException(ExceptionContext context)
         {
             var type = context.Exception.GetType();
-            if (_exceptionHandlers.TryGetValue(type , out var handler))
+            if (_exceptionHandlers.TryGetValue(type, out var handler))
             {
                 handler.Invoke(context);
                 return;
@@ -48,12 +44,17 @@ namespace Shifty.Api.Filters
 
         private void HandleUnknownException(ExceptionContext context)
         {
-            context.Result = new ObjectResult(new ApiProblemDetails()
+            var problemDetails = new ApiProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
-                Title = context.Exception.Source,
+                Title = "Internal Server Error",
                 Detail = context.Exception.Message,
-            });
+            };
+
+            context.Result = new ObjectResult(problemDetails)
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+            };
 
             context.ExceptionHandled = true;
         }
@@ -62,16 +63,15 @@ namespace Shifty.Api.Filters
         {
             if (context.Exception is ValidationException exception)
             {
-                // Flatten the validation errors into a list of strings
-                var errorList = exception.Errors.Values.SelectMany(errors => errors).ToList();
-
-                // Set the result to a BadRequestObjectResult
-                context.Result = new BadRequestObjectResult(new
+                var problemDetails = new ApiProblemDetails
                 {
-                    Message = "Validation failed" , Errors = errorList ,
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation failed",
+                    Detail = "One or more validation errors occurred.",
+                    Errors = exception.Errors
+                };
 
-                });
-
+                context.Result = new BadRequestObjectResult(problemDetails);
                 context.ExceptionHandled = true;
             }
         }
@@ -79,18 +79,30 @@ namespace Shifty.Api.Filters
         private void HandleNotFoundException(ExceptionContext context)
         {
             var exception = context.Exception as NotFoundException;
+            var problemDetails = new ApiProblemDetails
+            {
+                Status = StatusCodes.Status404NotFound,
+                Title = "Not Found",
+                Detail = exception?.Message ?? "The specified resource was not found."
+            };
 
-            context.Result = new NotFoundObjectResult(exception?.Message);
-            
+            context.Result = new NotFoundObjectResult(problemDetails);
             context.ExceptionHandled = true;
         }
+
         private void HandleExistingRecordException(ExceptionContext context)
         {
             var exception = context.Exception as ExistingRecordException;
-
-            context.Result = new ObjectResult(exception?.Message)
+            var problemDetails = new ApiProblemDetails
             {
-                StatusCode = StatusCodes.Status500InternalServerError ,
+                Status = StatusCodes.Status409Conflict,
+                Title = "Conflict",
+                Detail = exception?.Message ?? "An existing record conflict occurred."
+            };
+
+            context.Result = new ObjectResult(problemDetails)
+            {
+                StatusCode = StatusCodes.Status409Conflict,
             };
 
             context.ExceptionHandled = true;
