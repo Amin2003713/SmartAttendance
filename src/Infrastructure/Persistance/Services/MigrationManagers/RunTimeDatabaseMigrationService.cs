@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Common.General;
+using Shifty.Common.Utilities;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
@@ -45,7 +46,7 @@ namespace Shifty.Persistence.Services.MigrationManagers
 
                         var user = adminUser.Adapt<User>();
 
-                        user.SetPasswordHash(passwordHasher.HashPassword(user, user.PhoneNumber!)) ;
+                        user.SetPasswordHash(passwordHasher.HashPassword(user, PasswordGenerator.GeneratePassword())) ;
 
                         dbContext.Users.Add(user);
 

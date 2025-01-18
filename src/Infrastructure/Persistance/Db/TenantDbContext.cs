@@ -26,12 +26,6 @@ public class TenantDbContext(DbContextOptions<TenantDbContext> options) : EFCore
         // Primary Key
         builder.HasKey(t => t.Id);
 
-        // Relationships
-        builder.HasOne(t => t.User)
-               .WithMany(u => u.Tenants)
-               .HasForeignKey(t => t.UserId)
-               .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
-
 
         builder.HasMany(t => t.Payments)
                .WithOne(p => p.ShiftyTenantInfo)

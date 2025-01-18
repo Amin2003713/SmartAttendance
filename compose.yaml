@@ -1,6 +1,6 @@
 ﻿version: '3.9'
-
 services:
+  # SQL Server
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04
     container_name: sqlserver
@@ -12,21 +12,21 @@ services:
       - MSSQL_LCID=1033
       - TZ=Etc/UTC
     ports:
-      - "5012:1433"
+      - "127.0.0.1:5012:1433"  # Bind only to host's loopback interface
     networks:
       - app-network
     volumes:
       - ./data/mssql/backups:/var/opt/mssql/backups
       - ./data/mssql/data:/var/opt/mssql/data
       - ./data/mssql/log:/var/opt/mssql/log
-    restart: always
-
+    restart: unless-stopped
+  # MinIO File Storage
   shiftyMinioFileDb:
     container_name: shiftyMinioFileDb
     image: docker.io/bitnami/minio
     ports:
-      - '9000:9000'
-      - '9001:9001'
+      - '127.0.0.1:9000:9000'  # Bind only to host's loopback interface
+      - '127.0.0.1:9001:9001'
     networks:
       - app-network
     volumes:
@@ -34,40 +34,42 @@ services:
     environment:
       - MINIO_ROOT_USER=AminShifty1382
       - MINIO_ROOT_PASSWORD=AminShifty1382403
-        
+    restart: unless-stopped
     
-  shiftyAspireService:
-      image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard
-      container_name: shiftyAspireService
-      ports:
-        - "18888:18888"
-        - "4317:18889"
-      networks:
-        - app-network
-      environment:
-        - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
-        - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
-        - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
-
-      restart: unless-stopped      
   
+  shiftyAspireService:
+    image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard
+    container_name: shiftyAspireService
+    ports:
+      - "18888:18888"
+      - "4317:18889"
+    networks:
+      - app-network
+    environment:
+      - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
+      - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
+      - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
+    
+    restart: unless-stopped
+  
+  # Shifty API
   shiftyApi:
     build:
       dockerfile: src/Web/Api/Dockerfile
     container_name: shiftyApi
-    environment:
-      - DOTNET_USE_POLLING_FILE_WATCHER=1
     ports:
       - "5011:443"
       - "5010:8080"
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
-      - shiftyAspireService
+      - prometheus
+      - grafana
+      - otel-collector
     networks:
       - app-network
     volumes:
-      - ./data/Web:/app/src
+      - ./data/Web/app:/app
     restart: always
 
 networks:

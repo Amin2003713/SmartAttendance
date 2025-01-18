@@ -15,6 +15,10 @@ namespace Shifty.Common.Utilities
         // Generate a random password
         public static string GeneratePassword(int length = 8)
         {
+#if DEBUG
+            return "@Shifty403";
+#endif
+
             if (length < 8)
             {
                 throw new ArgumentException("Password length must be at least 8 characters.");

@@ -6,5 +6,6 @@ namespace Shifty.Domain.Users
     {
         [Display(  Name = "مرد")] Male = 1
         , [Display(Name = "زن")] Female = 2
+        , [Display(Name = "انتخواب نشده")] UnDefine = 3
     }
 }

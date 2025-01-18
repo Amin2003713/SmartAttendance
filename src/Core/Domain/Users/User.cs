@@ -12,14 +12,14 @@ namespace Shifty.Domain.Users
 
         public string LastName { get; set; }
 
-        public string FatherName { get; set; }
-        public string NationalCode { get; set; }
+        public string? FatherName { get; set; } = null!;
+        public string? NationalCode { get; set; } = null!;
 
 
-        public GenderType Gender { get; set; }
+        public GenderType Gender { get; set; } = GenderType.UnDefine;
 
 
-        public bool IsTeamLeader { get; set; }
+        public bool IsTeamLeader { get; set; } = false;
 
 
         public string? EmployeeId { get; set; } = null!;
@@ -28,15 +28,15 @@ namespace Shifty.Domain.Users
 
         public string? NotificationToken { get; set; } = null!;
 
-        public string Address { get; set; }
+        public string? Address { get; set; } = null!;
 
         public string? HardwareId { get; set; } = null!;
 
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = false;
 
-        public Guid CreatedBy { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public Guid CreatedBy { get; set; } 
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public Guid? ModifiedBy { get; set; }
         public DateTime ModifiedAt { get; set; }
@@ -63,7 +63,7 @@ namespace Shifty.Domain.Users
 
 
 
-        public void SetUserName() => UserName = NationalCode;
+        public void SetUserName() => UserName = PhoneNumber;
 
         public void SetPasswordHash(string hashPassword) =>
             PasswordHash = hashPassword;
