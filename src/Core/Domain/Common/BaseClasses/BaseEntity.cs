@@ -2,9 +2,8 @@
 
 namespace Shifty.Domain.Common.BaseClasses
 {
-    public  class BaseEntity : IEntity
+    public class BaseEntity : IEntity
     {
-      
         public bool IsActive { get; set; } = true;
         public Guid? CreatedBy { get; set; } = null;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
@@ -14,5 +13,4 @@ namespace Shifty.Domain.Common.BaseClasses
         public DateTime? DeletedAt { get; set; } = null!;
         public Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
     }
-   
 }

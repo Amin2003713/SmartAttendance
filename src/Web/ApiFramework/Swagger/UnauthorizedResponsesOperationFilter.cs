@@ -1,23 +1,26 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using FluentValidation.Validators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Shifty.ApiFramework.Swagger
 {
     public class UnauthorizedResponsesOperationFilter : IOperationFilter
     {
-        private readonly bool includeUnauthorizedAndForbiddenResponses;
+        private readonly bool   includeUnauthorizedAndForbiddenResponses;
         private readonly string schemeName;
 
-        public UnauthorizedResponsesOperationFilter(bool includeUnauthorizedAndForbiddenResponses, string schemeName = "Bearer")
+        public UnauthorizedResponsesOperationFilter(bool includeUnauthorizedAndForbiddenResponses , string schemeName = "Bearer")
         {
             this.includeUnauthorizedAndForbiddenResponses = includeUnauthorizedAndForbiddenResponses;
-            this.schemeName = schemeName;
+            this.schemeName                               = schemeName;
         }
 
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation , OperationFilterContext context)
         {
             var filters = context.ApiDescription.ActionDescriptor.FilterDescriptors;
             var metadta = context.ApiDescription.ActionDescriptor.EndpointMetadata;
@@ -30,9 +33,19 @@ namespace Shifty.ApiFramework.Swagger
 
             if (includeUnauthorizedAndForbiddenResponses)
             {
-                operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
-                operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
+                operation.Responses.TryAdd("401"
+                    , new OpenApiResponse
+                    {
+                        Description = "Unauthorized" ,
+                    });
+                operation.Responses.TryAdd("403"
+                    , new OpenApiResponse
+                    {
+                        Description = "Forbidden" ,
+                    });
             }
         }
     }
 }
+
+

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Shifty.Application.Users.Command.SendActivationCode
+namespace Shifty.Application.Users.Queries.SendActivationCode
 {
-    public class SendActivationCodeResponse
+    public class SendActivationCodeQueryResponse
     {
         public TimeSpan SentDateTime { get; set; } = TimeSpan.FromSeconds(120);
         public bool Success { get; set; }

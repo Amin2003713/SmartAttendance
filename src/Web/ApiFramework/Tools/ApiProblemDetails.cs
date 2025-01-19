@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Shifty.ApiFramework.Tools;
-
-public class ApiProblemDetails
+namespace Shifty.ApiFramework.Tools
 {
-    public string Title { get; set; }
-    public int Status { get; set; }
-    public string Detail { get; set; }
-    public Dictionary<string , List<string>> Errors { get; set; } = null!;
+    public class ApiProblemDetails
+    {
+        public string Title { get; set; }
+        public int Status { get; set; }
+        public string Detail { get; set; }
+        public Dictionary<string , List<string>> Errors { get; set; } = null!;
+    }
 }

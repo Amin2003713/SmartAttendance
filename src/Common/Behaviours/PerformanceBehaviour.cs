@@ -1,14 +1,15 @@
-﻿namespace Shifty.Common.Behaviours
+﻿using MediatR;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace Shifty.Common.Behaviours
 {
-    using MediatR;
-    using Microsoft.Extensions.Logging;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
-    public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    public class PerformanceBehaviour<TRequest , TResponse> : IPipelineBehavior<TRequest , TResponse> where TRequest : IRequest<TResponse>
     {
-        private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
+        private readonly Stopwatch         _timer;
 
         public PerformanceBehaviour(ILogger<TRequest> logger)
         {
@@ -17,7 +18,7 @@
             _logger = logger;
         }
 
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request , RequestHandlerDelegate<TResponse> next , CancellationToken cancellationToken)
         {
             _timer.Start();
 
@@ -31,7 +32,7 @@
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogWarning("Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", requestName, elapsedMilliseconds, request);
+                _logger.LogWarning("Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}" , requestName , elapsedMilliseconds , request);
             }
 
             return response;

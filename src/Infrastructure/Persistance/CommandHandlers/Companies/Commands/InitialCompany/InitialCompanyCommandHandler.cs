@@ -18,9 +18,9 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
         ICompanyRepository repository
         , ITenantAdminRepository tenantAdminRepository
         , RunTimeDatabaseMigrationService runTimeDatabaseMigrationService)
-        : IRequestHandler<InitialCompanyCommand , IActionResult>
+        : IRequestHandler<InitialCompanyCommand , string>
     {
-        public async Task<IActionResult> Handle(InitialCompanyCommand request , CancellationToken cancellationToken)
+        public async Task<string> Handle(InitialCompanyCommand request , CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new InvalidNullInputException(nameof(request));
@@ -30,14 +30,14 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             var company = await InitialCompany(request , adminUser.Id , cancellationToken);
 
 
-            var userCode = (await MigrateDatabaseAsync(company , adminUser , cancellationToken));
+            var userCode = await MigrateDatabaseAsync(company , adminUser , cancellationToken);
 
-            return new OkObjectResult(userCode);
+            return userCode;
         }
 
         private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , CancellationToken cancellationToken)
         {
-            var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>(), cancellationToken);
+            var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>() , cancellationToken);
 
             if (tenantAdmin == null)
                 throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't create Admin User");
@@ -70,8 +70,10 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             }
         }
 
-        private async Task<string> MigrateDatabaseAsync(ShiftyTenantInfo company , TenantAdmin adminUser , CancellationToken cancellationToken) =>
-            (await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company.GetConnectionString() , adminUser , cancellationToken)) ??
-            throw new ShiftyException(ApiResultStatusCode.DataBaseError , $"Activation code sent error ");
+        private async Task<string> MigrateDatabaseAsync(ShiftyTenantInfo company , TenantAdmin adminUser , CancellationToken cancellationToken)
+        {
+            return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company.GetConnectionString() , adminUser , cancellationToken) ??
+                   throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Activation code sent error ");
+        }
     }
 }

@@ -17,6 +17,4 @@ namespace Shifty.Domain.Common.BaseClasses
 
         Guid Id { get; set; }
     }
-
-
 }

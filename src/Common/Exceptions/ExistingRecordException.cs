@@ -6,7 +6,6 @@ namespace Shifty.Common.Exceptions
     public class ExistingRecordException : Exception
     {
         public ExistingRecordException()
-            : base()
         {
         }
 
@@ -15,18 +14,18 @@ namespace Shifty.Common.Exceptions
         {
         }
 
-        public ExistingRecordException(string message, Exception innerException)
-            : base(message, innerException)
+        public ExistingRecordException(string message , Exception innerException)
+            : base(message , innerException)
         {
         }
 
-        public ExistingRecordException(string name, object key)
+        public ExistingRecordException(string name , object key)
             : base($"Entity \"{name}\" ({key}) was not found.")
         {
         }
     }
 
-    public class TenantParamsMissMatchException   : Exception
+    public class TenantParamsMissMatchException : Exception
     {
         public TenantParamsMissMatchException()
             : base("One or more tenant parameters are missing.")
@@ -45,6 +44,5 @@ namespace Shifty.Common.Exceptions
         }
 
         public IDictionary<string , string[]> Errors { get; set; }
-
     }
 }

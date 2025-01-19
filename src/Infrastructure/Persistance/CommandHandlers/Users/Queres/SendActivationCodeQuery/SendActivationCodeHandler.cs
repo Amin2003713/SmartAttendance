@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Users.Command.SendActivationCode;
+using Shifty.Application.Users.Queries.SendActivationCode;
 using Shifty.Common;
 using Shifty.Domain.Constants;
 using Shifty.Domain.Interfaces.Base;
@@ -8,12 +8,12 @@ using Shifty.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Command.SendActivationCode
+namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuery
 {
-    public class SendActivationCodeHandler(UserManager<User> userManager , IRepository<User> userRepository)
-        : IRequestHandler<SendActivationCodeCommand , SendActivationCodeResponse>
+    public class SendActivationCodeQueryHandler(UserManager<User> userManager , IRepository<User> userRepository)
+        : IRequestHandler<Application.Users.Queries.SendActivationCode.SendActivationCodeQuery , SendActivationCodeQueryResponse>
     {
-        public async Task<SendActivationCodeResponse> Handle(SendActivationCodeCommand request , CancellationToken cancellationToken)
+        public async Task<SendActivationCodeQueryResponse> Handle(Application.Users.Queries.SendActivationCode.SendActivationCodeQuery request , CancellationToken cancellationToken)
         {
             var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
 
@@ -24,13 +24,13 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.SendActivationCode
 
             if (activationCode is null)
             {
-                return new SendActivationCodeResponse
+                return new SendActivationCodeQueryResponse
                 {
                     Success = true , Message = "code was not generated" ,
                 };
             }
 
-            return new SendActivationCodeResponse
+            return new SendActivationCodeQueryResponse
             {
                 Success = true , Message = activationCode ,
             };

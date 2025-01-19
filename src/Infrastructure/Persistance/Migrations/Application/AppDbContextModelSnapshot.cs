@@ -17,7 +17,7 @@ namespace Shifty.Persistence.Migrations.Application
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -125,7 +125,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.RefreshToken", b =>
+            modelBuilder.Entity("Shifty.Domain.Common.BaseClasses.BaseEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,8 +143,10 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ExpiryTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -155,18 +157,13 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.ToTable("BaseEntities");
 
-                    b.ToTable("RefreshTokens");
+                    b.HasDiscriminator().HasValue("BaseEntity");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Shifty.Domain.Users.Role", b =>
@@ -327,6 +324,27 @@ namespace Shifty.Persistence.Migrations.Application
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Users.RefreshToken", b =>
+                {
+                    b.HasBaseType("Shifty.Domain.Common.BaseClasses.BaseEntity");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BaseEntities");
+
+                    b.HasDiscriminator().HasValue("RefreshToken");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

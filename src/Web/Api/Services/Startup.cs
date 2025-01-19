@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Logging;
 using Shifty.ApiFramework.Configuration;
 using Shifty.Application;
 using Shifty.Common;
@@ -20,17 +19,17 @@ namespace Shifty.Api.Services
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _siteSetting = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
+            _siteSetting  = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
         }
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddWebApi(Configuration, _siteSetting);
+            services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddCommon(Configuration);
-            services.AddApplication();
+            services.AddWebApi(Configuration , _siteSetting);
         }
 
         //Register Services to Autofac ContainerBuilder
@@ -39,14 +38,14 @@ namespace Shifty.Api.Services
             builder.RegisterServices();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app , IWebHostEnvironment env)
         {
             if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseWebApi(Configuration, env);
+            app.UseWebApi(Configuration , env);
         }
     }
 }

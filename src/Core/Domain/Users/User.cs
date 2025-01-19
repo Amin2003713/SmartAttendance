@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.Tenants;
 using System;
-using System.Collections.Generic;
 
 namespace Shifty.Domain.Users
 {
-    public class User : IdentityUser<Guid>, IEntity
+    public class User : IdentityUser<Guid> , IEntity
     {
-        public override Guid Id { get; set; } =Guid.CreateVersion7(DateTimeOffset.Now);
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -34,6 +31,7 @@ namespace Shifty.Domain.Users
         public string? HardwareId { get; set; } = null!;
 
         public DateTime LastLoginDate { get; set; }
+        public override Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
 
         public bool IsActive { get; set; } = true;
         public Guid? CreatedBy { get; set; } = null;
@@ -44,17 +42,18 @@ namespace Shifty.Domain.Users
         public DateTime? DeletedAt { get; set; } = null!;
 
 
-
-
-        public void SetUserName() => UserName = PhoneNumber;
+        public void SetUserName()
+        {
+            UserName = PhoneNumber;
+        }
 
         public void SetPasswordHash(string hashPassword)
         {
-            UserName = PhoneNumber;
+            UserName           = PhoneNumber;
             NormalizedUserName = PhoneNumber!.ToUpper();
-            SecurityStamp = Guid.NewGuid().ToString();
-            ConcurrencyStamp = Guid.NewGuid().ToString();
-            PasswordHash = hashPassword;
+            SecurityStamp      = Guid.NewGuid().ToString();
+            ConcurrencyStamp   = Guid.NewGuid().ToString();
+            PasswordHash       = hashPassword;
         }
     }
 }

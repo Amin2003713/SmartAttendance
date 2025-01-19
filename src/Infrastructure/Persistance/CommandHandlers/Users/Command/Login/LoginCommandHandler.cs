@@ -14,12 +14,10 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 {
-    public class LoginCommandHandler(UserManager<User> userManager , IJwtService jwtService, IRefreshTokenRepository refreshTokenRepository)
-        : IRequestHandler<LoginCommand, LoginResponse>
+    public class LoginCommandHandler(UserManager<User> userManager , IJwtService jwtService , IRefreshTokenRepository refreshTokenRepository)
+        : IRequestHandler<LoginCommand , LoginResponse>
     {
-
-
-        public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginResponse> Handle(LoginCommand request , CancellationToken cancellationToken)
         {
             if (request is null)
                 throw new InvalidNullInputException(nameof(request));
@@ -28,9 +26,9 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
             if (user == null)
                 throw new ShiftyException(ApiResultStatusCode.NotFound , "username or password is incorrect");
 
-            var isPasswordValid = await userManager.CheckPasswordAsync(user, request.Password);
+            var isPasswordValid = await userManager.CheckPasswordAsync(user , request.Password);
             if (!isPasswordValid)
-                throw new ShiftyException( ApiResultStatusCode.UnAuthorized, "username or password is incorrect");
+                throw new ShiftyException(ApiResultStatusCode.UnAuthorized , "username or password is incorrect");
 
             var roles = await userManager.GetRolesAsync(user);
 
@@ -38,16 +36,14 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 
             var refreshToken = new RefreshToken
             {
-                UserId = user.Id,
-                ExpiryTime = DateTime.Now.AddDays(jwt.expires_in),
-                Token = jwt.refresh_token
+                UserId = user.Id , ExpiryTime = DateTime.Now.AddDays(jwt.expires_in) , Token = jwt.refresh_token ,
             };
 
-            await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken: refreshToken, cancellationToken);
+            await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken , cancellationToken);
 
             var loginResult = user.Adapt<LoginResponse>();
 
-            return loginResult.AddToken(refreshToken : refreshToken.Token , token : jwt.access_token , rolesList : roles.ToList() ?? [] );
+            return loginResult.AddToken(refreshToken.Token , jwt.access_token , roles.ToList() ?? []);
         }
     }
 }

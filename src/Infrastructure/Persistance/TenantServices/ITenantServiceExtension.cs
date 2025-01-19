@@ -3,17 +3,18 @@ using Finbuckle.MultiTenant.Abstractions;
 using Shifty.Domain.Tenants;
 using System;
 
-namespace Shifty.Persistence.TenantServices;
-
-public interface ITenantServiceExtension 
+namespace Shifty.Persistence.TenantServices
 {
-    IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
-    string GetConnectionString();
-    string GetName();
-    string? GetId();
-    string GetIdentifier();
-    Guid GetOwnerId();
+    public interface ITenantServiceExtension
+    {
+        IMultiTenantContext<ShiftyTenantInfo>? TenantContextAccessor { get; set; }
+        string GetConnectionString();
+        string GetName();
+        string? GetId();
+        string GetIdentifier();
+        Guid GetOwnerId();
 
-    string GetDomain();
-    ShiftyTenantInfo GetTenantInfo();
+        string GetDomain();
+        ShiftyTenantInfo GetTenantInfo();
+    }
 }

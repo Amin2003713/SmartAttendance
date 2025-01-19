@@ -7,6 +7,6 @@ namespace Shifty.Domain.Interfaces.Users
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task UpdateLastLoginDateAsync(User user, CancellationToken cancellationToken);
+        Task UpdateLastLoginDateAsync(User user , CancellationToken cancellationToken);
     }
 }

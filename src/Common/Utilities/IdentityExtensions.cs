@@ -7,12 +7,12 @@ namespace Shifty.Common.Utilities
 {
     public static class IdentityExtensions
     {
-        public static string FindFirstValue(this ClaimsIdentity identity, string claimType)
+        public static string FindFirstValue(this ClaimsIdentity identity , string claimType)
         {
             return identity?.FindFirst(claimType)?.Value;
         }
 
-        public static string FindFirstValue(this IIdentity identity, string claimType)
+        public static string FindFirstValue(this IIdentity identity , string claimType)
         {
             var claimsIdentity = identity as ClaimsIdentity;
             return claimsIdentity?.FindFirstValue(claimType);
@@ -27,7 +27,7 @@ namespace Shifty.Common.Utilities
         {
             var userId = identity?.GetUserId();
             return userId.HasValue()
-                ? (T)Convert.ChangeType(userId, typeof(T), CultureInfo.InvariantCulture)
+                ? (T)Convert.ChangeType(userId , typeof(T) , CultureInfo.InvariantCulture)
                 : default;
         }
 

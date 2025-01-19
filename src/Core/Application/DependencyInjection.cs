@@ -1,21 +1,17 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Mapster;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Shifty.Application.Companies.Command.InitialCompany;
 using Shifty.Domain.Tenants;
 using System.Reflection;
 
 namespace Shifty.Application
 {
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-
             services.AddCustomFluentValidation();
             ConfigureMaster();
             return services;
@@ -29,8 +25,8 @@ namespace Shifty.Application
 
         private static void ConfigureMaster()
         {
-            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().Map(dest => dest.Identifier , src => src.Domain).Map(dest => dest.Name
-                , src => src.OrganizationName);
+            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().
+                                                                        Map(dest => dest.Identifier , src => src.Domain);
         }
     }
 }

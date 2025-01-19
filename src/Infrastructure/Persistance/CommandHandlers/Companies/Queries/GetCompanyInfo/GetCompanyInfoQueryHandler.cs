@@ -6,20 +6,21 @@ using Shifty.Domain.Interfaces.Companies;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.CommandHandlers.Companies.Queries.GetCompanyInfo;
-
-public class GetCompanyInfoQueryHandler(ICompanyRepository companyRepository)   : IRequestHandler<GetCompanyInfoQuery , GetCompanyInfoResponse>
+namespace Shifty.Persistence.CommandHandlers.Companies.Queries.GetCompanyInfo
 {
-    public async Task<GetCompanyInfoResponse> Handle(GetCompanyInfoQuery request , CancellationToken cancellationToken)
+    public class GetCompanyInfoQueryHandler(ICompanyRepository companyRepository) : IRequestHandler<GetCompanyInfoQuery , GetCompanyInfoResponse>
     {
-        if(!await companyRepository.ExistsAsync(request.CompanyIdentifier , cancellationToken))
-            throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+        public async Task<GetCompanyInfoResponse> Handle(GetCompanyInfoQuery request , CancellationToken cancellationToken)
+        {
+            if (!await companyRepository.ExistsAsync(request.Domain , cancellationToken))
+                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
 
-        var result = await companyRepository.GetByIdentifierAsync(request.CompanyIdentifier , cancellationToken);
+            var result = await companyRepository.GetByIdentifierAsync(request.Domain , cancellationToken);
 
-        if (result == null)
-            throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+            if (result == null)
+                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
 
-        return result.Adapt<GetCompanyInfoResponse>();
+            return result.Adapt<GetCompanyInfoResponse>();
+        }
     }
 }

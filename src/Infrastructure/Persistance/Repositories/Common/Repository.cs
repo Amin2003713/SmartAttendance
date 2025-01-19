@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Common.BaseClasses;
 using Shifty.Domain.Interfaces.Base;
-using Shifty.Persistence.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,43 +11,45 @@ using System.Threading.Tasks;
 namespace Shifty.Persistence.Repositories.Common
 {
     public class Repository<TEntity , TReadDb> : IRepository<TEntity>
-        where TEntity : class, IEntity 
-        where TReadDb : DbContext 
+        where TEntity : class , IEntity
+        where TReadDb : DbContext
     {
         protected readonly TReadDb DbContext;
-        public DbSet<TEntity> Entities { get; }
-        public virtual IQueryable<TEntity> Table => Entities;
-        public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
         public Repository(TReadDb dbContext)
         {
             DbContext = dbContext;
-            Entities = DbContext.Set<TEntity>();
+            Entities  = DbContext.Set<TEntity>();
         }
+
+        public DbSet<TEntity> Entities { get; }
+        public virtual IQueryable<TEntity> Table => Entities;
+        public virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
         #region Async Method
-        public virtual ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
+
+        public virtual ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken , params object[] ids)
         {
-            return Entities.FindAsync(ids, cancellationToken);
+            return Entities.FindAsync(ids , cancellationToken);
         }
 
-        public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
+        public virtual async Task AddAsync(TEntity entity , CancellationToken cancellationToken , bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));
-            await Entities.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+            await Entities.AddAsync(entity , cancellationToken).ConfigureAwait(false);
             if (saveNow)
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities , CancellationToken cancellationToken , bool saveNow = true)
         {
             //Assert.NotNull(entities, nameof(entities));
-            await Entities.AddRangeAsync(entities, cancellationToken).ConfigureAwait(false);
+            await Entities.AddRangeAsync(entities , cancellationToken).ConfigureAwait(false);
             if (saveNow)
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
+        public virtual async Task UpdateAsync(TEntity entity , CancellationToken cancellationToken , bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));
             Entities.Update(entity);
@@ -56,7 +57,7 @@ namespace Shifty.Persistence.Repositories.Common
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
+        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities , CancellationToken cancellationToken , bool saveNow = true)
         {
             //Assert.NotNull(entities, nameof(entities));
             Entities.UpdateRange(entities);
@@ -69,7 +70,7 @@ namespace Shifty.Persistence.Repositories.Common
             return Entities.SingleOrDefaultAsync(prediction , cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
+        public virtual async Task DeleteAsync(TEntity entity , CancellationToken cancellationToken , bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));
             Entities.Remove(entity);
@@ -77,22 +78,24 @@ namespace Shifty.Persistence.Repositories.Common
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
+        public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities , CancellationToken cancellationToken , bool saveNow = true)
         {
             //Assert.NotNull(entities, nameof(entities));
             Entities.RemoveRange(entities);
             if (saveNow)
                 await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
+
         #endregion
 
         #region Sync Methods
+
         public virtual TEntity GetById(params object[] ids)
         {
             return Entities.Find(ids);
         }
 
-        public virtual void Add(TEntity entity, bool saveNow = true)
+        public virtual void Add(TEntity entity , bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));
             Entities.Add(entity);
@@ -100,7 +103,7 @@ namespace Shifty.Persistence.Repositories.Common
                 DbContext.SaveChanges();
         }
 
-        public virtual void AddRange(IEnumerable<TEntity> entities, bool saveNow = true)
+        public virtual void AddRange(IEnumerable<TEntity> entities , bool saveNow = true)
         {
             //Assert.NotNull(entities, nameof(entities));
             Entities.AddRange(entities);
@@ -108,7 +111,7 @@ namespace Shifty.Persistence.Repositories.Common
                 DbContext.SaveChanges();
         }
 
-        public virtual void Update(TEntity entity, bool saveNow = true)
+        public virtual void Update(TEntity entity , bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));
             Entities.Update(entity);
@@ -116,7 +119,7 @@ namespace Shifty.Persistence.Repositories.Common
                 DbContext.SaveChanges();
         }
 
-        public virtual void UpdateRange(IEnumerable<TEntity> entities, bool saveNow = true)
+        public virtual void UpdateRange(IEnumerable<TEntity> entities , bool saveNow = true)
         {
             //Assert.NotNull(entities, nameof(entities));
             Entities.UpdateRange(entities);
@@ -124,7 +127,7 @@ namespace Shifty.Persistence.Repositories.Common
                 DbContext.SaveChanges();
         }
 
-        public virtual void Delete(TEntity entity, bool saveNow = true)
+        public virtual void Delete(TEntity entity , bool saveNow = true)
         {
             //Assert.NotNull(entity, nameof(entity));
             Entities.Remove(entity);
@@ -132,16 +135,18 @@ namespace Shifty.Persistence.Repositories.Common
                 DbContext.SaveChanges();
         }
 
-        public virtual void DeleteRange(IEnumerable<TEntity> entities, bool saveNow = true)
+        public virtual void DeleteRange(IEnumerable<TEntity> entities , bool saveNow = true)
         {
             //Assert.NotNull(entities, nameof(entities));
             Entities.RemoveRange(entities);
             if (saveNow)
                 DbContext.SaveChanges();
         }
+
         #endregion
 
         #region Attach & Detach
+
         public virtual void Detach(TEntity entity)
         {
             //Assert.NotNull(entity, nameof(entity));
@@ -156,10 +161,15 @@ namespace Shifty.Persistence.Repositories.Common
             if (DbContext.Entry(entity).State == EntityState.Detached)
                 Entities.Attach(entity);
         }
+
         #endregion
 
         #region Explicit Loading
-        public virtual async Task LoadCollectionAsync<TProperty>(TEntity entity, Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty, CancellationToken cancellationToken)
+
+        public virtual async Task LoadCollectionAsync<TProperty>(
+            TEntity entity
+            , Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty
+            , CancellationToken cancellationToken)
             where TProperty : class
         {
             Attach(entity);
@@ -169,7 +179,7 @@ namespace Shifty.Persistence.Repositories.Common
                 await collection.LoadAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual void LoadCollection<TProperty>(TEntity entity, Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty)
+        public virtual void LoadCollection<TProperty>(TEntity entity , Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty)
             where TProperty : class
         {
             Attach(entity);
@@ -178,7 +188,10 @@ namespace Shifty.Persistence.Repositories.Common
                 collection.Load();
         }
 
-        public virtual async Task LoadReferenceAsync<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> referenceProperty, CancellationToken cancellationToken)
+        public virtual async Task LoadReferenceAsync<TProperty>(
+            TEntity entity
+            , Expression<Func<TEntity , TProperty>> referenceProperty
+            , CancellationToken cancellationToken)
             where TProperty : class
         {
             Attach(entity);
@@ -187,7 +200,7 @@ namespace Shifty.Persistence.Repositories.Common
                 await reference.LoadAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual void LoadReference<TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> referenceProperty)
+        public virtual void LoadReference<TProperty>(TEntity entity , Expression<Func<TEntity , TProperty>> referenceProperty)
             where TProperty : class
         {
             Attach(entity);
@@ -195,6 +208,7 @@ namespace Shifty.Persistence.Repositories.Common
             if (!reference.IsLoaded)
                 reference.Load();
         }
+
         #endregion
     }
 }

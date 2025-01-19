@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace Shifty.Persistence.Migrations.Tenant
 {
@@ -12,337 +10,337 @@ namespace Shifty.Persistence.Migrations.Tenant
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AccessFailedCount",
-                table: "Users");
+                "AccessFailedCount"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "Address",
-                table: "Users");
+                "Address"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "ConcurrencyStamp",
-                table: "Users");
+                "ConcurrencyStamp"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "CreatedAt",
-                table: "Users");
+                "CreatedAt"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Users");
+                "Email"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "EmailConfirmed",
-                table: "Users");
+                "EmailConfirmed"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "FatherName",
-                table: "Users");
+                "FatherName"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "Gender",
-                table: "Users");
+                "Gender"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "IsActive",
-                table: "Users");
+                "IsActive"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "LastLoginDate",
-                table: "Users");
+                "LastLoginDate"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "LockoutEnabled",
-                table: "Users");
+                "LockoutEnabled"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "LockoutEnd",
-                table: "Users");
+                "LockoutEnd"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "NationalCode",
-                table: "Users");
+                "NationalCode"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "NormalizedEmail",
-                table: "Users");
+                "NormalizedEmail"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "NormalizedUserName",
-                table: "Users");
+                "NormalizedUserName"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "PasswordHash",
-                table: "Users");
+                "PasswordHash"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "PhoneNumberConfirmed",
-                table: "Users");
+                "PhoneNumberConfirmed"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "ProfilePicture",
-                table: "Users");
+                "ProfilePicture"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "SecurityStamp",
-                table: "Users");
+                "SecurityStamp"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "TwoFactorEnabled",
-                table: "Users");
+                "TwoFactorEnabled"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "UserName",
-                table: "Users");
+                "UserName"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "EconomicCode",
-                table: "TenantInfo");
+                "EconomicCode"
+                , "TenantInfo");
 
             migrationBuilder.DropColumn(
-                name: "Email",
-                table: "TenantInfo");
+                "Email"
+                , "TenantInfo");
 
             migrationBuilder.DropColumn(
-                name: "NationalId",
-                table: "TenantInfo");
+                "NationalId"
+                , "TenantInfo");
 
             migrationBuilder.DropColumn(
-                name: "PhoneNumber",
-                table: "TenantInfo");
+                "PhoneNumber"
+                , "TenantInfo");
 
             migrationBuilder.DropColumn(
-                name: "PostalCode",
-                table: "TenantInfo");
+                "PostalCode"
+                , "TenantInfo");
 
             migrationBuilder.DropColumn(
-                name: "RegistrationNumber",
-                table: "TenantInfo");
+                "RegistrationNumber"
+                , "TenantInfo");
 
             migrationBuilder.RenameColumn(
-                name: "ModifiedAt",
-                table: "Users",
-                newName: "RegisteredAt");
+                "ModifiedAt"
+                , "Users"
+                , "RegisteredAt");
 
             migrationBuilder.AlterColumn<string>(
-                name: "PhoneNumber",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "PhoneNumber"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "LandLine",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: true);
+                "LandLine"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "LandLine",
-                table: "TenantInfo");
+                "LandLine"
+                , "TenantInfo");
 
             migrationBuilder.RenameColumn(
-                name: "RegisteredAt",
-                table: "Users",
-                newName: "ModifiedAt");
+                "RegisteredAt"
+                , "Users"
+                , "ModifiedAt");
 
             migrationBuilder.AlterColumn<string>(
-                name: "PhoneNumber",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "PhoneNumber"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AddColumn<int>(
-                name: "AccessFailedCount",
-                table: "Users",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+                "AccessFailedCount"
+                , "Users"
+                , "int"
+                , nullable: false
+                , defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
-                name: "Address",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "Address"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "ConcurrencyStamp",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "ConcurrencyStamp"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedAt",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                "CreatedAt"
+                , "Users"
+                , "datetime2"
+                , nullable: false
+                , defaultValue: new DateTime(1 , 1 , 1 , 0 , 0 , 0 , 0 , DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "Email"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "EmailConfirmed",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "EmailConfirmed"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
-                name: "FatherName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "FatherName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<int>(
-                name: "Gender",
-                table: "Users",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+                "Gender"
+                , "Users"
+                , "int"
+                , nullable: false
+                , defaultValue: 0);
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsActive",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "IsActive"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "LastLoginDate",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                "LastLoginDate"
+                , "Users"
+                , "datetime2"
+                , nullable: false
+                , defaultValue: new DateTime(1 , 1 , 1 , 0 , 0 , 0 , 0 , DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<bool>(
-                name: "LockoutEnabled",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "LockoutEnabled"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                name: "LockoutEnd",
-                table: "Users",
-                type: "datetimeoffset",
-                nullable: true);
+                "LockoutEnd"
+                , "Users"
+                , "datetimeoffset"
+                , nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "NationalCode",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "NationalCode"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "NormalizedEmail",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "NormalizedEmail"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "NormalizedUserName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "NormalizedUserName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "PasswordHash",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "PasswordHash"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "PhoneNumberConfirmed",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "PhoneNumberConfirmed"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
-                name: "ProfilePicture",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "ProfilePicture"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "SecurityStamp",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "SecurityStamp"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "TwoFactorEnabled",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "TwoFactorEnabled"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
-                name: "UserName",
-                table: "Users",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: false,
-                defaultValue: "");
+                "UserName"
+                , "Users"
+                , "nvarchar(100)"
+                , maxLength: 100
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "EconomicCode",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "EconomicCode"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "Email"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "NationalId",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "NationalId"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "PhoneNumber",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "PhoneNumber"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "PostalCode",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "PostalCode"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "RegistrationNumber",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "RegistrationNumber"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
         }
     }
 }

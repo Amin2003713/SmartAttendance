@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace Shifty.Persistence.Migrations.Tenant
 {
@@ -12,44 +10,44 @@ namespace Shifty.Persistence.Migrations.Tenant
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<Guid>(
-                name: "UserId",
-                table: "TenantInfo",
-                type: "uniqueidentifier",
-                nullable: true,
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier");
+                "UserId"
+                , "TenantInfo"
+                , "uniqueidentifier"
+                , nullable: true
+                , oldClrType: typeof(Guid)
+                , oldType: "uniqueidentifier");
 
             migrationBuilder.AlterColumn<string>(
-                name: "Address",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "Address"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<Guid>(
-                name: "UserId",
-                table: "TenantInfo",
-                type: "uniqueidentifier",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier",
-                oldNullable: true);
+                "UserId"
+                , "TenantInfo"
+                , "uniqueidentifier"
+                , nullable: false
+                , defaultValue: new Guid("00000000-0000-0000-0000-000000000000")
+                , oldClrType: typeof(Guid)
+                , oldType: "uniqueidentifier"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Address",
-                table: "TenantInfo",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "Address"
+                , "TenantInfo"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
         }
     }
 }

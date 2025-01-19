@@ -11,29 +11,30 @@ using Shifty.Persistence.Services.Seeder;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee;
-
-public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seeder seeder) : IRequestHandler<RegisterEmployeeCommand, bool>
+namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee
 {
-    public async Task<bool> Handle(RegisterEmployeeCommand request, CancellationToken cancellationToken)
+    public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seeder seeder) : IRequestHandler<RegisterEmployeeCommand , bool>
     {
-        if (request is null)
-            throw new InvalidNullInputException(nameof(request));
-
-        var user = request.Adapt<User>();
-
-        user.SetUserName();
-        var createUserResult = await userManager.CreateAsync(user, PasswordGenerator.GeneratePassword());
-
-        foreach (var role in request.RolesList)
+        public async Task<bool> Handle(RegisterEmployeeCommand request , CancellationToken cancellationToken)
         {
-            var result = await userManager.AddToRoleAsync(user, role);
+            if (request is null)
+                throw new InvalidNullInputException(nameof(request));
 
-            if(!result.Succeeded)
-                throw new ShiftyException(ApiResultStatusCode.ServerError , UserErrors.There_was_An_Error_While_Adding_User_To_Roles ,  result.Errors);
+            var user = request.Adapt<User>();
+
+            user.SetUserName();
+            var createUserResult = await userManager.CreateAsync(user , PasswordGenerator.GeneratePassword());
+
+            foreach (var role in request.RolesList)
+            {
+                var result = await userManager.AddToRoleAsync(user , role);
+
+                if (!result.Succeeded)
+                    throw new ShiftyException(ApiResultStatusCode.ServerError , UserErrors.There_was_An_Error_While_Adding_User_To_Roles , result.Errors);
+            }
+
+
+            return createUserResult.Succeeded;
         }
-        
-
-        return createUserResult.Succeeded;
     }
 }

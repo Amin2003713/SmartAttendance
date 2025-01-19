@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace Shifty.Persistence.Migrations.Tenant
 {
@@ -12,93 +10,93 @@ namespace Shifty.Persistence.Migrations.Tenant
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedAt",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                "CreatedAt"
+                , "Users"
+                , "datetime2"
+                , nullable: false
+                , defaultValue: new DateTime(1 , 1 , 1 , 0 , 0 , 0 , 0 , DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<Guid>(
-                name: "CreatedBy",
-                table: "Users",
-                type: "uniqueidentifier",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                "CreatedBy"
+                , "Users"
+                , "uniqueidentifier"
+                , nullable: false
+                , defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "DeletedAt",
-                table: "Users",
-                type: "datetime2",
-                nullable: true);
+                "DeletedAt"
+                , "Users"
+                , "datetime2"
+                , nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                name: "DeletedBy",
-                table: "Users",
-                type: "uniqueidentifier",
-                nullable: true);
+                "DeletedBy"
+                , "Users"
+                , "uniqueidentifier"
+                , nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsActive",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "IsActive"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "LastLoginDate",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                "LastLoginDate"
+                , "Users"
+                , "datetime2"
+                , nullable: false
+                , defaultValue: new DateTime(1 , 1 , 1 , 0 , 0 , 0 , 0 , DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "ModifiedAt",
-                table: "Users",
-                type: "datetime2",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                "ModifiedAt"
+                , "Users"
+                , "datetime2"
+                , nullable: false
+                , defaultValue: new DateTime(1 , 1 , 1 , 0 , 0 , 0 , 0 , DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<Guid>(
-                name: "ModifiedBy",
-                table: "Users",
-                type: "uniqueidentifier",
-                nullable: true);
+                "ModifiedBy"
+                , "Users"
+                , "uniqueidentifier"
+                , nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CreatedAt",
-                table: "Users");
+                "CreatedAt"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "CreatedBy",
-                table: "Users");
+                "CreatedBy"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "DeletedAt",
-                table: "Users");
+                "DeletedAt"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "DeletedBy",
-                table: "Users");
+                "DeletedBy"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "IsActive",
-                table: "Users");
+                "IsActive"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "LastLoginDate",
-                table: "Users");
+                "LastLoginDate"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "ModifiedAt",
-                table: "Users");
+                "ModifiedAt"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "ModifiedBy",
-                table: "Users");
+                "ModifiedBy"
+                , "Users");
         }
     }
 }

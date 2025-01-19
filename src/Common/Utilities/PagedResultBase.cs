@@ -11,6 +11,6 @@ namespace Shifty.Common.Utilities
 
         public int FirstRowOnPage => (CurrentPage - 1) * PageSize + 1;
 
-        public int LastRowOnPage => Math.Min(CurrentPage * PageSize, RowCount);
+        public int LastRowOnPage => Math.Min(CurrentPage * PageSize , RowCount);
     }
 }

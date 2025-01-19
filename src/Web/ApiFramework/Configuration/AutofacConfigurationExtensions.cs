@@ -5,7 +5,6 @@ using Shifty.Domain.Common.BaseClasses;
 using Shifty.Domain.Interfaces.Base;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Jwt;
-using Shifty.Persistence.Repositories;
 using Shifty.Persistence.Repositories.Common;
 
 namespace Shifty.ApiFramework.Configuration
@@ -19,25 +18,25 @@ namespace Shifty.ApiFramework.Configuration
 
             containerBuilder.RegisterGeneric(typeof(EfReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>)).InstancePerLifetimeScope();
 
-            var commonAssembly = typeof(SiteSettings).Assembly;
+            var commonAssembly   = typeof(SiteSettings).Assembly;
             var entitiesAssembly = typeof(IEntity).Assembly;
-            var dataAssembly = typeof(AppDbContext).Assembly;
+            var dataAssembly     = typeof(AppDbContext).Assembly;
             var servicesAssembly = typeof(JwtService).Assembly;
 
-            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
-                .AssignableTo<IScopedDependency>()
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+            containerBuilder.RegisterAssemblyTypes(commonAssembly , entitiesAssembly , dataAssembly , servicesAssembly).
+                             AssignableTo<IScopedDependency>().
+                             AsImplementedInterfaces().
+                             InstancePerLifetimeScope();
 
-            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
-                .AssignableTo<ITransientDependency>()
-                .AsImplementedInterfaces()
-                .InstancePerDependency();
+            containerBuilder.RegisterAssemblyTypes(commonAssembly , entitiesAssembly , dataAssembly , servicesAssembly).
+                             AssignableTo<ITransientDependency>().
+                             AsImplementedInterfaces().
+                             InstancePerDependency();
 
-            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
-                .AssignableTo<ISingletonDependency>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
+            containerBuilder.RegisterAssemblyTypes(commonAssembly , entitiesAssembly , dataAssembly , servicesAssembly).
+                             AssignableTo<ISingletonDependency>().
+                             AsImplementedInterfaces().
+                             SingleInstance();
         }
     }
 }

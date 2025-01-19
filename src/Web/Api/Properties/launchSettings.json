@@ -5,7 +5,7 @@
     "iisExpress": {
       "applicationUrl": "http://localhost:9461",
       "sslPort": 44398
-    }  ,
+    },
     "environmentVariables": {
       "OTEL_EXPORTER_OTLP_ENDPOINT": "http://shiftyAspireService:4317",
       "ASPNETCORE_ENVIRONMENT": "Development"
@@ -47,7 +47,7 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true,
-      "useSSL": true ,
+      "useSSL": true,
       "environmentVariables": {
         "OTEL_EXPORTER_OTLP_ENDPOINT": "http://shiftyAspireService:4317"
       }

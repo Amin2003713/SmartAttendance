@@ -1,12 +1,13 @@
 ﻿using FluentValidation;
-using Shifty.Application.Users.Requests.SendActivationCode;
+using Shifty.Application.Users.Queries.SendActivationCode;
 
 namespace Shifty.Application.Users.Validators.SendActivationCode
 {
-    public class SendActivationCodeValidator : AbstractValidator<SendActivationCodeRequest>
+    public class SendActivationCodeQueryValidator : AbstractValidator<SendActivationCodeQuery>
     {
-
-        public SendActivationCodeValidator() =>
+        public SendActivationCodeQueryValidator()
+        {
             RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("شماره همراه الزامیست").Matches(@"^09\d{9}$").WithMessage("فرمت شماره همراه صحیح نمی‌باشد");
+        }
     }
 }

@@ -1,15 +1,8 @@
-﻿using Minio;
-using Shifty.Common;
-using Shifty.Domain.Constants;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Shifty.Common;
 
 namespace Shifty.Persistence.Services.Minio
 {
-    public class MinIORepository() : IMinIoRepository , IScopedDependency
+    public class MinIORepository : IMinIoRepository , IScopedDependency
     {
         // private readonly MinioClient _client = (MinioClient)new MinioClient()
         //                                                     .WithEndpoint(ApplicationConstant.MinioEndpoint)

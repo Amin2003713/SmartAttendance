@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Common.General;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Constants;
 using Shifty.Domain.Enums;
@@ -26,58 +25,59 @@ namespace Shifty.Persistence.Services.MigrationManagers
     {
         public IConfiguration Configuration { get; } = configuration;
 
-        public async Task<string> MigrateTenantDatabasesAsync(string connectionString, TenantAdmin adminUser , CancellationToken cancellationToken)
+        public async Task<string> MigrateTenantDatabasesAsync(string connectionString , TenantAdmin adminUser , CancellationToken cancellationToken)
         {
             try
             {
                 ArgumentNullException.ThrowIfNull(connectionString);
 
 
-                using var scopeTenant     = services.CreateScope();
+                using var scopeTenant = services.CreateScope();
 
-                    using var scopeApplication = services.CreateScope();
-                    var       dbContext        = scopeApplication.ServiceProvider.GetService<AppDbContext>();
-                    dbContext.Database.SetConnectionString(connectionString);
+                using var scopeApplication = services.CreateScope();
+                var       dbContext        = scopeApplication.ServiceProvider.GetService<AppDbContext>();
+                dbContext.Database.SetConnectionString(connectionString);
 
-                    // await dbContext.Database.EnsureCreatedAsync();
+                // await dbContext.Database.EnsureCreatedAsync();
 
-                    if (!(await dbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
-                        return null;
-
-
-                    try
-                    {
-                        await dbContext.Database.MigrateAsync(cancellationToken: cancellationToken);
+                if (!(await dbContext.Database.GetPendingMigrationsAsync(cancellationToken: cancellationToken)).Any())
+                    return null;
 
 
-                        await seeder.Seed(dbContext, cancellationToken);
+                try
+                {
+                    await dbContext.Database.MigrateAsync(cancellationToken: cancellationToken);
 
 
-                        var user = adminUser.Adapt<User>();
+                    await seeder.Seed(dbContext , cancellationToken);
 
-                        user.SetPasswordHash(passwordHasher.HashPassword(user, PasswordGenerator.GeneratePassword())) ;
 
-                        dbContext.Users.Add(user);
+                    var user = adminUser.Adapt<User>();
 
-                        await dbContext.SaveChangesAsync(cancellationToken);
+                    user.SetPasswordHash(passwordHasher.HashPassword(user , PasswordGenerator.GeneratePassword()));
 
-                        return await GenerateCode(user);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        return null;
-                    }
-                    finally
-                    {
-                        var adminRoles =await dbContext.Roles.FirstOrDefaultAsync(a=>a.Name == UserRoles.Admin.ToString(), cancellationToken: cancellationToken);
-                        if (adminRoles == null)
+                    dbContext.Users.Add(user);
 
-                        dbContext.UserRoles.Add(new IdentityUserRole<Guid>(){RoleId = adminRoles.Id, UserId = adminUser.Id});
-                        await dbContext.SaveChangesAsync(cancellationToken);
+                    await dbContext.SaveChangesAsync(cancellationToken);
 
-                    }
-                    
+                    return await GenerateCode(user);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return null;
+                }
+                finally
+                {
+                    var adminRoles = await dbContext.Roles.FirstOrDefaultAsync(a => a.Name == UserRoles.Admin.ToString() , cancellationToken);
+                    if (adminRoles == null)
+
+                        dbContext.UserRoles.Add(new IdentityUserRole<Guid>
+                        {
+                            RoleId = adminRoles.Id , UserId = adminUser.Id ,
+                        });
+                    await dbContext.SaveChangesAsync(cancellationToken);
+                }
             }
             catch (Exception e)
             {

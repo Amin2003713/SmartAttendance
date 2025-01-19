@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Shifty.Persistence.Services.Minio
+﻿namespace Shifty.Persistence.Services.Minio
 {
     public interface IMinIoRepository
     {

@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
-
 namespace Shifty.Persistence.Migrations.Tenant
 {
     /// <inheritdoc />
@@ -11,144 +9,144 @@ namespace Shifty.Persistence.Migrations.Tenant
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "MobileNumber",
-                table: "Users");
+                "MobileNumber"
+                , "Users");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ProfilePicture",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "ProfilePicture"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "NationalCode",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "NationalCode"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "LastName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "LastName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "FirstName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "FirstName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "FatherName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "FatherName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "Address",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                "Address"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)"
+                , oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "ShiftyTenantInfoId",
-                table: "Payments",
-                type: "nvarchar(64)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(64)",
-                oldNullable: true);
+                "ShiftyTenantInfoId"
+                , "Payments"
+                , "nvarchar(64)"
+                , nullable: false
+                , defaultValue: ""
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(64)"
+                , oldNullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "ProfilePicture",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "ProfilePicture"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "NationalCode",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "NationalCode"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "LastName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "LastName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "FirstName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "FirstName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "FatherName",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "FatherName"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
-                name: "Address",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+                "Address"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(max)");
 
             migrationBuilder.AddColumn<string>(
-                name: "MobileNumber",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                "MobileNumber"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "ShiftyTenantInfoId",
-                table: "Payments",
-                type: "nvarchar(64)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(64)");
+                "ShiftyTenantInfoId"
+                , "Payments"
+                , "nvarchar(64)"
+                , nullable: true
+                , oldClrType: typeof(string)
+                , oldType: "nvarchar(64)");
         }
     }
 }

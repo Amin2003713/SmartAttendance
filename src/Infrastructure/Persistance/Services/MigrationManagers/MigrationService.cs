@@ -11,18 +11,17 @@ namespace Shifty.Persistence.Services.MigrationManagers
     {
         public async Task ApplyMigrations()
         {
-            using var scope = serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            using var scope   = serviceProvider.CreateScope();
+            var       context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
             // Apply MigrationManagers
             try
             {
-                if((await context.Database.GetPendingMigrationsAsync()).Any())
-                   await context.Database.MigrateAsync();
+                if ((await context.Database.GetPendingMigrationsAsync()).Any())
+                    await context.Database.MigrateAsync();
             }
             catch (Exception ex)
             {
-                return;
             }
         }
     }

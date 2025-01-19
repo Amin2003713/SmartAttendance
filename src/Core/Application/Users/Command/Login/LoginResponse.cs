@@ -1,6 +1,4 @@
-﻿using Mapster;
-using Shifty.Domain.Enums;
-using Shifty.Domain.Users;
+﻿using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
 
@@ -29,7 +27,7 @@ namespace Shifty.Application.Users.Command.Login
         {
             RefreshToken = refreshToken;
             Token        = token;
-            RolesList    = rolesList ?? [] ;
+            RolesList    = rolesList ?? [];
 
             return this;
         }

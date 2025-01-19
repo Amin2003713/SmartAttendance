@@ -1,6 +1,5 @@
 ﻿using Shifty.Domain.Common.BaseClasses;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shifty.Domain.Users
 {

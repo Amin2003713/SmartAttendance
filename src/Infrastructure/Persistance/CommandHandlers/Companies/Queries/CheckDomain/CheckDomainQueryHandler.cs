@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Shifty.Application.Companies.Queries.CheckDomain;
-using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
 using System.Threading;
@@ -21,5 +20,3 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
         }
     }
 }
-
-

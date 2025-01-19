@@ -15,27 +15,27 @@ namespace Shifty.Persistence.Repositories.Companies
 {
     public class CompanyRepository : ICompanyRepository , IScopedDependency
     {
-
         protected readonly TenantDbContext DbContext;
-        public DbSet<ShiftyTenantInfo> Entities { get; }
-        public virtual IQueryable<ShiftyTenantInfo> Table => Entities;
-        public virtual IQueryable<ShiftyTenantInfo> TableNoTracking => Entities.AsNoTracking();
 
         public CompanyRepository(TenantDbContext dbContext)
         {
             DbContext = dbContext;
-            Entities = DbContext.TenantInfo;
+            Entities  = DbContext.TenantInfo;
         }
+
+        public DbSet<ShiftyTenantInfo> Entities { get; }
+        public virtual IQueryable<ShiftyTenantInfo> Table => Entities;
+        public virtual IQueryable<ShiftyTenantInfo> TableNoTracking => Entities.AsNoTracking();
 
         public async Task<bool> IdentifierExistsAsync(string identifier , CancellationToken cancellationToken)
         {
-            return await TableNoTracking.AnyAsync(x => x.Identifier == identifier, cancellationToken: cancellationToken);
+            return await TableNoTracking.AnyAsync(x => x.Identifier == identifier , cancellationToken);
         }
 
 
         public async Task<ShiftyTenantInfo> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken , bool saveNow = true)
         {
-            if(await IdentifierExistsAsync(tenantInfo?.Identifier! , cancellationToken))
+            if (await IdentifierExistsAsync(tenantInfo?.Identifier! , cancellationToken))
                 throw new ShiftyException(ApiResultStatusCode.BadRequest , "Tenant cannot be created");
 
             try
@@ -46,7 +46,7 @@ namespace Shifty.Persistence.Repositories.Companies
                     return tenantInfo;
 
                 await DbContext.SaveChangesAsync(cancellationToken);
-                return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo.Identifier, cancellationToken) ?? null!;
+                return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo.Identifier , cancellationToken) ?? null!;
             }
             catch (Exception e)
             {
@@ -54,11 +54,12 @@ namespace Shifty.Persistence.Repositories.Companies
             }
         }
 
-        public async Task<bool> ExistsAsync(string identifierId , CancellationToken cancellationToken) =>
-            await TableNoTracking
-                .AnyAsync(x => x.Identifier == identifierId ||
-                               x.Id         == identifierId,
-                    cancellationToken);
+        public async Task<bool> ExistsAsync(string identifierId , CancellationToken cancellationToken)
+        {
+            return await TableNoTracking.AnyAsync(x => x.Identifier == identifierId ||
+                                                       x.Id         == identifierId
+                , cancellationToken);
+        }
 
         public async Task<(bool IsValid , string message)> ValidateDomain(string domain , CancellationToken cancellationToken)
         {
@@ -80,19 +81,19 @@ namespace Shifty.Persistence.Repositories.Companies
                 return (false , ResponseMessageConstant.Company.CheckDomainQuery.Failed);
             }
 
-            if (!await IdentifierExistsAsync(domain, cancellationToken))
+            if (!await IdentifierExistsAsync(domain , cancellationToken))
                 return (true , ResponseMessageConstant.Company.CheckDomainQuery.Success);
 
             return (false , ResponseMessageConstant.Company.CheckDomainQuery.Failed);
         }
 
 
-        public async Task<ShiftyTenantInfo> GetByIdAsync(string tenantId, CancellationToken cancellationToken)
+        public async Task<ShiftyTenantInfo> GetByIdAsync(string tenantId , CancellationToken cancellationToken)
         {
-           var company =await Table.SingleOrDefaultAsync(a=>a.Id == tenantId, cancellationToken: cancellationToken);
+            var company = await Table.SingleOrDefaultAsync(a => a.Id == tenantId , cancellationToken);
 
-            if(company == null)
-                throw new ShiftyException(ApiResultStatusCode.NotFound,"Company not found");
+            if (company == null)
+                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
 
             return company;
         }
@@ -102,17 +103,17 @@ namespace Shifty.Persistence.Repositories.Companies
             var company = await Table.ToListAsync(cancellationToken: cancellationToken);
 
             if (company.Count == 0)
-                throw new ShiftyException(ApiResultStatusCode.NotFound, "Company not found");
+                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
 
             return company;
         }
 
-        public async Task<ShiftyTenantInfo> GetByIdentifierAsync(string identifier, CancellationToken cancellationToken)
+        public async Task<ShiftyTenantInfo> GetByIdentifierAsync(string identifier , CancellationToken cancellationToken)
         {
-            var company = await Table.SingleOrDefaultAsync(a => a.Identifier == identifier, cancellationToken: cancellationToken);
+            var company = await Table.SingleOrDefaultAsync(a => a.Identifier == identifier , cancellationToken);
 
             if (company == null)
-                throw new ShiftyException(ApiResultStatusCode.NotFound, "Company not found");
+                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
 
             return company;
         }

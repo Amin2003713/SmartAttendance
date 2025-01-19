@@ -19,87 +19,87 @@ namespace Shifty.Common
 
         // Constructor with status code
         public ShiftyException(ApiResultStatusCode statusCode)
-            : this(statusCode, null)
+            : this(statusCode , null)
         {
         }
 
         // Constructor with message
         public ShiftyException(string message)
-            : this(ApiResultStatusCode.ServerError, message)
+            : this(ApiResultStatusCode.ServerError , message)
         {
         }
 
         // Constructor with status code and message
-        public ShiftyException(ApiResultStatusCode statusCode, string message)
-            : this(statusCode, message, HttpStatusCode.InternalServerError)
+        public ShiftyException(ApiResultStatusCode statusCode , string message)
+            : this(statusCode , message , HttpStatusCode.InternalServerError)
         {
         }
 
         // Constructor with message and additional data
-        public ShiftyException(string message, object additionalData)
-            : this(ApiResultStatusCode.ServerError, message, additionalData)
+        public ShiftyException(string message , object additionalData)
+            : this(ApiResultStatusCode.ServerError , message , additionalData)
         {
         }
 
         // Constructor with status code and additional data
-        public ShiftyException(ApiResultStatusCode statusCode, object additionalData)
-            : this(statusCode, null, additionalData)
+        public ShiftyException(ApiResultStatusCode statusCode , object additionalData)
+            : this(statusCode , null , additionalData)
         {
         }
 
         // Constructor with status code, message, and additional data
-        public ShiftyException(ApiResultStatusCode statusCode, string message, object additionalData)
-            : this(statusCode, message, HttpStatusCode.InternalServerError, additionalData)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , object additionalData)
+            : this(statusCode , message , HttpStatusCode.InternalServerError , additionalData)
         {
         }
 
         // Constructor with status code, message, and HTTP status code
-        public ShiftyException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode)
-            : this(statusCode, message, httpStatusCode, null)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode)
+            : this(statusCode , message , httpStatusCode , null)
         {
         }
 
         // Constructor with status code, message, HTTP status code, and additional data
-        public ShiftyException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode, object additionalData)
-            : this(statusCode, message, httpStatusCode, null, additionalData)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode , object additionalData)
+            : this(statusCode , message , httpStatusCode , null , additionalData)
         {
         }
 
         // Constructor with message and exception
-        public ShiftyException(string message, Exception exception)
-            : this(ApiResultStatusCode.ServerError, message, exception)
+        public ShiftyException(string message , Exception exception)
+            : this(ApiResultStatusCode.ServerError , message , exception)
         {
         }
 
         // Constructor with message, exception, and additional data
-        public ShiftyException(string message, Exception exception, object additionalData)
-            : this(ApiResultStatusCode.ServerError, message, exception, additionalData)
+        public ShiftyException(string message , Exception exception , object additionalData)
+            : this(ApiResultStatusCode.ServerError , message , exception , additionalData)
         {
         }
 
         // Constructor with status code, message, and exception
-        public ShiftyException(ApiResultStatusCode statusCode, string message, Exception exception)
-            : this(statusCode, message, HttpStatusCode.InternalServerError, exception)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , Exception exception)
+            : this(statusCode , message , HttpStatusCode.InternalServerError , exception)
         {
         }
 
         // Constructor with status code, message, exception, and additional data
-        public ShiftyException(ApiResultStatusCode statusCode, string message, Exception exception, object additionalData)
-            : this(statusCode, message, HttpStatusCode.InternalServerError, exception, additionalData)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , Exception exception , object additionalData)
+            : this(statusCode , message , HttpStatusCode.InternalServerError , exception , additionalData)
         {
         }
 
         // Constructor with status code, message, HTTP status code, and exception
-        public ShiftyException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode, Exception exception)
-            : this(statusCode, message, httpStatusCode, exception, null)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode , Exception exception)
+            : this(statusCode , message , httpStatusCode , exception , null)
         {
         }
 
         // Full constructor with all parameters
-        public ShiftyException(ApiResultStatusCode statusCode, string message, HttpStatusCode httpStatusCode, Exception exception, object additionalData)
-            : base(message, exception)
+        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode , Exception exception , object additionalData)
+            : base(message , exception)
         {
-            ApiStatusCode = statusCode;
+            ApiStatusCode  = statusCode;
             HttpStatusCode = httpStatusCode;
             AdditionalData = additionalData;
         }

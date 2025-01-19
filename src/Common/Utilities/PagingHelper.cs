@@ -7,14 +7,11 @@ namespace Shifty.Common.Utilities
 {
     public static class PagingHelper
     {
-        public static async Task<PagedResult<T>> GetPaged<T>(this IQueryable<T> query,
-            int page, int pageSize) where T : class
+        public static async Task<PagedResult<T>> GetPaged<T>(this IQueryable<T> query , int page , int pageSize) where T : class
         {
             var result = new PagedResult<T>
             {
-                CurrentPage = page,
-                PageSize = pageSize,
-                RowCount = query.Count()
+                CurrentPage = page , PageSize = pageSize , RowCount = query.Count() ,
             };
 
             var pageCount = (double)result.RowCount / pageSize;

@@ -5,7 +5,6 @@ namespace Shifty.Common.Exceptions
     public class InvalidNullInputException : Exception
     {
         public InvalidNullInputException()
-            : base()
         {
         }
 
@@ -14,12 +13,12 @@ namespace Shifty.Common.Exceptions
         {
         }
 
-        public InvalidNullInputException(string message, Exception innerException)
-            : base(message, innerException)
+        public InvalidNullInputException(string message , Exception innerException)
+            : base(message , innerException)
         {
         }
 
-        public InvalidNullInputException(string name, object key)
+        public InvalidNullInputException(string name , object key)
             : base($"Input \"{name}\" ({key}) is not valid.")
         {
         }

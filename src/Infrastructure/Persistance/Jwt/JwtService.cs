@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shifty.Common;
 using Shifty.Common.General;
@@ -17,9 +15,8 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Jwt
 {
-    public class JwtService(IConfiguration configuration, UserManager<User> _userManager) : IJwtService, IScopedDependency 
+    public class JwtService(IConfiguration configuration , UserManager<User> _userManager) : IJwtService , IScopedDependency
     {
-
         private readonly SiteSettings _siteSetting = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
 
 
@@ -39,13 +36,10 @@ namespace Shifty.Persistence.Jwt
             // Define token descriptor
             var descriptor = new SecurityTokenDescriptor
             {
-                Issuer = _siteSetting.JwtSettings.Issuer,
-                Audience = _siteSetting.JwtSettings.Audience,
-                IssuedAt = DateTime.UtcNow,
-                NotBefore = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.NotBeforeMinutes),
-                Expires = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.ExpirationMinutes),
-                SigningCredentials = signingCredentials,
-                Subject = new ClaimsIdentity(claims)
+                Issuer      = _siteSetting.JwtSettings.Issuer , Audience = _siteSetting.JwtSettings.Audience , IssuedAt = DateTime.UtcNow
+                , NotBefore = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.NotBeforeMinutes)
+                , Expires   = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.ExpirationMinutes) , SigningCredentials = signingCredentials
+                , Subject   = new ClaimsIdentity(claims) ,
             };
 
             try
@@ -63,13 +57,13 @@ namespace Shifty.Persistence.Jwt
             catch (Exception ex)
             {
                 // Log securely without exposing sensitive information
-                throw new SecurityTokenException("Error generating JWT token.", ex);
+                throw new SecurityTokenException("Error generating JWT token." , ex);
             }
         }
 
         public Guid? ValidateJwtAccessTokenAsync(string token)
         {
-            var secretKey     = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey); // longer that 16 character
+            var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey); // longer that 16 character
 
             var tokenHandler = new JwtSecurityTokenHandler();
             try
@@ -77,11 +71,8 @@ namespace Shifty.Persistence.Jwt
                 tokenHandler.ValidateToken(token
                     , new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(secretKey),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ClockSkew = TimeSpan.Zero
+                        ValidateIssuerSigningKey = true , IssuerSigningKey = new SymmetricSecurityKey(secretKey) , ValidateIssuer = false
+                        , ValidateAudience       = false , ClockSkew       = TimeSpan.Zero ,
                     }
                     , out var validatedToken);
 
@@ -98,14 +89,14 @@ namespace Shifty.Persistence.Jwt
         private async Task<IEnumerable<Claim>> GetClaimsAsync(User user)
         {
             var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name,           user.UserName));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier , user.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Name ,           user.UserName));
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
             foreach (var role in userRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim(ClaimTypes.Role , role));
             }
 
             return claims;
@@ -117,10 +108,10 @@ namespace Shifty.Persistence.Jwt
             var       byteArray = new byte[32];
             rng.GetBytes(byteArray);
             return Convert.ToBase64String(byteArray).
-                           Replace("+", string.Empty) // Avoid URL-unsafe characters
+                           Replace("+" , string.Empty) // Avoid URL-unsafe characters
                            .
-                           Replace("/", string.Empty).
-                           Replace("=", string.Empty);
+                           Replace("/" , string.Empty).
+                           Replace("=" , string.Empty);
         }
     }
 }

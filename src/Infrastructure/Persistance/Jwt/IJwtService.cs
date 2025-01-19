@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
+﻿using Shifty.Domain.Users;
 using System;
 using System.Threading.Tasks;
 

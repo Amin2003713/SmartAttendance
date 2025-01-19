@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Domain.Interfaces.Base
 {
-    public interface IReadOnlyRepository<TEntity> where TEntity : class, IEntity
+    public interface IReadOnlyRepository<TEntity> where TEntity : class , IEntity
     {
         DbSet<TEntity> Entities { get; }
 
@@ -16,6 +16,6 @@ namespace Shifty.Domain.Interfaces.Base
 
         TEntity GetById(params object[] ids);
 
-        ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids);
+        ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken , params object[] ids);
     }
 }

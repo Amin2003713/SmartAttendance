@@ -2,7 +2,7 @@
 
 namespace Shifty.Domain.Tenants
 {
-    public class Payments 
+    public class Payments
     {
         public string ShiftyTenantInfoId { get; set; }
         public ShiftyTenantInfo ShiftyTenantInfo { get; set; }

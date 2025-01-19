@@ -20,7 +20,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
         {
             var appOption = provider.GetRequiredService<IAppOptions>();
 
-            if (!context.Request.Path.Value!.Contains("/api/") || context.Request.Path.Value.Contains("/Panel/"))
+            if (SkipTenantValidation(context))
             {
                 await next(context);
                 return;
@@ -79,9 +79,8 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             if (appOption != null)
                 appOption.ReadDatabaseConnectionString = appOption.WriteDatabaseConnectionString = tenant.GetConnectionString();
 
-            if (context.Request.Path.Value.Contains("/api/") && !context.Request.Path.Value.Contains("/Panel/"))
+            if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/Panel/"))
             {
-               
                 if (!context.Request.Headers.TryGetValue("X_Device_Type" , out var deviceType))
                 {
                     var problemDetails = new ApiProblemDetails
@@ -190,6 +189,9 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             // Continue processing the request
             await next(context);
         }
+
+        private static bool SkipTenantValidation(HttpContext context) =>
+            context.Request.Path.Value!.EndsWith(".json") || context.Request.Path.Value!.EndsWith(".html") || context.Request.Path.Value!.EndsWith(".js") || context.Request.Path.Value!.EndsWith(".ts") || context.Request.Path.Value.Contains("/panel/");
 
         private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
         {

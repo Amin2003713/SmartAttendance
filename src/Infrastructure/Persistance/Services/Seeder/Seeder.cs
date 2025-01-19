@@ -1,45 +1,36 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.Services.Seeder;
-
-public  class Seeder(IServiceProvider provider)
+namespace Shifty.Persistence.Services.Seeder
 {
-    public async Task Seed(AppDbContext dbContext , CancellationToken  cancellationToken)
+    public class Seeder(IServiceProvider provider)
     {
-        await SeedRoles(dbContext , cancellationToken);
-    }
+        public async Task Seed(AppDbContext dbContext , CancellationToken cancellationToken)
+        {
+            await SeedRoles(dbContext , cancellationToken);
+        }
 
-    public  async Task SeedRoles(AppDbContext dbContext, CancellationToken cancellationToken)
-    {
-
+        public async Task SeedRoles(AppDbContext dbContext , CancellationToken cancellationToken)
+        {
             foreach (var role in Enum.GetValues<UserRoles>())
             {
-                if(await dbContext.Roles.AnyAsync(r => r.Name == role.ToString(), cancellationToken: cancellationToken))
+                if (await dbContext.Roles.AnyAsync(r => r.Name == role.ToString() , cancellationToken))
                     continue;
 
-                var newRole = new Role()
+                var newRole = new Role
                 {
-                    Name = role.ToString(),
-                    Id = Guid.CreateVersion7(),
-                    Description = role.ToString(),
-                    ConcurrencyStamp = Guid.NewGuid().ToString(),
-                    IsActive = true,
-                    NormalizedName = role.ToString().ToUpper(),
+                    Name       = role.ToString() , Id  = Guid.CreateVersion7() , Description = role.ToString() , ConcurrencyStamp = Guid.NewGuid().ToString()
+                    , IsActive = true , NormalizedName = role.ToString().ToUpper() ,
                 };
 
                 dbContext.Roles.Add(newRole);
                 await dbContext.SaveChangesAsync(cancellationToken);
             }
+        }
     }
-
-  
 }

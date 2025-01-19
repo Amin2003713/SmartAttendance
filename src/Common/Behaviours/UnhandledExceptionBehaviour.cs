@@ -1,12 +1,12 @@
-﻿namespace Shifty.Common.Behaviours
-{
-    using MediatR;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-    public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+namespace Shifty.Common.Behaviours
+{
+    public class UnhandledExceptionBehaviour<TRequest , TResponse> : IPipelineBehavior<TRequest , TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly ILogger<TRequest> _logger;
 
@@ -15,7 +15,7 @@
             _logger = logger;
         }
 
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request , RequestHandlerDelegate<TResponse> next , CancellationToken cancellationToken)
         {
             try
             {
@@ -25,7 +25,7 @@
             {
                 var requestName = typeof(TRequest).Name;
 
-                _logger.LogError(ex, "Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
+                _logger.LogError(ex , "Request: Unhandled Exception for Request {Name} {@Request}" , requestName , request);
 
                 throw;
             }

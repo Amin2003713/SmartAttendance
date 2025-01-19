@@ -34,15 +34,15 @@ namespace Shifty.Common.Utilities
                 var randomBytes = new byte[4];
 
                 // Ensure the password contains at least one character from each set
-                password.Append(GetRandomCharacter(rng, LowercaseLetters));
-                password.Append(GetRandomCharacter(rng, UppercaseLetters));
-                password.Append(GetRandomCharacter(rng, Numbers));
-                password.Append(GetRandomCharacter(rng, SpecialCharacters));
+                password.Append(GetRandomCharacter(rng , LowercaseLetters));
+                password.Append(GetRandomCharacter(rng , UppercaseLetters));
+                password.Append(GetRandomCharacter(rng , Numbers));
+                password.Append(GetRandomCharacter(rng , SpecialCharacters));
 
                 // Fill the rest of the password with random characters
-                for (int i = 4; i < length; i++)
+                for (var i = 4; i < length; i++)
                 {
-                    password.Append(GetRandomCharacter(rng, allCharacters));
+                    password.Append(GetRandomCharacter(rng , allCharacters));
                 }
 
                 // Shuffle the password to ensure randomness
@@ -51,11 +51,11 @@ namespace Shifty.Common.Utilities
         }
 
         // Get a random character from a given character set
-        private static char GetRandomCharacter(RNGCryptoServiceProvider rng, string characterSet)
+        private static char GetRandomCharacter(RNGCryptoServiceProvider rng , string characterSet)
         {
             var randomBytes = new byte[4];
             rng.GetBytes(randomBytes);
-            var randomIndex = BitConverter.ToUInt32(randomBytes, 0) % (uint)characterSet.Length;
+            var randomIndex = BitConverter.ToUInt32(randomBytes , 0) % (uint)characterSet.Length;
             return characterSet[(int)randomIndex];
         }
 
@@ -65,18 +65,19 @@ namespace Shifty.Common.Utilities
             var array = str.ToCharArray();
             using (var rng = new RNGCryptoServiceProvider())
             {
-                int n = array.Length;
+                var n = array.Length;
                 while (n > 1)
                 {
-                    byte[] randomBytes = new byte[4];
+                    var randomBytes = new byte[4];
                     rng.GetBytes(randomBytes);
-                    int k = (int)(BitConverter.ToUInt32(randomBytes, 0) % (uint)n);
+                    var k = (int)(BitConverter.ToUInt32(randomBytes , 0) % (uint)n);
                     n--;
                     var temp = array[n];
                     array[n] = array[k];
                     array[k] = temp;
                 }
             }
+
             return new string(array);
         }
     }

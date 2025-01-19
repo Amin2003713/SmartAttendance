@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
-
 namespace Shifty.Persistence.Migrations.Tenant
 {
     /// <inheritdoc />
@@ -11,52 +9,52 @@ namespace Shifty.Persistence.Migrations.Tenant
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "EmployeeId",
-                table: "Users");
+                "EmployeeId"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "IsTeamLeader",
-                table: "Users");
+                "IsTeamLeader"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "NotificationToken",
-                table: "Users");
+                "NotificationToken"
+                , "Users");
 
             migrationBuilder.DropColumn(
-                name: "SimSerialNumber",
-                table: "Users");
+                "SimSerialNumber"
+                , "Users");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "EmployeeId",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "EmployeeId"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsTeamLeader",
-                table: "Users",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+                "IsTeamLeader"
+                , "Users"
+                , "bit"
+                , nullable: false
+                , defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
-                name: "NotificationToken",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "NotificationToken"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "SimSerialNumber",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                "SimSerialNumber"
+                , "Users"
+                , "nvarchar(max)"
+                , nullable: false
+                , defaultValue: "");
         }
     }
 }

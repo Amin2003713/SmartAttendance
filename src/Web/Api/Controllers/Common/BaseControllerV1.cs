@@ -1,38 +1,35 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Tools;
 using Shifty.Domain.Tenants;
+using System;
 
-namespace Shifty.Api.Controllers.v1
+namespace Shifty.Api.Controllers.Common
 {
-    using ApiFramework.Attributes;
-    using MediatR;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using System;
-
     [ValidateModelState]
     [Authorize]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("[controller]")]
     [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status400BadRequest)]
-    public class BaseControllerV1() : ControllerBase
+    public class BaseController : ControllerBase
     {
-  
-
         private IServiceProvider Resolver => HttpContext.RequestServices;
-
-        private T GetService<T>()
-        {
-            return Resolver.GetService<T>();
-        }
 
         protected IMediator Mediator => GetService<IMediator>();
 
         protected ILogger Logger => GetService<ILogger>();
 
         protected IMultiTenantContext<ShiftyTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<ShiftyTenantInfo>();
+
+        private T GetService<T>()
+        {
+            return Resolver.GetService<T>();
+        }
     }
 }

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shifty.Domain.Users;
 
-
 namespace Shifty.Persistence.Configuration.Users
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>

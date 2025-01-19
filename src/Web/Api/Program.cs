@@ -13,16 +13,18 @@ namespace Shifty.Api
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-            .UseSerilog((hostBuilderContext, loggerConfiguration) =>
-            {
-                loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
-            })
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args).
+                        UseServiceProviderFactory(new AutofacServiceProviderFactory()).
+                        UseSerilog((hostBuilderContext , loggerConfiguration) =>
+                                   {
+                                       loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
+                                   }).
+                        ConfigureWebHostDefaults(webBuilder =>
+                                                 {
+                                                     webBuilder.UseStartup<Startup>();
+                                                 });
+        }
     }
 }
