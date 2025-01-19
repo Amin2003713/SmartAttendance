@@ -21,8 +21,8 @@ services:
       - ./data/mssql/log:/var/opt/mssql/log
     restart: unless-stopped
   # MinIO File Storage
-  shiftyMinioFileDb:
-    container_name: shiftyMinioFileDb
+  shifty_minio_fileDb:
+    container_name: shifty_minio_fileDb
     image: docker.io/bitnami/minio
     ports:
       - '127.0.0.1:9000:9000'  # Bind only to host's loopback interface
@@ -37,9 +37,9 @@ services:
     restart: unless-stopped
     
   
-  shiftyAspireService:
+  shifty_aspire-service:
     image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard
-    container_name: shiftyAspireService
+    container_name: shifty_aspire-service
     ports:
       - "18888:18888"
       - "4317:18889"
@@ -53,10 +53,10 @@ services:
     restart: unless-stopped
            #shiftybacj.ir 
   # Shifty API
-  shiftyApi:
+  shifty_api:
     build:
       dockerfile: src/Web/Api/Dockerfile
-    container_name: shiftyApi
+    container_name: shifty_api
     ports:
       - "192.168.10.155:5011:443"
       - "192.168.10.155:5010:8080"
@@ -64,8 +64,8 @@ services:
       - "5020:8080"
     depends_on:
       - sqlserver
-      - shiftyMinioFileDb
-      - shiftyAspireService
+      - shifty_minio_fileDb
+      - shifty_aspire-service
     networks:
       - app-network
     volumes:
