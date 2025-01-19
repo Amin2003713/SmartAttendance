@@ -92,7 +92,6 @@ namespace Shifty.Api.Controllers.Users
         ///     Sends an activation code to the specified user.
         /// </summary>
         /// <param name="phoneNumber">The request containing the user's phone number.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The response containing the status of the activation code sending process.</returns>
         /// <response code="200">Returns the status of the activation code sending process.</response>
         /// <response code="400">If the request is invalid (e.g., missing or invalid user ID).</response>

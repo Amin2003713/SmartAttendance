@@ -45,7 +45,7 @@ namespace Shifty.Api.Services
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseWebApi(Configuration , env);
+            app.UseWebApi(env);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Shifty.Api.Services
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddWebApi(this IServiceCollection services , IConfiguration configuration , SiteSettings siteSettings)
+        public static void AddWebApi(this IServiceCollection services , IConfiguration configuration , SiteSettings siteSettings)
         {
             services.Configure<SiteSettings>(configuration.GetSection(nameof(SiteSettings)));
             var appOptions             = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
@@ -53,7 +53,7 @@ namespace Shifty.Api.Services
 
             services.AddSingleton<IMultiTenantContext<ShiftyTenantInfo> , MultiTenantContext<ShiftyTenantInfo>>();
 
-
+            services.AddSwaggerOptions();
             services.AddHttpContextAccessor();
             services.AddCustomIdentity();
             services.AddJwtAuthentication(siteSettings.JwtSettings);
@@ -85,14 +85,9 @@ namespace Shifty.Api.Services
                      WithEFCoreStore<TenantDbContext , ShiftyTenantInfo>();
 
             services.AddAspire();
-
-            services.AddSwaggerOptions();
-
-
-            return services;
         }
 
-        public static IApplicationBuilder UseWebApi(this IApplicationBuilder app , IConfiguration configuration , IWebHostEnvironment env)
+        public static void UseWebApi(this IApplicationBuilder app , IWebHostEnvironment env)
         {
             app.UseCors(builder =>
                         {
@@ -103,7 +98,7 @@ namespace Shifty.Api.Services
             app.UseMiddleware<TenantValidationMiddleware>(); // Add this before your endpoints
 
 
-            app.UseAppSwagger(configuration);
+            app.UseAppSwagger();
             app.UseStaticFiles();
             app.UseRouting();
 
@@ -127,9 +122,6 @@ namespace Shifty.Api.Services
                                  //     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                                  // });
                              });
-
-
-            return app;
         }
 
         private static void AddJwtAuthentication(this IServiceCollection services , JwtSettings jwtSettings)
@@ -259,11 +251,9 @@ namespace Shifty.Api.Services
 
         #region Swagger
 
-        private static IServiceCollection AddSwaggerOptions(this IServiceCollection services)
+        private static void AddSwaggerOptions(this IServiceCollection services)
         {
             services.AddSwaggerExamplesFromAssemblyOf<LoginRequestExample>();
-            // Add FV Rules to swagger
-            services.AddFluentValidationRulesToSwagger();
             services.AddSwaggerGen(options =>
                                    {
 
@@ -283,12 +273,9 @@ namespace Shifty.Api.Services
 
                                        #region Filters
 
-                                       // Enable to use [SwaggerRequestExample] & [SwaggerResponseExample]
                                         options.ExampleFilters();
 
                                        options.OperationFilter<ApplySummariesOperationFilter>();
-                                       options.OperationFilter<ApplyHeaderParameterOperationFilter>();
-
                                        //Add 401 response and security requirements (Lock icon) to actions that need authorization
                                        options.OperationFilter<UnauthorizedResponsesOperationFilter>(true , "OAuth2");
 
@@ -315,15 +302,14 @@ namespace Shifty.Api.Services
                                            } ,
 
                                        });
+                                       options.OperationFilter<ApplyHeaderParameterOperationFilter>();
 
                                        #endregion
                                    });
-
-            return services;
         }
 
 
-        public static IApplicationBuilder UseAppSwagger(this IApplicationBuilder app , IConfiguration configuration)
+        private static void UseAppSwagger(this IApplicationBuilder app)
         {
             app.UseSwagger();
 
@@ -356,13 +342,11 @@ namespace Shifty.Api.Services
                              options.PathInMiddlePanel();
                              options.HideLoading();
                              options.NativeScrollbars();
-                             options.DisableSearch();
                              options.OnlyRequiredInSamples();
                              options.SortPropsAlphabetically();
 
                              #endregion
                          });
-            return app;
         }
 
         #endregion
