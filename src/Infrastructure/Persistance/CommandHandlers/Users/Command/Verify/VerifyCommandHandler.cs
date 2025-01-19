@@ -34,7 +34,7 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Verify
 
         private async Task<bool> VerifyTwoFactorTokenAsync(string code , User user)
         {
-            return await userManager.VerifyTwoFactorTokenAsync(user! , ApplicationConstant.CodeGenerator , code);
+            return await userManager.VerifyTwoFactorTokenAsync(user! , ApplicationConstant.Identity.CodeGenerator , code);
         }
     }
 }

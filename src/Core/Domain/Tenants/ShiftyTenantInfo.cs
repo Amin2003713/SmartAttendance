@@ -20,11 +20,8 @@ namespace Shifty.Domain.Tenants
         public string? Name { get; set; }
 
 
-        public string GetConnectionString()
-        {
-            return
-                $"Server={ApplicationConstant.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.MultipleActiveResultSets};{ApplicationConstant.Encrypt};{ApplicationConstant.UserNameAndPass}";
-        }
+        public string GetConnectionString() =>
+            $"Server={ApplicationConstant.Sql.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.Sql.MultipleActiveResultSets};{ApplicationConstant.Sql.Encrypt};{ApplicationConstant.Sql.UserNameAndPass}";
     }
 
     public class Logo

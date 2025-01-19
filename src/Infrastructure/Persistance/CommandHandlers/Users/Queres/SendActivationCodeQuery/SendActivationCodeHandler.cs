@@ -38,7 +38,7 @@ namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuer
 
         private async Task<string> GenerateCode(User user)
         {
-            return await userManager.GenerateTwoFactorTokenAsync(user , ApplicationConstant.CodeGenerator);
+            return await userManager.GenerateTwoFactorTokenAsync(user , ApplicationConstant.Identity.CodeGenerator);
         }
     }
 }

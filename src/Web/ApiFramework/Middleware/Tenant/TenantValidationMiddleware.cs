@@ -191,7 +191,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
         }
 
         private static bool SkipTenantValidation(HttpContext context) =>
-            context.Request.Path.Value!.EndsWith(".json") || context.Request.Path.Value!.EndsWith(".html") || context.Request.Path.Value!.EndsWith(".js") || context.Request.Path.Value!.EndsWith(".ts") || context.Request.Path.Value.Contains("/panel/");
+            context.Request.Path.Value!.EndsWith(".css") ||context.Request.Path.Value!.EndsWith(".json") || context.Request.Path.Value!.EndsWith(".html") || context.Request.Path.Value!.EndsWith(".js") || context.Request.Path.Value!.EndsWith(".ts") || context.Request.Path.Value.Contains("/panel/");
 
         private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
         {

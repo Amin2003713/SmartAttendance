@@ -12,7 +12,7 @@ services:
       - MSSQL_LCID=1033
       - TZ=Etc/UTC
     ports:
-      - "127.0.0.1:5012:1433"  # Bind only to host's loopback interface
+      - "5012:1433"
     networks:
       - app-network
     volumes:
@@ -20,13 +20,14 @@ services:
       - ./data/mssql/data:/var/opt/mssql/data
       - ./data/mssql/log:/var/opt/mssql/log
     restart: unless-stopped
+
   # MinIO File Storage
-  shifty_minio_fileDb:
-    container_name: shifty_minio_fileDb
+  shiftyMinioFileDb:
+    container_name: shiftyMinioFileDb
     image: docker.io/bitnami/minio
     ports:
-      - '127.0.0.1:9000:9000'  # Bind only to host's loopback interface
-      - '127.0.0.1:9001:9001'
+      - '9000:9000'
+      - '9001:9001'
     networks:
       - app-network
     volumes:
@@ -35,37 +36,32 @@ services:
       - MINIO_ROOT_USER=AminShifty1382
       - MINIO_ROOT_PASSWORD=AminShifty1382403
     restart: unless-stopped
-    
-  
-  shifty_aspire-service:
-    image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard
-    container_name: shifty_aspire-service
+
+  # Aspire Service
+  shiftyAspireService:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    container_name: shiftyAspireService
     ports:
       - "18888:18888"
       - "4317:18889"
     networks:
       - app-network
     environment:
-    - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
-    - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
-    - DASHBOARD__OTLP__AUTHMODE=ApiKey
-    - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
+      - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
+      - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
+      - DASHBOARD__OTLP__AUTHMODE=ApiKey
+      - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
     restart: unless-stopped
-           #shiftybacj.ir 
+
   # Shifty API
-  shifty_api:
+  shifty.api:
     build:
       dockerfile: src/Web/Api/Dockerfile
-    container_name: shifty_api
-    ports:
-      - "192.168.10.155:5011:443"
-      - "192.168.10.155:5010:8080"
-      - "5021:443"
-      - "5020:8080"
-    depends_on:
-      - sqlserver
-      - shifty_minio_fileDb
-      - shifty_aspire-service
+    container_name: shifty.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - VIRTUAL_HOST=*.shifty.ipalytics.ir
+      - VIRTUAL_PORT=8080
     networks:
       - app-network
     volumes:

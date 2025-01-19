@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Shifty.Api.Services;
+using Shifty.Domain.Constants;
 
 namespace Shifty.Api
 {
@@ -19,7 +20,13 @@ namespace Shifty.Api
                         UseServiceProviderFactory(new AutofacServiceProviderFactory()).
                         UseSerilog((hostBuilderContext , loggerConfiguration) =>
                                    {
-                                       loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration);
+                                       loggerConfiguration.ReadFrom.Configuration(hostBuilderContext.Configuration).
+                                                           Enrich.FromLogContext().
+                                                           WriteTo.Console().
+                                                           WriteTo.OpenTelemetry(options =>
+                                                                                                   {
+                                                                                                       options.Headers = ApplicationConstant.Aspire.HeaderKey;
+                                                                                                   } ); 
                                    }).
                         ConfigureWebHostDefaults(webBuilder =>
                                                  {

@@ -245,7 +245,7 @@ namespace Shifty.Api.Services
                                                   identityOptions.Lockout.AllowedForNewUsers         = true;
                                               }).
                      AddEntityFrameworkStores<WriteOnlyDbContext>().
-                     AddTokenProvider<PhoneNumberTokenProvider<User>>(ApplicationConstant.CodeGenerator).
+                     AddTokenProvider<PhoneNumberTokenProvider<User>>(ApplicationConstant.Identity.CodeGenerator).
                      AddDefaultTokenProviders();
         }
 

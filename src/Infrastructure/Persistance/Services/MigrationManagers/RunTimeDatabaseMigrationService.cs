@@ -90,7 +90,7 @@ namespace Shifty.Persistence.Services.MigrationManagers
 
         private async Task<string> GenerateCode(User user)
         {
-            return await userManager.GenerateTwoFactorTokenAsync(user , ApplicationConstant.CodeGenerator);
+            return await userManager.GenerateTwoFactorTokenAsync(user , ApplicationConstant.Identity.CodeGenerator);
         }
     }
 }
