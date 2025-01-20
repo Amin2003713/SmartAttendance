@@ -16,9 +16,9 @@ services:
     networks:
       - app-network
     volumes:
-      - ./data/mssql/backups:/var/opt/mssql/backups
-      - ./data/mssql/data:/var/opt/mssql/data
-      - ./data/mssql/log:/var/opt/mssql/log
+      - /home/data/mssql/backups:/var/opt/mssql/backups:rw,z
+      - /home/data/mssql/data:/var/opt/mssql/data:rw,z
+      - /home/data/mssql/log:/var/opt/mssql/log:rw,z
     restart: unless-stopped
 
   # MinIO File Storage
@@ -31,7 +31,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./data/minio:/data
+      - /home/data/minio:/data:rw,z
     environment:
       - MINIO_ROOT_USER=AminShifty1382
       - MINIO_ROOT_PASSWORD=AminShifty1382403
@@ -53,15 +53,8 @@ services:
       - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
     restart: unless-stopped
 
-  # Reverse Proxy
-  reverse-proxy:
-    image: nginxproxy/nginx-proxy
-    container_name: reverse-proxy
-    ports:
-      - "1880:80"
-      - "1443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+
 
   # Shifty API
   shifty.api:
@@ -71,18 +64,15 @@ services:
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://host.docker.internal:4317
       - OTEL_SERVICE_NAME=Shifty
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "5021:443"
-      - "5020:8080"
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
       - shiftyAspireService
     networks:
       - app-network
-    volumes:
-      - ./data/Web/app:/app
+    ports:
+          - "1880:8080"
+          - "1443:443"
     restart: always
 
 networks:

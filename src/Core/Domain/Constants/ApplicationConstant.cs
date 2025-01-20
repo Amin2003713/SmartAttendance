@@ -6,7 +6,7 @@ namespace Shifty.Domain.Constants
     {
         public static class Sql
         {
-            public const string DbServer                 = "sqlserver";
+            public const string DbServer                 = "sqlserver,1433";
             public const string MultipleActiveResultSets = "MultipleActiveResultSets=true";
             public const string Encrypt                  = "Encrypt=false";
 
