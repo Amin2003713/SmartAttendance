@@ -1,7 +1,9 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Shifty.Application.Users.Command.Login;
+using Shifty.Application.Users.Exceptions;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Jwt;
@@ -14,36 +16,44 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 {
-    public class LoginCommandHandler(UserManager<User> userManager , IJwtService jwtService , IRefreshTokenRepository refreshTokenRepository)
+    public class LoginCommandHandler(UserManager<User> userManager , IJwtService jwtService , IRefreshTokenRepository refreshTokenRepository , ILogger<LoginCommandHandler> logger)
         : IRequestHandler<LoginCommand , LoginResponse>
     {
         public async Task<LoginResponse> Handle(LoginCommand request , CancellationToken cancellationToken)
         {
-            if (request is null)
-                throw new InvalidNullInputException(nameof(request));
-
-            var user = await userManager.FindByNameAsync(request.Username);
-            if (user == null)
-                throw new ShiftyException(ApiResultStatusCode.NotFound , "username or password is incorrect");
-
-            var isPasswordValid = await userManager.CheckPasswordAsync(user , request.Password);
-            if (!isPasswordValid)
-                throw new ShiftyException(ApiResultStatusCode.UnAuthorized , "username or password is incorrect");
-
-            var roles = await userManager.GetRolesAsync(user);
-
-            var jwt = await jwtService.GenerateAsync(user);
-
-            var refreshToken = new RefreshToken
+            try
             {
-                UserId = user.Id , ExpiryTime = DateTime.Now.AddDays(jwt.expires_in) , Token = jwt.refresh_token ,
-            };
+                if (request is null)
+                    throw new InvalidNullInputException(nameof(request));
 
-            await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken , cancellationToken);
+                var user = await userManager.FindByNameAsync(request.Username);
+                if (user == null)
+                    throw ShiftyException.NotFound(additionalData: UserExceptions.User_NotFound);
 
-            var loginResult = user.Adapt<LoginResponse>();
+                var isPasswordValid = await userManager.CheckPasswordAsync(user , request.Password);
+                if (!isPasswordValid)
+                    throw ShiftyException.Unauthorized(additionalData: UserExceptions.InCorrect_User_Password);
 
-            return loginResult.AddToken(refreshToken.Token , jwt.access_token , roles.ToList() ?? []);
+                var roles = await userManager.GetRolesAsync(user);
+
+                var jwt = await jwtService.GenerateAsync(user);
+
+                var refreshToken = new RefreshToken
+                {
+                    UserId = user.Id , ExpiryTime = DateTime.Now.AddDays(jwt.expires_in) , Token = jwt.refresh_token ,
+                };
+
+                await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken , cancellationToken);
+
+                var loginResult = user.Adapt<LoginResponse>();
+
+                return loginResult.AddToken(refreshToken.Token , jwt.access_token , roles.ToList() ?? []);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Source , e);
+                throw ShiftyException.InternalServerError();
+            }
         }
     }
 }

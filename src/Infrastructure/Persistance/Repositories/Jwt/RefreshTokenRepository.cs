@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Shifty.Application.Common.Exceptions;
 using Shifty.Common;
+using Shifty.Domain.Interfaces.Base;
 using Shifty.Domain.Interfaces.Jwt;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
@@ -10,22 +13,30 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Jwt
 {
-    public class RefreshTokenRepository(WriteOnlyDbContext dbContext)
-        : Repository<RefreshToken , WriteOnlyDbContext>(dbContext) , IRefreshTokenRepository , IScopedDependency
+    public class RefreshTokenRepository(WriteOnlyDbContext dbContext , ILogger<RefreshTokenRepository> logger , ILogger<Repository<RefreshToken , WriteOnlyDbContext>> writeOnlyLogger)
+        : Repository<RefreshToken , WriteOnlyDbContext>(dbContext , writeOnlyLogger) , IRefreshTokenRepository , IScopedDependency
     {
         public async Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken , CancellationToken cancellationToken)
         {
-            var token = await TableNoTracking.SingleOrDefaultAsync(x => x.UserId == refreshToken.UserId , cancellationToken);
-            if (token == null)
+            try
             {
-                refreshToken.CreatedAt = DateTime.Now;
-                await base.AddAsync(refreshToken , cancellationToken);
+                var token = await TableNoTracking.SingleOrDefaultAsync(x => x.UserId == refreshToken.UserId , cancellationToken);
+                if (token == null)
+                {
+                    refreshToken.CreatedAt = DateTime.Now;
+                    await base.AddAsync(refreshToken , cancellationToken);
+                }
+                else
+                {
+                    refreshToken.CreatedAt = token.CreatedAt;
+                    refreshToken.Id        = token.Id;
+                    await base.UpdateAsync(refreshToken , cancellationToken);
+                }
             }
-            else
+            catch (Exception e)
             {
-                refreshToken.CreatedAt = token.CreatedAt;
-                refreshToken.Id        = token.Id;
-                await base.UpdateAsync(refreshToken , cancellationToken);
+                logger.LogError(e.Source , e);
+                throw ShiftyException.InternalServerError();
             }
         }
 
@@ -33,7 +44,7 @@ namespace Shifty.Persistence.Repositories.Jwt
         {
             var result = await TableNoTracking.SingleOrDefaultAsync(x => x.UserId == refreshToken.UserId , cancellationToken);
             if (result == null || result.Token != refreshToken.Token)
-                throw new ShiftyException(ApiResultStatusCode.BadRequest , "RefreshToken is not valid");
+                throw  ShiftyException.BadRequest(CommonExceptions.Refresh_Token_Found);
             return true;
         }
     }

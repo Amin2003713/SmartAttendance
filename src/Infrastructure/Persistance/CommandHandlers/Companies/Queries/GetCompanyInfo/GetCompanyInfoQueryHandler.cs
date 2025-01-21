@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MediatR;
+using Shifty.Application.Companies.Exceptions;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
@@ -12,13 +13,13 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Queries.GetCompanyInfo
     {
         public async Task<GetCompanyInfoResponse> Handle(GetCompanyInfoQuery request , CancellationToken cancellationToken)
         {
-            if (!await companyRepository.ExistsAsync(request.Domain , cancellationToken))
-                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+            if (!await companyRepository.IdentifierExistsAsync(request.Domain , cancellationToken))
+                throw  ShiftyException.NotFound(CompanyExceptions.Company_Not_Found);
 
             var result = await companyRepository.GetByIdentifierAsync(request.Domain , cancellationToken);
 
             if (result == null)
-                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+                throw ShiftyException.NotFound(CompanyExceptions.Company_Not_Found);
 
             return result.Adapt<GetCompanyInfoResponse>();
         }

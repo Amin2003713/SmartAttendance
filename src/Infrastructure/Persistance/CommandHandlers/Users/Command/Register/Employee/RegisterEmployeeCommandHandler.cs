@@ -1,19 +1,18 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Shifty.Application.Users.Command.CreateUser.Employee;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Users;
-using Shifty.Domain.Users.Exceptions;
-using Shifty.Persistence.Services.Seeder;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee
 {
-    public class RegisterEmployeeCommandHandler(UserManager<User> userManager , Seeder seeder) : IRequestHandler<RegisterEmployeeCommand , bool>
+    public class RegisterEmployeeCommandHandler(UserManager<User> userManager , ILogger<RegisterEmployeeCommandHandler> logger) : IRequestHandler<RegisterEmployeeCommand , bool>
     {
         public async Task<bool> Handle(RegisterEmployeeCommand request , CancellationToken cancellationToken)
         {
@@ -29,8 +28,12 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee
             {
                 var result = await userManager.AddToRoleAsync(user , role);
 
-                if (!result.Succeeded)
-                    throw new ShiftyException(ApiResultStatusCode.ServerError , UserErrors.There_was_An_Error_While_Adding_User_To_Roles , result.Errors);
+                if (result.Succeeded)
+                    continue;
+
+                foreach (var error in result.Errors)
+                    logger.LogError(error.Code , error.Description);
+                throw ShiftyException.InternalServerError();
             }
 
 

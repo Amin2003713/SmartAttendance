@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Shifty.Application.Common;
+using Shifty.Application.Companies.Exceptions;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Domain.Tenants;
@@ -15,12 +17,14 @@ namespace Shifty.Persistence.Repositories.Companies
 {
     public class CompanyRepository : ICompanyRepository , IScopedDependency
     {
-        protected readonly TenantDbContext DbContext;
+        private readonly TenantDbContext            _dbContext;
+        private readonly ILogger<CompanyRepository> _logger; // Logger instance
 
-        public CompanyRepository(TenantDbContext dbContext)
+        public CompanyRepository(TenantDbContext dbContext , ILogger<CompanyRepository> logger)
         {
-            DbContext = dbContext;
-            Entities  = DbContext.TenantInfo;
+            _dbContext   = dbContext;
+            _logger = logger;
+            Entities     = _dbContext.TenantInfo;
         }
 
         public DbSet<ShiftyTenantInfo> Entities { get; }
@@ -35,50 +39,31 @@ namespace Shifty.Persistence.Repositories.Companies
 
         public async Task<ShiftyTenantInfo> CreateAsync(ShiftyTenantInfo tenantInfo , CancellationToken cancellationToken , bool saveNow = true)
         {
-            if (await IdentifierExistsAsync(tenantInfo?.Identifier! , cancellationToken))
-                throw new ShiftyException(ApiResultStatusCode.BadRequest , "Tenant cannot be created");
+           
 
             try
             {
+                if (await IdentifierExistsAsync(tenantInfo?.Identifier! , cancellationToken))
+                    throw ShiftyException.Conflict(additionalData: CompanyExceptions.Tenant_Exists);
+
                 Entities.Add(tenantInfo);
 
                 if (!saveNow)
                     return tenantInfo;
 
-                await DbContext.SaveChangesAsync(cancellationToken);
+                await _dbContext.SaveChangesAsync(cancellationToken);
                 return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo.Identifier , cancellationToken) ?? null!;
             }
             catch (Exception e)
             {
-                throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't create company Server error");
+                _logger.LogError(e.Source , e);
+                throw new ShiftyException(additionalData:"Can't create company Server error");
             }
         }
 
-        public async Task<bool> ExistsAsync(string identifierId , CancellationToken cancellationToken)
-        {
-            return await TableNoTracking.AnyAsync(x => x.Identifier == identifierId || x.Id == identifierId , cancellationToken);
-        }
 
         public async Task<(bool IsValid , string message)> ValidateDomain(string domain , CancellationToken cancellationToken)
         {
-            // Check if the domain is empty or null
-            if (string.IsNullOrEmpty(domain))
-                return (false , "Domain cannot be empty or null.");
-
-            if (domain.Length > 63)
-                return (false , "");
-
-            // Check if the domain starts or ends with a hyphen
-            if (domain.StartsWith("-") || domain.EndsWith("-"))
-                return (false , ResponseMessageConstant.Company.CheckDomainQuery.Failed);
-
-            // Check if the domain contains only allowed characters (a-z, A-Z, 0-9, -)
-            if (!Regex.IsMatch(domain , @"^[a-zA-Z0-9-]+$"))
-            {
-                var invalidChars = Regex.Replace(domain , @"[a-zA-Z0-9-]" , "");
-                return (false , ResponseMessageConstant.Company.CheckDomainQuery.Failed);
-            }
-
             if (!await IdentifierExistsAsync(domain , cancellationToken))
                 return (true , ResponseMessageConstant.Company.CheckDomainQuery.Success);
 
@@ -91,7 +76,7 @@ namespace Shifty.Persistence.Repositories.Companies
             var company = await Table.SingleOrDefaultAsync(a => a.Id == tenantId , cancellationToken);
 
             if (company == null)
-                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+                throw ShiftyException.NotFound(additionalData:"Company not found");
 
             return company;
         }
@@ -101,7 +86,7 @@ namespace Shifty.Persistence.Repositories.Companies
             var company = await Table.ToListAsync(cancellationToken: cancellationToken);
 
             if (company.Count == 0)
-                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+                throw  ShiftyException.NotFound(additionalData:"Company not found");
 
             return company;
         }
@@ -111,7 +96,7 @@ namespace Shifty.Persistence.Repositories.Companies
             var company = await Table.SingleOrDefaultAsync(a => a.Identifier == identifier , cancellationToken);
 
             if (company == null)
-                throw new ShiftyException(ApiResultStatusCode.NotFound , "Company not found");
+                throw ShiftyException.NotFound(additionalData: "Company not found");
 
             return company;
         }

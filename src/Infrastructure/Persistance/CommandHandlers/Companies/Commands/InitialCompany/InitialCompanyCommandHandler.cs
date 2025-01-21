@@ -1,6 +1,9 @@
 ﻿using Mapster;
 using MediatR;
+using Microsoft.Extensions.Logging;
+using Shifty.Application.Common.Exceptions;
 using Shifty.Application.Companies.Command.InitialCompany;
+using Shifty.Application.Companies.Exceptions;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
@@ -16,7 +19,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
     public class InitialCompanyCommandHandler(
         ICompanyRepository repository ,
         ITenantAdminRepository tenantAdminRepository ,
-        RunTimeDatabaseMigrationService runTimeDatabaseMigrationService) : IRequestHandler<InitialCompanyCommand , string>
+        RunTimeDatabaseMigrationService runTimeDatabaseMigrationService , ILogger<InitialCompanyCommandHandler> logger) : IRequestHandler<InitialCompanyCommand , string>
     {
         public async Task<string> Handle(InitialCompanyCommand request , CancellationToken cancellationToken)
         {
@@ -35,12 +38,20 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
 
         private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , CancellationToken cancellationToken)
         {
-            var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>() , cancellationToken);
+            try
+            {
+                var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>() , cancellationToken);
 
-            if (tenantAdmin == null)
-                throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't create Admin User");
+                if (tenantAdmin == null)
+                    throw ShiftyException.InternalServerError(additionalData:CompanyExceptions.Company_Admin_Not_Created);
 
-            return tenantAdmin;
+                return tenantAdmin;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Source , e);
+                throw ShiftyException.InternalServerError(additionalData: CommonExceptions.Server_Error);
+            }
         }
 
 
@@ -50,28 +61,34 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             {
                 var validation = await repository.ValidateDomain(request.Domain , cancellationToken);
                 if (!validation.IsValid)
-                    throw new ShiftyException(ApiResultStatusCode.BadRequest , validation.message);
+                    throw  ShiftyException.BadRequest(additionalData:CompanyExceptions.Tenant_Is_Not_Valid);
 
                 var company = request.Adapt<ShiftyTenantInfo>();
                 company.UserId = userId;
 
                 var createResult = await repository.CreateAsync(company , cancellationToken);
 
-                if (createResult is null)
-                    throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Can't create company Server error");
-
                 return createResult;
             }
             catch (Exception e)
             {
-                throw new ShiftyException(ApiResultStatusCode.DataBaseError , $"Can't create company Server error {e}");
+                logger.LogError(e.Source , e);
+                throw new ShiftyException(CompanyExceptions.Company_Not_Created);
             }
         }
 
         private async Task<string> MigrateDatabaseAsync(ShiftyTenantInfo company , TenantAdmin adminUser , CancellationToken cancellationToken)
         {
-            return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company.GetConnectionString() , adminUser , cancellationToken) ??
-                   throw new ShiftyException(ApiResultStatusCode.DataBaseError , "Activation code sent error ");
-        }
+            try
+            {
+                return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company.GetConnectionString() , adminUser , cancellationToken);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Source , e);
+                throw ShiftyException.InternalServerError(additionalData: CommonExceptions.Code_Generator + CommonExceptions.Server_Error);
+            }
+
+                    }
     }
 }

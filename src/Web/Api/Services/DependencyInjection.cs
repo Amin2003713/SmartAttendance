@@ -8,14 +8,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Resources;
 using PolyCache;
+using Serilog.Enrichers.Correlate;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Aspire;
 using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
+using Shifty.Application.Users.Exceptions;
 using Shifty.Application.Users.Requests.Login;
 using Shifty.Common;
 using Shifty.Common.Behaviours;
@@ -29,6 +34,7 @@ using Shifty.Persistence.Db;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
@@ -39,11 +45,13 @@ namespace Shifty.Api.Services
 {
     public static class DependencyInjection
     {
+
         public static void AddWebApi(this IServiceCollection services , IConfiguration configuration , SiteSettings siteSettings)
         {
             services.Configure<SiteSettings>(configuration.GetSection(nameof(SiteSettings)));
             services.AddSingleton<IMultiTenantContext<ShiftyTenantInfo> , MultiTenantContext<ShiftyTenantInfo>>();
-
+            services.AddCorrelationContextEnricher();
+            services.AddAspire();
             services.AddSwaggerOptions();
             services.AddHttpContextAccessor();
             services.AddCustomIdentity();
@@ -74,7 +82,7 @@ namespace Shifty.Api.Services
                      WithHeaderStrategy().
                      WithEFCoreStore<TenantDbContext , ShiftyTenantInfo>();
 
-            services.AddAspire();
+
         }
 
         public static void UseWebApi(this IApplicationBuilder app , IWebHostEnvironment env)
@@ -145,25 +153,15 @@ namespace Shifty.Api.Services
                                           OnAuthenticationFailed = context =>
                                                                    {
                                                                        if (context.Exception != null)
-                                                                           throw new ShiftyException(ApiResultStatusCode.UnAuthorized ,
-                                                                               "Authentication failed." ,
-                                                                               HttpStatusCode.Unauthorized ,
-                                                                               context.Exception ,
-                                                                               null);
+                                                                           throw ShiftyException.Unauthorized(additionalData:context.Exception);
 
                                                                        return Task.CompletedTask;
                                                                    } ,
                                           OnTokenValidated = async context => await AddLoginRecordForUsers(context) , OnChallenge = context =>
                                           {
                                               if (context.AuthenticateFailure != null)
-                                                  throw new ShiftyException(ApiResultStatusCode.UnAuthorized ,
-                                                      "Authenticate failure." ,
-                                                      HttpStatusCode.Unauthorized ,
-                                                      context.AuthenticateFailure ,
-                                                      null);
-                                              throw new ShiftyException(ApiResultStatusCode.UnAuthorized ,
-                                                  "You are unauthorized to access this resource." ,
-                                                  HttpStatusCode.Unauthorized);
+                                                        throw ShiftyException.Unauthorized(additionalData: context.AuthenticateFailure);
+                                              return Task.CompletedTask;
                                           } ,
                                       };
                                   });
@@ -175,7 +173,8 @@ namespace Shifty.Api.Services
 
             var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
             if (claimsIdentity?.Claims.Any() != true)
-                context.Fail("This token has no claims.");
+                throw ShiftyException.Create(HttpStatusCode.Forbidden , UserExceptions.InValide_Token);
+
 
             //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
             //if (!securityStamp.HasValue())

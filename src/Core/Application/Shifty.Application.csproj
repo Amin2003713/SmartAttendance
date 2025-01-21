@@ -28,8 +28,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Companies\Exceptions\"/>
-		<Folder Include="Users\Exceptions\"/>
 		<Folder Include="Users\Queries\"/>
 	</ItemGroup>
 

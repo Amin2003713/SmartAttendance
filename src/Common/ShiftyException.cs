@@ -1,118 +1,99 @@
-﻿using System;
+﻿using Shifty.Common.Exceptions;
+using System;
 using System.Net;
 
 namespace Shifty.Common
 {
     public class ShiftyException : Exception
     {
-        public HttpStatusCode HttpStatusCode { get; set; }
-        public ApiResultStatusCode ApiStatusCode { get; set; }
-        public object AdditionalData { get; set; }
+        public HttpStatusCode HttpStatusCode { get; }
+        public object AdditionalData { get; }
 
-        #region Constructors
-
-        // Default constructor with ServerError status code
-        public ShiftyException() : this(ApiResultStatusCode.ServerError)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShiftyException"/> class with specified parameters.
+        /// </summary>
+        /// <param name="message">The error message.</param>
+        /// <param name="httpStatusCode">The HTTP status code.</param>
+        /// <param name="innerException">The inner exception.</param>
+        /// <param name="additionalData">Any additional data related to the exception.</param>
+        public ShiftyException(
+            string message = null,
+            HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError,
+            Exception innerException = null,
+            object additionalData = null)
+            : base(message, innerException)
         {
-        }
-
-        // Constructor with status code
-        public ShiftyException(ApiResultStatusCode statusCode) : this(statusCode , null)
-        {
-        }
-
-        // Constructor with message
-        public ShiftyException(string message) : this(ApiResultStatusCode.ServerError , message)
-        {
-        }
-
-        // Constructor with status code and message
-        public ShiftyException(ApiResultStatusCode statusCode , string message) : this(statusCode , message , HttpStatusCode.InternalServerError)
-        {
-        }
-
-        // Constructor with message and additional data
-        public ShiftyException(string message , object additionalData) : this(ApiResultStatusCode.ServerError , message , additionalData)
-        {
-        }
-
-        // Constructor with status code and additional data
-        public ShiftyException(ApiResultStatusCode statusCode , object additionalData) : this(statusCode , null , additionalData)
-        {
-        }
-
-        // Constructor with status code, message, and additional data
-        public ShiftyException(ApiResultStatusCode statusCode , string message , object additionalData) : this(statusCode ,
-            message ,
-            HttpStatusCode.InternalServerError ,
-            additionalData)
-        {
-        }
-
-        // Constructor with status code, message, and HTTP status code
-        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode) : this(statusCode ,
-            message ,
-            httpStatusCode ,
-            null)
-        {
-        }
-
-        // Constructor with status code, message, HTTP status code, and additional data
-        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode , object additionalData) : this(statusCode ,
-            message ,
-            httpStatusCode ,
-            null ,
-            additionalData)
-        {
-        }
-
-        // Constructor with message and exception
-        public ShiftyException(string message , Exception exception) : this(ApiResultStatusCode.ServerError , message , exception)
-        {
-        }
-
-        // Constructor with message, exception, and additional data
-        public ShiftyException(string message , Exception exception , object additionalData) : this(ApiResultStatusCode.ServerError ,
-            message ,
-            exception ,
-            additionalData)
-        {
-        }
-
-        // Constructor with status code, message, and exception
-        public ShiftyException(ApiResultStatusCode statusCode , string message , Exception exception) : this(statusCode ,
-            message ,
-            HttpStatusCode.InternalServerError ,
-            exception)
-        {
-        }
-
-        // Constructor with status code, message, exception, and additional data
-        public ShiftyException(ApiResultStatusCode statusCode , string message , Exception exception , object additionalData) : this(statusCode ,
-            message ,
-            HttpStatusCode.InternalServerError ,
-            exception ,
-            additionalData)
-        {
-        }
-
-        // Constructor with status code, message, HTTP status code, and exception
-        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode , Exception exception) : this(statusCode ,
-            message ,
-            httpStatusCode ,
-            exception ,
-            null)
-        {
-        }
-
-        // Full constructor with all parameters
-        public ShiftyException(ApiResultStatusCode statusCode , string message , HttpStatusCode httpStatusCode , Exception exception , object additionalData)
-            : base(message , exception)
-        {
-            ApiStatusCode  = statusCode;
             HttpStatusCode = httpStatusCode;
             AdditionalData = additionalData;
         }
+
+        // Static factory methods for common scenarios
+
+        /// <summary>
+        /// Creates a ShiftyException with a message.
+        /// </summary>
+        public static ShiftyException Create(string message) =>
+            new ShiftyException(message: message);
+
+        /// <summary>
+        /// Creates a ShiftyException with a message and additional data.
+        /// </summary>
+        public static ShiftyException Create(string message, object additionalData) =>
+            new ShiftyException(message: message, additionalData: additionalData);
+
+        /// <summary>
+        /// Creates a ShiftyException with a specific HTTP status code and message.
+        /// </summary>
+        public static ShiftyException Create(HttpStatusCode httpStatusCode, string message) =>
+            new ShiftyException(httpStatusCode: httpStatusCode, message: message);
+
+        /// <summary>
+        /// Creates a ShiftyException with all parameters.
+        /// </summary>
+        public static ShiftyException Create(
+            string message,
+            HttpStatusCode httpStatusCode,
+            Exception innerException,
+            object additionalData) =>
+            new ShiftyException(message, httpStatusCode, innerException, additionalData);
+
+        #region Predefined API Exceptions
+
+        /// <summary>
+        /// Creates a NotFound ShiftyException (HTTP 404).
+        /// </summary>
+        public static NotFoundException NotFound(string message = "Resource not found.", object additionalData = null) =>
+            new NotFoundException(message, additionalData);
+
+        /// <summary>
+        /// Creates an Unauthorized ShiftyException (HTTP 401).
+        /// </summary>
+        public static ShiftyException Unauthorized(string message = "Unauthorized access.", object additionalData = null) =>
+            new ShiftyException(message, HttpStatusCode.Unauthorized, null, additionalData);
+
+        /// <summary>
+        /// Creates a BadRequest ShiftyException (HTTP 400).
+        /// </summary>
+        public static ShiftyException BadRequest(string message = "Bad request.", object additionalData = null) =>
+            new ShiftyException(message, HttpStatusCode.BadRequest, null, additionalData);
+
+        /// <summary>
+        /// Creates a Validation ShiftyException (HTTP 400) with validation errors.
+        /// </summary>
+        public static ShiftyException Validation(string message = "Validation failed.", object additionalData = null) =>
+            new ShiftyException(message, HttpStatusCode.BadRequest, null, additionalData);
+
+        /// <summary>
+        /// Creates a Conflict ShiftyException (HTTP 409).
+        /// </summary>
+        public static ConflictException Conflict(string message = "Conflict occurred.", object additionalData = null) =>
+            new ConflictException(message, additionalData);
+
+        /// <summary>
+        /// Creates an InternalServerError ShiftyException (HTTP 500).
+        /// </summary>
+        public static ShiftyException InternalServerError(string message = "An unexpected error occurred.", object additionalData = null) =>
+            new ShiftyException(message, HttpStatusCode.InternalServerError, null, additionalData);
 
         #endregion
     }

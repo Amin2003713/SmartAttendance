@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Shifty.Application.Common.Exceptions;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Users;
@@ -15,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Jwt
 {
-    public class JwtService(IConfiguration configuration , UserManager<User> _userManager) : IJwtService , IScopedDependency
+    public class JwtService(IConfiguration configuration , UserManager<User> userManager , ILogger<JwtService> logger) : IJwtService , IScopedDependency
     {
         private readonly SiteSettings _siteSetting = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
 
@@ -50,8 +52,8 @@ namespace Shifty.Persistence.Jwt
             }
             catch (Exception ex)
             {
-                // Log securely without exposing sensitive information
-                throw new SecurityTokenException("Error generating JWT token." , ex);
+                logger.LogError(ex.Source , ex);
+                throw ShiftyException.Unauthorized(CommonExceptions.Unauthorized_Access);
             }
         }
 
@@ -76,6 +78,7 @@ namespace Shifty.Persistence.Jwt
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.Source , ex);
                 return null;
             }
         }
@@ -86,7 +89,7 @@ namespace Shifty.Persistence.Jwt
             claims.Add(new Claim(ClaimTypes.NameIdentifier , user.Id.ToString()));
             claims.Add(new Claim(ClaimTypes.Name ,           user.UserName));
 
-            var userRoles = await _userManager.GetRolesAsync(user);
+            var userRoles = await userManager.GetRolesAsync(user);
 
             foreach (var role in userRoles)
             {

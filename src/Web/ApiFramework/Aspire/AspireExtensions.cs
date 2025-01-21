@@ -4,6 +4,9 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Shifty.Domain.Constants;
+using System;
+using System.Collections.Generic;
 
 namespace Shifty.ApiFramework.Aspire
 {
@@ -11,11 +14,44 @@ namespace Shifty.ApiFramework.Aspire
     {
         public static IServiceCollection AddAspire(this IServiceCollection services)
         {
+
             services.Configure<OpenTelemetryLoggerOptions>(options =>
                                                            {
                                                                options.IncludeFormattedMessage = true;
                                                                options.IncludeScopes           = true;
                                                            });
+
+
+  services.AddLogging(loggingBuilder =>
+                                {
+                                    loggingBuilder.ClearProviders(); // Optional: Remove other logging providers
+
+                                    loggingBuilder.AddOpenTelemetry(logging =>
+                                                                    {
+                                                                        // Include formatted messages and scopes
+                                                                        logging.IncludeFormattedMessage = true;
+                                                                        logging.IncludeScopes           = true;
+
+                                                                        // Define resource attributes (e.g., service name, environment)
+                                                                        logging.SetResourceBuilder(ResourceBuilder.CreateDefault().
+                                                                            AddService(ApplicationConstant.ApplicationName));
+
+                                                                        // Add OTLP Exporter for Aspire
+                                                                        logging.AddOtlpExporter(options =>
+                                                                                                {
+                                                                                                    options.Headers =
+                                                                                                        "x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
+                                                                                                });
+
+                                                                        // Optional: Add Console Exporter for local debugging
+                                                                        logging.AddConsoleExporter();
+
+                                                                    });
+
+                                    // Optional: Add other logging providers if needed
+                                    loggingBuilder.AddDebug();
+                                });
+
 
 
             services.AddMetrics().
@@ -52,21 +88,6 @@ namespace Shifty.ApiFramework.Aspire
                                                                  option.Headers = "x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
                                                              });
                                  });
-
-
-            services.AddLogging(loggingBuilder =>
-                                {
-                                    loggingBuilder.AddOpenTelemetry(logging =>
-                                                                    {
-                                                                        logging.IncludeFormattedMessage = true;
-                                                                        logging.IncludeScopes           = true;
-                                                                        logging.AddOtlpExporter(option =>
-                                                                                                {
-                                                                                                    option.Headers =
-                                                                                                        "x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
-                                                                                                });
-                                                                    });
-                                });
 
             return services;
         }

@@ -75,8 +75,8 @@ services:
     networks:
       - app-network
     ports:
-      - ${PORT_API_EXTERNAL}:${PORT_API_INTERNAL}
-      - ${PORT_API_EXTERNAL_SSL}:${PORT_API_INTERNAL_SSL}
+      - ${PORT_API_EXTERNAL}:80
+      - ${PORT_API_EXTERNAL_SSL}:443
     restart: always
 
 networks:
