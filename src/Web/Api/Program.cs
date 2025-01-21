@@ -24,9 +24,9 @@ namespace Shifty.Api
                                                            Enrich.FromLogContext().
                                                            WriteTo.Console().
                                                            WriteTo.OpenTelemetry(options =>
-                                                                                                   {
-                                                                                                       options.Headers = ApplicationConstant.Aspire.HeaderKey;
-                                                                                                   } ); 
+                                                                                 {
+                                                                                     options.Headers = ApplicationConstant.Aspire.HeaderKey;
+                                                                                 });
                                    }).
                         ConfigureWebHostDefaults(webBuilder =>
                                                  {

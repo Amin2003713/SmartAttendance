@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Shifty.Application.Companies.Command.InitialCompany;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
@@ -15,10 +14,9 @@ using System.Threading.Tasks;
 namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
 {
     public class InitialCompanyCommandHandler(
-        ICompanyRepository repository
-        , ITenantAdminRepository tenantAdminRepository
-        , RunTimeDatabaseMigrationService runTimeDatabaseMigrationService)
-        : IRequestHandler<InitialCompanyCommand , string>
+        ICompanyRepository repository ,
+        ITenantAdminRepository tenantAdminRepository ,
+        RunTimeDatabaseMigrationService runTimeDatabaseMigrationService) : IRequestHandler<InitialCompanyCommand , string>
     {
         public async Task<string> Handle(InitialCompanyCommand request , CancellationToken cancellationToken)
         {

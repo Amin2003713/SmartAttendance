@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Shifty.Application.Companies.Command.InitialCompany
 {

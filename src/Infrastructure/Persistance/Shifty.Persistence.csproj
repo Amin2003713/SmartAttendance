@@ -9,20 +9,20 @@
 		<PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="9.0.0"/>
 		<PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="9.0.0"/>
 		<PackageReference Include="Mapster" Version="7.4.0"/>
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.1"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1"/>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1"/>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.1"/>
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.1"/>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.1"/>
 		<PackageReference Include="Minio" Version="6.0.4"/>
 		<PackageReference Include="PolyCache" Version="1.2.1"/>
 	</ItemGroup>
@@ -34,7 +34,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="CommandHandlers\Users\Queres\" />
+		<Folder Include="CommandHandlers\Users\Queres\"/>
 	</ItemGroup>
 
 </Project>

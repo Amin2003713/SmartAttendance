@@ -82,8 +82,8 @@ namespace Shifty.Api.Controllers.Users
         [ProducesResponseType(typeof(BadRequestResult) ,          StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiProblemDetails) ,         StatusCodes.Status500InternalServerError)]
         public virtual async Task<VerifyPhoneNumberResponse> VerifyPhoneNumberAsync(
-            [FromBody] VerifyPhoneNumberRequest request
-            , CancellationToken cancellationToken)
+            [FromBody] VerifyPhoneNumberRequest request ,
+            CancellationToken cancellationToken)
         {
             return await Mediator.Send(request.Adapt<VerifyPhoneNumberCommand>() , cancellationToken);
         }
@@ -101,12 +101,10 @@ namespace Shifty.Api.Controllers.Users
         [SwaggerOperation("Send an activation code to the specified user.")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(SendActivationCodeQueryResponse) , StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(BadRequestResult) ,           StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(NotFoundResult) ,             StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ApiProblemDetails) ,          StatusCodes.Status500InternalServerError)]
-        public virtual async Task<SendActivationCodeQueryResponse> SendActivationCode(
-            [FromQuery] string phoneNumber
-            , CancellationToken cancellationToken)
+        [ProducesResponseType(typeof(BadRequestResult) ,                StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(NotFoundResult) ,                  StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiProblemDetails) ,               StatusCodes.Status500InternalServerError)]
+        public virtual async Task<SendActivationCodeQueryResponse> SendActivationCode([FromQuery] string phoneNumber , CancellationToken cancellationToken)
         {
             return await Mediator.Send(SendActivationCodeQuery.Created(phoneNumber) , cancellationToken);
         }

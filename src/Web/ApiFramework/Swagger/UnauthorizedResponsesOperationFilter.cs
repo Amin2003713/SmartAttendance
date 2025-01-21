@@ -1,10 +1,7 @@
-﻿using FluentValidation;
-using FluentValidation.Validators;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Shifty.ApiFramework.Swagger
@@ -33,13 +30,13 @@ namespace Shifty.ApiFramework.Swagger
 
             if (includeUnauthorizedAndForbiddenResponses)
             {
-                operation.Responses.TryAdd("401"
-                    , new OpenApiResponse
+                operation.Responses.TryAdd("401" ,
+                    new OpenApiResponse
                     {
                         Description = "Unauthorized" ,
                     });
-                operation.Responses.TryAdd("403"
-                    , new OpenApiResponse
+                operation.Responses.TryAdd("403" ,
+                    new OpenApiResponse
                     {
                         Description = "Forbidden" ,
                     });
@@ -47,5 +44,3 @@ namespace Shifty.ApiFramework.Swagger
         }
     }
 }
-
-

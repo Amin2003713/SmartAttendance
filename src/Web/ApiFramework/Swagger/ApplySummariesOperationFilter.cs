@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.Validators;
-using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Pluralize.NET;
 using Shifty.Common.Utilities;
@@ -74,16 +72,19 @@ namespace Shifty.ApiFramework.Swagger
 
             bool IsGetAllAction()
             {
-                return sourceArray.Any(name => actionName.Equals(name , StringComparison.OrdinalIgnoreCase) || actionName.Equals($"{name}All" , StringComparison.OrdinalIgnoreCase) || actionName.Equals($"{name}{pluralizeName}" , StringComparison.OrdinalIgnoreCase) || actionName.Equals($"{name}All{singularizeName}" , StringComparison.OrdinalIgnoreCase) || actionName.Equals($"{name}All{pluralizeName}" , StringComparison.OrdinalIgnoreCase));
+                return sourceArray.Any(name => actionName.Equals(name ,                          StringComparison.OrdinalIgnoreCase) ||
+                                               actionName.Equals($"{name}All" ,                  StringComparison.OrdinalIgnoreCase) ||
+                                               actionName.Equals($"{name}{pluralizeName}" ,      StringComparison.OrdinalIgnoreCase) ||
+                                               actionName.Equals($"{name}All{singularizeName}" , StringComparison.OrdinalIgnoreCase) ||
+                                               actionName.Equals($"{name}All{pluralizeName}" ,   StringComparison.OrdinalIgnoreCase));
             }
 
             bool IsActionName(params string[] names)
             {
                 foreach (var name in names)
                 {
-                    if (actionName.Equals(name ,                           StringComparison.OrdinalIgnoreCase) ||
-                        actionName.Equals($"{name}ById" ,                  StringComparison.OrdinalIgnoreCase) ||
-                        actionName.Equals($"{name}{singularizeName}" ,     StringComparison.OrdinalIgnoreCase) ||
+                    if (actionName.Equals(name , StringComparison.OrdinalIgnoreCase) || actionName.Equals($"{name}ById" , StringComparison.OrdinalIgnoreCase) ||
+                        actionName.Equals($"{name}{singularizeName}" , StringComparison.OrdinalIgnoreCase) ||
                         actionName.Equals($"{name}{singularizeName}ById" , StringComparison.OrdinalIgnoreCase))
                     {
                         return true;
@@ -95,29 +96,5 @@ namespace Shifty.ApiFramework.Swagger
 
             #endregion
         }
-    }
-
-}
-
-
-public class ApplyHeaderParameterOperationFilter : IOperationFilter
-{
-    public void Apply(OpenApiOperation operation , OperationFilterContext context)
-    {
-        operation.Parameters.Add(new OpenApiParameter
-        {
-            Name = "__tenant__" , In = ParameterLocation.Header , Description = "your Organization header" , Required = false
-            ,
-        });
-      
-
-        operation.Parameters.Add(new OpenApiParameter
-        {
-            Name = "X_Device_Type" , In = ParameterLocation.Header , Description = "your Organization header" , Required = true
-            , Schema = new OpenApiSchema
-            {
-                Type = "string" , Default = new Microsoft.OpenApi.Any.OpenApiString("Browser")
-            }
-        });
     }
 }

@@ -10,11 +10,11 @@ namespace Shifty.ApiFramework.Tools
     public class PagedApiResult : PagedApiResult<object>
     {
         public PagedApiResult(
-            object data
-            , int? total = null
-            , int statusCode = StatusCodes.Status200OK
-            , string[] messages = null
-            , string[] errors = null) : base(data , total , statusCode , messages , errors)
+            object data ,
+            int? total = null ,
+            int statusCode = StatusCodes.Status200OK ,
+            string[] messages = null ,
+            string[] errors = null) : base(data , total , statusCode , messages , errors)
         {
         }
     }

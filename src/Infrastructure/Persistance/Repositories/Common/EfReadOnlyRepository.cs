@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Common
 {
-    public class EfReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
-        where TEntity : class , IEntity
+    public class EfReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : class , IEntity
     {
         protected readonly ReadOnlyDbContext DbContext;
 

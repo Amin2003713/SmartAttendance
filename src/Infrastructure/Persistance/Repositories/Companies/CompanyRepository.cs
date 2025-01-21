@@ -56,9 +56,7 @@ namespace Shifty.Persistence.Repositories.Companies
 
         public async Task<bool> ExistsAsync(string identifierId , CancellationToken cancellationToken)
         {
-            return await TableNoTracking.AnyAsync(x => x.Identifier == identifierId ||
-                                                       x.Id         == identifierId
-                , cancellationToken);
+            return await TableNoTracking.AnyAsync(x => x.Identifier == identifierId || x.Id == identifierId , cancellationToken);
         }
 
         public async Task<(bool IsValid , string message)> ValidateDomain(string domain , CancellationToken cancellationToken)

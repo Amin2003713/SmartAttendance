@@ -31,10 +31,12 @@ namespace Shifty.Api.Controllers.Companies
                           At least Send Activation Sms
                           """)]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(string) ,     StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string) ,            StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status400BadRequest)]
-        public virtual async Task<string> InitialCompany([FromBody] InitialCompanyRequest request , CancellationToken cancellationToken) =>
-            await Mediator.Send(request.Adapt<InitialCompanyCommand>() , cancellationToken);
+        public virtual async Task<string> InitialCompany([FromBody] InitialCompanyRequest request , CancellationToken cancellationToken)
+        {
+            return await Mediator.Send(request.Adapt<InitialCompanyCommand>() , cancellationToken);
+        }
 
 
         /// <summary>

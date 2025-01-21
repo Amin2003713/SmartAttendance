@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Common.Behaviours
 {
-    public class ValidationBehavior<TRequest , TResponse> : IPipelineBehavior<TRequest , TResponse>
-        where TRequest : IRequest<TResponse>
+    public class ValidationBehavior<TRequest , TResponse> : IPipelineBehavior<TRequest , TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

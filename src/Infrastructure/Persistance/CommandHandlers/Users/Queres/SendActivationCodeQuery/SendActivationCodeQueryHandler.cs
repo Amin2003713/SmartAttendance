@@ -13,7 +13,9 @@ namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuer
     public class SendActivationCodeQueryHandler(UserManager<User> userManager , IRepository<User> userRepository)
         : IRequestHandler<Application.Users.Queries.SendActivationCode.SendActivationCodeQuery , SendActivationCodeQueryResponse>
     {
-        public async Task<SendActivationCodeQueryResponse> Handle(Application.Users.Queries.SendActivationCode.SendActivationCodeQuery request , CancellationToken cancellationToken)
+        public async Task<SendActivationCodeQueryResponse> Handle(
+            Application.Users.Queries.SendActivationCode.SendActivationCodeQuery request ,
+            CancellationToken cancellationToken)
         {
             var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
 

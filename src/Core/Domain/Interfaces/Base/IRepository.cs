@@ -44,9 +44,9 @@ namespace Shifty.Domain.Interfaces.Base
         void LoadCollection<TProperty>(TEntity entity , Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty) where TProperty : class;
 
         Task LoadCollectionAsync<TProperty>(
-            TEntity entity
-            , Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty
-            , CancellationToken cancellationToken) where TProperty : class;
+            TEntity entity ,
+            Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty ,
+            CancellationToken cancellationToken) where TProperty : class;
 
         void LoadReference<TProperty>(TEntity entity , Expression<Func<TEntity , TProperty>> referenceProperty) where TProperty : class;
 

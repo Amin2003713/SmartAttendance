@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Common.General;
+using Shifty.Domain.Constants;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;
@@ -24,12 +24,11 @@ namespace Shifty.Persistence.Services.MigrationManagers
 
                 var tenantsInDb = await tenantDbContext.TenantInfo.ToListAsync();
 
-                var appOptions = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
 
                 foreach (var tenant in tenantsInDb) // loop through all tenants, apply migrations on applicationDbContext
                 {
                     var connectionString = string.IsNullOrEmpty(tenant.GetConnectionString())
-                        ? appOptions.WriteDatabaseConnectionString
+                        ? ApplicationConstant.AppOptions.WriteDatabaseConnectionString
                         : tenant.GetConnectionString();
 
                     // Application Db Context (app - per tenant)

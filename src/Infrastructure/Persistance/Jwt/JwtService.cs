@@ -24,10 +24,9 @@ namespace Shifty.Persistence.Jwt
         {
             // Load keys securely
             var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey);
-            var signingCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(secretKey)
-                , SecurityAlgorithms.HmacSha256Signature
-                , SecurityAlgorithms.HmacSha256Signature);
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey) ,
+                SecurityAlgorithms.HmacSha256Signature ,
+                SecurityAlgorithms.HmacSha256Signature);
 
 
             // Get claims for the user
@@ -36,11 +35,10 @@ namespace Shifty.Persistence.Jwt
             // Define token descriptor
             var descriptor = new SecurityTokenDescriptor
             {
-                Issuer      = _siteSetting.JwtSettings.Issuer , Audience = _siteSetting.JwtSettings.Audience , IssuedAt = DateTime.UtcNow
-                , NotBefore = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.NotBeforeMinutes)
-                , Expires   = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.ExpirationMinutes) , SigningCredentials = signingCredentials
-                , Subject   = new ClaimsIdentity(claims) ,
-            };
+                Issuer    = _siteSetting.JwtSettings.Issuer , Audience = _siteSetting.JwtSettings.Audience , IssuedAt = DateTime.UtcNow ,
+                NotBefore = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.NotBeforeMinutes) ,
+                Expires   = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.ExpirationMinutes) , SigningCredentials = signingCredentials ,
+                Subject   = new ClaimsIdentity(claims) };
 
             try
             {
@@ -48,11 +46,7 @@ namespace Shifty.Persistence.Jwt
                 var tokenHandler  = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateJwtSecurityToken(descriptor);
 
-                return new AccessToken(
-                    securityToken
-                    , GenerateRefreshToken()
-                    , _siteSetting.JwtSettings.RefreshTokenValidityInDays
-                );
+                return new AccessToken(securityToken , GenerateRefreshToken() , _siteSetting.JwtSettings.RefreshTokenValidityInDays);
             }
             catch (Exception ex)
             {
@@ -68,13 +62,13 @@ namespace Shifty.Persistence.Jwt
             var tokenHandler = new JwtSecurityTokenHandler();
             try
             {
-                tokenHandler.ValidateToken(token
-                    , new TokenValidationParameters
+                tokenHandler.ValidateToken(token ,
+                    new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = true , IssuerSigningKey = new SymmetricSecurityKey(secretKey) , ValidateIssuer = false
-                        , ValidateAudience       = false , ClockSkew       = TimeSpan.Zero ,
-                    }
-                    , out var validatedToken);
+                        ValidateIssuerSigningKey = true , IssuerSigningKey = new SymmetricSecurityKey(secretKey) , ValidateIssuer = false ,
+                        ValidateAudience         = false ,
+                        ClockSkew                = TimeSpan.Zero } ,
+                    out var validatedToken);
 
                 var jwtSecurityToken = (JwtSecurityToken)validatedToken;
                 var userId           = Guid.Parse(jwtSecurityToken.Claims.First(claim => claim.Type == "nameid").Value);

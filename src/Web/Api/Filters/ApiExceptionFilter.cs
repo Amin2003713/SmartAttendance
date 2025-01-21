@@ -18,16 +18,13 @@ namespace Shifty.Api.Filters
             {
                 {
                     typeof(ValidationException) , HandleValidationException
-                }
-                ,
+                } ,
                 {
                     typeof(NotFoundException) , HandleNotFoundException
-                }
-                ,
+                } ,
                 {
                     typeof(ExistingRecordException) , HandleExistingRecordException
-                }
-                ,
+                } ,
             };
         }
 
@@ -71,9 +68,8 @@ namespace Shifty.Api.Filters
             {
                 var problemDetails = new ApiProblemDetails
                 {
-                    Status   = StatusCodes.Status400BadRequest , Title = "Validation failed" , Detail = "One or more validation errors occurred."
-                    , Errors = exception.Errors ,
-                };
+                    Status = StatusCodes.Status400BadRequest , Title = "Validation failed" , Detail = "One or more validation errors occurred." ,
+                    Errors = exception.Errors };
 
                 context.Result           = new BadRequestObjectResult(problemDetails);
                 context.ExceptionHandled = true;

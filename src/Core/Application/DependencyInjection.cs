@@ -25,8 +25,7 @@ namespace Shifty.Application
 
         private static void ConfigureMaster()
         {
-            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().
-                                                                        Map(dest => dest.Identifier , src => src.Domain);
+            TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().Map(dest => dest.Identifier , src => src.Domain);
         }
     }
 }

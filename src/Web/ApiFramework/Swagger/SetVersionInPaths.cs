@@ -11,9 +11,7 @@ namespace Shifty.ApiFramework.Swagger
 
             foreach (var entry in swaggerDoc.Paths)
             {
-                updatedPaths.Add(
-                    entry.Key.Replace("v{version}" , swaggerDoc.Info.Version)
-                    , entry.Value);
+                updatedPaths.Add(entry.Key.Replace("v{version}" , swaggerDoc.Info.Version) , entry.Value);
             }
 
             swaggerDoc.Paths = updatedPaths;

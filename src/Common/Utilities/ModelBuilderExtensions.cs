@@ -39,8 +39,8 @@ namespace Shifty.Common.Utilities
                     if (iface.IsConstructedGenericType && iface.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
                     {
                         var applyConcreteMethod = applyGenericMethod.MakeGenericMethod(iface.GenericTypeArguments[0]);
-                        applyConcreteMethod.Invoke(modelBuilder
-                            , new[]
+                        applyConcreteMethod.Invoke(modelBuilder ,
+                            new[]
                             {
                                 Activator.CreateInstance(type) ,
                             });

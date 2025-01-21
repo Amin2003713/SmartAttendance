@@ -17,11 +17,11 @@ using System.Threading.Tasks;
 namespace Shifty.Persistence.Services.MigrationManagers
 {
     public class RunTimeDatabaseMigrationService(
-        IServiceProvider services
-        , IConfiguration configuration
-        , Seeder.Seeder seeder
-        , IPasswordHasher<User> passwordHasher
-        , UserManager<User> userManager)
+        IServiceProvider services ,
+        IConfiguration configuration ,
+        Seeder.Seeder seeder ,
+        IPasswordHasher<User> passwordHasher ,
+        UserManager<User> userManager)
     {
         public IConfiguration Configuration { get; } = configuration;
 

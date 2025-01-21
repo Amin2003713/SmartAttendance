@@ -24,9 +24,8 @@ namespace Shifty.Persistence.Services.Seeder
 
                 var newRole = new Role
                 {
-                    Name       = role.ToString() , Id  = Guid.CreateVersion7() , Description = role.ToString() , ConcurrencyStamp = Guid.NewGuid().ToString()
-                    , IsActive = true , NormalizedName = role.ToString().ToUpper() ,
-                };
+                    Name     = role.ToString() , Id  = Guid.CreateVersion7() , Description = role.ToString() , ConcurrencyStamp = Guid.NewGuid().ToString() ,
+                    IsActive = true , NormalizedName = role.ToString().ToUpper() };
 
                 dbContext.Roles.Add(newRole);
                 await dbContext.SaveChangesAsync(cancellationToken);

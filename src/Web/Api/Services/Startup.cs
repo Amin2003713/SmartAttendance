@@ -36,7 +36,6 @@ namespace Shifty.Api.Services
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterServices();
-            
         }
 
         public void Configure(IApplicationBuilder app , IWebHostEnvironment env)

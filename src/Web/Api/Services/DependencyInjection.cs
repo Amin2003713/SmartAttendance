@@ -1,7 +1,6 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
 using MediatR;
-using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,13 +26,11 @@ using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
-using Shifty.Persistence.Services.MigrationManagers;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,12 +42,6 @@ namespace Shifty.Api.Services
         public static void AddWebApi(this IServiceCollection services , IConfiguration configuration , SiteSettings siteSettings)
         {
             services.Configure<SiteSettings>(configuration.GetSection(nameof(SiteSettings)));
-            var appOptions             = configuration.GetSection(nameof(AppOptions)).Get<AppOptions>();
-            var distributedCacheConfig = configuration.GetSection(nameof(DistributedCacheConfig)).Get<DistributedCacheConfig>();
-
-
-            services.AddScoped<IAppOptions , AppOptions>(_ => appOptions);
-
             services.AddSingleton<IMultiTenantContext<ShiftyTenantInfo> , MultiTenantContext<ShiftyTenantInfo>>();
 
             services.AddSwaggerOptions();
@@ -71,11 +62,10 @@ namespace Shifty.Api.Services
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(UnhandledExceptionBehaviour<,>));
 
             // Register the MigrationService
-            services.AddScoped<IMigrationService , MigrationService>();
-            services.AddRouting(a=>
+            services.AddRouting(a =>
                                 {
-                                    a.LowercaseUrls = true;
-                                    a.AppendTrailingSlash = true;
+                                    a.LowercaseUrls         = true;
+                                    a.AppendTrailingSlash   = true;
                                     a.LowercaseQueryStrings = true;
                                 });
 
@@ -138,15 +128,12 @@ namespace Shifty.Api.Services
 
                                       var validationParameters = new TokenValidationParameters
                                       {
-                                          ClockSkew                  = TimeSpan.Zero , // default: 5 min
-                                          RequireSignedTokens        = true
-                                          , ValidateIssuerSigningKey = true , IssuerSigningKey = new SymmetricSecurityKey(secretKey)
-                                          , RequireExpirationTime    = true
-                                          , ValidateLifetime         = true , ValidateAudience = true , //default : false
-                                          ValidAudience              = jwtSettings.Audience
-                                          , ValidateIssuer           = true , //default : false
-                                          ValidIssuer                = jwtSettings.Issuer
-                                          ,
+                                          ClockSkew             = TimeSpan.Zero , // default: 5 min
+                                          RequireSignedTokens   = true , ValidateIssuerSigningKey = true ,
+                                          IssuerSigningKey      = new SymmetricSecurityKey(secretKey) ,
+                                          RequireExpirationTime = true , ValidateLifetime               = true , ValidateAudience = true , //default : false
+                                          ValidAudience         = jwtSettings.Audience , ValidateIssuer = true ,                           //default : false
+                                          ValidIssuer           = jwtSettings.Issuer ,
                                       };
 
                                       options.RequireHttpsMetadata      = false;
@@ -158,27 +145,26 @@ namespace Shifty.Api.Services
                                           OnAuthenticationFailed = context =>
                                                                    {
                                                                        if (context.Exception != null)
-                                                                           throw new ShiftyException(ApiResultStatusCode.UnAuthorized
-                                                                               , "Authentication failed."
-                                                                               , HttpStatusCode.Unauthorized
-                                                                               , context.Exception
-                                                                               , null);
+                                                                           throw new ShiftyException(ApiResultStatusCode.UnAuthorized ,
+                                                                               "Authentication failed." ,
+                                                                               HttpStatusCode.Unauthorized ,
+                                                                               context.Exception ,
+                                                                               null);
 
                                                                        return Task.CompletedTask;
-                                                                   }
-                                          , OnTokenValidated = async context => await AddLoginRecordForUsers(context) , OnChallenge = context =>
+                                                                   } ,
+                                          OnTokenValidated = async context => await AddLoginRecordForUsers(context) , OnChallenge = context =>
                                           {
                                               if (context.AuthenticateFailure != null)
-                                                  throw new ShiftyException(ApiResultStatusCode.UnAuthorized
-                                                      , "Authenticate failure."
-                                                      , HttpStatusCode.Unauthorized
-                                                      , context.AuthenticateFailure
-                                                      , null);
-                                              throw new ShiftyException(ApiResultStatusCode.UnAuthorized
-                                                  , "You are unauthorized to access this resource."
-                                                  , HttpStatusCode.Unauthorized);
-                                          }
-                                          ,
+                                                  throw new ShiftyException(ApiResultStatusCode.UnAuthorized ,
+                                                      "Authenticate failure." ,
+                                                      HttpStatusCode.Unauthorized ,
+                                                      context.AuthenticateFailure ,
+                                                      null);
+                                              throw new ShiftyException(ApiResultStatusCode.UnAuthorized ,
+                                                  "You are unauthorized to access this resource." ,
+                                                  HttpStatusCode.Unauthorized);
+                                          } ,
                                       };
                                   });
         }
@@ -256,36 +242,31 @@ namespace Shifty.Api.Services
             services.AddSwaggerExamplesFromAssemblyOf<LoginRequestExample>();
             services.AddSwaggerGen(options =>
                                    {
-
                                        options.EnableAnnotations();
 
-                                       options.SwaggerDoc("v1"
-                                           , new OpenApiInfo
-                                           { 
-                                               Title = "Shifty.Apis"
-                                               , Contact = new OpenApiContact
+                                       options.SwaggerDoc("v1" ,
+                                           new OpenApiInfo
+                                           {
+                                               Title = "Shifty.Apis" , Contact = new OpenApiContact
                                                {
-                                                   Name  = "Amin Ahmadi" , Email = "amin1382amin@gmail.com"
-                                                   , Url = new Uri("https://github.com/Amin2003713") ,
-                                               }
-                                               ,
+                                                   Name = "Amin Ahmadi" , Email = "amin1382amin@gmail.com" , Url = new Uri("https://github.com/Amin2003713") ,
+                                               } ,
                                            });
 
                                        #region Filters
 
-                                        options.ExampleFilters();
+                                       options.ExampleFilters();
 
                                        options.OperationFilter<ApplySummariesOperationFilter>();
                                        //Add 401 response and security requirements (Lock icon) to actions that need authorization
                                        options.OperationFilter<UnauthorizedResponsesOperationFilter>(true , "OAuth2");
 
-                                       options.AddSecurityDefinition("Bearer"
-                                           , new OpenApiSecurityScheme
+                                       options.AddSecurityDefinition("Bearer" ,
+                                           new OpenApiSecurityScheme
                                            {
-                                               Name = "Authorization" , Type = SecuritySchemeType.ApiKey , Scheme = "Bearer" , BearerFormat = "JWT"
-                                               , In = ParameterLocation.Header , Description = "JWT Authorization header using the Bearer scheme." ,
-                                           });
-                                       
+                                               Name = "Authorization" , Type = SecuritySchemeType.ApiKey , Scheme = "Bearer" , BearerFormat = "JWT" ,
+                                               In   = ParameterLocation.Header , Description = "JWT Authorization header using the Bearer scheme." });
+
 
                                        options.AddSecurityRequirement(new OpenApiSecurityRequirement
                                        {
@@ -295,12 +276,10 @@ namespace Shifty.Api.Services
                                                    Reference = new OpenApiReference
                                                    {
                                                        Type = ReferenceType.SecurityScheme , Id = "Bearer" ,
-                                                   }
-                                                   ,
-                                               }
-                                               , Array.Empty<string>()
+                                                   } ,
+                                               } ,
+                                               Array.Empty<string>()
                                            } ,
-
                                        });
                                        options.OperationFilter<ApplyHeaderParameterOperationFilter>();
 

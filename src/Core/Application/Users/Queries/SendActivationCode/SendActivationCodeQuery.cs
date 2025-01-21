@@ -8,11 +8,10 @@ namespace Shifty.Application.Users.Queries.SendActivationCode
 
         public static SendActivationCodeQuery Created(string phoneNumber)
         {
-            return new SendActivationCodeQuery()
+            return new SendActivationCodeQuery
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber ,
             };
-
         }
     }
 }

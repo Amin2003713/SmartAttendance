@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Common
 {
-    public class Repository<TEntity , TReadDb> : IRepository<TEntity>
-        where TEntity : class , IEntity
-        where TReadDb : DbContext
+    public class Repository<TEntity , TReadDb> : IRepository<TEntity> where TEntity : class , IEntity where TReadDb : DbContext
     {
         protected readonly TReadDb DbContext;
 
@@ -167,10 +165,9 @@ namespace Shifty.Persistence.Repositories.Common
         #region Explicit Loading
 
         public virtual async Task LoadCollectionAsync<TProperty>(
-            TEntity entity
-            , Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty
-            , CancellationToken cancellationToken)
-            where TProperty : class
+            TEntity entity ,
+            Expression<Func<TEntity , IEnumerable<TProperty>>> collectionProperty ,
+            CancellationToken cancellationToken) where TProperty : class
         {
             Attach(entity);
 
@@ -189,10 +186,9 @@ namespace Shifty.Persistence.Repositories.Common
         }
 
         public virtual async Task LoadReferenceAsync<TProperty>(
-            TEntity entity
-            , Expression<Func<TEntity , TProperty>> referenceProperty
-            , CancellationToken cancellationToken)
-            where TProperty : class
+            TEntity entity ,
+            Expression<Func<TEntity , TProperty>> referenceProperty ,
+            CancellationToken cancellationToken) where TProperty : class
         {
             Attach(entity);
             var reference = DbContext.Entry(entity).Reference(referenceProperty);
@@ -200,8 +196,7 @@ namespace Shifty.Persistence.Repositories.Common
                 await reference.LoadAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public virtual void LoadReference<TProperty>(TEntity entity , Expression<Func<TEntity , TProperty>> referenceProperty)
-            where TProperty : class
+        public virtual void LoadReference<TProperty>(TEntity entity , Expression<Func<TEntity , TProperty>> referenceProperty) where TProperty : class
         {
             Attach(entity);
             var reference = DbContext.Entry(entity).Reference(referenceProperty);

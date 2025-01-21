@@ -20,15 +20,10 @@ namespace Shifty.Domain.Tenants
         public string? Name { get; set; }
 
 
-        public string GetConnectionString() =>
-            $"Server={ApplicationConstant.Sql.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.Sql.MultipleActiveResultSets};{ApplicationConstant.Sql.Encrypt};{ApplicationConstant.Sql.UserNameAndPass}";
-    }
-
-    public class Logo
-    {
-        public Guid Id { get; set; }
-        public string? Value { get; set; }
-        public DateTime CreateAt { get; set; }
-        public Guid CompanyId { get; set; }
+        public string GetConnectionString()
+        {
+            return
+                $"Server={ApplicationConstant.Sql.DbServer};Database=Shifty.{Identifier};{ApplicationConstant.Sql.MultipleActiveResultSets};{ApplicationConstant.Sql.Encrypt};{ApplicationConstant.Sql.UserNameAndPass}";
+        }
     }
 }

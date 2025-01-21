@@ -37,23 +37,22 @@ namespace Shifty.Persistence.Repositories.Users
             }
             catch (Exception e)
             {
-                throw new ShiftyException(ApiResultStatusCode.ServerError
-                    , $"You are unauthorized to access this resource. {e}"
-                    , HttpStatusCode.InternalServerError);
+                throw new ShiftyException(ApiResultStatusCode.ServerError ,
+                    $"You are unauthorized to access this resource. {e}" ,
+                    HttpStatusCode.InternalServerError);
             }
         }
 
         public async Task<TenantAdmin> GetByCompanyOrPhoneNumberAsync(string phoneNumber , CancellationToken cancellationToken)
         {
-            return (await GetByCompanyOrPhoneNumber(phoneNumber , cancellationToken)) ??
+            return await GetByCompanyOrPhoneNumber(phoneNumber , cancellationToken) ??
                    throw new ShiftyException(ApiResultStatusCode.NotFound , "User does not exist.");
         }
 
 
         private async Task<TenantAdmin> GetByCompanyOrPhoneNumber(string phoneNumber , CancellationToken cancellationToken)
         {
-            return (await Table.SingleOrDefaultAsync(a => a.PhoneNumber == phoneNumber , cancellationToken)) ??
-                   null!;
+            return await Table.SingleOrDefaultAsync(a => a.PhoneNumber == phoneNumber , cancellationToken) ?? null!;
         }
     }
 }

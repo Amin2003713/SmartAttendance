@@ -26,9 +26,7 @@ namespace Shifty.Common.Utilities
         public static T GetUserId<T>(this IIdentity identity) where T : IConvertible
         {
             var userId = identity?.GetUserId();
-            return userId.HasValue()
-                ? (T)Convert.ChangeType(userId , typeof(T) , CultureInfo.InvariantCulture)
-                : default;
+            return userId.HasValue() ? (T)Convert.ChangeType(userId , typeof(T) , CultureInfo.InvariantCulture) : default;
         }
 
         public static string GetUserName(this IIdentity identity)

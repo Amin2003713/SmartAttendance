@@ -20,16 +20,14 @@ namespace Shifty.ApiFramework.Tools
         {
             foreach (var description in _provider.ApiVersionDescriptions)
             {
-                options.SwaggerDoc(
-                    description.GroupName
-                    , new OpenApiInfo
+                options.SwaggerDoc(description.GroupName ,
+                    new OpenApiInfo
                     {
-                        Title = $"Web Api {description.ApiVersion}" , Version = description.ApiVersion.ToString() , Description = "All available Web apis."
-                        , Contact = new OpenApiContact
+                        Title = $"Web Api {description.ApiVersion}" , Version = description.ApiVersion.ToString() , Description = "All available Web apis." ,
+                        Contact = new OpenApiContact
                         {
                             Email = "info@Web.ir" , Name = "Web" , Url = new Uri("https://www.WebApi.ir") ,
-                        }
-                        ,
+                        } ,
                     });
             }
         }
