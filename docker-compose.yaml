@@ -1,6 +1,6 @@
 ﻿version: '3.9'
 services:
-  # SQL Server
+  
   sqlserver:
     image: mcr.microsoft.com/mssql/server
     container_name: sqlserver
@@ -21,7 +21,6 @@ services:
       - ./data/mssql/log:/var/opt/mssql/log:rw,z
     restart: unless-stopped
 
-  # MinIO File Storage
   shiftyMinioFileDb:
     container_name: shiftyMinioFileDb
     image: docker.io/bitnami/minio
@@ -37,7 +36,6 @@ services:
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     restart: unless-stopped
 
-  # Aspire Service
   shiftyAspireService:
     image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
     container_name: shiftyAspireService
@@ -56,14 +54,24 @@ services:
 
     restart: unless-stopped
 
+    
+#  web:
+#      container_name: next.js
+#      image: front
+#      ports:
+#        - "3000:3000"
+#      networks:
+#        - app-network
+#      environment:
+#          NODE_ENV: production
+      
 
-  # Shifty API
-  shifty.api:
+  api:
     build:
       dockerfile: src/Web/Api/Dockerfile
       args:
         CONFIGURATION: ${CONFIGURATION}
-    container_name: shifty.api
+    container_name: api
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
       - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
@@ -75,8 +83,8 @@ services:
     networks:
       - app-network
     ports:
-      - ${PORT_API_EXTERNAL}:80
-      - ${PORT_API_EXTERNAL_SSL}:443
+      - "5001:443"
+      - "5011:80"
     restart: always
 
 networks:
