@@ -54,17 +54,6 @@ services:
 
     restart: unless-stopped
 
-    
-#  web:
-#      container_name: next.js
-#      image: front
-#      ports:
-#        - "3000:3000"
-#      networks:
-#        - app-network
-#      environment:
-#          NODE_ENV: production
-      
 
   api:
     build:

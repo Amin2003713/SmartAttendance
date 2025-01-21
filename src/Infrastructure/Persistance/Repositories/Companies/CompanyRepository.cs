@@ -62,7 +62,7 @@ namespace Shifty.Persistence.Repositories.Companies
         }
 
 
-        public async Task<(bool IsValid , string message)> ValidateDomain(string domain , CancellationToken cancellationToken)
+        public async Task<(bool doseExist , string message)> ValidateDomain(string domain , CancellationToken cancellationToken)
         {
             if (!await IdentifierExistsAsync(domain , cancellationToken))
                 return (true , ResponseMessageConstant.Company.CheckDomainQuery.Success);

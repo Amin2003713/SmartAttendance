@@ -16,7 +16,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
 
             var validation = await companyRepository.ValidateDomain(request.Domain , cancellationToken);
 
-            return new CheckDomainResponse(validation.IsValid , validation.message);
+            return new CheckDomainResponse(validation.doseExist , validation.message);
         }
     }
 }

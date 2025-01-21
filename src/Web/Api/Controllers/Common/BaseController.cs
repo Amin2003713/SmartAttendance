@@ -17,6 +17,7 @@ namespace Shifty.Api.Controllers.Common
     [Authorize]
     [Route("[controller]")]
     [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status500InternalServerError)]
     public class BaseController : ControllerBase
     {
         private IServiceProvider Resolver => HttpContext.RequestServices;
