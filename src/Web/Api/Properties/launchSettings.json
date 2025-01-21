@@ -48,7 +48,7 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true,
       "environmentVariables": {
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://{ServiceHost}:4317",
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://shiftyAspireService:4317",
         "OTEL_SERVICE_NAME": "Shifty"
       }
     }

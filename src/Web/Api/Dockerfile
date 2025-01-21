@@ -1,3 +1,5 @@
+
+
 # --------------------------------------------------
 # 1) Base runtime image
 # --------------------------------------------------
@@ -11,6 +13,9 @@ EXPOSE 8080
 # --------------------------------------------------
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
+
+# Define build argument with default value
+ARG CONFIGURATION=Development
 
 # Copy the solution file and restore dependencies
 COPY ["Shifty.sln", "./"]
@@ -30,13 +35,13 @@ COPY . .
 # --------------------------------------------------
 # 3) Build stage
 # --------------------------------------------------
-RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c Release -o /app/build
+RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION -o /app/build
 
 # --------------------------------------------------
 # 4) Publish stage
 # --------------------------------------------------
 FROM build AS publish
-RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION -o /app/publish --no-restore
 
 # --------------------------------------------------
 # 5) Final runtime stage

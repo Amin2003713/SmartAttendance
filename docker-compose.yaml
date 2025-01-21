@@ -6,7 +6,7 @@ services:
     container_name: sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=8CCA6B60A3EF40A59128@6D2824C9AEDC
+      - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
       - MSSQL_PID=Developer
       - MSSQL_BACKUP_DIR=/var/opt/mssql/backups
       - MSSQL_LCID=1033
@@ -16,9 +16,9 @@ services:
     networks:
       - app-network
     volumes:
-      - /home/data/mssql/backups:/var/opt/mssql/backups:rw,z
-      - /home/data/mssql/data:/var/opt/mssql/data:rw,z
-      - /home/data/mssql/log:/var/opt/mssql/log:rw,z
+      - ./data/mssql/backups:/var/opt/mssql/backups:rw,z
+      - ./data/mssql/data:/var/opt/mssql/data:rw,z
+      - ./data/mssql/log:/var/opt/mssql/log:rw,z
     restart: unless-stopped
 
   # MinIO File Storage
@@ -31,10 +31,10 @@ services:
     networks:
       - app-network
     volumes:
-      - /home/data/minio:/data:rw,z
+      - ./data/minio:/data:rw,z
     environment:
-      - MINIO_ROOT_USER=AminShifty1382
-      - MINIO_ROOT_PASSWORD=AminShifty1382403
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     restart: unless-stopped
 
   # Aspire Service
@@ -46,24 +46,28 @@ services:
       - "4317:18889"
     networks:
       - app-network
+    hostname: "ipalytics.ir"
     environment:
-      - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
-      - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
+      - ASPIRE_DASHBOARD_USERNAME=${ASPIRE_DASHBOARD_USERNAME}
+      - ASPIRE_DASHBOARD_PASSWORD=${ASPIRE_DASHBOARD_PASSWORD}
       - DASHBOARD__OTLP__AUTHMODE=ApiKey
       - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
+      - VIRTUAL_HOST=ipalytics.ir
+
     restart: unless-stopped
-
-
 
 
   # Shifty API
   shifty.api:
     build:
       dockerfile: src/Web/Api/Dockerfile
+      args:
+        CONFIGURATION: ${CONFIGURATION}
     container_name: shifty.api
     environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://host.docker.internal:4317
-      - OTEL_SERVICE_NAME=Shifty
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
+      - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
@@ -71,8 +75,8 @@ services:
     networks:
       - app-network
     ports:
-          - "1880:8080"
-          - "1443:443"
+      - ${PORT_API_EXTERNAL}:${PORT_API_INTERNAL}
+      - ${PORT_API_EXTERNAL_SSL}:${PORT_API_INTERNAL_SSL}
     restart: always
 
 networks:

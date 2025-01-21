@@ -1,0 +1,16 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Dev Local " type="docker-deploy" factoryName="docker-compose.yml" server-name="Local">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envFilePath" value="D:\Projects\Shifty\Shifty\.env.development" />
+        <option name="commandLineOptions" value="--build" />
+        <option name="sourceFilePath" value="docker-compose.yaml" />
+        <option name="upRemoveOrphans" value="true" />
+      </settings>
+    </deployment>
+    <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="true" />
+    <method v="2">
+      <option name="Build" default="false" projectName="Shifty.Api" projectPath="$PROJECT_DIR$/src/Web/Api/Shifty.Api.csproj" />
+    </method>
+  </configuration>
+</component>

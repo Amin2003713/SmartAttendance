@@ -21,8 +21,8 @@ namespace Shifty.Domain.Constants
         public static class Mino
         {
             public const string MinioEndpoint  = "http://shiftyMinioFileDb:9000";
-            public const string MinioAccessKey = "DwCnnRFdBHjVgNCFWZM8";
-            public const string MinioSecretKey = "xqLBtGiy9sqnwSgZboADOqJ6MP6nBowbnB35bbKA";
+            public const string MinioAccessKey = "r6dE962QPcpXw5ty2OwY";
+            public const string MinioSecretKey = "PsBcq5CPmHNYxhqi7lf8Ox9wjKfqfmwgT7EYPFg4";
         }
 
         public static class Aspire
@@ -36,5 +36,28 @@ namespace Shifty.Domain.Constants
             };
         }
         public const string ApplicationName       = "Shifty";
+
+        public static class AppOptions
+        {
+            public static string WriteDatabaseConnectionString { get; set; }
+                = $"Server={Sql.DbServer};Database=Shifty.Shard;{Sql.MultipleActiveResultSets};{Sql.
+                    Encrypt};{Sql.UserNameAndPass}";
+
+            public static string ReadDatabaseConnectionString { get; set; }
+                = $"Server={Sql.DbServer};Database=Shifty.Shard;{Sql.MultipleActiveResultSets};{Sql.
+                    Encrypt};{Sql.UserNameAndPass}";
+
+            public static string TenantStore { get; set; }
+                = $"Server={Sql.DbServer};Database=Shifty;{Sql.MultipleActiveResultSets};{Sql.
+                    Encrypt};{Sql.UserNameAndPass}";
+
+            public static string RedisConnectionString { get; set; } = "localhost:6379";
+
+            public static string AuthenticationServerUri { get; set; } = "";
+
+            public static bool ActivateSwagger { get; set; } = true;
+
+            public static List<string> CorsEnableUris { get; set; } = [];
+        }
     }
 }
