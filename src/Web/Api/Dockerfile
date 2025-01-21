@@ -52,4 +52,8 @@ WORKDIR /app
 # Copy published output
 COPY --from=publish /app/publish .
 
+
+# Trust the HTTPS developer certificate (runtime)
+RUN dotnet dev-certs https --trust || echo "Skipping certificate trust"
+
 ENTRYPOINT ["dotnet", "Shifty.Api.dll"]

@@ -55,12 +55,12 @@ services:
     restart: unless-stopped
 
 
-  api:
+  shifty-api:
     build:
       dockerfile: src/Web/Api/Dockerfile
       args:
         CONFIGURATION: ${CONFIGURATION}
-    container_name: api
+    container_name: shifty-api
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
       - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
@@ -72,8 +72,8 @@ services:
     networks:
       - app-network
     ports:
-      - "5001:443"
-      - "5011:80"
+      - "1443:443"
+      - "1880:80"
     restart: always
 
 networks:
