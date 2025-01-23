@@ -60,7 +60,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             try
             {
                 var validation = await repository.ValidateDomain(request.Domain , cancellationToken);
-                if (validation.doseExist)
+                if (validation)
                     throw  ShiftyException.BadRequest(additionalData:CompanyExceptions.Tenant_Is_Not_Valid);
 
                 var company = request.Adapt<ShiftyTenantInfo>();

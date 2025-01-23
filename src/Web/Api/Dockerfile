@@ -25,6 +25,7 @@ COPY ["src/Infrastructure/Persistance/Shifty.Persistence.csproj", "src/Infrastru
 COPY ["src/Core/Domain/Shifty.Domain.csproj", "src/Core/Domain/"]
 COPY ["src/Core/Application/Shifty.Application.csproj", "src/Core/Application/"]
 COPY ["src/Common/Shifty.Common.csproj", "src/Common/"]
+COPY ["src/Common/Shifty.Resources", "src/Resources/"]
 
 # Restore dependencies for all projects
 RUN dotnet restore

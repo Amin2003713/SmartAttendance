@@ -62,13 +62,8 @@ namespace Shifty.Persistence.Repositories.Companies
         }
 
 
-        public async Task<(bool doseExist , string message)> ValidateDomain(string domain , CancellationToken cancellationToken)
-        {
-            if (!await IdentifierExistsAsync(domain , cancellationToken))
-                return (true , ResponseMessageConstant.Company.CheckDomainQuery.Success);
-
-            return (false , ResponseMessageConstant.Company.CheckDomainQuery.Failed);
-        }
+        public async Task<bool> ValidateDomain(string domain , CancellationToken cancellationToken) =>
+            await IdentifierExistsAsync(domain , cancellationToken);
 
 
         public async Task<ShiftyTenantInfo> GetByIdAsync(string tenantId , CancellationToken cancellationToken)

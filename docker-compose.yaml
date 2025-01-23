@@ -16,9 +16,9 @@ services:
     networks:
       - app-network
     volumes:
-      - ./data/mssql/backups:/var/opt/mssql/backups:rw,z
-      - ./data/mssql/data:/var/opt/mssql/data:rw,z
-      - ./data/mssql/log:/var/opt/mssql/log:rw,z
+      - /home/data/mssql/backups:/var/opt/mssql/backups:rw,z
+      - /home/data/mssql/data:/var/opt/mssql/data:rw,z
+      - /home/data/mssql/log:/var/opt/mssql/log:rw,z
     restart: unless-stopped
 
   shiftyMinioFileDb:
@@ -30,7 +30,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./data/minio:/data:rw,z
+      - /home/data/minio:/data:rw,z
     environment:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
@@ -72,8 +72,7 @@ services:
     networks:
       - app-network
     ports:
-      - "1443:443"
-      - "1880:80"
+      - "1880:8080"
     restart: always
 
 networks:

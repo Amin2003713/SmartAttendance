@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Shifty.Application.Common;
+using Shifty.Application.Companies.Exceptions;
 using Shifty.Application.Companies.Queries.CheckDomain;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
@@ -16,7 +18,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
 
             var validation = await companyRepository.ValidateDomain(request.Domain , cancellationToken);
 
-            return new CheckDomainResponse(validation.doseExist , validation.message);
+            return new CheckDomainResponse(validation , (validation ? ResponseMessageConstant.Company.CheckDomainQuery.Failed : ResponseMessageConstant.Company.CheckDomainQuery.Success));
         }
     }
 }
