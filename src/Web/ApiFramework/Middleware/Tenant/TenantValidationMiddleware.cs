@@ -6,13 +6,14 @@ using Shifty.Common;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.TenantServices;
+using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shifty.ApiFramework.Middleware.Tenant
 {
-    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , IServiceProvider provider)
+    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , CommonMessages messages)
     {
         public async Task Invoke(HttpContext context , TenantDbContext tenantDbContext)
         {
@@ -28,25 +29,19 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             {
                 var problemDetails = new ApiProblemDetails
                 {
-                    Status = StatusCodes.Status400BadRequest , Title = "Tenant params validation failed" ,
-                    Detail = "Tenant parameters were not present in headers." , Errors = new Dictionary<string , List<string>>
-                    {
+                    Title = messages.Validation_Title_Generic() , Detail = messages.Tenant_Error_ParamsMissing() , Errors =
+                        new Dictionary<string , List<string>>
                         {
-                            "tenant params" , new List<string>
                             {
-                                "Tenant parameters were not present in headers." ,
+                                "params" , [messages.Tenant_Error_ParamsMissing()]
                             }
-                        }
 #if DEBUG
-                        ,
-                        {
-                            "tip" , new List<string>
+                            ,
                             {
-                                "Add the tenant identifier A.K.A domain to header like __tenant__:Domain" ,
+                                "tip" , [messages.Tenant_Tip_Params()]
                             }
+#endif                                   
                         } ,
-#endif
-                    } ,
                 };
 
                 context.Response.StatusCode  = problemDetails.Status;
@@ -61,7 +56,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             {
                 var problemDetails = new ApiProblemDetails
                 {
-                    Status = StatusCodes.Status404NotFound , Title = "Tenant not found" , Detail = "The specified tenant was not found." ,
+                    Status = StatusCodes.Status404NotFound , Title = messages.Tenant_Error_NotFound() , Detail = messages.Tenant_Error_NotFound() ,
                 };
 
                 context.Response.StatusCode  = problemDetails.Status;
@@ -77,21 +72,17 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                 {
                     var problemDetails = new ApiProblemDetails
                     {
-                        Status = StatusCodes.Status400BadRequest , Title = "Tenant params validation failed" ,
-                        Detail = "Device type parameter was not present in headers." , Errors = new Dictionary<string , List<string>>
+                        Status = StatusCodes.Status400BadRequest ,Title = messages.Validation_Title_Generic() , Detail = messages.Tenant_Error_ParamsMissing() , Errors = new Dictionary<string , List<string>>
                         {
                             {
-                                "tenant params" , [
-                                    "Device type parameter was not present in headers." ,
-                                ]
+                                "params" , [messages.Tenant_Error_ParamsMissing()]
                             }
 #if DEBUG
                             ,
                             {
-                                "tip" , [
-                                    "Add header like X_Device_Type:Device_Type => Browser, Android, iOS, Windows, macOS" ,
-                                ]
-                            } ,
+                                "tip" , [messages.Device_Tip_DeviceType()]
+                            }
+
 #endif
                         } ,
                     };
@@ -108,22 +99,17 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     {
                         var problemDetails = new ApiProblemDetails
                         {
-                            Status = StatusCodes.Status400BadRequest , Title = "Tenant params validation failed" ,
-                            Detail = "Hardware ID parameter was not present in headers." , Errors = new Dictionary<string , List<string>>
+                            Status = StatusCodes.Status400BadRequest , Title = messages.Validation_Title_Generic() ,
+                            Detail = messages.Tenant_Error_ParamsMissing() , Errors = new Dictionary<string , List<string>>
                             {
                                 {
-                                    "tenant params" , new List<string>
-                                    {
-                                        "Hardware ID parameter was not present in headers." ,
-                                    }
+                                    "params" , [messages.Tenant_Error_ParamsMissing()]
                                 }
 #if DEBUG
                                 ,
                                 {
-                                    "tip" , [
-                                        "Add header like __Hardware__:HardwareId if the request came from applications" ,
-                                    ]
-                                } ,
+                                    "tip" , [messages.Device_Tip_Hardware()]
+                                }
 #endif
                             } ,
                         };
@@ -143,8 +129,8 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                         {
                             var problemDetails = new ApiProblemDetails
                             {
-                                Status = (int)ApiResultStatusCode.UnAuthorized , Title = "Unauthorized" ,
-                                Detail = "This user name has already been registered by another device." ,
+                                Status = (int)ApiResultStatusCode.UnAuthorized , Title = messages.Unauthorized_Access(),
+                                Detail =messages.Hardware_Error_AlreadyRegistered(),
                             };
 
                             context.Response.StatusCode  = problemDetails.Status;
@@ -162,8 +148,8 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     {
                         var problemDetails = new ApiProblemDetails
                         {
-                            Status = (int)ApiResultStatusCode.UnAuthorized , Title = "Unauthorized" ,
-                            Detail = "The provided hardware ID must match the user's device first login." ,
+                            Status = (int)ApiResultStatusCode.UnAuthorized , Title = messages.Unauthorized_Access() ,
+                            Detail = messages.Hardware_Error_Mismatch() ,
                         };
 
                         context.Response.StatusCode  = problemDetails.Status;
@@ -180,7 +166,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 
         private static bool SkipTenantValidation(HttpContext context)
         {
-            return context.Request.Path.Value!.EndsWith(".css")  || context.Request.Path.Value!.EndsWith(".json") ||
+            return context.Request.Path.Value!.EndsWith(".css")  || context.Request.Path.Value!.EndsWith(".json") ||context.Request.Path.Value!.EndsWith("swagger") ||
                    context.Request.Path.Value!.EndsWith(".html") || context.Request.Path.Value!.EndsWith(".js") || context.Request.Path.Value!.EndsWith(".ts") ||
                    context.Request.Path.Value.Contains("/panel/");
         }

@@ -1,15 +1,17 @@
 ﻿using FluentValidation;
 using Shifty.Application.Users.Requests.Login;
+using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Users.Validators.Login
 {
     public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {
-        public LoginRequestValidator()
+        public LoginRequestValidator(ValidationMessages messages)
         {
-            RuleFor(x => x.Username).NotEmpty().WithMessage("نام کاربری اجباری است.");
 
-            RuleFor(x => x.Password).NotEmpty().WithMessage("رمز عبور اجباری است.").MinimumLength(8).WithMessage("طول رمز عبور باید حداقل 8 کاراکتر باشد");
+            RuleFor(x => x.Username).NotEmpty().WithMessage(messages.Username_Required());
+
+            RuleFor(x => x.Password).NotEmpty().WithMessage(messages.Password_Required()).MinimumLength(8).WithMessage(messages.Password_MinLength());
         }
     }
 }

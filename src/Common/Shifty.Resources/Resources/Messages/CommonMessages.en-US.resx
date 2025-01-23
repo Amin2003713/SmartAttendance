@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- General Errors -->
+	<data name="Code_Generator" xml:space="preserve">
+    <value>Code generator encountered an error.</value>
+  </data>
+	<data name="Server_Error" xml:space="preserve">
+    <value>An internal server error occurred.</value>
+  </data>
+	<data name="Refresh_Token_Found" xml:space="preserve">
+    <value>A refresh token was found.</value>
+  </data>
+	<data name="Unauthorized_Access" xml:space="preserve">
+    <value>You are not authorized to access this resource.</value>
+  </data>
+
+	<!-- Status Titles -->
+	<data name="NotFound_Title">
+		<value>Not Found</value>
+	</data>
+	<data name="InternalServerError_Title">
+		<value>Server Error</value>
+	</data>
+	<data name="Conflict_Title">
+		<value>Conflict</value>
+	</data>
+	<data name="Unauthorized_Title">
+		<value>Unauthorized</value>
+	</data>
+	<data name="Forbidden_Title">
+		<value>Forbidden</value>
+	</data>
+
+	<!-- Status Details -->
+	<data name="NotFound_Detail">
+		<value>The requested resource was not found.</value>
+	</data>
+	<data name="Conflict_Detail">
+		<value>A conflict occurred with an existing record.</value>
+	</data>
+	<data name="Unauthorized_Detail">
+		<value>You do not have permission to access this resource.</value>
+	</data>
+	<data name="Forbidden_Detail">
+		<value>You are not allowed to access this resource.</value>
+	</data>
+
+	<!-- Validation Messages -->
+	<data name="Validation_Title_Generic">
+		<value>Validation Error</value>
+	</data>
+	<data name="Validation_Title_NotFound">
+		<value>Not Found</value>
+	</data>
+	<data name="Validation_Title_Unauthorized">
+		<value>Unauthorized</value>
+	</data>
+	<data name="Validation_Title_Forbidden">
+		<value>Forbidden</value>
+	</data>
+
+	<!-- Tenant Validation -->
+	<data name="Tenant_Error_ParamsMissing">
+		<value>Required tenant parameters were not present in headers.</value>
+	</data>
+	<data name="Tenant_Error_NotFound">
+		<value>The specified tenant was not found.</value>
+	</data>
+	<data name="Tenant_Tip_Params">
+		<value>Add tenant identifier to headers (e.g., __tenant__:Domain)</value>
+	</data>
+
+	<!-- Device Validation -->
+	<data name="Device_Error_MissingHeader">
+		<value>Required device header parameter was not present.</value>
+	</data>
+	<data name="Device_Tip_Hardware">
+		<value>Add hardware ID header for mobile applications</value>
+	</data>
+	<data name="Device_Tip_DeviceType">
+		<value>Add X_Device_Type header with values like Browser, Android, iOS, Windows, macOS</value>
+	</data>
+
+	<!-- Hardware Validation -->
+	<data name="Hardware_Error_AlreadyRegistered">
+		<value>This username has already been registered on another device.</value>
+	</data>
+	<data name="Hardware_Error_Mismatch">
+		<value>Hardware ID must match the device used during initial registration.</value>
+	</data>
+</root>

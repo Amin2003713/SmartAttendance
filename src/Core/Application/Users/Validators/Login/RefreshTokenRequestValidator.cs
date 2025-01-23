@@ -1,15 +1,17 @@
 ﻿using FluentValidation;
 using Shifty.Application.Users.Requests.Login;
+using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Users.Validators.Login
 {
     public class RefreshTokenRequestValidator : AbstractValidator<RefreshTokenRequest>
     {
-        public RefreshTokenRequestValidator()
+        public RefreshTokenRequestValidator(ValidationMessages messages)
         {
-            RuleFor(x => x.RefreshToken).NotNull().NotEmpty().WithMessage("{PropertyName} is not valid");
 
-            RuleFor(x => x.AccessToken).NotNull().NotEmpty().WithMessage("{PropertyName} is not valid");
+            RuleFor(x => x.RefreshToken).NotNull().NotEmpty().WithName(messages.Property_RefreshToken()).WithMessage(messages.Validation_TokenInvalid());
+
+            RuleFor(x => x.AccessToken).NotNull().NotEmpty().WithName(messages.Property_AccessToken()).WithMessage(messages.Validation_TokenInvalid());
         }
     }
 }
