@@ -1,30 +1,30 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Common.Exceptions;
-using Shifty.Application.Users.Exceptions;
 using Shifty.Application.Users.Queries.SendActivationCode;
 using Shifty.Common;
 using Shifty.Domain.Constants;
 using Shifty.Domain.Interfaces.Base;
 using Shifty.Domain.Users;
+using Shifty.Resources.ExceptionMessages.Common;
+using Shifty.Resources.ExceptionMessages.Users;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuery
+namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQueryHandler
 {
-    public class SendActivationCodeQueryHandler(UserManager<User> userManager , IRepository<User> userRepository , ILogger<SendActivationCodeQueryHandler> logger)
-        : IRequestHandler<Application.Users.Queries.SendActivationCode.SendActivationCodeQuery , SendActivationCodeQueryResponse>
+    public class SendActivationCodeQueryHandler(UserManager<User> userManager , IRepository<User> userRepository , ILogger<SendActivationCodeQueryHandler> logger , CommonMessages commonMessages , UserMessages userMessages)
+        : IRequestHandler<SendActivationCodeQuery , SendActivationCodeQueryResponse>
     {
         public async Task<SendActivationCodeQueryResponse> Handle(
-            Application.Users.Queries.SendActivationCode.SendActivationCodeQuery request ,
+            SendActivationCodeQuery request ,
             CancellationToken cancellationToken)
         {
             var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
 
             if (user == null)
-                throw ShiftyException.NotFound(additionalData: UserExceptions.User_NotFound);
+                throw ShiftyException.NotFound(additionalData: userMessages.User_NotFound());
 
             var activationCode = await GenerateCode(user);
 
@@ -51,7 +51,7 @@ namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuer
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);
-                throw ShiftyException.InternalServerError(additionalData: CommonExceptions.Code_Generator);
+                throw ShiftyException.InternalServerError(additionalData: commonMessages.Code_Generator());
             }
         }
     }

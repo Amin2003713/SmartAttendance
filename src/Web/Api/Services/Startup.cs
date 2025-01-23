@@ -10,6 +10,7 @@ using Shifty.Application;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Persistence.Services;
+using Shifty.Resources.Services;
 
 namespace Shifty.Api.Services
 {
@@ -25,6 +26,7 @@ namespace Shifty.Api.Services
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddCommon(Configuration);
+            services.AddResources(configuration);
         }
 
         //Register Services to Autofac ContainerBuilder
@@ -41,6 +43,7 @@ namespace Shifty.Api.Services
             }
 
             app.UseWebApi(env);
+            app.UseResources();
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Common.Exceptions;
 using Shifty.Application.Companies.Command.InitialCompany;
-using Shifty.Application.Companies.Exceptions;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Services.MigrationManagers;
+using Shifty.Resources.ExceptionMessages.Common;
+using Shifty.Resources.ExceptionMessages.Companies;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +19,10 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
     public class InitialCompanyCommandHandler(
         ICompanyRepository repository ,
         ITenantAdminRepository tenantAdminRepository ,
-        RunTimeDatabaseMigrationService runTimeDatabaseMigrationService , ILogger<InitialCompanyCommandHandler> logger) : IRequestHandler<InitialCompanyCommand , string>
+        RunTimeDatabaseMigrationService runTimeDatabaseMigrationService ,
+        CompanyMessages companyMessages ,
+        CommonMessages commonMessages ,
+        ILogger<InitialCompanyCommandHandler> logger) : IRequestHandler<InitialCompanyCommand , string>
     {
         public async Task<string> Handle(InitialCompanyCommand request , CancellationToken cancellationToken)
         {
@@ -43,14 +46,14 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
                 var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>() , cancellationToken);
 
                 if (tenantAdmin == null)
-                    throw ShiftyException.InternalServerError(additionalData:CompanyExceptions.Company_Admin_Not_Created);
+                    throw ShiftyException.InternalServerError(additionalData: companyMessages.Company_Admin_Not_Created());
 
                 return tenantAdmin;
             }
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);
-                throw ShiftyException.InternalServerError(additionalData: CommonExceptions.Server_Error);
+                throw ShiftyException.InternalServerError(additionalData: commonMessages.Server_Error());
             }
         }
 
@@ -61,7 +64,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             {
                 var validation = await repository.ValidateDomain(request.Domain , cancellationToken);
                 if (validation)
-                    throw  ShiftyException.BadRequest(additionalData:CompanyExceptions.Tenant_Is_Not_Valid);
+                    throw ShiftyException.BadRequest(additionalData: companyMessages.Tenant_Is_Not_Valid());
 
                 var company = request.Adapt<ShiftyTenantInfo>();
                 company.UserId = userId;
@@ -73,7 +76,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);
-                throw new ShiftyException(CompanyExceptions.Company_Not_Created);
+                throw new ShiftyException(companyMessages.Company_Not_Created());
             }
         }
 
@@ -86,9 +89,8 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);
-                throw ShiftyException.InternalServerError(additionalData: CommonExceptions.Code_Generator + CommonExceptions.Server_Error);
+                throw ShiftyException.InternalServerError(additionalData: commonMessages.Code_Generator() + commonMessages.Server_Error());
             }
-
-                    }
+        }
     }
 }

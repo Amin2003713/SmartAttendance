@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="Company_Admin_Not_Created" xml:space="preserve">
+    <value>مدیر شرکت ایجاد نشد.</value>
+  </data>
+	<data name="Tenant_Exists" xml:space="preserve">
+    <value>مستاجر قبلاً وجود دارد.</value>
+  </data>
+	<data name="Company_Not_Created" xml:space="preserve">
+    <value>شرکت ایجاد نشد.</value>
+  </data>
+	<data name="Company_Not_Found" xml:space="preserve">
+    <value>شرکت پیدا نشد.</value>
+  </data>
+	<data name="Tenant_Is_Valid" xml:space="preserve">
+    <value>مستاجر معتبر است.</value>
+  </data>
+	<data name="Tenant_Is_Not_Valid" xml:space="preserve">
+    <value>مستاجر معتبر نیست.</value>
+  </data>
+	<data name="Tenant_Admin_Not_Found" xml:space="preserve">
+    <value>مدیر مستاجر پیدا نشد.</value>
+  </data>
+	<data name="Tenant_Admin_Not_Created" xml:space="preserve">
+    <value>مدیر مستاجر ایجاد نشد.</value>
+  </data>
+</root>

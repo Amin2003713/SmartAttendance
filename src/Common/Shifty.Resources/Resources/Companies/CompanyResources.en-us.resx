@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="Company_Admin_Not_Created" xml:space="preserve">
+    <value>The company admin was not created.</value>
+  </data>
+	<data name="Tenant_Exists" xml:space="preserve">
+    <value>The tenant already exists.</value>
+  </data>
+	<data name="Company_Not_Created" xml:space="preserve">
+    <value>The company was not created.</value>
+  </data>
+	<data name="Company_Not_Found" xml:space="preserve">
+    <value>The company was not found.</value>
+  </data>
+	<data name="Tenant_Is_Valid" xml:space="preserve">
+    <value>The tenant is valid.</value>
+  </data>
+	<data name="Tenant_Is_Not_Valid" xml:space="preserve">
+    <value>The tenant is not valid.</value>
+  </data>
+	<data name="Tenant_Admin_Not_Found" xml:space="preserve">
+    <value>The tenant admin was not found.</value>
+  </data>
+	<data name="Tenant_Admin_Not_Created" xml:space="preserve">
+    <value>The tenant admin was not created.</value>
+  </data>
+</root>

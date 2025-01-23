@@ -3,12 +3,12 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Users.Command.Login;
-using Shifty.Application.Users.Exceptions;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Jwt;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Jwt;
+using Shifty.Resources.ExceptionMessages.Users;
 using System;
 using System.Linq;
 using System.Threading;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 {
-    public class LoginCommandHandler(UserManager<User> userManager , IJwtService jwtService , IRefreshTokenRepository refreshTokenRepository , ILogger<LoginCommandHandler> logger)
+    public class LoginCommandHandler(UserManager<User> userManager , IJwtService jwtService , IRefreshTokenRepository refreshTokenRepository , ILogger<LoginCommandHandler> logger , UserMessages messages)
         : IRequestHandler<LoginCommand , LoginResponse>
     {
         public async Task<LoginResponse> Handle(LoginCommand request , CancellationToken cancellationToken)
@@ -28,11 +28,11 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 
                 var user = await userManager.FindByNameAsync(request.Username);
                 if (user == null)
-                    throw ShiftyException.NotFound(additionalData: UserExceptions.User_NotFound);
+                    throw ShiftyException.NotFound(additionalData: messages.User_NotFound());
 
                 var isPasswordValid = await userManager.CheckPasswordAsync(user , request.Password);
                 if (!isPasswordValid)
-                    throw ShiftyException.Unauthorized(additionalData: UserExceptions.InCorrect_User_Password);
+                    throw ShiftyException.Unauthorized(additionalData: messages.InCorrect_User_Password());
 
                 var roles = await userManager.GetRolesAsync(user);
 

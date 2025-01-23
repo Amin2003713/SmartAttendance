@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="User_Already_Exists" xml:space="preserve">
+    <value>کاربر از قبل وجود دارد.</value>
+  </data>
+	<data name="Verify_Two_Factor_Token" xml:space="preserve">
+    <value>لطفاً توکن احراز هویت دو مرحله‌ای را تأیید کنید.</value>
+  </data>
+	<data name="InCorrect_User_Password" xml:space="preserve">
+    <value>نام کاربری یا رمز عبور نادرست است.</value>
+  </data>
+	<data name="User_NotFound" xml:space="preserve">
+    <value>کاربر پیدا نشد.</value>
+  </data>
+	<data name="Identity_Error" xml:space="preserve">
+    <value>خطای هویتی رخ داده است.</value>
+  </data>
+	<data name="User_Conflict" xml:space="preserve">
+    <value>تضاد کاربر شناسایی شد.</value>
+  </data>
+	<data name="InValid_Token" xml:space="preserve">
+    <value>توکن ارائه شده نامعتبر است.</value>
+  </data>
+</root>

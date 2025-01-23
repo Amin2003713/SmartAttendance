@@ -37,6 +37,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIHostEnvironment_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fd81b4b49dd1a48cd87a1e496dd9b959c12928_003Fc2_003Fe95626af_003FIHostEnvironment_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIMultiTenantContext_00601_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F70ad79b76ff04b8aaa9889c8f6c68ced14000_003F53_003F511920a8_003FIMultiTenantContext_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AInternalServerError_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fa4588818cdbd48a3b275ef67f982995040918_003Ff3_003F88d01cbb_003FInternalServerError_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIOptions_00601_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fd2d237b1abed4f55b36efd650273d2d610338_003Fd6_003Ffb7c9bd6_003FIOptions_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIPasswordHasher_00601_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Fd4f029714312487f91856ee6cba9abf76d928_003F8c_003F1ead7658_003FIPasswordHasher_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIPipelineBehavior_00602_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Ffb69109d67c049a0b5cb5b15b6653f9112c00_003F01_003F9a339aea_003FIPipelineBehavior_00602_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AIRegistrationBuilder_002Ecs_002Fl_003AC_0021_003FUsers_003Famin1_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FSourcesCache_003F55789c4a455b1364d984d192db65c8d7a2875a52907c6a20afb9f8b261f440ae_003FIRegistrationBuilder_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
@@ -88,4 +89,21 @@
 	
 	<s:Boolean x:Key="/Default/Environment/EntityFramework/EntityFrameworkDisabledQueryInspectionsContexts/=Shifty_002EPersistence_002EDb_002ETenantDbContext/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\amd64\MSBuild.exe</s:String>
-	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967293</s:Int64></wpf:ResourceDictionary>  
+	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967293</s:Int64>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FCommon_002FCommonResources/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FCompanies_002FCompanyResources/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FUsers_002FUserResources/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FServices_002FUserResources/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FServices_002FUserResources/@EntryIndexRemoved">True</s:Boolean>
+	<s:String x:Key="/Default/ResxEditorPersonal/DisabledLanguages/@EntryValue">fa,default-language</s:String>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowComments/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyErrors/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyStringResources/@EntryValue">False</s:Boolean></wpf:ResourceDictionary>  

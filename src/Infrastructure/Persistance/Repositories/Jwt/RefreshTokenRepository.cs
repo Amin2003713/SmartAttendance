@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Common.Exceptions;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Base;
 using Shifty.Domain.Interfaces.Jwt;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
+using Shifty.Resources.ExceptionMessages.Common;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Jwt
 {
-    public class RefreshTokenRepository(WriteOnlyDbContext dbContext , ILogger<RefreshTokenRepository> logger , ILogger<Repository<RefreshToken , WriteOnlyDbContext>> writeOnlyLogger)
+    public class RefreshTokenRepository(WriteOnlyDbContext dbContext , ILogger<RefreshTokenRepository> logger , ILogger<Repository<RefreshToken , WriteOnlyDbContext>> writeOnlyLogger , CommonMessages messages)
         : Repository<RefreshToken , WriteOnlyDbContext>(dbContext , writeOnlyLogger) , IRefreshTokenRepository , IScopedDependency
     {
         public async Task AddOrUpdateRefreshTokenAsync(RefreshToken refreshToken , CancellationToken cancellationToken)
@@ -44,7 +44,7 @@ namespace Shifty.Persistence.Repositories.Jwt
         {
             var result = await TableNoTracking.SingleOrDefaultAsync(x => x.UserId == refreshToken.UserId , cancellationToken);
             if (result == null || result.Token != refreshToken.Token)
-                throw  ShiftyException.BadRequest(CommonExceptions.Refresh_Token_Found);
+                throw  ShiftyException.BadRequest(messages.Refresh_Token_Found());
             return true;
         }
     }

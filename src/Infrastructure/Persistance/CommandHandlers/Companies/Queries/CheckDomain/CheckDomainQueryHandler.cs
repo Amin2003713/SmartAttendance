@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using Shifty.Application.Common;
-using Shifty.Application.Companies.Exceptions;
 using Shifty.Application.Companies.Queries.CheckDomain;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
+using Shifty.Resources.ExceptionMessages.Companies;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
 {
-    public class CheckDomainQueryHandler(ICompanyRepository companyRepository) : IRequestHandler<CheckDomainQuery , CheckDomainResponse>
+    public class CheckDomainQueryHandler(ICompanyRepository companyRepository , CompanyMessages messages) : IRequestHandler<CheckDomainQuery , CheckDomainResponse>
     {
         public async Task<CheckDomainResponse> Handle(CheckDomainQuery request , CancellationToken cancellationToken)
         {
@@ -18,7 +18,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
 
             var validation = await companyRepository.ValidateDomain(request.Domain , cancellationToken);
 
-            return new CheckDomainResponse(validation , (validation ? ResponseMessageConstant.Company.CheckDomainQuery.Failed : ResponseMessageConstant.Company.CheckDomainQuery.Success));
+            return new CheckDomainResponse(validation , (validation ? messages.Tenant_Is_Not_Valid() : messages.Tenant_Is_Valid()));
         }
     }
 }

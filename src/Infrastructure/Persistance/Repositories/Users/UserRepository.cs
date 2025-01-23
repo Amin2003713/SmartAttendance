@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Users.Exceptions; // Added for logging
+// Added for logging
 using Shifty.Common;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Interfaces.Users;
@@ -8,6 +8,7 @@ using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
+using Shifty.Resources.ExceptionMessages.Users;
 using System;
 using System.Linq;
 using System.Net;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Repositories.Users
 {
-    public class UserRepository(WriteOnlyDbContext dbContext , ILogger<UserRepository> logger , ILogger<Repository<User , WriteOnlyDbContext>> repoLogger)
+    public class UserRepository(WriteOnlyDbContext dbContext , ILogger<UserRepository> logger , ILogger<Repository<User , WriteOnlyDbContext>> repoLogger , UserMessages messages)
         : Repository<User , WriteOnlyDbContext>(dbContext , repoLogger) , IUserRepository , IScopedDependency
     {
         // Constructor with dependency injection for DbContext and Loggers
@@ -61,7 +62,7 @@ namespace Shifty.Persistence.Repositories.Users
                     return user;
 
                 logger.LogInformation("User found with username: {Username}", username);
-                throw ShiftyException.NotFound(additionalData: UserExceptions.User_NotFound);
+                throw ShiftyException.NotFound(additionalData: messages.User_NotFound());
 
             }
             catch (Exception ex)
@@ -110,7 +111,7 @@ namespace Shifty.Persistence.Repositories.Users
                 if (exists)
                 {
                     logger.LogWarning("Cannot add user. Username already exists: {Username}", user.UserName);
-                    throw ShiftyException.Conflict(additionalData:UserExceptions.User_Already_Exists);
+                    throw ShiftyException.Conflict(additionalData:messages.User_Already_Exists());
                 }
 
                 var passwordHash = SecurityHelper.GetSha256Hash(password);

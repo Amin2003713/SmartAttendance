@@ -25,4 +25,8 @@
 	  </Reference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Shifty.Resources\Shifty.Resources.csproj" />
+	</ItemGroup>
+
 </Project>

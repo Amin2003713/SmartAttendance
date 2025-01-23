@@ -29,6 +29,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Common\Shifty.Common.csproj"/>
+		<ProjectReference Include="..\..\Common\Shifty.Common\Shifty.Common.csproj" />
+		<ProjectReference Include="..\..\Common\Shifty.Resources\Shifty.Resources.csproj" />
 		<ProjectReference Include="..\..\Core\Application\Shifty.Application.csproj"/>
 		<ProjectReference Include="..\..\Core\Domain\Shifty.Domain.csproj"/>
 	</ItemGroup>

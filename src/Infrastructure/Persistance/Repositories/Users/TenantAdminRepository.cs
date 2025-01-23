@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Companies.Exceptions; // Added for logging
+// Added for logging
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
+using Shifty.Resources.ExceptionMessages.Companies;
 using System;
 using System.Linq;
 using System.Net;
@@ -17,16 +18,18 @@ namespace Shifty.Persistence.Repositories.Users
     {
         private readonly TenantDbContext _dbContext;
         private readonly ILogger<TenantAdminRepository> _logger;
+        private readonly CompanyMessages _messages;
 
         private DbSet<TenantAdmin> Entities => _dbContext.Users;
         protected virtual IQueryable<TenantAdmin> Table => Entities;
         protected virtual IQueryable<TenantAdmin> TableNoTracking => Entities.AsNoTracking();
 
         // Constructor with dependency injection for DbContext and Logger
-        public TenantAdminRepository(TenantDbContext dbContext, ILogger<TenantAdminRepository> logger)
+        public TenantAdminRepository(TenantDbContext dbContext, ILogger<TenantAdminRepository> logger , CompanyMessages messages)
         {
-            _dbContext = dbContext;
-            _logger = logger;
+            _dbContext     = dbContext;
+            _logger        = logger;
+            _messages = messages;
         }
 
         /// <summary>
@@ -67,7 +70,7 @@ namespace Shifty.Persistence.Repositories.Users
             catch (Exception ex)
             {
                 _logger.LogError(ex.Source, ex);
-                throw  ShiftyException.InternalServerError( additionalData:CompanyExceptions.Tenant_Admin_Not_Created);
+                throw  ShiftyException.InternalServerError( additionalData: _messages.Tenant_Admin_Not_Created());
             }
         }
 

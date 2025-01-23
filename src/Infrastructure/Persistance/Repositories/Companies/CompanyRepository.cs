@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Common;
-using Shifty.Application.Companies.Exceptions;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
+using Shifty.Resources.ExceptionMessages.Companies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +19,14 @@ namespace Shifty.Persistence.Repositories.Companies
     {
         private readonly TenantDbContext            _dbContext;
         private readonly ILogger<CompanyRepository> _logger; // Logger instance
+        private readonly CompanyMessages _messages; // Logger instance
 
-        public CompanyRepository(TenantDbContext dbContext , ILogger<CompanyRepository> logger)
+        public CompanyRepository(TenantDbContext dbContext , ILogger<CompanyRepository> logger , CompanyMessages messages)
         {
-            _dbContext   = dbContext;
-            _logger = logger;
-            Entities     = _dbContext.TenantInfo;
+            _dbContext     = dbContext;
+            _logger        = logger;
+            _messages = messages;
+            Entities       = _dbContext.TenantInfo;
         }
 
         public DbSet<ShiftyTenantInfo> Entities { get; }
@@ -44,7 +46,7 @@ namespace Shifty.Persistence.Repositories.Companies
             try
             {
                 if (await IdentifierExistsAsync(tenantInfo?.Identifier! , cancellationToken))
-                    throw ShiftyException.Conflict(additionalData: CompanyExceptions.Tenant_Exists);
+                    throw ShiftyException.Conflict(additionalData: _messages.Tenant_Exists());
 
                 Entities.Add(tenantInfo);
 

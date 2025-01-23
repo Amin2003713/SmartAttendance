@@ -20,7 +20,6 @@ using Shifty.ApiFramework.Aspire;
 using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
-using Shifty.Application.Users.Exceptions;
 using Shifty.Application.Users.Requests.Login;
 using Shifty.Common;
 using Shifty.Common.Behaviours;
@@ -31,6 +30,7 @@ using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
+using Shifty.Resources.ExceptionMessages.Users;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -170,10 +170,11 @@ namespace Shifty.Api.Services
         private static async Task AddLoginRecordForUsers(TokenValidatedContext context)
         {
             var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+            var userMessage = context.HttpContext.RequestServices.GetRequiredService<UserMessages>();
 
             var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
             if (claimsIdentity?.Claims.Any() != true)
-                throw ShiftyException.Create(HttpStatusCode.Forbidden , UserExceptions.InValide_Token);
+                throw ShiftyException.Create(HttpStatusCode.Forbidden , userMessage.InValid_Token());
 
 
             //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);

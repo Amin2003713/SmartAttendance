@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="Code_Generator" xml:space="preserve">
+    <value>تولیدکننده کد با خطا مواجه شد.</value>
+  </data>
+	<data name="Server_Error" xml:space="preserve">
+    <value>یک خطای داخلی سرور رخ داده است.</value>
+  </data>
+	<data name="Refresh_Token_Found" xml:space="preserve">
+    <value>یک توکن تازه‌سازی یافت شد.</value>
+  </data>
+	<data name="Unauthorized_Access" xml:space="preserve">
+    <value>شما مجاز به دسترسی به این منبع نیستید.</value>
+  </data>
+</root>

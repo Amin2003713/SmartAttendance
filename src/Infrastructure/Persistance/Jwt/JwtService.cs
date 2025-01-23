@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Shifty.Application.Common.Exceptions;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Users;
+using Shifty.Resources.ExceptionMessages.Common;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Jwt
 {
-    public class JwtService(IConfiguration configuration , UserManager<User> userManager , ILogger<JwtService> logger) : IJwtService , IScopedDependency
+    public class JwtService(IConfiguration configuration , UserManager<User> userManager , ILogger<JwtService> logger , CommonMessages messages) : IJwtService , IScopedDependency
     {
         private readonly SiteSettings _siteSetting = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
 
@@ -53,7 +53,7 @@ namespace Shifty.Persistence.Jwt
             catch (Exception ex)
             {
                 logger.LogError(ex.Source , ex);
-                throw ShiftyException.Unauthorized(CommonExceptions.Unauthorized_Access);
+                throw ShiftyException.Unauthorized(messages.Unauthorized_Access());
             }
         }
 
