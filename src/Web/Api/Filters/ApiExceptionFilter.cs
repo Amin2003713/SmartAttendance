@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shifty.ApiFramework.Tools;
+using Shifty.Common;
 using Shifty.Common.Exceptions;
+using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +17,34 @@ namespace Shifty.Api.Filters
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
-        private readonly ILogger _logger = new LoggerFactory().CreateLogger("ApiExceptionFilter");
+        private readonly ILogger<ApiExceptionFilter>                                     _logger;
+        private readonly CommonMessages                              _messages;
+        
 
-        public ApiExceptionFilter()
+        public ApiExceptionFilter(ILogger<ApiExceptionFilter> logger , CommonMessages messages)
         {
-
-            _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
+            _logger        = logger;
+            _messages = messages;
+            _exceptionHandlers = new Dictionary<Type , Action<ExceptionContext>>
             {
-                { typeof(ValidationException), HandleValidationException },
-                { typeof(FluentValidation.ValidationException), HandleFluentValidationException },
-                { typeof(NotFoundException), HandleNotFoundException },
-                { typeof(ConflictException), HandleConflictException }
+                {
+                    typeof(ValidationException) , HandleValidationException
+                } ,
+                {
+                    typeof(FluentValidation.ValidationException) , HandleFluentValidationException
+                } ,
+                {
+                    typeof(NotFoundException) , HandleNotFoundException
+                } ,
+                {
+                    typeof(ConflictException) , HandleConflictException
+                } ,
+                {
+                    typeof(UnauthorizedAccessException) , HandleUnauthorizedException
+                } ,
+                {
+                    typeof(ForbiddenException) , HandleForbiddenException
+                }
             };
         }
 
@@ -56,8 +76,7 @@ namespace Shifty.Api.Filters
         {
             var problemDetails = new ApiProblemDetails
             {
-                Status = StatusCodes.Status500InternalServerError,
-                Title = "Internal Server Error",
+                Status = StatusCodes.Status500InternalServerError, Title = _messages.InternalServerError_Title() , // Localized title
                 Detail = context.Exception.Message
             };
 
@@ -75,9 +94,8 @@ namespace Shifty.Api.Filters
             {
                 var problemDetails = new ApiProblemDetails
                 {
-                    Status = StatusCodes.Status400BadRequest,
-                    Title = "Validation failed",
-                    Detail = "One or more validation errors occurred.",
+                    Status = StatusCodes.Status400BadRequest, Title = _messages.Validation_Title() , // Localized title
+                    Detail = _messages.Validation_Detail() ,                                         // Localized detail
                     Errors = (exception.Errors)
                 };
 
@@ -110,9 +128,8 @@ namespace Shifty.Api.Filters
             {
                 var problemDetails = new ApiProblemDetails
                 {
-                    Status = StatusCodes.Status400BadRequest,
-                    Title = "Validation failed",
-                    Detail = "One or more validation errors occurred.",
+                    Status = StatusCodes.Status400BadRequest, Title = _messages.Validation_Title() , // Localized title
+                    Detail = _messages.Validation_Detail() ,   
                     Errors = Errors(exception.Errors)
                 };
 
@@ -126,9 +143,8 @@ namespace Shifty.Api.Filters
             var exception = context.Exception as NotFoundException;
             var problemDetails = new ApiProblemDetails
             {
-                Status = StatusCodes.Status404NotFound,
-                Title = "Not Found",
-                Detail = exception?.Message ?? "The specified resource was not found.",
+                Status = StatusCodes.Status404NotFound, Title = _messages.NotFound_Title() , // Localized title
+                Detail = exception?.Message ?? _messages.NotFound_Detail()                   // Localized detail
             };
 
             context.Result = new NotFoundObjectResult(problemDetails);
@@ -140,9 +156,8 @@ namespace Shifty.Api.Filters
             var exception = context.Exception as ConflictException;
             var problemDetails = new ApiProblemDetails
             {
-                Status = StatusCodes.Status409Conflict,
-                Title = "Conflict",
-                Detail = exception?.Message ?? "A conflict occurred with an existing record.",
+                Status = StatusCodes.Status409Conflict, Title = _messages.Conflict_Title() , // Localized title
+                Detail = exception?.Message ?? _messages.Conflict_Detail()                   // Localized detail
             };
 
             context.Result = new ObjectResult(problemDetails)
@@ -152,5 +167,39 @@ namespace Shifty.Api.Filters
 
             context.ExceptionHandled = true;
         }
+
+        private void HandleUnauthorizedException(ExceptionContext context)
+        {
+            var problemDetails = new ApiProblemDetails
+            {
+                Status = StatusCodes.Status401Unauthorized , Title = _messages.Unauthorized_Title() , // Localized title
+                Detail = _messages.Unauthorized_Detail()                                              // Localized detail
+            };
+
+            context.Result = new ObjectResult(problemDetails)
+            {
+                StatusCode = StatusCodes.Status401Unauthorized ,
+            };
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleForbiddenException(ExceptionContext context)
+        {
+            var problemDetails = new ApiProblemDetails
+            {
+                Status = StatusCodes.Status403Forbidden , Title = _messages.Forbidden_Title() , // Localized title
+                Detail = _messages.Forbidden_Detail()                                           // Localized detail
+            };
+
+            context.Result = new ObjectResult(problemDetails)
+            {
+                StatusCode = StatusCodes.Status403Forbidden ,
+            };
+
+            context.ExceptionHandled = true;
+        }
+
+
     }
 }

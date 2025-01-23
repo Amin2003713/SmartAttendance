@@ -1,19 +1,20 @@
 ﻿using FluentValidation;
 using Shifty.Application.Users.Requests.Verify;
+using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Users.Validators.Verify
 {
     public class VerifyPhoneNumberRequestValidator : AbstractValidator<VerifyPhoneNumberRequest>
     {
-        public VerifyPhoneNumberRequestValidator()
+        public VerifyPhoneNumberRequestValidator(ValidationMessages messages)
         {
             RuleFor(x => x.PhoneNumber).
                 NotEmpty().
-                WithMessage("Phone number is required.").
+                WithMessage(messages.PhoneNumber_Required()).
                 Matches(@"^09\d{9}$").
-                WithMessage("Invalid phone number format. Use international format (e.g., 09131234567).");
+                WithMessage(messages.PhoneNumber_InvalidFormat());
 
-            RuleFor(x => x.Code).NotEmpty().WithMessage("Code is required.").Length(6).WithMessage("Code must be 6 digits.");
+            RuleFor(x => x.Code).NotEmpty().WithMessage(messages.Code_Required()).Length(6).WithMessage(messages.Code_Length());
         }
     }
 }

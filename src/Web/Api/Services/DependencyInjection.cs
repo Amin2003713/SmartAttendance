@@ -83,6 +83,7 @@ namespace Shifty.Api.Services
                      WithEFCoreStore<TenantDbContext , ShiftyTenantInfo>();
 
             services.AddScoped<ApiExceptionFilter>();
+            services.AddScoped<ValidateModelStateAttribute>();
 
         }
 
@@ -203,7 +204,7 @@ namespace Shifty.Api.Services
         {
             services.AddControllers(options =>
                                     {
-                                        options.Filters.Add(typeof(ValidateModelStateAttribute));
+                                        options.Filters.Add<ValidateModelStateAttribute>();
                                         options.Filters.Add<ApiExceptionFilter>();
                                     }).
                      AddDataAnnotationsLocalization().AddMvcLocalization().AddViewLocalization();

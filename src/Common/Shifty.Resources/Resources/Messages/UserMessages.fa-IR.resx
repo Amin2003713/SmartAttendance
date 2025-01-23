@@ -21,4 +21,8 @@
 	<data name="InValid_Token" xml:space="preserve">
     <value>توکن ارائه شده نامعتبر است.</value>
   </data>
+
+	<data name="User_Error_NotActive">
+		<value>کاربر فعال نیست.</value>
+	</data>
 </root>
