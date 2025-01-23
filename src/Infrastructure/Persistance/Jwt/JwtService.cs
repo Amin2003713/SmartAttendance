@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Users;
-using Shifty.Resources.ExceptionMessages.Common;
+using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

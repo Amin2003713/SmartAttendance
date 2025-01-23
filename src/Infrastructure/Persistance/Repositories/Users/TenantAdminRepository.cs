@@ -5,7 +5,7 @@ using Shifty.Common;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
-using Shifty.Resources.ExceptionMessages.Companies;
+using Shifty.Resources.Messages;
 using System;
 using System.Linq;
 using System.Net;

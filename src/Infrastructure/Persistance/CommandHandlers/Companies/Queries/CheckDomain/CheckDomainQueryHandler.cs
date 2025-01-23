@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Shifty.Application.Common;
 using Shifty.Application.Companies.Queries.CheckDomain;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
-using Shifty.Resources.ExceptionMessages.Companies;
+using Shifty.Resources.Messages;
 using System.Threading;
 using System.Threading.Tasks;
 

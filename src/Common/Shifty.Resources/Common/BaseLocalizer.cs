@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
+using System.Globalization;
 
-namespace Shifty.Resources.ExceptionMessages.Common
+namespace Shifty.Resources.Common
 {
     public class BaseLocalizer<TLocalizer>(IStringLocalizer<TLocalizer> localizer)
     {
@@ -10,11 +11,7 @@ namespace Shifty.Resources.ExceptionMessages.Common
         /// <param name="key">The resource key for the message.</param>
         /// <param name="args">Optional arguments for formatting the message.</param>
         /// <returns>The localized string.</returns>
-        public string Localize(string key , params object[] args)
-        {
-            var aa = localizer.GetAllStrings();
-            var a  = localizer[key , args];
-            return a;
-        }
+        public string Localize(string key , params object[] args) =>
+            localizer[key , args];
     }
 }

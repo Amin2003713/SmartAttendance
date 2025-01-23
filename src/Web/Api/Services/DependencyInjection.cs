@@ -30,7 +30,7 @@ using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
-using Shifty.Resources.ExceptionMessages.Users;
+using Shifty.Resources.Messages;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -82,6 +82,7 @@ namespace Shifty.Api.Services
                      WithHeaderStrategy().
                      WithEFCoreStore<TenantDbContext , ShiftyTenantInfo>();
 
+            services.AddScoped<ApiExceptionFilter>();
 
         }
 
@@ -193,7 +194,7 @@ namespace Shifty.Api.Services
             //    context.Fail("Token security stamp is not valid.");
 
             if (!user.IsActive)
-                context.Fail("User is not active.");
+                context.Fail(userMessage.User_Error_NotActive());
 
             await userRepository.UpdateLastLoginDateAsync(user , context.HttpContext.RequestAborted);
         }
@@ -203,8 +204,9 @@ namespace Shifty.Api.Services
             services.AddControllers(options =>
                                     {
                                         options.Filters.Add(typeof(ValidateModelStateAttribute));
-                                        options.Filters.Add(new ApiExceptionFilter());
-                                    });
+                                        options.Filters.Add<ApiExceptionFilter>();
+                                    }).
+                     AddDataAnnotationsLocalization().AddMvcLocalization().AddViewLocalization();
 
             services.AddCors();
         }

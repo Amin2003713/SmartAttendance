@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Localization;
-using Shifty.Resources.ExceptionMessages.Common;
-using Shifty.Resources.Resources.Companies;
+using Shifty.Resources.Common;
 
-namespace Shifty.Resources.ExceptionMessages.Companies;
+namespace Shifty.Resources.Messages;
 
-public class CompanyMessages(IStringLocalizer<CompanyResources> localizer) : BaseLocalizer<CompanyResources>(localizer)
+public class CompanyMessages(IStringLocalizer<CompanyMessages> localizer) : BaseLocalizer<CompanyMessages>(localizer)
 {
 
     public string Company_Admin_Not_Created()=>Localize(nameof(Company_Admin_Not_Created));

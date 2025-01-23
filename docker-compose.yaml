@@ -58,6 +58,8 @@ services:
   shifty.api:
     build:
       dockerfile: src/Web/Api/Dockerfile
+      args:
+       - ASPNETCORE_ENVIRONMENT
     container_name: shifty.api
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
@@ -69,7 +71,9 @@ services:
     networks:
       - app-network
     ports:
-      - ${PORT_API_EXTERNAL}:${PORT_API_INTERNAL}
+      - "1880:8080"
+      - "1888:80"
+      - "5001:443"
     restart: always
 
 networks:

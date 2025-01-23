@@ -1,24 +1,25 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 using Shifty.Application.Companies.Queries.CheckDomain;
+using Shifty.Resources.Common;
+using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Companies.Validators.CheckDomain
 {
     public class CheckDomainValidator  : AbstractValidator<CheckDomainQuery>
     {
-        public CheckDomainValidator()
+        public CheckDomainValidator(ValidationMessages messages)
         {
             RuleFor(x => x.Domain).
                 Cascade(CascadeMode.Stop) // Stop validation on first failure
                 .NotEmpty().
-                WithMessage("شناسه سازمان الزامی است.") // "Organization identifier is required."
+                WithMessage(messages.Domain_Required()) // "Organization identifier is required."
                 .MaximumLength(63).
-                WithMessage("شناسه سازمان نمی‌تواند بیشتر از 63 کاراکتر باشد.") // "Organization identifier cannot exceed 63 characters."
+                WithMessage(messages.Domain_MaxLength()) // "Organization identifier cannot exceed 63 characters."
                 .Must(NotStartOrEndWithHyphen).
-                WithMessage(
-                    "شناسه سازمان نمی‌تواند با خط فاصله شروع یا پایان یابد.") // "Organization identifier cannot start or end with a hyphen."
+                WithMessage(messages.Domain_InvalidCharacters()) // "Organization identifier cannot start or end with a hyphen."
                 .Matches("^[a-zA-Z0-9-]+$").
-                WithMessage(
-                    "شناسه سازمان فقط می‌تواند شامل حروف الفبا، اعداد، و خط فاصله باشد."); // "Organization identifier can only contain letters, numbers, and hyphens."
+                WithMessage(messages.Domain_InvalidCharacters());// "Organization identifier can only contain letters, numbers, and hyphens."
         }
 
         /// <summary>

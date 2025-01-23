@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Localization;
-using Shifty.Resources.ExceptionMessages.Common;
-using Shifty.Resources.Resources.Users;
+using Shifty.Resources.Common;
 
-namespace Shifty.Resources.ExceptionMessages.Users
+namespace Shifty.Resources.Messages
 {
-    public  class UserMessages(IStringLocalizer<UserResources> localizer) : BaseLocalizer<UserResources>(localizer)
+    public  class UserMessages(IStringLocalizer<UserMessages> localizer) : BaseLocalizer<UserMessages>(localizer)
     {
         public  string User_Already_Exists     ()=> Localize( nameof(User_Already_Exists));
         public  string Verify_Two_Factor_Token ()=> Localize( nameof(Verify_Two_Factor_Token));
@@ -13,5 +12,8 @@ namespace Shifty.Resources.ExceptionMessages.Users
         public   string Identity_Error          ()=> Localize( nameof(Identity_Error));
         public  string User_Conflict           ()=> Localize( nameof(User_Conflict));
         public  string InValid_Token          ()=> Localize( nameof(InValid_Token));
+
+        public string User_Error_NotActive() => Localize(nameof(User_Error_NotActive));
+
     }
 }

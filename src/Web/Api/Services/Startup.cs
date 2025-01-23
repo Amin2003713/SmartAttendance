@@ -22,11 +22,11 @@ namespace Shifty.Api.Services
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResources();
             services.AddWebApi(Configuration , _siteSetting);
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddCommon(Configuration);
-            services.AddResources();
         }
 
         //Register Services to Autofac ContainerBuilder
@@ -42,8 +42,8 @@ namespace Shifty.Api.Services
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseWebApi(env);
             app.UseResources();
+            app.UseWebApi(env);
         }
     }
 }

@@ -1,0 +1,109 @@
+﻿<root>
+	<!-- Domain -->
+	<data name="Domain_Required">
+		<value>شناسه سازمان الزامی است.</value>
+	</data>
+	<data name="Domain_MaxLength">
+		<value>شناسه سازمان نمی‌تواند بیشتر از ۶۳ کاراکتر باشد.</value>
+	</data>
+	<data name="Domain_InvalidHyphen">
+		<value>شناسه سازمان نمی‌تواند با خط فاصله شروع یا پایان یابد.</value>
+	</data>
+	<data name="Domain_InvalidCharacters">
+		<value>شناسه سازمان فقط می‌تواند شامل حروف الفبا، اعداد باشد.</value>
+	</data>
+	
+	
+	
+	<!-- First Name -->
+	<data name="FirstName_Required">
+		<value>نام الزامیست.</value>
+	</data>
+	<data name="FirstName_Length">
+		<value>حداقل طول نام 2 حرف و حداکثر 255 حرف می‌باشد.</value>
+	</data>
+
+	<data name="LastName_Required">
+		<value>نام خانوادگی الزامیست.</value>
+	</data>
+	<data name="LastName_Length">
+		<value>حداقل طول نام خانوادگی 2 حرف و حداکثر 255 حرف می‌باشد.</value>
+	</data>
+
+	<!-- Organization -->
+	<data name="OrganizationName_Required">
+		<value>نام سازمان الزامی است.</value>
+	</data>
+
+	<!-- Phone Number -->
+	<data name="PhoneNumber_Required">
+		<value>شماره تلفن الزامی است.</value>
+	</data>
+	<data name="PhoneNumber_InvalidFormat">
+		<value>شماره تلفن باید مطابق با فرمت شماره تلفن ایران باشد.</value>
+	</data>
+
+
+	<!-- ValidationMessages.fa-IR.resx (Persian) -->
+	<data name="Username_Required">
+		<value>نام کاربری اجباری است.</value>
+	</data>
+	<data name="Password_Required">
+		<value>رمز عبور اجباری است.</value>
+	</data>
+	<data name="Password_MinLength">
+		<value>طول رمز عبور باید حداقل 8 کاراکتر باشد</value>
+	</data>
+
+	<data name="Property_RefreshToken">
+		<value>توکن بازآوری</value>
+	</data>
+	<data name="Property_AccessToken">
+		<value>توکن دسترسی</value>
+	</data>
+	<data name="Validation_TokenInvalid">
+		<value>{PropertyName} معتبر نیست.</value>
+	</data>
+	
+
+	<data name="FatherName_Required">
+		<value>نام پدر الزامیست.</value>
+	</data>
+	<data name="FatherName_Length">
+		<value>حداقل طول نام پدر 2 حرف و حداکثر 255 حرف می‌باشد.</value>
+	</data>
+
+	<data name="NationalCode_Required">
+		<value>کد ملی الزامیست.</value>
+	</data>
+	<data name="NationalCode_Length">
+		<value>طول کد ملی باید 10 عدد باشد.</value>
+	</data>
+	<data name="NationalCode_Numeric">
+		<value>کد ملی باید فقط شامل اعداد باشد.</value>
+	</data>
+
+	<data name="Gender_Required">
+		<value>جنسیت الزامیست.</value>
+	</data>
+
+	<data name="IsLeader_Required">
+		<value>وضعیت سرگروه الزامیست.</value>
+	</data>
+	
+
+	<data name="PersonnelNumber_Required">
+		<value>شماره پرسنلی الزامیست.</value>
+	</data>
+
+	<data name="DepartmentId_Required">
+		<value>دپارتمان الزامیست.</value>
+	</data>
+
+	<data name="Code_Required">
+		<value>کد الزامی است.</value>
+	</data>
+	<data name="Code_Length">
+		<value>کد باید 6 رقم باشد.</value>
+	</data>
+</root>

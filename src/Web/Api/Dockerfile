@@ -7,8 +7,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 443
 EXPOSE 80
-EXPOSE 8080
-
+ARG CONFIGURATION=Development
 # --------------------------------------------------
 # 2) Build + Restore stage
 # --------------------------------------------------
@@ -33,13 +32,13 @@ COPY . .
 # --------------------------------------------------
 # 3) Build stage
 # --------------------------------------------------
-RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c Release -o /app/build
+RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION  -o /app/build
 
 # --------------------------------------------------
 # 4) Publish stage
 # --------------------------------------------------
 FROM build AS publish
-RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION  -o /app/publish --no-restore
 
 # --------------------------------------------------
 # 5) Final runtime stage
@@ -50,7 +49,8 @@ WORKDIR /app
 # Copy published output
 COPY --from=publish /app/publish .
 
-
+ # Expose debugging port if necessary
+EXPOSE 8080
 # Trust the HTTPS developer certificate (runtime)
 RUN dotnet dev-certs https --trust || echo "Skipping certificate trust"
 

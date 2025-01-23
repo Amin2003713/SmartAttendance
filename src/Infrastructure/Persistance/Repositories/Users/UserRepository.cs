@@ -8,7 +8,7 @@ using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
-using Shifty.Resources.ExceptionMessages.Users;
+using Shifty.Resources.Messages;
 using System;
 using System.Linq;
 using System.Net;

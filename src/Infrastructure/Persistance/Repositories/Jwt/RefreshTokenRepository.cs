@@ -6,7 +6,7 @@ using Shifty.Domain.Interfaces.Jwt;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
-using Shifty.Resources.ExceptionMessages.Common;
+using Shifty.Resources.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

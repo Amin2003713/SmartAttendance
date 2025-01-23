@@ -8,7 +8,7 @@ using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Jwt;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Jwt;
-using Shifty.Resources.ExceptionMessages.Users;
+using Shifty.Resources.Messages;
 using System;
 using System.Linq;
 using System.Threading;

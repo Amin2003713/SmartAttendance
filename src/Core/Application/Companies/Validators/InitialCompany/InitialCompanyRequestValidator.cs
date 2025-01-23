@@ -1,46 +1,38 @@
 ﻿using FluentValidation;
 using Shifty.Application.Companies.Requests;
+using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Companies.Validators.InitialCompany
 {
     public class InitialCompanyRequestValidator : AbstractValidator<InitialCompanyRequest>
     {
-        public InitialCompanyRequestValidator()
+        public InitialCompanyRequestValidator(ValidationMessages validationMessages)
         {
-            // Name is required and should not exceed 150 characters
-            RuleFor(x => x.FirstName).NotEmpty().WithMessage("نام  الزامی است.").MaximumLength(150).WithMessage("نام  نباید بیشتر از 150 کاراکتر باشد.");
-
+            RuleFor(x => x.FirstName).
+                NotEmpty().
+                WithMessage(validationMessages.FirstName_Required()).
+                MaximumLength(150).
+                WithMessage(validationMessages.FirstName_Length());
 
             RuleFor(x => x.LastName).
                 NotEmpty().
-                WithMessage("نام خانوادگی الزامی است.").
+                WithMessage(validationMessages.LastName_Required()).
                 MaximumLength(150).
-                WithMessage("نام خانوادگی نباید بیشتر از 150 کاراکتر باشد.");
+                WithMessage(validationMessages.LastName_Length());
 
-            // TenantId is required and must match a valid format
             RuleFor(x => x.Domain).
                 NotEmpty().
-                WithMessage("شناسه سازمان الزامی است.").
+                WithMessage(validationMessages.Domain_Required()).
                 Matches("^[a-zA-Z0-9-]+$").
-                WithMessage("شناسه سازمان فقط می‌تواند شامل حروف الفبا، اعداد، و خط فاصله باشد.");
+                WithMessage(validationMessages.Domain_InvalidCharacters());
 
-            RuleFor(x => x.Name).NotEmpty().WithMessage("نام سازمان الزامی است.");
+            RuleFor(x => x.Name).NotEmpty().WithMessage(validationMessages.OrganizationName_Required());
 
-            // // Address is optional but must not exceed 250 characters if provided
-            // RuleFor(x => x.Address)
-            //     .MaximumLength(250).WithMessage("آدرس نباید بیشتر از 250 کاراکتر باشد.");
-            //
-            // // PostalCode should be 10 digits if provided
-            // RuleFor(x => x.PostalCode)
-            //     .Matches("^[0-9]{10}$").When(x => !string.IsNullOrEmpty(x.PostalCode))
-            //     .WithMessage("کد پستی باید دقیقا 10 رقم باشد.");
-
-            // PhoneNumber should follow Iranian phone number format
             RuleFor(x => x.PhoneNumber).
                 NotEmpty().
-                WithMessage("شماره تلفن الزامی است.").
+                WithMessage(validationMessages.PhoneNumber_Required()).
                 Matches("^09[0-9]{9}$").
-                WithMessage("شماره تلفن باید مطابق با فرمت شماره تلفن ایران باشد.");
+                WithMessage(validationMessages.PhoneNumber_InvalidFormat());
         }
     }
 }

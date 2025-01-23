@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Shifty.Resources.ExceptionMessages.Common;
+using Shifty.Resources.Common;
 using System.Globalization;
 using System.Reflection;
 
@@ -14,45 +14,49 @@ namespace Shifty.Resources.Services
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            var assembly       = (typeof(BaseLocalizer<>)).Assembly;
-            var exceptionTypes = assembly.GetTypes().Where(type => type.Name.EndsWith("Messages") && type is { IsClass: true , IsAbstract: false });
+            // Remove this part
+            var assembly       = typeof(BaseLocalizer<>).Assembly;
+            var exceptionTypes = assembly.GetTypes().
+                                           Where(type => type.Name.EndsWith("Messages") && type is { IsClass: true , IsAbstract: false } &&
+                                                         type.Namespace?.Contains("Shifty.Resources.Resources.Messages") != true);
             foreach (var exceptionType in exceptionTypes)
                 services.AddSingleton(exceptionType);
 
-
+            services.AddSingleton(typeof(BaseLocalizer<>));
             return services;
         }
 
         public static void UseResources(this IApplicationBuilder app)
         {
-                app.UseRequestLocalization(options =>
-                                                                   {
-                                                                       IList<CultureInfo> supportedCultures = new[]
-                                                                       {
-                                                                           new CultureInfo("fa-ir") , new CultureInfo("en-US") ,
-                                                                       };
-                                                                       options.DefaultRequestCulture = new RequestCulture("en-US");
-                                                                       options.SupportedCultures     = supportedCultures;
-                                                                       options.SupportedUICultures   = supportedCultures;
-                                                                       options.DefaultRequestCulture = new RequestCulture("fa-ir");
-                                                                       options.RequestCultureProviders.Insert(0 ,
-                                                                           new CustomRequestCultureProvider(context =>
-                                                                                                            {
-                                                                                                                var culture = context.Request.Headers["Accept-Language"].
-                                                                                                                                      ToString().
-                                                                                                                                      Split(',').
-                                                                                                                                      FirstOrDefault();
-                                                                                                                if (!string.IsNullOrEmpty(culture) &&
-                                                                                                                    supportedCultures.Any(
-                                                                                                                        c => c.Name.Equals(culture , StringComparison.OrdinalIgnoreCase)))
-                                                                                                                {
-                                                                                                                    return Task.FromResult(new ProviderCultureResult(culture));
-                                                                                                                }
+            app.UseRequestLocalization(options =>
+                                       {
+                                           options.RequestCultureProviders.Clear();
 
-                                                                                                                return Task.FromResult(new ProviderCultureResult("fa-ir")); // Default culture
-                                                                                                            }));
-                                                                   });
-        }
+                                           IList<CultureInfo> supportedCultures = new[]
+                                           {
+                                               new CultureInfo("fa-ir") , new CultureInfo("en-US") ,
+                                           };
+                                           options.SupportedCultures     = supportedCultures;
+                                           options.SupportedUICultures   = supportedCultures;
+                                           options.DefaultRequestCulture = new RequestCulture("fa-ir");
+                                           options.RequestCultureProviders.Insert(0 ,
+                                               new CustomRequestCultureProvider(context =>
+                                                                                {
+                                                                                    var culture = context.Request.Headers["Accept-Language"].
+                                                                                                          ToString().
+                                                                                                          Split(',').
+                                                                                                          FirstOrDefault();
+                                                                                    if (!string.IsNullOrEmpty(culture) &&
+                                                                                        supportedCultures.Any(
+                                                                                            c => c.Name.Equals(culture , StringComparison.OrdinalIgnoreCase)))
+                                                                                        return Task.FromResult(new ProviderCultureResult(culture));
+
+                                                                                    return Task.FromResult(new ProviderCultureResult("fa-ir")); // Default culture
+
+
+                                                                                }));
+                                       });
+        }  
 
     }
 }

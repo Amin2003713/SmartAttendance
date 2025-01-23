@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Common;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
-using Shifty.Resources.ExceptionMessages.Companies;
+using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;

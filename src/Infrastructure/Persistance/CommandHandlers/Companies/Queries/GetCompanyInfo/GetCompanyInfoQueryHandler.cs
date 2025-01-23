@@ -3,7 +3,7 @@ using MediatR;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Companies;
-using Shifty.Resources.ExceptionMessages.Companies;
+using Shifty.Resources.Messages;
 using System.Threading;
 using System.Threading.Tasks;
 
