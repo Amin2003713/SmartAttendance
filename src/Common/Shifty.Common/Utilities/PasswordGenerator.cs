@@ -72,9 +72,7 @@ namespace Shifty.Common.Utilities
                     rng.GetBytes(randomBytes);
                     var k = (int)(BitConverter.ToUInt32(randomBytes , 0) % (uint)n);
                     n--;
-                    var temp = array[n];
-                    array[n] = array[k];
-                    array[k] = temp;
+                    (array[n] , array[k]) = (array[k] , array[n]);
                 }
             }
 

@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Shifty.Resources\Shifty.Resources.csproj" />
+	  <ProjectReference Include="..\..\Common\Shifty.Common\Shifty.Common.csproj" />
 	</ItemGroup>
 
 </Project>

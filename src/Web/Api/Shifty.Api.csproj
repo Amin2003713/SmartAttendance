@@ -37,7 +37,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Common\Shifty.Resources\Shifty.Resources.csproj" />
 		<ProjectReference Include="..\ApiFramework\Shifty.ApiFramework.csproj"/>
 	</ItemGroup>
 
