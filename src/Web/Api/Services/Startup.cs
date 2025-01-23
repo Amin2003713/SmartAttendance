@@ -26,7 +26,7 @@ namespace Shifty.Api.Services
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddCommon(Configuration);
-            services.AddResources(configuration);
+            services.AddResources();
         }
 
         //Register Services to Autofac ContainerBuilder

@@ -12,7 +12,9 @@ namespace Shifty.Resources.ExceptionMessages.Common
         /// <returns>The localized string.</returns>
         public string Localize(string key , params object[] args)
         {
-            return localizer[key , args];
+            var aa = localizer.GetAllStrings();
+            var a  = localizer[key , args];
+            return a;
         }
     }
 }

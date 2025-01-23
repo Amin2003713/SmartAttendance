@@ -55,16 +55,13 @@ services:
     restart: unless-stopped
 
 
-  shifty-api:
+  shifty.api:
     build:
       dockerfile: src/Web/Api/Dockerfile
-      args:
-        CONFIGURATION: ${CONFIGURATION}
-    container_name: shifty-api
+    container_name: shifty.api
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
       - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
@@ -73,7 +70,6 @@ services:
       - app-network
     ports:
       - ${PORT_API_EXTERNAL}:${PORT_API_INTERNAL}
-      - ${PORT_API_EXTERNAL_SSL}:${PORT_API_INTERNAL-SSL}
     restart: always
 
 networks:

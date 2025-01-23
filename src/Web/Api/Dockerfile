@@ -7,15 +7,13 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 443
 EXPOSE 80
+EXPOSE 8080
 
 # --------------------------------------------------
 # 2) Build + Restore stage
 # --------------------------------------------------
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-
-# Define build argument with default value
-ARG CONFIGURATION=Development
 
 # Copy the solution file and restore dependencies
 COPY ["Shifty.sln", "./"]
@@ -35,13 +33,13 @@ COPY . .
 # --------------------------------------------------
 # 3) Build stage
 # --------------------------------------------------
-RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION -o /app/build
+RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c Release -o /app/build
 
 # --------------------------------------------------
 # 4) Publish stage
 # --------------------------------------------------
 FROM build AS publish
-RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION -o /app/publish --no-restore
+RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c Release -o /app/publish --no-restore
 
 # --------------------------------------------------
 # 5) Final runtime stage
