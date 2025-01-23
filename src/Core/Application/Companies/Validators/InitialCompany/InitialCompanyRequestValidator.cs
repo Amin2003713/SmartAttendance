@@ -8,17 +8,9 @@ namespace Shifty.Application.Companies.Validators.InitialCompany
     {
         public InitialCompanyRequestValidator(ValidationMessages validationMessages)
         {
-            RuleFor(x => x.FirstName).
-                NotEmpty().
-                WithMessage(validationMessages.FirstName_Required()).
-                MaximumLength(150).
-                WithMessage(validationMessages.FirstName_Length());
+            RuleFor(x => x.FirstName).NotEmpty().WithMessage(validationMessages.FirstName_Required()).Length(2 , 255).WithMessage(validationMessages.FirstName_Length());
 
-            RuleFor(x => x.LastName).
-                NotEmpty().
-                WithMessage(validationMessages.LastName_Required()).
-                MaximumLength(150).
-                WithMessage(validationMessages.LastName_Length());
+            RuleFor(x => x.LastName).NotEmpty().WithMessage(validationMessages.LastName_Required()).Length(2 , 255).WithMessage(validationMessages.LastName_Length());
 
             RuleFor(x => x.Domain).
                 NotEmpty().
