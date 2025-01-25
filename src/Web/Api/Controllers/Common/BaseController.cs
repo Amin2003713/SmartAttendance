@@ -15,7 +15,7 @@ namespace Shifty.Api.Controllers.Common
 {
     [ValidateModelState]
     [Authorize]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiProblemDetails) , StatusCodes.Status500InternalServerError)]
     public class BaseController : ControllerBase

@@ -1,8 +1,10 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
+using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,7 @@ using Serilog.Enrichers.Correlate;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Aspire;
 using Shifty.ApiFramework.Attributes;
+using Shifty.ApiFramework.Configuration;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
 using Shifty.Application.Users.Requests.Login;
@@ -59,11 +62,7 @@ namespace Shifty.Api.Services
             services.AddServiceControllers();
             services.AddPolyCache(configuration);
 
-            // services.AddHealthChecks()
-            //         .AddSqlServer(appOptions.WriteDatabaseConnectionString)
-            //         .AddRedis(distributedCacheConfig.ConnectionString);
-            // services.AddHealthChecksUI()
-            //         .AddInMemoryStorage();
+            services.AddHealthShiftyCheck();
 
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(PerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(ValidationBehavior<,>));
@@ -85,6 +84,18 @@ namespace Shifty.Api.Services
             services.AddScoped<ApiExceptionFilter>();
             services.AddScoped<ValidateModelStateAttribute>();
 
+        }
+
+        private static void AddHealthShiftyCheck(this IServiceCollection services)
+        {
+            services.AddHealthChecks().AddSqlServer(ApplicationConstant.AppOptions.TenantStore).AddCheck<TenantDatabaseHealthCheck>("tenant Dbs");
+            services.AddHealthChecksUI(options =>
+                                       {
+                                           options.SetEvaluationTimeInSeconds(30); // Configures the UI to refresh health status every 60 seconds
+                                           options.SetMinimumSecondsBetweenFailureNotifications(60); // Sets minimum time between failure notifications
+                                           options.MaximumHistoryEntriesPerEndpoint(500); // Configures how many history entries to keep
+                                       }).
+                     AddSqlServerStorage(ApplicationConstant.AppOptions.TenantStore);
         }
 
         public static void UseWebApi(this IApplicationBuilder app , IWebHostEnvironment env)
@@ -116,12 +127,14 @@ namespace Shifty.Api.Services
                                      endpoints.MapControllers();
                                  }
 
-                                 // endpoints.MapHealthChecksUI();
-                                 // endpoints.MapHealthChecks("/health", new HealthCheckOptions()
-                                 // {
-                                 //     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                                 // });
+                                 endpoints.MapHealthChecksUI();
+                                 endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+                                 {
+                                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                                 });
                              });
+            app.UseHealthChecksUI(options => options.UIPath = "/health-ui");
+
         }
 
         private static void AddJwtAuthentication(this IServiceCollection services , JwtSettings jwtSettings)

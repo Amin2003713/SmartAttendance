@@ -13,6 +13,8 @@
 
 	<ItemGroup>
 
+		<PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" Version="9.0.0" />
+
 		<PackageReference Include="Finbuckle.MultiTenant" Version="9.0.0"/>
 
 		<PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="9.0.0"/>
