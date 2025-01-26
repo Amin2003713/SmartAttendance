@@ -1,26 +1,21 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
-using HealthChecks.UI.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Resources;
 using PolyCache;
+using Scalar.AspNetCore;
 using Serilog.Enrichers.Correlate;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Aspire;
 using Shifty.ApiFramework.Attributes;
-using Shifty.ApiFramework.Configuration;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
 using Shifty.Application.Users.Requests.Login;
@@ -35,7 +30,6 @@ using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Resources.Messages;
 using Swashbuckle.AspNetCore.Filters;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +42,6 @@ namespace Shifty.Api.Services
 {
     public static class DependencyInjection
     {
-
         public static void AddWebApi(this IServiceCollection services , IConfiguration configuration , SiteSettings siteSettings)
         {
             services.Configure<SiteSettings>(configuration.GetSection(nameof(SiteSettings)));
@@ -61,8 +54,9 @@ namespace Shifty.Api.Services
             services.AddJwtAuthentication(siteSettings.JwtSettings);
             services.AddServiceControllers();
             services.AddPolyCache(configuration);
+            services.AddEndpointsApiExplorer();
 
-            services.AddHealthShiftyCheck();
+            // services.AddHealthShiftyCheck();
 
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(PerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(ValidationBehavior<,>));
@@ -83,20 +77,19 @@ namespace Shifty.Api.Services
 
             services.AddScoped<ApiExceptionFilter>();
             services.AddScoped<ValidateModelStateAttribute>();
-
         }
 
-        private static void AddHealthShiftyCheck(this IServiceCollection services)
-        {
-            services.AddHealthChecks().AddSqlServer(ApplicationConstant.AppOptions.TenantStore).AddCheck<TenantDatabaseHealthCheck>("tenant Dbs");
-            services.AddHealthChecksUI(options =>
-                                       {
-                                           options.SetEvaluationTimeInSeconds(30); // Configures the UI to refresh health status every 60 seconds
-                                           options.SetMinimumSecondsBetweenFailureNotifications(60); // Sets minimum time between failure notifications
-                                           options.MaximumHistoryEntriesPerEndpoint(500); // Configures how many history entries to keep
-                                       }).
-                     AddSqlServerStorage(ApplicationConstant.AppOptions.TenantStore);
-        }
+        // private static void AddHealthShiftyCheck(this IServiceCollection services)
+        // {
+        //     services.AddHealthChecks().AddSqlServer(ApplicationConstant.AppOptions.TenantStore).AddCheck<TenantDatabaseHealthCheck>("tenant Dbs");
+        //     services.AddHealthChecksUI(options =>
+        //                                {
+        //                                    options.SetEvaluationTimeInSeconds(30); // Configures the UI to refresh health status every 60 seconds
+        //                                    options.SetMinimumSecondsBetweenFailureNotifications(60); // Sets minimum time between failure notifications
+        //                                    options.MaximumHistoryEntriesPerEndpoint(500); // Configures how many history entries to keep
+        //                                }).
+        //              AddSqlServerStorage(ApplicationConstant.AppOptions.TenantStore);
+        // }
 
         public static void UseWebApi(this IApplicationBuilder app , IWebHostEnvironment env)
         {
@@ -127,14 +120,41 @@ namespace Shifty.Api.Services
                                      endpoints.MapControllers();
                                  }
 
-                                 endpoints.MapHealthChecksUI();
-                                 endpoints.MapHealthChecks("/health", new HealthCheckOptions()
-                                 {
-                                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
-                                 });
-                             });
-            app.UseHealthChecksUI(options => options.UIPath = "/health-ui");
+                                 endpoints.MapScalarApiReference(opt =>
+                                                                 {
+                                                                     // Set the title for the API Reference
+                                                                     opt.Title = "Shifty API Reference";
 
+                                                                     // Customize the theme (use predefined themes or provide a custom one)
+                                                                     opt.Theme = ScalarTheme.Moon; // Available themes: Light, Dark, Custom
+
+                                                                     // Configure default HTTP client
+                                                                     opt.DefaultHttpClient =
+                                                                         new KeyValuePair<ScalarTarget , ScalarClient>(ScalarTarget.Http , ScalarClient.Axios);
+
+                                                                     opt.DarkMode = true;
+                                                                     opt.EnabledClients = new[]
+                                                                     {
+                                                                         ScalarClient.Axios ,
+                                                                         ScalarClient.Http2 ,
+                                                                         ScalarClient.Httpie ,
+                                                                         ScalarClient.Requests ,
+                                                                         ScalarClient.Native ,
+                                                                         ScalarClient.HttpClient ,
+                                                                         ScalarClient.Curl ,
+                                                                     };
+
+                                                                     opt.OperationSorter = OperationSorter.Method;
+                                                                     
+                                                                 });
+
+                                 // endpoints.MapHealthChecksUI();
+                                 // endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+                                 // {
+                                 //     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                                 // });
+                             });
+            // app.UseHealthChecksUI(options => options.UIPath = "/health-ui");
         }
 
         private static void AddJwtAuthentication(this IServiceCollection services , JwtSettings jwtSettings)
@@ -168,14 +188,14 @@ namespace Shifty.Api.Services
                                           OnAuthenticationFailed = context =>
                                                                    {
                                                                        if (context.Exception != null)
-                                                                           throw ShiftyException.Unauthorized(additionalData:context.Exception);
+                                                                           throw ShiftyException.Unauthorized(additionalData: context.Exception);
 
                                                                        return Task.CompletedTask;
                                                                    } ,
                                           OnTokenValidated = async context => await AddLoginRecordForUsers(context) , OnChallenge = context =>
                                           {
                                               if (context.AuthenticateFailure != null)
-                                                        throw ShiftyException.Unauthorized(additionalData: context.AuthenticateFailure);
+                                                  throw ShiftyException.Unauthorized(additionalData: context.AuthenticateFailure);
                                               return Task.CompletedTask;
                                           } ,
                                       };
@@ -185,7 +205,7 @@ namespace Shifty.Api.Services
         private static async Task AddLoginRecordForUsers(TokenValidatedContext context)
         {
             var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
-            var userMessage = context.HttpContext.RequestServices.GetRequiredService<UserMessages>();
+            var userMessage    = context.HttpContext.RequestServices.GetRequiredService<UserMessages>();
 
             var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
             if (claimsIdentity?.Claims.Any() != true)
@@ -220,7 +240,9 @@ namespace Shifty.Api.Services
                                         options.Filters.Add<ValidateModelStateAttribute>();
                                         options.Filters.Add<ApiExceptionFilter>();
                                     }).
-                     AddDataAnnotationsLocalization().AddMvcLocalization().AddViewLocalization();
+                     AddDataAnnotationsLocalization().
+                     AddMvcLocalization().
+                     AddViewLocalization();
 
             services.AddCors();
         }
@@ -281,7 +303,8 @@ namespace Shifty.Api.Services
                                            new OpenApiSecurityScheme
                                            {
                                                Name = "Authorization" , Type = SecuritySchemeType.ApiKey , Scheme = "Bearer" , BearerFormat = "JWT" ,
-                                               In   = ParameterLocation.Header , Description = "JWT Authorization header using the Bearer scheme." });
+                                               In   = ParameterLocation.Header , Description = "JWT Authorization header using the Bearer scheme." ,
+                                           });
 
 
                                        options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -306,20 +329,22 @@ namespace Shifty.Api.Services
 
         private static void UseAppSwagger(this IApplicationBuilder app)
         {
-            app.UseSwagger();
+            app.UseSwagger(options =>
+                           {
+                               options.RouteTemplate = "/openapi/{documentName}.json";
+                           });
 
-            //Swagger middleware for generate UI from swagger.json
-            app.UseSwaggerUI(options =>
-                             {
-                                 options.SwaggerEndpoint("/swagger/v1/swagger.json" , "Shifty.WebUI v1");
-
-                                 options.DocExpansion(DocExpansion.None);
-                             });
-
+            // //Swagger middleware for generate UI from swagger.json
+            // app.UseSwaggerUI(options =>
+            //                  {
+            //                      options.SwaggerEndpoint("/swagger/v1/swagger.json" , "Shifty.WebUI v1");
+            //
+            //                      options.DocExpansion(DocExpansion.None);
+            //                  });
             //ReDoc UI middleware. ReDoc UI is an alternative to swagger-ui
             app.UseReDoc(options =>
                          {
-                             options.SpecUrl("/swagger/v1/swagger.json");
+                             // options.SpecUrl("/swagger/v1/swagger.json");
 
                              #region Customizing
 

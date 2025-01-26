@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- Persian (Farsi) Messages -->
+	<data name="NAME_IS_REQUIRED" xml:space="preserve">
+		<value>نام شیفت الزامی است.</value>
+	</data>
+	<data name="NAME_LENGTH" xml:space="preserve">
+		<value>نام شیفت باید بین ۲ تا ۱۰۰ کاراکتر باشد.</value>
+	</data>
+	<data name="LEAVE_EARLIER_THAN_ARRIVE" xml:space="preserve">
+		<value>زمان شروع باید قبل از زمان پایان شیفت باشد.</value>
+	</data>
+	<data name="GRACE_LATE_ARRIVAL_NEGATIVE" xml:space="preserve">
+		<value>زمان مجاز تاخیر نباید منفی باشد.</value>
+	</data>
+	<data name="GRACE_EARLY_LEAVE_NEGATIVE" xml:space="preserve">
+		<value>زمان مجاز تعجیل نباید منفی باشد.</value>
+	</data>
+</root>

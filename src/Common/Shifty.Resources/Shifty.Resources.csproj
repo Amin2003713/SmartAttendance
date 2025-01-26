@@ -33,6 +33,22 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ValidationMessages.fa-IR.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\CommonMessages.fa-IR.resx">
+	    <DependentUpon>CommonMessages.en-US.resx</DependentUpon>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\CompanyMessages.fa-IR.resx">
+	    <DependentUpon>CompanyMessages.en-US.resx</DependentUpon>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\UserMessages.fa-IR.resx">
+	    <DependentUpon>UserMessages.en-US.resx</DependentUpon>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\ValidationMessages.en-us.resx">
+	    <DependentUpon>ValidationMessages.fa-IR.resx</DependentUpon>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\ShiftMessages.en-US.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ShiftMessages.en-US.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,6 +71,11 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ValidationMessages.fa-IR.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Messages\ShiftMessages.en-US.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ShiftMessages.en-US.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

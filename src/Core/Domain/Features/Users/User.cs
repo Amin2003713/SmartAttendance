@@ -1,37 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shifty.Domain.Common.BaseClasses;
+using Shifty.Domain.Divisions;
 using System;
+using System.Collections.Generic;
 
 namespace Shifty.Domain.Users
 {
     public class User : IdentityUser<Guid> , IEntity
     {
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string? FatherName { get; set; } = null!;
-        public string? NationalCode { get; set; } = null!;
-
-
-        public GenderType Gender { get; set; } = GenderType.UnDefine;
-
-
-        public bool IsTeamLeader { get; set; } = false;
-
-
-        public string? EmployeeId { get; set; } = null!;
-
-        public string? ProfilePicture { get; set; } = null!;
-
-        public string? NotificationToken { get; set; } = null!;
-
-        public string? Address { get; set; } = null!;
-
-        public string? HardwareId { get; set; } = null!;
-
-        public DateTime LastLoginDate { get; set; }
         public override Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string? Profile { get; set; } = null!;
+        public string? Address { get; set; } = null!;
+        public string? HardwareId { get; set; } = null!;
+        public DateTime LastLoginDate { get; set; }
+
+
+        #region log_props
 
         public bool IsActive { get; set; } = true;
         public Guid? CreatedBy { get; set; } = null;
@@ -40,6 +26,19 @@ namespace Shifty.Domain.Users
         public DateTime? ModifiedAt { get; set; } = null!;
         public Guid? DeletedBy { get; set; } = null!;
         public DateTime? DeletedAt { get; set; } = null!;
+        
+
+        #endregion
+
+
+        #region Relations
+
+        public Guid? DivisionId { get; set; }
+        public Division? Division { get; set; }
+
+        public List<DivisionAssignee> AssignedDivisions { get; set; }
+        public List<Division> Divisions { get; set; }
+        #endregion
 
 
         public void SetUserName()

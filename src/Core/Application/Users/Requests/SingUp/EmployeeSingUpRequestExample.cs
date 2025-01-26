@@ -10,10 +10,10 @@ namespace Shifty.Application.Users.Requests.SingUp
         {
             return new EmployeeSingUpRequest
             {
-                FirstName = "John" , LastName          = "Doe" , FatherName = "Michael" , NationalCode        = "1234567890" ,
-                Gender    = GenderType.Male , IsLeader = true , PhoneNumber = "09134041409" , PersonnelNumber = "EMP12345" ,
-                RolesList = ["Admin" , "Manager"] ,                                               // Example roles
-                Address   = "123 Main St, City, Country" , DepartmentId = Guid.CreateVersion7() , // Example department ID
+                FirstName  = "John" , LastName          = "Doe"  
+             , PhoneNumber = "09134041409" , 
+                RolesList  = ["Admin" , "Manager"] ,                                             // Example roles
+                Address    = "123 Main St, City, Country" , DivisionId = Guid.CreateVersion7() , // Example department ID
             };
         }
     }

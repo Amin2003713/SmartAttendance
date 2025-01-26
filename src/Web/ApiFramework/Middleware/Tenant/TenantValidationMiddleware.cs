@@ -17,6 +17,11 @@ namespace Shifty.ApiFramework.Middleware.Tenant
     {
         public async Task Invoke(HttpContext context , TenantDbContext tenantDbContext)
         {
+            foreach (var header in context.Request.Headers)
+            {
+                Console.WriteLine($"{header.Key}: {header.Value} ");
+            }
+
             if (SkipTenantValidation(context))
             {
                 await next(context);
@@ -29,6 +34,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             {
                 var problemDetails = new ApiProblemDetails
                 {
+                    Status = 400,
                     Title = messages.Validation_Title_Generic() , Detail = messages.Tenant_Error_ParamsMissing() , Errors =
                         new Dictionary<string , List<string>>
                         {
@@ -166,9 +172,9 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 
         private static bool SkipTenantValidation(HttpContext context)
         {
-            return context.Request.Path.Value!.EndsWith(".css")  || context.Request.Path.Value!.EndsWith(".json") ||context.Request.Path.Value!.EndsWith("swagger") ||
+            return context.Request.Path.Value!.Contains("/scalar/v1")  ||context.Request.Path.Value!.EndsWith(".css")  || context.Request.Path.Value!.EndsWith(".json") ||context.Request.Path.Value!.EndsWith("swagger") ||
                    context.Request.Path.Value!.EndsWith(".html") || context.Request.Path.Value!.EndsWith(".js") || context.Request.Path.Value!.EndsWith(".ts") ||
-                   context.Request.Path.Value.Contains("/panel/")||context.Request.Path.Value.Contains("/health") ;
+                   context.Request.Path.Value.Contains("/panel/")||  context.Request.Path.Value.Contains("/health") ||  context.Request.Path.Value.Contains("favicon.ico") ;
         }
 
         private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)

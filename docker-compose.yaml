@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
 
   shiftyAspireService:
-    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    image: mcr.microsoft.com/dotnet/aspire-dashboard
     container_name: shiftyAspireService
     ports:
       - "18888:18888"
@@ -72,8 +72,8 @@ services:
       - app-network
     ports:
       - "1880:8080"
-      - "1888:80"
-      - "5001:443"
+      - "1881:80"
+      - "1882:443"
     restart: always
 
 networks:

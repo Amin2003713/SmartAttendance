@@ -27,7 +27,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Divisions\Command\Create\" />
+		<Folder Include="Divisions\Queries\GetDefault\" />
+		<Folder Include="Divisions\Requests\Create\" />
+		<Folder Include="Divisions\Requests\GetDefault\" />
+		<Folder Include="Divisions\Validators\Create\" />
+		<Folder Include="Divisions\Validators\GetDefault\" />
+		<Folder Include="Shifts\Requests\GetDefault\" />
+		<Folder Include="Shifts\Validators\GetDefault\" />
 		<Folder Include="Users\Queries\"/>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Shifts\Queries\GetDefault\GetShiftsQueryResponseExample.cs">
+	    <DependentUpon>GetShiftsQueryResponse.cs</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Application.Companies.Command.InitialCompany;
+using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Domain.Tenants;
 using System.Reflection;
 
@@ -26,6 +27,7 @@ namespace Shifty.Application
         private static void ConfigureMaster()
         {
             TypeAdapterConfig<InitialCompanyCommand , ShiftyTenantInfo>.NewConfig().Map(dest => dest.Identifier , src => src.Domain);
+            TypeAdapterConfig<ShiftyTenantInfo , GetCompanyInfoResponse>.NewConfig().Map(dest => dest.Domian , src => src.Identifier);
         }
     }
 }
