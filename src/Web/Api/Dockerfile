@@ -25,7 +25,7 @@ COPY ["src/Common/Shifty.Common/Shifty.Common.csproj", "src/Common/"]
 COPY ["src/Common/Shifty.Resources/Shifty.Resources.csproj", "src/Resources/"]
 
 # Restore dependencies only for the necessary project
-RUN dotnet restore "src/Web/Api/Shifty.Api.csproj"
+RUN dotnet restore "Shifty.sln"
 
 # Copy the entire source code
 COPY . .
@@ -33,13 +33,15 @@ COPY . .
 # --------------------------------------------------
 # 3) Build stage
 # --------------------------------------------------
-RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION -o /app/build
+ARG CONFIGURATION=Development
+RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c "$CONFIGURATION" -o /app/build
 
 # --------------------------------------------------
 # 4) Publish stage
 # --------------------------------------------------
 FROM build AS publish
-RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c $CONFIGURATION -o /app/publish --no-restore
+ARG CONFIGURATION=Development
+RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c "$CONFIGURATION" -o /app/publish --no-restore
 
 # --------------------------------------------------
 # 5) Final runtime stage

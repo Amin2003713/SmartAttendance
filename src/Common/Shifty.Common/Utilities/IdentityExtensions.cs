@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -18,6 +20,12 @@ namespace Shifty.Common.Utilities
             return claimsIdentity?.FindFirstValue(claimType);
         }
 
+        public static string GetValue(this IIdentity identity , Predicate<Claim> predicate)
+        {
+            var claimsIdentity = identity as ClaimsIdentity;
+            return claimsIdentity?.FindFirst(predicate)!.Value ?? string.Empty;
+        }
+
         public static string GetUserId(this IIdentity identity)
         {
             return identity?.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -32,6 +40,35 @@ namespace Shifty.Common.Utilities
         public static string GetUserName(this IIdentity identity)
         {
             return identity?.FindFirstValue(ClaimTypes.Name);
+        }
+
+        public static Guid GetUserId()
+        {
+            return Guid.Parse(ClaimsPrincipal.Current?.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+        }
+
+        // Get the email from the claims
+        public static string GetEmail()
+        {
+            return ClaimsPrincipal.Current?.FindFirst(ClaimTypes.Email)?.Value;
+        }
+
+        // Get the ClaimsPrincipal.Currentname from the claims
+        public static string GetUsername()
+        {
+            return ClaimsPrincipal.Current?.FindFirst(ClaimTypes.Name)?.Value;
+        }
+
+        // Get all roles from the claims
+        public static List<string> GetRoles()
+        {
+            return ClaimsPrincipal.Current?.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
+        }
+
+        // Get a custom claim by type
+        public static string GetCustomClaim(string claimType)
+        {
+            return ClaimsPrincipal.Current?.FindFirst(claimType)?.Value;
         }
     }
 }

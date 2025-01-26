@@ -17,10 +17,8 @@ namespace Shifty.Persistence.Services
         public static IServiceCollection AddPersistence(this IServiceCollection services , IConfiguration configuration)
         {
             services.AddScoped<IPasswordHasher<TenantAdmin> , PasswordHasher<TenantAdmin>>();
-
-            // services.AddScoped<ITenantServiceExtension , TenantExtension>();
-
             services.AddKeyedScoped<UserManager<TenantAdmin>>("Admins");
+
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 

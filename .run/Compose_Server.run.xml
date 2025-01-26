@@ -11,6 +11,7 @@
     <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="true" />
     <method v="2">
       <option name="Build" default="false" projectName="Shifty.Api" projectPath="$PROJECT_DIR$/src/Web/Api/Shifty.Api.csproj" />
+      <option name="CleanSolution" enabled="true" />
     </method>
   </configuration>
 </component>

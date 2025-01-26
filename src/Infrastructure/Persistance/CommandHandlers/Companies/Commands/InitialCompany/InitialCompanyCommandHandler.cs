@@ -91,5 +91,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
                 throw ShiftyException.InternalServerError(additionalData: commonMessages.Code_Generator() + commonMessages.Server_Error());
             }
         }
+
+
     }
 }

@@ -135,7 +135,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                         {
                             var problemDetails = new ApiProblemDetails
                             {
-                                Status = (int)ApiResultStatusCode.UnAuthorized , Title = messages.Unauthorized_Access(),
+                                Status = StatusCodes.Status401Unauthorized , Title = messages.Unauthorized_Access(),
                                 Detail =messages.Hardware_Error_AlreadyRegistered(),
                             };
 
@@ -154,7 +154,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     {
                         var problemDetails = new ApiProblemDetails
                         {
-                            Status = (int)ApiResultStatusCode.UnAuthorized , Title = messages.Unauthorized_Access() ,
+                            Status = StatusCodes.Status401Unauthorized , Title = messages.Unauthorized_Access() ,
                             Detail = messages.Hardware_Error_Mismatch() ,
                         };
 
