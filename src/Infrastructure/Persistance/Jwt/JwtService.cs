@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Shifty.Common;
 using Shifty.Common.General;
+using Shifty.Domain.Constants;
 using Shifty.Domain.Users;
 using Shifty.Resources.Messages;
 using System;
@@ -17,15 +18,12 @@ using System.Threading.Tasks;
 
 namespace Shifty.Persistence.Jwt
 {
-    public class JwtService(IConfiguration configuration , UserManager<User> userManager , ILogger<JwtService> logger , CommonMessages messages) : IJwtService , IScopedDependency
+    public class JwtService(UserManager<User> userManager , ILogger<JwtService> logger , CommonMessages messages) : IJwtService , IScopedDependency
     {
-        private readonly SiteSettings _siteSetting = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
-
-
         public async Task<AccessToken> GenerateAsync(User user)
         {
             // Load keys securely
-            var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey);
+            var secretKey = Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey);
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey) ,
                 SecurityAlgorithms.HmacSha256Signature ,
                 SecurityAlgorithms.HmacSha256Signature);
@@ -37,9 +35,9 @@ namespace Shifty.Persistence.Jwt
             // Define token descriptor
             var descriptor = new SecurityTokenDescriptor
             {
-                Issuer    = _siteSetting.JwtSettings.Issuer , Audience = _siteSetting.JwtSettings.Audience , IssuedAt = DateTime.UtcNow ,
-                NotBefore = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.NotBeforeMinutes) ,
-                Expires   = DateTime.UtcNow.AddMinutes(_siteSetting.JwtSettings.ExpirationMinutes) , SigningCredentials = signingCredentials ,
+                Issuer    = ApplicationConstant.JwtSettings.Issuer , Audience = ApplicationConstant.JwtSettings.Audience , IssuedAt = DateTime.UtcNow ,
+                NotBefore = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.NotBeforeMinutes) ,
+                Expires   = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.ExpirationMinutes) , SigningCredentials = signingCredentials ,
                 Subject   = new ClaimsIdentity(claims) };
 
             try
@@ -48,7 +46,7 @@ namespace Shifty.Persistence.Jwt
                 var tokenHandler  = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateJwtSecurityToken(descriptor);
 
-                return new AccessToken(securityToken , GenerateRefreshToken() , _siteSetting.JwtSettings.RefreshTokenValidityInDays);
+                return new AccessToken(securityToken , GenerateRefreshToken() , ApplicationConstant.JwtSettings.RefreshTokenValidityInDays);
             }
             catch (Exception ex)
             {
@@ -59,7 +57,7 @@ namespace Shifty.Persistence.Jwt
 
         public Guid? ValidateJwtAccessTokenAsync(string token)
         {
-            var secretKey = Encoding.UTF8.GetBytes(_siteSetting.JwtSettings.SecretKey); // longer that 16 character
+            var secretKey = Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey); // longer that 16 character
 
             var tokenHandler = new JwtSecurityTokenHandler();
             try

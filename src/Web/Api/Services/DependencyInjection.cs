@@ -42,16 +42,15 @@ namespace Shifty.Api.Services
 {
     public static class DependencyInjection
     {
-        public static void AddWebApi(this IServiceCollection services , IConfiguration configuration , SiteSettings siteSettings)
+        public static void AddWebApi(this IServiceCollection services , IConfiguration configuration)
         {
-            services.Configure<SiteSettings>(configuration.GetSection(nameof(SiteSettings)));
             services.AddSingleton<IMultiTenantContext<ShiftyTenantInfo> , MultiTenantContext<ShiftyTenantInfo>>();
             services.AddCorrelationContextEnricher();
             services.AddAspire();
             services.AddSwaggerOptions();
             services.AddHttpContextAccessor();
             services.AddCustomIdentity();
-            services.AddJwtAuthentication(siteSettings.JwtSettings);
+            services.AddJwtAuthentication();
             services.AddServiceControllers();
             services.AddPolyCache(configuration);
             services.AddEndpointsApiExplorer();
@@ -122,9 +121,9 @@ namespace Shifty.Api.Services
 
                                  endpoints.MapScalarApiReference(opt =>
                                                                  {
+                                                                     opt.OpenApiRoutePattern = "/api/openapi/{documentName}.json";
                                                                      // Set the title for the API Reference
                                                                      opt.Title = "Shifty API Reference";
-
                                                                      // Customize the theme (use predefined themes or provide a custom one)
                                                                      opt.Theme = ScalarTheme.Moon; // Available themes: Light, Dark, Custom
 
@@ -145,7 +144,6 @@ namespace Shifty.Api.Services
                                                                      };
 
                                                                      opt.OperationSorter = OperationSorter.Method;
-                                                                     
                                                                  });
 
                                  // endpoints.MapHealthChecksUI();
@@ -157,7 +155,7 @@ namespace Shifty.Api.Services
             // app.UseHealthChecksUI(options => options.UIPath = "/health-ui");
         }
 
-        private static void AddJwtAuthentication(this IServiceCollection services , JwtSettings jwtSettings)
+        private static void AddJwtAuthentication(this IServiceCollection services)
         {
             services.AddAuthentication(options =>
                                        {
@@ -167,7 +165,7 @@ namespace Shifty.Api.Services
                                        }).
                      AddJwtBearer(options =>
                                   {
-                                      var secretKey = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
+                                      var secretKey = Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey);
 
                                       var validationParameters = new TokenValidationParameters
                                       {
@@ -175,8 +173,8 @@ namespace Shifty.Api.Services
                                           RequireSignedTokens   = true , ValidateIssuerSigningKey = true ,
                                           IssuerSigningKey      = new SymmetricSecurityKey(secretKey) ,
                                           RequireExpirationTime = true , ValidateLifetime               = true , ValidateAudience = true , //default : false
-                                          ValidAudience         = jwtSettings.Audience , ValidateIssuer = true ,                           //default : false
-                                          ValidIssuer           = jwtSettings.Issuer ,
+                                          ValidAudience         = ApplicationConstant.JwtSettings.Audience , ValidateIssuer = true ,                           //default : false
+                                          ValidIssuer           = ApplicationConstant.JwtSettings.Issuer ,
                                       };
 
                                       options.RequireHttpsMetadata      = false;
@@ -281,7 +279,7 @@ namespace Shifty.Api.Services
             services.AddSwaggerGen(options =>
                                    {
                                        options.EnableAnnotations();
-
+                                                         
                                        options.SwaggerDoc("v1" ,
                                            new OpenApiInfo
                                            {
@@ -290,6 +288,7 @@ namespace Shifty.Api.Services
                                                    Name = "Amin Ahmadi" , Email = "amin1382amin@gmail.com" , Url = new Uri("https://github.com/Amin2003713") ,
                                                } ,
                                            });
+
 
                                        #region Filters
 
@@ -331,7 +330,7 @@ namespace Shifty.Api.Services
         {
             app.UseSwagger(options =>
                            {
-                               options.RouteTemplate = "/openapi/{documentName}.json";
+                               options.RouteTemplate = "/api/openapi/{documentName}.json";
                            });
 
             // //Swagger middleware for generate UI from swagger.json

@@ -16,14 +16,13 @@ namespace Shifty.Api.Services
 {
     public class Startup(IConfiguration configuration)
     {
-        private readonly SiteSettings _siteSetting = configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
 
         private IConfiguration Configuration { get; } = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddResources();
-            services.AddWebApi(Configuration , _siteSetting);
+            services.AddWebApi(Configuration);
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddCommon(Configuration);

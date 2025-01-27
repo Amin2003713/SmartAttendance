@@ -18,7 +18,7 @@ namespace Shifty.ApiFramework.Configuration
 
             containerBuilder.RegisterGeneric(typeof(EfReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>)).InstancePerLifetimeScope();
 
-            var commonAssembly   = typeof(SiteSettings).Assembly;
+            var commonAssembly   = typeof(IScopedDependency).Assembly;
             var entitiesAssembly = typeof(IEntity).Assembly;
             var dataAssembly     = typeof(AppDbContext).Assembly;
             var servicesAssembly = typeof(JwtService).Assembly;

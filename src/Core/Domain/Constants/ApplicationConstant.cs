@@ -58,5 +58,15 @@ namespace Shifty.Domain.Constants
 
             public static List<string> CorsEnableUris { get; set; } = [];
         }
+
+        public static class JwtSettings
+        {
+            public static string SecretKey { get; set; } = "LongerThan-16Char-SecretKey79D27861E443-EA37-43D5-B566-FCBCB79D2786";
+            public static string Issuer { get; set; } = "Shifty.Back@79D27861E443-EA37-43D5-B566-FCBCB79D2786";
+            public static string Audience { get; set; } = "Shifty.Client@79D27861E443-EA37-43D5-B566-FCBCB79D2786";
+            public static int NotBeforeMinutes { get; set; } = 0;
+            public static int ExpirationMinutes { get; set; } = 1440;
+            public static int RefreshTokenValidityInDays { get; set; } = 30;
+        }
     }
 }
