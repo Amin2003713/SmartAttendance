@@ -49,7 +49,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 #endif                                   
                         } ,
                 };
-
+                Console.WriteLine("header Exeption");
                 context.Response.StatusCode  = problemDetails.Status;
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsJsonAsync(problemDetails);
@@ -64,6 +64,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                 {
                     Status = StatusCodes.Status404NotFound , Title = messages.Tenant_Error_NotFound() , Detail = messages.Tenant_Error_NotFound() ,
                 };
+                Console.WriteLine("tenant Null");
 
                 context.Response.StatusCode  = problemDetails.Status;
                 context.Response.ContentType = "application/json";
@@ -74,8 +75,10 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 
             if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/Panel/"))
             {
-                if (!context.Request.Headers.TryGetValue("X_Device_Type" , out var deviceType))
+                if (!context.Request.Headers.TryGetValue("X-Device-Type" , out var deviceType))
                 {
+                    Console.WriteLine("deviceType");
+
                     var problemDetails = new ApiProblemDetails
                     {
                         Status = StatusCodes.Status400BadRequest ,Title = messages.Validation_Title_Generic() , Detail = messages.Tenant_Error_ParamsMissing() , Errors = new Dictionary<string , List<string>>
@@ -101,7 +104,9 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 
                 if (deviceType != "Browser")
                 {
-                    if (!context.Request.Headers.TryGetValue("__Hardware__" , out var hardwareId))
+                    Console.WriteLine("Enter Android");
+
+                    if (!context.Request.Headers.TryGetValue("--Hardware--" , out var hardwareId))
                     {
                         var problemDetails = new ApiProblemDetails
                         {

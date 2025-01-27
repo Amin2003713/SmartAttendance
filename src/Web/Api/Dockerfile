@@ -1,31 +1,25 @@
 # --------------------------------------------------
-# 1) Base runtime image (Alpine)
+# 1) Base runtime image
 # --------------------------------------------------
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 80
-EXPOSE 443
-ARG CONFIGURATION=Development
-
 # --------------------------------------------------
-# 2) Build + Restore stage (Alpine SDK)
+# 2) Build + Restore stage
 # --------------------------------------------------
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Use .dockerignore to avoid copying unnecessary files
-COPY ["Shifty.sln", "./"]
-COPY ["src/Web/Api/Shifty.Api.csproj", "src/Web/Api/"]
-COPY ["src/Web/ApiFramework/Shifty.ApiFramework.csproj", "src/Web/ApiFramework/"]
-COPY ["src/Infrastructure/Persistance/Shifty.Persistence.csproj", "src/Infrastructure/Persistance/"]
-COPY ["src/Core/Domain/Shifty.Domain.csproj", "src/Core/Domain/"]
-COPY ["src/Core/Application/Shifty.Application.csproj", "src/Core/Application/"]
-COPY ["src/Common/Shifty.Common/Shifty.Common.csproj", "src/Common/"]
-COPY ["src/Common/Shifty.Resources/Shifty.Resources.csproj", "src/Resources/"]
-
-# Restore dependencies only for the necessary project
-RUN dotnet restore "Shifty.sln"
+# Copy the solution file and restore dependencies
+#COPY ["Shifty.sln", "./"]
+COPY ["src/Web/Api/Shifty.Api.csproj", "./Web/Api/"]
+COPY ["src/Web/ApiFramework/Shifty.ApiFramework.csproj", "./Web/ApiFramework/"]
+COPY ["src/Infrastructure/Persistance/Shifty.Persistence.csproj", "./Infrastructure/Persistance/"]
+COPY ["src/Core/Domain/Shifty.Domain.csproj", "./Core/Domain/"]
+COPY ["src/Core/Application/Shifty.Application.csproj", "./Core/Application/"]
+COPY ["src/Common/Shifty.Common/Shifty.Common.csproj", "./Common/"]
+COPY ["src/Common/Shifty.Resources/Shifty.Resources.csproj", "./Resources/"]
+# Restore dependencies for all projects
+RUN dotnet restore "./Web/Api/" -f 
 
 # Copy the entire source code
 COPY . .
@@ -33,22 +27,19 @@ COPY . .
 # --------------------------------------------------
 # 3) Build stage
 # --------------------------------------------------
-ARG CONFIGURATION=Development
-RUN dotnet build "src/Web/Api/Shifty.Api.csproj" -c "$CONFIGURATION" -o /app/build
+RUN dotnet build "src/Web/Api/Shifty.Api.csproj"  -o /app/build
 
 # --------------------------------------------------
 # 4) Publish stage
 # --------------------------------------------------
 FROM build AS publish
-ARG CONFIGURATION=Development
-RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -c "$CONFIGURATION" -o /app/publish --no-restore
-
+RUN dotnet publish "src/Web/Api/Shifty.Api.csproj" -o /app/publish --no-restore  
 # --------------------------------------------------
 # 5) Final runtime stage
 # --------------------------------------------------
-FROM base AS final
+FROM build AS final
 WORKDIR /app
-
+EXPOSE 8080
 # Copy published output
 COPY --from=publish /app/publish .
 

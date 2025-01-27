@@ -58,7 +58,11 @@ namespace Shifty.Common.Utilities
         public static void RegisterAllEntities<TBaseType>(this ModelBuilder modelBuilder , params Assembly[] assemblies)
         {
             var types = assemblies.SelectMany(a => a.GetExportedTypes()).
-                                   Where(c => c.IsClass && !c.IsAbstract && c.IsPublic && typeof(TBaseType).IsAssignableFrom(c));
+                                   Where(c => c.IsClass
+                                              && !c.IsAbstract
+                                              && c.IsPublic
+                                              && typeof(TBaseType).IsAssignableFrom(c)
+                                              && c.Name != "BaseEntity");
 
             foreach (var type in types)
                 modelBuilder.Entity(type);

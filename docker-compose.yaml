@@ -16,10 +16,11 @@ services:
     networks:
       - app-network
     volumes:
-      - ${BASE_PATH}/mssql/backups:/var/opt/mssql/backups:rw,z
-      - ${BASE_PATH}/mssql/data:/var/opt/mssql/data:rw,z
-      - ${BASE_PATH}/mssql/log:/var/opt/mssql/log:rw,z
+      - ${BASE_PATH}/mssql/backups:/var/opt/mssql/backups:rw
+      - ${BASE_PATH}/mssql/data:/var/opt/mssql/data:rw
+      - ${BASE_PATH}/mssql/log:/var/opt/mssql/log:rw
     restart: unless-stopped
+    user: "10001" # Ensures the container runs as the mssql user
 
   shiftyMinioFileDb:
     container_name: shiftyMinioFileDb
@@ -50,21 +51,16 @@ services:
       - ASPIRE_DASHBOARD_PASSWORD=${ASPIRE_DASHBOARD_PASSWORD}
       - DASHBOARD__OTLP__AUTHMODE=ApiKey
       - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
-      - VIRTUAL_HOST=ipalytics.ir
-
     restart: unless-stopped
 
 
   shifty.api:
     build:
       dockerfile: src/Web/Api/Dockerfile
-      args:
-       - ASPNETCORE_ENVIRONMENT
     container_name: shifty.api
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
       - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
-      - ASPNETCORE_ENVIRONMENT=@{ASPNETCORE_ENVIRONMENT}
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
@@ -72,9 +68,7 @@ services:
     networks:
       - app-network
     ports:
-      - "1880:8080"
-      - "1881:80"
-      - "1882:443"
+      -  "1880:8080"
     restart: always
 
 networks:

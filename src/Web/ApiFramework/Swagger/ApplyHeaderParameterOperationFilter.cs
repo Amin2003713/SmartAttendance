@@ -16,7 +16,7 @@ namespace Shifty.ApiFramework.Swagger
 
             operation.Parameters.Add(new OpenApiParameter
             {
-                Name = "X_Device_Type" , In = ParameterLocation.Header , Description = "your Organization header" , Required = true ,
+                Name = "X-Device-Type" , In = ParameterLocation.Header , Description = "your Organization header" , Required = true ,
                 Schema = new OpenApiSchema
                 {
                     Type = "string" , Default = new OpenApiString("Browser") ,

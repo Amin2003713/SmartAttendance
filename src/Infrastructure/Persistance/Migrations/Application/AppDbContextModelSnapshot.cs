@@ -125,7 +125,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Common.BaseClasses.BaseEntity", b =>
+            modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,10 +143,152 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Discriminator")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ShiftId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("ShiftId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Divisions");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Divisions.DivisionAssignee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DivisionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsManager")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DivisionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DivisionAssignees");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Shifts.Shift", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeOnly>("Arrive")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeSpan>("GraceEarlyLeave")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("GraceLateArrival")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeOnly>("Leave")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shifts");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Users.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -157,13 +299,18 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.ToTable("BaseEntities");
+                    b.HasIndex("UserId");
 
-                    b.HasDiscriminator().HasValue("BaseEntity");
-
-                    b.UseTphMappingStrategy();
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Users.Role", b =>
@@ -313,114 +460,6 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
-                {
-                    b.HasBaseType("Shifty.Domain.Common.BaseClasses.BaseEntity");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ShiftId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("ShiftId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BaseEntities");
-
-                    b.HasDiscriminator().HasValue("Division");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Divisions.DivisionAssignee", b =>
-                {
-                    b.HasBaseType("Shifty.Domain.Common.BaseClasses.BaseEntity");
-
-                    b.Property<Guid>("DivisionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsManager")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("DivisionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BaseEntities", t =>
-                        {
-                            t.Property("UserId")
-                                .HasColumnName("DivisionAssignee_UserId");
-                        });
-
-                    b.HasDiscriminator().HasValue("DivisionAssignee");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Shifts.Shifts", b =>
-                {
-                    b.HasBaseType("Shifty.Domain.Common.BaseClasses.BaseEntity");
-
-                    b.Property<TimeOnly>("End")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("GraceEarlyLeave")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("GraceLateArrival")
-                        .HasColumnType("time");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeOnly>("Start")
-                        .HasColumnType("time");
-
-                    b.ToTable("BaseEntities", t =>
-                        {
-                            t.Property("Name")
-                                .HasColumnName("Shift_Name");
-                        });
-
-                    b.HasDiscriminator().HasValue("Shifts");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Users.RefreshToken", b =>
-                {
-                    b.HasBaseType("Shifty.Domain.Common.BaseClasses.BaseEntity");
-
-                    b.Property<DateTime>("ExpiryTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BaseEntities", t =>
-                        {
-                            t.Property("UserId")
-                                .HasColumnName("RefreshToken_UserId");
-                        });
-
-                    b.HasDiscriminator().HasValue("RefreshToken");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Shifty.Domain.Users.Role", null)
@@ -472,22 +511,13 @@ namespace Shifty.Persistence.Migrations.Application
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
-                {
-                    b.HasOne("Shifty.Domain.Divisions.Division", "Division")
-                        .WithMany()
-                        .HasForeignKey("DivisionId");
-
-                    b.Navigation("Division");
-                });
-
             modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
                 {
                     b.HasOne("Shifty.Domain.Divisions.Division", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("Shifty.Domain.Shifts.Shifts", "Shifts")
+                    b.HasOne("Shifty.Domain.Shifts.Shift", "Shift")
                         .WithMany("Divisions")
                         .HasForeignKey("ShiftId");
 
@@ -497,7 +527,7 @@ namespace Shifty.Persistence.Migrations.Application
 
                     b.Navigation("Parent");
 
-                    b.Navigation("Shifts");
+                    b.Navigation("Shift");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Divisions.DivisionAssignee", b =>
@@ -532,9 +562,11 @@ namespace Shifty.Persistence.Migrations.Application
 
             modelBuilder.Entity("Shifty.Domain.Users.User", b =>
                 {
-                    b.Navigation("AssignedDivisions");
+                    b.HasOne("Shifty.Domain.Divisions.Division", "Division")
+                        .WithMany()
+                        .HasForeignKey("DivisionId");
 
-                    b.Navigation("Divisions");
+                    b.Navigation("Division");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
@@ -544,8 +576,15 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Shifts.Shifts", b =>
+            modelBuilder.Entity("Shifty.Domain.Shifts.Shift", b =>
                 {
+                    b.Navigation("Divisions");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+                {
+                    b.Navigation("AssignedDivisions");
+
                     b.Navigation("Divisions");
                 });
 #pragma warning restore 612, 618

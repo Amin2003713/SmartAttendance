@@ -72,7 +72,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
 
                 return createResult;
             }
-            catch (Exception e)
+            catch (Exception e)                                         
             {
                 logger.LogError(e.Source , e);
                 throw new ShiftyException(companyMessages.Company_Not_Created());

@@ -5,10 +5,6 @@
     "iisExpress": {
       "applicationUrl": "http://localhost:9461",
       "sslPort": 44398
-    },
-    "environmentVariables": {
-      "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317",
-      "ASPNETCORE_ENVIRONMENT": "Development"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -45,12 +41,18 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/scalar/v1",
+      "launchUrl": "http://localhost:1880/scalar/v1",
       "publishAllPorts": true,
+      "useSSL": false,
       "environmentVariables": {
         "OTEL_EXPORTER_OTLP_ENDPOINT": "shiftyAspireService:4317",
-        "OTEL_SERVICE_NAME": "Shifty"
-      }
+        "DOTNET_USE_POLLING_FILE_WATCHER": "1",
+        "DOTNET_HOSTING_OPTIMIZATION_CACHE": "1",
+        "DOTNET_RUNNING_IN_CONTAINER": "true",
+        "DOTNET_DEBUG": "1",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:1880;https://localhost:1881"
     }
   }
 }

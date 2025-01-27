@@ -33,6 +33,8 @@
 
 	<ItemGroup>
 		<Folder Include="CommandHandlers\Users\Queres\"/>
+		<Folder Include="Migrations\Application\" />
+		<Folder Include="Migrations\Tenant\" />
 	</ItemGroup>
 
 </Project>

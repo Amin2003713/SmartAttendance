@@ -5,7 +5,9 @@ VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{881589EE-639B-0A35-DBCE-5D94E4FC90C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shifty.Common", "src\Common\Shifty.Common.csproj", "{65BE6E89-F6B7-68E8-B1C4-44FD332EA095}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shifty.Common", "src\Common\Shifty.Common\Shifty.Common.csproj", "{C5A461C9-666A-9D79-FACB-854DDF265481}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shifty.Resources", "src\Common\Shifty.Resources\Shifty.Resources.csproj", "{E06AC339-11EC-4B30-C3B1-77800BD1D7E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FBF56CC3-7AE6-AD2D-3F14-7F97FD322CD6}"
 EndProject
@@ -23,16 +25,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shifty.ApiFramework", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shifty.Api", "src\Web\Api\Shifty.Api.csproj", "{DAD77287-7AED-0582-7373-1241C97347CD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF48AD16-D6AD-405F-AA83-ADA25E14711A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{65BE6E89-F6B7-68E8-B1C4-44FD332EA095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65BE6E89-F6B7-68E8-B1C4-44FD332EA095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65BE6E89-F6B7-68E8-B1C4-44FD332EA095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65BE6E89-F6B7-68E8-B1C4-44FD332EA095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A461C9-666A-9D79-FACB-854DDF265481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A461C9-666A-9D79-FACB-854DDF265481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A461C9-666A-9D79-FACB-854DDF265481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A461C9-666A-9D79-FACB-854DDF265481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06AC339-11EC-4B30-C3B1-77800BD1D7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06AC339-11EC-4B30-C3B1-77800BD1D7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06AC339-11EC-4B30-C3B1-77800BD1D7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06AC339-11EC-4B30-C3B1-77800BD1D7E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBC73755-F81D-C3CB-BE5C-CAD3C54B230C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EBC73755-F81D-C3CB-BE5C-CAD3C54B230C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC73755-F81D-C3CB-BE5C-CAD3C54B230C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -58,7 +69,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{65BE6E89-F6B7-68E8-B1C4-44FD332EA095} = {881589EE-639B-0A35-DBCE-5D94E4FC90C0}
+		{C5A461C9-666A-9D79-FACB-854DDF265481} = {881589EE-639B-0A35-DBCE-5D94E4FC90C0}
+		{E06AC339-11EC-4B30-C3B1-77800BD1D7E9} = {881589EE-639B-0A35-DBCE-5D94E4FC90C0}
 		{EBC73755-F81D-C3CB-BE5C-CAD3C54B230C} = {FBF56CC3-7AE6-AD2D-3F14-7F97FD322CD6}
 		{EECFD34B-DE8D-4EB8-69E0-87FDDEEC509C} = {FBF56CC3-7AE6-AD2D-3F14-7F97FD322CD6}
 		{096665FD-F201-7E52-C7BE-08E8985CB716} = {DFEE68D8-A7D0-1A41-506C-9B74AA9A7B7B}
