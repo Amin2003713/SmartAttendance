@@ -1,19 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- Persian (Farsi) Messages -->
+	<data name="ALREADY_EXIST" xml:space="preserve">
+    <value>شیفت از قبل وجود دارد.</value>
+  </data>
+	<data name="FAILED_TO_CREATE" xml:space="preserve">
+    <value>ایجاد شیفت ناموفق بود.</value>
+  </data>
 	<data name="NAME_IS_REQUIRED" xml:space="preserve">
-		<value>نام شیفت الزامی است.</value>
-	</data>
+    <value>نام الزامی است.</value>
+  </data>
 	<data name="NAME_LENGTH" xml:space="preserve">
-		<value>نام شیفت باید بین ۲ تا ۱۰۰ کاراکتر باشد.</value>
-	</data>
+    <value>نام باید بین 2 تا 100 کاراکتر باشد.</value>
+  </data>
 	<data name="LEAVE_EARLIER_THAN_ARRIVE" xml:space="preserve">
-		<value>زمان شروع باید قبل از زمان پایان شیفت باشد.</value>
-	</data>
+    <value>زمان خروج باید بعد از زمان ورود باشد.</value>
+  </data>
 	<data name="GRACE_LATE_ARRIVAL_NEGATIVE" xml:space="preserve">
-		<value>زمان مجاز تاخیر نباید منفی باشد.</value>
-	</data>
+    <value>مدت تأخیر نباید مقدار منفی باشد.</value>
+  </data>
 	<data name="GRACE_EARLY_LEAVE_NEGATIVE" xml:space="preserve">
-		<value>زمان مجاز تعجیل نباید منفی باشد.</value>
-	</data>
+    <value>مدت خروج زودهنگام نباید مقدار منفی باشد.</value>
+  </data>
+	<data name="GRACE_TOTAL_EXCEEDS_PRESENCE" xml:space="preserve">
+    <value>مجموع زمان‌های مهلت نباید بیشتر از مدت حضور باشد.</value>
+  </data>
+	<data name="PRESENCE_DURATION_INVALID" xml:space="preserve">
+    <value>مدت حضور باید مقدار مثبتی داشته باشد.</value>
+  </data>
 </root>

@@ -49,6 +49,9 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>ShiftMessages.en-US.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\ShiftMessages.fa-IR.resx">
+	    <DependentUpon>ShiftMessages.en-US.resx</DependentUpon>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

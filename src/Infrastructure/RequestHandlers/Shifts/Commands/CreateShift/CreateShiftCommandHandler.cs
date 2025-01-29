@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Shifts.Command.Create;
 using Shifty.Common.Exceptions;
@@ -12,9 +13,10 @@ using Shifty.Resources.Messages;
 namespace Shifty.RequestHandlers.Shifts.Commands.CreateShift;
 
 public class CreateShiftCommandHandler(
-    IShiftCommandRepository repository ,
+    IShiftCommandRepository command ,
+    IShiftQueryRepository query ,
     ShiftMessages shiftMessages ,
-    ILogger<CreateShiftCommandHandler> logger) : IRequestHandler<CreateShiftCommand>
+    ILogger<CreateShiftCommandHandler> logger , ShiftMessages messages) : IRequestHandler<CreateShiftCommand>
 {
     public async Task Handle(CreateShiftCommand request , CancellationToken cancellationToken)
     {
@@ -23,7 +25,12 @@ public class CreateShiftCommandHandler(
         try
         {
             var shift = request.Adapt<Shift>();
-            await repository.AddAsync(shift , cancellationToken);
+
+            if (await query.Exist(shift , cancellationToken))
+                throw ShiftyException.Conflict(messages.ALREADY_EXIST);
+
+
+            await command.AddAsync(shift , cancellationToken);
         }
         catch (ShiftyException e)
         {
