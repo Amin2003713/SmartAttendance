@@ -8,7 +8,7 @@ namespace Shifty.Application.Users.Requests.Verify
         {
             return new VerifyPhoneNumberRequest
             {
-                PhoneNumber = "09134041709s" , // Example phone number
+                PhoneNumber = "09134041709" , // Example phone number
                 Code        = "123456" ,       // Example verification code
             };
         }
