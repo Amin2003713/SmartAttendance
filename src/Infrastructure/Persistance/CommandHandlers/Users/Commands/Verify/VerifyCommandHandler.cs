@@ -22,17 +22,30 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Verify
             if (request is null)
                 throw new InvalidNullInputException(nameof(request));
 
-            var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
-
-            if (user == null)
-                throw ShiftyException.NotFound(additionalData: messages.User_NotFound());
-
-            var isVerified = await VerifyTwoFactorTokenAsync(request.Code , user);
-
-            return new VerifyPhoneNumberResponse
+            try
             {
-                IsVerified = isVerified , Message = isVerified ? "Phone number verified successfully." : "Invalid code or phone number." ,
-            };
+                var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
+
+                if (user == null)
+                    throw ShiftyException.NotFound(additionalData: messages.User_NotFound());
+
+                var isVerified = await VerifyTwoFactorTokenAsync(request.Code , user);
+
+                return new VerifyPhoneNumberResponse
+                {
+                    IsVerified = isVerified , Message = isVerified ? "Phone number verified successfully." : "Invalid code or phone number." ,
+                };
+            }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private async Task<bool> VerifyTwoFactorTokenAsync(string code , User user)
@@ -40,6 +53,11 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Verify
             try
             {
                 return await userManager.VerifyTwoFactorTokenAsync(user! , ApplicationConstant.Identity.CodeGenerator , code);
+            }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
             }
             catch (Exception e)
             {

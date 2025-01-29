@@ -1,6 +1,6 @@
 ﻿namespace Shifty.Application.Shifts.Queries.GetDefault
 {
-    public class GetShiftsQueryResponse
+    public class ListShiftsQueryResponse
     {
         
     }

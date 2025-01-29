@@ -21,25 +21,41 @@ namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuer
             SendActivationCodeQuery request ,
             CancellationToken cancellationToken)
         {
-            var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
+            ArgumentNullException.ThrowIfNull(request, nameof(request));
 
-            if (user == null)
-                throw ShiftyException.NotFound(additionalData: userMessages.User_NotFound());
 
-            var activationCode = await GenerateCode(user);
-
-            if (activationCode is null)
+            try
             {
+                var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
+
+                if (user == null)
+                    throw ShiftyException.NotFound(additionalData: userMessages.User_NotFound());
+
+                var activationCode = await GenerateCode(user);
+
+                if (activationCode is null)
+                {
+                    return new SendActivationCodeQueryResponse
+                    {
+                        Success = true , Message = "code was not generated" ,
+                    };
+                }
+
                 return new SendActivationCodeQueryResponse
                 {
-                    Success = true , Message = "code was not generated" ,
+                    Success = true , Message = activationCode ,
                 };
             }
-
-            return new SendActivationCodeQueryResponse
+            catch (ShiftyException e)
             {
-                Success = true , Message = activationCode ,
-            };
+                logger.LogError(e.Source , e);
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private async Task<string> GenerateCode(User user)
@@ -47,6 +63,11 @@ namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQuer
             try
             {
                 return await userManager.GenerateTwoFactorTokenAsync(user , ApplicationConstant.Identity.CodeGenerator);
+            }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
             }
             catch (Exception e)
             {

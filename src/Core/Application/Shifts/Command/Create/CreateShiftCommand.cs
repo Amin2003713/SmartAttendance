@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Shifty.Application.Shifts.Command.Create;
 
-public class CreateShiftCommand : IRequest<CreateShiftResponse>
+public class CreateShiftCommand : IRequest
 {
     /// <summary>
     /// Name of the shift.

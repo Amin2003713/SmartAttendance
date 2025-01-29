@@ -52,6 +52,11 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
                     AccessToken = jwt.access_token , RefreshToken = jwt.refresh_token ,
                 };
             }
+            catch (ShiftyException e)
+                        {
+                            logger.LogError(e.Source , e);
+                            throw;
+                        }
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);

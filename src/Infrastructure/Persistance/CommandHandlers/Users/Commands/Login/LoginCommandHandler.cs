@@ -49,6 +49,11 @@ namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 
                 return loginResult.AddToken(refreshToken.Token , jwt.access_token , roles.ToList() ?? []);
             }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
+            }
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);

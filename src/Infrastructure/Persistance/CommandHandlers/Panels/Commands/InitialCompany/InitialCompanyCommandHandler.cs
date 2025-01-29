@@ -1,19 +1,18 @@
-﻿using Mapster;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Shifty.Common;
+using Shifty.Application.Panel.Companies.Command.InitialCompany;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Services.MigrationManagers;
 using Shifty.Resources.Messages;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Shifty.Application.Panel.Companies.Command.InitialCompany;
 
-namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
+namespace Shifty.Persistence.CommandHandlers.Panels.Commands.InitialCompany
 {
     public class InitialCompanyCommandHandler(
         ICompanyRepository repository ,
@@ -28,14 +27,27 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             if (request is null)
                 throw new InvalidNullInputException(nameof(request));
 
-            var adminUser = await CreateAdminUser(request , cancellationToken);
+            try
+            {
+                var adminUser = await CreateAdminUser(request , cancellationToken);
 
-            var company = await InitialCompany(request , adminUser.Id , cancellationToken);
+                var company = await InitialCompany(request , adminUser.Id , cancellationToken);
 
 
-            var userCode = await MigrateDatabaseAsync(company , adminUser , cancellationToken);
+                var userCode = await MigrateDatabaseAsync(company , adminUser , cancellationToken);
 
-            return userCode;
+                return userCode;
+            }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Source , e);
+                throw ShiftyException.InternalServerError(additionalData: commonMessages.Server_Error());
+            }
         }
 
         private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , CancellationToken cancellationToken)
@@ -49,6 +61,11 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
 
                 return tenantAdmin;
             }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
+            }
             catch (Exception e)
             {
                 logger.LogError(e.Source , e);
@@ -61,8 +78,7 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
         {
             try
             {
-                var validation = await repository.ValidateDomain(request.Domain , cancellationToken);
-                if (validation)
+                if (await repository.ValidateDomain(request.Domain , cancellationToken))
                     throw ShiftyException.BadRequest(additionalData: companyMessages.Tenant_Is_Not_Valid());
 
                 var company = request.Adapt<ShiftyTenantInfo>();
@@ -71,6 +87,11 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
                 var createResult = await repository.CreateAsync(company , cancellationToken);
 
                 return createResult;
+            }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
             }
             catch (Exception e)                                         
             {
@@ -84,6 +105,11 @@ namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
             try
             {
                 return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company.GetConnectionString() , adminUser , cancellationToken);
+            }
+            catch (ShiftyException e)
+            {
+                logger.LogError(e.Source , e);
+                throw;
             }
             catch (Exception e)
             {

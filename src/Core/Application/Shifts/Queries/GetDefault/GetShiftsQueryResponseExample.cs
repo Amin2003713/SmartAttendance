@@ -2,9 +2,9 @@
 
 namespace Shifty.Application.Shifts.Queries.GetDefault
 {
-    public class GetShiftsQueryResponseExample : IExamplesProvider<GetShiftsQueryResponse>
+    public class GetShiftsQueryResponseExample : IExamplesProvider<ListShiftsQueryResponse>
     {
-        public GetShiftsQueryResponse GetExamples()
+        public ListShiftsQueryResponse GetExamples()
         {
             throw new System.NotImplementedException();
         }
