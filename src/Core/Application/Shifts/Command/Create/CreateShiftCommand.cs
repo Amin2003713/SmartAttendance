@@ -8,7 +8,7 @@ public class CreateShiftCommand : IRequest
     /// <summary>
     /// Name of the shift.
     /// </summary>
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     public TimeOnly Arrive { get; set; }
 

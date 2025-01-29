@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shifty.Domain.Constants
+namespace Shifty.Common.General
 {
     public static class ApplicationConstant
     {

@@ -1,17 +1,16 @@
-﻿using MediatR;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Users.Command.RefreshToken;
-using Shifty.Common;
 using Shifty.Common.Exceptions;
+using Shifty.Domain.Features.Users;
 using Shifty.Domain.Interfaces.Jwt;
 using Shifty.Persistence.Jwt;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Shifty.Domain.Features.Users;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
+namespace Shifty.Persistence.CommandHandlers.Users.Commands.Login
 {
     public class RefreshTokenCommandHandler(UserManager<User> userManager , IJwtService jwtService , IRefreshTokenRepository refreshTokenRepository , ILogger<RefreshTokenCommandHandler> logger)
         : IRequestHandler<RefreshTokenCommand , RefreshTokenResponse>

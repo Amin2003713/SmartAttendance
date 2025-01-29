@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Domain.Constants;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Services.MigrationManagers;
 using System.Reflection;
+using Shifty.Common.General;
 
 namespace Shifty.Persistence.Services
 {

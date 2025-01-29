@@ -1,12 +1,12 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Shifty.Application.Panel.Companies.Queries.CheckDomain;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Resources.Messages;
-using System.Threading;
-using System.Threading.Tasks;
-using Shifty.Application.Panel.Companies.Queries.CheckDomain;
 
-namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
+namespace Shifty.Persistence.CommandHandlers.Panels.Queries.CheckDomain
 {
     public class CheckDomainQueryHandler(ICompanyRepository companyRepository , CompanyMessages messages) : IRequestHandler<CheckDomainQuery , CheckDomainResponse>
     {

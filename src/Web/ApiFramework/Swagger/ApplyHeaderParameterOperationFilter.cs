@@ -10,7 +10,7 @@ namespace Shifty.ApiFramework.Swagger
         {
             operation.Parameters.Add(new OpenApiParameter
             {
-                Name = "__tenant__" , In = ParameterLocation.Header , Description = "your Organization header" , Required = false ,
+                Name = "--tenant--" , In = ParameterLocation.Header , Description = "your Organization header" , Required = false ,
             });
 
 

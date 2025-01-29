@@ -5,9 +5,9 @@ using Serilog;
 using Serilog.Enrichers.Correlate;
 using Serilog.Events;
 using Shifty.Api.Services;
-using Shifty.Domain.Constants;
 using System;
 using System.Linq;
+using Shifty.Common.General;
 
 namespace Shifty.Api
 {

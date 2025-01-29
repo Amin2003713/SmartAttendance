@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Domain.Constants;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;
+using Shifty.Common.General;
 
 namespace Shifty.Persistence.Services.MigrationManagers
 {

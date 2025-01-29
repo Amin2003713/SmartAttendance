@@ -19,7 +19,7 @@ COPY ["src/Core/Application/Shifty.Application.csproj", "./Core/Application/"]
 COPY ["src/Common/Shifty.Common/Shifty.Common.csproj", "./Common/"]
 COPY ["src/Common/Shifty.Resources/Shifty.Resources.csproj", "./Resources/"]
 # Restore dependencies for all projects
-RUN dotnet restore "./Web/Api/" -f 
+RUN dotnet restore "./Web/Api/Shifty.Api.csproj" -f 
 
 # Copy the entire source code
 COPY . .

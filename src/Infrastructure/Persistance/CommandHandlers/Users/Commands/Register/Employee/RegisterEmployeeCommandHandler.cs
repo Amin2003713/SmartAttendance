@@ -1,17 +1,16 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Users.Command.CreateUser.Employee;
-using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Common.Utilities;
-using System.Threading;
-using System.Threading.Tasks;
 using Shifty.Domain.Features.Users;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee
+namespace Shifty.Persistence.CommandHandlers.Users.Commands.Register.Employee
 {
     public class RegisterEmployeeCommandHandler(UserManager<User> userManager , ILogger<RegisterEmployeeCommandHandler> logger) : IRequestHandler<RegisterEmployeeCommand , bool>
     {

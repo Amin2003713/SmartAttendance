@@ -23,7 +23,6 @@ using Shifty.Common;
 using Shifty.Common.Behaviours;
 using Shifty.Common.General;
 using Shifty.Common.Utilities;
-using Shifty.Domain.Constants;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
@@ -73,7 +72,7 @@ namespace Shifty.Api.Services
 
             services.AddMultiTenant<ShiftyTenantInfo>().
                      WithHostStrategy("__tenant__.*").
-                     WithHeaderStrategy().
+                     WithHeaderStrategy("--tenant--").
                      WithEFCoreStore<TenantDbContext , ShiftyTenantInfo>();
 
             services.AddScoped<ApiExceptionFilter>();
@@ -227,7 +226,7 @@ namespace Shifty.Api.Services
             //if (validatedUser == null)
             //    context.Fail("Token security stamp is not valid.");
 
-            if (!user.IsActive)
+            if (!user.IsActive || !user.PhoneNumberConfirmed)
                 context.Fail(userMessage.User_Error_NotActive());
 
             await userRepository.UpdateLastLoginDateAsync(user , context.HttpContext.RequestAborted);
@@ -263,7 +262,6 @@ namespace Shifty.Api.Services
 
                                                   identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
-                                                  identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
                                                   identityOptions.Lockout.MaxFailedAccessAttempts    = 10;
                                                   identityOptions.Lockout.DefaultLockoutTimeSpan     = TimeSpan.FromMinutes(10);
                                                   identityOptions.Lockout.AllowedForNewUsers         = true;

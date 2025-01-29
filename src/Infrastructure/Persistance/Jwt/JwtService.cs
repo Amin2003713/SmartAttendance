@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Shifty.Common;
 using Shifty.Common.General;
-using Shifty.Domain.Constants;
 using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;

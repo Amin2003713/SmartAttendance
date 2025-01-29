@@ -1,18 +1,17 @@
-﻿using MediatR;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Users.Queries.SendActivationCode;
-using Shifty.Common;
-using Shifty.Domain.Constants;
+using Shifty.Common.Exceptions;
+using Shifty.Common.General;
+using Shifty.Domain.Features.Users;
 using Shifty.Domain.Interfaces.Base;
 using Shifty.Resources.Messages;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Features.Users;
 
-namespace Shifty.Persistence.CommandHandlers.Users.Queres.SendActivationCodeQueryHandler
+namespace Shifty.Persistence.CommandHandlers.Users.Queries.SendActivationCodeQueryHandler
 {
     public class SendActivationCodeQueryHandler(UserManager<User> userManager , IRepository<User> userRepository , ILogger<SendActivationCodeQueryHandler> logger , CommonMessages commonMessages , UserMessages userMessages)
         : IRequestHandler<SendActivationCodeQuery , SendActivationCodeQueryResponse>

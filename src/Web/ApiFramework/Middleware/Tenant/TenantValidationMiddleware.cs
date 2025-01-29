@@ -30,7 +30,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 
             tenantService.TenantContextAccessor = context.GetMultiTenantContext<ShiftyTenantInfo>();
 
-            if (tenantService.GetId() == null)
+            if (tenantService.GetId() == null )
             {
                 var problemDetails = new ApiProblemDetails
                 {
@@ -73,7 +73,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             }
 
 
-            if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/PanelController/"))
+            if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/panel/"))
             {
                 if (!context.Request.Headers.TryGetValue("X-Device-Type" , out var deviceType))
                 {

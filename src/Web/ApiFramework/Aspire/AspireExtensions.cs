@@ -4,9 +4,9 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Shifty.Domain.Constants;
 using System;
 using System.Collections.Generic;
+using Shifty.Common.General;
 
 namespace Shifty.ApiFramework.Aspire
 {

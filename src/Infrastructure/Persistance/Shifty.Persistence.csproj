@@ -35,8 +35,6 @@
 		<Folder Include="CommandHandlers\Companies\Commands\" />
 		<Folder Include="CommandHandlers\Divisions\Commands\" />
 		<Folder Include="CommandHandlers\Divisions\Queries\" />
-		<Folder Include="CommandHandlers\Shifts\Commands\" />
-		<Folder Include="CommandHandlers\Shifts\Queries\" />
 		<Folder Include="CommandHandlers\Users\Queries\" />
 		<Folder Include="Migrations\Application\" />
 		<Folder Include="Migrations\Tenant\" />
