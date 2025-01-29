@@ -47,11 +47,6 @@ namespace Shifty.RequestHandlers.Users.Queries.SendActivationCodeQueryHandler
                 logger.LogError(e.Source , e);
                 throw;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
 
         private async Task<string> GenerateCode(User user)

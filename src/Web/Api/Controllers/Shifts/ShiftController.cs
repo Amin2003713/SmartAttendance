@@ -31,14 +31,7 @@ namespace Shifty.Api.Controllers.Shifts
         [ProducesResponseType(typeof(ApiProblemDetails) ,   StatusCodes.Status500InternalServerError)]
         public virtual async Task NewShift([FromBody] CreateShiftRequest response , CancellationToken cancellationToken)
         {
-            try
-            {
-                await Mediator.Send(response.Adapt<CreateShiftCommand>() , cancellationToken);
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e.Message);
-            }
+            await Mediator.Send(response.Adapt<CreateShiftCommand>() , cancellationToken);
         }
 
 

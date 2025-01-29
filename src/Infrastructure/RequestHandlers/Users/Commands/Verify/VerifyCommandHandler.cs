@@ -37,11 +37,7 @@ namespace Shifty.RequestHandlers.Users.Commands.Verify
                 logger.LogError(e.Source , e);
                 throw;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+           
         }
 
         private async Task<bool> VerifyTwoFactorTokenAsync(string code , User user)

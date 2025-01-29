@@ -49,11 +49,6 @@ namespace Shifty.RequestHandlers.Users.Commands.Login
                 logger.LogError(e.Source , e);
                 throw;
             }
-            catch (Exception e)
-            {
-                logger.LogError(e.Source , e);
-                throw ShiftyException.InternalServerError();
-            }
         }
     }
 }

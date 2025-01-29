@@ -24,7 +24,7 @@ namespace Shifty.Api.Controllers.Common
 
         protected IMultiTenantContext<ShiftyTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<ShiftyTenantInfo>();
 
-        private T GetService<T>()
+        public T GetService<T>()
         {
             return Resolver.GetService<T>();
         }

@@ -26,12 +26,5 @@ public class ListShiftsQueryHandler(IRepository<Shift> repository , ShiftMessage
             logger.LogError(e.Source , e);
             throw;
         }
-        catch (Exception e)
-        {
-            logger.LogError(e , "An error occured while adding new shift.");
-            throw ShiftyException.InternalServerError(shiftMessages.FAILED_TO_CREATE);
-        }
-
-        return default;
     }
 }

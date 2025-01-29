@@ -40,11 +40,6 @@ namespace Shifty.RequestHandlers.Panels.Commands.InitialCompany
                 logger.LogError(e.Source , e);
                 throw;
             }
-            catch (Exception e)
-            {
-                logger.LogError(e.Source , e);
-                throw ShiftyException.InternalServerError(additionalData: commonMessages.Server_Error());
-            }
         }
 
         private async Task<TenantAdmin> CreateAdminUser(InitialCompanyCommand request , CancellationToken cancellationToken)
@@ -62,11 +57,6 @@ namespace Shifty.RequestHandlers.Panels.Commands.InitialCompany
             {
                 logger.LogError(e.Source , e);
                 throw;
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e.Source , e);
-                throw ShiftyException.InternalServerError(additionalData: commonMessages.Server_Error());
             }
         }
 
