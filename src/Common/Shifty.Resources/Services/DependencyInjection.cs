@@ -34,11 +34,11 @@ namespace Shifty.Resources.Services
 
                                            IList<CultureInfo> supportedCultures = new[]
                                            {
-                                               new CultureInfo("fa-ir") , new CultureInfo("en-US") ,
+                                               new CultureInfo("fa-IR") , new CultureInfo("en-US") ,
                                            };
                                            options.SupportedCultures     = supportedCultures;
                                            options.SupportedUICultures   = supportedCultures;
-                                           options.DefaultRequestCulture = new RequestCulture("fa-ir");
+                                           options.DefaultRequestCulture = new RequestCulture("fa-IR");
                                            options.RequestCultureProviders.Insert(0 ,
                                                new CustomRequestCultureProvider(context =>
                                                                                 {
@@ -48,10 +48,10 @@ namespace Shifty.Resources.Services
                                                                                                           FirstOrDefault();
                                                                                     if (!string.IsNullOrEmpty(culture) &&
                                                                                         supportedCultures.Any(
-                                                                                            c => c.Name.Equals(culture , StringComparison.OrdinalIgnoreCase)))
+                                                                                            c => c.Name.Equals(culture , StringComparison.OrdinalIgnoreCase)) && culture != "*")
                                                                                         return Task.FromResult(new ProviderCultureResult(culture));
 
-                                                                                    return Task.FromResult(new ProviderCultureResult("fa-ir")); // Default culture
+                                                                                    return Task.FromResult(new ProviderCultureResult("fa-IR")); // Default culture
 
 
                                                                                 }));

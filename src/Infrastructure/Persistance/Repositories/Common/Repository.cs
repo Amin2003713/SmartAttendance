@@ -66,7 +66,6 @@ namespace Shifty.Persistence.Repositories.Common
             {
                 _logger.LogError(ex, "Error adding entity of type {EntityType} {ex}", typeof(TEntity).Name , ex);
                 throw ShiftyException.InternalServerError();
-
             }
         }
 

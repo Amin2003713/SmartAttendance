@@ -7,7 +7,9 @@ using Shifty.Common.Exceptions;
 using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 
 namespace Shifty.Api.Filters
 {
@@ -41,8 +43,36 @@ namespace Shifty.Api.Filters
                 } ,
                 {
                     typeof(ForbiddenException) , HandleForbiddenException
+                },
+                {
+                    typeof(ShiftyException) , HandleShiftyException
                 }
             };
+        }
+
+        private void HandleShiftyException(ExceptionContext context)
+        {
+            if (context.Exception is ShiftyException exception)
+            {
+                var problemDetails = new ApiProblemDetails
+                {
+                    Status = (int)exception.HttpStatusCode ,
+                    Title  = exception.Message , // Localized title
+                    Detail = exception.AdditionalData , // Localized detail
+                    Errors = []
+                };
+                context.Result = exception.HttpStatusCode switch
+                {
+
+                    HttpStatusCode.Unauthorized or HttpStatusCode.NonAuthoritativeInformation => new UnauthorizedObjectResult(problemDetails) ,
+                    HttpStatusCode.Forbidden or HttpStatusCode.BadRequest => new BadRequestObjectResult(problemDetails) ,
+                    
+                    HttpStatusCode.NotFound => new NotFoundObjectResult(problemDetails) ,
+                    HttpStatusCode.Conflict => new ConflictObjectResult(problemDetails) ,
+                    _ => new ObjectResult(problemDetails) ,
+                };
+                context.ExceptionHandled = true;
+            }
         }
 
         public override void OnException(ExceptionContext context)

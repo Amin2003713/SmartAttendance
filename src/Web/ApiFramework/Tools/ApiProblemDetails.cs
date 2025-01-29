@@ -6,7 +6,7 @@ namespace Shifty.ApiFramework.Tools
     {
         public string Title { get; set; }
         public int Status { get; set; }
-        public string Detail { get; set; }
+        public object Detail { get; set; }
         public Dictionary<string , List<string>> Errors { get; set; } = null!;
     }
 }
