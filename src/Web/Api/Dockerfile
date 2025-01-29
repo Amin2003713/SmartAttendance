@@ -14,13 +14,13 @@ WORKDIR /src
 COPY ["src/Web/Api/Shifty.Api.csproj", "./Web/Api/"]
 COPY ["src/Web/ApiFramework/Shifty.ApiFramework.csproj", "./Web/ApiFramework/"]
 COPY ["src/Infrastructure/Persistance/Shifty.Persistence.csproj", "./Infrastructure/Persistance/"]
+COPY ["src/Infrastructure/RequestHandlers/Shifty.RequestHandlers.csproj", "./Infrastructure/RequestHandlers/"]
 COPY ["src/Core/Domain/Shifty.Domain.csproj", "./Core/Domain/"]
 COPY ["src/Core/Application/Shifty.Application.csproj", "./Core/Application/"]
 COPY ["src/Common/Shifty.Common/Shifty.Common.csproj", "./Common/"]
 COPY ["src/Common/Shifty.Resources/Shifty.Resources.csproj", "./Resources/"]
 # Restore dependencies for all projects
 RUN dotnet restore "./Web/Api/Shifty.Api.csproj" -f 
-
 # Copy the entire source code
 COPY . .
 

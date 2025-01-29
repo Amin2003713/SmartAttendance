@@ -61,6 +61,7 @@ services:
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT}
       - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     depends_on:
       - sqlserver
       - shiftyMinioFileDb

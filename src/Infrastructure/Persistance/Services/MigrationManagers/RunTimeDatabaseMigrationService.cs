@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Enums;
@@ -11,6 +10,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using Shifty.Common.General;
 using Shifty.Domain.Features.Users;
 
@@ -18,13 +18,10 @@ namespace Shifty.Persistence.Services.MigrationManagers
 {
     public class RunTimeDatabaseMigrationService(
         IServiceProvider services ,
-        IConfiguration configuration ,
         Seeder.Seeder seeder ,
         IPasswordHasher<User> passwordHasher ,
         UserManager<User> userManager)
     {
-        public IConfiguration Configuration { get; } = configuration;
-
         public async Task<string> MigrateTenantDatabasesAsync(string connectionString , TenantAdmin adminUser , CancellationToken cancellationToken)
         {
             try
@@ -59,7 +56,6 @@ namespace Shifty.Persistence.Services.MigrationManagers
                     dbContext.Users.Add(user);
 
                     await dbContext.SaveChangesAsync(cancellationToken);
-
                     return await GenerateCode(user);
                 }
                 catch (Exception e)

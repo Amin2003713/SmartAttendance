@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Shifty.Common.General;
 
 namespace Shifty.Common.Utilities
 {
@@ -15,9 +16,10 @@ namespace Shifty.Common.Utilities
         // Generate a random password
         public static string GeneratePassword(int length = 8)
         {
-#if DEBUG
-            return "@Shifty403";
-#endif
+            Console.WriteLine($"Environment is  : {ApplicationConstant.IsDevelopment}");
+            if(ApplicationConstant.IsDevelopment)
+                return "@Shifty403";
+
 
             if (length < 8)
             {
@@ -28,26 +30,23 @@ namespace Shifty.Common.Utilities
             var allCharacters = LowercaseLetters + UppercaseLetters + Numbers + SpecialCharacters;
 
             // Use a cryptographically secure random number generator
-            using (var rng = new RNGCryptoServiceProvider())
+            using var rng      = new RNGCryptoServiceProvider();
+            var       password = new StringBuilder();
+
+            // Ensure the password contains at least one character from each set
+            password.Append(GetRandomCharacter(rng , LowercaseLetters));
+            password.Append(GetRandomCharacter(rng , UppercaseLetters));
+            password.Append(GetRandomCharacter(rng , Numbers));
+            password.Append(GetRandomCharacter(rng , SpecialCharacters));
+
+            // Fill the rest of the password with random characters
+            for (var i = 4; i < length; i++)
             {
-                var password    = new StringBuilder();
-                var randomBytes = new byte[4];
-
-                // Ensure the password contains at least one character from each set
-                password.Append(GetRandomCharacter(rng , LowercaseLetters));
-                password.Append(GetRandomCharacter(rng , UppercaseLetters));
-                password.Append(GetRandomCharacter(rng , Numbers));
-                password.Append(GetRandomCharacter(rng , SpecialCharacters));
-
-                // Fill the rest of the password with random characters
-                for (var i = 4; i < length; i++)
-                {
-                    password.Append(GetRandomCharacter(rng , allCharacters));
-                }
-
-                // Shuffle the password to ensure randomness
-                return Shuffle(password.ToString());
+                password.Append(GetRandomCharacter(rng , allCharacters));
             }
+
+            // Shuffle the password to ensure randomness
+            return Shuffle(password.ToString());
         }
 
         // Get a random character from a given character set

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Shifty.Common.General
 {
     public static class ApplicationConstant
     {
         public const string ApplicationName = "Shifty";
+
+        public readonly static bool IsDevelopment = (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production") == "Development";
 
         public static class Sql
         {

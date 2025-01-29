@@ -19,9 +19,6 @@ namespace Shifty.Persistence.Services
             services.AddScoped<IPasswordHasher<TenantAdmin> , PasswordHasher<TenantAdmin>>();
             services.AddKeyedScoped<UserManager<TenantAdmin>>("Admins");
 
-
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
             services.AddDbContext<TenantDbContext>(options => options.UseSqlServer(ApplicationConstant.AppOptions.TenantStore));
 
 

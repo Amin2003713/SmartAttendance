@@ -23,7 +23,6 @@ using Shifty.Common;
 using Shifty.Common.Behaviours;
 using Shifty.Common.General;
 using Shifty.Common.Utilities;
-using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Db;
 using Shifty.Resources.Messages;
@@ -38,6 +37,7 @@ using System.Security.Claims;
 using System.Text;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Users;
+using Shifty.Domain.Interfaces.Features.Users;
 
 namespace Shifty.Api.Services
 {

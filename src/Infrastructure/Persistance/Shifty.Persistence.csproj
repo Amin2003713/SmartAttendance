@@ -32,10 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="CommandHandlers\Companies\Commands\" />
-		<Folder Include="CommandHandlers\Divisions\Commands\" />
-		<Folder Include="CommandHandlers\Divisions\Queries\" />
-		<Folder Include="CommandHandlers\Users\Queries\" />
+		<Folder Include="CommandHandlers\" />
 		<Folder Include="Migrations\Application\" />
 		<Folder Include="Migrations\Tenant\" />
 	</ItemGroup>

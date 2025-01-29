@@ -9,6 +9,7 @@
   </Folder>
   <Folder Name="/Infrastructure/">
     <Project Path="src\Infrastructure\Persistance\Shifty.Persistence.csproj" />
+    <Project Path="src\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Web/">
     <Project Path="src\Web\ApiFramework\Shifty.ApiFramework.csproj" />

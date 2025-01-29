@@ -10,6 +10,7 @@ using Shifty.Application;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Persistence.Services;
+using Shifty.RequestHandlers.Services;
 using Shifty.Resources.Services;
 
 namespace Shifty.Api.Services
@@ -25,6 +26,7 @@ namespace Shifty.Api.Services
             services.AddWebApi(Configuration);
             services.AddApplication();
             services.AddPersistence(Configuration);
+            services.AddHandler();
             services.AddCommon(Configuration);
         }
 

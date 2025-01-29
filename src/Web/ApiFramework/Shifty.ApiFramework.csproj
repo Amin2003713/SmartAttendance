@@ -48,13 +48,17 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.Hangfire" Version="1.9.0-beta.1"/>
 		<PackageReference Include="OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule" Version="1.10.0-beta.1"/>
 	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\Infrastructure\Persistance\Shifty.Persistence.csproj"/>
-	</ItemGroup>
+	
 
 	<ItemGroup>
 		<Folder Include="Middleware\"/>
 	</ItemGroup>
+	
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj" />
+	</ItemGroup>
+	
+	
 
 </Project>
