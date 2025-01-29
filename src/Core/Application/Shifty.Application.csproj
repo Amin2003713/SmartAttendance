@@ -13,6 +13,7 @@
 		<PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="6.1.0"/>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.0"/>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1"/>
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.2.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2"/>
 	</ItemGroup>
 
@@ -30,12 +31,6 @@
 		<Folder Include="Companies\Command\" />
 		<Folder Include="Companies\Requests\" />
 		<Folder Include="Companies\Validators\" />
-		<Folder Include="Divisions\Command\Create\" />
-		<Folder Include="Divisions\Queries\GetDefault\" />
-		<Folder Include="Divisions\Requests\Create\" />
-		<Folder Include="Divisions\Requests\GetDefault\" />
-		<Folder Include="Divisions\Validators\Create\" />
-		<Folder Include="Divisions\Validators\GetDefault\" />
 		<Folder Include="Shifts\Requests\GetDefault\" />
 		<Folder Include="Shifts\Validators\GetDefault\" />
 		<Folder Include="Users\Queries\"/>

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
 using Shifty.Common.Exceptions;
 
 namespace Shifty.Persistence.Repositories.Common
@@ -68,6 +69,9 @@ namespace Shifty.Persistence.Repositories.Common
                 throw ShiftyException.InternalServerError();
             }
         }
+
+        public async Task<bool> AnyAsync(Expression<Func<TEntity , bool>> predations , CancellationToken cancellationToken = default)
+            => await TableNoTracking.AnyAsync(predations , cancellationToken);
 
         public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
         {

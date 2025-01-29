@@ -131,6 +131,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FCompanyMessages_002FCompanyResources/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FCommonMessages/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FCompanyMessages/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FDivisionMessages/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FShiftMessages/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FUserMessages/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FValidationMessages/@EntryIndexedValue">False</s:Boolean>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="ALREADY_EXIST" xml:space="preserve">
+    <value>این بخش از قبل وجود دارد.</value>
+  </data>
+	<data name="FAILED_TO_CREATE" xml:space="preserve">
+    <value>ایجاد بخش با شکست مواجه شد.</value>
+  </data>
+	<data name="NAME_IS_REQUIRED" xml:space="preserve">
+    <value>نام نمی‌تواند خالی باشد.</value>
+  </data>
+	<data name="NAME_LENGTH" xml:space="preserve">
+    <value>نام نباید بیش از ۱۰۰ کاراکتر باشد.</value>
+  </data>
+	<data name="PARENT_ID_INVALID" xml:space="preserve">
+    <value>شناسه والد نامعتبر است.</value>
+  </data>
+	<data name="PARENT_NOT_FOUND" xml:space="preserve">
+    <value>بخش والد یافت نشد.</value>
+  </data>
+	<data name="SHIFT_ID_INVALID" xml:space="preserve">
+    <value>شناسه شیفت نامعتبر است.</value>
+  </data>
+	<data name="SHIFT_NOT_FOUND" xml:space="preserve">
+    <value>شیفت مورد نظر یافت نشد.</value>
+  </data>
+</root>

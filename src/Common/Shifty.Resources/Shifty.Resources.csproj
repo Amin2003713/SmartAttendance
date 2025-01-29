@@ -52,6 +52,15 @@
 	  <EmbeddedResource Update="Resources\Messages\ShiftMessages.fa-IR.resx">
 	    <DependentUpon>ShiftMessages.en-US.resx</DependentUpon>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\DivisionMessages.en-US.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>DivisionMessages.en-US.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Messages\DivisionMessages.fa-IR.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>DivisionMessages.fa-IR.Designer.cs</LastGenOutput>
+	    <DependentUpon>DivisionMessages.en-US.resx</DependentUpon>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -79,6 +88,16 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>ShiftMessages.en-US.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Messages\DivisionMessages.en-US.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>DivisionMessages.en-US.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Messages\DivisionMessages.fa-IR.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>DivisionMessages.fa-IR.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

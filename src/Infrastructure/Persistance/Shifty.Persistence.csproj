@@ -32,7 +32,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="CommandHandlers\" />
 		<Folder Include="Migrations\Application\" />
 		<Folder Include="Migrations\Tenant\" />
 	</ItemGroup>

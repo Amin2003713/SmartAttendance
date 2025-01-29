@@ -4,7 +4,9 @@ using Shifty.Persistence.Db;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Defaults;
+using Shifty.Domain.Defaults;
+using Shifty.Domain.Features.Divisions;
+using Shifty.Domain.Features.Shifts;
 using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Services.Seeder
@@ -22,6 +24,9 @@ namespace Shifty.Persistence.Services.Seeder
         {
             var shifts = Defaults.GetDefaultShifts();
 
+            if(await dbContext.Set<Shift>().AnyAsync(cancellationToken: cancellationToken))
+                return;
+
             foreach (var shift in shifts)
                 dbContext.Add(shift);
 
@@ -30,7 +35,11 @@ namespace Shifty.Persistence.Services.Seeder
 
         private async Task SeedDivisions(AppDbContext dbContext , CancellationToken cancellationToken)
         {
-           //
+            if (await dbContext.Set<Division>().AnyAsync(cancellationToken: cancellationToken))
+                return;
+            var division = Defaults.GetDivisions();
+            dbContext.Add(division);
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
         private async Task SeedRoles(AppDbContext dbContext , CancellationToken cancellationToken)
