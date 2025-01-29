@@ -39,7 +39,7 @@ namespace Shifty.Api.Controllers.Shifts
             {
                 Logger.LogError(e.Message);
             }
-                    }
+        }
 
 
         /// <summary>

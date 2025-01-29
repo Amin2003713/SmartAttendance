@@ -4,7 +4,6 @@ using Shifty.Domain.Interfaces.Base;
 
 namespace Shifty.Domain.Interfaces.Features.Shifts;
 
-public interface IShiftRepository :  IScopedDependency
-{
-    
-}
+public interface IShiftCommandRepository : IScopedDependency , IRepository<Shift>;
+
+public interface IShiftQueryRepository : IScopedDependency , IRepository<Shift>;

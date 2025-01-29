@@ -9,7 +9,7 @@ namespace Shifty.Application.Panel.Companies.Requests
             return new InitialCompanyRequest
             {
                 Name        = "Tech Solutions Inc." , // Example company name
-                Domain      = "techsolutions" ,       // Example domain
+                Domain      = "IpaSoftCo" ,       // Example domain
                 LandLine    = "03132222332" ,         // Example landline number (optional)
                 PhoneNumber = "09134041709" ,         // Example phone number
                 FirstName   = "John" ,                // Example first name

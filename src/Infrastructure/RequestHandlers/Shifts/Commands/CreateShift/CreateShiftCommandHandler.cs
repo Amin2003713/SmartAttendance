@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Shifty.Application.Shifts.Command.Create;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Shifts;
+using Shifty.Domain.Interfaces.Features.Shifts;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
 using Shifty.Resources.Messages;
@@ -11,7 +12,7 @@ using Shifty.Resources.Messages;
 namespace Shifty.RequestHandlers.Shifts.Commands.CreateShift;
 
 public class CreateShiftCommandHandler(
-    Repository<Shift , WriteOnlyDbContext> repository ,
+    IShiftCommandRepository repository ,
     ShiftMessages shiftMessages ,
     ILogger<CreateShiftCommandHandler> logger) : IRequestHandler<CreateShiftCommand>
 {
