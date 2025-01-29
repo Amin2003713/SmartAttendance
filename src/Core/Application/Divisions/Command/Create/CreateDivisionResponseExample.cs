@@ -1,6 +1,8 @@
 ﻿using System;
 using Swashbuckle.AspNetCore.Filters;
 
+namespace Shifty.Application.Divisions.Command.Create;
+
 /// <summary>
 /// Example response for creating a division.
 /// </summary>

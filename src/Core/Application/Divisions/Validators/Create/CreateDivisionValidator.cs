@@ -2,7 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
+using Shifty.Application.Divisions.Requests.Create;
 using Shifty.Domain.Interfaces.Features.Divisions.Commands;
+using Shifty.Domain.Interfaces.Features.Divisions.Queries;
 using Shifty.Domain.Interfaces.Features.Shifts;
 using Shifty.Resources.Messages;
 

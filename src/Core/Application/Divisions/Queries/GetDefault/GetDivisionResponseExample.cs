@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Filters;
 
+namespace Shifty.Application.Divisions.Queries.GetDefault;
+
 /// <summary>
 /// Example response for retrieving a list of divisions.
 /// </summary>
