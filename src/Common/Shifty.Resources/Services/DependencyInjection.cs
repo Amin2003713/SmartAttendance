@@ -42,14 +42,14 @@ namespace Shifty.Resources.Services
                                            options.RequestCultureProviders.Insert(0 ,
                                                new CustomRequestCultureProvider(context =>
                                                                                 {
-                                                                                    var culture = context.Request.Headers["Accept-Language"].
-                                                                                                          ToString().
-                                                                                                          Split(',').
-                                                                                                          FirstOrDefault();
-                                                                                    if (!string.IsNullOrEmpty(culture) &&
-                                                                                        supportedCultures.Any(
-                                                                                            c => c.Name.Equals(culture , StringComparison.OrdinalIgnoreCase)) && culture != "*")
-                                                                                        return Task.FromResult(new ProviderCultureResult(culture));
+                                                                                    // var culture = context.Request.Headers["Accept-Language"].
+                                                                                    //                       ToString().
+                                                                                    //                       Split(',').
+                                                                                    //                       FirstOrDefault();
+                                                                                    // if (!string.IsNullOrEmpty(culture) &&
+                                                                                    //     supportedCultures.Any(
+                                                                                    //         c => c.Name.Equals(culture , StringComparison.OrdinalIgnoreCase)) && culture != "*")
+                                                                                    //     return Task.FromResult(new ProviderCultureResult(culture));
 
                                                                                     return Task.FromResult(new ProviderCultureResult("fa-IR")); // Default culture
 
