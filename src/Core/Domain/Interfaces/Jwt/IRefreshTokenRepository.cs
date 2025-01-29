@@ -1,7 +1,7 @@
 ﻿using Shifty.Domain.Interfaces.Base;
-using Shifty.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Domain.Interfaces.Jwt
 {

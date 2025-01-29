@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shifty.Domain.Enums;
-using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Services.Seeder
 {

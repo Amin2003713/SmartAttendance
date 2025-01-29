@@ -1,8 +1,7 @@
-﻿using Shifty.Common.Exceptions;
-using System;
+﻿using System;
 using System.Net;
 
-namespace Shifty.Common
+namespace Shifty.Common.Exceptions
 {
     public class ShiftyException : Exception
     {

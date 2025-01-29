@@ -1,10 +1,10 @@
-﻿using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.Shifts;
-using Shifty.Domain.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Shifty.Domain.Common.BaseClasses;
+using Shifty.Domain.Features.Shifts;
+using Shifty.Domain.Features.Users;
 
-namespace Shifty.Domain.Divisions
+namespace Shifty.Domain.Features.Divisions
 {
     public class Division  : BaseEntity
     {

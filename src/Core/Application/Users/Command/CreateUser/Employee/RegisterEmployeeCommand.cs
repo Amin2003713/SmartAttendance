@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Shifty.Domain.Users;
 using System;
 using System.Collections.Generic;
 

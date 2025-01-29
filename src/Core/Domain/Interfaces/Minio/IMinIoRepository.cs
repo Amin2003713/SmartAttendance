@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Services.Minio
+﻿namespace Shifty.Domain.Interfaces.Minio
 {
     public interface IMinIoRepository
     {

@@ -6,13 +6,13 @@ using Shifty.Application.Users.Command.Login;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Jwt;
-using Shifty.Domain.Users;
 using Shifty.Persistence.Jwt;
 using Shifty.Resources.Messages;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Login
 {

@@ -27,6 +27,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Companies\Command\" />
+		<Folder Include="Companies\Requests\" />
+		<Folder Include="Companies\Validators\" />
 		<Folder Include="Divisions\Command\Create\" />
 		<Folder Include="Divisions\Queries\GetDefault\" />
 		<Folder Include="Divisions\Requests\Create\" />

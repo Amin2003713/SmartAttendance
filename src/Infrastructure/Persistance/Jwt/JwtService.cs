@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Constants;
-using Shifty.Domain.Users;
 using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,8 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Shifty.Common.Exceptions;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Jwt
 {

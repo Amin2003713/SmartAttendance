@@ -3,13 +3,14 @@ using Microsoft.Extensions.Logging;
 using Shifty.Common;
 using Shifty.Domain.Interfaces.Base;
 using Shifty.Domain.Interfaces.Jwt;
-using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
 using Shifty.Resources.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Common.Exceptions;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Repositories.Jwt
 {

@@ -1,6 +1,9 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
+using Shifty.Application.Shifts.Requests.Create;
 using Shifty.Resources.Messages;
-using System;
+
+namespace Shifty.Application.Shifts.Validators.Create;
 
 public class CreateShiftValidator : AbstractValidator<CreateShiftRequest>
 {

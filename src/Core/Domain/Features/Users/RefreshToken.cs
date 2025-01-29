@@ -1,7 +1,7 @@
-﻿using Shifty.Domain.Common.BaseClasses;
-using System;
+﻿using System;
+using Shifty.Domain.Common.BaseClasses;
 
-namespace Shifty.Domain.Users
+namespace Shifty.Domain.Features.Users
 {
     public class RefreshToken : BaseEntity
     {

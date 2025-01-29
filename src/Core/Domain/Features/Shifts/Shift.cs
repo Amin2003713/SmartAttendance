@@ -1,9 +1,9 @@
-﻿using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.Divisions;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Shifty.Domain.Common.BaseClasses;
+using Shifty.Domain.Features.Divisions;
 
-namespace Shifty.Domain.Shifts
+namespace Shifty.Domain.Features.Shifts
 {
     public class Shift  : BaseEntity
     {

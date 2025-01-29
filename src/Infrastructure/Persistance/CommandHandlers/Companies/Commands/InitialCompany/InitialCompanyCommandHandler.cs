@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Shifty.Application.Companies.Command.InitialCompany;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
@@ -12,6 +11,7 @@ using Shifty.Resources.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Application.Panel.Companies.Command.InitialCompany;
 
 namespace Shifty.Persistence.CommandHandlers.Companies.Commands.InitialCompany
 {

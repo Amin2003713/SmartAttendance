@@ -1,5 +1,5 @@
 ﻿<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Dev Local " type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+  <configuration default="false" name="Dev Local " type="docker-deploy" factoryName="docker-compose.yml" server-name="Local">
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="E:\Projects\Shifty\Shifty\.env.development.local" />

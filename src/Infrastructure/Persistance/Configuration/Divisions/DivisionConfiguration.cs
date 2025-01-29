@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Shifty.Domain.Divisions;
+using Shifty.Domain.Features.Divisions;
 
 namespace Shifty.Persistence.Configuration.Divisions
 {

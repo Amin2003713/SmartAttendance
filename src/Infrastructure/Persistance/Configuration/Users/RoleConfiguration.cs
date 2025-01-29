@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Role = Shifty.Domain.Users.Role;
+using Role = Shifty.Domain.Features.Users.Role;
 
 namespace Shifty.Persistence.Configuration.Users
 {

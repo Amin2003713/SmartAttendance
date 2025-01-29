@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace Shifty.Application.Shifts.Command.Create;
+
 public class CreateShiftResponse
 {
     /// <summary>

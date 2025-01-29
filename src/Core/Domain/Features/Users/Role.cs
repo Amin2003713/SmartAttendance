@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Shifty.Domain.Common.BaseClasses;
-using System;
 
-namespace Shifty.Domain.Users
+namespace Shifty.Domain.Features.Users
 {
     public class Role : IdentityRole<Guid> , ISimpleEntity
     {

@@ -1,4 +1,5 @@
 ﻿using Shifty.Common;
+using Shifty.Domain.Interfaces.Minio;
 
 namespace Shifty.Persistence.Services.Minio
 {

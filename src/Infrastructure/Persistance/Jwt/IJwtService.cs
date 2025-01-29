@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Users;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Jwt
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Shifty.Common;
+namespace Shifty.Common.Exceptions;
 
 /// <summary>
 /// Represents an HTTP 403 Forbidden error.

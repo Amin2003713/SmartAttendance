@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.Divisions;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Shifty.Domain.Common.BaseClasses;
+using Shifty.Domain.Features.Divisions;
 
-namespace Shifty.Domain.Users
+namespace Shifty.Domain.Features.Users
 {
     public class User : IdentityUser<Guid> , IEntity
     {

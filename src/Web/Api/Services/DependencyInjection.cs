@@ -26,17 +26,20 @@ using Shifty.Common.Utilities;
 using Shifty.Domain.Constants;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Resources.Messages;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Shifty.Common.Exceptions;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Api.Services
 {
@@ -125,7 +128,7 @@ namespace Shifty.Api.Services
                                                                      // Set the title for the API Reference
                                                                      opt.Title = "Shifty API Reference";
                                                                      // Customize the theme (use predefined themes or provide a custom one)
-                                                                     opt.Theme = ScalarTheme.Moon; // Available themes: Light, Dark, Custom
+                                                                     opt.Theme = ScalarTheme.DeepSpace; // Available themes: Light, Dark, Custom
 
                                                                      // Configure default HTTP client
                                                                      opt.DefaultHttpClient =
@@ -321,6 +324,14 @@ namespace Shifty.Api.Services
                                        });
                                        options.OperationFilter<ApplyHeaderParameterOperationFilter>();
 
+                                       #endregion
+
+                                       #region Api_Docs
+                                       // Get XML file path
+                                       var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                                       var xmlPath = Path.Combine(AppContext.BaseDirectory , xmlFile);
+                                       // Include XML comments
+                                       options.IncludeXmlComments(xmlPath);
                                        #endregion
                                    });
         }

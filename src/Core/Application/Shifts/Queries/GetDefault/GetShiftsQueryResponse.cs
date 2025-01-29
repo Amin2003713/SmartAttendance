@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Shifts.Queries.GetDefualt
+﻿namespace Shifty.Application.Shifts.Queries.GetDefault
 {
     public class GetShiftsQueryResponse
     {

@@ -7,12 +7,12 @@ using Shifty.Common.Utilities;
 using Shifty.Domain.Constants;
 using Shifty.Domain.Enums;
 using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Services.MigrationManagers
 {

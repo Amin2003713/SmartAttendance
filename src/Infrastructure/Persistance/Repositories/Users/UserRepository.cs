@@ -5,7 +5,6 @@ using Shifty.Common;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Interfaces.Users;
 using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
 using Shifty.Resources.Messages;
@@ -14,6 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Common.Exceptions;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Repositories.Users
 {

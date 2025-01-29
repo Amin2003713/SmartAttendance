@@ -1,5 +1,7 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
+
+namespace Shifty.Application.Shifts.Command.Create;
 
 public class CreateShiftCommand : IRequest<CreateShiftResponse>
 {

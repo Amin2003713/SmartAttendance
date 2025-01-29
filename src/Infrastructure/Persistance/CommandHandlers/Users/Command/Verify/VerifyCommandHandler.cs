@@ -6,11 +6,11 @@ using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Constants;
 using Shifty.Domain.Interfaces.Base;
-using Shifty.Domain.Users;
 using Shifty.Resources.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Verify
 {

@@ -8,7 +8,8 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<LangVersion>latestmajor</LangVersion>
 		<EnableHotReload>true</EnableHotReload>
-
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>

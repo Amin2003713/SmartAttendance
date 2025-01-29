@@ -6,9 +6,9 @@ using Shifty.Application.Users.Command.CreateUser.Employee;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Common.Utilities;
-using Shifty.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.CommandHandlers.Users.Command.Register.Employee
 {

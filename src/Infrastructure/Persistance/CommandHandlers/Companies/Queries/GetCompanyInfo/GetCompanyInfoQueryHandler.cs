@@ -6,6 +6,7 @@ using Shifty.Domain.Interfaces.Companies;
 using Shifty.Resources.Messages;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Common.Exceptions;
 
 namespace Shifty.Persistence.CommandHandlers.Companies.Queries.GetCompanyInfo
 {

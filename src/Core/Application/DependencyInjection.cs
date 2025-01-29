@@ -2,10 +2,10 @@
 using FluentValidation.AspNetCore;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Application.Companies.Command.InitialCompany;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
 using Shifty.Domain.Tenants;
 using System.Reflection;
+using Shifty.Application.Panel.Companies.Command.InitialCompany;
 
 namespace Shifty.Application
 {

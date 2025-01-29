@@ -1,13 +1,10 @@
-﻿using MediatR;
-
-namespace Shifty.Application.Companies.Command.InitialCompany
+﻿namespace Shifty.Application.Panel.Companies.Requests
 {
-    public class InitialCompanyCommand : IRequest<string>
+    public class InitialCompanyRequest
     {
-        public required string Domain { get; set; }
         public required string Name { get; set; }
+        public required string Domain { get; set; }
         public string? LandLine { get; set; } = null!;
-
 
         public required string PhoneNumber { get; set; }
         public required string FirstName { get; set; }

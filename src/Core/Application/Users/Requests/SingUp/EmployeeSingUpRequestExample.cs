@@ -1,5 +1,4 @@
-﻿using Shifty.Domain.Users;
-using Swashbuckle.AspNetCore.Filters;
+﻿using Swashbuckle.AspNetCore.Filters;
 using System;
 
 namespace Shifty.Application.Users.Requests.SingUp

@@ -73,7 +73,7 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             }
 
 
-            if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/Panel/"))
+            if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/PanelController/"))
             {
                 if (!context.Request.Headers.TryGetValue("X-Device-Type" , out var deviceType))
                 {

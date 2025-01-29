@@ -1,5 +1,4 @@
-﻿using Shifty.Domain.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Shifty.Application.Users.Command.Login

@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace Shifty.Application.Shifts.Requests.Create;
+
 public class CreateShiftRequest
 {
     /// <summary>

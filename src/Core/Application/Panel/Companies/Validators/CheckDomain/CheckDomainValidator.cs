@@ -1,10 +1,8 @@
 ﻿using FluentValidation;
-using Microsoft.Extensions.Localization;
-using Shifty.Application.Companies.Queries.CheckDomain;
-using Shifty.Resources.Common;
+using Shifty.Application.Panel.Companies.Queries.CheckDomain;
 using Shifty.Resources.Messages;
 
-namespace Shifty.Application.Companies.Validators.CheckDomain
+namespace Shifty.Application.Panel.Companies.Validators.CheckDomain
 {
     public class CheckDomainValidator  : AbstractValidator<CheckDomainQuery>
     {

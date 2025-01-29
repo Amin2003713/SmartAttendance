@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Shifty.Application.Companies.Queries.CheckDomain;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Companies;
 using Shifty.Resources.Messages;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Application.Panel.Companies.Queries.CheckDomain;
 
 namespace Shifty.Persistence.CommandHandlers.Companies.Queries.CheckDomain
 {

@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Shifty.Common.Utilities;
 using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.Users;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Db
 {
