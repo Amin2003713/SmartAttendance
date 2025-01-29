@@ -37,7 +37,6 @@ using System.Net;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Users;
 
@@ -128,8 +127,8 @@ namespace Shifty.Api.Services
                                                                      // Set the title for the API Reference
                                                                      opt.Title = "Shifty API Reference";
                                                                      // Customize the theme (use predefined themes or provide a custom one)
-                                                                     opt.Theme = ScalarTheme.DeepSpace; // Available themes: Light, Dark, Custom
-
+                                                                     opt.Theme  = ScalarTheme.BluePlanet; // Available themes: Light, Dark, Custom
+                                                                     opt.Layout = ScalarLayout.Classic;
                                                                      // Configure default HTTP client
                                                                      opt.DefaultHttpClient =
                                                                          new KeyValuePair<ScalarTarget , ScalarClient>(ScalarTarget.Http , ScalarClient.Axios);

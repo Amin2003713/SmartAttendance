@@ -11,7 +11,7 @@ namespace Shifty.Application.Users.Requests.SingUp
             {
                 FirstName  = "John" , LastName          = "Doe"  
              , PhoneNumber = "09134041409" , 
-                RolesList  = ["Admin" , "Manager"] ,                                             // Example roles
+                RolesList  = ["Admin" , "Driver"] ,                                             // Example roles
                 Address    = "123 Main St, City, Country" , DivisionId = Guid.CreateVersion7() , // Example department ID
             };
         }

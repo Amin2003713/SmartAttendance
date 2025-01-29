@@ -1,13 +1,9 @@
 ﻿using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shifty.ApiFramework.Attributes;
-using Shifty.ApiFramework.Tools;
 using Shifty.Domain.Tenants;
 using System;
 

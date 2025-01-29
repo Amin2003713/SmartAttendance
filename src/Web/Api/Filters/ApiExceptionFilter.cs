@@ -1,10 +1,7 @@
 ﻿using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Shifty.ApiFramework.Tools;
 using Shifty.Common;
 using Shifty.Common.Exceptions;
 using Shifty.Resources.Messages;

@@ -1,17 +1,9 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Shifty.Api.Controllers.Common;
-using Shifty.ApiFramework.Tools;
-using Shifty.Application.Shifts.Queries.GetDefault;
+﻿using Shifty.Application.Shifts.Queries.GetDefault;
 using Shifty.Domain.Enums;
-using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Shifty.Application.Shifts.Command.Create;
 using Shifty.Application.Shifts.Requests.Create;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Shifty.Api.Controllers.Shifts
 {

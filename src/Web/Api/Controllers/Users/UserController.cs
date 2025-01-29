@@ -1,10 +1,4 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Shifty.Api.Controllers.Common;
-using Shifty.ApiFramework.Tools;
-using Shifty.Application.Users.Command.CreateUser.Employee;
+﻿using Shifty.Application.Users.Command.CreateUser.Employee;
 using Shifty.Application.Users.Command.Login;
 using Shifty.Application.Users.Command.RefreshToken;
 using Shifty.Application.Users.Command.Verify;
@@ -14,8 +8,6 @@ using Shifty.Application.Users.Requests.SingUp;
 using Shifty.Application.Users.Requests.Verify;
 using Shifty.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Shifty.Api.Controllers.Users
 {
@@ -32,7 +24,6 @@ namespace Shifty.Api.Controllers.Users
         /// <response code="401">If the provided credentials are invalid or the user is not authorized.</response>
         /// <response code="500">If an internal server error occurs during authentication.</response>
         [HttpPost("login")]
-        [SwaggerOperation("login by username and password")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(LoginResponse) ,      StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestResult) ,   StatusCodes.Status400BadRequest)]
@@ -55,7 +46,6 @@ namespace Shifty.Api.Controllers.Users
         /// <response code="401">If the refresh token is expired or invalid.</response>
         /// <response code="500">If an internal server error occurs during token refresh.</response>
         [HttpPost("refresh-token")]
-        [SwaggerOperation("Refresh the access token and provide a new refresh token.")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(RefreshTokenResponse) , StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestResult) ,     StatusCodes.Status400BadRequest)]
@@ -76,7 +66,6 @@ namespace Shifty.Api.Controllers.Users
         /// <response code="400">If the request is invalid (e.g., missing phone number or code).</response>
         /// <response code="500">If an internal server error occurs during verification.</response>
         [HttpPut("verify")]
-        [SwaggerOperation("Verify the code sent to the user's phone number.")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(VerifyPhoneNumberResponse) , StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestResult) ,          StatusCodes.Status400BadRequest)]
@@ -98,7 +87,6 @@ namespace Shifty.Api.Controllers.Users
         /// <response code="404">If the user with the specified ID is not found.</response>
         /// <response code="500">If an internal server error occurs while sending the activation code.</response>
         [HttpGet("send-activation-code")]
-        [SwaggerOperation("Send an activation code to the specified user.")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(SendActivationCodeQueryResponse) , StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestResult) ,                StatusCodes.Status400BadRequest)]
@@ -122,7 +110,6 @@ namespace Shifty.Api.Controllers.Users
         /// <response code="403">If the user does not have the required role (Admin).</response>
         /// <response code="500">If an internal server error occurs during registration.</response>
         [HttpPost("employee/sign-up")]
-        [SwaggerOperation("Register a new employee user.")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
         [ProducesResponseType(typeof(bool) ,               StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestResult) ,   StatusCodes.Status400BadRequest)]

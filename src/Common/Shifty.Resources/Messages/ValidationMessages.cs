@@ -66,3 +66,4 @@ namespace Shifty.Resources.Messages
         public string Code_Length() => Localize(nameof(Code_Length));
     }
 }
+

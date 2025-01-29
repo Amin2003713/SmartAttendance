@@ -1,13 +1,4 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Shifty.Api.Controllers.Common;
-using Shifty.ApiFramework.Tools;
-using Swashbuckle.AspNetCore.Annotations;
-using System.Threading;
-using System.Threading.Tasks;
-using Shifty.Application.Panel.Companies.Command.InitialCompany;
+﻿using Shifty.Application.Panel.Companies.Command.InitialCompany;
 using Shifty.Application.Panel.Companies.Queries.CheckDomain;
 using Shifty.Application.Panel.Companies.Requests;
 
