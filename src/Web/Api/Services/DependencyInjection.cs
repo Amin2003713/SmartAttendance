@@ -14,7 +14,6 @@ using PolyCache;
 using Scalar.AspNetCore;
 using Serilog.Enrichers.Correlate;
 using Shifty.Api.Filters;
-using Shifty.ApiFramework.Aspire;
 using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
@@ -35,6 +34,9 @@ using System.Net;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Serilog;
+using Serilog.Sinks.Grafana.Loki;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Users;
 using Shifty.Domain.Interfaces.Features.Users;
@@ -47,7 +49,6 @@ namespace Shifty.Api.Services
         {
             services.AddSingleton<IMultiTenantContext<ShiftyTenantInfo> , MultiTenantContext<ShiftyTenantInfo>>();
             services.AddCorrelationContextEnricher();
-            services.AddAspire();
             services.AddSwaggerOptions();
             services.AddHttpContextAccessor();
             services.AddCustomIdentity();
@@ -147,13 +148,17 @@ namespace Shifty.Api.Services
                                                                      opt.OperationSorter = OperationSorter.Method;
                                                                  });
 
-                                 // endpoints.MapHealthChecksUI();
-                                 // endpoints.MapHealthChecks("/health", new HealthCheckOptions()
-                                 // {
-                                 //     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
-                                 // });
+                                  // endpoints.MapHealthChecksUI();
+                                  // endpoints.MapHealthChecks("/api/health", new HealthCheckOptions()
+                                  // {
+                                  //     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                                  // });
                              });
-            // app.UseHealthChecksUI(options => options.UIPath = "/health-ui");
+
+
+            app.UseOpenTelemetryPrometheusScrapingEndpoint("/api/Metrics");
+
+            // app.UseHealthChecksUI(options => options.UIPath = "/api/health-ui");
         }
 
         private static void AddJwtAuthentication(this IServiceCollection services)
@@ -377,5 +382,7 @@ namespace Shifty.Api.Services
         }
 
         #endregion
+
+
     }
 }

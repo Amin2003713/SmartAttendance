@@ -8,6 +8,8 @@ namespace Shifty.Application.Divisions.Queries.GetDefault;
 /// </summary>
 public class GetDivisionResponse
 {
+
+    public Guid Id { get; set; }
     /// <summary>
     /// Name of the division.
     /// </summary>

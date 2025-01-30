@@ -1,0 +1,31 @@
+﻿receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  debug:  # Replaces deprecated "logging" exporter
+  prometheus:
+    endpoint: "0.0.0.0:9464"
+  otlp:
+    endpoint: "http://prometheus:4317"
+    tls:
+      insecure: true 
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    labels:
+      service: otel-collector
+    format: json
+
+service:
+  pipelines:
+    traces:
+      receivers: [ otlp ]
+      exporters: [ debug, otlp , loki ]  # Changed "logging" to "debug"
+    metrics:
+      receivers: [ otlp ]
+      exporters: [ rometheus  , loki]
+    logs:
+      receivers: [ otlp ]
+      exporters: [ debug  , loki]  # Changed "logging" to "debug"

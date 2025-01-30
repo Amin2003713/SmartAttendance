@@ -13,11 +13,9 @@ public class DivisionController : BaseController
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.Admin))]
     [SwaggerOperation("Create a new division.")]
-    [ProducesResponseType(typeof(CreateDivisionResponse) , StatusCodes.Status201Created)]
+     [ProducesResponseType(typeof(CreateDivisionResponse) , StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(UnauthorizedResult) ,     StatusCodes.Status401Unauthorized)]
-    public async Task<CreateDivisionResponse> CreateDivision(
-        [FromBody] CreateDivisionRequest request ,
-        CancellationToken cancellationToken)
+    public async Task<CreateDivisionResponse> CreateDivision([FromBody] CreateDivisionRequest request , CancellationToken cancellationToken)
     {
        return await Mediator.Send(request.Adapt<CreateDivisionCommand>() , cancellationToken);
     }
