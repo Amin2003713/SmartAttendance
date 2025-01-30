@@ -1,11 +1,5 @@
 ﻿version: '3.9'
 
-networks:
-  app-network:
-    driver: bridge
-  public-network:
-    driver: bridge  # شبکه برای سرویس‌هایی که به اینترنت نیاز دارند
-
 services:
   
   sqlserver:
@@ -18,8 +12,8 @@ services:
       - MSSQL_BACKUP_DIR=/var/opt/mssql/backups
       - MSSQL_LCID=1033
       - TZ=Etc/UTC
-    expose:
-      - "1433"
+    ports:
+      - "5012:1433"
     networks:
       - app-network
     volumes:
@@ -32,9 +26,9 @@ services:
   shiftyMinioFileDb:
     container_name: shiftyMinioFileDb
     image: docker.io/bitnami/minio
-    expose:
-      - "9000"
-      - "9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
     networks:
       - app-network
     volumes:
@@ -49,11 +43,11 @@ services:
     command: [ "--config=/etc/otel-collector-config.yml" ]
     volumes:
       - ${CONFIG}/otel-collector-config.yml:/etc/otel-collector-config.yml
-    expose:
-      - "8888"
-      - "8889"
-      - "13133"
-      - "4317"
+    ports:
+      - "8888:8888"
+      - "8889:8889"
+      - "13133:13133"
+      - "4317:4317"
     networks:
       - app-network
     restart: always
@@ -63,8 +57,8 @@ services:
     container_name: prometheus
     volumes:
       - ${CONFIG}/prometheus.yml:/etc/prometheus/prometheus.yml
-    expose:
-      - "9090"
+    ports:
+      - "9090:9090"
     depends_on:
       - shifty
     networks:
@@ -75,7 +69,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3000:3000"  # در شبکه عمومی قرار می‌گیرد
+      - "18888:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
@@ -90,14 +84,13 @@ services:
       - loki
     networks:
       - app-network
-      - public-network  # به اینترنت دسترسی دارد
     restart: unless-stopped
 
   loki:
     image: grafana/loki:latest
     container_name: loki
-    expose:
-      - "3100"
+    ports:
+      - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - app-network
@@ -118,7 +111,11 @@ services:
       - loki
     networks:
       - app-network
-      - public-network  # به اینترنت دسترسی دارد
     ports:
       - "1880:8080"
     restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
