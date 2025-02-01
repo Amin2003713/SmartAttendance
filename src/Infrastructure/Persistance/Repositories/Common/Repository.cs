@@ -73,6 +73,10 @@ namespace Shifty.Persistence.Repositories.Common
         public async Task<bool> AnyAsync(Expression<Func<TEntity , bool>> predations , CancellationToken cancellationToken = default)
             => await TableNoTracking.AnyAsync(predations , cancellationToken);
 
+        public bool Any(Expression<Func<TEntity , bool>> predations)
+            => TableNoTracking.Any(predations);
+
+
         public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true)
         {
             try

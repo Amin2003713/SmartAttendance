@@ -65,6 +65,7 @@ namespace Shifty.Api.Services
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(PerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(ValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(UnhandledExceptionBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(RequestResponseLoggingBehavior<,>));
 
             // Register the MigrationService
             services.AddRouting(a =>
@@ -116,7 +117,7 @@ namespace Shifty.Api.Services
 
             app.UseEndpoints(endpoints =>
                              {
-                                 if (env.IsDevelopment() || env.IsStaging())
+                                 if (env.IsDevelopment())
                                  {
                                      endpoints.MapControllers().AllowAnonymous();
                                  }

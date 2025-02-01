@@ -3,6 +3,7 @@
 
 **/bin/
 **/obj/
+**/logs/
 
 ./front/**
 ./data/**

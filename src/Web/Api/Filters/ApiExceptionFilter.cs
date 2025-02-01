@@ -106,7 +106,6 @@ namespace Shifty.Api.Filters
                 Status = StatusCodes.Status500InternalServerError, Title = _messages.InternalServerError_Title() , // Localized title
                 Detail = context.Exception.Message
             };
-
             context.Result = new ObjectResult(problemDetails)
             {
                 StatusCode = StatusCodes.Status500InternalServerError,

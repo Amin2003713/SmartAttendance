@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shifty.Common.Behaviours
 {
-    public class ValidationBehavior<TRequest , TResponse>(IEnumerable<IValidator<TRequest>> validators , ILogger<ValidationBehavior<TRequest , TResponse>> logger) : IPipelineBehavior<TRequest , TResponse>
+    public class ValidationBehavior<TRequest , TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest , TResponse>
         where TRequest : IRequest<TResponse>
     {
         public async Task<TResponse> Handle(TRequest request , RequestHandlerDelegate<TResponse> next , CancellationToken cancellationToken)

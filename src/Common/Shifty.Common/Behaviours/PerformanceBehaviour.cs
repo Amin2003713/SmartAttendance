@@ -25,7 +25,7 @@ namespace Shifty.Common.Behaviours
             var response = await next();
 
             _timer.Stop();
-
+                                                                    
             var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
             if (elapsedMilliseconds > 500)

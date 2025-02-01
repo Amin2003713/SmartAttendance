@@ -21,6 +21,7 @@ namespace Shifty.Domain.Interfaces.Base
 
         Task AddAsync(TEntity entity , CancellationToken cancellationToken , bool saveNow = true);
         Task<bool> AnyAsync(Expression<Func<TEntity , bool>> predations , CancellationToken cancellationToken = default);
+        bool Any(Expression<Func<TEntity , bool>> predations);
 
         void AddRange(IEnumerable<TEntity> entities , bool saveNow = true);
 
