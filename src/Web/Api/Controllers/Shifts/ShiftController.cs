@@ -26,7 +26,6 @@ namespace Shifty.Api.Controllers.Shifts
             Description = "Allows administrators to create a new shift by providing the necessary details such as name, timings, and grace periods."
         )]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        [ProducesResponseType(typeof(CreateShiftResponse) , StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiProblemDetails) ,   StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiProblemDetails) ,   StatusCodes.Status500InternalServerError)]
         public virtual async Task NewShift([FromBody] CreateShiftRequest response , CancellationToken cancellationToken)

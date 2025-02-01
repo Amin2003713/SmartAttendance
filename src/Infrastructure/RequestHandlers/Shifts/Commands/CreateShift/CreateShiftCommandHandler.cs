@@ -15,7 +15,6 @@ namespace Shifty.RequestHandlers.Shifts.Commands.CreateShift;
 public class CreateShiftCommandHandler(
     IShiftCommandRepository command ,
     IShiftQueryRepository query ,
-    ShiftMessages shiftMessages ,
     ILogger<CreateShiftCommandHandler> logger , ShiftMessages messages) : IRequestHandler<CreateShiftCommand>
 {
     public async Task Handle(CreateShiftCommand request , CancellationToken cancellationToken)

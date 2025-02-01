@@ -6,7 +6,7 @@ namespace Shifty.Application.Divisions.Command.Create;
 /// <summary>
 /// MediatR command for creating a division.
 /// </summary>
-public class CreateDivisionCommand : IRequest<CreateDivisionResponse>
+public class CreateDivisionCommand : IRequest
 {
     /// <summary>
     /// Name of the division.

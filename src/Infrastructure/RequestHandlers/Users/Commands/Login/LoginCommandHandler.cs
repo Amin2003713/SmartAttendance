@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using System.Net;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -24,6 +25,9 @@ namespace Shifty.RequestHandlers.Users.Commands.Login
                 var user = await userManager.FindByNameAsync(request.Username);
                 if (user == null)
                     throw ShiftyException.NotFound(additionalData: messages.User_NotFound());
+
+                if (!user.PhoneNumberConfirmed)
+                    throw ShiftyException.Create(HttpStatusCode.NotAcceptable , messages.User_Error_NotActive());
 
                 var isPasswordValid = await userManager.CheckPasswordAsync(user , request.Password);
                 if (!isPasswordValid)

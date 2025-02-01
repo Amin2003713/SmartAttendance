@@ -6,8 +6,6 @@ using Shifty.Domain.Interfaces.Base;
 
 namespace Shifty.Domain.Interfaces.Features.Shifts;
 
-public interface IShiftCommandRepository : IScopedDependency , IRepository<Shift>;
-
 public interface IShiftQueryRepository : IScopedDependency , IRepository<Shift>
 {
     Task<bool> Exist(Shift shift , CancellationToken cancellationToken);

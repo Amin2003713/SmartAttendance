@@ -37,8 +37,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Shifts\Queries\GetDefault\GetShiftsQueryResponseExample.cs">
-	    <DependentUpon>GetShiftsQueryResponse.cs</DependentUpon>
+	  <Compile Update="Shifts\Queries\GetDefault\ListShiftsQueryResponseExamples.cs">
+	    <DependentUpon>ListShiftsQueryResponse.cs</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

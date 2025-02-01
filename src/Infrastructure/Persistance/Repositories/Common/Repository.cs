@@ -56,7 +56,7 @@ namespace Shifty.Persistence.Repositories.Common
             try
             {
                 _logger.LogInformation("Adding entity of type {EntityType}", typeof(TEntity).Name);
-                await Entities.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+                Entities.Add(entity);
                 if (saveNow)
                 {
                     await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);

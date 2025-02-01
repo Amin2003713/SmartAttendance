@@ -10,11 +10,6 @@
 	  <ProjectReference Include="..\Persistance\Shifty.Persistence.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Divisions\Commands\" />
-	  <Folder Include="Divisions\Queries\" />
-	</ItemGroup>
-
 
 
 </Project>
