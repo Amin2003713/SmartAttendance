@@ -35,10 +35,5 @@ public class CreateDivisionCommandHandler(IDivisionCommandRepository repository 
             logger.LogError(e , e.Message);
             throw;
         }
-        catch (Exception e)
-        {
-logger.LogError(e, e.Message);
-throw ShiftyException.Create(HttpStatusCode.InternalServerError , messages.FAILED_TO_CREATE);
-        }
     }
 }

@@ -16,7 +16,7 @@ namespace Shifty.Common.Exceptions
         {
         }
 
-        public ConflictException(string name , object key) : base($"Entity \"{name}\" ({key}) was not found.")
+        public ConflictException(string name , object key) : base($"${name} {key}")
         {
         }
     }
