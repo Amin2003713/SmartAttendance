@@ -19,10 +19,6 @@ namespace Shifty.Api
         {
             return Host.CreateDefaultBuilder(args).
                         UseServiceProviderFactory(new AutofacServiceProviderFactory()).
-                        ConfigureServices(services =>
-                                          {
-                                              services.AddOpenTelemetryServices(); // ✅ Register OpenTelemetry Services
-                                          }).
                         ConfigureWebHostDefaults(webBuilder =>
                                                  {
                                                      webBuilder.UseStartup<Startup>();

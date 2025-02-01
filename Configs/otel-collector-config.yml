@@ -2,26 +2,52 @@
   otlp:
     protocols:
       grpc:
+        endpoint: "0.0.0.0:4317"
       http:
+        endpoint: "0.0.0.0:4318"
+
+processors:
+  batch:
+    timeout: 5s
+    send_batch_size: 100
+
+  attributes:
+    actions:
+      - key: service.name
+        value: "shifty-api"
+        action: upsert
+
+  resource:
+    attributes:
+      - key: service.name
+        value: "shifty-api"
+        action: insert
 
 exporters:
-  debug:  # Replaces deprecated "logging" exporter
+  otlp:
+    endpoint: "http://seq:80"
+    headers:
+      Authorization: "Bearer YOUR_SEQ_API_KEY"
+
+  debug: # ✅ Replaces deprecated `logging` exporter
+    verbosity: detailed
+
   prometheus:
     endpoint: "0.0.0.0:9464"
-  otlp:
-    endpoint: "http://prometheus:4317"
-    tls:
-      insecure: true 
- 
 
 service:
   pipelines:
     traces:
       receivers: [ otlp ]
-      exporters: [ debug, otlp  ]  # Changed "logging" to "debug"
+      processors: [ batch, attributes, resource ]
+      exporters: [ debug, otlp ]  # ✅ Replaced `logging` with `debug`
+
     metrics:
       receivers: [ otlp ]
-      exporters: [ rometheus  ]
+      processors: [ batch ]
+      exporters: [ debug, prometheus ]  # ✅ Replaced `logging` with `debug`
+
     logs:
       receivers: [ otlp ]
-      exporters: [ debug]  # Changed "logging" to "debug"
+      processors: [ batch ]
+      exporters: [ debug, otlp ]  # ✅ Replaced `logging` with `debug`

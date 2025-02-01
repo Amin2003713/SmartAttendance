@@ -37,6 +37,7 @@ using System.Text;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
+using Shifty.ApiFramework.Analytics;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Users;
 using Shifty.Domain.Interfaces.Features.Users;
@@ -57,6 +58,8 @@ namespace Shifty.Api.Services
             services.AddPolyCache(configuration);
             services.AddEndpointsApiExplorer();
 
+            services.AddObservabilityServices();
+            services.AddTransient<CorrelationIdMiddleware>();
             // services.AddHealthShiftyCheck();
 
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(PerformanceBehaviour<,>));
@@ -101,7 +104,8 @@ namespace Shifty.Api.Services
 
             app.UseMultiTenant();
             app.UseMiddleware<TenantValidationMiddleware>(); // Add this before your endpoints
-
+            app.UseMiddleware<CorrelationIdMiddleware>();
+            app.UseSerilogRequestLogging();
 
             app.UseAppSwagger();
             app.UseStaticFiles();
@@ -156,7 +160,6 @@ namespace Shifty.Api.Services
                              });
 
 
-            app.UseOpenTelemetryPrometheusScrapingEndpoint("/api/Metrics");
 
             // app.UseHealthChecksUI(options => options.UIPath = "/api/health-ui");
         }

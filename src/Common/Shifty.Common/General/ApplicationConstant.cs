@@ -36,14 +36,14 @@ namespace Shifty.Common.General
             public static Action<OtlpExporterOptions> OtlpExporter => options =>
             {
                 options.Endpoint = new Uri(OtelEndpoint);
-                if (!string.IsNullOrEmpty(OtelToken))
-                {
-                    options.Headers = $"Authorization=Bearer {OtelToken}";
-                }
+                // if (!string.IsNullOrEmpty(OtelToken))
+                // {
+                //     options.Headers = $"Authorization=Bearer {OtelToken}";
+                // }
             };
 
             public readonly static string OtelEndpoint = 
-                Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://otel-collector:4317";
+                Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://seq:";
 
             public static readonly string OtelToken = 
                 Environment.GetEnvironmentVariable("OTEL_SECRET_TOKEN");
