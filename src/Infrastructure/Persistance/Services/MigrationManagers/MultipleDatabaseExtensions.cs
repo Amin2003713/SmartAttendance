@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shifty.Persistence.Db;
 using System;
 using System.Linq;
 using Shifty.Common.General;
+using Shifty.Domain.Tenants;
 
 namespace Shifty.Persistence.Services.MigrationManagers
 {
     public static class MultipleDatabaseExtensions
     {
-        public static async void AddAndMigrateTenantDatabases(this IServiceCollection services , IConfiguration configuration)
+        public static async void AddAndMigrateTenantDatabases(this IServiceCollection services)
         {
             try
             {
@@ -21,9 +21,14 @@ namespace Shifty.Persistence.Services.MigrationManagers
                 if ((await tenantDbContext.Database.GetPendingMigrationsAsync()).Any())
                     await tenantDbContext.Database.MigrateAsync(); // apply migrations on baseDbContext
 
+                if (await tenantDbContext.TenantInfo.AnyAsync(a => a.Identifier == "grafana"))
+                    await tenantDbContext.TenantInfo.AddAsync(new ShiftyTenantInfo()
+                    {
+                        Identifier = "grafana",
+                        Name = "Grafana",
+                    });
 
                 var tenantsInDb = await tenantDbContext.TenantInfo.ToListAsync();
-
 
                 foreach (var tenant in tenantsInDb) // loop through all tenants, apply migrations on applicationDbContext
                 {
@@ -41,14 +46,12 @@ namespace Shifty.Persistence.Services.MigrationManagers
                     if (!(await dbContext.Database.GetPendingMigrationsAsync()).Any())
                         continue;
 
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine($"Applying Migrations for '{tenant.Id}' tenant.");
-                    Console.ResetColor();
                     await dbContext.Database.MigrateAsync();
                 }
             }
             catch (Exception e)
             {
+                //
             }
         }
     }

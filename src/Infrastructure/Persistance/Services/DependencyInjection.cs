@@ -53,7 +53,7 @@ namespace Shifty.Persistence.Services
 
             services.AddScoped<IAppDbContext , AppDbContext>();
 
-            services.AddAndMigrateTenantDatabases(configuration);
+            services.AddAndMigrateTenantDatabases();
             services.AddScoped<RunTimeDatabaseMigrationService>();
             services.AddScoped<Seeder.Seeder>();
             return services;

@@ -12,20 +12,16 @@ exporters:
     endpoint: "http://prometheus:4317"
     tls:
       insecure: true 
-  loki:
-    endpoint: http://loki:3100/loki/api/v1/push
-    labels:
-      service: otel-collector
-    format: json
+ 
 
 service:
   pipelines:
     traces:
       receivers: [ otlp ]
-      exporters: [ debug, otlp , loki ]  # Changed "logging" to "debug"
+      exporters: [ debug, otlp  ]  # Changed "logging" to "debug"
     metrics:
       receivers: [ otlp ]
-      exporters: [ rometheus  , loki]
+      exporters: [ rometheus  ]
     logs:
       receivers: [ otlp ]
-      exporters: [ debug  , loki]  # Changed "logging" to "debug"
+      exporters: [ debug]  # Changed "logging" to "debug"

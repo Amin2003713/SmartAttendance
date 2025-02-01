@@ -66,12 +66,12 @@ namespace Shifty.Persistence.Services.MigrationManagers
                 finally
                 {
                     var adminRoles = await dbContext.Roles.FirstOrDefaultAsync(a => a.Name == UserRoles.Admin.ToString() , cancellationToken);
-                    if (adminRoles == null)
-
+                    if (adminRoles != null)
                         dbContext.UserRoles.Add(new IdentityUserRole<Guid>
                         {
                             RoleId = adminRoles.Id , UserId = adminUser.Id ,
                         });
+
                     await dbContext.SaveChangesAsync(cancellationToken);
                 }
             }

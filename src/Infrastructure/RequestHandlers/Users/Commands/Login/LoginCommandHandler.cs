@@ -29,8 +29,6 @@ namespace Shifty.RequestHandlers.Users.Commands.Login
                 if (!isPasswordValid)
                     throw ShiftyException.Unauthorized(additionalData: messages.InCorrect_User_Password());
 
-                var roles = await userManager.GetRolesAsync(user);
-
                 var jwt = await jwtService.GenerateAsync(user);
 
                 var refreshToken = new RefreshToken
@@ -40,9 +38,11 @@ namespace Shifty.RequestHandlers.Users.Commands.Login
 
                 await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken , cancellationToken);
 
-                var loginResult = user.Adapt<LoginResponse>();
-
-                return loginResult.AddToken(refreshToken.Token , jwt.access_token , roles.ToList() ?? []);
+                return new LoginResponse()
+                {
+                    RefreshToken = refreshToken.Token ,
+                    Token        = jwt.access_token ,
+                };
             }
             catch (ShiftyException e)
             {
