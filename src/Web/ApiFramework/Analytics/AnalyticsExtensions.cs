@@ -25,13 +25,11 @@ namespace Shifty.ApiFramework.Analytics
 
         public static IServiceCollection AddObservabilityServices(this IServiceCollection services)
         {
+
+            services.AddSerilogLogging();
+
             var resourceBuilder = ResourceBuilder.CreateDefault()
-                .AddService(ApplicationConstant.ApplicationName)
-                .AddAttributes(new Dictionary<string, object>
-                {
-                    { "environment", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production" },
-                    { "host", Environment.MachineName }
-                });
+                .AddService(ApplicationConstant.ApplicationName);
 
             services.AddOpenTelemetry()
                 .WithMetrics(builder =>
@@ -42,7 +40,8 @@ namespace Shifty.ApiFramework.Analytics
                         .AddHttpClientInstrumentation()
                         .AddRuntimeInstrumentation()
                         .AddProcessInstrumentation()
-                        .AddMeter("Shifty.ApiMetrics"); // Custom Business Metrics
+                        .AddMeter (ApplicationConstant.ApplicationName + "Metrics").
+                        AddOtlpExporter(ApplicationConstant.Aspire.OtlpExporter);
                 })
                 .WithTracing(builder =>
                 {
@@ -77,14 +76,12 @@ namespace Shifty.ApiFramework.Analytics
             return services;
         }
 
-        public static IServiceCollection AddSerilogLogging(this IServiceCollection services)
+        private static void AddSerilogLogging(this IServiceCollection services)
         {
             services.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.AddSerilog();
             });
-
-            return services;
         }
 
         public static IHostBuilder UseSerilogLogging(this IHostBuilder hostBuilder)
@@ -92,11 +89,11 @@ namespace Shifty.ApiFramework.Analytics
             return hostBuilder.UseSerilog((_, loggerConfiguration) =>
             {
                 loggerConfiguration
-                    .Enrich.WithProperty("AppName", ApplicationConstant.ApplicationName)
+                    .Enrich.WithProperty("Application : ", ApplicationConstant.ApplicationName)
                     .Enrich.WithMachineName()
                     .Enrich.WithThreadId()
                     .Enrich.WithProcessId()
-                    .Enrich.WithCorrelationId() // Logs full stack trace for exceptions
+                    .Enrich.WithCorrelationId()
                     .Enrich.FromLogContext()
                     .Enrich.WithClientIp()
                     .Enrich.WithExceptionDetails()
@@ -104,58 +101,35 @@ namespace Shifty.ApiFramework.Analytics
                     WriteTo.Console(
                         outputTemplate:
                         "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {Message:lj} (Thread: {ThreadId}, Machine: {MachineName}){NewLine}{Exception}")
-                    .WriteTo.Seq("http://seq:80")
-                    .WriteTo.File("logs/shifty.log", rollingInterval: RollingInterval.Day);
+                    .WriteTo.OpenTelemetry(conf =>
+                                           {
+                                               conf.Headers = ApplicationConstant.Aspire.HeaderKey;
+                                               conf.Endpoint = ApplicationConstant.Aspire.OtelEndpoint;
+                                           })
+                    // .WriteTo.File("logs/shifty.log", rollingInterval: RollingInterval.Day)
+                    ;
             });
         }
     }
 
-    public class CorrelationIdMiddleware
+    public class CorrelationIdMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public CorrelationIdMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
         public async Task Invoke(HttpContext context)
         {
             if (!context.Request.Headers.TryGetValue("X-Correlation-ID", out var correlationId))
             {
-                correlationId = Guid.NewGuid().ToString();
+                correlationId = Guid.CreateVersion7().ToString();
                 context.Request.Headers["X-Correlation-ID"] = correlationId;
             }
 
             context.Response.Headers["X-Correlation-ID"] = correlationId;
 
             var activity = Activity.Current;
-            if (activity != null)
-            {
-                activity.SetTag("correlation_id", correlationId.ToString());
-            }
+            activity?.SetTag("correlation_id", correlationId.ToString());
 
-            await _next(context);
+            await next(context);
         }
     }
 
-    public static class SerilogEnrichmentExtensions
-    {
-        public static LoggerConfiguration WithCorrelationId(this LoggerConfiguration loggerConfiguration)
-        {
-            return loggerConfiguration.Enrich.With(new CorrelationIdEnricher());
-        }
-    }
 
-    public class CorrelationIdEnricher : ILogEventEnricher
-    {
-        public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
-        {
-            var correlationId = Activity.Current?.GetTagItem("correlation_id")?.ToString();
-            if (!string.IsNullOrEmpty(correlationId))
-            {
-                logEvent.AddPropertyIfAbsent(propertyFactory.CreateProperty("CorrelationId", correlationId));
-            }
-        }
-    }
 }

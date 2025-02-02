@@ -37,38 +37,22 @@ services:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     restart: unless-stopped
-
-  otel-collector:
-    image: otel/opentelemetry-collector:latest
-    command: [ "--config=/etc/otel-collector-config.yml" ]
-    volumes:
-      - ${CONFIG}/otel-collector-config.yml:/etc/otel-collector-config.yml
+  
+  shiftyAspireService:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:9.0
+    container_name: shiftyAspireService
     ports:
-      - "4317:4317" # OpenTelemetry Tracing (gRPC)
-      - "4318:4318" # OpenTelemetry Tracing (HTTP)
-      - "9464:9464" # Prometheus Metrics
-    networks:
-     - app-network
-    restart: always
-    depends_on:
-      - seq
-
-  seq:
-    image: datalust/seq
-    container_name: seq
-    ports:
-      - "1888:80"
-    environment:
-      - ACCEPT_EULA=Y
-      - SEQ_FIRSTRUN_ADMINPASSWORD=${SEQ_ADMIN_PASSWORD} # Sets admin password
-      - SEQ_STORAGE_PASSWORDHASHING=PBKDF2 # Enables secure password hashing
-      - SEQ_LOGGING__FILESIZE=200000000  # ✅ Limit log file size to 200MB (200 * 1024 * 1024 bytes)
-      - SEQ_LOGGING__FILECOUNT=3  # ✅ Keep a maximum of 3 log files
-    volumes:
-      - ${BASE_PATH}/seq:/data
+      - "1888:18888"
+      - "4317:18889"
     networks:
       - app-network
+    environment:
+      - ASPIRE_DASHBOARD_USERNAME=AminShifty1382
+      - ASPIRE_DASHBOARD_PASSWORD=AminShifty1382403
+      - DASHBOARD__OTLP__AUTHMODE=ApiKey
+      - DASHBOARD__OTLP__PRIMARYAPIKEY=FC83FFEF-1C71-4C88-97D7-27CE9570F131
     restart: unless-stopped
+  
   
   
   shifty:
@@ -77,10 +61,11 @@ services:
     container_name: shifty
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://host.docker.internal:4317
+      - OTEL_SERVICE_NAME=Shifty
     depends_on:
       - sqlserver
       - shiftyMinioFileDb
-      - seq
     networks:
       - app-network
     ports:

@@ -36,17 +36,16 @@ namespace Shifty.Common.General
             public static Action<OtlpExporterOptions> OtlpExporter => options =>
             {
                 options.Endpoint = new Uri(OtelEndpoint);
-                // if (!string.IsNullOrEmpty(OtelToken))
-                // {
-                //     options.Headers = $"Authorization=Bearer {OtelToken}";
-                // }
+                if (!string.IsNullOrEmpty(Header))
+                {
+                    options.Headers = Header;
+                }
             };
 
-            public readonly static string OtelEndpoint = 
-                Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://seq:";
+            public const string Header = "x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
 
-            public static readonly string OtelToken = 
-                Environment.GetEnvironmentVariable("OTEL_SECRET_TOKEN");
+            public readonly static string OtelEndpoint =  "http://shiftyAspireService:18889";
+
 
             public readonly static Dictionary<string , string> HeaderKey = new Dictionary<string , string>
             {
