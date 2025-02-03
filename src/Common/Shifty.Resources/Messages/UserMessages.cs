@@ -5,6 +5,7 @@ namespace Shifty.Resources.Messages
 {
     public  class UserMessages(IStringLocalizer<UserMessages> localizer) : BaseLocalizer<UserMessages>(localizer)
     {
+        public string User_Activation_Failed() => Localize(nameof(User_Activation_Failed));
         public  string User_Already_Exists     ()=> Localize( nameof(User_Already_Exists));
         public  string Verify_Two_Factor_Token ()=> Localize( nameof(Verify_Two_Factor_Token));
         public  string InCorrect_User_Password ()=> Localize( nameof(InCorrect_User_Password));

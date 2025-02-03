@@ -6,6 +6,9 @@
 	<data name="Verify_Two_Factor_Token" xml:space="preserve">
     <value>لطفاً توکن احراز هویت دو مرحله‌ای را تأیید کنید.</value>
   </data>
+	<data name="User_Activation_Failed" xml:space="preserve">
+    <value>فعال سازی کاربر با خطا مواجه شد.</value>
+  </data>
 	<data name="InCorrect_User_Password" xml:space="preserve">
     <value>نام کاربری یا رمز عبور نادرست است.</value>
   </data>

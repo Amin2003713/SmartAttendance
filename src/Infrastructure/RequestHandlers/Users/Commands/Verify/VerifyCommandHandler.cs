@@ -27,6 +27,13 @@ namespace Shifty.RequestHandlers.Users.Commands.Verify
 
                 var isVerified = await VerifyTwoFactorTokenAsync(request.Code , user);
 
+                if (isVerified)
+                    user.PhoneNumberConfirmed = true;
+
+                var result =await userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                    throw ShiftyException.BadRequest(messages.User_Activation_Failed());
                 return new VerifyPhoneNumberResponse
                 {
                     IsVerified = isVerified , Message = isVerified ? "Phone number verified successfully." : "Invalid code or phone number." ,

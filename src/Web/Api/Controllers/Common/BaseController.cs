@@ -20,13 +20,14 @@ namespace Shifty.Api.Controllers.Common
 
         protected IMediator Mediator => GetService<IMediator>();
 
-        protected ILogger Logger => GetService<ILogger>();
-
-        protected IMultiTenantContext<ShiftyTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<ShiftyTenantInfo>();
-
         public T GetService<T>()
         {
             return Resolver.GetService<T>();
         }
+        protected ILogger Logger => GetService<ILogger>();
+
+        protected IMultiTenantContext<ShiftyTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<ShiftyTenantInfo>();
+
+     
     }
 }

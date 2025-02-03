@@ -25,4 +25,7 @@
 	<data name="User_Error_NotActive">
 		<value>User is not active.</value>
 	</data>
+	<data name="User_Activation_Failed" xml:space="preserve">
+		<value>Use Activation Failed Duo to some Exeptions</value>
+	</data>
 </root>
