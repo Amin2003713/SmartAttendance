@@ -132,11 +132,11 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     }
 
                     await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()));
-                    var             userExists = await tenantDb.Users.SingleOrDefaultAsync(u => u.HardwareId == hardwareId);
+                    var             userExists = await tenantDb.Users.SingleOrDefaultAsync(u => u.HardwareId == hardwareId[0]);
 
                     if (userExists.HardwareId == null)
                     {
-                        if (await tenantDb.Users.AnyAsync(a => a.HardwareId == hardwareId))
+                        if (await tenantDb.Users.AnyAsync(a => a.HardwareId == hardwareId[0]))
                         {
                             var problemDetails = new ApiProblemDetails
                             {

@@ -85,16 +85,13 @@ namespace Shifty.Persistence.Jwt
         {
             var claims = new List<Claim>
             {
-                // Standard claims
                 new Claim("id" , user.Id.ToString()) ,
                 new Claim("username" ,           user.UserName ?? string.Empty)
             };
 
-            // Add additional user details
             claims.Add(new Claim("firstName" , user.FirstName ?? string.Empty));
             claims.Add(new Claim("lastName" ,  user.LastName  ?? string.Empty));
 
-            // Optional string properties (profile, address, hardwareId)
             if (!string.IsNullOrEmpty(user.Profile))
                 claims.Add(new Claim("profile" , user.Profile));
             if (!string.IsNullOrEmpty(user.Address))
@@ -102,16 +99,12 @@ namespace Shifty.Persistence.Jwt
             if (!string.IsNullOrEmpty(user.HardwareId))
                 claims.Add(new Claim("hardwareId" , user.HardwareId));
 
-            // Add the last login date as an ISO 8601 formatted string
             claims.Add(new Claim("lastLoginDate" , user.LastLoginDate.ToString("o")));
 
-            // Include additional Identity properties if they exist
-            if (!string.IsNullOrEmpty(user.Email))
-                claims.Add(new Claim("Email" , user.Email));
+            
             if (!string.IsNullOrEmpty(user.PhoneNumber))
                 claims.Add(new Claim("PhoneNumber" , user.PhoneNumber));
 
-            // It's a good idea to include a boolean as a string ("true" or "false")
             claims.Add(new Claim("phoneNumberConfirmed" , user.PhoneNumberConfirmed.ToString()));
 
             // Add roles from the user manager

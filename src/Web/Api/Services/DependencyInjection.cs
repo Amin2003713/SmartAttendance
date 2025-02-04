@@ -217,7 +217,7 @@ namespace Shifty.Api.Services
 
             var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
             if (claimsIdentity?.Claims.Any() != true)
-                throw ShiftyException.Create(HttpStatusCode.Forbidden , userMessage.InValid_Token());
+                throw ShiftyException.Forbidden(userMessage.InValid_Token());
 
 
             //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
@@ -236,7 +236,7 @@ namespace Shifty.Api.Services
             //    context.Fail("Token security stamp is not valid.");
 
             if (!user.IsActive || !user.PhoneNumberConfirmed)
-                context.Fail(userMessage.User_Error_NotActive());
+                throw ShiftyException.Forbidden(userMessage.User_Error_NotActive());
 
             await userRepository.UpdateLastLoginDateAsync(user , context.HttpContext.RequestAborted);
         }

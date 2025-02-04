@@ -27,7 +27,7 @@ namespace Shifty.RequestHandlers.Users.Commands.Login
                     throw ShiftyException.NotFound(additionalData: messages.User_NotFound());
 
                 if (!user.PhoneNumberConfirmed)
-                    throw ShiftyException.Create(HttpStatusCode.NotAcceptable , messages.User_Error_NotActive());
+                    throw ShiftyException.Forbidden(messages.User_Error_NotActive());
 
                 var isPasswordValid = await userManager.CheckPasswordAsync(user , request.Password);
                 if (!isPasswordValid)

@@ -93,6 +93,9 @@ namespace Shifty.Common.Exceptions
         /// </summary>
         public static ShiftyException InternalServerError(string message = "An unexpected error occurred.", object additionalData = null) =>
             new ShiftyException(message, HttpStatusCode.InternalServerError, null, additionalData);
+        
+        public static ForbiddenException Forbidden(string message , object additionalData = null) =>
+            new ForbiddenException(message, null, additionalData);
 
         #endregion
     }
