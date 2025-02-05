@@ -13,7 +13,6 @@ using Microsoft.OpenApi.Models;
 using PolyCache;
 using Scalar.AspNetCore;
 using Serilog.Enrichers.Correlate;
-using Shifty.Api.Filters;
 using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
@@ -37,6 +36,7 @@ using System.Text;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
+using Shifty.Api.Filters;
 using Shifty.ApiFramework.Analytics;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Users;
@@ -80,7 +80,6 @@ namespace Shifty.Api.Services
                      WithHeaderStrategy("--tenant--").
                      WithEFCoreStore<TenantDbContext , ShiftyTenantInfo>();
 
-            services.AddScoped<ApiExceptionFilter>();
             services.AddScoped<ValidateModelStateAttribute>();
         }
 
@@ -117,14 +116,9 @@ namespace Shifty.Api.Services
 
             app.UseEndpoints(endpoints =>
                              {
-                                 if (env.IsDevelopment())
-                                 {
-                                     endpoints.MapControllers().AllowAnonymous();
-                                 }
-                                 else
-                                 {
-                                     endpoints.MapControllers();
-                                 }
+                                 
+                                 endpoints.MapControllers();
+                                 
 
                                  endpoints.MapScalarApiReference(opt =>
                                                                  {
@@ -175,37 +169,58 @@ namespace Shifty.Api.Services
                                        }).
                      AddJwtBearer(options =>
                                   {
-                                      var secretKey = Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey);
-
-                                      var validationParameters = new TokenValidationParameters
-                                      {
-                                          ClockSkew             = TimeSpan.Zero , // default: 5 min
-                                          RequireSignedTokens   = true , ValidateIssuerSigningKey = true ,
-                                          IssuerSigningKey      = new SymmetricSecurityKey(secretKey) ,
-                                          RequireExpirationTime = true , ValidateLifetime               = true , ValidateAudience = true , //default : false
-                                          ValidAudience         = ApplicationConstant.JwtSettings.Audience , ValidateIssuer = true ,                           //default : false
-                                          ValidIssuer           = ApplicationConstant.JwtSettings.Issuer ,
-                                      };
 
                                       options.RequireHttpsMetadata      = false;
                                       options.SaveToken                 = true;
-                                      options.TokenValidationParameters = validationParameters;
 
                                       options.Events = new JwtBearerEvents
                                       {
                                           OnAuthenticationFailed = context =>
                                                                    {
-                                                                       if (context.Exception != null)
-                                                                           throw ShiftyException.Unauthorized(additionalData: context.Exception);
+                                                                       var common = context.HttpContext.RequestServices.GetRequiredService<CommonMessages>();
 
+
+                                                                       if (context.Exception != null)
+                                                                       {
+                                                                           throw ShiftyException.Unauthorized(context.Exception?.Message ??
+                                                                               common.Unauthorized_Access());
+                                                                       }
                                                                        return Task.CompletedTask;
                                                                    } ,
-                                          OnTokenValidated = async context => await AddLoginRecordForUsers(context) , OnChallenge = context =>
-                                          {
-                                              if (context.AuthenticateFailure != null)
-                                                  throw ShiftyException.Unauthorized(additionalData: context.AuthenticateFailure);
-                                              return Task.CompletedTask;
-                                          } ,
+                                          OnTokenValidated = async context => await AddLoginRecordForUsers(context) , 
+                                          OnChallenge = context =>
+                                                        {
+                                                            var common = context.HttpContext.RequestServices.GetRequiredService<CommonMessages>();
+
+                                                            if(context.AuthenticateFailure != null)
+                                                                throw ShiftyException.Unauthorized(context.AuthenticateFailure?.Message ??
+                                                                                                   common.Unauthorized_Access());
+                                                                                                                       
+                                                            return Task.CompletedTask;
+                                                        } ,
+                                           OnMessageReceived = context =>
+                                                              {
+                                                                  var tenantSecretKey = context.HttpContext.GetMultiTenantContext<ShiftyTenantInfo>().TenantInfo != null 
+                                                                      ? (context.HttpContext.GenerateShuffledKey()) 
+                                                                      : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey));
+
+                                                                  var tenantValidationParameters = new TokenValidationParameters
+                                                                  {
+                                                                      ClockSkew                = TimeSpan.Zero ,
+                                                                      RequireSignedTokens      = true ,
+                                                                      ValidateIssuerSigningKey = true ,
+                                                                      IssuerSigningKey         = tenantSecretKey ,
+                                                                      RequireExpirationTime    = true ,
+                                                                      ValidateLifetime         = true ,
+                                                                      ValidateAudience         = true ,
+                                                                      ValidAudience            = ApplicationConstant.JwtSettings.Audience ,
+                                                                      ValidateIssuer           = true ,
+                                                                      ValidIssuer              = ApplicationConstant.JwtSettings.Issuer ,
+                                                                  };
+
+                                                                  options.TokenValidationParameters = tenantValidationParameters;
+                                                                  return Task.CompletedTask;
+                                                              } ,
                                       };
                                   });
         }
@@ -219,21 +234,8 @@ namespace Shifty.Api.Services
             if (claimsIdentity?.Claims.Any() != true)
                 throw ShiftyException.Forbidden(userMessage.InValid_Token());
 
-
-            //var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
-            //if (!securityStamp.HasValue())
-            //    context.Fail("This token has no security stamp");
-
-            //Find user and token from database and perform your custom validation
             var userId = Guid.Parse(claimsIdentity.GetUserId<string>());
             var user   = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted , userId);
-
-            //if (user.SecurityStamp != Guid.Parse(securityStamp))
-            //    context.Fail("Token security stamp is not valid.");
-
-            //var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
-            //if (validatedUser == null)
-            //    context.Fail("Token security stamp is not valid.");
 
             if (!user.IsActive || !user.PhoneNumberConfirmed)
                 throw ShiftyException.Forbidden(userMessage.User_Error_NotActive());

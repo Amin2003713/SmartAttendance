@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Common;
 
 namespace Shifty.Persistence.Db
 {
-    public interface IAppDbContext
+    public interface IAppDbContext 
     {
         DbSet<T> Set<T>() where T : class;
         Task<int> SaveChangesAsync(CancellationToken cancellation);

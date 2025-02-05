@@ -13,18 +13,20 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Shifty.Common.Exceptions;
+using Shifty.Common.Utilities;
 using Shifty.Domain.Features.Users;
 
 namespace Shifty.Persistence.Jwt
 {
-    public class JwtService(UserManager<User> userManager , ILogger<JwtService> logger , CommonMessages messages) : IJwtService , IScopedDependency
+    public class JwtService(UserManager<User> userManager , ILogger<JwtService> logger , CommonMessages messages , IHttpContextAccessor accessor) : IJwtService , IScopedDependency
     {
         public async Task<AccessToken> GenerateAsync(User user)
         {
+            var secretKey = accessor.HttpContext.GenerateShuffledKey();
             // Load keys securely
-            var secretKey = Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey);
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey) ,
+            var signingCredentials = new SigningCredentials(secretKey ,
                 SecurityAlgorithms.HmacSha256Signature ,
                 SecurityAlgorithms.HmacSha256Signature);
 
@@ -35,7 +37,9 @@ namespace Shifty.Persistence.Jwt
             // Define token descriptor
             var descriptor = new SecurityTokenDescriptor
             {
-                Issuer    = ApplicationConstant.JwtSettings.Issuer , Audience = ApplicationConstant.JwtSettings.Audience , IssuedAt = DateTime.UtcNow ,
+                Issuer    = ApplicationConstant.JwtSettings.Issuer ,
+                Audience = ApplicationConstant.JwtSettings.Audience ,
+                IssuedAt = DateTime.UtcNow ,
                 NotBefore = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.NotBeforeMinutes) ,
                 Expires   = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.ExpirationMinutes) , SigningCredentials = signingCredentials ,
                 Subject   = new ClaimsIdentity(claims) };
@@ -57,7 +61,7 @@ namespace Shifty.Persistence.Jwt
 
         public Guid? ValidateJwtAccessTokenAsync(string token)
         {
-            var secretKey = Encoding.UTF8.GetBytes(ApplicationConstant.JwtSettings.SecretKey); // longer that 16 character
+            var secretKey = accessor.HttpContext.GenerateShuffledKey();
 
             var tokenHandler = new JwtSecurityTokenHandler();
             try
@@ -65,7 +69,7 @@ namespace Shifty.Persistence.Jwt
                 tokenHandler.ValidateToken(token ,
                     new TokenValidationParameters
                     {
-                        ValidateIssuerSigningKey = true , IssuerSigningKey = new SymmetricSecurityKey(secretKey) , ValidateIssuer = false ,
+                        ValidateIssuerSigningKey = true , IssuerSigningKey = secretKey , ValidateIssuer = false ,
                         ValidateAudience         = false ,
                         ClockSkew                = TimeSpan.Zero } ,
                     out var validatedToken);
@@ -85,34 +89,21 @@ namespace Shifty.Persistence.Jwt
         {
             var claims = new List<Claim>
             {
-                new Claim("id" , user.Id.ToString()) ,
-                new Claim("username" ,           user.UserName ?? string.Empty)
+                new Claim("id" ,        user.Id.ToString()) ,
+                new Claim("username" ,  user.UserName  ?? string.Empty) ,
+                new Claim("firstName" , user.FirstName ?? string.Empty) ,
+                new Claim("lastName" ,  user.LastName  ?? string.Empty) ,
             };
-
-            claims.Add(new Claim("firstName" , user.FirstName ?? string.Empty));
-            claims.Add(new Claim("lastName" ,  user.LastName  ?? string.Empty));
 
             if (!string.IsNullOrEmpty(user.Profile))
                 claims.Add(new Claim("profile" , user.Profile));
-            if (!string.IsNullOrEmpty(user.Address))
-                claims.Add(new Claim("address" , user.Address));
-            if (!string.IsNullOrEmpty(user.HardwareId))
-                claims.Add(new Claim("hardwareId" , user.HardwareId));
 
-            claims.Add(new Claim("lastLoginDate" , user.LastLoginDate.ToString("o")));
-
-            
-            if (!string.IsNullOrEmpty(user.PhoneNumber))
-                claims.Add(new Claim("PhoneNumber" , user.PhoneNumber));
-
-            claims.Add(new Claim("phoneNumberConfirmed" , user.PhoneNumberConfirmed.ToString()));
+            if(user.LastLoginDate.HasValue)
+                claims.Add(new Claim("lastLoginDate" , user.LastLoginDate.Value.ToString("s")));
 
             // Add roles from the user manager
             var userRoles = await userManager.GetRolesAsync(user);
-            foreach (var role in userRoles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role , role));
-            }
+            claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role , role)));
 
             return claims;
         }

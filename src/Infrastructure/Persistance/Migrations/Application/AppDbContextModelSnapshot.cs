@@ -125,7 +125,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Divisions.Division", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -176,7 +176,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("Divisions");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Divisions.DivisionAssignee", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Divisions.DivisionAssignee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,7 +221,42 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("DivisionAssignees");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Shifts.Shift", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Setting.Setting", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Flags")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Features.Shifts.Shift", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -269,7 +304,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("Shifts");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.RefreshToken", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Users.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,7 +348,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.Role", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Users.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,7 +383,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -396,7 +431,7 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastLoginDate")
+                    b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
@@ -462,7 +497,7 @@ namespace Shifty.Persistence.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.Role", null)
+                    b.HasOne("Shifty.Domain.Features.Users.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -471,7 +506,7 @@ namespace Shifty.Persistence.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("Shifty.Domain.Features.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -480,7 +515,7 @@ namespace Shifty.Persistence.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("Shifty.Domain.Features.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -489,13 +524,13 @@ namespace Shifty.Persistence.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.Role", null)
+                    b.HasOne("Shifty.Domain.Features.Users.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("Shifty.Domain.Features.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -504,24 +539,24 @@ namespace Shifty.Persistence.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("Shifty.Domain.Features.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Divisions.Division", b =>
                 {
-                    b.HasOne("Shifty.Domain.Divisions.Division", "Parent")
+                    b.HasOne("Shifty.Domain.Features.Divisions.Division", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("Shifty.Domain.Shifts.Shift", "Shift")
+                    b.HasOne("Shifty.Domain.Features.Shifts.Shift", "Shift")
                         .WithMany("Divisions")
                         .HasForeignKey("ShiftId");
 
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("Shifty.Domain.Features.Users.User", null)
                         .WithMany("Divisions")
                         .HasForeignKey("UserId");
 
@@ -530,15 +565,15 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Navigation("Shift");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Divisions.DivisionAssignee", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Divisions.DivisionAssignee", b =>
                 {
-                    b.HasOne("Shifty.Domain.Divisions.Division", "Division")
+                    b.HasOne("Shifty.Domain.Features.Divisions.Division", "Division")
                         .WithMany("Assignees")
                         .HasForeignKey("DivisionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shifty.Domain.Users.User", "User")
+                    b.HasOne("Shifty.Domain.Features.Users.User", "User")
                         .WithMany("AssignedDivisions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -549,9 +584,9 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.RefreshToken", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Users.RefreshToken", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", "User")
+                    b.HasOne("Shifty.Domain.Features.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -560,28 +595,28 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Users.User", b =>
                 {
-                    b.HasOne("Shifty.Domain.Divisions.Division", "Division")
+                    b.HasOne("Shifty.Domain.Features.Divisions.Division", "Division")
                         .WithMany()
                         .HasForeignKey("DivisionId");
 
                     b.Navigation("Division");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Divisions.Division", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Divisions.Division", b =>
                 {
                     b.Navigation("Assignees");
 
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Shifts.Shift", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Shifts.Shift", b =>
                 {
                     b.Navigation("Divisions");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+            modelBuilder.Entity("Shifty.Domain.Features.Users.User", b =>
                 {
                     b.Navigation("AssignedDivisions");
 

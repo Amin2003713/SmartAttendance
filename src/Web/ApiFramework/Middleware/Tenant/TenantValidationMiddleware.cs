@@ -10,10 +10,11 @@ using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Shifty.Common.Utilities;
 
 namespace Shifty.ApiFramework.Middleware.Tenant
 {
-    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , CommonMessages messages)
+    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , CommonMessages messages , IdentityService identityService)
     {
         public async Task Invoke(HttpContext context , TenantDbContext tenantDbContext)
         {
@@ -73,12 +74,10 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             }
 
 
-            if (context.Request.Path.Value!.Contains("/api/") && !context.Request.Path.Value.Contains("/panel/"))
+            if (context.Request.Path.Value!.Contains("/api/"))
             {
                 if (!context.Request.Headers.TryGetValue("X-Device-Type" , out var deviceType))
                 {
-                    Console.WriteLine("deviceType");
-
                     var problemDetails = new ApiProblemDetails
                     {
                         Status = StatusCodes.Status400BadRequest ,Title = messages.Validation_Title_Generic() , Detail = messages.Tenant_Error_ParamsMissing() , Errors = new Dictionary<string , List<string>>
@@ -102,65 +101,91 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     return;
                 }
 
-                if (deviceType != "Browser")
+                if (deviceType == "Browser")
                 {
-                    Console.WriteLine("Enter Android");
+                    await next(context);
+                    return;
+                }
 
-                    if (!context.Request.Headers.TryGetValue("--Hardware--" , out var hardwareId))
+                if (!context.Request.Headers.TryGetValue("X-User-Name" , out var userName))
+                {
+                    var problemDetails = new ApiProblemDetails
                     {
-                        var problemDetails = new ApiProblemDetails
+                        Status = StatusCodes.Status400BadRequest , Title = messages.Validation_Title_Generic() , Detail = messages.Tenant_Error_ParamsMissing() ,
+                        Errors = new Dictionary<string , List<string>>
                         {
-                            Status = StatusCodes.Status400BadRequest , Title = messages.Validation_Title_Generic() ,
-                            Detail = messages.Tenant_Error_ParamsMissing() , Errors = new Dictionary<string , List<string>>
                             {
-                                {
-                                    "params" , [messages.Tenant_Error_ParamsMissing()]
-                                }
+                                "params" , [messages.Tenant_Error_ParamsMissing()]
+                            }
 #if DEBUG
-                                ,
-                                {
-                                    "tip" , [messages.Device_Tip_Hardware()]
-                                }
-#endif
-                            } ,
-                        };
-
-                        context.Response.StatusCode  = problemDetails.Status;
-                        context.Response.ContentType = "application/json";
-                        await context.Response.WriteAsJsonAsync(problemDetails);
-                        return;
-                    }
-
-                    await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()));
-                    var             userExists = await tenantDb.Users.SingleOrDefaultAsync(u => u.HardwareId == hardwareId[0]);
-
-                    if (userExists.HardwareId == null)
-                    {
-                        if (await tenantDb.Users.AnyAsync(a => a.HardwareId == hardwareId[0]))
-                        {
-                            var problemDetails = new ApiProblemDetails
+                            ,
                             {
-                                Status = StatusCodes.Status401Unauthorized , Title = messages.Unauthorized_Access(),
-                                Detail =messages.Hardware_Error_AlreadyRegistered(),
-                            };
+                                "tip" , [messages.User_Name_Missing_Tip()]
+                            }
 
-                            context.Response.StatusCode  = problemDetails.Status;
-                            context.Response.ContentType = "application/json";
-                            await context.Response.WriteAsJsonAsync(problemDetails);
-                            return;
-                        }
+#endif
+                        } ,
+                    };
 
-                        userExists.HardwareId = hardwareId[0];
-                        tenantDb.Users.Update(userExists);
-                        await tenantDb.SaveChangesAsync();
-                    }
+                    context.Response.StatusCode  = problemDetails.Status;
+                    context.Response.ContentType = "application/json";
+                    await context.Response.WriteAsJsonAsync(problemDetails);
+                    return;
 
-                    if (userExists.HardwareId != hardwareId[0])
+                }
+
+                if (!context.Request.Headers.TryGetValue("--Hardware--" , out var hardwareId))
+                {
+                    var problemDetails = new ApiProblemDetails
+                    {
+                        Status = StatusCodes.Status400BadRequest , Title = messages.Validation_Title_Generic() ,
+                        Detail = messages.Tenant_Error_ParamsMissing() , Errors = new Dictionary<string , List<string>>
+                        {
+                            {
+                                "params" , [messages.Tenant_Error_ParamsMissing()]
+                            }
+#if DEBUG
+                            ,
+                            {
+                                "tip" , [messages.Device_Tip_Hardware()]
+                            }
+#endif
+                        } ,
+                    };
+
+                    context.Response.StatusCode  = problemDetails.Status;
+                    context.Response.ContentType = "application/json";
+                    await context.Response.WriteAsJsonAsync(problemDetails);
+                    return;
+                }
+
+
+                await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , identityService.GetUserId());
+                var             userExists = await tenantDb.Users.FirstOrDefaultAsync(u => u.Id == userName);
+
+                if (userExists is null)
+                {
+                    var problemDetails = new ApiProblemDetails
+                    {
+                        Status = StatusCodes.Status400BadRequest , Title = messages.NotFound_Title() ,
+                        Detail = messages.NotFound_Detail() ,
+                    };
+
+                    context.Response.StatusCode  = problemDetails.Status;
+                    context.Response.ContentType = "application/json";
+                    await context.Response.WriteAsJsonAsync(problemDetails);
+                    return;
+                }
+
+
+                if (userExists.HardwareId == null)
+                {
+                    if (await tenantDb.Users.AnyAsync(a => a.HardwareId == hardwareId))
                     {
                         var problemDetails = new ApiProblemDetails
                         {
                             Status = StatusCodes.Status401Unauthorized , Title = messages.Unauthorized_Access() ,
-                            Detail = messages.Hardware_Error_Mismatch() ,
+                            Detail = messages.Hardware_Error_AlreadyRegistered() ,
                         };
 
                         context.Response.StatusCode  = problemDetails.Status;
@@ -168,6 +193,24 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                         await context.Response.WriteAsJsonAsync(problemDetails);
                         return;
                     }
+
+                    userExists.HardwareId = hardwareId[0];
+                    tenantDb.Users.Update(userExists);
+                    await tenantDb.SaveChangesAsync();
+                }
+
+                if (userExists.HardwareId != hardwareId[0])
+                {
+                    var problemDetails = new ApiProblemDetails
+                    {
+                        Status = StatusCodes.Status401Unauthorized , Title = messages.Unauthorized_Access() ,
+                        Detail = messages.Hardware_Error_Mismatch() ,
+                    };
+
+                    context.Response.StatusCode  = problemDetails.Status;
+                    context.Response.ContentType = "application/json";
+                    await context.Response.WriteAsJsonAsync(problemDetails);
+                    return;
                 }
             }
 

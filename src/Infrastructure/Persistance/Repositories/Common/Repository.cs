@@ -134,16 +134,32 @@ namespace Shifty.Persistence.Repositories.Common
             }
         }
 
-        public Task<TEntity> GetSingle(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+        public async Task<TEntity> GetSingleAsync(CancellationToken cancellationToken , Expression<Func<TEntity , bool>> predicate = null!)
         {
             try
             {
                 _logger.LogInformation("Fetching single entity of type {EntityType} with predicate", typeof(TEntity).Name);
-                return Entities.SingleOrDefaultAsync(predicate, cancellationToken);
+                return predicate is null ? await Entities.SingleOrDefaultAsync(cancellationToken: cancellationToken) : await Entities.SingleOrDefaultAsync(predicate!, cancellationToken);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error fetching single entity of type {EntityType} {ex}", typeof(TEntity).Name , ex);
+                return null!;
+            }
+        }
+
+        public  TEntity GetSingle( Expression<Func<TEntity , bool>> predicate = null!)
+        {
+            try
+            {
+                _logger.LogInformation("Fetching single entity of type {EntityType} with predicate" , typeof(TEntity).Name);
+                return (predicate is null
+                    ?  Entities.SingleOrDefault()
+                    :  Entities.SingleOrDefault(predicate!))!;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex , "Error fetching single entity of type {EntityType} {ex}" , typeof(TEntity).Name , ex);
                 return null!;
             }
         }

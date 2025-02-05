@@ -91,4 +91,8 @@
 	<data name="Validation_Detail" xml:space="preserve">
 		<value>یک یا چند خطای اعتبارسنجی رخ داده است</value>
 	</data>
+
+	<data name="User_Name_Missing_Tip" xml:space="preserve">
+		<value>نام کاربری در هدر ست نشده است.</value>
+	</data>
 </root>

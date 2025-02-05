@@ -64,11 +64,6 @@
 	
 
 	<ItemGroup>
-		<Folder Include="Middleware\" />
-	</ItemGroup>
-	
-
-	<ItemGroup>
 	  <ProjectReference Include="..\..\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj" />
 	</ItemGroup>
 	

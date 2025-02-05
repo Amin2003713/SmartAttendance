@@ -216,10 +216,13 @@ namespace Shifty.Api.Filters
 
         private void HandleForbiddenException(ExceptionContext context)
         {
+            var exception = context.Exception as ForbiddenException;
+ 
             var problemDetails = new ApiProblemDetails
             {
-                Status = StatusCodes.Status403Forbidden , Title = _messages.Forbidden_Title() , // Localized title
-                Detail = _messages.Forbidden_Detail()                                           // Localized detail
+                Status = StatusCodes.Status403Forbidden ,
+                Title  =  exception?.Source ??  _messages.Forbidden_Title() , // Localized title
+                Detail = exception?.Message  ??  _messages.Forbidden_Detail()   // Localized detail
             };
 
             context.Result = new ObjectResult(problemDetails)

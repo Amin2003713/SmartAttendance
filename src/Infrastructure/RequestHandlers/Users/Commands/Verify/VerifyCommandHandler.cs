@@ -20,7 +20,7 @@ namespace Shifty.RequestHandlers.Users.Commands.Verify
 
             try
             {
-                var user = await userRepository.GetSingle(a => a.PhoneNumber == request.PhoneNumber , cancellationToken);
+                var user = await userRepository.GetSingleAsync(cancellationToken , a => a.PhoneNumber == request.PhoneNumber);
 
                 if (user == null)
                     throw ShiftyException.NotFound(additionalData: messages.User_NotFound());

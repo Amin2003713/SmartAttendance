@@ -67,8 +67,8 @@ namespace Shifty.Common.Exceptions
         /// <summary>
         /// Creates an Unauthorized ShiftyException (HTTP 401).
         /// </summary>
-        public static ShiftyException Unauthorized(string message = "Unauthorized access.", object additionalData = null) =>
-            new ShiftyException(message, HttpStatusCode.Unauthorized, null, additionalData);
+        public static UnauthorizedAccessException Unauthorized(string message = "Unauthorized access.", object additionalData = null) =>
+            new UnauthorizedAccessException(message  + "\n"+ additionalData );
 
         /// <summary>
         /// Creates a BadRequest ShiftyException (HTTP 400).

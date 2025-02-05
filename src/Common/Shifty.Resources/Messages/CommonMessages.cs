@@ -59,6 +59,8 @@ namespace Shifty.Resources.Messages
 
             public string Device_Tip_DeviceType() => Localize(nameof(Device_Tip_DeviceType));
 
-       
+
+            public string User_Name_Missing_Tip() => Localize(nameof(User_Name_Missing_Tip));
+        
     }
 }

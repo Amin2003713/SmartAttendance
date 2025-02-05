@@ -14,7 +14,7 @@ namespace Shifty.Domain.Features.Users
         public string? Profile { get; set; } = null!;
         public string? Address { get; set; } = null!;
         public string? HardwareId { get; set; } = null!;
-        public DateTime LastLoginDate { get; set; }
+        public DateTime? LastLoginDate { get; set; } = null!;
 
 
         #region log_props

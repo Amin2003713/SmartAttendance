@@ -8,13 +8,7 @@ namespace Shifty.Common.Exceptions;
 /// </summary>
 public class ForbiddenException : ShiftyException
 {
-    public ForbiddenException(string message = "Forbidden access." , object additionalData = null) : base(message ,
-        HttpStatusCode.Forbidden ,
-        null ,
-        additionalData)
-    {
-    }
-
+    
     public ForbiddenException(string message , Exception innerException , object additionalData = null) : base(message ,
         HttpStatusCode.Forbidden ,
         innerException ,

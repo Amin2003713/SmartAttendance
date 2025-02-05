@@ -1,4 +1,5 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using Shifty.Application.Companies.Responces.GetCompanyInfo;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Shifty.Api.Controllers.Companies;
 
@@ -18,8 +19,8 @@ public class CompanyController : BaseController
     [ProducesResponseType(typeof(GetCompanyInfoResponse) , StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedResult) ,     StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(NotFoundResult) ,         StatusCodes.Status404NotFound)]
-    public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo([FromQuery] string domain , CancellationToken cancellationToken)
+    public virtual async Task<GetCompanyInfoResponse> GetCompanyInfo(CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetCompanyInfoQuery(domain) , cancellationToken);
+        return await Mediator.Send(new GetCompanyInfoQuery(TenantContext.TenantInfo?.Identifier!) , cancellationToken);
     }
 }

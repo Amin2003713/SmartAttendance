@@ -25,17 +25,19 @@ namespace Shifty.ApiFramework.Configuration
 
             containerBuilder.RegisterAssemblyTypes(commonAssembly , entitiesAssembly , dataAssembly , servicesAssembly).
                              AssignableTo<IScopedDependency>().
-                             AsImplementedInterfaces().
+                             AsImplementedInterfaces().AsSelf().
                              InstancePerLifetimeScope();
 
             containerBuilder.RegisterAssemblyTypes(commonAssembly , entitiesAssembly , dataAssembly , servicesAssembly).
                              AssignableTo<ITransientDependency>().
                              AsImplementedInterfaces().
+                             AsSelf().
                              InstancePerDependency();
 
             containerBuilder.RegisterAssemblyTypes(commonAssembly , entitiesAssembly , dataAssembly , servicesAssembly).
                              AssignableTo<ISingletonDependency>().
                              AsImplementedInterfaces().
+                             AsSelf().
                              SingleInstance();
         }
     }

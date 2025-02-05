@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shifty.Common.Utilities;
+using Shifty.Domain.Features.Companies;
 using Shifty.Domain.Features.Divisions;
+using Shifty.Domain.Features.Setting;
 using Shifty.Domain.Features.Shifts;
 
 namespace Shifty.Domain.Defaults;
@@ -79,6 +82,13 @@ public static class Defaults
         };
     }
 
+    public static Setting GetSettings()
+    {
+        return new Setting()
+        {
+            Flags = (SettingFlags.CompanyEnabled | SettingFlags.InitialStepper) ,
+        };
+    }
 
     public static List<Shift> GetDefaultShifts()
     {

@@ -62,6 +62,7 @@ namespace Shifty.Domain.Interfaces.Base
         void UpdateRange(IEnumerable<TEntity> entities , bool saveNow = true);
 
         Task UpdateRangeAsync(IEnumerable<TEntity> entities , CancellationToken cancellationToken , bool saveNow = true);
-        Task<TEntity> GetSingle(Expression<Func<TEntity , bool>> prediction , CancellationToken cancellationToken);
+        Task<TEntity> GetSingleAsync(CancellationToken cancellationToken , Expression<Func<TEntity , bool>> predicate = null!);
+        TEntity GetSingle(Expression<Func<TEntity , bool>> predicate = null!);
     }
 }

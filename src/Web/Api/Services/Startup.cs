@@ -1,11 +1,13 @@
 using Autofac;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Shifty.Api.Filters;
 using Shifty.ApiFramework.Configuration;
 using Shifty.Application;
 using Shifty.Common;
@@ -26,7 +28,7 @@ namespace Shifty.Api.Services
             services.AddResources();
             services.AddWebApi(Configuration);
             services.AddApplication();
-            services.AddPersistence(Configuration);
+            services.AddPersistence();
             services.AddHandler();
             services.AddCommon(Configuration);
         }
@@ -39,10 +41,13 @@ namespace Shifty.Api.Services
 
         public void Configure(IApplicationBuilder app , IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment() || env.IsStaging())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+           app.UseMiddleware<JwtExceptionHandlingMiddleware>();
 
             app.UseSerilogRequestLogging();
             app.UseResources();

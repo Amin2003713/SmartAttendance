@@ -91,4 +91,8 @@
 	<data name="Validation_Detail" xml:space="preserve">
 		<value>one or more validation failed </value>
 	</data>
+	
+	<data name="User_Name_Missing_Tip" xml:space="preserve">
+		<value>User name is missing From header</value>
+	</data>
 </root>

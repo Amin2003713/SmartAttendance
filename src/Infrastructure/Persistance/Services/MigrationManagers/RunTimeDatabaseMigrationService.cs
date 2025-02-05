@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Features.Users;
 
@@ -20,7 +21,7 @@ namespace Shifty.Persistence.Services.MigrationManagers
         IServiceProvider services ,
         Seeder.Seeder seeder ,
         IPasswordHasher<User> passwordHasher ,
-        UserManager<User> userManager)
+        UserManager<User> userManager) : IScopedDependency
     {
         public async Task<string> MigrateTenantDatabasesAsync(string connectionString , TenantAdmin adminUser , CancellationToken cancellationToken)
         {
