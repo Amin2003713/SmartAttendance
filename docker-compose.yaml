@@ -25,7 +25,7 @@ services:
 
   shiftyMinioFileDb:
     container_name: shiftyMinioFileDb
-    image: docker.io/bitnami/minio
+    image: bitnami/minio
     ports:
       - "9000:9000"
       - "9001:9001"

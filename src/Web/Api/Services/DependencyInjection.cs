@@ -33,6 +33,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using Finbuckle.MultiTenant.AspNetCore.Internal;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
@@ -60,6 +61,7 @@ namespace Shifty.Api.Services
 
             services.AddObservabilityServices();
             services.AddTransient<CorrelationIdMiddleware>();
+            services.AddTransient<TenantValidationMiddleware>();
             // services.AddHealthShiftyCheck();
 
             services.AddTransient(typeof(IPipelineBehavior<,>) , typeof(PerformanceBehaviour<,>));

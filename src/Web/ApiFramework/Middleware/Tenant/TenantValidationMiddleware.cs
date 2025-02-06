@@ -10,11 +10,13 @@ using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog.Sinks.SystemConsole.Themes;
 using Shifty.Common.Utilities;
 
 namespace Shifty.ApiFramework.Middleware.Tenant
 {
-    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , CommonMessages messages , IdentityService identityService)
+    public class TenantValidationMiddleware(RequestDelegate next , ITenantServiceExtension tenantService , CommonMessages messages , IServiceProvider services)   : ITransientDependency
     {
         public async Task Invoke(HttpContext context , TenantDbContext tenantDbContext)
         {
@@ -159,12 +161,15 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     return;
                 }
 
-
-                await using var tenantDb   = new ReadOnlyDbContext(CreateContextOptions(tenantService.GetConnectionString()) , identityService.GetUserId());
-                var             userExists = await tenantDb.Users.FirstOrDefaultAsync(u => u.Id == userName);
+                using var serviceCollection = services.CreateScope();
+                var       tenantDb          = serviceCollection.ServiceProvider.GetRequiredService<AppDbContext>();
+                tenantDb.Database.SetConnectionString(tenantService.GetConnectionString());
+                
+                var             userExists = await tenantDb.Users.FirstOrDefaultAsync(u => u.UserName == userName[0]);
 
                 if (userExists is null)
                 {
+                    Console.WriteLine($"12 the iuser with {userName[0]} dose not exist in {tenant.Identifier} with hardwareId {hardwareId[0]} and connecti  = {tenant.GetConnectionString()}");
                     var problemDetails = new ApiProblemDetails
                     {
                         Status = StatusCodes.Status400BadRequest , Title = messages.NotFound_Title() ,
@@ -180,7 +185,9 @@ namespace Shifty.ApiFramework.Middleware.Tenant
 
                 if (userExists.HardwareId == null)
                 {
-                    if (await tenantDb.Users.AnyAsync(a => a.HardwareId == hardwareId))
+                                        Console.WriteLine($"h is null the iuser with {userName[0]} dose not exist in {tenant.Identifier} with hardwareId {hardwareId[0]} ");
+
+                    if (await tenantDb.Users.AnyAsync(a => a.HardwareId == hardwareId[0]))
                     {
                         var problemDetails = new ApiProblemDetails
                         {
@@ -213,8 +220,8 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     return;
                 }
             }
-
-            // Continue processing the request
+            
+            // Continue processing the request                                  
             await next(context);
         }
 
@@ -225,10 +232,6 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                    context.Request.Path.Value.Contains("/panel/")||  context.Request.Path.Value.Contains("/health") ||  context.Request.Path.Value.Contains("favicon.ico") ;
         }
 
-        private static DbContextOptions<AppDbContext> CreateContextOptions(string connectionString)
-        {
-            var contextOptions = new DbContextOptionsBuilder<AppDbContext>().UseSqlServer(connectionString).Options;
-            return contextOptions;
-        }
+       
     }
 }

@@ -93,6 +93,7 @@ namespace Shifty.Persistence.Jwt
                 new Claim("username" ,  user.UserName  ?? string.Empty) ,
                 new Claim("firstName" , user.FirstName ?? string.Empty) ,
                 new Claim("lastName" ,  user.LastName  ?? string.Empty) ,
+                new Claim("PhoneNumber" ,  user.PhoneNumber  ?? string.Empty) ,
             };
 
             if (!string.IsNullOrEmpty(user.Profile))

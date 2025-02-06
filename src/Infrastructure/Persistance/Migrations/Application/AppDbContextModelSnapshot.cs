@@ -239,8 +239,8 @@ namespace Shifty.Persistence.Migrations.Application
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("Flags")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Flags")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

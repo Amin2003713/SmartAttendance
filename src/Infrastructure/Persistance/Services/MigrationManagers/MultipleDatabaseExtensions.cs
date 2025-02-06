@@ -32,6 +32,7 @@ namespace Shifty.Persistence.Services.MigrationManagers
 
                 foreach (var tenant in tenantsInDb) // loop through all tenants, apply migrations on applicationDbContext
                 {
+                    Console.WriteLine(tenant.Identifier + " - " + tenant.Name + "is migginng");
                     var connectionString = string.IsNullOrEmpty(tenant.GetConnectionString())
                         ? ApplicationConstant.AppOptions.WriteDatabaseConnectionString
                         : tenant.GetConnectionString();
