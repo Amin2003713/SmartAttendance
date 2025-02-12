@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Users.Requests.Verify
+﻿namespace Shifty.Application.Users.Requests.Commands.Verify
 {
     public class VerifyPhoneNumberRequest
     {

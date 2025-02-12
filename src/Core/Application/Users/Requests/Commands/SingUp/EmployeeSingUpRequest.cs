@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Shifty.Application.Users.Requests.SingUp
+namespace Shifty.Application.Users.Requests.Commands.SingUp
 {
     public class EmployeeSingUpRequest
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shifty.Domain.Features.Companies;
+namespace Shifty.Domain.Features.Setting;
 
 [Flags]
 public enum SettingFlags

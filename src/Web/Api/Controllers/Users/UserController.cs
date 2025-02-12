@@ -1,11 +1,13 @@
 ﻿using Shifty.Application.Users.Command.CreateUser.Employee;
+using Shifty.Application.Users.Command.ForgotPassword;
 using Shifty.Application.Users.Command.Login;
 using Shifty.Application.Users.Command.RefreshToken;
 using Shifty.Application.Users.Command.Verify;
 using Shifty.Application.Users.Queries.SendActivationCode;
-using Shifty.Application.Users.Requests.Login;
-using Shifty.Application.Users.Requests.SingUp;
-using Shifty.Application.Users.Requests.Verify;
+using Shifty.Application.Users.Requests.Commands.ForgotPassword;
+using Shifty.Application.Users.Requests.Commands.Login;
+using Shifty.Application.Users.Requests.Commands.SingUp;
+using Shifty.Application.Users.Requests.Commands.Verify;
 using Shifty.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,6 +15,33 @@ namespace Shifty.Api.Controllers.Users
 {
     public class UserController : BaseController
     {
+
+
+
+
+
+
+
+        /// <summary>
+        /// Initiates a "forgot password" process by getting new code from the user.
+        /// </summary>
+        /// <param name="request">An object containing the user name and  password.</param>
+        /// <param name="cancellationToken">A token for cancelling the request.</param>
+        /// <returns>A response indicating whether the email was sent successfully.</returns>
+        /// <response code="200">Returns a success message indicating an email was sent (or that the email does not exist).</response>
+        /// <response code="400">If the request is invalid (e.g., missing or invalid email address).</response>
+        /// <response code="403">If an error occurs with password.</response>
+        /// <response code="500">If an internal server error occurs.</response>
+        [HttpPut("forgot-password")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestResult) ,       StatusCodes.Status403Forbidden)]
+        public async Task ForgotPasswordAsync(
+            [FromBody] ForgotPasswordRequest request ,
+            CancellationToken cancellationToken)
+            => await Mediator.Send(request.Adapt<ForgotPasswordCommand>() , cancellationToken);
+
+
         /// <summary>
         ///     Authenticates an admin user by username and password.
         /// </summary>

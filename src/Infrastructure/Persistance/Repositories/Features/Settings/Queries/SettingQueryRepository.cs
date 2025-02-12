@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Shifty.Domain.Common.BaseClasses;
 using Shifty.Domain.Features.Setting;
+using Shifty.Domain.Interfaces.Features.Settings;
 using Shifty.Persistence.Db;
 using Shifty.Persistence.Repositories.Common;
 

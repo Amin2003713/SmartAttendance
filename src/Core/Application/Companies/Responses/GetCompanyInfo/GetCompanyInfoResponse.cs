@@ -1,9 +1,10 @@
 ﻿using Mapster;
+using Shifty.Application.Companies.Responses.CompnaySettings;
 using Shifty.Domain.Features.Setting;
 using Shifty.Domain.Tenants;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Shifty.Application.Companies.Responces.GetCompanyInfo;
+namespace Shifty.Application.Companies.Responses.GetCompanyInfo;
 
 public class GetCompanyInfoResponse
 {

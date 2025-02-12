@@ -10,9 +10,9 @@ namespace Shifty.ApiFramework.Swagger
         {
             operation.Parameters.Add(new OpenApiParameter
             {
-                Name = "--tenant--" , In = ParameterLocation.Header , Description = "your Organization header" , Required = false , Schema = new OpenApiSchema
+                Name = "--" + "tenant" + "--", In = ParameterLocation.Header , Description = "your Organization header" , Required = true , Schema = new OpenApiSchema
                 {
-Type = "string" , Default = new OpenApiString("IpaSoftCo") ,
+                    Type = "string" , Default = new OpenApiString("aminahmadii") ,
                 }
             });
 
@@ -27,4 +27,6 @@ Type = "string" , Default = new OpenApiString("IpaSoftCo") ,
             });
         }
     }
+
+
 }

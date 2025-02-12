@@ -1,5 +1,4 @@
 ﻿using Shifty.Domain.Common.BaseClasses;
-using Shifty.Domain.Features.Companies;
 
 namespace Shifty.Domain.Features.Setting;
 

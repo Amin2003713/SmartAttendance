@@ -6,7 +6,7 @@ using Shifty.Application.Divisions.Queries.GetDefault;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Interfaces.Features.Divisions.Queries;
 
-namespace Shifty.RequestHandlers.Divisions;
+namespace Shifty.RequestHandlers.Divisions.Queries;
 
 public class GetDivisionsQueryHandler(IDivisionQueriesRepository repository , ILogger<GetDivisionsQueryHandler> logger) : IRequestHandler<GetDivisionQuery , List<GetDivisionResponse>>
 {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Shifty.Application.Companies.Responces.GetCompanyInfo;
+using Shifty.Application.Companies.Responses.GetCompanyInfo;
 
 namespace Shifty.Application.Companies.Queries.GetCompanyInfo
 {

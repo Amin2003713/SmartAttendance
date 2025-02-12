@@ -28,4 +28,44 @@
 	<data name="User_Error_NotActive">
 		<value>کاربر فعال نیست.</value>
 	</data>
+	<data name="NotAllowed" xml:space="preserve">
+		<value>شما مجاز به انجام این کار نیستید.</value>
+	</data>
+	<data name="Password_Change_Error" xml:space="preserve">
+		<value>تغییر رمزعبور موفقیت امیز نبود.</value>
+	</data>
+
+	<data name="PhoneNumberRequired" xml:space="preserve">
+    <value>شماره تلفن ضروری است.</value>
+  </data>
+	<data name="PhoneNumberMinDigits" xml:space="preserve">
+    <value>شماره تلفن باید حداقل ۱۰ رقم داشته باشد.</value>
+  </data>
+	<data name="PasswordRequired" xml:space="preserve">
+    <value>رمز عبور جدید الزامی است.</value>
+  </data>
+	<data name="PasswordMinLength" xml:space="preserve">
+    <value>رمز عبور باید حداقل ۶ کاراکتر باشد.</value>
+  </data>
+	<data name="PasswordUppercaseRequired" xml:space="preserve">
+    <value>رمز عبور باید حداقل یک حرف بزرگ داشته باشد.</value>
+  </data>
+	<data name="PasswordLowercaseRequired" xml:space="preserve">
+    <value>رمز عبور باید حداقل یک حرف کوچک داشته باشد.</value>
+  </data>
+	<data name="PasswordDigitRequired" xml:space="preserve">
+    <value>رمز عبور باید حداقل یک عدد داشته باشد.</value>
+  </data>
+	<data name="PasswordSpecialRequired" xml:space="preserve">
+    <value>رمز عبور باید حداقل یک کاراکتر ویژه داشته باشد.</value>
+  </data>
+	<data name="ConfirmPasswordRequired" xml:space="preserve">
+    <value>تأیید رمز عبور ضروری است.</value>
+  </data>
+	<data name="ConfirmPasswordMustMatch" xml:space="preserve">
+    <value>رمز عبور تأییدی باید با رمز عبور جدید یکسان باشد.</value>
+  </data>
+	<data name="New_Password_Must_not_be_equal_to_Old_password" xml:space="preserve">
+		<value>رمز عبور جدید نمیتواند مشابه رمز عبور قبلی باشد.</value>
+	</data>
 </root>

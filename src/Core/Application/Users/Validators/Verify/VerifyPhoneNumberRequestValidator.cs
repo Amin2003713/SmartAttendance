@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Shifty.Application.Users.Requests.Verify;
+using Shifty.Application.Users.Requests.Commands.Verify;
 using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Users.Validators.Verify

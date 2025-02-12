@@ -2,20 +2,20 @@
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+
+namespace Shifty.ApiFramework.Middleware.Jwt;
 
 public class JwtExceptionHandlingMiddleware
 {
-    private readonly RequestDelegate _next;
+    private readonly RequestDelegate                         _next;
     private readonly ILogger<JwtExceptionHandlingMiddleware> _logger;
 
     public JwtExceptionHandlingMiddleware(RequestDelegate next, ILogger<JwtExceptionHandlingMiddleware> logger)
     {
-        _next = next;
+        _next   = next;
         _logger = logger;
     }
 
@@ -41,8 +41,8 @@ public class JwtExceptionHandlingMiddleware
         var errorDetails = new
         {
             StatusCode = (int)HttpStatusCode.InternalServerError,
-            Message = "An unexpected error occurred.",
-            Details = exception.Message
+            Message    = "An unexpected error occurred.",
+            Details    = exception.Message
         };
 
         if (exception is AuthenticationFailureException or UnauthorizedAccessException)
@@ -51,8 +51,8 @@ public class JwtExceptionHandlingMiddleware
             errorDetails = new
             {
                 StatusCode = response.StatusCode,
-                Message = "Authentication failed. Invalid or expired token.",
-                Details = exception.Message
+                Message    = "Authentication failed. Invalid or expired token.",
+                Details    = exception.Message
             };
         }
 
@@ -60,4 +60,3 @@ public class JwtExceptionHandlingMiddleware
         return response.WriteAsync(result);
     }
 }
-

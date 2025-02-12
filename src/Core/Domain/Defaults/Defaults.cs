@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Shifty.Common.Utilities;
-using Shifty.Domain.Features.Companies;
 using Shifty.Domain.Features.Divisions;
 using Shifty.Domain.Features.Setting;
 using Shifty.Domain.Features.Shifts;

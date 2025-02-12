@@ -33,12 +33,18 @@
 		<Folder Include="Companies\Validators\" />
 		<Folder Include="Shifts\Requests\GetDefault\" />
 		<Folder Include="Shifts\Validators\GetDefault\" />
-		<Folder Include="Users\Queries\"/>
+		<Folder Include="Users\Validators\GetUserInfo\ByPhoneNumber\" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="Shifts\Queries\GetDefault\ListShiftsQueryResponseExamples.cs">
 	    <DependentUpon>ListShiftsQueryResponse.cs</DependentUpon>
+	  </Compile>
+	  <Compile Update="Users\Requests\Queries\GetUserInfo\ByPhoneNumber\UserInfoByPhoneNumberRequestExample.cs">
+	    <DependentUpon>UserInfoByPhoneNumberRequest.cs</DependentUpon>
+	  </Compile>
+	  <Compile Update="Users\Requests\Commands\ForgotPassword\ForgotPasswordRequestExample.cs">
+	    <DependentUpon>ForgotPasswordRequest.cs</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Companies.Responces.GetCompanyInfo;
+﻿namespace Shifty.Application.Companies.Responses.CompnaySettings;
 
 public class CompanySettingResponse
 {

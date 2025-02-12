@@ -138,6 +138,7 @@
 	<s:Boolean x:Key="/Default/Environment/EntityFramework/EntityFrameworkDisabledQueryInspectionsContexts/=Shifty_002EPersistence_002EDb_002ETenantDbContext/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\amd64\MSBuild.exe</s:String>
 	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967293</s:Int64>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FCommonMessages/@EntryIndexRemoved">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FCommonMessages_002FCommonMessages/@EntryIndexedValue">False</s:Boolean>
@@ -167,7 +168,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FCompanyMessages/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FDivisionMessages/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FShiftMessages/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FUserMessages/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FUserMessages/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FMessages_002FValidationMessages/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FUserMessages/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=Common_002FShifty_002EResources_002FResources_002FUserMessages_002FUserMessages/@EntryIndexedValue">False</s:Boolean>

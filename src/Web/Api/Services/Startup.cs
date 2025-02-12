@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Configuration;
+using Shifty.ApiFramework.Middleware.Jwt;
 using Shifty.Application;
 using Shifty.Common;
 using Shifty.Common.General;

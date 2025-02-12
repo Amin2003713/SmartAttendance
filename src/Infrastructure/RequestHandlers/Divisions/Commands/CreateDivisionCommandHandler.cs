@@ -1,15 +1,13 @@
-﻿using System.Net;
-using Mapster;
+﻿using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Shifty.Application.Divisions.Command.Create;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Divisions;
-using Shifty.Domain.Features.Shifts;
 using Shifty.Domain.Interfaces.Features.Divisions.Commands;
 using Shifty.Resources.Messages;
 
-namespace Shifty.RequestHandlers.Divisions;
+namespace Shifty.RequestHandlers.Divisions.Commands;
 
 public class CreateDivisionCommandHandler(IDivisionCommandRepository repository , DivisionMessages messages , ILogger<CreateDivisionCommandHandler> logger)
     : IRequestHandler<CreateDivisionCommand>

@@ -1,10 +1,11 @@
 ﻿using Mapster;
 using MediatR;
 using Shifty.Application.Companies.Queries.GetCompanyInfo;
-using Shifty.Application.Companies.Responces.GetCompanyInfo;
+using Shifty.Application.Companies.Responses.GetCompanyInfo;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Setting;
 using Shifty.Domain.Interfaces.Base;
+using Shifty.Domain.Interfaces.Features.Settings;
 using Shifty.Domain.Interfaces.Tenants.Companies;
 using Shifty.Persistence.Repositories.Features.Settings.Queries;
 using Shifty.Resources.Messages;

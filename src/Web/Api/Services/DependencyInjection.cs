@@ -16,7 +16,6 @@ using Serilog.Enrichers.Correlate;
 using Shifty.ApiFramework.Attributes;
 using Shifty.ApiFramework.Middleware.Tenant;
 using Shifty.ApiFramework.Swagger;
-using Shifty.Application.Users.Requests.Login;
 using Shifty.Common;
 using Shifty.Common.Behaviours;
 using Shifty.Common.General;
@@ -39,6 +38,7 @@ using Serilog;
 using Serilog.Sinks.Grafana.Loki;
 using Shifty.Api.Filters;
 using Shifty.ApiFramework.Analytics;
+using Shifty.Application.Users.Requests.Commands.Login;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Features.Users;
 using Shifty.Domain.Interfaces.Features.Users;
@@ -354,13 +354,6 @@ namespace Shifty.Api.Services
                                options.RouteTemplate = "/api/openapi/{documentName}.json";
                            });
 
-            // //Swagger middleware for generate UI from swagger.json
-            // app.UseSwaggerUI(options =>
-            //                  {
-            //                      options.SwaggerEndpoint("/swagger/v1/swagger.json" , "Shifty.WebUI v1");
-            //
-            //                      options.DocExpansion(DocExpansion.None);
-            //                  });
             //ReDoc UI middleware. ReDoc UI is an alternative to swagger-ui
             app.UseReDoc(options =>
                          {

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Shifty.Application.Users.Requests.SingUp;
+using Shifty.Application.Users.Requests.Commands.SingUp;
 using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Users.Validators.SingUp

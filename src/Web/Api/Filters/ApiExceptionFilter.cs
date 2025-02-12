@@ -196,14 +196,14 @@ namespace Shifty.Api.Filters
 
         private void HandleUnauthorizedException(ExceptionContext context)
         {
-            var exception = context.Exception as ShiftyException ;
-            _logger.LogCritical(exception.Message, exception.StackTrace);
+            var exception = context.Exception as UnauthorizedAccessException;
+            _logger.LogCritical(exception!.Message, exception.StackTrace);
 
             var problemDetails = new ApiProblemDetails
             {
                 Status = StatusCodes.Status401Unauthorized , 
-                Title = _messages.Unauthorized_Title() , // Localized title
-                Detail = _messages.Unauthorized_Detail()                                              // Localized detail
+                Title  = _messages.Unauthorized_Title() , // Localized title
+                Detail = _messages.Unauthorized_Detail(), // Localized detail
             };
 
             context.Result = new ObjectResult(problemDetails)
@@ -236,3 +236,4 @@ namespace Shifty.Api.Filters
 
     }
 }
+

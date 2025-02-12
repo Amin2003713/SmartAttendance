@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Companies.Responces.GetCompanyInfo;
+﻿using Shifty.Application.Companies.Responses.GetCompanyInfo;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Shifty.Api.Controllers.Companies;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Shifty.Application.Users.Requests.Login;
+using Shifty.Application.Users.Requests.Commands.Login;
 using Shifty.Resources.Messages;
 
 namespace Shifty.Application.Users.Validators.Login

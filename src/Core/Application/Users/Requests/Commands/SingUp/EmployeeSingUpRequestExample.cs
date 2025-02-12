@@ -1,7 +1,7 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-using System;
+﻿using System;
+using Swashbuckle.AspNetCore.Filters;
 
-namespace Shifty.Application.Users.Requests.SingUp
+namespace Shifty.Application.Users.Requests.Commands.SingUp
 {
     public class EmployeeSingUpRequestExample : IExamplesProvider<EmployeeSingUpRequest>
     {

@@ -84,7 +84,7 @@ namespace Shifty.Common.General
                 "Shifty.Client@79D27861E443-EA37-43D5-B566-FCBCB79D2786";
 
             public static int NotBeforeMinutes { get; set; } = 0;
-            public static int ExpirationMinutes { get; set; } = 1440;
+            public static int ExpirationMinutes { get; set; } = 5;
             public static int RefreshTokenValidityInDays { get; set; } = 30;
         }
     }

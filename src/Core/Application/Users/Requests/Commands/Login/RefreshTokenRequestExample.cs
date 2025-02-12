@@ -1,6 +1,6 @@
 ﻿using Swashbuckle.AspNetCore.Filters;
 
-namespace Shifty.Application.Users.Requests.Login
+namespace Shifty.Application.Users.Requests.Commands.Login
 {
     public class RefreshTokenRequestExample : IExamplesProvider<RefreshTokenRequest>
     {
