@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Shifty.Resources.Common
 {
-    public class BaseLocalizer<TLocalizer>(IStringLocalizer<TLocalizer> localizer)
+    public class BaseLocalizer<TLocalizer>(IStringLocalizer<TLocalizer> localizer)  
     {
         /// <summary>
         /// Localizes a message based on the provided key.

@@ -62,7 +62,7 @@
 		<value>توکن دسترسی</value>
 	</data>
 	<data name="Validation_TokenInvalid">
-		<value>{PropertyName} معتبر نیست.</value>
+		<value>رفرش توکن/توکن نمیتواند خالی باشد.</value>
 	</data>
 	
 

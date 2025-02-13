@@ -4,7 +4,6 @@ using Shifty.Resources.Common;
 namespace Shifty.Resources.Messages
 {
     public class CommonMessages(IStringLocalizer<CommonMessages> localizer) : BaseLocalizer<CommonMessages>(localizer)
-
     {
         public   string Code_Generator()=> Localize(nameof(Code_Generator));
         public   string Server_Error() => Localize(nameof(Server_Error));

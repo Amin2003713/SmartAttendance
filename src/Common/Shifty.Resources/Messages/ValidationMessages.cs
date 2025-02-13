@@ -3,7 +3,7 @@ using Shifty.Resources.Common;
 
 namespace Shifty.Resources.Messages
 {
-    public class ValidationMessages(IStringLocalizer<ValidationMessages> localizer) : BaseLocalizer<ValidationMessages>(localizer)
+    public class ValidationMessages(IStringLocalizer<ValidationMessages> localizer) : BaseLocalizer<ValidationMessages>(localizer)   
     {
         //Domain
         public string Domain_Required() => Localize(nameof(Domain_Required));
