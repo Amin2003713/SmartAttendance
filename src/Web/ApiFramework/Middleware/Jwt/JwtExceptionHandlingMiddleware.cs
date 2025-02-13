@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Shifty.ApiFramework.Tools;
 
 namespace Shifty.ApiFramework.Middleware.Jwt;
 
@@ -38,21 +39,21 @@ public class JwtExceptionHandlingMiddleware
         var response = context.Response;
         response.ContentType = "application/json";
 
-        var errorDetails = new
+        var errorDetails = new  ApiProblemDetails()
         {
-            StatusCode = (int)HttpStatusCode.InternalServerError,
-            Message    = "An unexpected error occurred.",
-            Details    = exception.Message
+            Status = (int)HttpStatusCode.InternalServerError,
+            Title    = "An unexpected error occurred.",
+            Detail  = exception.Message
         };
 
         if (exception is AuthenticationFailureException or UnauthorizedAccessException)
         {
             response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            errorDetails = new
+            errorDetails = new ApiProblemDetails()
             {
-                StatusCode = response.StatusCode,
-                Message    = "Authentication failed. Invalid or expired token.",
-                Details    = exception.Message
+                Status = response.StatusCode,
+                Title  = "Authentication failed. Invalid or expired token.",
+                Detail = exception.Message
             };
         }
 

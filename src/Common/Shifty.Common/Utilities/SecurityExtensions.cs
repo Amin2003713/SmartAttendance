@@ -27,8 +27,6 @@ public static class SecurityExtensions
             shuffledKey[i] = (char)(shuffledKey[i] << 1 | shuffledKey[i] >> 7); // Bitwise shift
         }
 
-
-        var a = new string(shuffledKey);
         // Convert to a secure hash
         using var sha256 = SHA256.Create();
         return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(new string(shuffledKey)));
