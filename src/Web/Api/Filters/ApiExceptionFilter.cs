@@ -202,8 +202,8 @@ namespace Shifty.Api.Filters
             var problemDetails = new ApiProblemDetails
             {
                 Status = StatusCodes.Status401Unauthorized , 
-                Title  = _messages.Unauthorized_Title() , // Localized title
-                Detail = _messages.Unauthorized_Detail(), // Localized detail
+                Title  =  _messages.Unauthorized_Title() ,                      // Localized title
+                Detail = exception.Message ??  _messages.Unauthorized_Detail(), // Localized detail
             };
 
             context.Result = new ObjectResult(problemDetails)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Shifty.ApiFramework.Tools;
+using Shifty.Resources.Messages;
 
 namespace Shifty.ApiFramework.Middleware.Jwt;
 
@@ -13,11 +14,13 @@ public class JwtExceptionHandlingMiddleware
 {
     private readonly RequestDelegate                         _next;
     private readonly ILogger<JwtExceptionHandlingMiddleware> _logger;
+    private readonly CommonMessages _messages;
 
-    public JwtExceptionHandlingMiddleware(RequestDelegate next, ILogger<JwtExceptionHandlingMiddleware> logger)
+    public JwtExceptionHandlingMiddleware(RequestDelegate next, ILogger<JwtExceptionHandlingMiddleware> logger , CommonMessages messages)
     {
-        _next   = next;
-        _logger = logger;
+        _next          = next;
+        _logger        = logger;
+        _messages = messages;
     }
 
     public async Task Invoke(HttpContext context)
@@ -34,7 +37,7 @@ public class JwtExceptionHandlingMiddleware
         }
     }
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         var response = context.Response;
         response.ContentType = "application/json";
@@ -42,8 +45,8 @@ public class JwtExceptionHandlingMiddleware
         var errorDetails = new  ApiProblemDetails()
         {
             Status = (int)HttpStatusCode.InternalServerError,
-            Title    = "An unexpected error occurred.",
-            Detail  = exception.Message
+            Title  = _messages.Server_Error() ,
+            Detail = exception.Message
         };
 
         if (exception is AuthenticationFailureException or UnauthorizedAccessException)
@@ -52,8 +55,8 @@ public class JwtExceptionHandlingMiddleware
             errorDetails = new ApiProblemDetails()
             {
                 Status = response.StatusCode,
-                Title  = "Authentication failed. Invalid or expired token.",
-                Detail = exception.Message
+                Title  = _messages.Unauthorized_Title() ,
+                Detail = exception.Message ?? _messages.Unauthorized_Detail(),
             };
         }
 

@@ -33,16 +33,16 @@
 
 	<!-- Status Details -->
 	<data name="NotFound_Detail">
-		<value>منبع مورد نظر یافت نشد.</value>
+		<value>یافت نشد.</value>
 	</data>
 	<data name="Conflict_Detail">
 		<value>یک تضاد با رکورد موجود رخ داده است.</value>
 	</data>
 	<data name="Unauthorized_Detail">
-		<value>شما مجوز دسترسی به این منبع را ندارید.</value>
+		<value>شناسه امنیتی شما باطل شده است دوباره وارد شوید.</value>
 	</data>
 	<data name="Forbidden_Detail">
-		<value>شما اجازه دسترسی به این منبع را ندارید.</value>
+		<value>دسترسی شما محدود شده است با مدیر خود تماس بگیرید.</value>
 	</data>
 
 	<!-- Validation Messages -->

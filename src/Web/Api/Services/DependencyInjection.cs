@@ -99,6 +99,8 @@ namespace Shifty.Api.Services
 
         public static void UseWebApi(this IApplicationBuilder app , IWebHostEnvironment env)
         {
+            app.UseRouting();
+
             app.UseCors(builder =>
                         {
                             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
@@ -111,7 +113,6 @@ namespace Shifty.Api.Services
 
             app.UseAppSwagger();
             app.UseStaticFiles();
-            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();

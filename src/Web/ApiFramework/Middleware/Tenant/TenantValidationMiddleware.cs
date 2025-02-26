@@ -10,6 +10,8 @@ using Shifty.Resources.Messages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog.Sinks.SystemConsole.Themes;
 using Shifty.Common.Utilities;
@@ -24,6 +26,9 @@ namespace Shifty.ApiFramework.Middleware.Tenant
             {
                 Console.WriteLine($"{header.Key}: {header.Value} ");
             }
+
+            
+
 
             if (SkipTenantValidation(context))
             {
@@ -103,7 +108,10 @@ namespace Shifty.ApiFramework.Middleware.Tenant
                     return;
                 }
 
-                if (deviceType == "Browser")
+                var endpoint       = context.GetEndpoint();
+                var allowAnonymous = endpoint?.Metadata.GetMetadata<AllowAnonymousAttribute>() ;
+                
+                if (deviceType == "Browser" || allowAnonymous != null)
                 {
                     await next(context);
                     return;

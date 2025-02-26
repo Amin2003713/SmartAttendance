@@ -15,6 +15,7 @@ public class CompanyController : BaseController
     /// <response code="400">If the request is invalid (e.g., the identifier is missing or incorrect).</response>
     /// <response code="404">If the company with the specified identifier is not found.</response>
     [HttpGet("get-info")]
+    [AllowAnonymous]
     [SwaggerOperation("Retrieve detailed information about a company by its identifier.")]
     [ProducesResponseType(typeof(GetCompanyInfoResponse) , StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedResult) ,     StatusCodes.Status401Unauthorized)]
