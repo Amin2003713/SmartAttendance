@@ -1,18 +1,1 @@
-﻿<Solution>
-  <Folder Name="/Common/">
-    <Project Path="src\Common\Shifty.Common\Shifty.Common.csproj" />
-    <Project Path="src\Common\Shifty.Resources\Shifty.Resources.csproj" />
-  </Folder>
-  <Folder Name="/Core/">
-    <Project Path="src\Core\Application\Shifty.Application.csproj" />
-    <Project Path="src\Core\Domain\Shifty.Domain.csproj" />
-  </Folder>
-  <Folder Name="/Infrastructure/">
-    <Project Path="src\Infrastructure\Persistance\Shifty.Persistence.csproj" />
-    <Project Path="src\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj" Type="Classic C#" />
-  </Folder>
-  <Folder Name="/Web/">
-    <Project Path="src\Web\ApiFramework\Shifty.ApiFramework.csproj" />
-    <Project Path="src\Web\Api\Shifty.Api.csproj" />
-  </Folder>
-</Solution>
+﻿<Solution />
