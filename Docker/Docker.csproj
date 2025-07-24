@@ -1,0 +1,18 @@
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+    <PropertyGroup Label="Globals">
+        <ProjectVersion>2.1</ProjectVersion>
+        <DockerTargetOS>Linux</DockerTargetOS>
+        <DockerPublishLocally>False</DockerPublishLocally>
+        <ProjectGuid>26c1057f-b21b-4b74-b471-12f5e02ec6e2</ProjectGuid>
+        <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+        <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
+        <DockerServiceName>ipa.Services</DockerServiceName>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include=".env.development.local"/>
+        <Content Include=".env.development.Server"/>
+        <Content Include=".env.production.server"/>
+        <Content Include="databses.docker-compose.yaml"/>
+        <Content Include="services.docker-compose.yaml"/>
+    </ItemGroup>
+</Project>

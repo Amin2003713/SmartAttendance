@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+
+        <PackageReference Include="Finbuckle.MultiTenant" Version="9.2.2" />
+
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.7"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="System.Security.Permissions" Version="9.0.7"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Common\Shifty.Common\Shifty.Common.csproj"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Folder Include="Commons\" />
+    </ItemGroup>
+
+</Project>

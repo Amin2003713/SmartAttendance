@@ -1,0 +1,42 @@
+﻿using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Shifty.Domain.Commons.BaseClasses;
+
+namespace Shifty.Application.Commons.Base;
+
+public interface ICommandRepository<TEntity>
+    where TEntity : class, IEntity
+{
+    DbSet<TEntity> Entities { get; }
+    IQueryable<TEntity> Table { get; }
+    IQueryable<TEntity> TableNoTracking { get; }
+
+    void Add(TEntity entity, bool saveNow = true);
+    Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
+
+    void AddRange(IEnumerable<TEntity> entities, bool saveNow = true);
+    Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
+
+    void Attach(TEntity entity);
+    void Detach(TEntity entity);
+
+    void Update(TEntity entity, bool saveNow = true);
+    Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
+
+    void UpdateRange(IEnumerable<TEntity> entities, bool saveNow = true);
+    Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
+
+    void Delete(TEntity entity, bool saveNow = true);
+    Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
+
+    Task DeleteAsync(
+        Expression<Func<TEntity, bool>> prediction,
+        CancellationToken cancellationToken,
+        bool saveNow = true);
+
+    void DeleteRange(IEnumerable<TEntity> entities, bool saveNow = true);
+    Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
+}

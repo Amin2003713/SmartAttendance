@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Persistance\Shifty.Persistence.csproj"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Folder Include="Prices\Queries\" />
+        <Folder Include="Settings\Commands\"/>
+    </ItemGroup>
+
+
+</Project>

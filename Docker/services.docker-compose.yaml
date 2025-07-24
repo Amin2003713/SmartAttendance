@@ -1,0 +1,24 @@
+﻿services:
+  shifty:
+    build:
+      context: ../
+      dockerfile: src/Web/Api/Dockerfile
+    container_name: shifty
+    environment:
+      ASPNETCORE_ENVIRONMENT: "${ASPNETCORE_ENVIRONMENT}"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire:4317"
+      OTEL_SERVICE_NAME: "shifty"
+      SERVICE_HOSTNAME: "shifty"
+      REDIS__CONFIGURATION: "redis:6379,password=${REDIS_PASSWORD}"
+      BASE_URL: "${BASE_URL}"
+    ports:
+      - "1880:8080"
+    networks:
+      - shared-network
+    restart: always
+
+
+networks:
+  shared-network:
+    external: true
+  

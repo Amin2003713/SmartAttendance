@@ -1,1 +1,23 @@
-﻿<Solution />
+﻿<Solution>
+    <Folder Name="/Docker/">
+        <Project Path="Docker\Docker.csproj" Type="Classic C#">
+            <Configuration Solution="Release|Any CPU" Project="Debug|Any CPU"/>
+        </Project>
+    </Folder>
+    <Folder Name="/src/"/>
+    <Folder Name="/src/Common/">
+        <Project Path="src\Common\Shifty.Common\Shifty.Common.csproj" Type="Classic C#"/>
+    </Folder>
+    <Folder Name="/src/Core/">
+        <Project Path="src\Core\Application\Shifty.Application.csproj" Type="Classic C#"/>
+        <Project Path="src\Core\Domain\Shifty.Domain.csproj" Type="Classic C#"/>
+    </Folder>
+    <Folder Name="/src/Infrastructure/">
+        <Project Path="src\Infrastructure\Persistance\Shifty.Persistence.csproj" Type="Classic C#"/>
+        <Project Path="src\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj" Type="Classic C#"/>
+    </Folder>
+    <Folder Name="/src/Web/">
+        <Project Path="src\Web\ApiFramework\Shifty.ApiFramework.csproj" Type="Classic C#"/>
+        <Project Path="src\Web\Api\Shifty.Api.csproj" Type="Classic C#"/>
+    </Folder>
+</Solution>
