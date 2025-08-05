@@ -58,7 +58,7 @@ public class RunTimeDatabaseMigrationService(
                 tenantDbContext.Payments.Add(payment);
 
                 var activeService = TenantDefaultValue.CreateActiveService(payment);
-                await dbContext.Set<ActiveService>().AddRangeAsync(activeService, cancellationToken);
+                await tenantDbContext.Set<ActiveService>().AddRangeAsync(activeService, cancellationToken);
 
 
                 AddUserToTenant(tenantInfo, user);
