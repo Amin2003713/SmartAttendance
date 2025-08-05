@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Commons.BaseClasses;
+﻿namespace Shifty.Common.General.BaseClasses;
 
 public interface IEntity
 {

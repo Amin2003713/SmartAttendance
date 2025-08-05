@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Domain.Commons.BaseClasses;
+using Shifty.Common.General.BaseClasses;
 
-namespace Shifty.Application.Commons.Base;
+namespace Shifty.Application.Interfaces.Base;
 
 public interface ICommandRepository<TEntity>
     where TEntity : class, IEntity

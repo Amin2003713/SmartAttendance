@@ -33,7 +33,7 @@ public class DiscountCommandRepository(
         {
             var userId = identityService.GetUserId();
             discount.DeletedBy = userId;
-            discount.DeletedAt = DateTime.Now;
+            discount.DeletedAt = DateTime.UtcNow;
             discount.IsActive = false;
 
             logger.LogInformation("Deleting (soft) discount with ID: {DiscountId} by UserId: {UserId}",

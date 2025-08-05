@@ -81,7 +81,8 @@ public static class WebAppBuilderExtensions
             endpoints.MapHealthChecks("/api/health",
                 new HealthCheckOptions
                 {
-                    Predicate = _ => true, ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
         });
 

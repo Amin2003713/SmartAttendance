@@ -1,4 +1,6 @@
-﻿namespace Shifty.Persistence.Services.MigrationManagers;
+﻿using Shifty.Application.Interfaces.Base;
+
+namespace Shifty.Persistence.Services.MigrationManagers;
 
 public static class MultipleDatabaseExtensions
 {

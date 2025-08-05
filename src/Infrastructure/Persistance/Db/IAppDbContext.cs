@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Services.DbContexts;
+﻿namespace Shifty.Persistence.Db;
 
 public interface IAppDbContext
 {

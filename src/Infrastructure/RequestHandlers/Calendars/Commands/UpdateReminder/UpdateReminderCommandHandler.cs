@@ -3,8 +3,6 @@ using Shifty.Application.Calendars.Commands.UpdateReminder;
 using Shifty.Application.Interfaces.Calendars.CalendarUsers;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
 using Shifty.Domain.Calenders.CalenderUsers;
 using Shifty.Persistence.Services.Identities;
 
@@ -46,14 +44,12 @@ public class UpdateReminderCommandHandler(
                 throw IpaException.BadRequest(localizer["Access denied."].Value);
             }
 
-            var access =
-                await mediator.Send(new GetProjectUserQuery(request.ProjectId, userId, ApplicationConstant.ServiceName),
-                    cancellationToken);
 
-
-            var targetUsers = access.AccessList.HasAccess((int)TenantAccess.ReminderAccess)
-                ? request.TargetUsers.Select(uid => uid.Id).ToList()
-                : new List<Guid>
+            var targetUsers =
+                // access.AccessList.HasAccess((int)TenantAccess.ReminderAccess)
+                // ? request.TargetUsers.Select(uid => uid.Id).ToList()// todo 
+                // :
+                new List<Guid>
                 {
                     userId
                 };

@@ -1,5 +1,5 @@
-﻿using Shifty.Domain.Tenants;
-using Shifty.Persistence.Repositories.HangFire;
+﻿using Shifty.Persistence.Repositories.HangFire;
+using Shifty.Persistence.Services.Injections;
 
 namespace Shifty.Persistence.Services;
 
@@ -14,7 +14,7 @@ public static class DependencyInjection
             ShiftyDbContext, ReadOnlyDbContext, WriteOnlyDbContext>(
             (provider, connStr) =>
             {
-                var identity = ServiceProviderServiceExtensions.GetRequiredService<IdentityService>(provider);
+                var identity = provider.GetRequiredService<IdentityService>();
                 var options = new DbContextOptionsBuilder<ShiftyDbContext>()
                     .UseSqlServer(connStr)
                     .Options;
@@ -25,12 +25,12 @@ public static class DependencyInjection
             {
                 var options = CreateContextOptions(connStr);
 
-                var identity = ServiceProviderServiceExtensions.GetRequiredService<IdentityService>(provider);
+                var identity = provider.GetRequiredService<IdentityService>();
                 return new ReadOnlyDbContext(options, identity);
             },
             (provider, connStr) =>
             {
-                var identity = ServiceProviderServiceExtensions.GetRequiredService<IdentityService>(provider);
+                var identity = provider.GetRequiredService<IdentityService>();
                 var options  = CreateContextOptions(connStr);
                 return new WriteOnlyDbContext(options, identity);
             },
@@ -47,10 +47,9 @@ public static class DependencyInjection
                 };
 
                 var client = new MongoClient(mongoUrlBuilder.ToMongoUrl());
-                return client.GetDatabase($"DRP{"_" + tenantDb}");
+                return client.GetDatabase($"Shifty{"_" + tenantDb}");
             },
-            ApplicationConstant.AppOptions.TenantStore,
-            typeof(AddRequestConsumer).Assembly
+            ApplicationConstant.AppOptions.TenantStore
         );
 
 

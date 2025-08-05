@@ -1,4 +1,5 @@
-﻿using Shifty.Application.Calendars.Queries.GetReminder;
+﻿using DNTPersianUtils.Core;
+using Shifty.Application.Calendars.Queries.GetReminder;
 using Shifty.Application.Calendars.Request.Queries.GetReminder;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Persistence.Services.Identities;
@@ -19,18 +20,17 @@ public class GetReminderQueryHandler(
             var userId       = service.GetUserId<Guid>();
             var startOfMonth = new PersianDateTime(request.Year, request.Month, 1).ToString().ToGregorianDateTime();
             var range        = startOfMonth.GetPersianMonthStartAndEndDates();
-            var fromDate     = startOfMonth.Value;
+            var fromDate     = startOfMonth!.Value;
             var toDate       = range!.EndDate;
 
             logger.LogInformation(
-                "Getting reminders for ProjectId: {ProjectId}, UserId: {UserId}, DateRange: {From} to {To}",
-                request.ProjectId,
+                "Getting reminders for ProjectId: UserId: {UserId}, DateRange: {From} to {To}",
                 userId,
                 fromDate,
                 toDate);
 
             var reminders = await dailyCalendarQueryRepository.GetReminderForProject(
-                request.ProjectId,
+        
                 userId,
                 fromDate,
                 toDate,
@@ -38,7 +38,7 @@ public class GetReminderQueryHandler(
 
             logger.LogInformation("Found {Count} reminders for ProjectId: {ProjectId}, UserId: {UserId}",
                 reminders.Count,
-                request.ProjectId,
+             
                 userId);
 
             return reminders;
@@ -47,7 +47,7 @@ public class GetReminderQueryHandler(
         {
             logger.LogError(ex,
                 "Error retrieving reminders for ProjectId: {ProjectId}, Month: {Month}, Year: {Year}",
-                request.ProjectId,
+           
                 request.Month,
                 request.Year);
 

@@ -1,11 +1,8 @@
 ﻿using System.Text.Json;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Common.General.Enums.Projects;
-using Shifty.Common.Utilities.EnumHelpers;
+using Shifty.Application.Interfaces.Base.EventInterface;
 using Shifty.Common.Utilities.MongoHelpers;
-using Shifty.Persistence.Services.EventInterface;
 
-namespace Shifty.Persistence.Services.EventRepository;
+namespace Shifty.Persistence.Repositories.Common.EventRepository;
 
 /// <summary>
 ///     MongoDB implementation of IEventReader for reading event-sourced aggregates and snapshots.
@@ -207,7 +204,8 @@ public class EventReader<TAggregate, TId>(
                 s => s.AggregateId,
                 g => new
                 {
-                    AggregateId = g.Key, LatestSnapshot = g.OrderByDescending(x => x.Version).FirstOrDefault()
+                    AggregateId = g.Key,
+                    LatestSnapshot = g.OrderByDescending(x => x.Version).FirstOrDefault()
                 }
             )
             .ToListAsync(cancellationToken);
@@ -219,7 +217,8 @@ public class EventReader<TAggregate, TId>(
                 e => e.AggregateId,
                 g => new
                 {
-                    AggregateId = g.Key, AllEvents = g.OrderBy(x => x.Version).ToList()
+                    AggregateId = g.Key,
+                    AllEvents = g.OrderBy(x => x.Version).ToList()
                 }
             )
             .ToListAsync(cancellationToken);
@@ -295,7 +294,7 @@ public class EventReader<TAggregate, TId>(
         Expression<Func<BaseEventStoreModel<TId>, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
-        return (await LoadByPredicateAsync(predicate,  cancellationToken)).Adapt<List<TResult>>();
+        return (await LoadByPredicateAsync(predicate, cancellationToken)).Adapt<List<TResult>>();
     }
 
     /// <inheritdoc />
@@ -327,7 +326,8 @@ public class EventReader<TAggregate, TId>(
     {
         return DeserializeEvent(new EventDocument<TId>
         {
-            Type = typeName, Data = json
+            Type = typeName,
+            Data = json
         });
     }
 

@@ -13,7 +13,7 @@ using Shifty.Application.Users.Queries.GetUserTenants;
 using Shifty.Application.Users.Requests.Queries.GetUserInfo.GetById;
 using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using Shifty.Common.Common.Responses.Users.Queries.Base;
-using Shifty.Common.Utilities.TypeComverters;
+using Shifty.Common.Utilities.TypeConverters;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Tenants.Discounts;
 using Shifty.Domain.Tenants.Payments;
@@ -43,7 +43,7 @@ public static class DependencyInjection
         UserAdaptor();
     }
 
-   
+
     private static void UserAdaptor()
     {
         TypeAdapterConfig<UpdateUserCommand, User>.NewConfig()

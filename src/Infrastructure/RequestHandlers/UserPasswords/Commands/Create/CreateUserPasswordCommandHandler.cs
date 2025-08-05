@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Shifty.Application.Interfaces.UserPasswords;
 using Shifty.Application.UserPasswords.Commands.Create;
 using Shifty.Common.Exceptions;
@@ -34,7 +35,8 @@ public record CreateUserPasswordCommandHandler(
 
         var userPass = new UserPassword
         {
-            UserId = request.UserId.Id, PasswordHash = hashedPass
+            UserId = request.UserId.Id,
+            PasswordHash = hashedPass
         };
 
         await PasswordCommandRepository.AddAsync(userPass, cancellationToken);

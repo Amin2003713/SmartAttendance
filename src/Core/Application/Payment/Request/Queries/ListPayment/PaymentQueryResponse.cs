@@ -6,6 +6,7 @@ public class PaymentQueryResponse
 {
     public Guid Id { get; set; }
     public decimal Cost { get; set; }
+    public decimal GrantedStorageMb { get; set; }
     public int? Duration { get; set; }
     public DateTime PaymentDate { get; set; }
     public string? RefId { get; set; }

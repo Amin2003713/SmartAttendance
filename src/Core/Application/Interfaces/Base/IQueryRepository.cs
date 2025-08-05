@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Domain.Commons.BaseClasses;
+using Shifty.Common.General.BaseClasses;
 
-namespace Shifty.Application.Commons.Base;
+namespace Shifty.Application.Interfaces.Base;
 
 public interface IQueryRepository<TEntity>
     where TEntity : class, IEntity
@@ -74,9 +74,4 @@ public interface IQueryRepository<TEntity>
         Expression<Func<TEntity, TProperty>> referenceProperty,
         CancellationToken cancellationToken)
         where TProperty : class;
-}
-
-public interface IGenericSeeder<in TDbContext>
-{
-    Task SeedAsync(TDbContext dbContext, CancellationToken cancellationToken);
 }

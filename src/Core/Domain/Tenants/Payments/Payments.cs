@@ -40,24 +40,14 @@ public class Payments
 
 
     public Guid CreatedBy { get; set; }
-    public DateTime CreatedAt { get; private set; } = DateTime.Now;
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public Guid? ModifiedBy { get; set; }
-    public DateTime ModifiedAt { get; private set; } = DateTime.Now;
+    public DateTime ModifiedAt { get; private set; } = DateTime.UtcNow;
     public Guid? DeletedBy { get; set; }
     public DateTime? DeletedAt { get; set; }
 
     public int LeftDays()
     {
-        return Math.Max(0, (EndDate - DateTime.Now.Date).Days);
+        return Math.Max(0, (EndDate - DateTime.UtcNow.Date).Days);
     }
-}
-
-public class ActiveService
-{
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid PaymentId { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-
-    public virtual Payments Payment { get; set; }
 }

@@ -1,6 +1,5 @@
 ﻿using Shifty.Common.General.Enums;
 using Shifty.Common.Utilities.EnumHelpers;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Users.Requests.Commands.AddRole;
 
@@ -12,7 +11,10 @@ public class UpdateEmployeeExample : IExamplesProvider<UpdateEmployeeRequest>
         {
             Roles = new List<string>
             {
-                Roles.Admin.GetEnglishName(), Roles.ManageProjects.GetEnglishName(), Roles.Projects_Create.GetEnglishName(), Roles.Users_Create.GetEnglishName()
+                Roles.Admin.GetEnglishName(),
+                Roles.ManageProjects.GetEnglishName(),
+                Roles.Projects_Create.GetEnglishName(),
+                Roles.Users_Create.GetEnglishName()
             }
         };
     }

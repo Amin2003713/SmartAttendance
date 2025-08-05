@@ -8,6 +8,7 @@ using Finbuckle.MultiTenant;
 using Finbuckle.MultiTenant.Abstractions;
 using Finbuckle.MultiTenant.EntityFrameworkCore.Stores.EFCoreStore;
 using Hangfire;
+using Hangfire.SqlServer;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Json;
@@ -32,7 +33,9 @@ using Shifty.Common.Exceptions;
 using Shifty.Common.General;
 using Shifty.Common.Utilities.IdentityHelpers;
 using Shifty.Domain.Tenants;
+using Shifty.Persistence.Services.Seeder;
 using Shifty.Persistence.Services.Taskes;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.ApiFramework.Injections;
 
@@ -92,9 +95,8 @@ public static class WebApiModule
 
         services.AddScoped<ValidateModelStateAttribute>();
         services.AddLocalization(options => options.ResourcesPath = resourcesPath);
-       
+
         services.AddCustomHealthChecks();
-   
     }
 
 
@@ -106,6 +108,7 @@ public static class WebApiModule
             options.IsDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
         });
 
+        services.AddHttpClient(); 
         services.AddHttpClient<ZarinPalService>();
     }
 
@@ -124,7 +127,9 @@ public static class WebApiModule
                     Title = title,
                     Contact = new OpenApiContact
                     {
-                        Name = "Amin Ahmadi", Email = "amin1382amin@gmail.com", Url = new Uri("https://github.com/Amin2003713")
+                        Name = "Amin Ahmadi",
+                        Email = "amin1382amin@gmail.com",
+                        Url = new Uri("https://github.com/Amin2003713")
                     }
                 });
 
@@ -158,7 +163,8 @@ public static class WebApiModule
                     {
                         Reference = new OpenApiReference
                         {
-                            Type = ReferenceType.SecurityScheme, Id = "Bearer"
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
                         }
                     },
                     Array.Empty<string>()
@@ -344,7 +350,8 @@ public static class WebApiModule
 
         GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute
         {
-            Attempts = 3, DelaysInSeconds = [10, 30, 60]
+            Attempts = 3,
+            DelaysInSeconds = [10, 30, 60]
         });
 
         services.AddTransient<SeedCalendarService>();

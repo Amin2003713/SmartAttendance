@@ -1,15 +1,17 @@
 ﻿using Autofac;
 using Microsoft.Win32;
+using Shifty.ApiFramework.Controller;
 using Shifty.ApiFramework.Injections;
-using Shifty.Application.Commons.Base;
-using Shifty.Common.InjectionHelpers;
+using Shifty.Application.Interfaces.Base;
 using Shifty.Common.Utilities.DynamicTableHelper;
 using Shifty.Common.Utilities.EnumHelpers;
+using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Defaults;
 using Shifty.Domain.Setting;
+using Shifty.Persistence.Db;
 using Shifty.Persistence.Jwt;
 using Shifty.Persistence.Repositories.Common;
-using Shifty.Persistence.Services.DbContexts;
+using Shifty.Persistence.Services.Time.ir;
 using Shifty.RequestHandlers.Discounts.Commands.CreateDiscount;
 
 namespace Shifty.ApiFramework.Configuration;
@@ -37,15 +39,15 @@ public static class AutofacConfigurationExtensions
     private static void RegisterAssemblyDependencies(ContainerBuilder builder)
     {
         // Assemblies by concern
-        var tenantCommonAssembly = typeof(Registry).Assembly;
+        var tenantCommonAssembly = typeof(IpaBaseController).Assembly;
         var domainAssembly       = typeof(TenantDefaultValue).Assembly;
         var persistenceAssembly  = typeof(ShiftyDbContext).Assembly;
         var applicationAssembly  = typeof(JwtService).Assembly;
         var handlerAssembly      = typeof(CreateDiscountCommandHandler).Assembly;
         var frameworkApiAssembly = typeof(AutofacConfigurationExtensions).Assembly;
         var ipaFrameworkAssembly = typeof(WebApiModule).Assembly;
-        var ipaModelsAssembly    = typeof(Setting).Assembly;
-        var ipaSharedAssembly    = typeof(EnumExtensions).Assembly;
+        var ipaModelsAssembly    = typeof(EnumExtensions).Assembly;
+        var timeIrAssembly       = typeof(TimeIrService).Assembly;
 
         var allAssemblies = new[]
         {
@@ -57,7 +59,7 @@ public static class AutofacConfigurationExtensions
             frameworkApiAssembly,
             ipaFrameworkAssembly,
             ipaModelsAssembly,
-            ipaSharedAssembly
+            timeIrAssembly
         };
 
         // Register scoped dependencies

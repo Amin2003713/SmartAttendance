@@ -1,5 +1,4 @@
 ﻿using Shifty.Common.Common.ESBase;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using Shifty.Common.Common.Responses.PropertyChanges;
 
 namespace Shifty.Common.Utilities.ObjectDiffFinderHelper;

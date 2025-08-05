@@ -16,7 +16,9 @@ public class RequestResponseLoggingBehavior<TRequest, TResponse>(
 
     private readonly static JsonSerializerOptions _jsonOptions = new()
     {
-        ReferenceHandler = ReferenceHandler.IgnoreCycles, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, WriteIndented = true
+        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        WriteIndented = true
     };
 
     public async Task<TResponse> Handle(

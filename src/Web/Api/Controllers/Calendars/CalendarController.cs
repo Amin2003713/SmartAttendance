@@ -38,12 +38,12 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetCalendarResponse>> GetCalendar(
-        Guid projectId,
+
         int year,
         int month,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetCalendarQuery(projectId, year, month), cancellationToken);
+        return await Mediator.Send(new GetCalendarQuery( year, month), cancellationToken);
     }
 
 
@@ -61,11 +61,11 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetCalendarInfoResponse>> GetCalendarInfoForDay(
-        Guid projectId,
+
         DateTime date,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetCalendarInfoQuery(projectId, date), cancellationToken);
+        return await Mediator.Send(new GetCalendarInfoQuery( date), cancellationToken);
     }
 
 
@@ -83,11 +83,11 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<CalendarInfoForLevelDto>> GetCalendarInfo(
-        Guid projectId,
+
         DateTime date,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetCalendarLevelReportQuery(projectId, date), cancellationToken);
+        return await Mediator.Send(new GetCalendarLevelReportQuery( date), cancellationToken);
     }
 
 
@@ -140,12 +140,12 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetHolidayResponse>> GetHolidays(
-        Guid projectId,
+
         int year,
         int month,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetHolidayQuery(projectId, year, month), cancellationToken);
+        return await Mediator.Send(new GetHolidayQuery( year, month), cancellationToken);
     }
 
     /// <summary>
@@ -163,12 +163,12 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetReminderResponse>> GetReminder(
-        Guid projectId,
+
         int year,
         int month,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetReminderQuery(projectId, year, month), cancellationToken);
+        return await Mediator.Send(new GetReminderQuery(year, month), cancellationToken);
     }
 
     /// <summary>

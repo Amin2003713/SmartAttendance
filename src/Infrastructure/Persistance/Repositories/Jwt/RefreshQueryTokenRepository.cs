@@ -1,4 +1,5 @@
 ﻿using Shifty.Application.Interfaces.Jwt;
+using Shifty.Common.Utilities.InjectionHelpers;
 
 namespace Shifty.Persistence.Repositories.Jwt;
 

@@ -1,11 +1,11 @@
 using Finbuckle.MultiTenant.Abstractions;
 using Mapster;
 using Shifty.Application.Companies.Commands.UpdateCompany;
+using Shifty.Application.HubFiles.Commands.UploadHubFile;
 using Shifty.Application.Interfaces.Tenants.Companies;
+using Shifty.Application.MinIo.Commands.DeleteFile;
 using Shifty.Common.Exceptions;
 using Shifty.Common.General.Enums.FileType;
-
-using Shifty.Common.Messaging.Contracts.MinIo.Minio.Commands;
 using Shifty.Domain.Tenants;
 
 namespace Shifty.RequestHandlers.Companies.Commands.UpdateCompany;
@@ -17,6 +17,7 @@ public class UpdateCompanyCommandHandler(
     IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContextAccessor,
     IStringLocalizer<UpdateCompanyCommandHandler> localizer,
     ICompanyRepository repository,
+    IMediator mediator,
     ILogger<UpdateCompanyCommandHandler> logger
 ) : IRequestHandler<UpdateCompanyCommand>
 {
@@ -49,11 +50,10 @@ public class UpdateCompanyCommandHandler(
             if (request.Logo == null)
             {
                 var path = company.Logo!.Replace("https://", "").Replace("http://", "");
-                var deleteResponse = await broker.RequestAsync<DeleteFileResponseBroker, DeleteFileCommandBroker>(
-                    new DeleteFileCommandBroker(path),
+                var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
                     cancellationToken);
 
-                if (!deleteResponse.IsDeleted)
+                if (!deleteResponse)
                 {
                     logger.LogError("Failed to delete old image for Company {Id}.", company.Id);
                     throw IpaException.InternalServerError(localizer["Failed to delete old image."].Value);
@@ -66,35 +66,28 @@ public class UpdateCompanyCommandHandler(
                 if (!string.IsNullOrWhiteSpace(company.Logo))
                 {
                     var path = company.Logo!.Replace("https://", "").Replace("http://", "");
-                    var deleteResponse = await broker.RequestAsync<DeleteFileResponseBroker, DeleteFileCommandBroker>(
-                        new DeleteFileCommandBroker(path),
+                    var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
                         cancellationToken);
 
-                    if (!deleteResponse.IsDeleted)
+                    if (!deleteResponse)
                     {
                         logger.LogError("Failed to delete old image for Company {Id}.", company.Id);
                         throw IpaException.InternalServerError(localizer["Failed to delete old image."].Value);
                     }
                 }
 
-                await using var imageStream = new MemoryStream();
-                await request.Logo.MediaFile.CopyToAsync(imageStream, cancellationToken);
-                var imageBytes = imageStream.ToArray();
 
-                var uploadImageCommand = new UploadHubFileCommandBroker(
-                    request.Logo.MediaFile.FileName,
-                    imageBytes,
-                    null,
-                    DateTime.Now,
-                    FileStorageType.CompanyLogo,
-                    new Guid(company.Id));
+                var uploadCommand = new UploadHubFileCommand
+                {
+                    File = request.Logo.MediaFile,
+                    ReportDate = DateTime.UtcNow,
+                    RowType = FileStorageType.CompanyLogo,
+                    RowId = new Guid(company.Id)
+                };
 
-                var uploadImageResponse =
-                    await broker.RequestAsync<UploadHubFileResponseBroker, UploadHubFileCommandBroker>(
-                        uploadImageCommand,
-                        cancellationToken);
+                var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);
 
-                company.Logo = uploadImageResponse.FileUrl;
+                company.Logo = uploadImageResponse.Url;
 
                 logger.LogInformation("Uploaded image for Company{CompanyId}.", company.Id);
             }

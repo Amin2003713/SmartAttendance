@@ -1,4 +1,6 @@
-﻿namespace Shifty.Persistence.Repositories.Users;
+﻿using Shifty.Common.Utilities.InjectionHelpers;
+
+namespace Shifty.Persistence.Repositories.Users;
 
 public class UserQueryRepository(
     ReadOnlyDbContext dbContext,

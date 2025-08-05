@@ -2,7 +2,7 @@
 using FluentValidation;
 using Shifty.Application.Users.Requests.Commands.DeleteRole;
 using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.TypeComverters;
+using Shifty.Common.Utilities.TypeConverters;
 
 namespace Shifty.Application.Users.Validators.Commands.DeleteRole;
 

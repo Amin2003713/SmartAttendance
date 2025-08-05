@@ -39,7 +39,7 @@ public class ShiftyTenantInfo : ITenantInfo
 
     {
         return
-            $"Server={ApplicationConstant.Sql.DbServer};Database=PRIMA.{Identifier!.Replace("-", "_")};{ApplicationConstant.Sql.MultipleActiveResultSets};{ApplicationConstant.Sql.Encrypt};{ApplicationConstant.Sql.UserNameAndPass}";
+            $"Server={ApplicationConstant.Sql.DbServer};Database=Shifty.{Identifier!.Replace("-", "_")};{ApplicationConstant.Sql.MultipleActiveResultSets};{ApplicationConstant.Sql.Encrypt};{ApplicationConstant.Sql.UserNameAndPass}";
     }
 
 

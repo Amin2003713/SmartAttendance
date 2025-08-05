@@ -1,5 +1,4 @@
 ﻿using Shifty.Common.General;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Users.Queries.GetUserTenants;
 
@@ -11,11 +10,13 @@ public class GetUserTenantResponseExample : IExamplesProvider<List<GetUserTenant
         {
             new()
             {
-                Domain = $"tehran.{ApplicationConstant.Const.BaseDomain}", Name = "Tehran co "
+                Domain = $"tehran.{ApplicationConstant.Const.BaseDomain}",
+                Name = "Tehran co "
             },
             new()
             {
-                Domain = $"esf.{ApplicationConstant.Const.BaseDomain}", Name = "Isfahan co "
+                Domain = $"esf.{ApplicationConstant.Const.BaseDomain}",
+                Name = "Isfahan co "
             }
         };
     }

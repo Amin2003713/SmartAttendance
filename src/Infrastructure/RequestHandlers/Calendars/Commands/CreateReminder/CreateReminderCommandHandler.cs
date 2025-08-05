@@ -4,8 +4,6 @@ using Shifty.Application.Interfaces.Calendars.CalendarProjects;
 using Shifty.Application.Interfaces.Calendars.CalendarUsers;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
 using Shifty.Domain.Calenders.CalenderProjects;
 using Shifty.Domain.Calenders.CalenderUsers;
 using Shifty.Domain.Calenders.DailyCalender;
@@ -30,11 +28,11 @@ public class CreateReminderCommandHandler(
         var userId = service.GetUserId<Guid>();
 
         // Log the start of the command handling with detailed context.
-        logger.LogInformation(
-            "User {UserId} is initiating a reminder creation for ProjectId: {ProjectId} at {Timestamp}.",
-            userId,
-            request.ProjectId,
-            DateTime.UtcNow);
+        // logger.LogInformation(
+        //     "User {UserId} is initiating a reminder creation for ProjectId: {ProjectId} at {Timestamp}.",
+        //     userId,
+        //     request.ProjectId,
+        //     DateTime.UtcNow);
 
 
         // var access =
@@ -79,25 +77,26 @@ public class CreateReminderCommandHandler(
 
             var reminderUsers = targetUsers.Select(a => new CalendarUser
                 {
-                    CalendarId = reminderDailyCalendar.Id, UserId = a
+                    CalendarId = reminderDailyCalendar.Id,
+                    UserId = a
                 })
                 .ToList();
 
             await calendarUserCommandRepository.AddRangeAsync(reminderUsers, cancellationToken);
 
-            logger.LogInformation(
-                "Reminder created successfully with CalendarId: {CalendarId} for ProjectId: {ProjectId}.",
-                reminderDailyCalendar.Id,
-                request.ProjectId);
+            // logger.LogInformation(
+            //     "Reminder created successfully with CalendarId: {CalendarId} for ProjectId: {ProjectId}.",
+            //     reminderDailyCalendar.Id,
+            //     request.ProjectId);
         }
         catch (Exception ex)
         {
             // Log detailed error information and context.
-            logger.LogError(ex,
-                "Error creating reminder in ProjectId: {ProjectId} for UserId: {UserId}. Error details: {ErrorMessage}",
-                request.ProjectId,
-                userId,
-                ex.Message);
+            // logger.LogError(ex,
+            //     "Error creating reminder in ProjectId: {ProjectId} for UserId: {UserId}. Error details: {ErrorMessage}",
+            //     request.ProjectId,
+            //     userId,
+            //     ex.Message);
 
             // Throw a short, descriptive error message to the client.
             throw IpaException.InternalServerError(localizer["Reminder creation failed."].Value);

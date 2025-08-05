@@ -12,7 +12,7 @@
 
 
     <ItemGroup>
-        <Folder Include="Prices\Queries\" />
+        <Folder Include="Prices\Queries\"/>
         <Folder Include="Settings\Commands\"/>
     </ItemGroup>
 

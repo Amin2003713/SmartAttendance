@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Commands.Login;
+﻿namespace Shifty.Application.Users.Requests.Commands.Login;
 
 public class LoginRequestExample : IExamplesProvider<LoginRequest>
 {
@@ -8,7 +6,8 @@ public class LoginRequestExample : IExamplesProvider<LoginRequest>
     {
         return new LoginRequest
         {
-            UserName = "09134041709", Password = "@AminDrp1"
+            UserName = "09134041709",
+            Password = "@AminDrp1"
         };
     }
 }

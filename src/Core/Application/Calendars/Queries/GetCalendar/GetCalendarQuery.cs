@@ -3,7 +3,7 @@
 namespace Shifty.Application.Calendars.Queries.GetCalendar;
 
 public record GetCalendarQuery(
-    Guid ProjectId,
+
     int Year,
     int Month
 ) : IRequest<List<GetCalendarResponse>>;

@@ -1,4 +1,6 @@
-﻿namespace Shifty.Persistence.Repositories.Common;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Persistence.Repositories.Common;
 
 public abstract class RepositoryBase<TEntity, TDbContext>
     where TEntity : class, IEntity

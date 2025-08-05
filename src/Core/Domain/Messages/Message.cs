@@ -1,4 +1,5 @@
-﻿using Shifty.Domain.Messages.Comments;
+﻿using Shifty.Common.General.BaseClasses;
+using Shifty.Domain.Messages.Comments;
 using Shifty.Domain.Messages.MessageTargetUsers;
 using Shifty.Domain.Messages.UserLikedMessages;
 using Shifty.Domain.Messages.UserVisitedMessages;
@@ -15,7 +16,7 @@ public class Message : BaseEntity
 
     public int Like { get; set; }
 
-    public Guid? ProjectId { get; set; }
+    // public Guid? ProjectId { get; set; }
 
     public ICollection<Comment> Comments { get; set; } = [];
 

@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
-using Shifty.Common.InjectionHelpers;
+using Shifty.Common.Utilities.InjectionHelpers;
 
 namespace Shifty.ApiFramework.Middleware.Tenant;
 

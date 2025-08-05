@@ -1,6 +1,5 @@
 ﻿using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using Shifty.Common.Common.Responses.Users.Queries.Base;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Users.Requests.Queries.GetAllUsers;
 

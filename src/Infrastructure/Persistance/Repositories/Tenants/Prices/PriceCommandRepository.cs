@@ -1,5 +1,4 @@
 ﻿using Shifty.Application.Interfaces.Tenants.Prices;
-using Shifty.Domain.Tenants;
 
 namespace Shifty.Persistence.Repositories.Tenants.Prices;
 

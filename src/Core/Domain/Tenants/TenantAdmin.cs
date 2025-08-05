@@ -8,7 +8,7 @@ public class TenantAdmin
     public string PhoneNumber { get; set; }
 
     public List<ShiftyTenantInfo> Tenants { get; set; } = [];
-    public DateTime RegisteredAt { get; set; } = DateTime.Now;
+    public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
 
     public string? FullName()
     {

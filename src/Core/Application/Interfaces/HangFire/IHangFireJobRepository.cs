@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Shifty.Common.InjectionHelpers;
+using Shifty.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Application.Commons.HangFire;
+namespace Shifty.Application.Interfaces.HangFire;
 
 public interface IHangFireJobRepository : IScopedDependency
 {

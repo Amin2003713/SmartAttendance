@@ -1,9 +1,12 @@
-﻿using Shifty.Common.General.Enums;
+﻿using Shifty.Application.Interfaces.Base;
+using Shifty.Common.General.Enums;
+using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Defaults;
 
 namespace Shifty.Persistence.Services.Seeder;
 
-public class Seeder : IScopedDependency
+public class Seeder : IScopedDependency,
+    IGenericSeeder<ShiftyDbContext>
 {
     public async Task SeedAsync(ShiftyDbContext dbContext, CancellationToken cancellationToken)
     {

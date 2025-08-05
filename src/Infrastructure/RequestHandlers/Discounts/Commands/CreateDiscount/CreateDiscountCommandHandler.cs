@@ -42,7 +42,9 @@ public class CreateDiscountCommandHandler(
 
             discount.TenantDiscount.Add(new TenantDiscount
             {
-                TenantId = tenantId, DiscountId = discount.Id, IsUsed = false
+                TenantId = tenantId,
+                DiscountId = discount.Id,
+                IsUsed = false
             });
         }
 

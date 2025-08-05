@@ -1,6 +1,4 @@
-﻿using Shifty.Domain.Setting;
-
-namespace Shifty.Persistence.Configuration.Settings;
+﻿namespace Shifty.Persistence.Configuration.Settings;
 
 public class SettingConfiguration : IEntityTypeConfiguration<Setting>
 {

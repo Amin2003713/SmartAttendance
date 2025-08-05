@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Messages.UserVisitedMessages;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Messages.UserVisitedMessages;
 
 public class UserVisitedMessage : BaseEntity
 {

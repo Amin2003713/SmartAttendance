@@ -1,5 +1,4 @@
 ﻿using Shifty.Common.General.Enums.Discount;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Discounts.Request.Commands.CreateDisCount;
 
@@ -10,7 +9,7 @@ public class CreateDiscountRequestExample : IExamplesProvider<CreateDiscountRequ
         return new CreateDiscountRequest
         {
             Code = "SPRING2025",
-            StartDate = DateTime.Now,
+            StartDate = DateTime.UtcNow,
             Duration = 30,
             DiscountType = DiscountType.Percent, // or FixedAmount depending on your enum
             Value = 15.5m,

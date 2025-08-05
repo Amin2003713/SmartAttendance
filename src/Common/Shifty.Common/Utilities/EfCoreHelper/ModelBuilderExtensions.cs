@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Pluralize.NET;
-using Shifty.Domain.Commons.BaseClasses;
+using Shifty.Common.General.BaseClasses;
 
 namespace Shifty.Common.Utilities.EfCoreHelper;
 

@@ -1,7 +1,6 @@
 ﻿using Shifty.Application.Companies.Responses.CompnaySettings;
 using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using Shifty.Domain.Setting;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Companies.Responses.GetCompanyInfo;
 

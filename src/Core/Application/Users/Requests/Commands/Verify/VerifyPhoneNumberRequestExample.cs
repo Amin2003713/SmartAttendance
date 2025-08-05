@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Commands.Verify;
+﻿namespace Shifty.Application.Users.Requests.Commands.Verify;
 
 public class VerifyPhoneNumberRequestExample : IExamplesProvider<VerifyPhoneNumberRequest>
 {

@@ -7,9 +7,6 @@ using Shifty.Application.Interfaces.Tenants.Payment;
 using Shifty.Application.Interfaces.Tenants.Prices;
 using Shifty.Application.Pdf.Query.GetFactorPdf;
 using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums.FileType;
-
-using Shifty.Common.Messaging.Contracts.MinIo.HubFile.Commands.SavePdf;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Services.Identities;
@@ -53,23 +50,24 @@ public class GetFactorPdfQueryHandler(
 
             var htmlContent = new GetFactorPdfDocument(accessor.MultiTenantContext.TenantInfo!,
                 payment,
-                broker,
                 price);
 
             var pdf = htmlContent.GeneratePdf();
 
             var fileName = "فاکتور" +
-                           DateTime.Now.ToShortPersianDateString().Replace("/", "_") +
+                           DateTime.UtcNow.ToShortPersianDateString().Replace("/", "_") +
                            ".pdf";
+            //
+            // var savePdfMessage = new SavePdfCommand
+            // {
+            //     File = pdf,
+            //     FileName = fileName,
+            //     RowType = FileStorageType.PdfExports,
 
-            var savePdfMessage = new SavePdfCommandBroker
-            {
-                File = pdf, FileName = fileName, RowType = FileStorageType.PdfExports, ProjectId = new Guid(payment.TenantId)
-            };
-
-            var result =
-                await broker.RequestAsync<SavePdfCommandBrokerResponse, SavePdfCommandBroker>(savePdfMessage,
-                    cancellationToken);
+            // };
+            //
+            // var result =
+            //     await me;
 
             logger.LogInformation(
                 "PDF invoice generated successfully for user {UserId}, payment {PaymentId}. File: {FileName}",
@@ -77,7 +75,7 @@ public class GetFactorPdfQueryHandler(
                 request.PaymentId,
                 fileName);
 
-            return result.fileUrl;
+            return "result.fileUrl"; // todo : fix based on the mediator ;
         }
         catch (IpaException ex)
         {

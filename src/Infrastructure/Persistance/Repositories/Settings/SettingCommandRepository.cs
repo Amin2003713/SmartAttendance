@@ -1,5 +1,4 @@
 ﻿using Shifty.Application.Interfaces.Settings;
-using Shifty.Domain.Setting;
 
 namespace Shifty.Persistence.Repositories.Settings;
 

@@ -1,3 +1,3 @@
-﻿namespace Shifty.Common.InjectionHelpers;
+﻿namespace Shifty.Common.Utilities.InjectionHelpers;
 
 public interface ISingletonDependency { }

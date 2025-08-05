@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Commons.Base;
+﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Shifty.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
+using Shifty.Application.Interfaces.Base;
 using Shifty.Application.Users.Queries.GetAllUsers;
 using Shifty.Common.Common.Responses.Users.Queries.Base;
 using Shifty.Domain.Users;
@@ -29,7 +31,7 @@ public class GetAllUserQueryHandler(
                 result.CreatedBy =
                     await mediator.Send(new GetLogPropertyInfoQuery(user.CreatedBy.Value), cancellationToken);
 
-            result.Roles = (await userManager.GetRolesAsync(user) as List<string>)!.Select(a => NormalizeName(a))
+            result.Roles = (await userManager.GetRolesAsync(user) as List<string>)!.Select(NormalizeName)
                 .ToList();
 
             results.Add(result);

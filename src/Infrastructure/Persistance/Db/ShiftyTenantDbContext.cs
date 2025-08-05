@@ -1,8 +1,6 @@
 ﻿using Finbuckle.MultiTenant.EntityFrameworkCore.Stores.EFCoreStore;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Tenants.Payments;
 
-namespace Shifty.Persistence.Services.DbContexts;
+namespace Shifty.Persistence.Db;
 
 public class ShiftyTenantDbContext(
     DbContextOptions<ShiftyTenantDbContext> options
@@ -17,6 +15,7 @@ public class ShiftyTenantDbContext(
     public DbSet<TenantUser> TenantUsers { get; set; }
 
     public DbSet<TenantRequest> TenantRequests { get; set; }
+    public DbSet<ActiveService> ActiveServices { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

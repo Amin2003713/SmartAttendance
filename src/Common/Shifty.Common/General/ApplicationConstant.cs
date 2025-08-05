@@ -65,7 +65,7 @@ public abstract class ApplicationConstant
             $"Server={Sql.DbServer};Database=PRIMA.Shard;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
 
         public static string TenantStore { get; set; } =
-            $"Server={Sql.DbServer};Database=DRP;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
+            $"Server={Sql.DbServer};Database=Shifty;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
 
         public static string RedisConnectionString { get; set; } =
             "redis:6379,password=4f7d8a7e6b5c9f4b2a1d3e5f8c0b7a8CCA6B60A3EF40A59128@6@DRP";
@@ -112,7 +112,8 @@ public abstract class ApplicationConstant
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             Converters =
             {
-                new ReferenceJsonConverterFactory(), new JsonStringEnumConverter()
+                new ReferenceJsonConverterFactory(),
+                new JsonStringEnumConverter()
             }
         };
 

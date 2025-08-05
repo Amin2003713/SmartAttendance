@@ -1,4 +1,5 @@
-﻿using Shifty.Application.Interfaces.Users;
+﻿using Microsoft.EntityFrameworkCore;
+using Shifty.Application.Interfaces.Users;
 using Shifty.Application.Users.Commands.AddRole;
 using Shifty.Application.Users.Commands.RegisterByOwner;
 using Shifty.Common.Exceptions;
@@ -29,7 +30,8 @@ public class RegisterByOwnerCommandHandler(
 
             await mediator.Send(new UpdateEmployeeCommand
                 {
-                    Roles = request.Roles.Select(a => a).ToList(), UserId = userId
+                    Roles = request.Roles.Select(a => a).ToList(),
+                    UserId = userId
                 },
                 cancellationToken);
 

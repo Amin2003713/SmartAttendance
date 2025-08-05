@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Calenders.CalenderUsers;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Calenders.CalenderUsers;
 
 public class CalendarUser : BaseEntity
 {

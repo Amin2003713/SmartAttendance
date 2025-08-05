@@ -16,7 +16,8 @@ public class ApplyHeaderParameterOperationFilter : IOperationFilter
             Required = true,
             Schema = new OpenApiSchema
             {
-                Type = "string", Default = new OpenApiString("aaa")
+                Type = "string",
+                Default = new OpenApiString("aaa")
             }
         });
 
@@ -28,7 +29,8 @@ public class ApplyHeaderParameterOperationFilter : IOperationFilter
             Required = true,
             Schema = new OpenApiSchema
             {
-                Type = "string", Default = new OpenApiString("fa-IR")
+                Type = "string",
+                Default = new OpenApiString("fa-IR")
             }
         });
 
@@ -40,7 +42,8 @@ public class ApplyHeaderParameterOperationFilter : IOperationFilter
             Required = true,
             Schema = new OpenApiSchema
             {
-                Type = "string", Default = new OpenApiString("Browser")
+                Type = "string",
+                Default = new OpenApiString("Browser")
             }
         });
     }

@@ -19,19 +19,19 @@ public class CreateHolidayCommandHandler(
 {
     public async Task Handle(CreateHolidayCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Starting CreateHolidayCommand for ProjectId: {ProjectId} on Date: {Date}",
-            request.ProjectId,
-            request.Date);
+        // logger.LogInformation("Starting CreateHolidayCommand for ProjectId: {ProjectId} on Date: {Date}",
+        //     request.ProjectId,
+        //     request.Date);
 
         try
         {
-            if (await dailyCalendarQueryRepository.IsAlreadyHoliday(request.ProjectId, request.Date, cancellationToken))
+            if (await dailyCalendarQueryRepository.IsAlreadyHoliday( request.Date, cancellationToken))
             {
                 // Log detailed message for debugging.
-                logger.LogWarning(
-                    "Duplicate holiday creation attempt: A holiday already exists for ProjectId: {ProjectId} on Date: {Date}.",
-                    request.ProjectId,
-                    request.Date);
+                // logger.LogWarning(
+                //     "Duplicate holiday creation attempt: A holiday already exists for ProjectId: {ProjectId} on Date: {Date}.",
+                //     request.ProjectId,
+                //     request.Date);
 
                 // Throw a short message intended for the client.
                 throw IpaException.Conflict(localizer["Holiday already exists."].Value);
@@ -47,20 +47,20 @@ public class CreateHolidayCommandHandler(
             holidayProject.CalendarId = holidayDailyCalendar.Id;
             await calendarProjectCommandRepository.AddAsync(holidayProject, cancellationToken);
 
-            logger.LogInformation(
-                "Successfully created holiday for CalendarId: {CalendarId} (ProjectId: {ProjectId}, Date: {Date}).",
-                holidayDailyCalendar.Id,
-                request.ProjectId,
-                request.Date);
+            // logger.LogInformation(
+            //     "Successfully created holiday for CalendarId: {CalendarId} (ProjectId: {ProjectId}, Date: {Date}).",
+            //     holidayDailyCalendar.Id,
+            //     request.ProjectId,
+            //     request.Date);
         }
         catch (Exception ex)
         {
-            // Log detailed error with context, but throw a short, descriptive message.
-            logger.LogError(ex,
-                "Error creating holiday for ProjectId: {ProjectId} on Date: {Date}. Exception details: {ExceptionMessage}",
-                request.ProjectId,
-                request.Date,
-                ex.Message);
+            // // Log detailed error with context, but throw a short, descriptive message.
+            // logger.LogError(ex
+            //     // "Error creating holiday for ProjectId: {ProjectId} on Date: {Date}. Exception details: {ExceptionMessage}",
+            //     // request.ProjectId,
+            //     // request.Date,
+            //     // ex.Message);
 
             throw;
         }

@@ -1,5 +1,3 @@
-using Swashbuckle.AspNetCore.Filters;
-
 namespace Shifty.Application.Companies.Requests.UpdateCompany;
 
 /// <summary>

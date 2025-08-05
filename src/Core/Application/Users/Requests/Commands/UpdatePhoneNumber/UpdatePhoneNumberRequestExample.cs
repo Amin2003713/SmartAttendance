@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Commands.UpdatePhoneNumber;
+﻿namespace Shifty.Application.Users.Requests.Commands.UpdatePhoneNumber;
 
 public class UpdatePhoneNumberRequestExample : IExamplesProvider<UpdatePhoneNumberRequest>
 {

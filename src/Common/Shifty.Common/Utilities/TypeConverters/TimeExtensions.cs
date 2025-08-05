@@ -1,4 +1,4 @@
-﻿namespace Shifty.Common.Utilities.TypeComverters;
+﻿namespace Shifty.Common.Utilities.TypeConverters;
 
 public static class TimeExtensions
 {

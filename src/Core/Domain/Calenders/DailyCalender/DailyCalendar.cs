@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Calenders.DailyCalender;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Calenders.DailyCalender;
 
 public class DailyCalendar : BaseEntity
 {

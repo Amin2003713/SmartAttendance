@@ -43,8 +43,6 @@ public class PagedApiResult<T> : IActionResult,
     public string[] Messages { get; set; }
     public int? Total { get; set; }
 
-    public int? StatusCode { get; set; }
-
     public async Task ExecuteResultAsync(ActionContext context)
     {
         await new OkObjectResult(this).ExecuteResultAsync(context);
@@ -56,4 +54,6 @@ public class PagedApiResult<T> : IActionResult,
             typeof(T).GetInterfaces().Contains(typeof(IDisposable)))
             ((IDisposable)Data).Dispose();
     }
+
+    public int? StatusCode { get; set; }
 }

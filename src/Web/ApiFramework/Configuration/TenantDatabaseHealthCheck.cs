@@ -8,7 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Shifty.Persistence.Services.DbContexts;
+using Shifty.Persistence.Db;
 
 namespace Shifty.ApiFramework.Configuration;
 

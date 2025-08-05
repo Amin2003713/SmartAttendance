@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
+using Shifty.Common.Utilities.InjectionHelpers;
 
 namespace Shifty.Persistence.Jwt;
 

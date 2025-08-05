@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Commons.Base;
+﻿using Shifty.Application.Interfaces.Base;
 using Shifty.Domain.Users;
 
 namespace Shifty.Application.Interfaces.Users;

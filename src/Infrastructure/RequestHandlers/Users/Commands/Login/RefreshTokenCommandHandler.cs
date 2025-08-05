@@ -51,7 +51,10 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
             var refreshToken = new UserToken
             {
-                UserId = userId.userId.Value, RefreshToken = request.RefreshToken, AccessToken = null!, UniqueId = userId.uniq.Value
+                UserId = userId.userId.Value,
+                RefreshToken = request.RefreshToken,
+                AccessToken = null!,
+                UniqueId = userId.uniq.Value
             };
 
             await _refreshTokenQueryRepository.ValidateRefreshTokenAsync(refreshToken, cancellationToken);
@@ -67,7 +70,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
             var updateRefreshToken = new UserToken
             {
                 UserId = user.Id,
-                ExpiryTime = DateTime.Now.AddDays(jwt.refreshToken_expiresIn),
+                ExpiryTime = DateTime.UtcNow.AddDays(jwt.refreshToken_expiresIn),
                 RefreshToken = jwt.refresh_token,
                 AccessToken = jwt.access_token.ComputeSha256Hash(),
                 UniqueId = uniqueId
@@ -77,7 +80,8 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
             return new RefreshTokenResponse
             {
-                AccessToken = jwt.access_token, RefreshToken = jwt.refresh_token
+                AccessToken = jwt.access_token,
+                RefreshToken = jwt.refresh_token
             };
         }
         catch (IpaException e)

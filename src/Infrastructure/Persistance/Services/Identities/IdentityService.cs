@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using Shifty.Common.General.Enums;
-using Shifty.Domain.Tenants;
 
 namespace Shifty.Persistence.Services.Identities;
 

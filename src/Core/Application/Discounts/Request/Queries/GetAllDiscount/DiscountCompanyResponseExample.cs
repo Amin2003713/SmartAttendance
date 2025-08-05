@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Discounts.Request.Queries.GetAllDiscount;
+﻿namespace Shifty.Application.Discounts.Request.Queries.GetAllDiscount;
 
 public class DiscountCompanyResponseExample : IExamplesProvider<DiscountCompanyResponse>
 {
@@ -8,7 +6,9 @@ public class DiscountCompanyResponseExample : IExamplesProvider<DiscountCompanyR
     {
         return new DiscountCompanyResponse
         {
-            CompanyName = "Example Co.", DateOfUse = DateTime.Now, IsUsed = true
+            CompanyName = "Example Co.",
+            DateOfUse = DateTime.UtcNow,
+            IsUsed = true
         };
     }
 }

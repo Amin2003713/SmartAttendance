@@ -1,4 +1,6 @@
-﻿using BackgroundJob = Hangfire.BackgroundJob;
+﻿using Shifty.Common.Utilities.InjectionHelpers;
+using Shifty.Persistence.Services.Seeder;
+using BackgroundJob = Hangfire.BackgroundJob;
 using RecurringJob = Hangfire.RecurringJob;
 
 

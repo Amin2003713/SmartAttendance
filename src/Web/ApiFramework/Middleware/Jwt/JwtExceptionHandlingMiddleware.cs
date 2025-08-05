@@ -87,7 +87,9 @@ public class JwtExceptionHandlingMiddleware
         // Populate the problem‐details object only once:
         var errorDetails = new ApiProblemDetails
         {
-            Status = (int)statusCode, Title = title, Detail = exception.Message
+            Status = (int)statusCode,
+            Title = title,
+            Detail = exception.Message
         };
 
         // Serialize using the shared JsonSerializerOptions to minimize per‐call overhead.

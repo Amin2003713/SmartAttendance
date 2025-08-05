@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Calendars.Request.Commands.CreateReminder;
+﻿namespace Shifty.Application.Calendars.Request.Commands.CreateReminder;
 
 public class CreateReminderRequestExample : IExamplesProvider<CreateReminderRequest>
 {
@@ -9,14 +7,15 @@ public class CreateReminderRequestExample : IExamplesProvider<CreateReminderRequ
         return new CreateReminderRequest
         {
             Details = "یادآوری ",
-            ProjectId = Guid.Empty,
+
             Date = DateTime.Today,
             TargetUsers =
                 new List<UserTargetRequest>
                 {
                     new()
                     {
-                        Id = Guid.Empty, Name = "نام کاربر "
+                        Id = Guid.Empty,
+                        Name = "نام کاربر "
                     }
                 }
         };

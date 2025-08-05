@@ -2,9 +2,14 @@
   <configuration default="false" name="Dev Local " type="docker-deploy" factoryName="docker-compose.yml" server-name="Local">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="envFilePath" value="E:\Projects\Shifty\Shifty\.env.development.local" />
+        <option name="envFilePath" value="E:\Projects\Shifty\Shifty\Docker\.env.development.local" />
         <option name="commandLineOptions" value="--build" />
-        <option name="sourceFilePath" value="docker-compose.yaml" />
+        <option name="secondarySourceFiles">
+          <list>
+            <option value="Docker/services.docker-compose.yaml" />
+          </list>
+        </option>
+        <option name="sourceFilePath" value="Docker/docker-compose.dcproj" />
         <option name="upRemoveOrphans" value="true" />
       </settings>
     </deployment>

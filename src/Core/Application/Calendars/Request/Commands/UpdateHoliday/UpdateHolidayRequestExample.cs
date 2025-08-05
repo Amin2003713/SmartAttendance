@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Calendars.Request.Commands.UpdateHoliday;
+﻿namespace Shifty.Application.Calendars.Request.Commands.UpdateHoliday;
 
 public class UpdateHolidayRequestExample : IExamplesProvider<UpdateHolidayRequest>
 {
@@ -8,7 +6,10 @@ public class UpdateHolidayRequestExample : IExamplesProvider<UpdateHolidayReques
     {
         return new UpdateHolidayRequest
         {
-            HolidayId = Guid.Empty, ProjectId = Guid.Empty, Details = " ویرایش تعطیل", Date = DateTime.Today
+            HolidayId = Guid.Empty,
+
+            Details = " ویرایش تعطیل",
+            Date = DateTime.Today
         };
     }
 }

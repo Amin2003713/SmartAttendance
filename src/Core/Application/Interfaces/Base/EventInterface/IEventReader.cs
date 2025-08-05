@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shifty.Common.Common.ESBase;
 
-namespace Shifty.Persistence.Services.EventInterface;
+namespace Shifty.Application.Interfaces.Base.EventInterface;
 
 /// <summary>
 ///     Interface for reading event-sourced aggregates from the event store.

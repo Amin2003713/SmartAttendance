@@ -1,4 +1,5 @@
 ﻿using Shifty.Application.Interfaces.Tenants.Users;
+using Shifty.Common.Utilities.InjectionHelpers;
 
 // Added for logging
 
@@ -7,7 +8,7 @@ namespace Shifty.Persistence.Repositories.Tenants.TenantAdmin;
 public class TenantAdminRepository : ITenantAdminRepository,
     IScopedDependency
 {
-    private readonly ShiftyTenantDbContext                   _dbContext;
+    private readonly ShiftyTenantDbContext          _dbContext;
     private readonly ILogger<TenantAdminRepository> _logger;
 
     // Constructor with dependency injection for DbContext and Logger

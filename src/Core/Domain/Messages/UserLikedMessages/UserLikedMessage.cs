@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Messages.UserLikedMessages;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Messages.UserLikedMessages;
 
 public class UserLikedMessage : BaseEntity
 {

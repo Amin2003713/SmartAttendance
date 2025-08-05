@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using Newtonsoft.Json;
-using Shifty.Domain.Tenants;
+using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Time.ir;
 
 namespace Shifty.Persistence.Services.Time.ir;
 
-public abstract class TimeIrService(
+public class TimeIrService(
     HttpClient httpClient
 ) : IScopedDependency
 {

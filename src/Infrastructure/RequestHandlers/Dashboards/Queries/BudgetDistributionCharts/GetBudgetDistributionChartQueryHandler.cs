@@ -15,19 +15,23 @@ public class
         {
             new()
             {
-                Key = "humanResource", Budget = 275
+                Key = "humanResource",
+                Budget = 275
             },
             new()
             {
-                Key = "equipment", Budget = 200
+                Key = "equipment",
+                Budget = 200
             },
             new()
             {
-                Key = "material", Budget = 50
+                Key = "material",
+                Budget = 50
             },
             new()
             {
-                Key = "other", Budget = 90
+                Key = "other",
+                Budget = 90
             }
         };
 

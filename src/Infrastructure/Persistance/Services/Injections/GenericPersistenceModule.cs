@@ -2,7 +2,8 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using Shifty.Domain.Tenants;
+using Shifty.Application.Interfaces.Base;
+using Shifty.Application.Interfaces.HangFire;
 using Shifty.Persistence.Services.MigrationManagers;
 
 namespace Shifty.Persistence.Services.Injections;
@@ -19,8 +20,7 @@ public static class GenericPersistenceModule
         Func<IServiceProvider, string, TReadDb> readDbFactory,
         Func<IServiceProvider, string, TWriteDb> writeDbFactory,
         Func<string, IMongoDatabase> mongoFactory,
-        string sqlConnection,
-        params Assembly[] consumer)
+        string sqlConnection)
         where TAdminUser : class
         where TSeeder : class, IGenericSeeder<TAppDbContext>
         where THangfireRepo : class, IHangFireJobRepository

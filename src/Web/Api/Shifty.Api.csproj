@@ -20,19 +20,19 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
 
-        <PackageReference Include="Hangfire" Version="1.8.20" />
+        <PackageReference Include="Hangfire" Version="1.8.20"/>
 
 
-        <PackageReference Include="Riviera.ZarinPal" Version="3.0.0-preview.4" />
+        <PackageReference Include="Riviera.ZarinPal" Version="3.0.0-preview.4"/>
 
 
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
 
 
-        <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0"/>
 
 
-        <PackageReference Include="Serilog.Sinks.Http" Version="9.1.1" />
+        <PackageReference Include="Serilog.Sinks.Http" Version="9.1.1"/>
 
 
     </ItemGroup>
@@ -63,7 +63,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ApiFramework\Shifty.ApiFramework.csproj" />
+        <ProjectReference Include="..\ApiFramework\Shifty.ApiFramework.csproj"/>
     </ItemGroup>
 
     <PropertyGroup>

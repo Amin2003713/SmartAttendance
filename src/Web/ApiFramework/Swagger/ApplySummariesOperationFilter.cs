@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Pluralize.NET;
-using Shifty.Common.Utilities.TypeComverters;
+using Shifty.Common.Utilities.TypeConverters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shifty.ApiFramework.Swagger;

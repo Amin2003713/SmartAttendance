@@ -1,12 +1,11 @@
 ﻿using Shifty.Application.Companies.Commands.AddRequest;
 using Shifty.Application.Interfaces.Tenants.Companies;
-using Shifty.Domain.Tenants;
 
 namespace Shifty.Persistence.Repositories.Tenants.Companies;
 
 public class CompanyRepository : ICompanyRepository
 {
-    private readonly ShiftyTenantDbContext                        _dbContext;
+    private readonly ShiftyTenantDbContext               _dbContext;
     private readonly IdentityService                     _identityService;
     private readonly ILogger<CompanyRepository>          _logger;   // Logger instance
     private readonly IStringLocalizer<CompanyRepository> _messages; // Logger instance
@@ -143,7 +142,7 @@ public class CompanyRepository : ICompanyRepository
         var tenantRequest = new TenantRequest
         {
             Endpoint = request.EndPoint,
-            RequestTime = DateTime.Now,
+            RequestTime = DateTime.UtcNow,
             TenantId = request.TenantId,
             UserId = request.UserId,
             CorrelationId = request.CorrelationId,

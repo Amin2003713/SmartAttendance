@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Shifty.Common.General.BaseClasses;
 using Shifty.Common.Utilities.EfCoreHelper;
 using Users_Role = Shifty.Domain.Users.Role;
 
-namespace Shifty.Persistence.Services.DbContexts;
+namespace Shifty.Persistence.Db;
 
-public abstract class ShiftyDbContext :
+public class ShiftyDbContext :
     IdentityDbContext<User, Users_Role, Guid, IdentityUserClaim<Guid>, UserRoles,
         IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>,
     IAppDbContext
@@ -78,12 +79,12 @@ public abstract class ShiftyDbContext :
                     break;
 
                 case EntityState.Modified:
-                    entry.Entity.ModifiedAt = DateTime.Now;
+                    entry.Entity.ModifiedAt = DateTime.UtcNow;
                     entry.Entity.ModifiedBy ??= currentUserId ?? null!;
                     break;
 
                 case EntityState.Deleted:
-                    entry.Entity.DeletedAt = DateTime.Now;
+                    entry.Entity.DeletedAt = DateTime.UtcNow;
                     entry.Entity.DeletedBy ??= currentUserId ?? null!;
                     entry.Entity.IsActive = false;
                     entry.State = EntityState.Modified;

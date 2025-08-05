@@ -1,11 +1,10 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Shifty.Application.HubFiles.Commands.UploadHubFile;
+using Shifty.Application.MinIo.Commands.DeleteFile;
 using Shifty.Application.Users.Commands.UpdateUser;
 using Shifty.Common.Exceptions;
 using Shifty.Common.General.Enums.FileType;
-
-using Shifty.Common.Messaging.Contracts.MinIo.Minio.Commands;
-using Shifty.Common.Utilities.TypeComverters;
 using Shifty.Domain.Users;
 using Shifty.Persistence.Services.Identities;
 
@@ -14,6 +13,7 @@ namespace Shifty.RequestHandlers.Users.Commands.UpdateUser;
 public class UpdateUserCommandHandler(
     UserManager<User> userManager,
     IdentityService identityService,
+    IMediator mediator,
     ILogger<UpdateUserCommandHandler> logger,
     IStringLocalizer<UpdateUserCommandHandler> localizer
 )
@@ -40,11 +40,10 @@ public class UpdateUserCommandHandler(
                 {
                     var path = user.Profile.Replace("https://", "").Replace("http://", "");
 
-                    var deleteResponse = await broker.RequestAsync<DeleteFileResponseBroker, DeleteFileCommandBroker>(
-                        new DeleteFileCommandBroker(path),
+                    var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
                         cancellationToken);
 
-                    if (!deleteResponse.IsDeleted)
+                    if (!deleteResponse)
                     {
                         logger.LogError("Failed to delete old image for User {Id}.", user.Id);
                         throw IpaException.InternalServerError(localizer["Failed to delete old image."].Value);
@@ -52,20 +51,18 @@ public class UpdateUserCommandHandler(
                 }
 
 
-                var uploadCommand = new UploadHubFileCommandBroker(
-                    request.ImageFile.MediaFile.FileName,
-                    await request.ImageFile.MediaFile.ToByte(cancellationToken),
-                    null,
-                    DateTime.Now.Date,
-                    FileStorageType.ProfilePicture,
-                    user.Id
-                );
+                var uploadCommand = new UploadHubFileCommand
+                {
+                    File = request.ImageFile.MediaFile,
 
-                var uploadResult = await broker.RequestAsync<UploadHubFileResponseBroker, UploadHubFileCommandBroker>(
-                    uploadCommand,
-                    cancellationToken);
+                    ReportDate = DateTime.UtcNow,
+                    RowType = FileStorageType.ProfilePicture,
+                    RowId = userId
+                };
 
-                update.Profile = uploadResult.FileUrl;
+                var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);
+
+                update.Profile = uploadImageResponse.Url;
 
                 logger.LogInformation("Uploaded image for Profile{UserId}.", user.Id);
             }

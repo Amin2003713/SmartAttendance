@@ -16,7 +16,6 @@ global using Shifty.Common.Utilities.EnumHelpers;
 global using Shifty.Domain.Calenders.CalenderProjects;
 global using Shifty.Domain.Calenders.CalenderUsers;
 global using Shifty.Domain.Calenders.DailyCalender;
-global using Shifty.Domain.Commons.BaseClasses;
 global using Shifty.Domain.Setting;
 global using Shifty.Domain.Tenants;
 global using Shifty.Domain.Tenants.Discounts;

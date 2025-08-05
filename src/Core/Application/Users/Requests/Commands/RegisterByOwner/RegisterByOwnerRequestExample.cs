@@ -1,6 +1,5 @@
 ﻿using Shifty.Common.General.Enums;
 using Shifty.Common.Utilities.EnumHelpers;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Users.Requests.Commands.RegisterByOwner;
 

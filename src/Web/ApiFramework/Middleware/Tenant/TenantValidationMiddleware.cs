@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Shifty.ApiFramework.Tools;
-using Shifty.Common.InjectionHelpers;
+using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Tenants;
-using Shifty.Persistence.Services.DbContexts;
+using Shifty.Persistence.Db;
 
 namespace Shifty.ApiFramework.Middleware.Tenant;
 

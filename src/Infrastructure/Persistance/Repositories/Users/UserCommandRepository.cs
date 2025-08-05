@@ -2,7 +2,6 @@
 using Shifty.Application.Interfaces.Tenants.Companies;
 using Shifty.Application.Users.Requests.Commands.RegisterByOwner;
 using Shifty.Application.Users.Requests.Commands.UpdatePhoneNumber;
-using Shifty.Domain.Tenants;
 
 // Added for logging
 

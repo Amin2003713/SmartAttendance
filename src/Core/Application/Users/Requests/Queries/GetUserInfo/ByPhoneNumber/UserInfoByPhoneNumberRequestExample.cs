@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Queries.GetUserInfo.ByPhoneNumber;
+﻿namespace Shifty.Application.Users.Requests.Queries.GetUserInfo.ByPhoneNumber;
 
 /// <summary>
 ///     Provides an example for <see cref="UserInfoByPhoneNumberRequest" />.

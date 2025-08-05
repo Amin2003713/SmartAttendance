@@ -1,4 +1,4 @@
-﻿using Shifty.Common.InjectionHelpers;
+﻿using Shifty.Common.Utilities.InjectionHelpers;
 
 namespace Shifty.Common.Utilities.DynamicTableHelper;
 

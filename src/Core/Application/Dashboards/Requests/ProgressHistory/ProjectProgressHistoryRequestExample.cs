@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Dashboards.Requests.ProgressHistory;
+﻿namespace Shifty.Application.Dashboards.Requests.ProgressHistory;
 
 public record ProjectProgressHistoryRequestExample : IExamplesProvider<ProjectProgressHistoryRequest>
 {

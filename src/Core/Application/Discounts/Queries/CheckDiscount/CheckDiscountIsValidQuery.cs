@@ -11,7 +11,8 @@ public class CheckDiscountIsValidQuery : IRequest<CheckDiscountIsValidResponse>
     {
         return new CheckDiscountIsValidQuery
         {
-            Code = code, PackageMonth = packageMonth
+            Code = code,
+            PackageMonth = packageMonth
         };
     }
 }

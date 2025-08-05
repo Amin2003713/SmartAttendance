@@ -3,8 +3,6 @@ using Shifty.Application.Interfaces.Calendars.CalendarProjects;
 using Shifty.Application.Interfaces.Calendars.CalendarUsers;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
 using Shifty.Persistence.Services.Identities;
 
 namespace Shifty.RequestHandlers.Calendars.Commands.DeleteReminder;

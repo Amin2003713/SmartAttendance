@@ -3,6 +3,6 @@
 namespace Shifty.Application.Calendars.Queries.GetCalendarInfo;
 
 public record GetCalendarInfoQuery(
-    Guid ProjectId,
+    
     DateTime Date
 ) : IRequest<List<GetCalendarInfoResponse>>;

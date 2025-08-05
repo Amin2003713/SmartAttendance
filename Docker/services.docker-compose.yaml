@@ -12,7 +12,7 @@
       REDIS__CONFIGURATION: "redis:6379,password=${REDIS_PASSWORD}"
       BASE_URL: "${BASE_URL}"
     ports:
-      - "1880:8080"
+      - "1980:8080"
     networks:
       - shared-network
     restart: always

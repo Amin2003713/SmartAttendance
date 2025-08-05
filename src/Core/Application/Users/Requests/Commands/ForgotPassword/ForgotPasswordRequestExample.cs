@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Commands.ForgotPassword;
+﻿namespace Shifty.Application.Users.Requests.Commands.ForgotPassword;
 
 /// <summary>
 ///     Provides an example for <see cref="ForgotPasswordRequest" /> to be used in API documentation.
@@ -12,7 +10,9 @@ public class ForgotPasswordRequestExample : IExamplesProvider<ForgotPasswordRequ
     {
         return new ForgotPasswordRequest
         {
-            UserName = "09134041709", NewPassword = "@Aa123456", ConfirmPassword = "@Aa123456"
+            UserName = "09134041709",
+            NewPassword = "@Aa123456",
+            ConfirmPassword = "@Aa123456"
         };
     }
 }

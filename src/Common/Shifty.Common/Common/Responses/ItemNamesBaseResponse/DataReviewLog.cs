@@ -8,7 +8,7 @@ public record DataReviewLog
     public ReviewAction Action { get; init; }
     public string Comment { get; init; }
 
-    public DateTime DataReviewedAt { get; init; } = DateTime.Now;
+    public DateTime DataReviewedAt { get; init; } = DateTime.UtcNow;
 
     public UserType PerformedByLevel { get; init; }
 }

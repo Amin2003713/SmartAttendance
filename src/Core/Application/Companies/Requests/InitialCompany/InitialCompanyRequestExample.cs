@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Companies.Requests.InitialCompany;
+﻿namespace Shifty.Application.Companies.Requests.InitialCompany;
 
 public class InitialCompanyRequestExample : IExamplesProvider<InitialCompanyRequest>
 {

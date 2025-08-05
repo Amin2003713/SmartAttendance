@@ -1,4 +1,5 @@
-﻿using Shifty.Application.Commons.Base;
+﻿using Shifty.Application.Interfaces.Base;
+using Shifty.Common.General.BaseClasses;
 
 namespace Shifty.Persistence.Repositories.Common;
 

@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Calendars.Request.Commands.CreateHoliday;
+﻿namespace Shifty.Application.Calendars.Request.Commands.CreateHoliday;
 
 public class CreateHolidayRequestExample : IExamplesProvider<CreateHolidayRequest>
 {
@@ -8,7 +6,8 @@ public class CreateHolidayRequestExample : IExamplesProvider<CreateHolidayReques
     {
         return new CreateHolidayRequest
         {
-            Date = DateTime.Today, Details = "تعطیل"
+            Date = DateTime.Today,
+            Details = "تعطیل"
         };
     }
 }

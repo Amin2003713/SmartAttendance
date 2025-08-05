@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Commands.SendActivationCode;
+﻿namespace Shifty.Application.Users.Requests.Commands.SendActivationCode;
 
 public class SendActivationCodeRequestExample : IExamplesProvider<SendActivationCodeRequest>
 {

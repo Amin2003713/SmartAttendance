@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using Shifty.Persistence.Services.EventInterface;
+using Shifty.Application.Interfaces.Base.EventInterface;
 
-namespace Shifty.Persistence.Services.EventRepository;
+namespace Shifty.Persistence.Repositories.Common.EventRepository;
 
 /// <summary>
 ///     MongoDB implementation of IEventWriter for writing events and snapshots.
@@ -152,10 +152,10 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
                         Version = version++,
                         Type = evt.GetType().Name!,
                         Data = SerializeEvent(evt),
-                        OccurredOn = DateTime.Now,
+                        OccurredOn = DateTime.UtcNow,
                         // UserId = access.UserId,
-                        ProjectId = evt.ProjectId,
-                        Reported = evt.Reported,
+
+                        Reported = evt.Reported
                         // Node = access.Node
                     });
             })
@@ -181,9 +181,9 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
                         snap,
                         snap.GetType(),
                         ApplicationConstant.Mongo.JsonOptions),
-                    OccurredOn = DateTime.Now,
-                    ProjectId = snap.ProjectId,
-                    Reported = reported,
+                    OccurredOn = DateTime.UtcNow,
+
+                    Reported = reported
                     //   Node = access.Node,
                     // UserId = access.UserId
                 };
@@ -248,9 +248,9 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
                 snapshot,
                 snapshot.GetType(),
                 ApplicationConstant.Mongo.JsonOptions),
-            OccurredOn = DateTime.Now,
-            ProjectId = snapshot.ProjectId,
-            Reported = reported,
+            OccurredOn = DateTime.UtcNow,
+
+            Reported = reported
             // Node = access.Node,
             // UserId = access.UserId
         };
@@ -284,10 +284,10 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
                 Version = startVersion++,
                 Type = e.GetType().Name!,
                 Data = SerializeEvent(e),
-                OccurredOn = DateTime.Now,
+                OccurredOn = DateTime.UtcNow,
                 // UserId = access.UserId,
-                ProjectId = e.ProjectId,
-                Reported = e.Reported,
+
+                Reported = e.Reported
                 // Node = access.Node
             })
             .ToList();

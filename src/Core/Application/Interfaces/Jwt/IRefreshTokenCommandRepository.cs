@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Commons.Base;
+using Shifty.Application.Interfaces.Base;
 using Shifty.Domain.Users;
 
 namespace Shifty.Application.Interfaces.Jwt;

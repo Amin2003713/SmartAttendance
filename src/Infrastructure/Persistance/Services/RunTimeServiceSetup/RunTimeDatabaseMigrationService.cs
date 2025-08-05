@@ -1,7 +1,5 @@
-﻿using Shifty.Common.Messaging.Contracts.RegisterDb;
+﻿using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Defaults;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Tenants.Payments;
 
 namespace Shifty.Persistence.Services.RunTimeServiceSetup;
 
@@ -81,12 +79,11 @@ public class RunTimeDatabaseMigrationService(
                 if (adminRoles != null)
                     dbContext.UserRoles.AddRange(adminRoles.Select(a => new UserRoles
                     {
-                        RoleId = a.Id, UserId = adminUser.Id
+                        RoleId = a.Id,
+                        UserId = adminUser.Id
                     }));
 
                 await dbContext.SaveChangesAsync(cancellationToken);
-
-                await broker.PublishAsync(new RegisterDbBroker(tenantInfo.GetConnectionString()), cancellationToken);
             }
         }
         catch (Exception e)

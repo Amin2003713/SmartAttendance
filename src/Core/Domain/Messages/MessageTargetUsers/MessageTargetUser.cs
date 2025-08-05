@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Messages.MessageTargetUsers;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Messages.MessageTargetUsers;
 
 public class MessageTargetUser : BaseEntity
 {

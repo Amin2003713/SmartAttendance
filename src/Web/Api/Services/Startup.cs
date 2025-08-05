@@ -14,8 +14,8 @@ using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Tenants;
 using Shifty.Domain.Users;
+using Shifty.Persistence.Db;
 using Shifty.Persistence.Services;
-using Shifty.Persistence.Services.DbContexts;
 using Shifty.RequestHandlers.Services;
 
 namespace Shifty.Api.Services;
@@ -35,13 +35,13 @@ public class Startup
 
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
-            User,                       // User entity model
-            Role,                       // Role entity model
-            ShiftyTenantInfo,              // Tenant info model
-            ShiftyTenantDbContext,               // Multi-tenant DB context
-            ShiftyDbContext, // Service-specific DB context (non-tenant)
-            Program,                    // Reference for localizer (error messages)
-            CreatePaymentCommand        // Optional: Commands for custom Swagger sample
+            User,                  // User entity model
+            Role,                  // Role entity model
+            ShiftyTenantInfo,      // Tenant info model
+            ShiftyTenantDbContext, // Multi-tenant DB context
+            ShiftyDbContext,       // Service-specific DB context (non-tenant)
+            Program,               // Reference for localizer (error messages)
+            CreatePaymentCommand   // Optional: Commands for custom Swagger sample
         >(
             AddLoginRecordForUsers // Delegate to log login success for auditing
         );

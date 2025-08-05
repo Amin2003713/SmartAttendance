@@ -48,7 +48,7 @@ public class UpdateHolidayCommandHandler(
             if (!isSameDate)
             {
                 var isAlreadyHoliday =
-                    await dailyCalendarQueryRepository.IsAlreadyHoliday(request.ProjectId,
+                    await dailyCalendarQueryRepository.IsAlreadyHoliday(
                         request.Date,
                         cancellationToken);
 

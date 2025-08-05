@@ -1,9 +1,8 @@
-﻿using Shifty.Application.Calendars.Queries.GetCalendar;
+﻿using DNTPersianUtils.Core;
+using Shifty.Application.Calendars.Queries.GetCalendar;
 using Shifty.Application.Calendars.Request.Queries.GetCalendar;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Application.Interfaces.Tenants.Calendars;
-using Shifty.Common.General;
-using Shifty.Common.Messaging.Contracts.PRIMA.Items.Queries.PrimaCalendarStatuses;
 using Shifty.Domain.Calenders.DailyCalender;
 using Shifty.Domain.Tenants;
 using Shifty.Persistence.Services.Identities;
@@ -25,8 +24,7 @@ public class GetCalendarQueryHandler(
         var currentUserId = identityService.GetUserId<Guid>();
 
         logger.LogInformation(
-            "Fetching calendar for ProjectId: {ProjectId}, Year: {Year}, Month: {Month}, User: {UserId}",
-            request.ProjectId,
+            "Fetching calendar for ProjectId:  Year: {Year}, Month: {Month}, User: {UserId}",
             request.Year,
             request.Month,
             currentUserId);
@@ -35,11 +33,6 @@ public class GetCalendarQueryHandler(
             new PersianDateTime(request.Year, request.Month, 1).ToString().ToGregorianDateTime()!.Value;
 
         var monthEndGregorian = monthStartGregorian.GetPersianMonthStartAndEndDates()!.EndDate;
-
-        var access =
-            await mediator.Send(
-                new GetProjectUserQuery(request.ProjectId, currentUserId, ApplicationConstant.ServiceName),
-                cancellationToken);
 
 
         var publicCalendarEntries = await calendarQueryRepository.GetPublicCalendarEvents(calendar =>
@@ -56,7 +49,6 @@ public class GetCalendarQueryHandler(
         var customCalendarEntries = await dailyCalendarQueryRepository.GetCustomCalendarEvents(
                                         monthStartGregorian,
                                         monthEndGregorian,
-                                        request.ProjectId,
                                         currentUserId,
                                         cancellationToken) ??
                                     [];
@@ -73,25 +65,25 @@ public class GetCalendarQueryHandler(
         var candidateDates = new HashSet<DateTime>(datesWithPublicEvent);
         candidateDates.UnionWith(datesWithCustomEntry);
 
-        var reviewStatusTasks
-            = await calendarQueryRepository.GetReviewStatusBetweenDateAsync(monthStartGregorian,
-                monthEndGregorian,
-                request.ProjectId,
-                access,
-                cancellationToken);
-
-
-        var datesWithReviewStatus = reviewStatusTasks.Where(kvp =>
-            {
-                var (actionNeeded, isVerified) = kvp.Value;
-                return actionNeeded || isVerified;
-            })
-            .Select(kvp => kvp.Key)
-            .ToHashSet();
+        // var reviewStatusTasks
+        //     = await calendarQueryRepository.GetReviewStatusBetweenDateAsync(monthStartGregorian,
+        //         monthEndGregorian,
+        //         request.ProjectId,
+        //         access,
+        //         cancellationToken);
+        //
+        //
+        // var datesWithReviewStatus = reviewStatusTasks.Where(kvp =>
+        //     {
+        //         var (actionNeeded, isVerified) = kvp.Value;
+        //         return actionNeeded || isVerified;
+        //     })
+        //     .Select(kvp => kvp.Key)
+        //     .ToHashSet();
 
         var interestingDates = new HashSet<DateTime>(datesWithPublicEvent);
         interestingDates.UnionWith(datesWithCustomEntry);
-        interestingDates.UnionWith(datesWithReviewStatus);
+        // interestingDates.UnionWith(datesWithReviewStatus);
 
 
         var calendarResponses = new List<GetCalendarResponse>(interestingDates.Count);
@@ -107,15 +99,16 @@ public class GetCalendarQueryHandler(
             var isCustomHoliday = IsCustomHoliday(customEntry);
 
             var hasReminder = IsReminder(customEntry);
-
-            reviewStatusTasks.TryGetValue(date, out var state);
-
-            state ??= new FetchReviewStatusResult(false, false);
+            //
+            // reviewStatusTasks.TryGetValue(date, out var state);
+            //
+            // state ??= new FetchReviewStatusResult(false, false);
 
             if (!isPublicHolidayOrWeekend &&
                 !isCustomHoliday &&
-                !hasReminder &&
-                state is { ActionNeeded: false, IsVerified: false })
+                !hasReminder
+                // && state is { ActionNeeded: false, IsVerified: false }
+               )
                 continue;
 
 
@@ -124,16 +117,16 @@ public class GetCalendarQueryHandler(
                 Date = date,
                 IsHoliday = isPublicHolidayOrWeekend,
                 IsCustomHoliday = isCustomHoliday,
-                HasReminder = hasReminder,
-                ActionNeeded = state.ActionNeeded,
-                IsVerified = state.IsVerified
+                HasReminder = hasReminder
+                // ActionNeeded = state.ActionNeeded,
+                // IsVerified = state.IsVerified
             });
         }
 
-        logger.LogInformation(
-            "Calendar built with {Count} days for ProjectId: {ProjectId}",
-            calendarResponses.Count,
-            request.ProjectId);
+        // logger.LogInformation(
+        //     "Calendar built with {Count} days for ProjectId: {ProjectId}",
+        //     calendarResponses.Count,
+        //     request.ProjectId);
 
         return calendarResponses;
     }

@@ -9,51 +9,71 @@
     <ItemGroup>
 
 
-        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="9.0.0" />
 
 
-        <PackageReference Include="Hangfire" Version="1.8.20" />
+        <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
 
 
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.7.0" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.7" />
-        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.7" />
-        <PackageReference Include="OpenTelemetry.Api.ProviderBuilderExtensions" Version="1.12.0" />
-        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.12.0" />
-        <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.12.0-beta.1" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.12.0-beta.2" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Process" Version="1.12.0-beta.1" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.12.0-beta.1" />
-        <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4" />
-        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.3.0" />
-        <PackageReference Include="Serilog.Enrichers.Correlate" Version="1.0.0" />
-        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
-        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
-        <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
-        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
-        <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
-        <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
-        <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.7" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.1-dev-02317" />
-        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0" />
-        <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
-        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.Hangfire" Version="1.12.0-beta.1" />
-        <PackageReference Include="OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule" Version="1.11.0-beta.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="9.0.3" />
-        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.7" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0"/>
+
+
+        <PackageReference Include="Hangfire" Version="1.8.20"/>
+
+        <PackageReference Include="AspNetCore.HealthChecks.Consul" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.RabbitMQ" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0"/>
+        <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.7.0"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.7.0" />
+        <PackageReference Include="OpenTelemetry" Version="1.12.0" />
+        <PackageReference Include="OpenTelemetry.Api.ProviderBuilderExtensions" Version="1.12.0"/>
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.12.0"/>
+        <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.12.0-beta.1"/>
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.12.0-beta.2"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" Version="1.12.0-beta.1"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.12.0-beta.2" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.12.0-beta.1"/>
+        <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
+        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.3.0"/>
+        <PackageReference Include="Serilog.Enrichers.Correlate" Version="1.0.0"/>
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1"/>
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1"/>
+        <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0"/>
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0"/>
+        <PackageReference Include="Serilog.Exceptions" Version="8.4.0"/>
+        <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0"/>
+        <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.7"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0"/>
+        <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.1-dev-02317"/>
+        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0"/>
+        <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1"/>
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.Hangfire" Version="1.12.0-beta.1"/>
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule" Version="1.11.0-beta.1"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="9.0.3"/>
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.7"/>
     </ItemGroup>
 
 
@@ -84,7 +104,7 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\RequestHandlers\Shifty.RequestHandlers.csproj"/>
     </ItemGroup>
 
 

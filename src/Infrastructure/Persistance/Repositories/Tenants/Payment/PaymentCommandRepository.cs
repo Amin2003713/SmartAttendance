@@ -6,8 +6,6 @@ using Shifty.Application.Payment.Request.Commands.CreatePayment;
 using Shifty.Application.ZarinPal.Request;
 using Shifty.Common.General.Enums.Discount;
 using Shifty.Common.General.Enums.Payment;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Tenants.Payments;
 
 namespace Shifty.Persistence.Repositories.Tenants.Payment;
 
@@ -186,7 +184,7 @@ public class PaymentCommandRepository(
                    1  => BasePrice(model, monthlyPrice, 1),
                    null => BasePrice(model,
                        monthlyPrice,
-                       (float)lastPurchase!.LeftDays() / PersianDateTime.Now.GetMonthDays),
+                       (float)lastPurchase!.LeftDays() / new PersianDateTime(DateTime.UtcNow).GetMonthDays),
                    _ => throw new ArgumentOutOfRangeException()
                };
     }
@@ -241,7 +239,9 @@ public class PaymentCommandRepository(
             {
                 db.TenantDiscounts.Add(new TenantDiscount
                 {
-                    TenantId = TenantInfo.Id!, IsUsed = false, DiscountId = dis.Id
+                    TenantId = TenantInfo.Id!,
+                    IsUsed = false,
+                    DiscountId = dis.Id
                 });
 
                 await db.SaveChangesAsync(cancellationToken);
@@ -258,14 +258,15 @@ public class PaymentCommandRepository(
             {
                 Code = $"Discount for Each 5 User 5 % for {TenantInfo.Id}",
                 Duration = 1,
-                StartDate = DateTime.Now,
+                StartDate = DateTime.UtcNow,
                 Value = userDiscount,
                 DiscountType = DiscountType.Percent,
                 TenantDiscount =
                 [
                     new TenantDiscount
                     {
-                        TenantId = TenantInfo.Id!, IsUsed = true
+                        TenantId = TenantInfo.Id!,
+                        IsUsed = true
                     }
                 ]
             };
@@ -302,7 +303,7 @@ public class PaymentCommandRepository(
 
         var startDate = model.PaymentStatus switch
                         {
-                            PaymentType.RenewSubscriptionEarly => oldCompany.StartDate, PaymentType.RenewSubscription => DateTime.Now,
+                            PaymentType.RenewSubscriptionEarly => oldCompany.StartDate, PaymentType.RenewSubscription => DateTime.UtcNow,
                             PaymentType.AddCompanyUser         => oldCompany.StartDate, _                             => throw new ArgumentOutOfRangeException()
                         };
 
@@ -310,7 +311,7 @@ public class PaymentCommandRepository(
                       {
                           PaymentType.RenewSubscriptionEarly => new PersianDateTime(oldCompany.EndDate).AddMonths(model.Duration ?? 0)
                               .ToDateTime(),
-                          PaymentType.RenewSubscription => new PersianDateTime(DateTime.Now).AddMonths(model.Duration ?? 0)
+                          PaymentType.RenewSubscription => new PersianDateTime(DateTime.UtcNow).AddMonths(model.Duration ?? 0)
                               .ToDateTime(),
                           PaymentType.AddCompanyUser => oldCompany.EndDate.AddYears(3024),
                           _                          => throw new ArgumentOutOfRangeException()
@@ -333,7 +334,7 @@ public class PaymentCommandRepository(
             PaymentType = model.PaymentStatus,
             Tenant = oldCompany.Tenant,
             DiscountId = model.DiscountId,
-            PaymentDate = DateTime.Now,
+            PaymentDate = DateTime.UtcNow,
             ActiveUsers = oldCompany.ActiveUsers,
             LastPaymentId = oldCompany.Id,
             BasePrice = (decimal)cost.baseCost,

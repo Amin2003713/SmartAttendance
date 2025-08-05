@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Users;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Users;
 
 public class UserRoles : IdentityUserRole<Guid>,
     ISimpleEntity

@@ -1,6 +1,5 @@
 ﻿using Shifty.Application.Dashboards.Queries.BudgetDistributionCharts;
 using Shifty.Application.Dashboards.Queries.KPIMetric;
-using Shifty.Application.Dashboards.Requests.GetRecentActivities;
 using Shifty.Application.Dashboards.Requests.ProgressHistory;
 using Shifty.Application.Dashboards.Responses.DashboardCardSummary;
 using Shifty.Application.Dashboards.Responses.ProgressHistory;

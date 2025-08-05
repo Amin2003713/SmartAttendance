@@ -1,5 +1,4 @@
 ﻿using Shifty.Domain.Setting;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Settings.Requests.UpdateSetting;
 

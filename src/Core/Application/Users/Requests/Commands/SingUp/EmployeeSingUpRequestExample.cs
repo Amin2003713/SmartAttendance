@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Filters;
-
-namespace Shifty.Application.Users.Requests.Commands.SingUp;
+﻿namespace Shifty.Application.Users.Requests.Commands.SingUp;
 
 public class EmployeeSingUpRequestExample : IExamplesProvider<EmployeeSingUpRequest>
 {

@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Processing;
 
-namespace Shifty.Common.Utilities.TypeComverters;
+namespace Shifty.Common.Utilities.TypeConverters;
 
 public static class ImageExtensionMethods
 {
@@ -33,7 +33,8 @@ public static class ImageExtensionMethods
         image.Mutate(ctx =>
             ctx.Resize(new ResizeOptions
             {
-                Mode = ResizeMode.Max, Size = new Size(640 / 2, 360 / 2)
+                Mode = ResizeMode.Max,
+                Size = new Size(640 / 2, 360 / 2)
             })
         );
 

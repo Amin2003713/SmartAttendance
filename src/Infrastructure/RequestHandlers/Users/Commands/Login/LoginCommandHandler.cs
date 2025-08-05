@@ -41,7 +41,7 @@ public class LoginCommandHandler(
             if (await userManager.IsLockedOutAsync(user))
             {
                 var lockoutEnd = await userManager.GetLockoutEndDateAsync(user);
-                var localEnd   = lockoutEnd?.DateTime.ToLocalTime() ?? DateTime.Now;
+                var localEnd   = lockoutEnd?.DateTime.ToLocalTime() ?? DateTime.UtcNow;
 
                 if (localEnd.Date == DateTime.MaxValue.Date)
                     throw IpaException.Forbidden(
@@ -119,7 +119,7 @@ public class LoginCommandHandler(
                 AccessToken = jwt.access_token.ComputeSha256Hash(),
                 RefreshToken = jwt.refresh_token,
                 UserId = user.Id,
-                ExpiryTime = DateTime.Now.AddSeconds(jwt.expires_in)
+                ExpiryTime = DateTime.UtcNow.AddSeconds(jwt.expires_in)
             };
 
             await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken, cancellationToken);
@@ -127,7 +127,8 @@ public class LoginCommandHandler(
             // 8. Return tokens.
             return new LoginResponse
             {
-                Token = jwt.access_token, RefreshToken = refreshToken.RefreshToken
+                Token = jwt.access_token,
+                RefreshToken = refreshToken.RefreshToken
             };
         }
         catch (IpaException ex)

@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Shifty.Application.Interfaces.HangFire;
 
 namespace Shifty.Persistence.Services.Taskes;
 

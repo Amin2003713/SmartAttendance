@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Setting;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Setting;
 
 public class Setting : BaseEntity
 {

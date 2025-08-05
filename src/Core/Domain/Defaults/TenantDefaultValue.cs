@@ -8,7 +8,8 @@ public abstract class TenantDefaultValue
     {
         return new Setting.Setting
         {
-            Id = Guid.Parse("A360ED40-C440-4258-BF8A-D78B71AD390C"), Flags = SettingFlags.CompanyEnabled.AddFlag(SettingFlags.InitialStepper)
+            Id = Guid.Parse("A360ED40-C440-4258-BF8A-D78B71AD390C"),
+            Flags = SettingFlags.CompanyEnabled.AddFlag(SettingFlags.InitialStepper)
         };
     }
 
@@ -18,9 +19,9 @@ public abstract class TenantDefaultValue
         return new Payments
         {
             IsActive = true,
-            PaymentDate = DateTime.Now,
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(15),
+            PaymentDate = DateTime.UtcNow,
+            StartDate = DateTime.UtcNow,
+            EndDate = DateTime.UtcNow.AddDays(15),
             UsersCount = 10,
             ActiveUsers = 1,
             ProjectsCount = 5,
@@ -56,23 +57,38 @@ public abstract class TenantDefaultValue
         [
             new ActiveService
             {
-                Id = Guid.NewGuid(), Name = "prima", PaymentId = payment.Id, Price = 1611
+                Id = Guid.NewGuid(),
+                Name = "prima",
+                PaymentId = payment.Id,
+                Price = 1611
             },
             new ActiveService
             {
-                Id = Guid.NewGuid(), Name = "tenant", PaymentId = payment.Id, Price = 1611
+                Id = Guid.NewGuid(),
+                Name = "tenant",
+                PaymentId = payment.Id,
+                Price = 1611
             },
             new ActiveService
             {
-                Id = Guid.NewGuid(), Name = "msp", PaymentId = payment.Id, Price = 1611
+                Id = Guid.NewGuid(),
+                Name = "msp",
+                PaymentId = payment.Id,
+                Price = 1611
             },
             new ActiveService
             {
-                Id = Guid.NewGuid(), Name = "taskTracker", PaymentId = payment.Id, Price = 1611
+                Id = Guid.NewGuid(),
+                Name = "taskTracker",
+                PaymentId = payment.Id,
+                Price = 1611
             },
             new ActiveService
             {
-                Id = Guid.NewGuid(), Name = "minio", PaymentId = payment.Id, Price = 1611
+                Id = Guid.NewGuid(),
+                Name = "minio",
+                PaymentId = payment.Id,
+                Price = 1611
             }
         ];
     }

@@ -4,7 +4,7 @@ using Shifty.Application.Interfaces.Tenants.Companies;
 using Shifty.Application.Interfaces.Tenants.Users;
 using Shifty.Common.Exceptions;
 using Shifty.Domain.Tenants;
-using Shifty.Persistence.Services.DbContexts;
+using Shifty.Persistence.Db;
 using Shifty.Persistence.Services.RunTimeServiceSetup;
 
 namespace Shifty.RequestHandlers.Companies.Commands.InitialCompany;

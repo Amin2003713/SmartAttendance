@@ -1,6 +1,4 @@
 ﻿using Shifty.Application.Calendars.Request.Queries.GetHoliday;
-using Shifty.Domain.Tenants;
-
 
 namespace Shifty.Persistence.Repositories.Tenants.Calendars;
 
@@ -28,13 +26,13 @@ public class CalendarQueryRepository(
         }
     }
 
-    public async Task<bool> IsAlreadyHoliday(Guid projectId, DateTime dateTime, CancellationToken cancellationToken)
+    public async Task<bool> IsAlreadyHoliday( DateTime dateTime, CancellationToken cancellationToken)
     {
         try
         {
-            logger.LogInformation("Checking if date {Date} is already a holiday for project {ProjectId}",
-                dateTime,
-                projectId);
+            // logger.LogInformation("Checking if date {Date} is already a holiday for project {ProjectId}",
+            //     dateTime,
+            //     projectId);
 
             var result = await db.TenantCalendars.AnyAsync(
                 c => c.Date == dateTime && (c.IsHoliday || c.IsWeekend),
@@ -45,33 +43,36 @@ public class CalendarQueryRepository(
         }
         catch (Exception ex)
         {
-            logger.LogError(ex,
-                "Error checking existing holiday for projectId: {ProjectId}, date: {Date}",
-                projectId,
-                dateTime);
+            // logger.LogError(ex,
+            //     "Error checking existing holiday for projectId: {ProjectId}, date: {Date}",
+            //     projectId,
+            //     dateTime);
 
             throw new InvalidOperationException(localizer["An error occurred while checking holiday status."]);
         }
     }
 
     public async Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-        Guid projectId,
+
         DateTime startAt,
         DateTime endAt,
         CancellationToken cancellationToken)
     {
         try
         {
-            logger.LogInformation("Fetching holidays from {Start} to {End} for project {ProjectId}",
-                startAt,
-                endAt,
-                projectId);
+            // logger.LogInformation("Fetching holidays from {Start} to {End} for project {ProjectId}",
+            //     startAt,
+            //     endAt,
+            //     projectId);
 
             var publicHolidays = await db.TenantCalendars
                 .Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday)
                 .Select(e => new GetHolidayResponse
                 {
-                    Date = e.Date, Message = e.Details, IsCustom = false, Id = e.Id
+                    Date = e.Date,
+                    Message = e.Details,
+                    IsCustom = false,
+                    Id = e.Id
                 })
                 .ToListAsync(cancellationToken);
 
@@ -83,7 +84,6 @@ public class CalendarQueryRepository(
             throw new InvalidOperationException(localizer["An error occurred while retrieving holidays."]);
         }
     }
-
 
 
     public async Task<TenantCalendar> Getday(Guid id, CancellationToken cancellationToken)

@@ -46,9 +46,9 @@ public class DiscountQueryRepository(
                         Duration = a.Duration,
                         CreatedAt = a.CreatedAt,
                         IsActive =
-                            (a.StartDate.AddDays(a.Duration) - DateTime.Now).TotalDays > 0 && a.DeletedBy == null,
+                            (a.StartDate.AddDays(a.Duration) - DateTime.UtcNow).TotalDays > 0 && a.DeletedBy == null,
                         PackageMonth = a.PackageMonth,
-                        RemainingDays = (a.EndDate - DateTime.Now).ToTimeSpanParts(),
+                        RemainingDays = (a.EndDate - DateTime.UtcNow).ToTimeSpanParts(),
                         DiscountCompanyUsage = a.TenantDiscount.Select(q => new DiscountCompanyResponse
                             {
                                 CompanyName = db.TenantInfo.Where(e => q.TenantId == e.Id)

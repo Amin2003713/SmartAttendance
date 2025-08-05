@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace Shifty.Common.Utilities.EnumHelpers;
 
@@ -99,5 +100,25 @@ public static class EnumExtensions
                 key => key.GetEnumNames(),
                 value => Convert.ToInt32(value)
             );
+    }
+
+
+    public static FileType GetFileType(this string ext)
+        => ext switch
+
+           {
+               "pdf" => FileType.Pdf, "zip" => FileType.Zip, _ => FileType.Picture
+           };
+
+    public static FileType GetFileType(this IFormFile file)
+        => file.FileExtension() switch
+           {
+               "pdf" => FileType.Pdf, "zip" => FileType.Zip, _ => FileType.Picture
+           };
+
+
+    public static string FileExtension(this IFormFile File)
+    {
+        return (Path.GetExtension(File?.FileName) ?? string.Empty).Replace(".", "");
     }
 }

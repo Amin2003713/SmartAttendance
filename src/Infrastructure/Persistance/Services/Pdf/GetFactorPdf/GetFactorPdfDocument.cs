@@ -1,20 +1,14 @@
 ﻿using DNTPersianUtils.Core;
 using QuestPDF;
-using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using Shifty.Common.Messaging.Contracts.MinIo.Minio.Queries.GetPdfFiles;
-using Shifty.Common.Utilities.TypeComverters;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Tenants.Payments;
 
 namespace Shifty.Persistence.Services.Pdf.GetFactorPdf;
 
 public class GetFactorPdfDocument(
     ShiftyTenantInfo company,
     Payments payments,
-    IMessageBroker messageBroker,
     Price price
 )
     : IDocument
@@ -30,17 +24,17 @@ public class GetFactorPdfDocument(
 
     public void Compose(IDocumentContainer container)
     {
-        var fontStream = messageBroker.RequestAsync<GetFilesBrokerResponse, GetFilesQueryBroker>
-                (new GetFilesQueryBroker(ApplicationConstant.Minio.DrpFont))
-            .ConfigureAwait(false)
-            .GetAwaiter()
-            .GetResult()
-            .Files.FirstOrDefault(a => a.Key == "Font")
-            .Value;
+        // var fontStream = messageBroker.RequestAsync<GetFilesBrokerResponse, GetFilesQueryBroker>
+        //         (new GetFilesQueryBroker(ApplicationConstant.Minio.DrpFont))
+        //     .ConfigureAwait(false)
+        //     .GetAwaiter()
+        //     .GetResult()
+        //     .Files.FirstOrDefault(a => a.Key == "Font")
+        //     .Value; todo :// medatore
 
         Settings.CheckIfAllTextGlyphsAreAvailable = true;
 
-        FontManager.RegisterFontWithCustomName("test", fontStream.ToStream());
+        // FontManager.RegisterFontWithCustomName("test", fontStream.ToStream()); todo : register the font 
 
 
         Settings.License = LicenseType.Community;

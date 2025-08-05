@@ -33,7 +33,7 @@ public class CheckDiscountIsValidQueryHandler(
         }
 
         // Check if the discount has expired.
-        if (DateTime.Now > discount.StartDate.AddDays(discount.Duration))
+        if (DateTime.UtcNow > discount.StartDate.AddDays(discount.Duration))
         {
             logger.LogWarning("Discount with code {Code} has expired.", request.Code);
             throw IpaException.NotFound(localizer["This discount has expired."].Value);

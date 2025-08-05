@@ -3,7 +3,7 @@
 public class CreateReminderRequest
 {
     public string Details { get; set; }
-    public Guid ProjectId { get; set; }
+
     public DateTime Date { get; set; }
 
     public List<UserTargetRequest> TargetUsers { get; set; } = new();

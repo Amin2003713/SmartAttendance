@@ -18,7 +18,8 @@ public static class HybridCache
         {
             options.DefaultEntryOptions = new HybridCacheEntryOptions
             {
-                Expiration = TimeSpan.FromHours(24), LocalCacheExpiration = TimeSpan.FromSeconds(10)
+                Expiration = TimeSpan.FromHours(24),
+                LocalCacheExpiration = TimeSpan.FromSeconds(10)
             };
 
             options.ReportTagMetrics = true;

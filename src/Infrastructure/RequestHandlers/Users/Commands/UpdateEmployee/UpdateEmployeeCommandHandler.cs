@@ -92,7 +92,8 @@ public class UpdateEmployeeCommandHandler(
 
             var result = await roleManager.CreateAsync(new Role
             {
-                Name = roleName, Description = roleName
+                Name = roleName,
+                Description = roleName
             });
 
             if (!result.Succeeded)

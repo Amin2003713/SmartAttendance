@@ -1,5 +1,4 @@
 ﻿using Shifty.Common.General.Enums.Dashboard;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Dashboards.Responses.DashboardCardSummary;
 

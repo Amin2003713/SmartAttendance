@@ -74,7 +74,7 @@ public record VerifyPaymentCommandHandler(
             cancellationToken);
 
         companyPurchase.RefId = verifyResponse.RefId.ToString();
-        companyPurchase.Status = verifyResponse.Code;
+        companyPurchase.Status = verifyResponse.Code!.Value;
         companyPurchase.IsActive = true;
         lastPurchase.IsActive = false;
 

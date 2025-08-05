@@ -1,5 +1,4 @@
 ﻿using Shifty.Common.General.Enums.Discount;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace Shifty.Application.Discounts.Request.Queries.CheckDiscount;
 
@@ -9,7 +8,9 @@ public class CheckDiscountIsValidResponseExample : IExamplesProvider<CheckDiscou
     {
         return new CheckDiscountIsValidResponse
         {
-            DiscountType = DiscountType.Percent, Value = 10.0m, Id = Guid.NewGuid()
+            DiscountType = DiscountType.Percent,
+            Value = 10.0m,
+            Id = Guid.NewGuid()
         };
     }
 }

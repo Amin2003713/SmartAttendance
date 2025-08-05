@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Shifty.Application.Interfaces.UserPasswords;
 using Shifty.Application.Users.Commands.ForgotPassword;
 using Shifty.Common.Exceptions;
@@ -66,7 +67,8 @@ public class ForgotPasswordCommandHandler(
 
             var userPass = new UserPassword
             {
-                UserId = userResult.Id, PasswordHash = userResult.PasswordHash!
+                UserId = userResult.Id,
+                PasswordHash = userResult.PasswordHash!
             };
 
             await PasswordCommandRepository.AddAsync(userPass, cancellationToken);

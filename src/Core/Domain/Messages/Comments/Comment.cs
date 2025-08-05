@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Messages.Comments;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Messages.Comments;
 
 public class Comment : BaseEntity
 {

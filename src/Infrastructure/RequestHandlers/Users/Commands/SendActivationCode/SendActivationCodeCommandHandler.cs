@@ -42,7 +42,8 @@ public class SendActivationCodeCommandHandler(
 
             return new SendActivationCodeCommandResponse
             {
-                Success = true, Message = activationCode
+                Success = true,
+                Message = activationCode
             };
         }
         catch (IpaException e)

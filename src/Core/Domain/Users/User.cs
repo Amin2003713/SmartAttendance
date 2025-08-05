@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Users;
+﻿using Shifty.Common.General.BaseClasses;
+
+namespace Shifty.Domain.Users;
 
 public class User : IdentityUser<Guid>,
     IEntity
@@ -40,14 +42,14 @@ public class User : IdentityUser<Guid>,
         Address = source.Address;
         JobTitle = source.JobTitle;
         BirthDate = source.BirthDate;
-        ModifiedAt = DateTime.Now;
+        ModifiedAt = DateTime.UtcNow;
     }
 
 #region log_props
 
     public bool IsActive { get; set; } = true;
     public Guid? CreatedBy { get; set; } = null;
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public Guid? ModifiedBy { get; set; } = null;
     public DateTime? ModifiedAt { get; set; }
     public Guid? DeletedBy { get; set; } = null!;
