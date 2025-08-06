@@ -67,7 +67,8 @@ public class UploadHubFileCommandHandler(
         }
     }
 
-    private async Task TryUpdateStorageAsync(UploadHubFileCommand request, double fileSizeMb, FileType fileType, CancellationToken cancellationToken)
+    private async Task TryUpdateStorageAsync(UploadHubFileCommand request, double fileSizeMb, FileType fileType,
+        CancellationToken cancellationToken)
     {
         if (request.RowType is FileStorageType.ZipExports or FileStorageType.PdfExports)
             return;
@@ -77,7 +78,8 @@ public class UploadHubFileCommandHandler(
         logger.LogInformation("Storage updated for {FileSizeMb} MB.", fileSizeMb);
     }
 
-    private async Task<MediaFileStorage> SaveFileRecordAsync(UploadHubFileCommand request, HubFile path, CancellationToken cancellationToken)
+    private async Task<MediaFileStorage> SaveFileRecordAsync(UploadHubFileCommand request, HubFile path,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -85,7 +87,7 @@ public class UploadHubFileCommandHandler(
             logger.LogInformation("File record added successfully. Id: {Id}", path.Id);
 
             var fileUrl = BuildFileUrl(path.Id, path.Type, path.ReferenceIdType);
-            var type    = request.File.GetFileType();
+            var type = request.File.GetFileType();
             return new MediaFileStorage
             {
                 Url = fileUrl.BuildImageUrl()!,

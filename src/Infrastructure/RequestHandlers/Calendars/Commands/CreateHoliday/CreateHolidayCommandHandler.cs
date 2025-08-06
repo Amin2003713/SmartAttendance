@@ -12,8 +12,7 @@ public class CreateHolidayCommandHandler(
     IDailyCalendarQueryRepository dailyCalendarQueryRepository,
     IDailyCalendarCommandRepository dailyCalendarCommandRepository,
     ICalendarProjectCommandRepository calendarProjectCommandRepository,
-    IStringLocalizer<CreateHolidayCommandHandler> localizer,
-    ILogger<CreateHolidayCommandHandler> logger
+    IStringLocalizer<CreateHolidayCommandHandler> localizer
 )
     : IRequestHandler<CreateHolidayCommand>
 {

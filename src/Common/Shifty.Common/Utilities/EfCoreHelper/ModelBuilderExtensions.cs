@@ -25,8 +25,8 @@ public static class ModelBuilderExtensions
 
         foreach (var entity in entityTypes)
         {
-            var ns              = entity.ClrType.Namespace ?? "";
-            var schemaName      = FindSchemaByClimbing(ns, allNamespaces, serviceName);
+            var ns = entity.ClrType.Namespace ?? "";
+            var schemaName = FindSchemaByClimbing(ns, allNamespaces, serviceName);
             var snakeCaseSchema = ToSnakeCase(schemaName);
             entity.SetSchema(snakeCaseSchema);
         }
@@ -43,7 +43,7 @@ public static class ModelBuilderExtensions
             for (var i = parts.Length; i > 0; i--)
             {
                 var currentNs = string.Join('.', parts.Take(i));
-                var current   = parts[i - 1];
+                var current = parts[i - 1];
 
                 if (string.Equals(current, "Domain", StringComparison.OrdinalIgnoreCase))
                     continue;
@@ -99,14 +99,14 @@ public static class ModelBuilderExtensions
                 // موجودیت مشتق‌شده است، ادامه نده
                 continue;
 
-            var isActiveProperty  = clrType.GetProperty("IsActive",  BindingFlags.Public | BindingFlags.Instance);
+            var isActiveProperty = clrType.GetProperty("IsActive", BindingFlags.Public | BindingFlags.Instance);
             var isDeletedProperty = clrType.GetProperty("IsDeleted", BindingFlags.Public | BindingFlags.Instance);
 
             // اگر هیچ‌کدام وجود نداشتند، ادامه نده
             if (isActiveProperty == null && isDeletedProperty == null)
                 continue;
 
-            var         parameter = Expression.Parameter(clrType, "e");
+            var parameter = Expression.Parameter(clrType, "e");
             Expression? condition = null;
 
             if (isActiveProperty is { PropertyType: var type } && type == typeof(bool))
