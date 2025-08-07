@@ -1,15 +1,5 @@
-﻿namespace Shifty.Application.Companies.Commands.InitialCompany;
+﻿using Shifty.Application.Companies.Requests.InitialCompany;
 
-public class InitialCompanyCommand : IRequest<string>
-{
-    public required string Domain { get; set; }
-    public required string Name { get; set; }
+namespace Shifty.Application.Companies.Commands.InitialCompany;
 
-
-    public required string PhoneNumber { get; set; }
-    public required string FirstName { get; set; }
-    public required string LastName { get; set; }
-    public required string Password { get; set; }
-
-    public required string ConfirmPassword { get; set; }
-}
+public class InitialCompanyCommand : InitialCompanyRequest, IRequest<string>;

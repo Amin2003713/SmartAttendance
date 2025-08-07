@@ -12,7 +12,7 @@ using Shifty.Persistence.Db;
 namespace Shifty.Persistence.Migrations.App
 {
     [DbContext(typeof(ShiftyDbContext))]
-    [Migration("20250805044053_Initial")]
+    [Migration("20250807132501_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -235,6 +235,53 @@ namespace Shifty.Persistence.Migrations.App
                     b.HasKey("Id");
 
                     b.ToTable("DailyCalendars");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Departments.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ManagerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ParentDepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("ParentDepartmentId");
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Shifty.Domain.HubFiles.HubFile", b =>
@@ -644,6 +691,9 @@ namespace Shifty.Persistence.Migrations.App
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -651,15 +701,25 @@ namespace Shifty.Persistence.Migrations.App
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("JobTitle")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsLeader")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastActionOnServer")
                         .HasColumnType("datetime2");
@@ -680,6 +740,10 @@ namespace Shifty.Persistence.Migrations.App
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("NationalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -689,6 +753,9 @@ namespace Shifty.Persistence.Migrations.App
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonnelNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -710,7 +777,12 @@ namespace Shifty.Persistence.Migrations.App
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("roleType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -887,6 +959,23 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("Calendar");
                 });
 
+            modelBuilder.Entity("Shifty.Domain.Departments.Department", b =>
+                {
+                    b.HasOne("Shifty.Domain.Users.User", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Shifty.Domain.Departments.Department", "ParentDepartment")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentDepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Manager");
+
+                    b.Navigation("ParentDepartment");
+                });
+
             modelBuilder.Entity("Shifty.Domain.Messages.Comments.Comment", b =>
                 {
                     b.HasOne("Shifty.Domain.Messages.Message", "Message")
@@ -937,6 +1026,16 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("Message");
                 });
 
+            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+                {
+                    b.HasOne("Shifty.Domain.Departments.Department", "Department")
+                        .WithMany("Users")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("Shifty.Domain.Users.UserPassword", b =>
                 {
                     b.HasOne("Shifty.Domain.Users.User", "User")
@@ -979,6 +1078,13 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("CalendarProjects");
 
                     b.Navigation("CalendarUsers");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Departments.Department", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Messages.Message", b =>

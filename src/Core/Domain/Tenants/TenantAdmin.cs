@@ -1,4 +1,6 @@
-﻿namespace Shifty.Domain.Tenants;
+﻿using Shifty.Common.General.Enums.RoleTypes;
+
+namespace Shifty.Domain.Tenants;
 
 public class TenantAdmin
 {
@@ -6,7 +8,11 @@ public class TenantAdmin
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string PhoneNumber { get; set; }
+    public RoleType roleType { get; set; }
+    public bool IsLeader { get; set; }
 
+    public string FatherName { get; set; }
+    public string NationalCode { get; set; }
     public List<ShiftyTenantInfo> Tenants { get; set; } = [];
     public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
 

@@ -30,7 +30,7 @@ public class RunTimeDatabaseMigrationService(
             try
             {
                 if (!await dbContext.Database.CanConnectAsync(cancellationToken))
-                    await dbContext.Database.MigrateAsync(cancellationToken); // apply migrations on baseDbContext
+                    await dbContext.Database.MigrateAsync(cancellationToken);
 
 
                 if ((await dbContext.Database.GetPendingMigrationsAsync(cancellationToken)).Any())
@@ -57,8 +57,8 @@ public class RunTimeDatabaseMigrationService(
                 var payment = TenantDefaultValue.DemoPayment(user, tenantInfo);
                 tenantDbContext.Payments.Add(payment);
 
-                var activeService = TenantDefaultValue.CreateActiveService(payment);
-                await tenantDbContext.Set<ActiveService>().AddRangeAsync(activeService, cancellationToken);
+                // var activeService = TenantDefaultValue.CreateActiveService(payment);
+                // await tenantDbContext.Set<ActiveService>().AddRangeAsync(activeService, cancellationToken);
 
 
                 AddUserToTenant(tenantInfo, user);

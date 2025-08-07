@@ -41,34 +41,14 @@ public class InitialCompanyRequestValidator : AbstractValidator<InitialCompanyRe
 
 
         // New Password
-        RuleFor(x => x.Password)
+        RuleFor(x => x.NationalCode)
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
-            .WithMessage(localizer["Password is required."].Value) // "رمز عبور الزامی است."
-            .MinimumLength(6)
-            .WithMessage(localizer["Password must be at least 6 characters long."]
-                .Value) // "رمز عبور باید حداقل ۶ کاراکتر باشد."
-            .Matches(@"[A-Z]")
-            .WithMessage(localizer["Password must contain at least one uppercase letter."]
-                .Value) // "رمز عبور باید حداقل یک حرف بزرگ داشته باشد."
-            .Matches(@"[a-z]")
-            .WithMessage(localizer["Password must contain at least one lowercase letter."]
-                .Value) // "رمز عبور باید حداقل یک حرف کوچک داشته باشد."
-            .Matches(@"\d")
-            .WithMessage(localizer["Password must contain at least one digit."]
-                .Value) // "رمز عبور باید حداقل یک عدد داشته باشد."
-            .Matches(@"[\W_]")
-            .WithMessage(localizer[
-                    "Password must contain at least one special character."]
-                .Value); // "رمز عبور باید حداقل یک کاراکتر خاص داشته باشد."
-
-        // Confirm Password
-        RuleFor(x => x.ConfirmPassword)
-            .NotEmpty()
-            .WithMessage(localizer["Confirm password is required."].Value) // "تایید رمز عبور الزامی است."
-            .Equal(x => x.Password)
-            .WithMessage(localizer[
-                    "Confirm password must match the new password."]
-                .Value); // "تایید رمز عبور باید با رمز عبور جدید مطابقت داشته باشد."
+            .WithMessage(localizer["National Code is required."].Value) // "رمز عبور الزامی است."
+            .MinimumLength(10)
+            .WithMessage(localizer["NationalCode must be at least 10 characters long."]
+                .Value)
+            .MaximumLength(10)
+            .WithMessage(localizer["The national code should not be longer than 10 characters."].Value);
     }
 }

@@ -24,6 +24,6 @@ public class RegisterByOwnerRequestValidator : AbstractValidator<RegisterByOwner
             .WithMessage(localizer["At least one role is required."])
             .When(a => a.Roles.Count != 0)
             .Must(roles => roles.All(RoleParser.IsValid))
-            .WithMessage(localizer["Roles must be within the allowed role definitions."]);
+            .WithMessage(localizer["RoleTypes must be within the allowed role definitions."]);
     }
 }

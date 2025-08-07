@@ -12,7 +12,7 @@ using Shifty.Persistence.Db;
 namespace Shifty.Persistence.Migrations.Tenant
 {
     [DbContext(typeof(ShiftyTenantDbContext))]
-    [Migration("20250805044035_Initial")]
+    [Migration("20250807132441_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -105,29 +105,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.HasIndex("TenantId");
 
                     b.ToTable("TenantDiscounts");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments.ActiveService", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PaymentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentId");
-
-                    b.ToTable("ActiveService");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Tenants.Payments.Payments", b =>
@@ -349,11 +326,22 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("FatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsLeader")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NationalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -365,9 +353,12 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("roleType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("TenantAdmins");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Tenants.TenantCalendar", b =>
@@ -446,6 +437,10 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NationalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -486,17 +481,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("Discount");
 
                     b.Navigation("Tenant");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments.ActiveService", b =>
-                {
-                    b.HasOne("Shifty.Domain.Tenants.Payments.Payments", "Payment")
-                        .WithMany("ActiveServices")
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Tenants.Payments.Payments", b =>
@@ -555,11 +539,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("Payments");
 
                     b.Navigation("TenantDiscount");
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments.Payments", b =>
-                {
-                    b.Navigation("ActiveServices");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Tenants.Price", b =>

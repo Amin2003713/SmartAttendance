@@ -262,7 +262,7 @@ public class UserController : IpaBaseController
     /// </summary>
     /// <param name="request">The request containing role name and related permissions.</param>
     /// <param name="cancellationToken">Cancellation token for the request.</param>
-    /// <response code="204">Role added successfully.</response>
+    /// <response code="204">RoleTypes added successfully.</response>
     /// <response code="400">Invalid role data provided.</response>
     /// <response code="401">Unauthorized access.</response>
     /// <response code="403">Access to this resource is forbidden.</response>
@@ -287,7 +287,7 @@ public class UserController : IpaBaseController
     /// <response code="401">Unauthorized access.</response>
     /// <response code="403">Access to this resource is forbidden.</response>
     /// <response code="500">An unexpected server error occurred.</response>
-    [HttpGet("Get-Roles")]
+    [HttpGet("Get-RoleTypes")]
     [ProducesResponseType(typeof(IDictionary<string, List<KeyValuePair<Roles, string>>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status401Unauthorized)]

@@ -114,10 +114,10 @@ public static class DependencyInjection
         TypeAdapterConfig<CreateDiscountCommand, Discount>.NewConfig().Map(dest => dest.EndDate, src => src.StartDate.AddDays(src.Duration));
 
         TypeAdapterConfig<Payments, PaymentQueryResponse>.NewConfig()
-            .Map(dest => dest.Status, src => src.Status == 100 || src.Status == 101)
-            .Map(dest => dest.AcvtiveServices,
-                src => src.ActiveServices.Any()
-                    ? src.ActiveServices.Select(a => a.Name)
-                    : new List<string>().AsReadOnly());
+            .Map(dest => dest.Status, src => src.Status == 100 || src.Status == 101);
+        // .Map(dest => dest.AcvtiveServices,
+        //     src => src.ActiveServices.Any()
+        //         ? src.ActiveServices.Select(a => a.Name)
+        //         : new List<string>().AsReadOnly());
     }
 }

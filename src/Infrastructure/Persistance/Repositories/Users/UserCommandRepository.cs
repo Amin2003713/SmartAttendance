@@ -83,6 +83,15 @@ public class UserCommandRepository(
             LastName = request.LastName,
             Email = $"{request.PhoneNumber}{ApplicationConstant.Const.EmailSuffix}",
             PhoneNumber = request.PhoneNumber,
+            NationalCode = request.NationalCode,
+            ImageUrl = request.ImageUrl,
+            DepartmentId = request.DepartmentId,
+            FatherName = request.FatherName,
+            PersonnelNumber = request.PersonnelNumber,
+            roleType = request.roleType,
+            IsLeader = request.IsLeader,
+            Gender = request.Gender,
+
             CreatedBy = operatorUser.Id
         };
 
@@ -90,7 +99,7 @@ public class UserCommandRepository(
 
         try
         {
-            var creationResult = await userService.CreateAsync(newUser, PasswordGenerator.GeneratePassword());
+            var creationResult = await userService.CreateAsync(newUser, request.NationalCode);
 
             if (!creationResult.Succeeded)
                 IpaException.BadRequest(creationResult.Errors.Select(a => a.Description).ToString()!);
@@ -159,7 +168,7 @@ public class UserCommandRepository(
             db.Update(tenantUser);
         }
 
-        var owner = await db.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+        var owner = await db.TenantAdmins.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
 
         if (owner != null)
         {
@@ -186,7 +195,7 @@ public class UserCommandRepository(
             db.Update(tenantUser);
         }
 
-        var owner = await db.Users.FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
+        var owner = await db.TenantAdmins.FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
 
         if (owner != null)
         {

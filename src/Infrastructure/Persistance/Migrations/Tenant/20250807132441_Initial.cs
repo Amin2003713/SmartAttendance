@@ -57,6 +57,25 @@ namespace Shifty.Persistence.Migrations.Tenant
                 });
 
             migrationBuilder.CreateTable(
+                name: "TenantAdmins",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    roleType = table.Column<int>(type: "int", nullable: false),
+                    IsLeader = table.Column<bool>(type: "bit", nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NationalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisteredAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenantAdmins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TenantCalendars",
                 columns: table => new
                 {
@@ -90,21 +109,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegisteredAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TenantInfo",
                 columns: table => new
                 {
@@ -129,9 +133,9 @@ namespace Shifty.Persistence.Migrations.Tenant
                 {
                     table.PrimaryKey("PK_TenantInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantInfo_Users_UserId",
+                        name: "FK_TenantInfo_TenantAdmins_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "TenantAdmins",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -233,6 +237,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NationalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RegisteredAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShiftyTenantInfoId = table.Column<string>(type: "nvarchar(64)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -248,31 +253,6 @@ namespace Shifty.Persistence.Migrations.Tenant
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "ActiveService",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ActiveService", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ActiveService_Payments_PaymentId",
-                        column: x => x.PaymentId,
-                        principalTable: "Payments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ActiveService_PaymentId",
-                table: "ActiveService",
-                column: "PaymentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_DiscountId",
@@ -326,7 +306,7 @@ namespace Shifty.Persistence.Migrations.Tenant
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ActiveService");
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "TenantCalendars");
@@ -341,19 +321,16 @@ namespace Shifty.Persistence.Migrations.Tenant
                 name: "TenantUsers");
 
             migrationBuilder.DropTable(
-                name: "Payments");
+                name: "Prices");
 
             migrationBuilder.DropTable(
                 name: "Discounts");
 
             migrationBuilder.DropTable(
-                name: "Prices");
-
-            migrationBuilder.DropTable(
                 name: "TenantInfo");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "TenantAdmins");
         }
     }
 }

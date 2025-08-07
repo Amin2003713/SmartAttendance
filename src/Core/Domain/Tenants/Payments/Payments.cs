@@ -36,7 +36,7 @@ public class Payments
     public virtual Price Price { get; set; }
     public virtual Payments LastPayment { get; set; }
     public virtual ShiftyTenantInfo Tenant { get; set; }
-    public virtual ICollection<ActiveService> ActiveServices { get; set; } = [];
+    // public virtual ICollection<ActiveService> ActiveServices { get; set; } = [];
 
 
     public Guid CreatedBy { get; set; }

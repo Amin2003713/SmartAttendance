@@ -18,6 +18,6 @@ public class DeleteRoleRequestValidator : AbstractValidator<DeleteRoleRequest>
                 var roles = raw.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
                 return roles.Length > 0 && roles.All(r => r.TryParsToEnum<Roles>());
             })
-            .WithMessage(localizer["Roles must be within the allowed role definitions."]);
+            .WithMessage(localizer["RoleTypes must be within the allowed role definitions."]);
     }
 }

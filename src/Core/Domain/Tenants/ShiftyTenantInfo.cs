@@ -2,11 +2,11 @@
 
 public class ShiftyTenantInfo : ITenantInfo
 {
-    public string? LandLine { get; set; } = null!;
+    public string? LandLine { get; set; }
 
     public string? Address { get; set; }
-    public Guid? UserId { get; set; } = null!;
-    public TenantAdmin? User { get; set; } = null!;
+    public Guid? UserId { get; set; }
+    public TenantAdmin? User { get; set; }
     public List<Payments.Payments>? Payments { get; set; } = [];
     public List<TenantDiscount>? TenantDiscounts { get; set; } = [];
 

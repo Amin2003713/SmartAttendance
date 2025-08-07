@@ -37,8 +37,8 @@ public class DeleteRoleCommandHandler(
 
         if (!await roleManager.RoleExistsAsync(request.Role))
         {
-            logger.LogWarning("Role {RoleName} does not exist.", request.Role);
-            throw IpaException.BadRequest(localizer["Role does not exist."]);
+            logger.LogWarning("RoleTypes {RoleName} does not exist.", request.Role);
+            throw IpaException.BadRequest(localizer["RoleTypes does not exist."]);
         }
 
         var result = await userManager.RemoveFromRoleAsync(user, request.Role);
@@ -49,6 +49,6 @@ public class DeleteRoleCommandHandler(
             throw IpaException.BadRequest(localizer["Failed to remove role."]);
         }
 
-        logger.LogInformation("Role {RoleName} removed from user {UserId}.", request.Role, request.UserId);
+        logger.LogInformation("RoleTypes {RoleName} removed from user {UserId}.", request.Role, request.UserId);
     }
 }

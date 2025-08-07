@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Shifty.Common.General.BaseClasses;
 using Shifty.Common.Utilities.EfCoreHelper;
+using Shifty.Persistence.Configuration.Departments;
 using Users_Role = Shifty.Domain.Users.Role;
 
 namespace Shifty.Persistence.Db;
@@ -21,7 +22,9 @@ public class ShiftyDbContext :
     }
 
     public ShiftyDbContext(DbContextOptions<ShiftyDbContext> options)
-        : base(options) { }
+        : base(options)
+    {
+    }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -50,6 +53,7 @@ public class ShiftyDbContext :
         modelBuilder.AddPluralizingTableNameConvention();
         modelBuilder.AddDecimalConvention();
         modelBuilder.AddGlobalIsActiveFilter();
+        modelBuilder.ApplyConfiguration(new DepartmentConfig());
 
         modelBuilder.AddFeatureBasedSchema(entitiesAssembly.GetType());
 
@@ -66,7 +70,7 @@ public class ShiftyDbContext :
     {
         if (_identityService is null) return;
 
-        var entries       = ChangeTracker.Entries<IEntity>();
+        var entries = ChangeTracker.Entries<IEntity>();
         var currentUserId = _identityService.GetUserId();
 
         foreach (var entry in entries)

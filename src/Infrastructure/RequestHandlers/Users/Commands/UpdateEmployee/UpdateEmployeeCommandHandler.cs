@@ -59,7 +59,7 @@ public class UpdateEmployeeCommandHandler(
 
             if (!result.Succeeded)
             {
-                logger.LogError("Failed to assign role {Role} to user {UserId}", roleName, request.UserId);
+                logger.LogError("Failed to assign role {RoleTypes} to user {UserId}", roleName, request.UserId);
                 throw IpaException.BadRequest(localizer["Failed to assign role {0}.", roleName]);
             }
         }
@@ -74,7 +74,7 @@ public class UpdateEmployeeCommandHandler(
 
             if (!result.Succeeded)
             {
-                logger.LogError("Failed to remove role {Role} from user {UserId}", roleName, request.UserId);
+                logger.LogError("Failed to remove role {RoleTypes} from user {UserId}", roleName, request.UserId);
                 throw IpaException.BadRequest(localizer["Failed to remove role {0}.", roleName]);
             }
         }
@@ -98,7 +98,7 @@ public class UpdateEmployeeCommandHandler(
 
             if (!result.Succeeded)
             {
-                logger.LogError("Failed to create missing role: {Role}", roleName);
+                logger.LogError("Failed to create missing role: {RoleTypes}", roleName);
                 throw IpaException.BadRequest(localizer["Failed to create role {0}.", roleName]);
             }
         }

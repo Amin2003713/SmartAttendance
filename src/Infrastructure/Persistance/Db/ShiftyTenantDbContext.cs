@@ -6,7 +6,7 @@ public class ShiftyTenantDbContext(
     DbContextOptions<ShiftyTenantDbContext> options
 ) : EFCoreStoreDbContext<ShiftyTenantInfo>(options)
 {
-    public DbSet<TenantAdmin> Users { get; set; }
+    public DbSet<TenantAdmin> TenantAdmins { get; set; }
     public DbSet<Payments> Payments { get; set; }
     public DbSet<Price> Prices { get; set; }
     public DbSet<Discount> Discounts { get; set; }
@@ -15,7 +15,7 @@ public class ShiftyTenantDbContext(
     public DbSet<TenantUser> TenantUsers { get; set; }
 
     public DbSet<TenantRequest> TenantRequests { get; set; }
-    public DbSet<ActiveService> ActiveServices { get; set; }
+    // public DbSet<ActiveService> ActiveServices { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -57,13 +57,13 @@ public class ShiftyTenantDbContext(
             builder.HasQueryFilter(a => a.IsActive);
         });
 
-        modelBuilder.Entity<ActiveService>(builder =>
-        {
-            // Primary Key
-            builder.HasKey(p => p.Id);
-
-            builder.HasOne(a => a.Payment).WithMany(a => a.ActiveServices).HasForeignKey(a => a.PaymentId);
-        });
+        // modelBuilder.Entity<ActiveService>(builder =>
+        // {
+        //     // Primary Key
+        //     builder.HasKey(p => p.Id);
+        //
+        //     builder.HasOne(a => a.Payment).WithMany(a => a.ActiveServices).HasForeignKey(a => a.PaymentId);
+        // });
 
         // TenantAdmin Entity Configuration
         modelBuilder.Entity<TenantAdmin>(builder =>

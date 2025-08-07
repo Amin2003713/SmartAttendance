@@ -1,4 +1,7 @@
 ﻿using Shifty.Common.General.BaseClasses;
+using Shifty.Common.General.Enums.Genders;
+using Shifty.Common.General.Enums.RoleTypes;
+using Shifty.Domain.Departments;
 
 namespace Shifty.Domain.Users;
 
@@ -7,12 +10,27 @@ public class User : IdentityUser<Guid>,
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
+
+    public string FatherName { get; set; }
+
+    public string NationalCode { get; set; }
+
+    public GenderType Gender { get; set; }
+
+    public bool IsLeader { get; set; }
+
+    public Guid? DepartmentId { get; set; }
+
+    public virtual Department Department { get; set; }
+
+    public RoleType roleType { get; set; }
+
+    public string? PersonnelNumber { get; set; }
     public string? Profile { get; set; }
     public string? Address { get; set; }
-
     public DateTime? LastActionOnServer { get; set; }
 
-    public string? JobTitle { get; set; }
+    public string? ImageUrl { get; set; }
 
     public DateTime? BirthDate { get; set; }
     public override Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
@@ -40,12 +58,11 @@ public class User : IdentityUser<Guid>,
         LastName = source.LastName;
         Profile = source.Profile;
         Address = source.Address;
-        JobTitle = source.JobTitle;
         BirthDate = source.BirthDate;
         ModifiedAt = DateTime.UtcNow;
     }
 
-#region log_props
+    #region log_props
 
     public bool IsActive { get; set; } = true;
     public Guid? CreatedBy { get; set; } = null;
@@ -56,5 +73,5 @@ public class User : IdentityUser<Guid>,
     public DateTime? DeletedAt { get; set; } = null!;
     public IEnumerable<UserPassword>? UserPasswords { get; set; }
 
-#endregion
+    #endregion
 }

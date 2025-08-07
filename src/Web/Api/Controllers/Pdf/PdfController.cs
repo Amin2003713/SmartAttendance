@@ -16,7 +16,7 @@ public class PdfController : IpaBaseController
     [ProducesResponseType(typeof(string),            StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status401Unauthorized)]
-    // [Authorize(Roles = $"{nameof(Roles.Admin)}")]
+    // [Authorize(RoleTypes = $"{nameof(RoleTypes.Admin)}")]
     public async Task<string> FactorPdf(Guid paymentId, CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetFactorPdfQuery(paymentId), cancellationToken);

@@ -34,9 +34,13 @@ public class PaymentQueryRepository(
         {
             logger.LogInformation("Fetching active payment for TenantId: {TenantId}", TenantInfo.Id);
 
-            return await db.Payments.Include(a => a.ActiveServices)
+            return await db.Payments
                 .SingleOrDefaultAsync(a => a.TenantId == TenantInfo.Id && a.IsActive,
                     cancellationToken);
+
+            // return await db.Payments.Include(a => a.ActiveServices)
+            //     .SingleOrDefaultAsync(a => a.TenantId == TenantInfo.Id && a.IsActive,
+            //         cancellationToken);
         }
         catch (Exception ex)
         {
@@ -53,9 +57,14 @@ public class PaymentQueryRepository(
 
             return await db.Payments.IgnoreQueryFilters()
                        .AsNoTracking()
-                       .Include(a => a.ActiveServices)
                        .SingleOrDefaultAsync(a => a.Authority == authority, cancellationToken) ??
                    throw new KeyNotFoundException(localizer["Payment not found with the given authority."]);
+
+            //     return await db.Payments.IgnoreQueryFilters()
+            //                .AsNoTracking()
+            //                .Include(a => a.ActiveServices)
+            //                .SingleOrDefaultAsync(a => a.Authority == authority, cancellationToken) ??
+            //            throw new KeyNotFoundException(localizer["Payment not found with the given authority."]);
         }
         catch (Exception ex)
         {
@@ -72,9 +81,14 @@ public class PaymentQueryRepository(
 
             return await db.Payments.IgnoreQueryFilters()
                        .AsNoTracking()
-                       .Include(a => a.ActiveServices)
                        .SingleOrDefaultAsync(a => a.Id == paymentId, cancellationToken) ??
                    throw new KeyNotFoundException(localizer["Payment not found with the given ID."]);
+
+            // return await db.Payments.IgnoreQueryFilters()
+            //            .AsNoTracking()
+            //            .Include(a => a.ActiveServices)
+            //            .SingleOrDefaultAsync(a => a.Id == paymentId, cancellationToken) ??
+            //        throw new KeyNotFoundException(localizer["Payment not found with the given ID."]);
         }
         catch (Exception ex)
         {
@@ -91,9 +105,15 @@ public class PaymentQueryRepository(
 
             return await db.Payments.IgnoreQueryFilters()
                        .AsNoTracking()
-                       .Include(a => a.ActiveServices)
                        .SingleOrDefaultAsync(a => a.Id == paymentId, cancellationToken) ??
                    throw new KeyNotFoundException(localizer["Payment not found with the given ID."]);
+
+
+            // return await db.Payments.IgnoreQueryFilters()
+            //            .AsNoTracking()
+            //            .Include(a => a.ActiveServices)
+            //            .SingleOrDefaultAsync(a => a.Id == paymentId, cancellationToken) ??
+            //        throw new KeyNotFoundException(localizer["Payment not found with the given ID."]);
         }
         catch (Exception ex)
         {

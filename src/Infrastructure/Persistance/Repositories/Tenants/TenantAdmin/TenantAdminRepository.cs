@@ -8,7 +8,7 @@ namespace Shifty.Persistence.Repositories.Tenants.TenantAdmin;
 public class TenantAdminRepository : ITenantAdminRepository,
     IScopedDependency
 {
-    private readonly ShiftyTenantDbContext          _dbContext;
+    private readonly ShiftyTenantDbContext _dbContext;
     private readonly ILogger<TenantAdminRepository> _logger;
 
     // Constructor with dependency injection for DbContext and Logger
@@ -18,7 +18,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
         _logger = logger;
     }
 
-    private DbSet<Domain.Tenants.TenantAdmin> Entities => _dbContext.Users;
+    private DbSet<Domain.Tenants.TenantAdmin> Entities => _dbContext.TenantAdmins;
     protected virtual IQueryable<Domain.Tenants.TenantAdmin> Table => Entities;
     protected virtual IQueryable<Domain.Tenants.TenantAdmin> TableNoTracking => Entities.AsNoTracking();
 

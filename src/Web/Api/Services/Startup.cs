@@ -36,7 +36,7 @@ public class Startup
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
             User,                  // User entity model
-            Role,                  // Role entity model
+            Role,                  // RoleTypes entity model
             ShiftyTenantInfo,      // Tenant info model
             ShiftyTenantDbContext, // Multi-tenant DB context
             ShiftyDbContext,       // Service-specific DB context (non-tenant)

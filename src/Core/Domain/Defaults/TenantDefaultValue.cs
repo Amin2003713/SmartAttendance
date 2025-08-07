@@ -51,45 +51,45 @@ public abstract class TenantDefaultValue
     }
 
 
-    public static List<ActiveService> CreateActiveService(Payments payment)
-    {
-        return
-        [
-            new ActiveService
-            {
-                Id = Guid.NewGuid(),
-                Name = "prima",
-                PaymentId = payment.Id,
-                Price = 1611
-            },
-            new ActiveService
-            {
-                Id = Guid.NewGuid(),
-                Name = "tenant",
-                PaymentId = payment.Id,
-                Price = 1611
-            },
-            new ActiveService
-            {
-                Id = Guid.NewGuid(),
-                Name = "msp",
-                PaymentId = payment.Id,
-                Price = 1611
-            },
-            new ActiveService
-            {
-                Id = Guid.NewGuid(),
-                Name = "taskTracker",
-                PaymentId = payment.Id,
-                Price = 1611
-            },
-            new ActiveService
-            {
-                Id = Guid.NewGuid(),
-                Name = "minio",
-                PaymentId = payment.Id,
-                Price = 1611
-            }
-        ];
-    }
+    // public static List<ActiveService> CreateActiveService(Payments payment)
+    // {
+    //     return
+    //     [
+    //         new ActiveService
+    //         {
+    //             Id = Guid.NewGuid(),
+    //             Name = "prima",
+    //             PaymentId = payment.Id,
+    //             Price = 1611
+    //         },
+    //         new ActiveService
+    //         {
+    //             Id = Guid.NewGuid(),
+    //             Name = "tenant",
+    //             PaymentId = payment.Id,
+    //             Price = 1611
+    //         },
+    //         new ActiveService
+    //         {
+    //             Id = Guid.NewGuid(),
+    //             Name = "msp",
+    //             PaymentId = payment.Id,
+    //             Price = 1611
+    //         },
+    //         new ActiveService
+    //         {
+    //             Id = Guid.NewGuid(),
+    //             Name = "taskTracker",
+    //             PaymentId = payment.Id,
+    //             Price = 1611
+    //         },
+    //         new ActiveService
+    //         {
+    //             Id = Guid.NewGuid(),
+    //             Name = "minio",
+    //             PaymentId = payment.Id,
+    //             Price = 1611
+    //         }
+    //     ];
+    // }
 }

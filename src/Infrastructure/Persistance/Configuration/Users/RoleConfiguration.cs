@@ -8,6 +8,6 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         builder.Property(p => p.Name).IsRequired().HasMaxLength(50);
 
-        builder.ToTable("Roles");
+        builder.ToTable("RoleTypes");
     }
 }
