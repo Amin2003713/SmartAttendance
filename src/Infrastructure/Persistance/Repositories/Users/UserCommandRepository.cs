@@ -53,7 +53,7 @@ public class UserCommandRepository(
             IpaException.Conflict();
 
         // Retrieve the company by ID
-        var company = await companyRepository.GetByIdAsync(service.TenantInfo.Id!, cancellationToken);
+        var company = await companyRepository.GetByIdAsync(service.TenantInfo!.Id, cancellationToken);
 
         if (company == null)
             IpaException.NotFound();
@@ -72,7 +72,7 @@ public class UserCommandRepository(
         if (companyPurchase == null)
             IpaException.NotFound("خرید معتبری یافت نشد.");
 
-        if (companyPurchase.ActiveUsers + 1 > companyPurchase.UsersCount)
+        if (companyPurchase!.ActiveUsers + 1 > companyPurchase.UsersCount)
             IpaException.Forbidden("You have reached the maximum number of users allowed.");
 
         // Create a new user entity
@@ -92,7 +92,7 @@ public class UserCommandRepository(
             IsLeader = request.IsLeader,
             Gender = request.Gender,
 
-            CreatedBy = operatorUser.Id
+            CreatedBy = operatorUser!.Id
         };
 
         await using var transaction = await DbContext.Database.BeginTransactionAsync(cancellationToken);
@@ -151,7 +151,7 @@ public class UserCommandRepository(
             throw IpaException.Conflict("This user already exists");
 
 
-        var oldPhoneNumber = user.PhoneNumber;
+        var oldPhoneNumber = user!.PhoneNumber;
         user.PhoneNumber = request.PhoneNumber;
         user.UserName = request.PhoneNumber;
 

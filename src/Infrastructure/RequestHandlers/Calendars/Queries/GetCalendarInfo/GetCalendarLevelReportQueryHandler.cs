@@ -38,7 +38,7 @@
 //                 new GetPrimaCalendarLevelReportBroker
 //                 {
 //                     Access = access.Adapt<GetProjectUserAccessBrokerResponse>(),
-
+//
 //                     Date = request.Date
 //                 },
 //                 cancellationToken);
@@ -101,4 +101,4 @@
 //             .ToDictionary(a => a.node, a => a.Ratio));
 //     }
 // }
-
+//

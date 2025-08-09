@@ -49,6 +49,7 @@ public class RunTimeDatabaseMigrationService(
 
 
                 var user = adminUser.Adapt<User>();
+                user.IsLeader = true;
 
                 user.SetPasswordHash(passwordHasher.HashPassword(user, passWord));
 

@@ -197,9 +197,9 @@ public static class WebApiModule
                 //Password Settings
                 identityOptions.Password.RequireDigit = true;
                 identityOptions.Password.RequiredLength = 8;
-                identityOptions.Password.RequireNonAlphanumeric = true;
-                identityOptions.Password.RequireUppercase = true;
-                identityOptions.Password.RequireLowercase = true;
+                identityOptions.Password.RequireNonAlphanumeric = false;
+                identityOptions.Password.RequireUppercase = false;
+                identityOptions.Password.RequireLowercase = false;
 
                 //UserName Settings
                 identityOptions.User.RequireUniqueEmail = false;

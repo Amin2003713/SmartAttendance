@@ -102,6 +102,6 @@ public class TenantAdminRepository : ITenantAdminRepository,
         string phoneNumber,
         CancellationToken cancellationToken)
     {
-        return await Table.SingleOrDefaultAsync(a => a.PhoneNumber == phoneNumber, cancellationToken);
+        return (await Table.SingleOrDefaultAsync(a => a.PhoneNumber == phoneNumber, cancellationToken))!;
     }
 }

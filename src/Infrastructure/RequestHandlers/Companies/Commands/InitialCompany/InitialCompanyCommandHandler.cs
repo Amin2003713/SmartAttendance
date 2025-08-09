@@ -31,7 +31,7 @@ public class InitialCompanyCommandHandler(
             var adminUser = await CreateAdminUser(request, cancellationToken);
             var company   = await InitialCompany(request, adminUser.Id, cancellationToken);
 
-            var userCode = await MigrateDatabaseAsync(company, request.NationalCode, adminUser, cancellationToken);
+            var userCode = await MigrateDatabaseAsync(company, request.Password, adminUser, cancellationToken);
 
             await transaction.CommitAsync(cancellationToken);
 

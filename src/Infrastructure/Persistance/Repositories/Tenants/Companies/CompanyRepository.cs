@@ -43,13 +43,13 @@ public class CompanyRepository : ICompanyRepository
             if (await IdentifierExistsAsync(tenantInfo?.Identifier!, cancellationToken))
                 throw IpaException.Conflict(additionalData: _messages["Tenant already exists."].Value);
 
-            Entities.Add(tenantInfo);
+            Entities.Add(tenantInfo!);
 
             if (!saveNow)
-                return tenantInfo;
+                return tenantInfo!;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo.Identifier,
+            return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo!.Identifier,
                        cancellationToken) ??
                    null!;
         }
