@@ -580,6 +580,59 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Settings");
                 });
 
+            modelBuilder.Entity("Shifty.Domain.Stations.Station", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("AllowedDistance")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("OnWay")
+                        .HasColumnType("time");
+
+                    b.Property<int>("StationStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StationType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stations");
+                });
+
             modelBuilder.Entity("Shifty.Domain.Storages.Storage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1021,6 +1074,34 @@ namespace Shifty.Persistence.Migrations.App
                         .IsRequired();
 
                     b.Navigation("Message");
+                });
+
+            modelBuilder.Entity("Shifty.Domain.Stations.Station", b =>
+                {
+                    b.OwnsOne("Shifty.Common.Common.Requests.Location", "Location", b1 =>
+                        {
+                            b1.Property<Guid>("StationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<double?>("Lat")
+                                .HasColumnType("float");
+
+                            b1.Property<double?>("Lng")
+                                .HasColumnType("float");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("StationId");
+
+                            b1.ToTable("Stations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("StationId");
+                        });
+
+                    b.Navigation("Location")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shifty.Domain.Users.User", b =>

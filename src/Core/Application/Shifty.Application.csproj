@@ -32,8 +32,6 @@
 
     <ItemGroup>
         <Folder Include="Interfaces\Calendars\"/>
-        <Folder Include="Stations\Queries\" />
-        <Folder Include="Stations\Requests\Queries\" />
     </ItemGroup>
 
 </Project>

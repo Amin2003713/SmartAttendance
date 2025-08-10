@@ -1,7 +1,7 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using Shifty.Common.Common.Requests;
+using Shifty.Common.General.BaseClasses;
 using Shifty.Common.General.Enums.Stationstatuses;
 using Shifty.Common.General.Enums.StationTypes;
-using Shifty.Domain.Locations;
 
 namespace Shifty.Domain.Stations;
 
@@ -22,4 +22,16 @@ public class Station : BaseEntity
     public StationType StationType { get; set; }
 
     // public virtual ICollection<Mission> Missions { get; set; }
+
+
+    public void Update(Station station)
+    {
+        Name = station.Name;
+        Code = station.Code;
+        AllowedDistance = station.AllowedDistance;
+        OnWay = station.OnWay;
+        Location = station.Location;
+        StationStatus = station.StationStatus;
+        StationType = station.StationType;
+    }
 }

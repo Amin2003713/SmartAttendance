@@ -6,13 +6,13 @@ public class LocationValidator : AbstractValidator<Location>
 {
     public LocationValidator()
     {
-        RuleFor(x => x.Lat)
+        RuleFor(x => x.Lat.ToString())
             .NotEmpty()
             .WithMessage("Latitude is required.")
             .Matches(@"^-?\d+(\.\d+)?$")
             .WithMessage("Invalid latitude format.");
 
-        RuleFor(x => x.Lng)
+        RuleFor(x => x.Lng.ToString())
             .NotEmpty()
             .WithMessage("Longitude is required.")
             .Matches(@"^-?\d+(\.\d+)?$")

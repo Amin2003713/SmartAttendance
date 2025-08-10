@@ -8,6 +8,4 @@ public class DepartmentQueryRepository(
     ILogger<QueryRepository<Department>> logger
 )
     : QueryRepository<Department>(dbContext, logger),
-        IDepartmentQueryRepository
-{
-}
+        IDepartmentQueryRepository;
