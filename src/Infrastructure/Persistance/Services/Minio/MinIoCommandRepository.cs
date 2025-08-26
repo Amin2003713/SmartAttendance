@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Shifty.Application.Base.MinIo.Commands.UploadPdf;
+using Shifty.Application.Base.MinIo.Commands.UplodeFile;
 using Shifty.Application.Interfaces.HangFire;
 using Shifty.Application.Interfaces.Minio;
-using Shifty.Application.MinIo.Commands.UploadPdf;
-using Shifty.Application.MinIo.Commands.UplodeFile;
 using Shifty.Common.General.Enums.FileType;
 using Shifty.Common.Utilities.EnumHelpers;
 using Shifty.Common.Utilities.TypeConverters;

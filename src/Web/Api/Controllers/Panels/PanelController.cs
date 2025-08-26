@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Companies.Commands.InitialCompany;
-using Shifty.Application.Companies.Queries.CheckDomain;
-using Shifty.Application.Companies.Requests.InitialCompany;
-using Shifty.Application.Users.Queries.GetUserTenants;
+﻿using Shifty.Application.Base.Companies.Commands.InitialCompany;
+using Shifty.Application.Base.Companies.Queries.CheckDomain;
+using Shifty.Application.Base.Companies.Requests.InitialCompany;
+using Shifty.Application.Features.Users.Queries.GetUserTenants;
 
 namespace Shifty.Api.Controllers.Panels;
 

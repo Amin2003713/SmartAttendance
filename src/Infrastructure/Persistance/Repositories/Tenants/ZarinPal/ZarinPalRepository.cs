@@ -1,7 +1,7 @@
 ﻿using Riviera.ZarinPal.V4;
 using Riviera.ZarinPal.V4.Models;
+using Shifty.Application.Base.ZarinPal.Request;
 using Shifty.Application.Interfaces.ZarinPal;
-using Shifty.Application.ZarinPal.Request;
 
 namespace Shifty.Persistence.Repositories.Tenants.ZarinPal;
 

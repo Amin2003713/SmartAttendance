@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
+using Shifty.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 using Shifty.Application.Interfaces.Base;
-using Shifty.Application.Users.Requests.Commands.RegisterByOwner;
-using Shifty.Application.Users.Requests.Commands.UpdatePhoneNumber;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Users;
 

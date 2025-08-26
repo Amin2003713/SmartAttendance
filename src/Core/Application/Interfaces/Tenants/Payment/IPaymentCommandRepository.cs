@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Payment.Commands.CreatePayment;
+using Shifty.Application.Base.Payment.Commands.CreatePayment;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Tenants.Payments;
 

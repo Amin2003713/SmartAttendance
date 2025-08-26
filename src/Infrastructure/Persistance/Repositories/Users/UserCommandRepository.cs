@@ -1,7 +1,7 @@
 ﻿using DNTPersianUtils.Core;
+using Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
+using Shifty.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 using Shifty.Application.Interfaces.Tenants.Companies;
-using Shifty.Application.Users.Requests.Commands.RegisterByOwner;
-using Shifty.Application.Users.Requests.Commands.UpdatePhoneNumber;
 
 // Added for logging
 

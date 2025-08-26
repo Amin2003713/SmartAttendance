@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Pdf.Query.GetFactorPdf;
+﻿using Shifty.Application.Features.Pdf.Query.GetFactorPdf;
 
 namespace Shifty.Api.Controllers.Pdf;
 

@@ -31,7 +31,19 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Base\" />
+        <Folder Include="Features\" />
+        <Folder Include="Features\Vehicles\Commands\Delete\" />
+        <Folder Include="Features\Vehicles\Queries\GetById\" />
+        <Folder Include="Features\Vehicles\Queries\GetVehicles\" />
+        <Folder Include="Features\Vehicles\Requests\Commands\Delete\" />
         <Folder Include="Interfaces\Calendars\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Users\Queries\GetUserTenants\GetUserTenantResponse.cs" />
+      <Compile Remove="Users\Queries\GetUserTenants\GetUserTenantQuery.cs" />
+      <Compile Remove="Settings\Queries\GetSetting\GetSettingQuery.cs" />
     </ItemGroup>
 
 </Project>

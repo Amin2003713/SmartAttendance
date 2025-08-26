@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Calendars.Request.Queries.GetHoliday;
+using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Tenants;
 

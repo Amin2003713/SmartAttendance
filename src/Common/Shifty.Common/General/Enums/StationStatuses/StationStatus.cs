@@ -1,4 +1,4 @@
-﻿namespace Shifty.Common.General.Enums.Stationstatuses;
+﻿namespace Shifty.Common.General.Enums.StationStatuses;
 
 public enum StationStatus
 {

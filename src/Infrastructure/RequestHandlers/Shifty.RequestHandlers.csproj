@@ -12,8 +12,11 @@
 
 
     <ItemGroup>
-        <Folder Include="Prices\Queries\"/>
-        <Folder Include="Settings\Commands\"/>
+        <Folder Include="Base\" />
+        <Folder Include="Vehicles\Commands\Delete\" />
+        <Folder Include="Vehicles\Commands\Update\" />
+        <Folder Include="Vehicles\Queries\GetById\" />
+        <Folder Include="Vehicles\Queries\GetVehicles\" />
     </ItemGroup>
 
 

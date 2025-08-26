@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using Shifty.Application.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.HubFiles.Commands.ZipExport;
-using Shifty.Application.HubFiles.Queries.GetHubFile;
-using Shifty.Application.HubFiles.Request.Commands.UploadHubFile;
+using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
+using Shifty.Application.Base.HubFiles.Commands.ZipExport;
+using Shifty.Application.Base.HubFiles.Queries.GetHubFile;
+using Shifty.Application.Base.HubFiles.Request.Commands.UploadHubFile;
 using Shifty.Common.General.Enums.FileType;
 using Shifty.Common.Utilities.TypeConverters;
 

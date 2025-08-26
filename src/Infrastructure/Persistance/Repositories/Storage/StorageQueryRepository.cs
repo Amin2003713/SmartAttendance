@@ -1,7 +1,6 @@
-﻿using Shifty.Application.Interfaces.Storages;
-using Shifty.Application.Payment.Queries.GetActivePayment;
-using Shifty.Application.Storage.Request.Queries.GetRemainStorage;
-using Shifty.Application.Storage.Request.Queries.GetRemainStorageByProject;
+﻿using Shifty.Application.Base.Payment.Queries.GetActivePayment;
+using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
+using Shifty.Application.Interfaces.Storages;
 
 namespace Shifty.Persistence.Repositories.Storage;
 

@@ -1,9 +1,9 @@
 ﻿using MD.PersianDateTime.Standard;
 using Riviera.ZarinPal.V4.Models;
+using Shifty.Application.Base.Payment.Commands.CreatePayment;
+using Shifty.Application.Base.Payment.Request.Commands.CreatePayment;
+using Shifty.Application.Base.ZarinPal.Request;
 using Shifty.Application.Interfaces.ZarinPal;
-using Shifty.Application.Payment.Commands.CreatePayment;
-using Shifty.Application.Payment.Request.Commands.CreatePayment;
-using Shifty.Application.ZarinPal.Request;
 using Shifty.Common.General.Enums.Discount;
 using Shifty.Common.General.Enums.Payment;
 

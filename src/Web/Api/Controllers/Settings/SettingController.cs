@@ -1,5 +1,5 @@
-﻿using Shifty.Application.Settings.Commands.UpdateSetting;
-using Shifty.Application.Settings.Requests.UpdateSetting;
+﻿using Shifty.Application.Base.Settings.Commands.UpdateSetting;
+using Shifty.Application.Base.Settings.Requests.UpdateSetting;
 
 namespace Shifty.Api.Controllers.Settings;
 

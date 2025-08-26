@@ -1,6 +1,6 @@
 ﻿using Shifty.Common.Common.Requests;
 using Shifty.Common.General.BaseClasses;
-using Shifty.Common.General.Enums.Stationstatuses;
+using Shifty.Common.General.Enums.StationStatuses;
 using Shifty.Common.General.Enums.StationTypes;
 
 namespace Shifty.Domain.Stations;

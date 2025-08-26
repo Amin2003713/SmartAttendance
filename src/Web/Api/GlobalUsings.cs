@@ -12,6 +12,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Shifty.ApiFramework.Attributes;
 global using Shifty.ApiFramework.Controller;
 global using Shifty.ApiFramework.Tools;
-global using Shifty.Application.Payment.Commands.CreatePayment;
 global using Shifty.Common.General.Enums.Access;
 global using Swashbuckle.AspNetCore.Annotations;

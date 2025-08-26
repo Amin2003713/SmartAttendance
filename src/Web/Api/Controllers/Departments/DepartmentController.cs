@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shifty.Application.Departments.Commands.Create;
-using Shifty.Application.Departments.Queries.GetDepartments;
-using Shifty.Application.Departments.Requests.Commands.Create;
-using Shifty.Application.Departments.Requests.Queries.GetDepartments;
-using Shifty.Application.Users.Requests.Commands.RegisterByOwner;
+using Shifty.Application.Features.Departments.Commands.Create;
+using Shifty.Application.Features.Departments.Queries.GetDepartments;
+using Shifty.Application.Features.Departments.Requests.Commands.Create;
+using Shifty.Application.Features.Departments.Requests.Queries.GetDepartments;
 
 namespace Shifty.Api.Controllers.Departments;
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Riviera.ZarinPal.V4.Models;
-using Shifty.Application.ZarinPal.Request;
+using Shifty.Application.Base.ZarinPal.Request;
 using Shifty.Common.Utilities.InjectionHelpers;
 
 namespace Shifty.Application.Interfaces.ZarinPal;

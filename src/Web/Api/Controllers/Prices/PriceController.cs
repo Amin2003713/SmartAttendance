@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Prices.Commands.CreatePrice;
-using Shifty.Application.Prices.Queries.GetPrice;
-using Shifty.Application.Prices.Request.Commands.CreatePrice;
-using Shifty.Application.Prices.Request.Queries.GetPrice;
+﻿using Shifty.Application.Base.Prices.Commands.CreatePrice;
+using Shifty.Application.Base.Prices.Queries.GetPrice;
+using Shifty.Application.Base.Prices.Request.Commands.CreatePrice;
+using Shifty.Application.Base.Prices.Request.Queries.GetPrice;
 
 namespace Shifty.Api.Controllers.Prices;
 

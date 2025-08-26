@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Payment.Request.Queries.ListPayment;
+﻿using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
 
 namespace Shifty.Persistence.Repositories.Tenants.Payment;
 

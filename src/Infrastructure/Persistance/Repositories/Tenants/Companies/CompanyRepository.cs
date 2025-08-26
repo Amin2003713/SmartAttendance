@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Companies.Commands.AddRequest;
+﻿using Shifty.Application.Base.Companies.Commands.AddRequest;
 using Shifty.Application.Interfaces.Tenants.Companies;
 
 namespace Shifty.Persistence.Repositories.Tenants.Companies;

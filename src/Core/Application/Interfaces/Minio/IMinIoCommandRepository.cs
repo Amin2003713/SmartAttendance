@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.MinIo.Commands.UploadPdf;
-using Shifty.Application.MinIo.Commands.UplodeFile;
+using Shifty.Application.Base.MinIo.Commands.UploadPdf;
+using Shifty.Application.Base.MinIo.Commands.UplodeFile;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.HubFiles;
 

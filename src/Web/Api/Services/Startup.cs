@@ -10,6 +10,7 @@ using Shifty.ApiFramework.Configuration;
 using Shifty.ApiFramework.Injections;
 using Shifty.ApiFramework.Middleware.Jwt;
 using Shifty.Application;
+using Shifty.Application.Base.Payment.Commands.CreatePayment;
 using Shifty.Common;
 using Shifty.Common.General;
 using Shifty.Domain.Tenants;

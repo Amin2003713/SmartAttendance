@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Companies.Commands.AddRequest;
+using Shifty.Application.Base.Companies.Commands.AddRequest;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Tenants;
 

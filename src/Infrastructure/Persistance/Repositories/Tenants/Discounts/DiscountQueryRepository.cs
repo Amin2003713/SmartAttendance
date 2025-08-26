@@ -1,5 +1,5 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Application.Discounts.Request.Queries.GetAllDiscount;
+using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 using Shifty.Application.Interfaces.Tenants.Discounts;
 
 namespace Shifty.Persistence.Repositories.Tenants.Discounts;

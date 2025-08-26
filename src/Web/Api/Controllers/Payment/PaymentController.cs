@@ -1,7 +1,8 @@
-﻿using Shifty.Application.Payment.Commands.Verify;
-using Shifty.Application.Payment.Queries.ListPayments;
-using Shifty.Application.Payment.Request.Commands.CreatePayment;
-using Shifty.Application.Payment.Request.Queries.ListPayment;
+﻿using Shifty.Application.Base.Payment.Commands.CreatePayment;
+using Shifty.Application.Base.Payment.Commands.Verify;
+using Shifty.Application.Base.Payment.Queries.ListPayments;
+using Shifty.Application.Base.Payment.Request.Commands.CreatePayment;
+using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
 
 namespace Shifty.Api.Controllers.Payment;
 

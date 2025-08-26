@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Dashboards.Queries.BudgetDistributionCharts;
-using Shifty.Application.Dashboards.Queries.KPIMetric;
-using Shifty.Application.Dashboards.Requests.ProgressHistory;
-using Shifty.Application.Dashboards.Responses.DashboardCardSummary;
-using Shifty.Application.Dashboards.Responses.ProgressHistory;
-using Shifty.Application.Dashboards.Responses.ResourceChartDat;
+﻿using Shifty.Application.Features.Dashboards.Queries.BudgetDistributionCharts;
+using Shifty.Application.Features.Dashboards.Queries.KPIMetric;
+using Shifty.Application.Features.Dashboards.Requests.ProgressHistory;
+using Shifty.Application.Features.Dashboards.Responses.DashboardCardSummary;
+using Shifty.Application.Features.Dashboards.Responses.ProgressHistory;
+using Shifty.Application.Features.Dashboards.Responses.ResourceChartDat;
 
 namespace Shifty.Api.Controllers.Dashboards;
 

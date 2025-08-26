@@ -1,10 +1,10 @@
-﻿using Shifty.Application.Discounts.Commands.CreateDiscount;
-using Shifty.Application.Discounts.Commands.DeleteDiscount;
-using Shifty.Application.Discounts.Queries.CheckDiscount;
-using Shifty.Application.Discounts.Queries.GetAllDiscount;
-using Shifty.Application.Discounts.Request.Commands.CreateDisCount;
-using Shifty.Application.Discounts.Request.Queries.CheckDiscount;
-using Shifty.Application.Discounts.Request.Queries.GetAllDiscount;
+﻿using Shifty.Application.Base.Discounts.Commands.CreateDiscount;
+using Shifty.Application.Base.Discounts.Commands.DeleteDiscount;
+using Shifty.Application.Base.Discounts.Queries.CheckDiscount;
+using Shifty.Application.Base.Discounts.Queries.GetAllDiscount;
+using Shifty.Application.Base.Discounts.Request.Commands.CreateDisCount;
+using Shifty.Application.Base.Discounts.Request.Queries.CheckDiscount;
+using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 
 namespace Shifty.Api.Controllers.Discounts;
 

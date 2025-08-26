@@ -1,8 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
 using Shifty.Application.Interfaces.Base;
-using Shifty.Application.Storage.Request.Queries.GetRemainStorage;
-using Shifty.Application.Storage.Request.Queries.GetRemainStorageByProject;
 using Shifty.Common.Utilities.InjectionHelpers;
 
 namespace Shifty.Application.Interfaces.Storages;

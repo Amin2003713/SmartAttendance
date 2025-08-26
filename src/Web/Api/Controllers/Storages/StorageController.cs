@@ -1,7 +1,5 @@
-﻿using Shifty.Application.Storage.Queries.GetAllRemainStorage;
-using Shifty.Application.Storage.Queries.GetRemainStorageByProject;
-using Shifty.Application.Storage.Request.Queries.GetRemainStorage;
-using Shifty.Application.Storage.Request.Queries.GetRemainStorageByProject;
+﻿using Shifty.Application.Base.Storage.Queries.GetAllRemainStorage;
+using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorage;
 
 namespace Shifty.Api.Controllers.Storages;
 

@@ -12,7 +12,7 @@ using Shifty.Persistence.Db;
 using Shifty.Persistence.Jwt;
 using Shifty.Persistence.Repositories.Common;
 using Shifty.Persistence.Services.Time.ir;
-using Shifty.RequestHandlers.Discounts.Commands.CreateDiscount;
+using Shifty.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
 
 namespace Shifty.ApiFramework.Configuration;
 

@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Calendars.Request.Queries.GetHoliday;
+﻿using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
 
 namespace Shifty.Persistence.Repositories.Tenants.Calendars;
 

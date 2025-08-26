@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.HubFiles.Commands.ZipExport;
-using Shifty.Application.HubFiles.Request.Queries.GetFile;
+using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
+using Shifty.Application.Base.HubFiles.Commands.ZipExport;
+using Shifty.Application.Base.HubFiles.Request.Queries.GetFile;
 using Shifty.Application.Interfaces.Base;
 using Shifty.Common.General.Enums.FileType;
 using Shifty.Common.Utilities.InjectionHelpers;

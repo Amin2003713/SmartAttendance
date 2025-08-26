@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Discounts.Request.Queries.GetAllDiscount;
+using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Tenants.Discounts;
 

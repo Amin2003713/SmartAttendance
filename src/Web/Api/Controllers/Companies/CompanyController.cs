@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Companies.Commands.UpdateCompany;
-using Shifty.Application.Companies.Queries.GetCompanyInfo;
-using Shifty.Application.Companies.Requests.UpdateCompany;
-using Shifty.Application.Companies.Responses.GetCompanyInfo;
+﻿using Shifty.Application.Base.Companies.Commands.UpdateCompany;
+using Shifty.Application.Base.Companies.Queries.GetCompanyInfo;
+using Shifty.Application.Base.Companies.Requests.UpdateCompany;
+using Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
 
 namespace Shifty.Api.Controllers.Companies;
 

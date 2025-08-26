@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Calendars.Request.Commands.CreateReminder;
-using Shifty.Application.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Calendars.Request.Queries.GetReminder;
+﻿using Shifty.Application.Base.Calendars.Request.Commands.CreateReminder;
+using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
+using Shifty.Application.Base.Calendars.Request.Queries.GetReminder;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Domain.Calenders.DailyCalender;
 
