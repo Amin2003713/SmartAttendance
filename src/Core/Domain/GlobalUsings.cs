@@ -11,7 +11,6 @@ global using Newtonsoft.Json;
 global using Shifty.Common.Common.ESBase;
 global using Shifty.Common.General;
 global using Shifty.Common.General.Enums.Payment;
-global using Shifty.Common.General.Enums.Projects;
 global using Shifty.Common.Utilities.EnumHelpers;
 global using Shifty.Domain.Calenders.CalenderProjects;
 global using Shifty.Domain.Calenders.CalenderUsers;

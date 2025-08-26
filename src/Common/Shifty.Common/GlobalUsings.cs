@@ -12,5 +12,4 @@ global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using Shifty.Common.General;
 global using Shifty.Common.General.Enums.FileType;
-global using Shifty.Common.General.Enums.Projects;
 global using Shifty.Common.General.Enums.Workflows;
