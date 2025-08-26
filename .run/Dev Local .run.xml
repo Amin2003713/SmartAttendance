@@ -4,19 +4,14 @@
       <settings>
         <option name="envFilePath" value="E:\Projects\Shifty\Shifty\Docker\.env.development.local" />
         <option name="commandLineOptions" value="--build" />
-        <option name="secondarySourceFiles">
-          <list>
-            <option value="Docker/services.docker-compose.yaml" />
-          </list>
-        </option>
-        <option name="sourceFilePath" value="Docker/docker-compose.dcproj" />
+        <option name="sourceFilePath" value="Docker/services.docker-compose.yaml" />
         <option name="upRemoveOrphans" value="true" />
       </settings>
     </deployment>
     <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
     <method v="2">
-      <option name="Build" default="false" projectName="Shifty.Api" projectPath="$PROJECT_DIR$/src/Web/Api/Shifty.Api.csproj" />
       <option name="CleanSolution" enabled="true" />
+      <option name="Build Solution" enabled="true" />
     </method>
   </configuration>
 </component>

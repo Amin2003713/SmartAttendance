@@ -59,10 +59,10 @@ public abstract class ApplicationConstant
     public static class AppOptions
     {
         public static string WriteDatabaseConnectionString { get; set; } =
-            $"Server={Sql.DbServer};Database=PRIMA.Shard;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
+            $"Server={Sql.DbServer};Database=Shifty.Shard;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
 
         public static string ReadDatabaseConnectionString { get; set; } =
-            $"Server={Sql.DbServer};Database=PRIMA.Shard;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
+            $"Server={Sql.DbServer};Database=Shifty.Shard;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
 
         public static string TenantStore { get; set; } =
             $"Server={Sql.DbServer};Database=Shifty;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
