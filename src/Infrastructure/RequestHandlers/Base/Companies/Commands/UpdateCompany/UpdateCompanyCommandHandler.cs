@@ -40,7 +40,7 @@ public class UpdateCompanyCommandHandler(
                 logger.LogWarning("Company not found for identifier: {TenantId}",
                     tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
 
-                throw IpaException.NotFound(localizer["The requested company was not found."].Value);
+                throw ShiftyException.NotFound(localizer["The requested company was not found."].Value);
             }
 
             logger.LogInformation("Updating company details for {CompanyName}", request.Name);
@@ -56,7 +56,7 @@ public class UpdateCompanyCommandHandler(
                 if (!deleteResponse)
                 {
                     logger.LogError("Failed to delete old image for Company {Id}.", company.Id);
-                    throw IpaException.InternalServerError(localizer["Failed to delete old image."].Value);
+                    throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
                 }
             }
 
@@ -72,7 +72,7 @@ public class UpdateCompanyCommandHandler(
                     if (!deleteResponse)
                     {
                         logger.LogError("Failed to delete old image for Company {Id}.", company.Id);
-                        throw IpaException.InternalServerError(localizer["Failed to delete old image."].Value);
+                        throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
                     }
                 }
 
@@ -99,7 +99,7 @@ public class UpdateCompanyCommandHandler(
                 request.Name,
                 tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business validation error: {Message}", ex.Message);
             throw;
@@ -107,7 +107,7 @@ public class UpdateCompanyCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "An unexpected error occurred while updating the company.");
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while processing the request."].Value);
         }
     }

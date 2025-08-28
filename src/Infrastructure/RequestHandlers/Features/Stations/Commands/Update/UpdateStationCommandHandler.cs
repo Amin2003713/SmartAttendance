@@ -20,7 +20,7 @@ public class UpdateStationCommandHandler(
             if (station is null)
             {
                 logger.LogWarning("Stations with ID {StationId} not found for update.", request.Id);
-                throw IpaException.NotFound(localizer["Station not found."]);
+                throw ShiftyException.NotFound(localizer["Station not found."]);
             }
 
             station.Update(request.Adapt<Station>());
@@ -31,7 +31,7 @@ public class UpdateStationCommandHandler(
         }
 
 
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error while updating station {StationId}.", request.Id);
             throw;
@@ -39,7 +39,7 @@ public class UpdateStationCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while updating station {StationId}.", request.Id);
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while updating the station."]);
         }
     }

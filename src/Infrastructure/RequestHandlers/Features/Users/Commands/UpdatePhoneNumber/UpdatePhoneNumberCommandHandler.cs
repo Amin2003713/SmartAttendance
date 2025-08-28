@@ -27,7 +27,7 @@ public class UpdatePhoneNumberCommandHandler(
                 a => a.Id == userId);
 
             if (user == null)
-                throw IpaException.NotFound(localizer["User was not found."]);
+                throw ShiftyException.NotFound(localizer["User was not found."]);
 
             user.PhoneNumber = request.PhoneNumber;
 
@@ -39,7 +39,7 @@ public class UpdatePhoneNumberCommandHandler(
             if (!isValid)
             {
                 logger.LogWarning("Invalid code entered for phone number update: {Phone}", request.PhoneNumber);
-                throw IpaException.BadRequest(localizer["Invalid or expired activation code."]);
+                throw ShiftyException.BadRequest(localizer["Invalid or expired activation code."]);
             }
 
             await commandRepository.UpdatePhoneNumberAsync(request, userId, cancellationToken);

@@ -31,7 +31,7 @@ public class CreateDepartmentCommandHandler(
                     x => x.Id == request.ParentDepartmentId.Value);
 
                 if (parent is null)
-                    throw IpaException.NotFound(localizer["Parent department not found."]);
+                    throw ShiftyException.NotFound(localizer["Parent department not found."]);
             }
 
             if (request.ManagerId.HasValue)
@@ -41,7 +41,7 @@ public class CreateDepartmentCommandHandler(
                     x => x.Id == request.ManagerId.Value);
 
                 if (manager is null)
-                    throw IpaException.NotFound(localizer["Manager user not found."]);
+                    throw ShiftyException.NotFound(localizer["Manager user not found."]);
             }
 
             var department = request.Adapt<Department>();
@@ -51,14 +51,14 @@ public class CreateDepartmentCommandHandler(
             logger.LogInformation("Department created. Id={DepartmentId}, Name={Name}", department.Id,
                 department.Title);
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error when creating department. Name={Name}", request.Title);
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while creating the department."]);
         }
     }

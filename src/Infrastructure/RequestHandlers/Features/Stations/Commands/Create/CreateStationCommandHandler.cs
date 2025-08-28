@@ -15,7 +15,7 @@ public class CreateStationCommandHandler(
     {
         try
         {
-            if (request == null)
+            if (request is null)
                 throw new InvalidNullInputException(nameof(request));
 
             logger.LogInformation("Creating Station. Name={Name}, ",
@@ -29,14 +29,14 @@ public class CreateStationCommandHandler(
             logger.LogInformation("Station created. Id={StationId}, Name={Name}", station.Id,
                 station.Name);
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error when creating station. Name={Name}", request!.Name);
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while creating the station."]);
         }
     }

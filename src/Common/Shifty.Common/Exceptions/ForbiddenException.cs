@@ -9,7 +9,7 @@ public class ForbiddenException(
     string message,
     Exception innerException,
     object additionalData = null
-) : IpaException(
+) : ShiftyException(
     message,
     HttpStatusCode.Forbidden,
     innerException,

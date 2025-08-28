@@ -14,7 +14,7 @@ public  class GetDepartmentByIdQueryHandler(
     public async Task<GetDepartmentResponse> Handle(GetDepartmentByIdQuery request, CancellationToken cancellationToken)
     {
         if (! await departmentQueryRepository.AnyAsync(department => department.Id == request.Id  , cancellationToken))
-            throw IpaException.NotFound("department not found");
+            throw ShiftyException.NotFound("department not found");
 
         return (await departmentQueryRepository.TableNoTracking.Where(a => a.Id == request.Id).SingleOrDefaultAsync(cancellationToken: cancellationToken))
             .Adapt<GetDepartmentResponse>();

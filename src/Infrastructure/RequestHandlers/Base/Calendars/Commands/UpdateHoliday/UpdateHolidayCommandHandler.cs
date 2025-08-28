@@ -31,7 +31,7 @@ public class UpdateHolidayCommandHandler(
                     request.HolidayId,
                     userId);
 
-                throw IpaException.NotFound(localizer["Holiday not found."].Value);
+                throw ShiftyException.NotFound(localizer["Holiday not found."].Value);
             }
 
             if (holiday.CreatedBy != userId)
@@ -40,7 +40,7 @@ public class UpdateHolidayCommandHandler(
                     userId,
                     request.HolidayId);
 
-                throw IpaException.BadRequest(localizer["Access denied."].Value);
+                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
             }
 
             var isSameDate = holiday.Date == request.Date;
@@ -59,7 +59,7 @@ public class UpdateHolidayCommandHandler(
                         request.Date,
                         request.ProjectId);
 
-                    throw IpaException.BadRequest(localizer["The selected date is already marked as a holiday."].Value);
+                    throw ShiftyException.BadRequest(localizer["The selected date is already marked as a holiday."].Value);
                 }
             }
 
@@ -73,7 +73,7 @@ public class UpdateHolidayCommandHandler(
                 request.HolidayId,
                 userId);
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
@@ -84,7 +84,7 @@ public class UpdateHolidayCommandHandler(
                 request.HolidayId,
                 userId);
 
-            throw IpaException.InternalServerError(localizer["Unable to update holiday."].Value);
+            throw ShiftyException.InternalServerError(localizer["Unable to update holiday."].Value);
         }
     }
 }

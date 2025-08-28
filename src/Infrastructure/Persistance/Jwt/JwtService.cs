@@ -50,7 +50,7 @@ public class JwtService(
         catch (Exception ex)
         {
             logger.LogError(ex.Source, ex);
-            throw IpaException.Unauthorized(messages["Unauthorized Access Token"].Value);
+            throw ShiftyException.Unauthorized(messages["Unauthorized Access Token"].Value);
         }
     }
 

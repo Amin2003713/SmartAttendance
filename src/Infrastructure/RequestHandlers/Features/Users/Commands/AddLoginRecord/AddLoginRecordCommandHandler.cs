@@ -26,16 +26,16 @@ public class AddLoginRecordCommandHandler(
         var user = await userQueryRepository.GetByIdAsync(cancellationToken, request.UserId);
 
         if (user is null)
-            throw IpaException.Unauthorized(localizer["Invalid token."]);
+            throw ShiftyException.Unauthorized(localizer["Invalid token."]);
 
         if (!user.IsActive || !user.PhoneNumberConfirmed)
-            throw IpaException.Forbidden(localizer["User account is not active."]);
+            throw ShiftyException.Forbidden(localizer["User account is not active."]);
 
         var session =
             await refreshTokenQueryRepository.GetCurrentSessions(request.UniqueTokenIdentifier, cancellationToken);
 
         if (session is null)
-            throw IpaException.Unauthorized(localizer["Invalid token."]);
+            throw ShiftyException.Unauthorized(localizer["Invalid token."]);
 
         await userCommandRepository.UpdateLastLoginDateAsync(user, cancellationToken);
     }

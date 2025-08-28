@@ -24,7 +24,7 @@ public class UploadPdfCommandHandler(
 
             return request.Path;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error during PDF upload.");
             throw;
@@ -32,7 +32,7 @@ public class UploadPdfCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error during PDF upload.");
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred while uploading the PDF."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while uploading the PDF."]);
         }
     }
 }

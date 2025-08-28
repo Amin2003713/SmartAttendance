@@ -30,10 +30,10 @@ public class ForgotPasswordCommandHandler(
             var userResult = await userManager.FindByNameAsync(request.UserName);
 
             if (userResult == null)
-                throw IpaException.NotFound(localizer["User was not found."].Value); // "کاربر یافت نشد."
+                throw ShiftyException.NotFound(localizer["User was not found."].Value); // "کاربر یافت نشد."
 
             if (!await VerifyTwoFactorTokenAsync(request.Code, userResult))
-                throw IpaException.Forbidden(localizer["Otp Code was invalid."]);
+                throw ShiftyException.Forbidden(localizer["Otp Code was invalid."]);
 
             var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == userResult.Id)
                 .ToListAsync(cancellationToken);
@@ -43,7 +43,7 @@ public class ForgotPasswordCommandHandler(
                 .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
             {
                 logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserName);
-                throw IpaException.BadRequest(localizer["Dont Reuse Old Password"]);
+                throw ShiftyException.BadRequest(localizer["Dont Reuse Old Password"]);
             }
 
 
@@ -51,7 +51,7 @@ public class ForgotPasswordCommandHandler(
             var passwordResetToken = await userManager.GeneratePasswordResetTokenAsync(userResult);
 
             if (passwordResetToken == null)
-                throw IpaException.Forbidden(localizer["Action not allowed."].Value); // "انجام این عملیات مجاز نیست."
+                throw ShiftyException.Forbidden(localizer["Action not allowed."].Value); // "انجام این عملیات مجاز نیست."
 
             var result = await userManager.ResetPasswordAsync(userResult, passwordResetToken, request.NewPassword);
 
@@ -60,7 +60,7 @@ public class ForgotPasswordCommandHandler(
                 logger.LogError("Password reset failed: {Errors}",
                     string.Join(", ", result.Errors.Select(e => e.Description)));
 
-                throw IpaException.Validation(localizer["Password change error."],
+                throw ShiftyException.Validation(localizer["Password change error."],
                     result.Errors); // "خطا در تغییر رمز عبور."
             }
 
@@ -87,7 +87,7 @@ public class ForgotPasswordCommandHandler(
         {
             return await userManager.VerifyTwoFactorTokenAsync(user!, ApplicationConstant.Identity.CodeGenerator, code);
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error during two-factor token verification.");
             throw;
@@ -95,7 +95,7 @@ public class ForgotPasswordCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
-            throw IpaException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
+            throw ShiftyException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
                 .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }

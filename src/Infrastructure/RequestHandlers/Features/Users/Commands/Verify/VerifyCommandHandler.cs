@@ -25,7 +25,7 @@ public class VerifyCommandHandler(
             var user = await userManager.FindByNameAsync(request.PhoneNumber);
 
             if (user == null)
-                throw IpaException.NotFound(additionalData: localizer["User was not found."]
+                throw ShiftyException.NotFound(additionalData: localizer["User was not found."]
                     .Value); // "کاربر یافت نشد."
 
             var isVerified = await VerifyTwoFactorTokenAsync(request.Code, user);
@@ -36,7 +36,7 @@ public class VerifyCommandHandler(
             var result = await userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
-                throw IpaException.BadRequest(localizer["User activation failed."]
+                throw ShiftyException.BadRequest(localizer["User activation failed."]
                     .Value); // "فعال‌سازی کاربر انجام نشد."
 
             return new VerifyPhoneNumberResponse
@@ -47,7 +47,7 @@ public class VerifyCommandHandler(
                     : localizer["Invalid code or phone number."].Value       // "کد وارد شده یا شماره تلفن نامعتبر است."
             };
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error during phone number verification.");
             throw;
@@ -60,7 +60,7 @@ public class VerifyCommandHandler(
         {
             return await userManager.VerifyTwoFactorTokenAsync(user!, ApplicationConstant.Identity.CodeGenerator, code);
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error during two-factor token verification.");
             throw;
@@ -68,7 +68,7 @@ public class VerifyCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
-            throw IpaException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
+            throw ShiftyException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
                 .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }

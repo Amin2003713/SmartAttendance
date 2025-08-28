@@ -43,14 +43,14 @@ public class GetDepartmentQueryHandler(
             logger.LogInformation("Retrieved {Count} departments.", listDepartments.Count);
             return listDepartments;
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while retrieving departments.");
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving departments."]);
         }
     }

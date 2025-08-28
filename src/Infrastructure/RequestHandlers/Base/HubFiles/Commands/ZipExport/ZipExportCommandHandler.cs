@@ -36,7 +36,7 @@ public class ZipExportCommandHandler(
         if (files == null || files.Count == 0)
         {
             // logger.LogWarning("No files found for zip export request in ProjectId {ProjectId}.", request.ProjectId);
-            throw IpaException.BadRequest(localizer["No files available to export."].Value);
+            throw ShiftyException.BadRequest(localizer["No files available to export."].Value);
         }
 
         // 2) Create ZIP archive from retrieved files, with exception handling.
@@ -49,7 +49,7 @@ public class ZipExportCommandHandler(
         catch (Exception ex)
         {
             // logger.LogError(ex, "Failed to create ZIP archive for ProjectId {ProjectId}.", request.ProjectId);
-            throw IpaException.InternalServerError(localizer["Failed to generate ZIP archive."].Value);
+            throw ShiftyException.InternalServerError(localizer["Failed to generate ZIP archive."].Value);
         }
 
         // 3) Prepare and send upload command.
@@ -74,7 +74,7 @@ public class ZipExportCommandHandler(
         catch (Exception ex)
         {
             // logger.LogError(ex, "Failed to upload ZIP archive for ProjectId {ProjectId}.", request.ProjectId);
-            throw IpaException.InternalServerError(localizer["Failed to upload ZIP archive."].Value);
+            throw ShiftyException.InternalServerError(localizer["Failed to upload ZIP archive."].Value);
         }
 
         // 4) Schedule deletion of the temporary ZIP after 45 minutes.
@@ -89,7 +89,7 @@ public class ZipExportCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Failed to schedule deletion of ZIP file {Path}.", path);
-            throw IpaException.InternalServerError(localizer["Failed to schedule temporary file cleanup."].Value);
+            throw ShiftyException.InternalServerError(localizer["Failed to schedule temporary file cleanup."].Value);
         }
 
         // logger.LogInformation("Zip export completed successfully for ProjectId {ProjectId}. Returning path.",
@@ -102,7 +102,7 @@ public class ZipExportCommandHandler(
     {
         // Validate input
         if (files == null || files.Count == 0)
-            throw IpaException.BadRequest(localizer["No files available to export."].Value);
+            throw ShiftyException.BadRequest(localizer["No files available to export."].Value);
 
         using var zipStream = new MemoryStream();
 
@@ -116,13 +116,13 @@ public class ZipExportCommandHandler(
                 try
                 {
                     fileStream = await minIoQueryRepository.GetFileAsync(hubFile.Path, cancellationToken) ??
-                                 throw IpaException.NotFound(
+                                 throw ShiftyException.NotFound(
                                      localizer["File {0} not found in storage.", hubFile.Name].Value);
                 }
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "Error retrieving file {FileName} from storage.", hubFile.Name);
-                    throw IpaException.InternalServerError(
+                    throw ShiftyException.InternalServerError(
                         localizer["Error retrieving file {0} from storage.", hubFile.Name].Value);
                 }
 
@@ -141,7 +141,7 @@ public class ZipExportCommandHandler(
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "Error adding file {FileName} to ZIP.", hubFile.Name);
-                    throw IpaException.InternalServerError(
+                    throw ShiftyException.InternalServerError(
                         localizer["Error adding file {0} to ZIP.", hubFile.Name].Value);
                 }
             }

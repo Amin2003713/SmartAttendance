@@ -205,7 +205,7 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
         //         cancellationToken);
         //
         // if (access is null)
-        //     throw IpaException.Forbidden("forbid");
+        //     throw ShiftyException.Forbidden("forbid");
 
 
         var latestVersion = await _eventReader.GetLatestVersionAsync(aggregate.AggregateId, cancellationToken);

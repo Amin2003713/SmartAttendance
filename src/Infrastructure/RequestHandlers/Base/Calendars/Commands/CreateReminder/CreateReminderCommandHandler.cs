@@ -49,7 +49,7 @@ public class CreateReminderCommandHandler(
         //         request.ProjectId);
         //
         //     // Return a short, clear error message to the client.
-        //     throw IpaException.Forbidden(localizer["Not allowed."].Value);
+        //     throw ShiftyException.Forbidden(localizer["Not allowed."].Value);
         // }
 
 
@@ -99,7 +99,7 @@ public class CreateReminderCommandHandler(
             //     ex.Message);
 
             // Throw a short, descriptive error message to the client.
-            throw IpaException.InternalServerError(localizer["Reminder creation failed."].Value);
+            throw ShiftyException.InternalServerError(localizer["Reminder creation failed."].Value);
         }
     }
 }

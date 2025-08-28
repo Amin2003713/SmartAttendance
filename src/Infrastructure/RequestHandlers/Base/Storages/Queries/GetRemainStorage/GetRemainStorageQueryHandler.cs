@@ -24,7 +24,7 @@ public class GetRemainStorageQueryHandler(
         // if (access == null)
         // {
         //     logger.LogWarning("User {UserId} has no access to any projects.", service.GetUserId());
-        //     throw IpaException.BadRequest(localizer["You do not have access to any projects."]);
+        //     throw ShiftyException.BadRequest(localizer["You do not have access to any projects."]);
         // }
 
         var result = await storageQueryRepository.StorageInfo(cancellationToken);

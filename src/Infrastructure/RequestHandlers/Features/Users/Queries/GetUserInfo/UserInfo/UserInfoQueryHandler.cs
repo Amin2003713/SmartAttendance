@@ -24,7 +24,7 @@ public class UserInfoQueryHandler(
         logger.LogInformation("User info retrieved successfully for current user.");
 
         if (user == null)
-            throw IpaException.NotFound(localizer["User not found"].Value);
+            throw ShiftyException.NotFound(localizer["User not found"].Value);
 
         var result = user.Adapt<GetUserResponse>();
 

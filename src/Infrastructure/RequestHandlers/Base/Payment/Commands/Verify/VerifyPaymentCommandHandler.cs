@@ -50,7 +50,7 @@ public record VerifyPaymentCommandHandler(
         if (companyPurchase.LastPaymentId is null)
         {
             Logger.LogError("LastPaymentId is null for authority {Authority}.", request.Authority);
-            throw IpaException.BadRequest(Localizer["Invalid payment reference."]);
+            throw ShiftyException.BadRequest(Localizer["Invalid payment reference."]);
         }
 
         var lastPurchase = await QueryRepository.GetPayment(companyPurchase.LastPaymentId.Value, cancellationToken);
@@ -58,7 +58,7 @@ public record VerifyPaymentCommandHandler(
         if (lastPurchase is null)
         {
             Logger.LogError("Last purchase not found for ID {LastPaymentId}.", companyPurchase.LastPaymentId);
-            throw IpaException.NotFound(Localizer["Previous payment record not found."]);
+            throw ShiftyException.NotFound(Localizer["Previous payment record not found."]);
         }
 
         var cost = companyPurchase.PaymentType switch
@@ -66,7 +66,7 @@ public record VerifyPaymentCommandHandler(
                        PaymentType.IncreaseStorage => 0, PaymentType.RenewSubscriptionEarly or
                            PaymentType.AddCompanyUser or
                            PaymentType.RenewSubscription => companyPurchase.Cost,
-                       PaymentType.DemoSubscription => 0, _ => throw IpaException.BadRequest(Localizer["Invalid payment type."])
+                       PaymentType.DemoSubscription => 0, _ => throw ShiftyException.BadRequest(Localizer["Invalid payment type."])
                    };
 
         var verifyResponse = await ZarinPal.VerifyPayment(

@@ -22,7 +22,7 @@ public class RegisterByOwnerCommandHandler(
                     cancellationToken))
             {
                 logger.LogWarning("Duplicate phone number detected: {PhoneNumber}", request.PhoneNumber);
-                throw IpaException.BadRequest(localizer["This phone number is already registered."].Value);
+                throw ShiftyException.BadRequest(localizer["This phone number is already registered."].Value);
             }
 
             var userId = await commandRepository.RegisterByOwnerAsync(request, cancellationToken);

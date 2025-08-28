@@ -22,7 +22,7 @@ public class GetNameByIdQueryHandler(
             if (user == null)
             {
                 logger.LogWarning("User with ID {UserId} not found.", request.Id);
-                IpaException.NotFound(localizer["User Not Found."]);
+                ShiftyException.NotFound(localizer["User Not Found."]);
             }
 
             var fullName = user!.FullName() ?? "";

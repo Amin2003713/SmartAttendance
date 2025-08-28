@@ -33,7 +33,7 @@ public class CreateHolidayCommandHandler(
                 //     request.Date);
 
                 // Throw a short message intended for the client.
-                throw IpaException.Conflict(localizer["Holiday already exists."].Value);
+                throw ShiftyException.Conflict(localizer["Holiday already exists."].Value);
             }
 
             // Map request data to DailyCalendar entity.

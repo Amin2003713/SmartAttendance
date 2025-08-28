@@ -34,7 +34,7 @@ public class GetFactorPdfQueryHandler(
             if (payment is null)
             {
                 logger.LogWarning("Payment with ID {PaymentId} not found or not successful.", request.PaymentId);
-                throw IpaException.NotFound(localizer["Payment not found."]);
+                throw ShiftyException.NotFound(localizer["Payment not found."]);
             }
 
             var user = await userManager.FindByIdAsync(userId.ToString());
@@ -42,7 +42,7 @@ public class GetFactorPdfQueryHandler(
             if (user is null)
             {
                 logger.LogWarning("User with ID {UserId} not found.", userId);
-                throw IpaException.NotFound(localizer["User not found."]);
+                throw ShiftyException.NotFound(localizer["User not found."]);
             }
 
             var price = await priceQueryRepository.GetPriceById(payment.PriceId, cancellationToken);
@@ -77,7 +77,7 @@ public class GetFactorPdfQueryHandler(
 
             return "result.fileUrl"; // todo : fix based on the mediator ;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error occurred while generating invoice PDF.");
             throw;
@@ -88,7 +88,7 @@ public class GetFactorPdfQueryHandler(
                 "Unexpected error occurred while generating invoice PDF for payment {PaymentId}.",
                 request.PaymentId);
 
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while generating the invoice PDF."]);
         }
     }

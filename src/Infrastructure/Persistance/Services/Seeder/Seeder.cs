@@ -21,7 +21,7 @@ public class Seeder : IScopedDependency,
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 

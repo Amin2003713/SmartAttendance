@@ -28,7 +28,7 @@ public class PaymentCommandRepository(
         logger.LogInformation("Start CreatePayment by UserId: {UserId} for Tenant: {TenantId}", userId, TenantInfo.Id);
 
         if (!TenantInfo!.IsCompanyRegistrationCompleted())
-            throw IpaException.BadRequest(localizer["Company registration is not completed."]);
+            throw ShiftyException.BadRequest(localizer["Company registration is not completed."]);
 
         var user = await userManager.FindByIdAsync(userId.ToString()!);
 
@@ -39,12 +39,12 @@ public class PaymentCommandRepository(
             .FirstOrDefaultAsync(a => a.IsActive && a.TenantId == TenantInfo!.Id, cancellationToken);
 
         if (!IsUserCountValid(lastPurchase, createPayment))
-            throw IpaException.BadRequest(localizer["You have reached the user limit. Contact support."]);
+            throw ShiftyException.BadRequest(localizer["You have reached the user limit. Contact support."]);
 
         var baseCost = BaseCost(createPayment, monthlyPrice, lastPurchase);
 
         if (IsUserCountValid(createPayment, lastPurchase))
-            throw IpaException.BadRequest(localizer["You cannot add fewer users than your active subscription."]);
+            throw ShiftyException.BadRequest(localizer["You cannot add fewer users than your active subscription."]);
 
         var price = await Price(createPayment, baseCost, cancellationToken);
 
@@ -101,7 +101,7 @@ public class PaymentCommandRepository(
             if (!zarinResponse.Success)
             {
                 logger.LogWarning("ZarinPal request failed for TenantId: {TenantId}", TenantInfo.Id);
-                throw IpaException.BadRequest(localizer["ZarinPal gateway error. Please contact support."]);
+                throw ShiftyException.BadRequest(localizer["ZarinPal gateway error. Please contact support."]);
             }
 
             newCompanyPurch.Authority = zarinResponse.Authority;
@@ -135,7 +135,7 @@ public class PaymentCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating payment: {PaymentId}", payments.Id);
-            throw IpaException.InternalServerError(localizer["An error occurred while updating the payment."]);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while updating the payment."]);
         }
     }
 
@@ -227,10 +227,10 @@ public class PaymentCommandRepository(
                 .FirstOrDefaultAsync(a => a.Id == model.DiscountId, cancellationToken);
 
             if (dis is null)
-                throw IpaException.NotFound(localizer["Discount not found."]);
+                throw ShiftyException.NotFound(localizer["Discount not found."]);
 
             if (dis.PackageMonth is not 0 && dis.PackageMonth != model.Duration)
-                throw IpaException.BadRequest(localizer["This discount is not valid for your selected duration."]);
+                throw ShiftyException.BadRequest(localizer["This discount is not valid for your selected duration."]);
 
             var discountCompany =
                 db.TenantDiscounts.FirstOrDefault(p => p.DiscountId == dis.Id && p.TenantId == TenantInfo.Id);
@@ -248,7 +248,7 @@ public class PaymentCommandRepository(
             }
 
             if (discountCompany is not null && discountCompany.IsUsed)
-                throw IpaException.BadRequest(localizer["This discount has already been used."]);
+                throw ShiftyException.BadRequest(localizer["This discount has already been used."]);
 
             discount = dis;
         }

@@ -23,7 +23,7 @@ public class DiscountCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error while adding discount: {DiscountId}", discount.Id);
-            throw IpaException.InternalServerError(localizer["An error occurred while adding the discount."]);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while adding the discount."]);
         }
     }
 
@@ -48,7 +48,7 @@ public class DiscountCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error while deleting discount with ID: {DiscountId}", discount.Id);
-            throw IpaException.InternalServerError(localizer["An error occurred while deleting the discount."]);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while deleting the discount."]);
         }
     }
 
@@ -69,7 +69,7 @@ public class DiscountCommandRepository(
                 "Error while updating TenantDiscount for TenantId: {TenantId}",
                 tenantDiscount.TenantId);
 
-            throw IpaException.InternalServerError(localizer["An error occurred while updating tenant discount."]);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while updating tenant discount."]);
         }
     }
 }

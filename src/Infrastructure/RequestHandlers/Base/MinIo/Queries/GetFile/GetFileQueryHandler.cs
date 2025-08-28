@@ -23,13 +23,13 @@ public class GetFileQueryHandler(
             if (stream == null)
             {
                 logger.LogWarning("File not found: {FilePath}", request.FilePath);
-                throw IpaException.NotFound(localizer["Requested file not found."]);
+                throw ShiftyException.NotFound(localizer["Requested file not found."]);
             }
 
             logger.LogInformation("File retrieved: {FilePath}", request.FilePath);
             return stream;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error while retrieving file {FilePath}.", request?.FilePath);
             throw;
@@ -37,7 +37,7 @@ public class GetFileQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving file {FilePath}.", request?.FilePath);
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving the file."]);
         }
     }

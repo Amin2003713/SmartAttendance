@@ -39,30 +39,30 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating last login date for user: {UserId}", user.Id);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
     public async Task<Guid> RegisterByOwnerAsync(RegisterByOwnerRequest request, CancellationToken cancellationToken)
     {
         if (!request.PhoneNumber.IsValidIranianMobileNumber())
-            IpaException.BadRequest();
+            ShiftyException.BadRequest();
 
         // Check if the user already exists
         if (await TableNoTracking.AnyAsync(u => u.UserName == request.PhoneNumber, cancellationToken))
-            IpaException.Conflict();
+            ShiftyException.Conflict();
 
         // Retrieve the company by ID
         var company = await companyRepository.GetByIdAsync(service.TenantInfo!.Id, cancellationToken);
 
         if (company == null)
-            IpaException.NotFound();
+            ShiftyException.NotFound();
 
         // Get the operator (current user) information
         var operatorUser = await Entities.FindAsync(service.GetUserId());
 
         if (operatorUser == null)
-            IpaException.BadRequest();
+            ShiftyException.BadRequest();
 
 
         // Validate the company's purchase plan
@@ -70,10 +70,10 @@ public class UserCommandRepository(
 
 
         if (companyPurchase == null)
-            IpaException.NotFound("خرید معتبری یافت نشد.");
+            ShiftyException.NotFound("خرید معتبری یافت نشد.");
 
         if (companyPurchase!.ActiveUsers + 1 > companyPurchase.UsersCount)
-            IpaException.Forbidden("You have reached the maximum number of users allowed.");
+            ShiftyException.Forbidden("You have reached the maximum number of users allowed.");
 
         // Create a new user entity
         var newUser = new User
@@ -102,7 +102,7 @@ public class UserCommandRepository(
             var creationResult = await userService.CreateAsync(newUser, request.NationalCode);
 
             if (!creationResult.Succeeded)
-                IpaException.BadRequest(creationResult.Errors.Select(a => a.Description).ToString()!);
+                ShiftyException.BadRequest(creationResult.Errors.Select(a => a.Description).ToString()!);
 
 
             await transaction.CommitAsync(cancellationToken);
@@ -131,7 +131,7 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             await transaction.RollbackAsync(cancellationToken);
-            IpaException.BadRequest("مشکلی هنگام ثبت اطلاعات شما رخ داده است.");
+            ShiftyException.BadRequest("مشکلی هنگام ثبت اطلاعات شما رخ داده است.");
         }
 
         return newUser.Id;
@@ -148,7 +148,7 @@ public class UserCommandRepository(
             cancellationToken);
 
         if (exists)
-            throw IpaException.Conflict("This user already exists");
+            throw ShiftyException.Conflict("This user already exists");
 
 
         var oldPhoneNumber = user!.PhoneNumber;
@@ -227,12 +227,12 @@ public class UserCommandRepository(
                 return user!;
 
             logger.LogInformation("User found with username: {Username}", username);
-            throw IpaException.NotFound(additionalData: localizer["User was not found."]);
+            throw ShiftyException.NotFound(additionalData: localizer["User was not found."]);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving user with username: {Username}", username);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
@@ -255,7 +255,7 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating security stamp for user: {UserId}", user.Id);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
@@ -277,7 +277,7 @@ public class UserCommandRepository(
             if (exists)
             {
                 logger.LogWarning("Cannot add user. Username already exists: {Username}", user.UserName);
-                throw IpaException.Conflict(additionalData: localizer["Username already exists."]);
+                throw ShiftyException.Conflict(additionalData: localizer["Username already exists."]);
             }
 
             var passwordHash = SecurityHelper.GetSha256Hash(password);
@@ -289,7 +289,7 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error adding new user with username: {Username}", user.UserName);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 }

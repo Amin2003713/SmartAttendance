@@ -33,7 +33,7 @@
 //
 //
 //             if (access == null)
-//                 throw IpaException.Forbidden("Access denied");
+//                 throw ShiftyException.Forbidden("Access denied");
 //
 //             var result =
 //                 await broker.RequestAsync<GetPrimaCalendarInfoForDayBrokerResponse, GetPrimaCalendarInfoForDayBroker>(

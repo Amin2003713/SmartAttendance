@@ -2,16 +2,16 @@
 
 namespace Shifty.Common.Exceptions;
 
-public class IpaException : Exception
+public class ShiftyException : Exception
 {
     /// <summary>
-    ///     Initializes a new instance of the <see cref="IpaException" /> class with specified parameters.
+    ///     Initializes a new instance of the <see cref="ShiftyException" /> class with specified parameters.
     /// </summary>
     /// <param name="message">The error message.</param>
     /// <param name="httpStatusCode">The HTTP status code.</param>
     /// <param name="innerException">The inner exception.</param>
     /// <param name="additionalData">Any additional data related to the exception.</param>
-    public IpaException(
+    public ShiftyException(
         string message = null,
         HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError,
         Exception innerException = null,
@@ -30,37 +30,37 @@ public class IpaException : Exception
     /// <summary>
     ///     Creates a DRPException with a message.
     /// </summary>
-    public static IpaException Create(string message)
+    public static ShiftyException Create(string message)
     {
-        return new IpaException(message);
+        return new ShiftyException(message);
     }
 
     /// <summary>
     ///     Creates a DRPException with a message and additional data.
     /// </summary>
-    public static IpaException Create(string message, object additionalData)
+    public static ShiftyException Create(string message, object additionalData)
     {
-        return new IpaException(message, additionalData: additionalData);
+        return new ShiftyException(message, additionalData: additionalData);
     }
 
     /// <summary>
     ///     Creates a DRPException with a specific HTTP status code and message.
     /// </summary>
-    public static IpaException Create(HttpStatusCode httpStatusCode, string message)
+    public static ShiftyException Create(HttpStatusCode httpStatusCode, string message)
     {
-        return new IpaException(httpStatusCode: httpStatusCode, message: message);
+        return new ShiftyException(httpStatusCode: httpStatusCode, message: message);
     }
 
     /// <summary>
     ///     Creates a DRPException with all parameters.
     /// </summary>
-    public static IpaException Create(
+    public static ShiftyException Create(
         string message,
         HttpStatusCode httpStatusCode,
         Exception innerException,
         object additionalData)
     {
-        return new IpaException(message, httpStatusCode, innerException, additionalData);
+        return new ShiftyException(message, httpStatusCode, innerException, additionalData);
     }
 
 #region Predefined API Exceptions
@@ -86,17 +86,17 @@ public class IpaException : Exception
     /// <summary>
     ///     Creates a BadRequest DRPException (HTTP 400).
     /// </summary>
-    public static IpaException BadRequest(string message = "Bad request.", object additionalData = null)
+    public static ShiftyException BadRequest(string message = "Bad request.", object additionalData = null)
     {
-        return new IpaException(message, HttpStatusCode.BadRequest, null, additionalData);
+        return new ShiftyException(message, HttpStatusCode.BadRequest, null, additionalData);
     }
 
     /// <summary>
     ///     Creates a Validation DRPException (HTTP 400) with validation errors.
     /// </summary>
-    public static IpaException Validation(string message = "Validation failed.", object additionalData = null)
+    public static ShiftyException Validation(string message = "Validation failed.", object additionalData = null)
     {
-        return new IpaException(message, HttpStatusCode.BadRequest, null, additionalData);
+        return new ShiftyException(message, HttpStatusCode.BadRequest, null, additionalData);
     }
 
     /// <summary>
@@ -110,11 +110,11 @@ public class IpaException : Exception
     /// <summary>
     ///     Creates an InternalServerError DRPException (HTTP 500).
     /// </summary>
-    public static IpaException InternalServerError(
+    public static ShiftyException InternalServerError(
         string message = "An unexpected error occurred.",
         object additionalData = null)
     {
-        return new IpaException(message, HttpStatusCode.InternalServerError, null, additionalData);
+        return new ShiftyException(message, HttpStatusCode.InternalServerError, null, additionalData);
     }
 
     public static ForbiddenException Forbidden(string message, object additionalData = null)

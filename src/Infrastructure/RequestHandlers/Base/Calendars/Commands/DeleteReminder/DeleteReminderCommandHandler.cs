@@ -36,7 +36,7 @@ public class DeleteReminderCommandHandler(
             if (reminder == null)
             {
                 logger.LogWarning("Reminder {ReminderId} not found.", request.ReminderId);
-                throw IpaException.NotFound(localizer["Reminder not found."].Value);
+                throw ShiftyException.NotFound(localizer["Reminder not found."].Value);
             }
 
             if (reminder.CreatedBy != userId)
@@ -45,7 +45,7 @@ public class DeleteReminderCommandHandler(
                     userId,
                     request.ReminderId);
 
-                throw IpaException.BadRequest(localizer["Access denied."].Value);
+                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
             }
 
             var projectCalendar =
@@ -55,7 +55,7 @@ public class DeleteReminderCommandHandler(
             if (projectCalendar is null)
             {
                 logger.LogWarning("Calendar project not found for reminder {ReminderId}.", request.ReminderId);
-                throw IpaException.NotFound(localizer["Reminder not found."].Value);
+                throw ShiftyException.NotFound(localizer["Reminder not found."].Value);
             }
 
             var associatedUsers =
@@ -76,7 +76,7 @@ public class DeleteReminderCommandHandler(
             //         userId,
             //         request.ReminderId);
             //
-            //     throw IpaException.BadRequest(localizer["Access denied."].Value);
+            //     throw ShiftyException.BadRequest(localizer["Access denied."].Value);
             // }
 
             // Perform deletions
@@ -94,7 +94,7 @@ public class DeleteReminderCommandHandler(
                 request.ReminderId,
                 userId);
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
@@ -105,7 +105,7 @@ public class DeleteReminderCommandHandler(
                 request.ReminderId,
                 userId);
 
-            throw IpaException.InternalServerError(localizer["Unable to delete reminder."].Value);
+            throw ShiftyException.InternalServerError(localizer["Unable to delete reminder."].Value);
         }
     }
 }

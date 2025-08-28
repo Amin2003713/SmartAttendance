@@ -28,7 +28,7 @@ public class CalendarUserQueryRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving calendar users for CalendarId: {CalendarId}", calendarId);
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving calendar users."]);
         }
     }

@@ -21,7 +21,7 @@ public class DeleteDiscountCommandHandler(
         if (discount == null)
         {
             logger.LogWarning("Discount with Id {DiscountId} not found.", request.Id);
-            throw IpaException.NotFound(localizer["Discount not found."].Value);
+            throw ShiftyException.NotFound(localizer["Discount not found."].Value);
         }
 
         await discountCommandRepository.Delete(discount, cancellationToken);

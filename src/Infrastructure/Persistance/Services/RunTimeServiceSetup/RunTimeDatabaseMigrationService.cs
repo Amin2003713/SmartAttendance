@@ -39,7 +39,7 @@ public class RunTimeDatabaseMigrationService(
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw IpaException.InternalServerError("migiration appliyeing");
+                throw ShiftyException.InternalServerError("migiration appliyeing");
             }
 
 
@@ -72,7 +72,7 @@ public class RunTimeDatabaseMigrationService(
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw IpaException.InternalServerError();
+                throw ShiftyException.InternalServerError();
             }
             finally
             {
@@ -93,7 +93,7 @@ public class RunTimeDatabaseMigrationService(
             Console.WriteLine($@"Migration Managers Error: {e.Message}");
             Console.ResetColor();
             await dbContext.Database.EnsureDeletedAsync(cancellationToken);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 

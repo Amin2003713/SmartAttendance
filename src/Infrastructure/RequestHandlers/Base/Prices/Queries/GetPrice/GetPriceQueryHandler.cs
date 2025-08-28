@@ -21,14 +21,14 @@ public class GetPriceQueryHandler(
             if (price == null)
             {
                 logger.LogWarning("No active price found.");
-                throw IpaException.NotFound(localizer["No price configuration found."]);
+                throw ShiftyException.NotFound(localizer["No price configuration found."]);
             }
 
             logger.LogInformation("Price retrieved successfully. ID: {Id}", price.Id);
 
             return price.Adapt<GetPriceResponse>();
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business exception occurred while retrieving price.");
             throw;
@@ -36,7 +36,7 @@ public class GetPriceQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving price.");
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred while retrieving price."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while retrieving price."]);
         }
     }
 }

@@ -24,7 +24,7 @@ public class ListPaymentQueryHandler(
             logger.LogInformation("Retrieved {Count} payments.", result.Count);
             return result;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business exception occurred while listing payments.");
             throw;
@@ -32,7 +32,7 @@ public class ListPaymentQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while listing payments.");
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving the payments."]);
         }
     }

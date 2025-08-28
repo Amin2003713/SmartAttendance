@@ -26,7 +26,7 @@ public class UpdateStorageCommandHandler(
         if (existing is null)
         {
             logger.LogWarning("Storage with ID {StorageId} not found.", request.Id);
-            throw IpaException.NotFound(localizer["Storage not found."]);
+            throw ShiftyException.NotFound(localizer["Storage not found."]);
         }
 
         var storage = request.Adapt<Storage>();

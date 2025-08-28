@@ -20,7 +20,7 @@ public class GetSettingQueryHandler(
             if (result == null)
             {
                 logger.LogWarning("No active price found.");
-                throw IpaException.NotFound(localizer["No Setting configuration found."]);
+                throw ShiftyException.NotFound(localizer["No Setting configuration found."]);
             }
 
             logger.LogInformation("Setting retrieved successfully. ID: {Id}", result.Id);
@@ -29,7 +29,7 @@ public class GetSettingQueryHandler(
         }
 
 
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business exception occurred while retrieving Setting.");
             throw;
@@ -38,7 +38,7 @@ public class GetSettingQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving Setting.");
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred while retrieving Setting."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while retrieving Setting."]);
         }
     }
 }

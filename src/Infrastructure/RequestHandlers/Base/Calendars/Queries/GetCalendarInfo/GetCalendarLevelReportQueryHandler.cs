@@ -13,13 +13,13 @@
 //     IMediator mediator,
 //     IdentityService identityService
 // )
-//     : IRequestHandler<GetCalendarLevelReportQuery, List<CalendarInfoForLevelDto>>
+//     : IRequestHandler<GetCalendarLevelReportQuery, List<CalendarInfoForLevelResponse>>
 // {
-//     public async Task<List<CalendarInfoForLevelDto>> Handle(
+//     public async Task<List<CalendarInfoForLevelResponse>> Handle(
 //         GetCalendarLevelReportQuery request,
 //         CancellationToken cancellationToken)
 //     {
-//         var result = new List<CalendarInfoForLevelDto>();
+//         var result = new List<CalendarInfoForLevelResponse>();
 //
 //         var userId = identityService.GetUserId<Guid>();
 //
@@ -29,7 +29,7 @@
 //
 //
 //         if (access == null)
-//             throw IpaException.Forbidden("Access denied");
+//             throw ShiftyException.Forbidden("Access denied");
 //
 //         var currentLevel = access.Node;
 //
@@ -51,7 +51,7 @@
 //                 var statuses = kvp.Value.ToList();
 //
 //                 if (statuses.Count > 0)
-//                     result.Add(new CalendarInfoForLevelDto
+//                     result.Add(new CalendarInfoForLevelResponse
 //                     {
 //                         Data = ComputeBadge(statuses, currentLevel),
 //                         ItemName = kvp.Key.GetEnglishName(),

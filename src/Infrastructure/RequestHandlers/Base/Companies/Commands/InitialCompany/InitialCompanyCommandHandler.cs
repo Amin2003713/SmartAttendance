@@ -38,7 +38,7 @@ public class InitialCompanyCommandHandler(
 
             return userCode;
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             await transaction.RollbackAsync(cancellationToken);
             logger.LogError(e, "DRP Exception occurred.");
@@ -48,7 +48,7 @@ public class InitialCompanyCommandHandler(
         {
             await transaction.RollbackAsync(cancellationToken);
             logger.LogError(e, "Unexpected error occurred.");
-            throw new IpaException(localizer["Unexpected server error occurred."].Value);
+            throw new ShiftyException(localizer["Unexpected server error occurred."].Value);
         }
     }
 
@@ -58,12 +58,12 @@ public class InitialCompanyCommandHandler(
         {
             var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>(), cancellationToken);
             if (tenantAdmin == null)
-                throw IpaException.InternalServerError(
+                throw ShiftyException.InternalServerError(
                     additionalData: localizer["Company admin was not created."].Value);
 
             return tenantAdmin;
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error while creating admin user.");
             throw;
@@ -78,7 +78,7 @@ public class InitialCompanyCommandHandler(
         try
         {
             if (await repository.ValidateDomain(request.Domain, cancellationToken))
-                throw IpaException.BadRequest(additionalData: localizer["Tenant domain is not valid."].Value);
+                throw ShiftyException.BadRequest(additionalData: localizer["Tenant domain is not valid."].Value);
 
             var company = request.Adapt<ShiftyTenantInfo>();
             company.UserId = userId;
@@ -86,7 +86,7 @@ public class InitialCompanyCommandHandler(
 
             return createResult;
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error while initializing company.");
             throw;
@@ -94,7 +94,7 @@ public class InitialCompanyCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error while creating company.");
-            throw new IpaException(localizer["Company was not created."].Value);
+            throw new ShiftyException(localizer["Company was not created."].Value);
         }
     }
 
@@ -111,15 +111,15 @@ public class InitialCompanyCommandHandler(
                 adminUser,
                 cancellationToken);
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error while migrating tenant database.");
-            throw new IpaException(localizer["Company was not created."].Value);
+            throw new ShiftyException(localizer["Company was not created."].Value);
         }
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected server error during database migration.");
-            throw IpaException.InternalServerError(additionalData: localizer["Unexpected server error occurred."]
+            throw ShiftyException.InternalServerError(additionalData: localizer["Unexpected server error occurred."]
                 .Value);
         }
     }

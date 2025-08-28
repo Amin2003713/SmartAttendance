@@ -46,7 +46,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
             var userId = await _jwtService.ValidateJwtAccessTokenAsync(request.AccessToken);
 
             if (userId.userId == null)
-                throw IpaException.Unauthorized(_localizer["Invalid access token."]
+                throw ShiftyException.Unauthorized(_localizer["Invalid access token."]
                     .Value); // "توکن دسترسی نامعتبر است."
 
             var refreshToken = new UserToken
@@ -62,7 +62,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
             var user = await _userManager.FindByIdAsync(userId.userId.ToString()!);
 
             if (user == null)
-                throw IpaException.NotFound(_localizer["User was not found."].Value); // "کاربر یافت نشد."
+                throw ShiftyException.NotFound(_localizer["User was not found."].Value); // "کاربر یافت نشد."
 
             var uniqueId = Guid.CreateVersion7(DateTimeOffset.Now);
             var jwt      = await _jwtService.GenerateAsync(user, uniqueId.ToString());
@@ -84,7 +84,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
                 RefreshToken = jwt.refresh_token
             };
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             _logger.LogError(e, "Error occurred during token refresh.");
             throw;
@@ -92,7 +92,7 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
         catch (Exception e)
         {
             _logger.LogError(e, "Unexpected error while refreshing token.");
-            throw IpaException.Unauthorized(_localizer["Unauthorized request."].Value); // "درخواست غیرمجاز."
+            throw ShiftyException.Unauthorized(_localizer["Unauthorized request."].Value); // "درخواست غیرمجاز."
         }
     }
 }

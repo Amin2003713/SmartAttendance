@@ -29,7 +29,7 @@ public class GetStationsQueryHandler(
 
             return response;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business exception occurred while retrieving stations.");
             throw;

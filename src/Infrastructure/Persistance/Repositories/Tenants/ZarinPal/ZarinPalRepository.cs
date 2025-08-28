@@ -19,9 +19,9 @@ public class ZarinPalRepository(
             return result!.Data.Adapt<ZarinPalResponse>();
 
         if (result.Error.Validations!.Count != 0)
-            throw IpaException.Validation(result.Error.Message, result.Error.Validations);
+            throw ShiftyException.Validation(result.Error.Message, result.Error.Validations);
 
-        throw IpaException.BadRequest(result.Error.Message);
+        throw ShiftyException.BadRequest(result.Error.Message);
     }
 
     public async Task<ZarinPalVerifyResponse> VerifyPayment(
@@ -29,7 +29,7 @@ public class ZarinPalRepository(
         CancellationToken cancellationToken)
     {
         if (_zarinpal.IsStatusValid(request.Status) == false)
-            throw IpaException.BadRequest("Invalid status");
+            throw ShiftyException.BadRequest("Invalid status");
 
 
         var result = await _zarinpal.VerifyPaymentAsync(request.Amount, request.Authority, cancellationToken);
@@ -39,9 +39,9 @@ public class ZarinPalRepository(
                 return result.Data.Adapt<ZarinPalVerifyResponse>();
 
         if (result.Error.Validations!.Count != 0)
-            throw IpaException.Validation(result.Error.Message, result.Error.Validations);
+            throw ShiftyException.Validation(result.Error.Message, result.Error.Validations);
 
 
-        throw IpaException.BadRequest("Invalid payment amount");
+        throw ShiftyException.BadRequest("Invalid payment amount");
     }
 }

@@ -14,7 +14,7 @@ public class GetHubFileByIdQueryHandler(
     public async Task<HubFile> Handle(GetHubFileByIdQuery request, CancellationToken cancellationToken)
     {
         if (!await hubFileQueryRepository.AnyAsync(file => file.Id == request.Id, cancellationToken))
-            throw IpaException.NotFound(localizer["file not found"].Value);
+            throw ShiftyException.NotFound(localizer["file not found"].Value);
 
         return await hubFileQueryRepository.FirstOrDefaultsAsync(a => a.Id == request.Id, cancellationToken);
     }

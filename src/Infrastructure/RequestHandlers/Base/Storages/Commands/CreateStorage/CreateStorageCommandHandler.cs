@@ -26,7 +26,7 @@ public class CreateStorageCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating storage.");
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while creating the storage."]);
         }
     }

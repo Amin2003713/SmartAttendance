@@ -35,7 +35,7 @@ public class RefreshCommandTokenRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error in AddOrUpdateRefreshTokenAsync for UserId: {UserId}", refreshToken.UserId);
-            throw IpaException.InternalServerError(localizer["Failed to process refresh token."]);
+            throw ShiftyException.InternalServerError(localizer["Failed to process refresh token."]);
         }
     }
 

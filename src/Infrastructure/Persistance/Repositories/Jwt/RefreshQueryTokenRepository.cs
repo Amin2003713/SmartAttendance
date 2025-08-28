@@ -26,7 +26,7 @@ public class RefreshQueryTokenRepository(
             if (result == null || result.RefreshToken != refreshToken.RefreshToken)
             {
                 logger.LogWarning("Invalid refresh token for UserId: {UserId}", refreshToken.UserId);
-                throw IpaException.BadRequest(localizer["Invalid refresh token."]);
+                throw ShiftyException.BadRequest(localizer["Invalid refresh token."]);
             }
 
             logger.LogInformation("Refresh token validated successfully for UserId: {UserId}", refreshToken.UserId);
@@ -35,7 +35,7 @@ public class RefreshQueryTokenRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error while validating refresh token for UserId: {UserId}", refreshToken.UserId);
-            throw IpaException.InternalServerError(localizer["Failed to validate refresh token."]);
+            throw ShiftyException.InternalServerError(localizer["Failed to validate refresh token."]);
         }
     }
 

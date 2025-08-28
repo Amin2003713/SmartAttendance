@@ -18,14 +18,14 @@ public class DeleteStationCommandHandler(
             if (station is null)
             {
                 logger.LogWarning("Stations with ID {StationId} not found for delete.", request.Id);
-                throw IpaException.NotFound(localizer["Station not found."]);
+                throw ShiftyException.NotFound(localizer["Station not found."]);
             }
 
             await commandRepository.DeleteAsync(station, cancellationToken);
 
             logger.LogInformation("Station with ID {StationId} deleted successfully.", request.Id);
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error while deleting station {StationId}.", request.Id);
             throw;
@@ -33,7 +33,7 @@ public class DeleteStationCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while deleting station {StationId}.", request.Id);
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while deleting the station."]);
         }
     }

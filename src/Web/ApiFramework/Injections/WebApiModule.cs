@@ -240,15 +240,15 @@ public static class WebApiModule
                         if (context.Exception != null)
                         {
                             if (context.Exception is SecurityTokenExpiredException)
-                                throw IpaException.Unauthorized(localizer["Token Expired."].Value);
+                                throw ShiftyException.Unauthorized(localizer["Token Expired."].Value);
 
                             if (context.Exception is UnauthorizedAccessException)
-                                throw IpaException.Unauthorized(localizer["Unauthorized access."].Value);
+                                throw ShiftyException.Unauthorized(localizer["Unauthorized access."].Value);
 
                             if (context.Exception is ForbiddenException)
-                                throw IpaException.Forbidden(context.Exception?.Message);
+                                throw ShiftyException.Forbidden(context.Exception?.Message);
 
-                            throw IpaException.Unauthorized(context.Exception?.Message ??
+                            throw ShiftyException.Unauthorized(context.Exception?.Message ??
                                                             localizer["Unauthorized access."].Value);
                         }
 
@@ -262,7 +262,7 @@ public static class WebApiModule
                             .GetRequiredService<IStringLocalizer<TStartUp>>();
 
                         if (context.AuthenticateFailure != null)
-                            throw IpaException.Unauthorized(
+                            throw ShiftyException.Unauthorized(
                                 context.AuthenticateFailure?.Message ??
                                 localizer["Unauthorized access."].Value);
 

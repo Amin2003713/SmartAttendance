@@ -26,7 +26,7 @@ public class UpdateEmployeeCommandHandler(
         if (user is null)
         {
             logger.LogWarning("User with ID {UserId} not found.", request.UserId);
-            throw IpaException.NotFound(localizer["User not found."]);
+            throw ShiftyException.NotFound(localizer["User not found."]);
         }
 
         // 3. Get current roles
@@ -60,7 +60,7 @@ public class UpdateEmployeeCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Failed to assign role {RoleTypes} to user {UserId}", roleName, request.UserId);
-                throw IpaException.BadRequest(localizer["Failed to assign role {0}.", roleName]);
+                throw ShiftyException.BadRequest(localizer["Failed to assign role {0}.", roleName]);
             }
         }
 
@@ -75,7 +75,7 @@ public class UpdateEmployeeCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Failed to remove role {RoleTypes} from user {UserId}", roleName, request.UserId);
-                throw IpaException.BadRequest(localizer["Failed to remove role {0}.", roleName]);
+                throw ShiftyException.BadRequest(localizer["Failed to remove role {0}.", roleName]);
             }
         }
 
@@ -99,7 +99,7 @@ public class UpdateEmployeeCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Failed to create missing role: {RoleTypes}", roleName);
-                throw IpaException.BadRequest(localizer["Failed to create role {0}.", roleName]);
+                throw ShiftyException.BadRequest(localizer["Failed to create role {0}.", roleName]);
             }
         }
     }

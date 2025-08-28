@@ -29,7 +29,7 @@ public class PriceCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error creating new price");
-            throw IpaException.InternalServerError(localizer["An error occurred while creating new price."]);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while creating new price."]);
         }
     }
 }

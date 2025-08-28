@@ -19,7 +19,7 @@ public class GetUserByIdQueryHandler(
         if (result == null)
         {
             logger.LogWarning("User with ID {UserId} not found.", request.UserId);
-            IpaException.NotFound("User Not Found!");
+            ShiftyException.NotFound("User Not Found!");
         }
 
         logger.LogInformation("User with ID {UserId} retrieved successfully.", request.UserId);

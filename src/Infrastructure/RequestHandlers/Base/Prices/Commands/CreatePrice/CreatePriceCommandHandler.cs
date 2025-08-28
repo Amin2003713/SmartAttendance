@@ -24,7 +24,7 @@ public class CreatePriceCommandHandler(
 
             logger.LogInformation("Price created successfully: {Title}", entity.Amount);
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business exception occurred while creating price.");
             throw;
@@ -32,7 +32,7 @@ public class CreatePriceCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating price.");
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred while creating the price."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while creating the price."]);
         }
     }
 }

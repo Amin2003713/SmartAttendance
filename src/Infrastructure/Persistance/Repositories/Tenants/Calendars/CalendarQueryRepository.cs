@@ -53,17 +53,15 @@ public class CalendarQueryRepository(
     }
 
     public async Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-
         DateTime startAt,
         DateTime endAt,
         CancellationToken cancellationToken)
     {
         try
         {
-            // logger.LogInformation("Fetching holidays from {Start} to {End} for project {ProjectId}",
-            //     startAt,
-            //     endAt,
-            //     projectId);
+            logger.LogInformation("Fetching holidays from {Start} to {End} ",
+                startAt,
+                endAt);
 
             var publicHolidays = await db.TenantCalendars
                 .Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday)

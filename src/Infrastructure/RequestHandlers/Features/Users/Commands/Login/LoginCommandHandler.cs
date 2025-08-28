@@ -35,7 +35,7 @@ public class LoginCommandHandler(
             var user = await userManager.FindByNameAsync(request.UserName);
 
             if (user == null)
-                throw IpaException.NotFound(localizer["User was not found."].Value);
+                throw ShiftyException.NotFound(localizer["User was not found."].Value);
 
             // 2. If Identity thinks they’re already locked out, tell them when it ends.
             if (await userManager.IsLockedOutAsync(user))
@@ -44,17 +44,17 @@ public class LoginCommandHandler(
                 var localEnd   = lockoutEnd?.DateTime.ToLocalTime() ?? DateTime.UtcNow;
 
                 if (localEnd.Date == DateTime.MaxValue.Date)
-                    throw IpaException.Forbidden(
+                    throw ShiftyException.Forbidden(
                         localizer["User account is locked dou To many failed login attempts. Please contact support."]
                             .Value);
 
                 string msg = localizer["User account is locked until {0}.", localEnd.ToLocalTime()];
-                throw IpaException.Forbidden(msg);
+                throw ShiftyException.Forbidden(msg);
             }
 
             // 3. Require phone‐number confirmation as before.
             if (!user.PhoneNumberConfirmed)
-                throw IpaException.Forbidden(localizer["User account is not activated."].Value);
+                throw ShiftyException.Forbidden(localizer["User account is not activated."].Value);
 
             // 4. Validate password.
             var isPasswordValid = await userManager.CheckPasswordAsync(user, request.Password);
@@ -73,7 +73,7 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.UtcNow.Add(FirstLockoutDuration);
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw IpaException.Forbidden(
+                    throw ShiftyException.Forbidden(
                         localizer["Account locked for {0} minutes after 3 failed attempts.",
                             FirstLockoutDuration.TotalMinutes].Value
                     );
@@ -85,7 +85,7 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.UtcNow.Add(SecondLockoutDuration);
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw IpaException.Forbidden(
+                    throw ShiftyException.Forbidden(
                         localizer["Account locked for {0} minutes after 4 failed attempts.",
                             SecondLockoutDuration.TotalMinutes].Value
                     );
@@ -97,12 +97,12 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.MaxValue.ToUniversalTime();
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw IpaException.Forbidden(localizer["Too many failed login attempts. Please contact support."]
+                    throw ShiftyException.Forbidden(localizer["Too many failed login attempts. Please contact support."]
                         .Value);
                 }
 
                 // 1st or 2nd failure → just say “invalid credentials.”
-                throw IpaException.Unauthorized(localizer["Incorrect username or password."].Value);
+                throw ShiftyException.Unauthorized(localizer["Incorrect username or password."].Value);
             }
 
             // 5. Successful password: clear failure count immediately.
@@ -131,7 +131,7 @@ public class LoginCommandHandler(
                 RefreshToken = refreshToken.RefreshToken
             };
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Error occurred during login.");
             throw;

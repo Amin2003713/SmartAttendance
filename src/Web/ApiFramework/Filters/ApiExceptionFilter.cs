@@ -44,7 +44,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
                 typeof(ForbiddenException), HandleForbiddenException
             },
             {
-                typeof(IpaException), HandleDRPException
+                typeof(ShiftyException), HandleDRPException
             }
         };
     }
@@ -206,7 +206,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
 
     private void HandleDRPException(ExceptionContext context)
     {
-        if (context.Exception is not IpaException exception)
+        if (context.Exception is not ShiftyException exception)
             return;
 
         var problemDetails = new ApiProblemDetails

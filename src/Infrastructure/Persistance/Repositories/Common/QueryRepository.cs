@@ -74,7 +74,7 @@ public class QueryRepository<TEntity>(
                 "Error loading collection property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
@@ -99,7 +99,7 @@ public class QueryRepository<TEntity>(
                 "Error loading reference property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
@@ -138,7 +138,7 @@ public class QueryRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error fetching entity of type {EntityType}", typeof(TEntity).Name);
-            throw IpaException.NotFound();
+            throw ShiftyException.NotFound();
         }
     }
 
@@ -210,7 +210,7 @@ public class QueryRepository<TEntity>(
                 "Error loading collection property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
@@ -238,7 +238,7 @@ public class QueryRepository<TEntity>(
                 "Error loading reference property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 

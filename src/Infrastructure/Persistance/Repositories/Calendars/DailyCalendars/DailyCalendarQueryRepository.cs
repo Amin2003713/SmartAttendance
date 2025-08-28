@@ -15,74 +15,66 @@ public class DailyCalendarQueryRepository(
     : QueryRepository<DailyCalendar>(dbContext, logger),
         IDailyCalendarQueryRepository
 {
-    public async Task<bool> IsAlreadyHoliday( DateTime dateTime, CancellationToken cancellationToken)
+    public async Task<bool> IsAlreadyHoliday(DateTime dateTime, CancellationToken cancellationToken)
     {
         try
         {
-            // logger.LogInformation("Checking if the date {Date} is already a holiday for project {ProjectId}",
-            //     dateTime,
-            //     projectId);
+            logger.LogInformation("Checking if the date {Date} is already a holiday",
+                dateTime);
 
             var isAlreadyHoliday = await TableNoTracking.AnyAsync(
                 c => c.Date == dateTime &&
                      c.IsHoliday &&
-                     c.CalendarProjects.Any(
-                         //todo : a => a.ProjectId == projectId
-                         ),
+                     c.DeletedBy == null,
                 cancellationToken);
 
-            var holiday = await calendarQueryRepository.IsAlreadyHoliday( dateTime, cancellationToken);
+            var holiday = await calendarQueryRepository.IsAlreadyHoliday(dateTime, cancellationToken);
             logger.LogInformation("Holiday check result: {Result}", isAlreadyHoliday || holiday);
 
             return isAlreadyHoliday || holiday;
         }
         catch (Exception ex)
         {
-            // logger.LogError(ex,
-            //     "Error occurred while checking if the date is already a holiday for project: {ProjectId}",
-            //     projectId);
+            logger.LogError(ex,
+                "Error occurred while checking if the date is already");
 
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while checking holiday status."]);
         }
     }
 
 
     public async Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-
         DateTime startAt,
         DateTime endAt,
         CancellationToken cancellationToken)
     {
         try
         {
-            // logger.LogInformation("Fetching holidays for project {ProjectId} between {StartAt} and {EndAt}",
-            //     projectId,
-            //     startAt,
-            //     endAt);
+            logger.LogInformation("Fetching holidays  between {StartAt} and {EndAt}",
+                startAt,
+                endAt);
 
             var privateHolidays = await TableNoTracking.Where(e => e.Date >= startAt &&
                                                                    e.Date <= endAt &&
-                                                                   e.CalendarProjects.Any(
-                                                                       // p =>
-                                                                       // p.ProjectId == projectId
-                                                                       ) &&
-                                                                   e.IsHoliday)
-                .Select(e => new GetHolidayResponse
-                {
-                    Date = e.Date,
-                    Message = e.Details,
-                    IsCustom = true,
-                    Id = e.Id,
-                    Inserter = DbContext.Set<User>()
-                        .Where(u => u.Id == e.CreatedBy)
-                        .Select(u => new
-                        {
-                            u.Id,
-                            Name = u.FirstName + " " + u.LastName
-                        })
-                        .FirstOrDefault()!
-                })
+                                                                   e.IsHoliday &&
+                                                                   e.DeletedBy == null)
+                .Select(e =>
+                    new GetHolidayResponse
+                    {
+                        Date = e.Date,
+                        Message = e.Details,
+                        IsCustom = true,
+                        Id = e.Id,
+                        Inserter = DbContext.Set<User>()
+                            .Where(u => u.Id == e.CreatedBy)
+                            .Select(u => new
+                            {
+                                u.Id,
+                                Name = u.FirstName + " " + u.LastName
+                            })
+                            .FirstOrDefault()!
+                    })
                 .ToListAsync(cancellationToken);
 
             var publicHolidays =
@@ -94,14 +86,14 @@ public class DailyCalendarQueryRepository(
         }
         catch (Exception ex)
         {
-            // logger.LogError(ex, "Error occurred while fetching holidays for project: {ProjectId}", projectId);
-            throw IpaException.InternalServerError(
+            logger.LogError(ex, "Error occurred while fetching holidays");
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while fetching holidays for project."]);
         }
     }
 
-    public async Task<List<GetReminderResponse>> GetReminderForProject(
 
+    public async Task<List<GetReminderResponse>> GetReminderForProject(
         Guid userId,
         DateTime startAt,
         DateTime endAt,
@@ -109,21 +101,17 @@ public class DailyCalendarQueryRepository(
     {
         try
         {
-            // logger.LogInformation(
-            //     "Fetching reminders for project {ProjectId}, user {UserId} between {StartAt} and {EndAt}",
-            //     projectId,
-            //     userId,
-            //     startAt,
-            //     endAt);
+            logger.LogInformation(
+                "Fetching reminders for user {UserId} between {StartAt} and {EndAt}",
+                userId,
+                startAt,
+                endAt);
 
             var privateReminders = await TableNoTracking.Where(e => e.Date >= startAt &&
                                                                     e.Date <= endAt &&
-                                                                    e.CalendarProjects.Any(
-                                                                        // p =>
-                                                                        // p.ProjectId == projectId
-                                                                        ) &&
                                                                     e.CalendarUsers.Any(cu => cu.UserId == userId) &&
-                                                                    e.IsReminder)
+                                                                    e.IsReminder &&
+                                                                    e.DeletedBy == null)
                 .OrderBy(a => a.Date)
                 .Select(e =>
                     new GetReminderResponse
@@ -139,11 +127,13 @@ public class DailyCalendarQueryRepository(
                                 Name = u.FirstName + " " + u.LastName
                             })
                             .FirstOrDefault()!,
-                        TargetUsers = e.CalendarUsers.Select(cu => new UserTargetRequest
-                            {
-                                Id = cu.UserId,
-                                Name = DbContext.Set<User>().First(u => u.Id == cu.UserId).FullName()
-                            })
+                        TargetUsers = e.CalendarUsers.Where(cu => cu.DeletedBy == null)
+                            .Select(cu =>
+                                new UserTargetRequest
+                                {
+                                    Id = cu.UserId,
+                                    Name = DbContext.Set<User>().First(u => u.Id == cu.UserId).FullName()
+                                })
                             .ToList()
                     })
                 .ToListAsync(cancellationToken);
@@ -152,16 +142,16 @@ public class DailyCalendarQueryRepository(
         }
         catch (Exception ex)
         {
-            // logger.LogError(ex, "Error occurred while fetching reminders for project: {ProjectId}", projectId);
-            throw IpaException.InternalServerError(
+            logger.LogError(ex, "Error occurred while fetching reminders ");
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while fetching reminders for project."]);
         }
     }
 
+
     public async Task<List<DailyCalendar>?> GetCustomCalendarEvents(
         DateTime startDate,
         DateTime endDate,
-
         Guid userId,
         CancellationToken cancellationToken)
     {
@@ -180,7 +170,7 @@ public class DailyCalendarQueryRepository(
                                                            a.CalendarProjects.Any(
                                                                // cp =>
                                                                // cp.ProjectId == projectId
-                                                               ))
+                                                           ))
                 .ToListAsync(cancellationToken);
 
             logger.LogInformation("Custom holiday found: {Found}", holiday != null);
@@ -194,7 +184,7 @@ public class DailyCalendarQueryRepository(
             //     endDate,
             //     projectId);
 
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while fetching custom holiday."]);
         }
     }

@@ -27,7 +27,7 @@ public class DeleteStorageCommandHandler(
         if (storage is null)
         {
             logger.LogWarning("Storage with ID {Id} not found.", request.Id);
-            throw IpaException.NotFound(localizer["Storage not found."]);
+            throw ShiftyException.NotFound(localizer["Storage not found."]);
         }
 
         storage = request.Adapt<Storage>();

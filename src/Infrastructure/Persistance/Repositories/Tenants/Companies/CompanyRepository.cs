@@ -41,7 +41,7 @@ public class CompanyRepository : ICompanyRepository
         try
         {
             if (await IdentifierExistsAsync(tenantInfo?.Identifier!, cancellationToken))
-                throw IpaException.Conflict(additionalData: _messages["Tenant already exists."].Value);
+                throw ShiftyException.Conflict(additionalData: _messages["Tenant already exists."].Value);
 
             Entities.Add(tenantInfo!);
 
@@ -56,7 +56,7 @@ public class CompanyRepository : ICompanyRepository
         catch (Exception e)
         {
             _logger.LogError(e.Source, e);
-            throw new IpaException(additionalData: "Can't create company Server error");
+            throw new ShiftyException(additionalData: "Can't create company Server error");
         }
     }
 
@@ -65,7 +65,7 @@ public class CompanyRepository : ICompanyRepository
         try
         {
             if (!await IdentifierExistsAsync(_identityService?.TenantInfo.Identifier!, cancellationToken))
-                throw IpaException.Conflict(additionalData: _messages["Tenant dose exists."].Value);
+                throw ShiftyException.Conflict(additionalData: _messages["Tenant dose exists."].Value);
 
             if (tenantUser.ShiftyTenantInfoId == null)
                 tenantUser.ShiftyTenantInfoId = _identityService?.TenantInfo?.Id!;
@@ -78,7 +78,7 @@ public class CompanyRepository : ICompanyRepository
         catch (Exception e)
         {
             _logger.LogError(e.Source, e);
-            throw new IpaException(additionalData: "Can't create company Server error");
+            throw new ShiftyException(additionalData: "Can't create company Server error");
         }
     }
 
@@ -159,7 +159,7 @@ public class CompanyRepository : ICompanyRepository
         var company = await Table.SingleOrDefaultAsync(a => a.Id == tenantId, cancellationToken);
 
         if (company == null)
-            throw IpaException.NotFound(additionalData: "Company not found");
+            throw ShiftyException.NotFound(additionalData: "Company not found");
 
         return company;
     }
@@ -169,7 +169,7 @@ public class CompanyRepository : ICompanyRepository
         var company = await Table.ToListAsync(cancellationToken);
 
         if (company.Count == 0)
-            throw IpaException.NotFound(additionalData: "Company not found");
+            throw ShiftyException.NotFound(additionalData: "Company not found");
 
         return company;
     }
@@ -179,7 +179,7 @@ public class CompanyRepository : ICompanyRepository
         var company = await Table.SingleOrDefaultAsync(a => a.Identifier == identifier, cancellationToken);
 
         if (company == null)
-            throw IpaException.NotFound(additionalData: "Company not found");
+            throw ShiftyException.NotFound(additionalData: "Company not found");
 
         return company;
     }

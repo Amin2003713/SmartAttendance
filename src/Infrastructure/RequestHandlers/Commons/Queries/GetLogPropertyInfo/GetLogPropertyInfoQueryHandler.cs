@@ -23,7 +23,7 @@ public class GetLogPropertyInfoQueryHandler(
         if (user == null)
         {
             logger.LogWarning("User with Id {UserId} not found.", request.Id);
-            throw IpaException.NotFound("Creator was not found");
+            throw ShiftyException.NotFound("Creator was not found");
         }
 
         logger.LogInformation("User with Id {UserId} found: {UserName}", request.Id, user.FullName());

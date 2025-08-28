@@ -29,14 +29,14 @@ public class CheckDiscountIsValidQueryHandler(
         if (discount == null)
         {
             logger.LogWarning("Discount with code {Code} not found.", request.Code);
-            throw IpaException.NotFound(localizer["Discount not found."].Value);
+            throw ShiftyException.NotFound(localizer["Discount not found."].Value);
         }
 
         // Check if the discount has expired.
         if (DateTime.UtcNow > discount.StartDate.AddDays(discount.Duration))
         {
             logger.LogWarning("Discount with code {Code} has expired.", request.Code);
-            throw IpaException.NotFound(localizer["This discount has expired."].Value);
+            throw ShiftyException.NotFound(localizer["This discount has expired."].Value);
         }
 
         var tenantId       = tenantContext.MultiTenantContext.TenantInfo!.Id!;
@@ -48,7 +48,7 @@ public class CheckDiscountIsValidQueryHandler(
                 request.Code,
                 tenantId);
 
-            throw IpaException.NotFound(localizer["Used."].Value);
+            throw ShiftyException.NotFound(localizer["Used."].Value);
         }
 
         // Check if the discount is applicable to the given PackageMonth.
@@ -65,6 +65,6 @@ public class CheckDiscountIsValidQueryHandler(
             request.Code,
             request.PackageMonth);
 
-        throw IpaException.NotFound(localizer["Invalid."].Value);
+        throw ShiftyException.NotFound(localizer["Invalid."].Value);
     }
 }

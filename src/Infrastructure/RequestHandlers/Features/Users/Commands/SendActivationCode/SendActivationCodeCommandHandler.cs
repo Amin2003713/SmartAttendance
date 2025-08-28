@@ -32,7 +32,7 @@ public class SendActivationCodeCommandHandler(
 
 
             if (user == null)
-                throw IpaException.NotFound(localizer["User was not found."]);
+                throw ShiftyException.NotFound(localizer["User was not found."]);
 
             user.PhoneNumber = request.PhoneNumber;
 
@@ -46,7 +46,7 @@ public class SendActivationCodeCommandHandler(
                 Message = activationCode
             };
         }
-        catch (IpaException e)
+        catch (ShiftyException e)
         {
             logger.LogError(e, "Error while sending activation code.");
             throw;

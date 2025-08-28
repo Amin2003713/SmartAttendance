@@ -23,14 +23,14 @@ public class CreatePaymentCommandHandler(
             if (paymentUri == null)
             {
                 logger.LogWarning("Payment creation failed for tenant.");
-                throw IpaException.BadRequest(localizer["Unable to create payment."]);
+                throw ShiftyException.BadRequest(localizer["Unable to create payment."]);
             }
 
             logger.LogInformation("Payment created successfully: {PaymentUri}", paymentUri.AbsoluteUri);
 
             return paymentUri.AbsoluteUri;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error occurred while creating payment.");
             throw;
@@ -38,7 +38,7 @@ public class CreatePaymentCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating payment.");
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred while creating payment."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while creating payment."]);
         }
     }
 }

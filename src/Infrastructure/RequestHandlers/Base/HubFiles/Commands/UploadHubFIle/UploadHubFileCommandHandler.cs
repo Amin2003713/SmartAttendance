@@ -49,7 +49,7 @@ public class UploadHubFileCommandHandler(
         if (request.File is null || request.File.Length == 0)
         {
             logger.LogWarning("File cannot be null or empty.");
-            throw IpaException.BadRequest(localizer["File cannot be null or empty."].Value);
+            throw ShiftyException.BadRequest(localizer["File cannot be null or empty."].Value);
         }
     }
 
@@ -63,7 +63,7 @@ public class UploadHubFileCommandHandler(
                 fileSizeMb,
                 remain.AvailableStorageMb);
 
-            throw IpaException.BadRequest(localizer["Out of Storage."].Value);
+            throw ShiftyException.BadRequest(localizer["Out of Storage."].Value);
         }
     }
 
@@ -99,12 +99,12 @@ public class UploadHubFileCommandHandler(
         catch (OutOfMemoryException oomEx)
         {
             // logger.LogError(oomEx, "Out of memory error while saving file record for ProjectId {ProjectId}.", request.ProjectId);
-            throw IpaException.BadRequest(localizer["Your storage capacity has been reached."].Value);
+            throw ShiftyException.BadRequest(localizer["Your storage capacity has been reached."].Value);
         }
         catch (Exception ex)
         {
             // logger.LogError(ex, "Unexpected error while saving file record for ProjectId {ProjectId}.", request.ProjectId);
-            throw IpaException.InternalServerError(localizer["An error occurred while uploading the file."].Value);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while uploading the file."].Value);
         }
     }
 

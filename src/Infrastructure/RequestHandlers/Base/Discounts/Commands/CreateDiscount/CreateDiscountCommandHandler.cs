@@ -24,7 +24,7 @@ public class CreateDiscountCommandHandler(
         if (await discountQueryRepository.DiscountExists(request.Code, cancellationToken))
         {
             logger.LogWarning("Discount with Code {DiscountCode} already exists.", request.Code);
-            throw IpaException.Conflict(localizer["Discount already exists."].Value);
+            throw ShiftyException.Conflict(localizer["Discount already exists."].Value);
         }
 
         // Adapt the incoming request to a Discount domain entity.
@@ -37,7 +37,7 @@ public class CreateDiscountCommandHandler(
             if (!await mediator.Send(new IsCompanyExistByIdQuery(tenantId), cancellationToken))
             {
                 logger.LogWarning("Tenant company with Id {TenantId} not found.", tenantId);
-                throw IpaException.NotFound(localizer["Tenant company not found."].Value);
+                throw ShiftyException.NotFound(localizer["Tenant company not found."].Value);
             }
 
             discount.TenantDiscount.Add(new TenantDiscount

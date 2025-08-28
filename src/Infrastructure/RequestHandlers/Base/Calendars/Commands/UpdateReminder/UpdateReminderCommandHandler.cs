@@ -32,7 +32,7 @@ public class UpdateReminderCommandHandler(
             if (reminder == null)
             {
                 logger.LogWarning("Reminder {ReminderId} not found for user {UserId}", request.ReminderId, userId);
-                throw IpaException.BadRequest(localizer["Reminder not found."].Value);
+                throw ShiftyException.BadRequest(localizer["Reminder not found."].Value);
             }
 
             if (reminder.CreatedBy != userId)
@@ -41,7 +41,7 @@ public class UpdateReminderCommandHandler(
                     userId,
                     request.ReminderId);
 
-                throw IpaException.BadRequest(localizer["Access denied."].Value);
+                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
             }
 
 
@@ -83,7 +83,7 @@ public class UpdateReminderCommandHandler(
                 request.ReminderId,
                 userId);
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
@@ -94,7 +94,7 @@ public class UpdateReminderCommandHandler(
                 request.ReminderId,
                 userId);
 
-            throw IpaException.InternalServerError(localizer["Unable to update reminder."].Value);
+            throw ShiftyException.InternalServerError(localizer["Unable to update reminder."].Value);
         }
     }
 }

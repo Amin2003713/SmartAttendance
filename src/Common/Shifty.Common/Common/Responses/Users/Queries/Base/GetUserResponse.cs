@@ -50,4 +50,8 @@ public class GetUserResponse
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 
     public string? Email { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+
+    public string FullName { get; set; }
 }

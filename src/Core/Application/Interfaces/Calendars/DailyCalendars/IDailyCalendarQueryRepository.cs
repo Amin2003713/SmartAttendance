@@ -21,7 +21,6 @@ public interface IDailyCalendarQueryRepository : IQueryRepository<DailyCalendar>
     Task<bool> IsAlreadyHoliday( DateTime dateTime, CancellationToken cancellationToken);
 
     Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-    
         DateTime startAt,
         DateTime endAt,
         CancellationToken cancellationToken);

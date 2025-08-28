@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Shifty.Application.Features.Vehicles.Commands.Create;
+using Shifty.Application.Features.Vehicles.Commands.Delete;
 using Shifty.Application.Features.Vehicles.Commands.Update;
+using Shifty.Application.Features.Vehicles.Queries.GetById;
+using Shifty.Application.Features.Vehicles.Queries.GetVehicles;
 using Shifty.Application.Features.Vehicles.Requests.Commands.Create;
 using Shifty.Application.Features.Vehicles.Requests.Commands.Update;
+using Shifty.Application.Features.Vehicles.Requests.Queries.GetVehicles;
 
 namespace Shifty.Api.Controllers.Vehicles;
 
@@ -24,25 +28,25 @@ public class VehicleController : IpaBaseController
         await Mediator.Send(request.Adapt<UpdateVehicleCommand>(), cancellationToken);
 
 
-    // [HttpDelete]
-    // [SwaggerOperation(Summary = "Delete a Stations", Description = "Delete a Stations")]
-    // [ProducesResponseType(StatusCodes.Status204NoContent)]
-    // [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
-    // public async Task DeleteStation(Guid id, CancellationToken cancellationToken) =>
-    //     await Mediator.Send(new DeleteStationCommand(id), cancellationToken);
-    //
-    //
-    // [HttpGet]
-    // [SwaggerOperation(Summary = "Get Stations")]
-    // [ProducesResponseType(typeof(List<GetStationResponse>), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
-    // public async Task<List<GetStationResponse>> GetStations(CancellationToken cancellationToken) =>
-    //     await Mediator.Send(new GetStationsQuery(), cancellationToken);
-    //
-    // [HttpGet]
-    // [SwaggerOperation(Summary = "Get By Id")]
-    // [ProducesResponseType(typeof(GetStationResponse), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
-    // public async Task<GetStationResponse> GetById(Guid id, CancellationToken cancellationToken)
-    //     => await Mediator.Send(new GetStationByIdQuery(id), cancellationToken);
+    [HttpDelete]
+    [SwaggerOperation(Summary = "Delete a Vehicles", Description = "Delete a Vehicles")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task DeleteVehicle(Guid id, CancellationToken cancellationToken) =>
+        await Mediator.Send(new DeleteVehicleCommand(id), cancellationToken);
+
+
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get-Vehicles")]
+    [ProducesResponseType(typeof(List<GetVehicleQueryResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<List<GetVehicleQueryResponse>> GetVehicles(CancellationToken cancellationToken) =>
+        await Mediator.Send(new GetVehiclesQuery(), cancellationToken);
+
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get-By-Id")]
+    [ProducesResponseType(typeof(GetVehicleQueryResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<GetVehicleQueryResponse> GetById(Guid id, CancellationToken cancellationToken)
+        => await Mediator.Send(new GetVehicleByIdQuery(id), cancellationToken);
 }

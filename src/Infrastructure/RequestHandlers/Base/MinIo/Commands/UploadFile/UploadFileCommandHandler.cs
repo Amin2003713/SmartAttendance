@@ -28,9 +28,9 @@ public class UploadFileCommandHandler(
             }
 
             logger.LogWarning("Upload failed or returned null for file: {OriginalFileName}", request?.File?.FileName);
-            throw IpaException.BadRequest(localizer["File upload failed."]);
+            throw ShiftyException.BadRequest(localizer["File upload failed."]);
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error during file upload.");
             throw;
@@ -38,7 +38,7 @@ public class UploadFileCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error during file upload.");
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred during file upload."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred during file upload."]);
         }
     }
 }

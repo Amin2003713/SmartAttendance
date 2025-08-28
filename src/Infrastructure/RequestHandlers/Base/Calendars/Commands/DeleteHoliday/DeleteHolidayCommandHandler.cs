@@ -34,7 +34,7 @@ public class DeleteHolidayCommandHandler(
             if (holiday == null)
             {
                 logger.LogWarning("Holiday with Id {HolidayId} not found.", request.HolidayId);
-                throw IpaException.NotFound(localizer["Not Found."].Value);
+                throw ShiftyException.NotFound(localizer["Not Found."].Value);
             }
 
             // Verify that the user is the creator of the holiday.
@@ -44,7 +44,7 @@ public class DeleteHolidayCommandHandler(
                     userId,
                     request.HolidayId);
 
-                throw IpaException.BadRequest(localizer["Access denied."].Value);
+                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
             }
 
             // Retrieve the associated calendar project.
@@ -55,7 +55,7 @@ public class DeleteHolidayCommandHandler(
             if (projectCalendar is null)
             {
                 logger.LogWarning("No calendar project found for holiday Id {HolidayId}.", request.HolidayId);
-                throw IpaException.NotFound(localizer["Not Found."].Value);
+                throw ShiftyException.NotFound(localizer["Not Found."].Value);
             }
 
             // // Retrieve user access details for the project.
@@ -71,7 +71,7 @@ public class DeleteHolidayCommandHandler(
             //         projectCalendar.ProjectId,
             //         request.HolidayId);
             //
-            //     throw IpaException.BadRequest(localizer["Access denied."].Value);
+            //     throw ShiftyException.BadRequest(localizer["Access denied."].Value);
             // }
 
             var associatedProjectsToDelete =
@@ -87,7 +87,7 @@ public class DeleteHolidayCommandHandler(
                 request.HolidayId,
                 userId);
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             throw;
         }
@@ -99,7 +99,7 @@ public class DeleteHolidayCommandHandler(
                 userId,
                 ex.Message);
 
-            throw IpaException.InternalServerError(localizer["Unable to delete holiday."].Value);
+            throw ShiftyException.InternalServerError(localizer["Unable to delete holiday."].Value);
         }
     }
 }

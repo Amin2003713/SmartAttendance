@@ -38,7 +38,7 @@ public record UploadFileForCopyRowCommandHandler(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Failed to extract URL parameters from FileUrl {FileUrl}.", request.FileUrl);
-            throw IpaException.BadRequest(Localizer["Invalid FileUrl."]);
+            throw ShiftyException.BadRequest(Localizer["Invalid FileUrl."]);
         }
 
         var fileInfo = await HubFileQueryRepository.GetHubFile(
@@ -55,7 +55,7 @@ public record UploadFileForCopyRowCommandHandler(
                 requestParams.fileType,
                 requestParams.fileStorageType);
 
-            throw IpaException.NotFound(Localizer["File information is null."]);
+            throw ShiftyException.NotFound(Localizer["File information is null."]);
         }
 
         try
@@ -84,7 +84,7 @@ public record UploadFileForCopyRowCommandHandler(
             //     "An error occurred while uploading the file for ProjectId {ProjectId}.",
             //     request.ProjectId);
 
-            throw IpaException.InternalServerError(Localizer["An error occurred while uploading the file."]);
+            throw ShiftyException.InternalServerError(Localizer["An error occurred while uploading the file."]);
         }
     }
 

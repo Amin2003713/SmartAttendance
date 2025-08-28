@@ -46,7 +46,7 @@ public class GetHolidayQueryHandler(
             //     request.year,
             //     request.month);
 
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 }

@@ -49,7 +49,7 @@ public class DeleteFileCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error occurred while deleting file {FilePath}.", request?.FilePath);
-            throw IpaException.InternalServerError(localizer["An unexpected error occurred while deleting the file."]);
+            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while deleting the file."]);
         }
     }
 }

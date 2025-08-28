@@ -6,11 +6,9 @@ public class DailyCalendar : BaseEntity
 {
     public DateTime Date { get; set; }
     public bool IsHoliday { get; set; } = false;
-
     public bool IsMeeting { get; set; } = false;
     public bool IsReminder { get; set; }
     public string? Details { get; set; } = null!;
-    public ICollection<CalendarProject> CalendarProjects { get; set; }
     public ICollection<CalendarUser> CalendarUsers { get; set; }
 
     public void SetReminder()

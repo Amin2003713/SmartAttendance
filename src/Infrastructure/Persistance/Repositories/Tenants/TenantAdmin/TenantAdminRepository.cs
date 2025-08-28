@@ -55,7 +55,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
 
             return user;
         }
-        catch (IpaException)
+        catch (ShiftyException)
         {
             // Re-throw custom exceptions without additional logging
             throw;
@@ -63,7 +63,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
         catch (Exception ex)
         {
             _logger.LogError(ex.Source, ex);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 
@@ -88,7 +88,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
         catch (Exception ex)
         {
             _logger.LogError(ex.Source, ex);
-            throw IpaException.InternalServerError();
+            throw ShiftyException.InternalServerError();
         }
     }
 

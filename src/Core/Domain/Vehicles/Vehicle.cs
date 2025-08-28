@@ -10,4 +10,11 @@ public class Vehicle : BaseEntity
     public required PlateNumber PlateNumber { get; set; }
 
     // public virtual ICollection<Mission> Missions { get; set; }
+
+
+    public void Update(Vehicle vehicle)
+    {
+        Title = vehicle.Title;
+        PlateNumber = vehicle.PlateNumber;
+    }
 }

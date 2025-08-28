@@ -28,7 +28,7 @@ public record CreateUserPasswordCommandHandler(
             .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
         {
             Logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserId);
-            throw IpaException.BadRequest(Localizer["Dont Reuse Old Password"]);
+            throw ShiftyException.BadRequest(Localizer["Dont Reuse Old Password"]);
         }
 
         var hashedPass = Hasher.HashPassword(request.UserId, request.Password);

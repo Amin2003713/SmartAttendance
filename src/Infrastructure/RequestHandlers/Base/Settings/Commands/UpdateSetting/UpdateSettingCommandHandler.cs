@@ -18,7 +18,7 @@ public class UpdateSettingCommandHandler(
         {
             var setting = await queriesRepository.GetSingleAsync(cancellationToken);
             if (setting == null)
-                throw IpaException.NotFound(localizer["Setting Not Found."].Value);
+                throw ShiftyException.NotFound(localizer["Setting Not Found."].Value);
 
             setting.Flags = 0;
 
@@ -32,7 +32,7 @@ public class UpdateSettingCommandHandler(
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw IpaException.InternalServerError(localizer["toggle active command failed."].Value);
+            throw ShiftyException.InternalServerError(localizer["toggle active command failed."].Value);
         }
     }
 }

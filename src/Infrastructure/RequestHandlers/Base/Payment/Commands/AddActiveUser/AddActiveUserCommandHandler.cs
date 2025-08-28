@@ -21,7 +21,7 @@ public class AddActiveUserCommandHandler(
             if (companyPurchase == null)
             {
                 logger.LogWarning("No active company purchase/payment record found.");
-                throw IpaException.NotFound(localizer["No active payment record found for this tenant."]);
+                throw ShiftyException.NotFound(localizer["No active payment record found for this tenant."]);
             }
 
             companyPurchase.ActiveUsers++;
@@ -34,7 +34,7 @@ public class AddActiveUserCommandHandler(
 
             return companyPurchase.ActiveUsers;
         }
-        catch (IpaException ex)
+        catch (ShiftyException ex)
         {
             logger.LogError(ex, "Business error occurred while adding active user.");
             throw;
@@ -42,7 +42,7 @@ public class AddActiveUserCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while adding active user.");
-            throw IpaException.InternalServerError(
+            throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while adding an active user."]);
         }
     }

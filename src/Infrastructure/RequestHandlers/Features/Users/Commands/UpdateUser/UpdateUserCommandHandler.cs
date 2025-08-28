@@ -30,7 +30,7 @@ public class UpdateUserCommandHandler(
             if (user == null)
             {
                 logger.LogWarning("User with ID {UserId} not found.", userId);
-                throw IpaException.NotFound(localizer["User not found."]);
+                throw ShiftyException.NotFound(localizer["User not found."]);
             }
 
 
@@ -46,7 +46,7 @@ public class UpdateUserCommandHandler(
                     if (!deleteResponse)
                     {
                         logger.LogError("Failed to delete old image for User {Id}.", user.Id);
-                        throw IpaException.InternalServerError(localizer["Failed to delete old image."].Value);
+                        throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
                     }
                 }
 
@@ -82,7 +82,7 @@ public class UpdateUserCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating user {UserId}", userId);
-            throw IpaException.InternalServerError(localizer["An error occurred while updating the user."]);
+            throw ShiftyException.InternalServerError(localizer["An error occurred while updating the user."]);
         }
     }
 }
