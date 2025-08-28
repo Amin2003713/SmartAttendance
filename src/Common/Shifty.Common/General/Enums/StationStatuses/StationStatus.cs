@@ -1,10 +1,15 @@
-﻿namespace Shifty.Common.General.Enums.StationStatuses;
+﻿using System.ComponentModel.DataAnnotations;
 
-public enum StationStatus
+namespace Shifty.Common.General.Enums.StationStatuses
 {
-    [Display(Name = "کامل")] Driver,
-    [Display(Name = "ناقص")] Employee,
-    [Display(Name = "هیجکدام")] None,
-    [Display(Name = "خارج از محدوده")] OutOfState
+    public enum StationStatus
+    {
+        [Display(Name = "کامل")] Complete,
 
+        [Display(Name = "ناقص")] Incomplete,
+
+        [Display(Name = "هیجکدام")] None,
+
+        [Display(Name = "خارج از محدوده")] OutOfRange
+    }
 }

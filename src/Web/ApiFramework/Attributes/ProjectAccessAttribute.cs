@@ -11,7 +11,6 @@ using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Shifty.ApiFramework.Tools;
-using Shifty.Common.General.Enums.Projects;
 using Shifty.Persistence.Services.Identities;
 
 namespace Shifty.ApiFramework.Attributes;
