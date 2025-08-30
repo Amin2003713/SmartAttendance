@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Base.Calendars.Request.Commands.CreateReminder;
-using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Base.Calendars.Request.Queries.GetReminder;
+﻿using Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
+using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
+using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
 using Shifty.Application.Interfaces.Calendars.DailyCalendars;
 using Shifty.Domain.Calenders.DailyCalender;
 
@@ -157,20 +157,16 @@ public class DailyCalendarQueryRepository(
     {
         try
         {
-            // logger.LogInformation("Fetching custom holidays for date: {start} to {end} and project: {ProjectId}",
-            //     startDate,
-            //     endDate,
-            //     projectId);
+            logger.LogInformation("Fetching custom holidays for date: {start} to {end}",
+                startDate,
+                endDate);
 
             var holiday = await TableNoTracking.Where(a => a.Date <= endDate &&
                                                            a.Date >= startDate &&
                                                            (a.IsReminder || a.IsMeeting || a.IsHoliday) &&
                                                            a.CalendarUsers.Any(cu =>
-                                                               cu.UserId == userId) ||
-                                                           a.CalendarProjects.Any(
-                                                               // cp =>
-                                                               // cp.ProjectId == projectId
-                                                           ))
+                                                               cu.UserId == userId) &&
+                                                           a.DeletedBy == null)
                 .ToListAsync(cancellationToken);
 
             logger.LogInformation("Custom holiday found: {Found}", holiday != null);
@@ -179,10 +175,9 @@ public class DailyCalendarQueryRepository(
         }
         catch (Exception ex)
         {
-            // logger.LogError(ex,
-            //     "Error occurred while fetching custom holiday for date: {Date} and project: {ProjectId}",
-            //     endDate,
-            //     projectId);
+            logger.LogError(ex,
+                "Error occurred while fetching custom holiday for date: {Date} ",
+                endDate);
 
             throw ShiftyException.InternalServerError(
                 localizer["An unexpected error occurred while fetching custom holiday."]);

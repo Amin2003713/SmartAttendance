@@ -26,7 +26,6 @@
 //     public Guid ProjectId { get; protected set; }
 //
 //
-//     public UserType Node { get; protected set; } = UserType.None;
 //
 //     public ReviewAction ReviewAction { get; protected set; } = ReviewAction.New;
 //

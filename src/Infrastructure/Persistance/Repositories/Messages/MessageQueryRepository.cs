@@ -3,10 +3,7 @@ using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
 using Shifty.Application.Features.Messages.Request.Queries.GetMessage;
 using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
 using Shifty.Application.Interfaces.Messages;
-using Shifty.Common.Common.Responses.Users.Queries.Base;
 using Shifty.Common.General.Enums;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Common.General.Enums.Projects;
 using Shifty.Common.Utilities.TypeConverters;
 using Shifty.Domain.Messages;
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Base.Calendars.Request.Queries.GetReminder;
+using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
+using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
 using Shifty.Application.Interfaces.Base;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Calenders.DailyCalender;
@@ -14,11 +14,10 @@ public interface IDailyCalendarQueryRepository : IQueryRepository<DailyCalendar>
     Task<List<DailyCalendar>?> GetCustomCalendarEvents(
         DateTime startDate,
         DateTime date,
-       
         Guid userId,
         CancellationToken cancellationToken);
 
-    Task<bool> IsAlreadyHoliday( DateTime dateTime, CancellationToken cancellationToken);
+    Task<bool> IsAlreadyHoliday(DateTime dateTime, CancellationToken cancellationToken);
 
     Task<List<GetHolidayResponse>> GetHolidaysForMonth(
         DateTime startAt,
@@ -26,7 +25,6 @@ public interface IDailyCalendarQueryRepository : IQueryRepository<DailyCalendar>
         CancellationToken cancellationToken);
 
     Task<List<GetReminderResponse>> GetReminderForProject(
-       
         Guid userId,
         DateTime startAt,
         DateTime endAt,

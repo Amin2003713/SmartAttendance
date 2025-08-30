@@ -11,5 +11,4 @@
 //     public DateTime Reported { get; set; }
 //     public Guid ProjectId { get; set; }
 //     public Guid UserId { get; set; }
-//     public UserType Node { get; set; }
 // }

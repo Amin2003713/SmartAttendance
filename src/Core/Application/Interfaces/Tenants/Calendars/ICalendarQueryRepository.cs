@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
+using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
 using Shifty.Common.Utilities.InjectionHelpers;
 using Shifty.Domain.Tenants;
 
@@ -13,10 +13,9 @@ public interface ICalendarQueryRepository : IScopedDependency
         Expression<Func<TenantCalendar, bool>> predicate,
         CancellationToken cancellationToken);
 
-    Task<bool> IsAlreadyHoliday( DateTime dateTime, CancellationToken cancellationToken);
+    Task<bool> IsAlreadyHoliday(DateTime dateTime, CancellationToken cancellationToken);
 
     Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-
         DateTime startAt,
         DateTime endAt,
         CancellationToken cancellationToken);

@@ -2,5 +2,4 @@
 
 namespace Shifty.Application.Features.Calendars.Commands.CreateHoliday;
 
-public class CreateHolidayCommand : CreateHolidayRequest,
-    IRequest { }
+public class CreateHolidayCommand : CreateHolidayRequest, IRequest;

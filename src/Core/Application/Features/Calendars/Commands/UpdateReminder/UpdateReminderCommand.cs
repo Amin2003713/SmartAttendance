@@ -3,4 +3,4 @@
 namespace Shifty.Application.Features.Calendars.Commands.UpdateReminder;
 
 public class UpdateReminderCommand : UpdateReminderRequest,
-    IRequest { }
+    IRequest;

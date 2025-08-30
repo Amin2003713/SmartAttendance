@@ -6,7 +6,6 @@ using Shifty.Common.Exceptions;
 using Shifty.Common.General;
 using Shifty.Common.General.Enums;
 using Shifty.Common.General.Enums.Access;
-using Shifty.Common.General.Enums.Projects;
 using Shifty.Persistence.Services.Identities;
 
 namespace Shifty.RequestHandlers.Features.Messages.Queries.GetMessageById;

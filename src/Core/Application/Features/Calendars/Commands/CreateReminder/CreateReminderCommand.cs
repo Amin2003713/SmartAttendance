@@ -2,5 +2,4 @@
 
 namespace Shifty.Application.Features.Calendars.Commands.CreateReminder;
 
-public class CreateReminderCommand : CreateReminderRequest,
-    IRequest;
+public class CreateReminderCommand : CreateReminderRequest, IRequest;

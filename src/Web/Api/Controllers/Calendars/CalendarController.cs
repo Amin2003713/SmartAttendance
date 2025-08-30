@@ -1,23 +1,19 @@
-﻿using Shifty.Application.Base.Calendars.Commands.CreateHoliday;
-using Shifty.Application.Base.Calendars.Commands.CreateReminder;
-using Shifty.Application.Base.Calendars.Commands.DeleteHoliday;
-using Shifty.Application.Base.Calendars.Commands.DeleteReminder;
-using Shifty.Application.Base.Calendars.Commands.UpdateHoliday;
-using Shifty.Application.Base.Calendars.Commands.UpdateReminder;
-using Shifty.Application.Base.Calendars.Queries.GetCalendar;
-using Shifty.Application.Base.Calendars.Queries.GetCalendarInfo;
-using Shifty.Application.Base.Calendars.Queries.GetCalendarLevelReport;
-using Shifty.Application.Base.Calendars.Queries.GetHoliday;
-using Shifty.Application.Base.Calendars.Queries.GetReminder;
-using Shifty.Application.Base.Calendars.Request.Commands.CreateHoliday;
-using Shifty.Application.Base.Calendars.Request.Commands.CreateReminder;
-using Shifty.Application.Base.Calendars.Request.Commands.UpdateHoliday;
-using Shifty.Application.Base.Calendars.Request.Commands.UpdateReminder;
-using Shifty.Application.Base.Calendars.Request.Queries.GetCalendar;
-using Shifty.Application.Base.Calendars.Request.Queries.GetCalendarLevelReport;
-using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Base.Calendars.Request.Queries.GetReminder;
-using GetCalendarInfoResponse = Shifty.Common.Common.Responses.FeatureCalendarResponse.GetCalendarInfoResponse;
+﻿using Shifty.Application.Features.Calendars.Commands.CreateHoliday;
+using Shifty.Application.Features.Calendars.Commands.CreateReminder;
+using Shifty.Application.Features.Calendars.Commands.DeleteHoliday;
+using Shifty.Application.Features.Calendars.Commands.DeleteReminder;
+using Shifty.Application.Features.Calendars.Commands.UpdateHoliday;
+using Shifty.Application.Features.Calendars.Commands.UpdateReminder;
+using Shifty.Application.Features.Calendars.Queries.GetCalendar;
+using Shifty.Application.Features.Calendars.Queries.GetHoliday;
+using Shifty.Application.Features.Calendars.Queries.GetReminder;
+using Shifty.Application.Features.Calendars.Request.Commands.CreateHoliday;
+using Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
+using Shifty.Application.Features.Calendars.Request.Commands.UpdateHoliday;
+using Shifty.Application.Features.Calendars.Request.Commands.UpdateReminder;
+using Shifty.Application.Features.Calendars.Request.Queries.GetCalendar;
+using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
+using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
 
 namespace Shifty.Api.Controllers.Calendars;
 
@@ -38,56 +34,11 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetCalendarResponse>> GetCalendar(
-
         int year,
         int month,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetCalendarQuery( year, month), cancellationToken);
-    }
-
-
-    /// <summary>
-    ///     Gets detailed information for a specific day in the project calendar.
-    /// </summary>
-    /// <param name="projectId">Projects identifier.</param>
-    /// <param name="date">Target date to retrieve calendar info.</param>
-    /// <param name="cancellationToken">Cancellation token for the request.</param>
-    /// <response code="200">Calendar day info retrieved successfully.</response>
-    /// <response code="400">Invalid request.</response>
-    /// <response code="401">Unauthorized access.</response>
-    [HttpGet("Get-Calendar-Info-For-Day")]
-    [ProducesResponseType(typeof(GetCalendarInfoResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<List<GetCalendarInfoResponse>> GetCalendarInfoForDay(
-
-        DateTime date,
-        CancellationToken cancellationToken)
-    {
-        return await Mediator.Send(new GetCalendarInfoQuery( date), cancellationToken);
-    }
-
-
-    /// <summary>
-    ///     Gets calendar activity level report for a specific day.
-    /// </summary>
-    /// <param name="projectId">Projects identifier.</param>
-    /// <param name="date">Target date to retrieve level report.</param>
-    /// <param name="cancellationToken">Cancellation token for the request.</param>
-    /// <response code="200">Calendar level report retrieved successfully.</response>
-    /// <response code="400">Invalid request.</response>
-    /// <response code="401">Unauthorized access.</response>
-    [HttpGet("Get-Calendar-Level-Report")]
-    [ProducesResponseType(typeof(List<CalendarInfoForLevelDto>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<List<CalendarInfoForLevelDto>> GetCalendarInfo(
-
-        DateTime date,
-        CancellationToken cancellationToken)
-    {
-        return await Mediator.Send(new GetCalendarLevelReportQuery( date), cancellationToken);
+        return await Mediator.Send(new GetCalendarQuery(year, month), cancellationToken);
     }
 
 
@@ -140,12 +91,11 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetHolidayResponse>> GetHolidays(
-
         int year,
         int month,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetHolidayQuery( year, month), cancellationToken);
+        return await Mediator.Send(new GetHolidayQuery(year, month), cancellationToken);
     }
 
     /// <summary>
@@ -163,7 +113,6 @@ public class CalendarController : IpaBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetReminderResponse>> GetReminder(
-
         int year,
         int month,
         CancellationToken cancellationToken)

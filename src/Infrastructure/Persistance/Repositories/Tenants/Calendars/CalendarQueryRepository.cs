@@ -1,4 +1,4 @@
-﻿using Shifty.Application.Base.Calendars.Request.Queries.GetHoliday;
+﻿using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
 
 namespace Shifty.Persistence.Repositories.Tenants.Calendars;
 
@@ -26,7 +26,7 @@ public class CalendarQueryRepository(
         }
     }
 
-    public async Task<bool> IsAlreadyHoliday( DateTime dateTime, CancellationToken cancellationToken)
+    public async Task<bool> IsAlreadyHoliday(DateTime dateTime, CancellationToken cancellationToken)
     {
         try
         {

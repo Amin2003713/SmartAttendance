@@ -3,7 +3,6 @@
 // public class EventDocument<TId> : BaseEventStoreModel<TId>
 // {
 //     public Guid UserId { get; set; }
-//     public UserType Node { get; set; }
 //     public Guid Id { get; set; }
 //     public TId AggregateId { get; set; } = default!;
 //     public long Version { get; set; }
