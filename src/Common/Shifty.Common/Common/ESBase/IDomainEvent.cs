@@ -7,5 +7,4 @@ public interface IDomainEvent
 {
     DateTime Reported { get; init; }
     public DateTime EventTime { get; init; }
-    Guid ProjectId { get; init; }
 }

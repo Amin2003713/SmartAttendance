@@ -4,5 +4,4 @@ public record DomainEvent : IDomainEvent
 {
     public DateTime Reported { get; init; }
     public DateTime EventTime { get; init; } = DateTime.UtcNow;
-    public Guid ProjectId { get; init; }
 }

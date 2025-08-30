@@ -16,6 +16,5 @@ public interface ISnapshot<TId>
     /// </summary>
     int Version { get; init; }
 
-    Guid ProjectId { get; init; }
     DateTime LastAction { get; init; }
 }
