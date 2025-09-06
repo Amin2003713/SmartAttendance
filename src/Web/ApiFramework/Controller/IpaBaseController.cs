@@ -19,7 +19,7 @@ namespace Shifty.ApiFramework.Controller;
 [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
 [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status500InternalServerError)]
 [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status401Unauthorized)]
-public class IpaBaseController : ControllerBase
+public class ShiftyBaseController : ControllerBase
 {
     private IServiceProvider Resolver => HttpContext.RequestServices;
 

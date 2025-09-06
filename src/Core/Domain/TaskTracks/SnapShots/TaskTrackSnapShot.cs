@@ -1,5 +1,4 @@
 ﻿using Shifty.Common.General.Enums;
-using TaskTracker.Domain.TaskTracks;
 
 namespace Shifty.Domain.TaskTracks.SnapShots;
 
@@ -7,7 +6,6 @@ public class TaskTrackSnapShot : ISnapshot<Guid>
 {
     public string Title { get; set; }
     public string Description { get; set; }
-    public Guid? WorkPackageId { get; set; }
     public PriorityType PriorityType { get; set; }
     public List<Guid> AssigneeId { get; set; }
     public Guid CreatedBy { get; set; }

@@ -215,13 +215,17 @@ public class MinIoCommandRepository(
     private async Task EnsureBucketExistsAsync(string bucketName)
     {
         var listResponse = await _s3Client.ListBucketsAsync();
-        if (!listResponse.Buckets.Any(b => b.BucketName == bucketName))
+
+        var buckets = listResponse.Buckets ?? new List<S3Bucket>(); // 🛡️ ضد Null
+
+        if (!buckets.Any(b => b.BucketName == bucketName))
+        {
             await _s3Client.PutBucketAsync(new PutBucketRequest
             {
                 BucketName = bucketName
             });
+        }
     }
-
     private async Task UploadObjectAsync(
         string bucketName,
         string objectName,

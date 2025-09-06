@@ -25,7 +25,7 @@ using Shifty.Common.General.Enums;
 
 namespace Shifty.Api.Controllers.Users;
 
-public class UserController : IpaBaseController
+public class UserController : ShiftyBaseController
 {
     /// <summary>
     ///     Initiates a "forgot password" process by getting new code from the user.

@@ -25,8 +25,8 @@ public class UpdateTaskTrackCommandHandler(
 
         if (!await eventReader.ExistsAsync(request.AggregateId, cancellationToken))
         {
-            logger.LogWarning("TaskTrack {TackTrackId} not found.", request.AggregateId);
-            throw ShiftyException.NotFound(localizer["TaskTrack not found."].Value);
+            logger.LogWarning("Missions {TackTrackId} not found.", request.AggregateId);
+            throw ShiftyException.NotFound(localizer["Missions not found."].Value);
         }
 
         var userId = identityService.GetUserId<Guid>();
@@ -72,7 +72,7 @@ public class UpdateTaskTrackCommandHandler(
         try
         {
             await eventWriter.SaveAsync(taskTrack, cancellationToken);
-            logger.LogInformation("TaskTrack {taskTrackId} updated successfully.", request.AggregateId);
+            logger.LogInformation("Missions {taskTrackId} updated successfully.", request.AggregateId);
         }
         catch (Exception ex)
         {

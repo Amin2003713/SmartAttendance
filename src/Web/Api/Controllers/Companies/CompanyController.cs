@@ -5,7 +5,7 @@ using Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
 
 namespace Shifty.Api.Controllers.Companies;
 
-public class CompanyController : IpaBaseController
+public class CompanyController : ShiftyBaseController
 {
     /// <summary>
     ///     Retrieves detailed information about a company by its identifier.

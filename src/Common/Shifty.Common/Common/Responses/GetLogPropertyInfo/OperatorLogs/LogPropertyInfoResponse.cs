@@ -3,10 +3,8 @@
 public class LogPropertyInfoResponse
 {
     public Guid Id { get; set; }
-    public string PhoneNumber { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Profile { get; set; }
-
-    public string FullName => $"{FirstName} {LastName}";
+    public string Name { get; set; }
+    public string? Profile { get; set; }
+    public string? Compressed { get; set; }
+    public string UserName { get; set; }
 }

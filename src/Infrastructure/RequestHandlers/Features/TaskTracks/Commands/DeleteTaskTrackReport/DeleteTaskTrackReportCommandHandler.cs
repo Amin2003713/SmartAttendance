@@ -21,7 +21,7 @@ public class DeleteTaskTrackReportCommandHandler(
     {
         var userId = identityService.GetUserId<Guid>();
 
-        logger.LogInformation("User {UserId} is attempting to delete report {ReportId} from TaskTrack {AggregateId}",
+        logger.LogInformation("User {UserId} is attempting to delete report {ReportId} from Missions {AggregateId}",
             userId,
             request.ReportId,
             request.AggregateId);
@@ -31,15 +31,15 @@ public class DeleteTaskTrackReportCommandHandler(
 
         if (taskTrack is null)
         {
-            logger.LogWarning("TaskTrack {AggregateId} not found", request.AggregateId);
-            throw ShiftyException.NotFound(localizer["No TaskTrack reports found to delete."].Value);
+            logger.LogWarning("Missions {AggregateId} not found", request.AggregateId);
+            throw ShiftyException.NotFound(localizer["No Missions reports found to delete."].Value);
         }
 
         var report = taskTrack.Reports.FirstOrDefault(r => r.ReportId == request.ReportId);
 
         if (report is null)
         {
-            logger.LogWarning("Report {ReportId} not found in TaskTrack {AggregateId}", request.ReportId,
+            logger.LogWarning("Report {ReportId} not found in Missions {AggregateId}", request.ReportId,
                 request.AggregateId);
             throw ShiftyException.NotFound(localizer["Report not found for deletion."].Value);
         }
@@ -54,7 +54,7 @@ public class DeleteTaskTrackReportCommandHandler(
 
         await eventWriter.SaveAsync(taskTrack, cancellationToken);
 
-        logger.LogInformation("User {UserId} successfully deleted report {ReportId} from TaskTrack {AggregateId}",
+        logger.LogInformation("User {UserId} successfully deleted report {ReportId} from Missions {AggregateId}",
             userId,
             request.ReportId,
             request.AggregateId);

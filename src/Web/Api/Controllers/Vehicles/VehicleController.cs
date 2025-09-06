@@ -10,7 +10,7 @@ using Shifty.Application.Features.Vehicles.Requests.Queries.GetVehicles;
 
 namespace Shifty.Api.Controllers.Vehicles;
 
-public class VehicleController : IpaBaseController
+public class VehicleController : ShiftyBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create a Vehicles", Description = "Creates a new Vehicles")]
@@ -43,7 +43,7 @@ public class VehicleController : IpaBaseController
     public async Task<List<GetVehicleQueryResponse>> GetVehicles(CancellationToken cancellationToken) =>
         await Mediator.Send(new GetVehiclesQuery(), cancellationToken);
 
-    [HttpGet]
+    [HttpGet("By-Id")]
     [SwaggerOperation(Summary = "Get-By-Id")]
     [ProducesResponseType(typeof(GetVehicleQueryResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]

@@ -2,13 +2,13 @@
 using Shifty.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
 using Shifty.Application.Features.TaskTrack.Commands.UpdateTaskTrackReport;
 using Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackReportById;
+using Shifty.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrackReport;
 using Shifty.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrackReport;
 using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
-using TaskTracker.Application.TaskTrack.Requests.Commands.CreateTaskTrackReport;
 
 namespace Shifty.Api.Controllers.TaskTrackReports;
 
-public class Task_Track_ReportController : IpaBaseController
+public class Task_Track_ReportController : ShiftyBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create Task-Tracker-Report")]

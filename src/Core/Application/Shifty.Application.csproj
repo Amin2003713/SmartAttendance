@@ -32,7 +32,6 @@
 
     <ItemGroup>
         <Folder Include="Base\" />
-        <Folder Include="Features\" />
         <Folder Include="Features\Vehicles\Requests\Queries\GetById\" />
         <Folder Include="Interfaces\Calendars\"/>
     </ItemGroup>

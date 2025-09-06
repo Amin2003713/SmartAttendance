@@ -46,7 +46,7 @@ public class CreateTaskTrackReportCommandHandler(
 
             await eventWriter.SaveAsync(taskTrack, cancellationToken);
 
-            logger.LogInformation("TaskTrackReport added to TaskTrack {TaskTrackId} via event sourcing.",
+            logger.LogInformation("TaskTrackReport added to Missions {TaskTrackId} via event sourcing.",
                 taskTrack.AggregateId);
         }
         catch (ShiftyException)

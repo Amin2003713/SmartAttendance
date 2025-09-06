@@ -25,9 +25,7 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
                     new LogPropertyInfoResponse
                     {
                         Id = Guid.Empty,
-                        FirstName = "Aghdas",
-                        LastName = "nosrat",
-                        PhoneNumber = "09134041709",
+                        Name = "Aghdas",
                         Profile = "https://example.com/Profil.png"
                     },
                 CreatedAt = DateTime.Parse("2025-04-14T12:00:00Z")
@@ -48,9 +46,8 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
                     new LogPropertyInfoResponse
                     {
                         Id = Guid.Empty,
-                        FirstName = "Aghdas",
-                        LastName = "nosrat",
-                        PhoneNumber = "09134041709",
+                        Name = "Aghdas",
+
                         Profile = "https://example.com/Profil.png"
                     },
                 CreatedAt = DateTime.Parse("2025-04-14T13:00:00Z")

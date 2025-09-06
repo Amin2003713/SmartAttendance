@@ -31,9 +31,7 @@ public class GetCompanyInfoResponseExample : IExamplesProvider<GetCompanyInfoRes
                 new LogPropertyInfoResponse
                 {
                     Id = Guid.Empty,
-                    FirstName = "Aghdas",
-                    LastName = "nosrat",
-                    PhoneNumber = "09134041709",
+                    Name = "Aghdas",
                     Profile = "https://example.com/Profil.png"
                 },
             Settings = new CompanySettingResponse

@@ -6,7 +6,7 @@ using Shifty.Application.Features.Departments.Requests.Queries.GetDepartments;
 
 namespace Shifty.Api.Controllers.Departments;
 
-public class DepartmentController : IpaBaseController
+public class DepartmentController : ShiftyBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create a Department",

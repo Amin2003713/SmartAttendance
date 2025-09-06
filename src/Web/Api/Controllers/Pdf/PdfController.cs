@@ -2,7 +2,7 @@
 
 namespace Shifty.Api.Controllers.Pdf;
 
-public class PdfController : IpaBaseController
+public class PdfController : ShiftyBaseController
 {
     /// <summary>
     ///     Generates and retrieves the PDF file for a specific payment (factor).

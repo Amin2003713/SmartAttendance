@@ -20,7 +20,7 @@ public class DeleteTaskTrackCommandHandler(
     {
         var userId = identityService.GetUserId<Guid>();
 
-        logger.LogInformation("Attempting to delete TaskTrack with ID {AggregateId} by user {UserId}",
+        logger.LogInformation("Attempting to delete Missions with ID {AggregateId} by user {UserId}",
             request.AggregateId,
             userId);
 
@@ -30,11 +30,11 @@ public class DeleteTaskTrackCommandHandler(
 
         if (taskTrack is null)
         {
-            logger.LogWarning("TaskTrack {AggregateId} not found or access denied for user {UserId}",
+            logger.LogWarning("Missions {AggregateId} not found or access denied for user {UserId}",
                 request.AggregateId,
                 userId);
 
-            throw ShiftyException.NotFound(localizer["No TaskTrack reports found to delete."].Value);
+            throw ShiftyException.NotFound(localizer["No Missions reports found to delete."].Value);
         }
 
         var deleteEvent = request.Adapt<TaskTrackDeletedEvent>() with
@@ -46,6 +46,6 @@ public class DeleteTaskTrackCommandHandler(
 
         await eventWriter.SaveAsync(taskTrack, cancellationToken);
 
-        logger.LogInformation("Successfully deleted TaskTrack with ID {AggregateId}", request.AggregateId);
+        logger.LogInformation("Successfully deleted Missions with ID {AggregateId}", request.AggregateId);
     }
 }

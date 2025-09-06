@@ -39,7 +39,7 @@ public static class AutofacConfigurationExtensions
     private static void RegisterAssemblyDependencies(ContainerBuilder builder)
     {
         // Assemblies by concern
-        var tenantCommonAssembly = typeof(IpaBaseController).Assembly;
+        var tenantCommonAssembly = typeof(ShiftyBaseController).Assembly;
         var domainAssembly       = typeof(TenantDefaultValue).Assembly;
         var persistenceAssembly  = typeof(ShiftyDbContext).Assembly;
         var applicationAssembly  = typeof(JwtService).Assembly;

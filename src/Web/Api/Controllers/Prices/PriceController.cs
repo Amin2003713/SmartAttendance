@@ -5,7 +5,7 @@ using Shifty.Application.Base.Prices.Request.Queries.GetPrice;
 
 namespace Shifty.Api.Controllers.Prices;
 
-public class PriceController : IpaBaseController
+public class PriceController : ShiftyBaseController
 {
     /// <summary>
     ///     Retrieves the current pricing details.

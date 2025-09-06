@@ -3,7 +3,6 @@ using Shifty.Common.General.Enums;
 using Shifty.Domain.TaskTracks.Events.TaskTrackers;
 using Shifty.Domain.TaskTracks.Events.TaskTrackReports;
 using Shifty.Domain.TaskTracks.SnapShots;
-using TaskTracker.Domain.TaskTracks;
 
 namespace Shifty.Domain.TaskTracks.Aggregate;
 
@@ -11,7 +10,6 @@ public class TaskTrack : AggregateRoot<Guid>
 {
     public string Title { get; set; }
     public string Description { get; set; }
-    public Guid? WorkPackageId { get; set; }
     public PriorityType PriorityType { get; set; }
     public List<Guid> AssigneeId { get; set; }
     public Guid CreatedBy { get; set; }
@@ -83,7 +81,6 @@ public class TaskTrack : AggregateRoot<Guid>
         Status = @event.Status;
         EndDate = @event.EndDate;
         StartDate = @event.StartDate;
-        WorkPackageId = @event.WorkPackageId;
         Reported = @event.Reported;
     }
 
@@ -98,7 +95,6 @@ public class TaskTrack : AggregateRoot<Guid>
         Status = @event.Status;
         EndDate = @event.EndDate;
         StartDate = @event.StartDate;
-        WorkPackageId = @event.WorkPackageId;
     }
 
     public void Apply(TaskTrackDeletedEvent @event)
@@ -158,7 +154,6 @@ public class TaskTrack : AggregateRoot<Guid>
         Status = s.Status;
         StartDate = s.StartDate;
         EndDate = s.EndDate;
-        WorkPackageId = s.WorkPackageId;
         Reported = s.Reported;
         Reports = s.Reports;
         Deleted = s.Deleted;

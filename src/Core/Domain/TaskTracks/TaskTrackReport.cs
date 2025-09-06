@@ -1,4 +1,4 @@
-﻿namespace TaskTracker.Domain.TaskTracks;
+﻿namespace Shifty.Domain.TaskTracks;
 
 public class TaskTrackReport
 {

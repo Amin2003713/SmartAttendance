@@ -1,15 +1,17 @@
-﻿using System.Diagnostics;
-using Mapster;
+﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Shifty.Application.Features.Users.Queries.GetAllUsers;
 using Shifty.Application.Features.Vehicles.Queries.GetVehicles;
 using Shifty.Application.Features.Vehicles.Requests.Queries.GetVehicles;
 using Shifty.Application.Interfaces.Vehicles;
+using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using Shifty.Common.Exceptions;
 
 namespace Shifty.RequestHandlers.Features.Vehicles.Queries.GetVehicles;
 
 public class GetVehiclesQueryHandler(
     IVehicleQueryRepository queryRepository,
+    IMediator mediator,
     ILogger<GetVehiclesQueryHandler> logger,
     IStringLocalizer<GetVehiclesQueryHandler> localizer)
     : IRequestHandler<GetVehiclesQuery, List<GetVehicleQueryResponse>>
@@ -20,16 +22,28 @@ public class GetVehiclesQueryHandler(
     {
         try
         {
-            var vehicles = await queryRepository
-                .TableNoTracking
-                .ProjectToType<GetVehicleQueryResponse>()
+            var rawData = await queryRepository.TableNoTracking
+                .Select(x => new { Vehicle = x.Adapt<GetVehicleQueryResponse>(), x.ResponsibleId })
                 .ToListAsync(cancellationToken);
 
-            if (vehicles.Count == 0)
-            {   
+            if (rawData.Count == 0)
+            {
                 logger.LogInformation(localizer["NoVehiclesFound"]);
-                return vehicles;
+                return [];
             }
+
+            var users = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
+            var userDictionary = users.ToDictionary(u => u.Id);
+
+            foreach (var entry in rawData)
+            {
+                if (userDictionary.TryGetValue(entry.ResponsibleId, out var user))
+                {
+                    entry.Vehicle.Responsible = user.Adapt<LogPropertyInfoResponse>();
+                }
+            }
+
+            var vehicles = rawData.Select(x => x.Vehicle).ToList();
 
             logger.LogInformation("{Message} {@Count}",
                 localizer["VehiclesFound", vehicles.Count],
@@ -40,13 +54,9 @@ public class GetVehiclesQueryHandler(
         catch (ShiftyException ex)
         {
             logger.LogWarning(ex, localizer["BusinessErrorWhileRetrieving"]);
-            throw; 
-        }
-        catch (OperationCanceledException)
-        {
-            logger.LogInformation(localizer["OperationCanceled"]);
             throw;
         }
+
         catch (Exception ex)
         {
             logger.LogError(ex, localizer["UnexpectedErrorWhileRetrieving"]);

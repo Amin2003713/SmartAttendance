@@ -12,7 +12,6 @@ namespace Shifty.RequestHandlers.Features.Calendars.Queries.GetCalendar;
 public class GetCalendarQueryHandler(
     IdentityService identityService,
     ICalendarQueryRepository calendarQueryRepository,
-    IMediator mediator,
     IDailyCalendarQueryRepository dailyCalendarQueryRepository,
     ILogger<GetCalendarQueryHandler> logger
 ) : IRequestHandler<GetCalendarQuery, List<GetCalendarResponse>>

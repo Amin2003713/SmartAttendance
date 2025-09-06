@@ -1,12 +1,12 @@
 ﻿using Mapster;
 using Shifty.Application.Features.TaskTrack.Queries.GetTackTracks;
+using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
 using Shifty.Application.Interfaces.Base.EventInterface;
 using Shifty.Common.Exceptions;
 using Shifty.Common.Utilities.DynamicTableHelper;
 using Shifty.Common.Utilities.PaginationHelpers;
 using Shifty.Domain.TaskTracks.Aggregate;
 using Shifty.Persistence.Services.Identities;
-using TaskTracker.Application.TaskTrack.Requests.Queries.GetTaskTracks;
 
 namespace Shifty.RequestHandlers.Features.TaskTracks.Queries.GetTaskTracks;
 
@@ -28,7 +28,6 @@ public class GetTaskTrackQueryHandler(
             userId,
             request.PageNumber);
 
-
         try
         {
             logger.LogInformation(
@@ -47,7 +46,7 @@ public class GetTaskTrackQueryHandler(
             var responses = events.Adapt<List<GetTaskTrackResponse>>();
 
             logger.LogInformation(
-                "Retrieved {Count} TaskTrack(s)  on page {PageNumber}",
+                "Retrieved {Count} Missions(s)  on page {PageNumber}",
                 count,
                 request.PageNumber);
 

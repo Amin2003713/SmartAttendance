@@ -12,7 +12,7 @@ using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
 
 namespace Shifty.Api.Controllers.Messages;
 
-public class MessageController : IpaBaseController
+public class MessageController : ShiftyBaseController
 {
     /// <summary>
     ///     Creates a new message for a project.
@@ -30,7 +30,7 @@ public class MessageController : IpaBaseController
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task CreateMessage([FromForm] CreateMessageRequest request, CancellationToken cancellationToken)
     {
-        await Mediator.Send(request.Adapt<CreateCommand>().AddFile(request.ImageFile!),
+        await Mediator.Send(request.Adapt<CreateMessageCommand>().AddFile(request.ImageFile!),
             cancellationToken);
     }
 

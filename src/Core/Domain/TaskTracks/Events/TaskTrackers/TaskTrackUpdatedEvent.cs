@@ -7,7 +7,6 @@ public record TaskTrackUpdatedEvent(
     Guid AggregateId,
     string Title,
     string Description,
-    Guid? WorkPackageId,
     PriorityType PriorityType,
     List<Guid> AssigneeId,
     Guid CreatedBy,

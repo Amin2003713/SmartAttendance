@@ -3,7 +3,7 @@ using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorage;
 
 namespace Shifty.Api.Controllers.Storages;
 
-public class StorageController : IpaBaseController
+public class StorageController : ShiftyBaseController
 {
     /// <summary>
     ///     Retrieves remaining storage across all projects.

@@ -1,4 +1,4 @@
-﻿using TaskTracker.Application.TaskTrack.Requests.Commands.CreateTaskTrackReport;
+﻿using Shifty.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrackReport;
 
 namespace Shifty.Application.Features.TaskTrack.Commands.CreateTaskTrackReport;
 

@@ -8,7 +8,7 @@ using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 
 namespace Shifty.Api.Controllers.Discounts;
 
-public class DiscountController : IpaBaseController
+public class DiscountController : ShiftyBaseController
 {
     /// <summary>
     ///     Creates a new discount.

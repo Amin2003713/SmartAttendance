@@ -6,12 +6,12 @@ using Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackById;
 using Shifty.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrack;
 using Shifty.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrack;
 using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
+using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
 using Shifty.Common.Utilities.PaginationHelpers;
-using TaskTracker.Application.TaskTrack.Requests.Queries.GetTaskTracks;
 
 namespace Shifty.Api.Controllers.TaskTracks;
 
-public class Task_TrackController : IpaBaseController
+public class Task_TrackController : ShiftyBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create TaskTracker")]

@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.Searches;
+﻿using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
+using Shifty.Common.General.Enums.Searches;
 using Shifty.Common.Utilities.PaginationHelpers;
-using TaskTracker.Application.TaskTrack.Requests.Queries.GetTaskTracks;
 
 namespace Shifty.Application.Features.TaskTrack.Queries.GetTackTracks;
 

@@ -3,7 +3,7 @@ using Shifty.Application.Base.Settings.Requests.UpdateSetting;
 
 namespace Shifty.Api.Controllers.Settings;
 
-public class SettingController : IpaBaseController
+public class SettingController : ShiftyBaseController
 {
     /// <summary>
     ///     Updates the company settings.

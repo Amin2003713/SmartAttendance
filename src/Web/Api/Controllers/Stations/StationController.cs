@@ -9,7 +9,7 @@ using Shifty.Application.Features.Stations.Requests.Queries.GetStations;
 
 namespace Shifty.Api.Controllers.Stations;
 
-public class StationController : IpaBaseController
+public class StationController : ShiftyBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create a Stations", Description = "Creates a new Stations")]
@@ -42,7 +42,7 @@ public class StationController : IpaBaseController
     public async Task<List<GetStationResponse>> GetStations(CancellationToken cancellationToken) =>
         await Mediator.Send(new GetStationsQuery(), cancellationToken);
 
-    [HttpGet]
+    [HttpGet("By-Id")]
     [SwaggerOperation(Summary = "Get By Id")]
     [ProducesResponseType(typeof(GetStationResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]

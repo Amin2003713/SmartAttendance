@@ -161,17 +161,19 @@ public class DailyCalendarQueryRepository(
                 startDate,
                 endDate);
 
-            var holiday = await TableNoTracking.Where(a => a.Date <= endDate &&
-                                                           a.Date >= startDate &&
-                                                           (a.IsReminder || a.IsMeeting || a.IsHoliday) &&
-                                                           a.CalendarUsers.Any(cu =>
-                                                               cu.UserId == userId) &&
-                                                           a.DeletedBy == null)
+            var response = await TableNoTracking.Where(a => a.Date <= endDate &&
+                                                            a.Date >= startDate &&
+                                                            (a.IsReminder || a.IsMeeting || a.IsHoliday) &&
+                                                            (
+                                                                !a.IsReminder ||
+                                                                a.CalendarUsers.Any(cu => cu.UserId == userId))
+                                                            &&
+                                                            a.DeletedBy == null)
                 .ToListAsync(cancellationToken);
 
-            logger.LogInformation("Custom holiday found: {Found}", holiday != null);
+            logger.LogInformation("Custom holiday found: {Found}", response != null);
 
-            return holiday;
+            return response;
         }
         catch (Exception ex)
         {

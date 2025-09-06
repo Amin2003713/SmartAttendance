@@ -3,10 +3,10 @@ using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
 
 namespace Shifty.Application.Features.Messages.Commands.CreateMessage;
 
-public class CreateCommand : CreateMessageRequest,
+public class CreateMessageCommand : CreateMessageRequest,
     IRequest
 {
-    public CreateCommand AddFile(UploadMediaFileRequest imageFile)
+    public CreateMessageCommand AddFile(UploadMediaFileRequest imageFile)
     {
         ImageFile = imageFile;
         return this;

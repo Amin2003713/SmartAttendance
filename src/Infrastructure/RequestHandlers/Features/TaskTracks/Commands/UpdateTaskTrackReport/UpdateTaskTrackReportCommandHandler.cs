@@ -23,8 +23,8 @@ public class UpdateTaskTrackReportCommandHandler(
 
         if (!await eventReader.ExistsAsync(request.TaskTrackId, cancellationToken))
         {
-            logger.LogWarning("TaskTrack {TackTrackId} not found.", request.TaskTrackId);
-            throw ShiftyException.NotFound(localizer["TaskTrack not found."].Value);
+            logger.LogWarning("Missions {TackTrackId} not found.", request.TaskTrackId);
+            throw ShiftyException.NotFound(localizer["Missions not found."].Value);
         }
 
         var userId = identityService.GetUserId<Guid>();
@@ -34,13 +34,13 @@ public class UpdateTaskTrackReportCommandHandler(
             cancellationToken: cancellationToken);
 
         if (taskTrack is null)
-            throw ShiftyException.NotFound(localizer["TaskTrack not found."].Value);
+            throw ShiftyException.NotFound(localizer["Missions not found."].Value);
 
         var report = taskTrack.Reports.FirstOrDefault(r => r.ReportId == request.ReportId);
 
         if (report == null)
         {
-            logger.LogWarning("Report {ReportId} not found in TaskTrack {TaskTrackId}.",
+            logger.LogWarning("Report {ReportId} not found in Missions {TaskTrackId}.",
                 request.ReportId,
                 request.TaskTrackId);
 

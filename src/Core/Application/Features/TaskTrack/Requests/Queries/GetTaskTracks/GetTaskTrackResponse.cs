@@ -1,6 +1,6 @@
 ﻿using Shifty.Common.General.Enums;
 
-namespace TaskTracker.Application.TaskTrack.Requests.Queries.GetTaskTracks;
+namespace Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
 
 public class GetTaskTrackResponse
 {

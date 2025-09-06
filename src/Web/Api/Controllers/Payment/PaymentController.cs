@@ -6,7 +6,7 @@ using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
 
 namespace Shifty.Api.Controllers.Payment;
 
-public class PaymentController : IpaBaseController
+public class PaymentController : ShiftyBaseController
 {
     /// <summary>
     ///     Retrieves a list of all payments.

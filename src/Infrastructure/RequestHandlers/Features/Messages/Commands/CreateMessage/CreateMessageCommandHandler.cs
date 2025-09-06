@@ -14,12 +14,12 @@ public class CreateMessageCommandHandler(
     IMessageCommandRepository messageCommandRepository,
     IMessageTargetUsersCommandRepository messageTargetUsersCommandRepository,
     ILogger<CreateMessageCommandHandler> logger,
-    IStringLocalizer<CreateMessageCommandHandler> localizer,
-    IMediator mediator
+    IMediator mediator,
+    IStringLocalizer<CreateMessageCommandHandler> localizer
 )
-    : IRequestHandler<CreateCommand>
+    : IRequestHandler<CreateMessageCommand>
 {
-    public async Task Handle(CreateCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateMessageCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -28,41 +28,40 @@ public class CreateMessageCommandHandler(
 
             var message = request.Adapt<Message>();
 
-            if (request.ImageFile is { MediaFile: not null })
+                if (request.ImageFile is { MediaFile: not null })
             {
-                logger.LogInformation("Uploading image for message {MessageId} .",
+                logger.LogInformation("Uploading image for message {MessageId} ",
                     message.Id);
 
                 await using var imgStream = new MemoryStream();
                 await request.ImageFile.MediaFile.CopyToAsync(imgStream, cancellationToken);
 
-
                 var uploaded = await mediator.Send(new UploadHubFileCommand
                 {
                     File = request.ImageFile.MediaFile,
+                    ReportDate = DateTime.Now,
                     RowId = message.Id,
                     RowType = FileStorageType.CompanyMessage
                 }, cancellationToken);
 
                 message.ImageUrl = uploaded.Url;
-
-
-                await messageCommandRepository.AddAsync(message, cancellationToken);
-                logger.LogInformation("Message {MessageId} created successfully.", message.Id);
-
-                if (request.Recipients?.Any() == true)
-                    foreach (var targetUserId in request.Recipients.Select(a => a.Id))
-                    {
-                        var messageTargetUser = new MessageTargetUser
-                        {
-                            MessageId = message.Id,
-                            UserId = targetUserId
-                        };
-
-                        await messageTargetUsersCommandRepository.AddAsync(messageTargetUser, cancellationToken);
-                        logger.LogInformation("User {UserId} added to message {MessageId}.", targetUserId, message.Id);
-                    }
             }
+
+            await messageCommandRepository.AddAsync(message, cancellationToken);
+            logger.LogInformation("Message {MessageId} created successfully.", message.Id);
+
+            if (request.Recipients?.Any() == true)
+                foreach (var targetUserId in request.Recipients.Select(a => a.Id))
+                {
+                    var messageTargetUser = new MessageTargetUser
+                    {
+                        MessageId = message.Id,
+                        UserId = targetUserId
+                    };
+
+                    await messageTargetUsersCommandRepository.AddAsync(messageTargetUser, cancellationToken);
+                    logger.LogInformation("User {UserId} added to message {MessageId}.", targetUserId, message.Id);
+                }
         }
         catch (Exception ex)
         {

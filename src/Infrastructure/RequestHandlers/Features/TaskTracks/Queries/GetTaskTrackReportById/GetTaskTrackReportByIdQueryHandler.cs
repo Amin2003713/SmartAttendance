@@ -21,7 +21,7 @@ public class GetTaskTrackReportByIdQueryHandler(
         CancellationToken cancellationToken)
     {
         var userId = identityService.GetUserId<Guid>();
-        logger.LogInformation("Fetching report {ReportId} from TaskTrack {AggregateId} by user {UserId}",
+        logger.LogInformation("Fetching report {ReportId} from Missions {AggregateId} by user {UserId}",
             request.ReportId,
             request.AggregateId,
             userId);
@@ -31,13 +31,13 @@ public class GetTaskTrackReportByIdQueryHandler(
 
         if (taskTrack is null)
         {
-            logger.LogWarning("TaskTrack {AggregateId} not found.", request.AggregateId);
-            throw ShiftyException.NotFound(localizer["No TaskTrack found."].Value);
+            logger.LogWarning("Missions {AggregateId} not found.", request.AggregateId);
+            throw ShiftyException.NotFound(localizer["No Missions found."].Value);
         }
 
         if (taskTrack.CreatedBy != userId && !taskTrack.AssigneeId.Contains(userId))
         {
-            logger.LogWarning("User {UserId} attempted to access TaskTrack {AggregateId} without permission.",
+            logger.LogWarning("User {UserId} attempted to access Missions {AggregateId} without permission.",
                 userId,
                 request.AggregateId);
 
@@ -48,7 +48,7 @@ public class GetTaskTrackReportByIdQueryHandler(
 
         if (report is null)
         {
-            logger.LogWarning("Report {ReportId} not found in TaskTrack {AggregateId}.",
+            logger.LogWarning("Report {ReportId} not found in Missions {AggregateId}.",
                 request.ReportId,
                 request.AggregateId);
 
@@ -58,7 +58,7 @@ public class GetTaskTrackReportByIdQueryHandler(
         var response = report.Adapt<TaskTrackReportResponse>();
         response.AggregateId = request.AggregateId;
 
-        logger.LogInformation("Successfully retrieved report {ReportId} for TaskTrack {AggregateId}.",
+        logger.LogInformation("Successfully retrieved report {ReportId} for Missions {AggregateId}.",
             request.ReportId,
             request.AggregateId);
 

@@ -110,43 +110,6 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.CalenderProjects.CalendarProject", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CalendarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalendarId");
-
-                    b.ToTable("CalendarProjects");
-                });
-
             modelBuilder.Entity("Shifty.Domain.Calenders.CalenderUsers.CalendarUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -955,6 +918,66 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("UserTokens");
                 });
 
+            modelBuilder.Entity("Shifty.Domain.Vehicles.Vehicle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descriprion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ResponsibleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("VehicleType")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("YearOfProduction")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vehicles");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Shifty.Domain.Users.Role", null)
@@ -989,15 +1012,6 @@ namespace Shifty.Persistence.Migrations.App
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Shifty.Domain.Calenders.CalenderProjects.CalendarProject", b =>
-                {
-                    b.HasOne("Shifty.Domain.Calenders.DailyCalender.DailyCalendar", "Calendar")
-                        .WithMany("CalendarProjects")
-                        .HasForeignKey("CalendarId");
-
-                    b.Navigation("Calendar");
                 });
 
             modelBuilder.Entity("Shifty.Domain.Calenders.CalenderUsers.CalendarUser", b =>
@@ -1151,10 +1165,39 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Shifty.Domain.Vehicles.Vehicle", b =>
+                {
+                    b.OwnsOne("Shifty.Common.Common.Requests.PlateNumber", "PlateNumber", b1 =>
+                        {
+                            b1.Property<Guid>("VehicleId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("LeftNumber")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("MiddleMark")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RegionCode")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("RightNumber")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("VehicleId");
+
+                            b1.ToTable("Vehicles");
+
+                            b1.WithOwner()
+                                .HasForeignKey("VehicleId");
+                        });
+
+                    b.Navigation("PlateNumber")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Shifty.Domain.Calenders.DailyCalender.DailyCalendar", b =>
                 {
-                    b.Navigation("CalendarProjects");
-
                     b.Navigation("CalendarUsers");
                 });
 

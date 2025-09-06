@@ -21,7 +21,7 @@ public class Station : BaseEntity
 
     public StationType StationType { get; set; }
 
-    // public virtual ICollection<Mission> Missions { get; set; }
+    // public virtual ICollection<Missions> Missions { get; set; }
 
 
     public void Update(Station station)

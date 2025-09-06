@@ -7,7 +7,7 @@ using Shifty.Application.Features.Messages.Comments.Request.Queries.GetComments;
 
 namespace Shifty.Api.Controllers.Messages.Comments;
 
-public class CommentController : IpaBaseController
+public class CommentController : ShiftyBaseController
 {
     /// <summary>
     ///     Retrieves the list of comments for a specific message or item.

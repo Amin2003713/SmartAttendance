@@ -17,7 +17,7 @@ using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
 
 namespace Shifty.Api.Controllers.Calendars;
 
-public class CalendarController : IpaBaseController
+public class CalendarController : ShiftyBaseController
 {
     /// <summary>
     ///     Gets the calendar data for a specific project and month.
@@ -65,7 +65,7 @@ public class CalendarController : IpaBaseController
     /// <param name="request">Requests containing holiday details.</param>
     /// <param name="cancellationToken">Cancellation token for the request.</param>
     /// <response code="201">Holiday added successfully.</response>
-    [HttpPost]
+    [HttpPost("Add-Holiday")]
     [SwaggerOperation("Add-Holiday")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task AddHolidayToCalendar(

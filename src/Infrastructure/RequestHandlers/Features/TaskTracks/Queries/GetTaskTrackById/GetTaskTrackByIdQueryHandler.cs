@@ -21,7 +21,7 @@ public class GetTaskTrackByIdQueryHandler(
         CancellationToken cancellationToken)
     {
         var userId = identityService.GetUserId<Guid>();
-        logger.LogInformation("User {UserId} requested TaskTrack with ID {AggregateId} ",
+        logger.LogInformation("User {UserId} requested Missions with ID {AggregateId} ",
             userId,
             request.AggregateId);
 
@@ -30,7 +30,7 @@ public class GetTaskTrackByIdQueryHandler(
 
         if (events is null || events.Count == 0)
         {
-            logger.LogWarning("No events found for TaskTrack {AggregateId}", request.AggregateId);
+            logger.LogWarning("No events found for Missions {AggregateId}", request.AggregateId);
             throw ShiftyException.NotFound("Task not found");
         }
 
@@ -43,7 +43,7 @@ public class GetTaskTrackByIdQueryHandler(
         response.AggregateId = taskTrack.AggregateId;
 
         logger.LogInformation(
-            "Successfully retrieved TaskTrack {AggregateId} with {ReportCount} reports for user {UserId}",
+            "Successfully retrieved Missions {AggregateId} with {ReportCount} reports for user {UserId}",
             request.AggregateId,
             response.Reports.Count,
             userId);

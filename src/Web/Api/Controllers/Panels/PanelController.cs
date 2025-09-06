@@ -5,7 +5,7 @@ using Shifty.Application.Features.Users.Queries.GetUserTenants;
 
 namespace Shifty.Api.Controllers.Panels;
 
-public class PanelController : IpaBaseController
+public class PanelController : ShiftyBaseController
 {
     /// <summary>
     ///     Checks the availability or status of a given domain.

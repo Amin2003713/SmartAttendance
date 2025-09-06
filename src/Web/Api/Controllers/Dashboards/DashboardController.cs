@@ -7,7 +7,7 @@ using Shifty.Application.Features.Dashboards.Responses.ResourceChartDat;
 
 namespace Shifty.Api.Controllers.Dashboards;
 
-public class DashboardController : IpaBaseController
+public class DashboardController : ShiftyBaseController
 {
     // /// <summary>
     // ///     Retrieves recent entity activities (created/updated)

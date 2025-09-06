@@ -8,7 +8,7 @@ using Shifty.Common.Utilities.TypeConverters;
 
 namespace Shifty.Api.Controllers.HubFiles;
 
-public class Hub_FileController : IpaBaseController
+public class Hub_FileController : ShiftyBaseController
 {
     /// <summary>
     ///     Retrieves a file by its ID with optional compression.
