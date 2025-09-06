@@ -33,7 +33,7 @@ public class Task_TrackController : IpaBaseController
     [HttpDelete]
     [SwaggerOperation(Summary = "Delete TaskTracker")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task Delete(Guid aggregateId, Guid projectId, CancellationToken cancellationToken)
+    public async Task Delete(Guid aggregateId,CancellationToken cancellationToken)
     {
         await Mediator.Send(new DeleteTaskTrackCommand(aggregateId), cancellationToken);
     }
@@ -42,7 +42,6 @@ public class Task_TrackController : IpaBaseController
     [SwaggerOperation("Get Task reporting for a project.")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<PagedResult<GetTaskTrackResponse>> GetDailyReporting(
-        Guid projectId,
         int pageNumber = 1,
         int pageSize = 10,
         CancellationToken cancellationToken = default)
@@ -54,7 +53,7 @@ public class Task_TrackController : IpaBaseController
     [HttpGet("Get-Task-Track-By-Id")]
     [SwaggerOperation("Get task with its reports by ID")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<GetTaskTrackByIdResponse> GetTaskWithReports(Guid projectId, Guid aggregateId,
+    public async Task<GetTaskTrackByIdResponse> GetTaskWithReports( Guid aggregateId,
         CancellationToken cancellationToken = default)
     {
         return await Mediator.Send(new GetTaskTrackByIdQuery(aggregateId), cancellationToken);
