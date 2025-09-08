@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Companies.Commands.AddRequest;
+﻿namespace SmartAttendance.Application.Base.Companies.Commands.AddRequest;
 
 public record AddRequestCommand(
     string EndPoint,

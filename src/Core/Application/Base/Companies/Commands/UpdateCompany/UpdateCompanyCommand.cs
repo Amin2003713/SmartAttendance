@@ -1,6 +1,6 @@
-using Shifty.Application.Commons.MediaFiles.Requests;
+using SmartAttendance.Application.Commons.MediaFiles.Requests;
 
-namespace Shifty.Application.Base.Companies.Commands.UpdateCompany;
+namespace SmartAttendance.Application.Base.Companies.Commands.UpdateCompany;
 
 /// <summary>
 ///     Main class UpdateCompanyCommand implementing IRequest<UpdateCompanyCommandResponse>.

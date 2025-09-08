@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
+﻿namespace SmartAttendance.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 
 public class DiscountCompanyResponse
 {

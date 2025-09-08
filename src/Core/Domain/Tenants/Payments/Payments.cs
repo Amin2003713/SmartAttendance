@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Tenants.Payments;
+﻿namespace SmartAttendance.Domain.Tenants.Payments;
 
 public class Payments
 {
@@ -35,7 +35,8 @@ public class Payments
     public virtual Discount Discount { get; set; }
     public virtual Price Price { get; set; }
     public virtual Payments LastPayment { get; set; }
-    public virtual ShiftyTenantInfo Tenant { get; set; }
+
+    public virtual SmartAttendanceTenantInfo Tenant { get; set; }
     // public virtual ICollection<ActiveService> ActiveServices { get; set; } = [];
 
 

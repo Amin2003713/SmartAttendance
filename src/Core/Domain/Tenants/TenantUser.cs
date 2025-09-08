@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Tenants;
+﻿namespace SmartAttendance.Domain.Tenants;
 
 public class TenantUser
 {
@@ -8,8 +8,8 @@ public class TenantUser
     public string PhoneNumber { get; set; }
     public string NationalCode { get; set; }
     public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
-    public string ShiftyTenantInfoId { get; set; }
-    public ShiftyTenantInfo ShiftyTenantInfo { get; set; }
+    public string SmartAttendanceTenantInfoId { get; set; }
+    public SmartAttendanceTenantInfo SmartAttendanceTenantInfo { get; set; }
     public bool IsActive { get; set; } = true;
     public string UserName { get; set; }
 }

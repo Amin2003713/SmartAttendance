@@ -1,23 +1,24 @@
 ﻿using DNTPersianUtils.Core;
 using Finbuckle.MultiTenant.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using QuestPDF;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using Shifty.Application.Features.Pdf.Query.GetFactorPdf;
-using Shifty.Application.Interfaces.Tenants.Payment;
-using Shifty.Application.Interfaces.Tenants.Prices;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Services.Identities;
-using Shifty.Persistence.Services.Pdf.GetFactorPdf;
+using SmartAttendance.Application.Features.Pdf.Query.GetFactorPdf;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Application.Interfaces.Tenants.Prices;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Services.Identities;
+using SmartAttendance.Persistence.Services.Pdf.GetFactorPdf;
 
-namespace Shifty.RequestHandlers.Pdf.Queries.GetFactorPdf;
+namespace SmartAttendance.RequestHandlers.Pdf.Queries.GetFactorPdf;
 
 public class GetFactorPdfQueryHandler(
     IdentityService service,
     IPaymentQueryRepository paymentQueryRepository,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> accessor,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> accessor,
     IPriceQueryRepository priceQueryRepository,
     UserManager<User> userManager,
     ILogger<GetFactorPdfQueryHandler> logger,
@@ -34,7 +35,7 @@ public class GetFactorPdfQueryHandler(
             if (payment is null)
             {
                 logger.LogWarning("Payment with ID {PaymentId} not found or not successful.", request.PaymentId);
-                throw ShiftyException.NotFound(localizer["Payment not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Payment not found."]);
             }
 
             var user = await userManager.FindByIdAsync(userId.ToString());
@@ -42,11 +43,11 @@ public class GetFactorPdfQueryHandler(
             if (user is null)
             {
                 logger.LogWarning("User with ID {UserId} not found.", userId);
-                throw ShiftyException.NotFound(localizer["User not found."]);
+                throw SmartAttendanceException.NotFound(localizer["User not found."]);
             }
 
             var price = await priceQueryRepository.GetPriceById(payment.PriceId, cancellationToken);
-            QuestPDF.Settings.License = LicenseType.Community;
+            Settings.License = LicenseType.Community;
 
             var htmlContent = new GetFactorPdfDocument(accessor.MultiTenantContext.TenantInfo!,
                 payment,
@@ -77,7 +78,7 @@ public class GetFactorPdfQueryHandler(
 
             return "result.fileUrl"; // todo : fix based on the mediator ;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error occurred while generating invoice PDF.");
             throw;
@@ -88,7 +89,7 @@ public class GetFactorPdfQueryHandler(
                 "Unexpected error occurred while generating invoice PDF for payment {PaymentId}.",
                 request.PaymentId);
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while generating the invoice PDF."]);
         }
     }

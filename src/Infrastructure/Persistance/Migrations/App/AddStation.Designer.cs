@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shifty.Persistence.Db;
+using SmartAttendance.Persistence.Db;
 
 #nullable disable
 
-namespace Shifty.Persistence.Migrations.App
+namespace SmartAttendance.Persistence.Migrations.App
 {
-    [DbContext(typeof(ShiftyDbContext))]
+    [DbContext(typeof(SmartAttendanceDbContext))]
     [Migration("20250810104151_AddStation")]
     partial class AddStation
     {
@@ -113,7 +113,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.CalenderProjects.CalendarProject", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Calenders.CalenderProjects.CalendarProject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,7 +150,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("CalendarProjects");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.CalenderUsers.CalendarUser", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Calenders.CalenderUsers.CalendarUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +190,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("CalendarUsers");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.DailyCalender.DailyCalendar", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Calenders.DailyCalender.DailyCalendar", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -237,7 +237,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("DailyCalendars");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Departments.Department", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Departments.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +284,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.HubFiles.HubFile", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.HubFiles.HubFile", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -335,7 +335,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("HubFiles");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.Comments.Comment", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.Comments.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -380,7 +380,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.Message", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.Message", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -428,7 +428,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.MessageTargetUsers.MessageTargetUser", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.MessageTargetUsers.MessageTargetUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -468,7 +468,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("MessageTargetUsers");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.UserLikedMessages.UserLikedMessage", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.UserLikedMessages.UserLikedMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -508,7 +508,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("UserLikedMessages");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.UserVisitedMessages.UserVisitedMessage", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.UserVisitedMessages.UserVisitedMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -548,7 +548,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("UserVisitedMessages");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Setting.Setting", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Setting.Setting", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -583,7 +583,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Stations.Station", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Stations.Station", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -636,7 +636,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Stations");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Storages.Storage", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Storages.Storage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -678,7 +678,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.Role", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -713,7 +713,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -848,7 +848,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.UserPassword", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.UserPassword", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -889,7 +889,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("UserPasswords");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.UserRoles", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.UserRoles", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -907,7 +907,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.UserToken", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.UserToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -960,7 +960,7 @@ namespace Shifty.Persistence.Migrations.App
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.Role", null)
+                    b.HasOne("SmartAttendance.Domain.Users.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -969,7 +969,7 @@ namespace Shifty.Persistence.Migrations.App
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("SmartAttendance.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -978,7 +978,7 @@ namespace Shifty.Persistence.Migrations.App
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("SmartAttendance.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -987,39 +987,39 @@ namespace Shifty.Persistence.Migrations.App
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("SmartAttendance.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.CalenderProjects.CalendarProject", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Calenders.CalenderProjects.CalendarProject", b =>
                 {
-                    b.HasOne("Shifty.Domain.Calenders.DailyCalender.DailyCalendar", "Calendar")
+                    b.HasOne("SmartAttendance.Domain.Calenders.DailyCalender.DailyCalendar", "Calendar")
                         .WithMany("CalendarProjects")
                         .HasForeignKey("CalendarId");
 
                     b.Navigation("Calendar");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.CalenderUsers.CalendarUser", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Calenders.CalenderUsers.CalendarUser", b =>
                 {
-                    b.HasOne("Shifty.Domain.Calenders.DailyCalender.DailyCalendar", "Calendar")
+                    b.HasOne("SmartAttendance.Domain.Calenders.DailyCalender.DailyCalendar", "Calendar")
                         .WithMany("CalendarUsers")
                         .HasForeignKey("CalendarId");
 
                     b.Navigation("Calendar");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Departments.Department", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Departments.Department", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", "Manager")
+                    b.HasOne("SmartAttendance.Domain.Users.User", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Shifty.Domain.Departments.Department", "ParentDepartment")
+                    b.HasOne("SmartAttendance.Domain.Departments.Department", "ParentDepartment")
                         .WithMany("Children")
                         .HasForeignKey("ParentDepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1029,15 +1029,15 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("ParentDepartment");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.Comments.Comment", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.Comments.Comment", b =>
                 {
-                    b.HasOne("Shifty.Domain.Messages.Message", "Message")
+                    b.HasOne("SmartAttendance.Domain.Messages.Message", "Message")
                         .WithMany("Comments")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shifty.Domain.Messages.Comments.Comment", "RelatedComment")
+                    b.HasOne("SmartAttendance.Domain.Messages.Comments.Comment", "RelatedComment")
                         .WithMany()
                         .HasForeignKey("RelatedCommentId");
 
@@ -1046,9 +1046,9 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("RelatedComment");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.MessageTargetUsers.MessageTargetUser", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.MessageTargetUsers.MessageTargetUser", b =>
                 {
-                    b.HasOne("Shifty.Domain.Messages.Message", "Message")
+                    b.HasOne("SmartAttendance.Domain.Messages.Message", "Message")
                         .WithMany("UserTargetMessages")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1057,9 +1057,9 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("Message");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.UserLikedMessages.UserLikedMessage", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.UserLikedMessages.UserLikedMessage", b =>
                 {
-                    b.HasOne("Shifty.Domain.Messages.Message", "Message")
+                    b.HasOne("SmartAttendance.Domain.Messages.Message", "Message")
                         .WithMany("UserLikedMessages")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1068,9 +1068,9 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("Message");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.UserVisitedMessages.UserVisitedMessage", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.UserVisitedMessages.UserVisitedMessage", b =>
                 {
-                    b.HasOne("Shifty.Domain.Messages.Message", "Message")
+                    b.HasOne("SmartAttendance.Domain.Messages.Message", "Message")
                         .WithMany("UserVisitedMessages")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1079,9 +1079,9 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("Message");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Stations.Station", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Stations.Station", b =>
                 {
-                    b.OwnsOne("Shifty.Domain.Locations.Location", "Location", b1 =>
+                    b.OwnsOne("SmartAttendance.Domain.Locations.Location", "Location", b1 =>
                         {
                             b1.Property<Guid>("StationId")
                                 .HasColumnType("uniqueidentifier");
@@ -1107,9 +1107,9 @@ namespace Shifty.Persistence.Migrations.App
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>
                 {
-                    b.HasOne("Shifty.Domain.Departments.Department", "Department")
+                    b.HasOne("SmartAttendance.Domain.Departments.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1117,9 +1117,9 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.UserPassword", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.UserPassword", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", "User")
+                    b.HasOne("SmartAttendance.Domain.Users.User", "User")
                         .WithMany("UserPasswords")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1128,24 +1128,24 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.UserRoles", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.UserRoles", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.Role", null)
+                    b.HasOne("SmartAttendance.Domain.Users.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shifty.Domain.Users.User", null)
+                    b.HasOne("SmartAttendance.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.UserToken", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.UserToken", b =>
                 {
-                    b.HasOne("Shifty.Domain.Users.User", "User")
+                    b.HasOne("SmartAttendance.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1154,21 +1154,21 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Calenders.DailyCalender.DailyCalendar", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Calenders.DailyCalender.DailyCalendar", b =>
                 {
                     b.Navigation("CalendarProjects");
 
                     b.Navigation("CalendarUsers");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Departments.Department", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Departments.Department", b =>
                 {
                     b.Navigation("Children");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Messages.Message", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Messages.Message", b =>
                 {
                     b.Navigation("Comments");
 
@@ -1179,7 +1179,7 @@ namespace Shifty.Persistence.Migrations.App
                     b.Navigation("UserVisitedMessages");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Users.User", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>
                 {
                     b.Navigation("UserPasswords");
                 });

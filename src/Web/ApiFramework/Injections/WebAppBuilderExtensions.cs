@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
-using Shifty.ApiFramework.Analytics;
-using Shifty.ApiFramework.Middleware.Localaizer;
-using Shifty.ApiFramework.Middleware.Tenant;
-using Shifty.Common.General;
-using Shifty.Persistence.Services.Taskes;
+using SmartAttendance.ApiFramework.Analytics;
+using SmartAttendance.ApiFramework.Middleware.Localaizer;
+using SmartAttendance.ApiFramework.Middleware.Tenant;
+using SmartAttendance.Common.General;
+using SmartAttendance.Persistence.Services.Taskes;
 
-namespace Shifty.ApiFramework.Injections;
+namespace SmartAttendance.ApiFramework.Injections;
 
 public static class WebAppBuilderExtensions
 {

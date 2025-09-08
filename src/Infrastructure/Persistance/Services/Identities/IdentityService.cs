@@ -1,15 +1,15 @@
 ﻿using System.Globalization;
-using Shifty.Common.General.Enums;
+using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Persistence.Services.Identities;
+namespace SmartAttendance.Persistence.Services.Identities;
 
 public class IdentityService(
     IHttpContextAccessor accessor,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> contextAccessor
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> contextAccessor
 )
 {
     private ClaimsPrincipal? Identity => accessor.HttpContext?.User;
-    public ShiftyTenantInfo? TenantInfo => contextAccessor.MultiTenantContext.TenantInfo;
+    public SmartAttendanceTenantInfo? TenantInfo => contextAccessor.MultiTenantContext.TenantInfo;
 
     public bool IsAuthenticated => Identity != null;
 

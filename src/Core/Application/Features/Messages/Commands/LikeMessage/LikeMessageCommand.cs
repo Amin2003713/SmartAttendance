@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Commands.LikeMessage;
+﻿namespace SmartAttendance.Application.Features.Messages.Commands.LikeMessage;
 
 public record LikeMessageCommand(
     Guid MessageId

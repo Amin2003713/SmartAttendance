@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Shifty.ApiFramework.Swagger;
+namespace SmartAttendance.ApiFramework.Swagger;
 
 public class EnumSchemaFilter : ISchemaFilter
 {

@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Messages.UserVisitedMessages;
+namespace SmartAttendance.Domain.Messages.UserVisitedMessages;
 
 public class UserVisitedMessage : BaseEntity
 {

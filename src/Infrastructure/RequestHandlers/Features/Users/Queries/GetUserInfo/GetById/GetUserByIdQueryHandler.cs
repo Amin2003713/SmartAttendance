@@ -1,11 +1,11 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Queries.GetById;
-using Shifty.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Features.Users.Queries.GetById;
+using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetUserInfo.GetById;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserInfo.GetById;
 
 public class GetUserByIdQueryHandler(
     UserManager<User> userManager,
@@ -19,7 +19,7 @@ public class GetUserByIdQueryHandler(
         if (result == null)
         {
             logger.LogWarning("User with ID {UserId} not found.", request.UserId);
-            ShiftyException.NotFound("User Not Found!");
+            SmartAttendanceException.NotFound("User Not Found!");
         }
 
         logger.LogInformation("User with ID {UserId} retrieved successfully.", request.UserId);

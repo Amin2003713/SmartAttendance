@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Base.MinIo.Requests.Commands.UploadPdf;
+﻿using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
 
-namespace Shifty.Application.Base.MinIo.Commands.UploadPdf;
+namespace SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
 
 public class UploadPdfCommand : UploadPdfRequest,
     IRequest<string>

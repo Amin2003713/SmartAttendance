@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Calendars.Request.Commands.CreateHoliday;
+﻿namespace SmartAttendance.Application.Features.Calendars.Request.Commands.CreateHoliday;
 
 public class CreateHolidayRequestExample : IExamplesProvider<CreateHolidayRequest>
 {

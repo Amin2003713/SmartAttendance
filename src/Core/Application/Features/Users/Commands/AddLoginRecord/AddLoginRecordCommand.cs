@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Commands.AddLoginRecord;
+﻿namespace SmartAttendance.Application.Features.Users.Commands.AddLoginRecord;
 
 public record AddLoginRecordCommand(
     Guid UserId,

@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.MinIo.Commands.UploadPdf;
-using Shifty.Application.Base.MinIo.Commands.UplodeFile;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
+using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Application.Interfaces.Minio;
+namespace SmartAttendance.Application.Interfaces.Minio;
 
 public interface IMinIoCommandRepository : IScopedDependency
 {
@@ -18,5 +18,5 @@ public interface IMinIoCommandRepository : IScopedDependency
     Task<HubFile> UploadXmlAsync(UploadPdfCommand file, CancellationToken cancellationToken);
 
     Task<bool> DeleteFileAsync(string filePath, CancellationToken cancellationToken);
-    void DeletePdfFile(string filePath);
+    void       DeletePdfFile(string filePath);
 }

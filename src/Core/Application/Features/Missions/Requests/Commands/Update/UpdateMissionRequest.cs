@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Missions.Requests.Commands.Create;
+﻿using SmartAttendance.Application.Features.Missions.Requests.Commands.Create;
 
-namespace Shifty.Application.Features.Missions.Requests.Commands.Update;
+namespace SmartAttendance.Application.Features.Missions.Requests.Commands.Update;
 
 public class UpdateMissionRequest :  CreateMissionRequest
 {

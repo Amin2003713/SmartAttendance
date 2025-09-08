@@ -1,7 +1,7 @@
-using Shifty.Common.Common.Requests;
-using Shifty.Common.General.Enums;
+using SmartAttendance.Common.Common.Requests;
+using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Application.Features.Vehicles.Requests.Commands.Create;
+namespace SmartAttendance.Application.Features.Vehicles.Requests.Commands.Create;
 
 public class CreateVehicleRequest
 {

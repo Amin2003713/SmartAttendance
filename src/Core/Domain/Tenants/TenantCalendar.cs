@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Tenants;
+﻿namespace SmartAttendance.Domain.Tenants;
 
 public class TenantCalendar
 {

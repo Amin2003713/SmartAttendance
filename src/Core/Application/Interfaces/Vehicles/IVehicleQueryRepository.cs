@@ -1,9 +1,8 @@
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Stations;
-using Shifty.Domain.Vehicles;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Vehicles;
 
-namespace Shifty.Application.Interfaces.Vehicles;
+namespace SmartAttendance.Application.Interfaces.Vehicles;
 
 public interface IVehicleQueryRepository : IQueryRepository<Vehicle>,
     IScopedDependency;

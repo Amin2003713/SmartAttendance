@@ -1,15 +1,13 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Calendars.Commands.CreateReminder;
-using Shifty.Application.Interfaces.Calendars.CalendarUsers;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Domain.Calenders.CalenderUsers;
-using Shifty.Domain.Calenders.DailyCalender;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Calendars.Commands.CreateReminder;
+using SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Calenders.CalenderUsers;
+using SmartAttendance.Domain.Calenders.DailyCalender;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Commands.CreateReminder;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.CreateReminder;
 
 public class CreateReminderCommandHandler(
     IdentityService service,
@@ -64,7 +62,7 @@ public class CreateReminderCommandHandler(
                 userId,
                 ex.Message);
 
-            throw ShiftyException.InternalServerError(localizer["Reminder creation failed."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["Reminder creation failed."].Value);
         }
     }
 }

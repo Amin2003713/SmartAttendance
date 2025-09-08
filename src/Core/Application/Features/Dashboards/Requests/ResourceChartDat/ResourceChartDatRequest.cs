@@ -1,3 +1,3 @@
-﻿namespace Shifty.Application.Features.Dashboards.Requests.ResourceChartDat;
+﻿namespace SmartAttendance.Application.Features.Dashboards.Requests.ResourceChartDat;
 
 public record ResourceChartDatRequest;

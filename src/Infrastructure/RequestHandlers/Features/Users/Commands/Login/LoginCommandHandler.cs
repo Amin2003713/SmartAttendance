@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Commands.Login;
-using Shifty.Application.Interfaces.Jwt;
-using Shifty.Common.Exceptions;
-using Shifty.Common.Utilities.IdentityHelpers;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Jwt;
+using SmartAttendance.Application.Features.Users.Commands.Login;
+using SmartAttendance.Application.Interfaces.Jwt;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.Utilities.IdentityHelpers;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Jwt;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.Login;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.Login;
 
 public class LoginCommandHandler(
     UserManager<User> userManager,
@@ -35,7 +35,7 @@ public class LoginCommandHandler(
             var user = await userManager.FindByNameAsync(request.UserName);
 
             if (user == null)
-                throw ShiftyException.NotFound(localizer["User was not found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["User was not found."].Value);
 
             // 2. If Identity thinks they’re already locked out, tell them when it ends.
             if (await userManager.IsLockedOutAsync(user))
@@ -44,17 +44,17 @@ public class LoginCommandHandler(
                 var localEnd   = lockoutEnd?.DateTime.ToLocalTime() ?? DateTime.UtcNow;
 
                 if (localEnd.Date == DateTime.MaxValue.Date)
-                    throw ShiftyException.Forbidden(
+                    throw SmartAttendanceException.Forbidden(
                         localizer["User account is locked dou To many failed login attempts. Please contact support."]
                             .Value);
 
                 string msg = localizer["User account is locked until {0}.", localEnd.ToLocalTime()];
-                throw ShiftyException.Forbidden(msg);
+                throw SmartAttendanceException.Forbidden(msg);
             }
 
             // 3. Require phone‐number confirmation as before.
             if (!user.PhoneNumberConfirmed)
-                throw ShiftyException.Forbidden(localizer["User account is not activated."].Value);
+                throw SmartAttendanceException.Forbidden(localizer["User account is not activated."].Value);
 
             // 4. Validate password.
             var isPasswordValid = await userManager.CheckPasswordAsync(user, request.Password);
@@ -73,7 +73,7 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.UtcNow.Add(FirstLockoutDuration);
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw ShiftyException.Forbidden(
+                    throw SmartAttendanceException.Forbidden(
                         localizer["Account locked for {0} minutes after 3 failed attempts.",
                             FirstLockoutDuration.TotalMinutes].Value
                     );
@@ -85,7 +85,7 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.UtcNow.Add(SecondLockoutDuration);
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw ShiftyException.Forbidden(
+                    throw SmartAttendanceException.Forbidden(
                         localizer["Account locked for {0} minutes after 4 failed attempts.",
                             SecondLockoutDuration.TotalMinutes].Value
                     );
@@ -97,12 +97,12 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.MaxValue.ToUniversalTime();
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw ShiftyException.Forbidden(localizer["Too many failed login attempts. Please contact support."]
+                    throw SmartAttendanceException.Forbidden(localizer["Too many failed login attempts. Please contact support."]
                         .Value);
                 }
 
                 // 1st or 2nd failure → just say “invalid credentials.”
-                throw ShiftyException.Unauthorized(localizer["Incorrect username or password."].Value);
+                throw SmartAttendanceException.Unauthorized(localizer["Incorrect username or password."].Value);
             }
 
             // 5. Successful password: clear failure count immediately.
@@ -131,7 +131,7 @@ public class LoginCommandHandler(
                 RefreshToken = refreshToken.RefreshToken
             };
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Error occurred during login.");
             throw;

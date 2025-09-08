@@ -1,5 +1,6 @@
-﻿using Shifty.Application.Base.Companies.Requests.InitialCompany;
+﻿using SmartAttendance.Application.Base.Companies.Requests.InitialCompany;
 
-namespace Shifty.Application.Base.Companies.Commands.InitialCompany;
+namespace SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
 
-public class InitialCompanyCommand : InitialCompanyRequest, IRequest<string>;
+public class InitialCompanyCommand : InitialCompanyRequest,
+    IRequest<string>;

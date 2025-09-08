@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.Messages.Comments.Queries.GetComments;
-using Shifty.Application.Features.Messages.Comments.Request.Queries.GetComments;
-using Shifty.Application.Interfaces.Messages;
-using Shifty.Application.Interfaces.Users;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Features.Messages.Comments.Queries.GetComments;
+using SmartAttendance.Application.Features.Messages.Comments.Request.Queries.GetComments;
+using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Application.Interfaces.Users;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Messages.Comments.Queries.GetComments;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Comments.Queries.GetComments;
 
 public class GetCommentQueryHandler(
     IMessageQueryRepository messageQueryRepository,
@@ -61,7 +61,7 @@ public class GetCommentQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving comments for TargetId: {TargetId}", request.Id);
-            throw ShiftyException.InternalServerError(localizer["Failed to retrieve comments."]);
+            throw SmartAttendanceException.InternalServerError(localizer["Failed to retrieve comments."]);
         }
     }
 }

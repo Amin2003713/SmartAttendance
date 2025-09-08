@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.Companies.Queries.CheckDomain;
-using Shifty.Application.Interfaces.Tenants.Companies;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
+using SmartAttendance.Common.Exceptions;
 using CancellationToken = System.Threading.CancellationToken;
 
-namespace Shifty.RequestHandlers.Base.Companies.Queries.CheckDomain;
+namespace SmartAttendance.RequestHandlers.Base.Companies.Queries.CheckDomain;
 
 public class CheckDomainQueryHandler(
     ICompanyRepository companyRepository,

@@ -1,18 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.Departments.Queries.GetDepartments;
-using Shifty.Application.Features.Departments.Requests.Queries.GetDepartments;
-using Shifty.Application.Interfaces.Departments;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Features.Departments.Queries.GetDepartments;
+using SmartAttendance.Application.Features.Departments.Requests.Queries.GetDepartments;
+using SmartAttendance.Application.Interfaces.Departments;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Departments.Queries.GetDepartments;
+namespace SmartAttendance.RequestHandlers.Features.Departments.Queries.GetDepartments;
 
 public class GetDepartmentQueryHandler(
     IDepartmentQueryRepository departmentQueryRepository,
     ILogger<GetDepartmentQueryHandler> logger,
-    IStringLocalizer<GetDepartmentQueryHandler> localizer)
+    IStringLocalizer<GetDepartmentQueryHandler> localizer
+)
     : IRequestHandler<GetDepartmentsQuery, List<GetDepartmentResponse>>
 {
-    public async Task<List<GetDepartmentResponse>> Handle(GetDepartmentsQuery request,
+    public async Task<List<GetDepartmentResponse>> Handle(
+        GetDepartmentsQuery request,
         CancellationToken cancellationToken)
     {
         try
@@ -43,14 +45,14 @@ public class GetDepartmentQueryHandler(
             logger.LogInformation("Retrieved {Count} departments.", listDepartments.Count);
             return listDepartments;
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while retrieving departments.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving departments."]);
         }
     }

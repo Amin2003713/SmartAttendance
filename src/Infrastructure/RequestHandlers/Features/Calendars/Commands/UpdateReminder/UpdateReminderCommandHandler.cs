@@ -1,13 +1,11 @@
-﻿using Shifty.Application.Features.Calendars.Commands.UpdateReminder;
-using Shifty.Application.Interfaces.Calendars.CalendarUsers;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Domain.Calenders.CalenderUsers;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Calendars.Commands.UpdateReminder;
+using SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Calenders.CalenderUsers;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Commands.UpdateReminder;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.UpdateReminder;
 
 public class UpdateReminderCommandHandler(
     IdentityService service,
@@ -33,7 +31,7 @@ public class UpdateReminderCommandHandler(
             if (reminder == null)
             {
                 logger.LogWarning("Reminder {ReminderId} not found for user {UserId}", request.ReminderId, userId);
-                throw ShiftyException.BadRequest(localizer["Reminder not found."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["Reminder not found."].Value);
             }
 
             if (reminder.CreatedBy != userId)
@@ -42,7 +40,7 @@ public class UpdateReminderCommandHandler(
                     userId,
                     request.ReminderId);
 
-                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
 
 
@@ -76,7 +74,7 @@ public class UpdateReminderCommandHandler(
                 request.ReminderId,
                 userId);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
@@ -87,7 +85,7 @@ public class UpdateReminderCommandHandler(
                 request.ReminderId,
                 userId);
 
-            throw ShiftyException.InternalServerError(localizer["Unable to update reminder."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["Unable to update reminder."].Value);
         }
     }
 }

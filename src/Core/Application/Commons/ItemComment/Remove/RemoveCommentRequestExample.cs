@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Commons.ItemComment.Remove;
+﻿namespace SmartAttendance.Application.Commons.ItemComment.Remove;
 
 public class RemoveCommentRequestExample : IExamplesProvider<RemoveItemCommentRequest>
 {

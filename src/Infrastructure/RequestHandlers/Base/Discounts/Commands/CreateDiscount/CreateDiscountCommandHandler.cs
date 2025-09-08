@@ -1,11 +1,11 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Companies.Queries.IsExist;
-using Shifty.Application.Base.Discounts.Commands.CreateDiscount;
-using Shifty.Application.Interfaces.Tenants.Discounts;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Tenants.Discounts;
+using SmartAttendance.Application.Base.Companies.Queries.IsExist;
+using SmartAttendance.Application.Base.Discounts.Commands.CreateDiscount;
+using SmartAttendance.Application.Interfaces.Tenants.Discounts;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Tenants.Discounts;
 
-namespace Shifty.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
+namespace SmartAttendance.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
 
 public class CreateDiscountCommandHandler(
     IDiscountCommandRepository discountCommandRepository,
@@ -24,7 +24,7 @@ public class CreateDiscountCommandHandler(
         if (await discountQueryRepository.DiscountExists(request.Code, cancellationToken))
         {
             logger.LogWarning("Discount with Code {DiscountCode} already exists.", request.Code);
-            throw ShiftyException.Conflict(localizer["Discount already exists."].Value);
+            throw SmartAttendanceException.Conflict(localizer["Discount already exists."].Value);
         }
 
         // Adapt the incoming request to a Discount domain entity.
@@ -37,7 +37,7 @@ public class CreateDiscountCommandHandler(
             if (!await mediator.Send(new IsCompanyExistByIdQuery(tenantId), cancellationToken))
             {
                 logger.LogWarning("Tenant company with Id {TenantId} not found.", tenantId);
-                throw ShiftyException.NotFound(localizer["Tenant company not found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["Tenant company not found."].Value);
             }
 
             discount.TenantDiscount.Add(new TenantDiscount

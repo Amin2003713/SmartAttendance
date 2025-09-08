@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.HubFiles;
+﻿using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Application.Base.HubFiles.Queries.GetById;
+namespace SmartAttendance.Application.Base.HubFiles.Queries.GetById;
 
 public record GetHubFileByIdQuery(
     Guid Id

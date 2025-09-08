@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using Shifty.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
 
-namespace Shifty.Persistence.Repositories.Common.EventRepository;
+namespace SmartAttendance.Persistence.Repositories.Common.EventRepository;
 
 /// <summary>
 ///     MongoDB implementation of IEventWriter for writing events and snapshots.
@@ -11,9 +11,9 @@ namespace Shifty.Persistence.Repositories.Common.EventRepository;
 public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
     where TAggregate : AggregateRoot<TId>, new() where TId : notnull
 {
-    private readonly IMongoDatabase _database;
+    private readonly IMongoDatabase                _database;
     private readonly IEventReader<TAggregate, TId> _eventReader;
-    private readonly IdentityService _identityService;
+    private readonly IdentityService               _identityService;
 
     /// <summary>
     ///     MongoDB implementation of IEventWriter for writing events and snapshots.
@@ -155,7 +155,7 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
                         Data = SerializeEvent(evt),
                         OccurredOn = DateTime.Now,
                         UserId = userId,
-                        Reported = evt.Reported,
+                        Reported = evt.Reported
                     });
             })
             .ToList();
@@ -167,7 +167,7 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
         var snapshots = list.Where(agg => agg.Version % 2 == 0 || agg.Version == 0)
             .Select(agg =>
             {
-                var snap = agg.GetSnapshot();
+                var snap     = agg.GetSnapshot();
                 var reported = agg.GetUncommittedEvents().First().Reported;
 
                 return new SnapShotDocument<TId>
@@ -277,7 +277,7 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
                 Data = SerializeEvent(e),
                 OccurredOn = DateTime.Now,
                 UserId = userId,
-                Reported = e.Reported,
+                Reported = e.Reported
             })
             .ToList();
 

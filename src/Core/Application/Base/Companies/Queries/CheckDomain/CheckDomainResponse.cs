@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Companies.Queries.CheckDomain;
+﻿namespace SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
 
 public record CheckDomainResponse(
     bool Exist,

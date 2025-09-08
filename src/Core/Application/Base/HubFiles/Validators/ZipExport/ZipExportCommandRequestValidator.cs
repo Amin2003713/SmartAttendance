@@ -1,14 +1,12 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.HubFiles.Request.Commands.ZipExport;
+using SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
 
-namespace Shifty.Application.Base.HubFiles.Validators.ZipExport;
+namespace SmartAttendance.Application.Base.HubFiles.Validators.ZipExport;
 
 public class ZipExportCommandRequestValidator : AbstractValidator<ZipExportCommandRequest>
 {
     public ZipExportCommandRequestValidator(IStringLocalizer<ZipExportCommandRequestValidator> localizer)
     {
-
-
         RuleFor(x => x.FromDate).NotEmpty().WithMessage(localizer["Start date is invalid."]);
 
         RuleFor(x => x.ToDate).NotEmpty().WithMessage(localizer["End date is invalid."]);

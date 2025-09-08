@@ -1,21 +1,21 @@
 ﻿using System.IO;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.HubFiles.Commands.ZipExport;
-using Shifty.Application.Base.HubFiles.Request.Queries.GetFile;
-using Shifty.Application.Interfaces.HubFiles;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.EnumHelpers;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
+using SmartAttendance.Application.Base.HubFiles.Request.Queries.GetFile;
+using SmartAttendance.Application.Interfaces.HubFiles;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Persistence.Repositories.HubFiles;
+namespace SmartAttendance.Persistence.Repositories.HubFiles;
 
 public class HubFileQueryRepository(
     ReadOnlyDbContext dbContext,
     ILogger<HubFileQueryRepository> logger,
     IStringLocalizer<HubFileQueryRepository> localizer,
     IMinIoQueryRepository minIoQueryRepository,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContext
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContext
 )
     : QueryRepository<HubFile>(dbContext, logger),
         IHubFileQueryRepository
@@ -55,11 +55,11 @@ public class HubFileQueryRepository(
         //     zipfile.RowType);
 
         var files = await DbContext.Set<HubFile>()
-            .Where(a => 
+            .Where(a =>
                 // a.ProjectId == zipfile.ProjectId &&
-                        a.ReferenceIdType == zipfile.RowType &&
-                        a.ReportDate >= zipfile.FromDate &&
-                        a.ReportDate <= zipfile.ToDate)
+                a.ReferenceIdType == zipfile.RowType &&
+                a.ReportDate >= zipfile.FromDate &&
+                a.ReportDate <= zipfile.ToDate)
             .GroupBy(a => a.Name)
             .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
             .ToListAsync(cancellationToken);

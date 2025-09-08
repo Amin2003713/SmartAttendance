@@ -1,9 +1,9 @@
-﻿using Shifty.Common.General.BaseClasses;
-using Shifty.Common.General.Enums.Genders;
-using Shifty.Common.General.Enums.RoleTypes;
-using Shifty.Domain.Departments;
+﻿using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Common.General.Enums.Genders;
+using SmartAttendance.Common.General.Enums.RoleTypes;
+using SmartAttendance.Domain.Departments;
 
-namespace Shifty.Domain.Users;
+namespace SmartAttendance.Domain.Users;
 
 public class User : IdentityUser<Guid>,
     IEntity
@@ -62,7 +62,7 @@ public class User : IdentityUser<Guid>,
         ModifiedAt = DateTime.UtcNow;
     }
 
-    #region log_props
+#region log_props
 
     public bool IsActive { get; set; } = true;
     public Guid? CreatedBy { get; set; } = null;
@@ -73,5 +73,5 @@ public class User : IdentityUser<Guid>,
     public DateTime? DeletedAt { get; set; } = null!;
     public IEnumerable<UserPassword>? UserPasswords { get; set; }
 
-    #endregion
+#endregion
 }

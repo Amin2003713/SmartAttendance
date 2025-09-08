@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.Users.Commands.AddRole;
-using Shifty.Application.Features.Users.Commands.RegisterByOwner;
-using Shifty.Application.Interfaces.Users;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Features.Users.Commands.AddRole;
+using SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
+using SmartAttendance.Application.Interfaces.Users;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.RegisterByOwner;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.RegisterByOwner;
 
 public class RegisterByOwnerCommandHandler(
     IUserCommandRepository commandRepository,
@@ -22,7 +22,7 @@ public class RegisterByOwnerCommandHandler(
                     cancellationToken))
             {
                 logger.LogWarning("Duplicate phone number detected: {PhoneNumber}", request.PhoneNumber);
-                throw ShiftyException.BadRequest(localizer["This phone number is already registered."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["This phone number is already registered."].Value);
             }
 
             var userId = await commandRepository.RegisterByOwnerAsync(request, cancellationToken);

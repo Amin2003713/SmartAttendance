@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Common.General.BaseClasses;
-using Shifty.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Application.Interfaces.Base;
+namespace SmartAttendance.Application.Interfaces.Base;
 
 public interface IReadOnlyRepository<TEntity>
     : IScopedDependency

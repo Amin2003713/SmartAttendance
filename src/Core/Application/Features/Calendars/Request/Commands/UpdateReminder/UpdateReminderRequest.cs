@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
 
-namespace Shifty.Application.Features.Calendars.Request.Commands.UpdateReminder;
+namespace SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
 
 public class UpdateReminderRequest
 {

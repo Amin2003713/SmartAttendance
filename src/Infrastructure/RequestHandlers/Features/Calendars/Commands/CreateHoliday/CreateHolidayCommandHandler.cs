@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Calendars.Commands.CreateHoliday;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Calenders.DailyCalender;
+using SmartAttendance.Application.Features.Calendars.Commands.CreateHoliday;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Calenders.DailyCalender;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Commands.CreateHoliday;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.CreateHoliday;
 
 public class CreateHolidayCommandHandler(
     IDailyCalendarQueryRepository dailyCalendarQueryRepository,
@@ -28,7 +28,7 @@ public class CreateHolidayCommandHandler(
                     request.Date);
 
 
-                throw ShiftyException.Conflict(localizer["Holiday already exists."].Value);
+                throw SmartAttendanceException.Conflict(localizer["Holiday already exists."].Value);
             }
 
 

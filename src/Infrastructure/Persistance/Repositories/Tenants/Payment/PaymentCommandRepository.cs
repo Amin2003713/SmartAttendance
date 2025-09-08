@@ -1,26 +1,26 @@
 ﻿using MD.PersianDateTime.Standard;
 using Riviera.ZarinPal.V4.Models;
-using Shifty.Application.Base.Payment.Commands.CreatePayment;
-using Shifty.Application.Base.Payment.Request.Commands.CreatePayment;
-using Shifty.Application.Base.ZarinPal.Request;
-using Shifty.Application.Interfaces.ZarinPal;
-using Shifty.Common.General.Enums.Discount;
-using Shifty.Common.General.Enums.Payment;
+using SmartAttendance.Application.Base.Payment.Commands.CreatePayment;
+using SmartAttendance.Application.Base.Payment.Request.Commands.CreatePayment;
+using SmartAttendance.Application.Base.ZarinPal.Request;
+using SmartAttendance.Application.Interfaces.ZarinPal;
+using SmartAttendance.Common.General.Enums.Discount;
+using SmartAttendance.Common.General.Enums.Payment;
 
-namespace Shifty.Persistence.Repositories.Tenants.Payment;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Payment;
 
 public class PaymentCommandRepository(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     IdentityService service,
     UserManager<User> userManager,
     IZarinPal zarinPal,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContextAccessor,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContextAccessor,
     ILogger<PaymentCommandRepository> logger,
     IStringLocalizer<PaymentCommandRepository> localizer
 )
     : IPaymentCommandRepository
 {
-    private ShiftyTenantInfo TenantInfo => tenantContextAccessor.MultiTenantContext.TenantInfo!;
+    private SmartAttendanceTenantInfo TenantInfo => tenantContextAccessor.MultiTenantContext.TenantInfo!;
 
     public async Task<Uri?> CreatePayment(CreatePaymentCommand createPayment, CancellationToken cancellationToken)
     {
@@ -28,7 +28,7 @@ public class PaymentCommandRepository(
         logger.LogInformation("Start CreatePayment by UserId: {UserId} for Tenant: {TenantId}", userId, TenantInfo.Id);
 
         if (!TenantInfo!.IsCompanyRegistrationCompleted())
-            throw ShiftyException.BadRequest(localizer["Company registration is not completed."]);
+            throw SmartAttendanceException.BadRequest(localizer["Company registration is not completed."]);
 
         var user = await userManager.FindByIdAsync(userId.ToString()!);
 
@@ -39,12 +39,12 @@ public class PaymentCommandRepository(
             .FirstOrDefaultAsync(a => a.IsActive && a.TenantId == TenantInfo!.Id, cancellationToken);
 
         if (!IsUserCountValid(lastPurchase, createPayment))
-            throw ShiftyException.BadRequest(localizer["You have reached the user limit. Contact support."]);
+            throw SmartAttendanceException.BadRequest(localizer["You have reached the user limit. Contact support."]);
 
         var baseCost = BaseCost(createPayment, monthlyPrice, lastPurchase);
 
         if (IsUserCountValid(createPayment, lastPurchase))
-            throw ShiftyException.BadRequest(localizer["You cannot add fewer users than your active subscription."]);
+            throw SmartAttendanceException.BadRequest(localizer["You cannot add fewer users than your active subscription."]);
 
         var price = await Price(createPayment, baseCost, cancellationToken);
 
@@ -101,7 +101,7 @@ public class PaymentCommandRepository(
             if (!zarinResponse.Success)
             {
                 logger.LogWarning("ZarinPal request failed for TenantId: {TenantId}", TenantInfo.Id);
-                throw ShiftyException.BadRequest(localizer["ZarinPal gateway error. Please contact support."]);
+                throw SmartAttendanceException.BadRequest(localizer["ZarinPal gateway error. Please contact support."]);
             }
 
             newCompanyPurch.Authority = zarinResponse.Authority;
@@ -135,7 +135,7 @@ public class PaymentCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating payment: {PaymentId}", payments.Id);
-            throw ShiftyException.InternalServerError(localizer["An error occurred while updating the payment."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while updating the payment."]);
         }
     }
 
@@ -227,10 +227,10 @@ public class PaymentCommandRepository(
                 .FirstOrDefaultAsync(a => a.Id == model.DiscountId, cancellationToken);
 
             if (dis is null)
-                throw ShiftyException.NotFound(localizer["Discount not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Discount not found."]);
 
             if (dis.PackageMonth is not 0 && dis.PackageMonth != model.Duration)
-                throw ShiftyException.BadRequest(localizer["This discount is not valid for your selected duration."]);
+                throw SmartAttendanceException.BadRequest(localizer["This discount is not valid for your selected duration."]);
 
             var discountCompany =
                 db.TenantDiscounts.FirstOrDefault(p => p.DiscountId == dis.Id && p.TenantId == TenantInfo.Id);
@@ -248,7 +248,7 @@ public class PaymentCommandRepository(
             }
 
             if (discountCompany is not null && discountCompany.IsUsed)
-                throw ShiftyException.BadRequest(localizer["This discount has already been used."]);
+                throw SmartAttendanceException.BadRequest(localizer["This discount has already been used."]);
 
             discount = dis;
         }

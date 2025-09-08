@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.ZarinPal.Request;
+﻿namespace SmartAttendance.Application.Base.ZarinPal.Request;
 
 public class ZarinPalResponse : Riviera.ZarinPal.V4.Models.Payment
 {

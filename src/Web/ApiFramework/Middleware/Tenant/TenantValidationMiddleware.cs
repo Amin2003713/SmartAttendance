@@ -5,12 +5,12 @@ using Finbuckle.MultiTenant;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using Shifty.ApiFramework.Tools;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Tenants;
-using Shifty.Persistence.Db;
+using SmartAttendance.ApiFramework.Tools;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Persistence.Db;
 
-namespace Shifty.ApiFramework.Middleware.Tenant;
+namespace SmartAttendance.ApiFramework.Middleware.Tenant;
 
 public class TenantValidationMiddleware(
     RequestDelegate next,
@@ -18,7 +18,7 @@ public class TenantValidationMiddleware(
 )
     : ITransientDependency
 {
-    public async Task Invoke(HttpContext context, ShiftyTenantDbContext ipaDbContext)
+    public async Task Invoke(HttpContext context, SmartAttendanceTenantDbContext ipaDbContext)
     {
         foreach (var header in context.Request.Headers)
         {
@@ -31,7 +31,7 @@ public class TenantValidationMiddleware(
             return;
         }
 
-        var tenantService = context.GetMultiTenantContext<ShiftyTenantInfo>().TenantInfo;
+        var tenantService = context.GetMultiTenantContext<SmartAttendanceTenantInfo>().TenantInfo;
 
         if (tenantService is null || tenantService!.Id == null)
         {

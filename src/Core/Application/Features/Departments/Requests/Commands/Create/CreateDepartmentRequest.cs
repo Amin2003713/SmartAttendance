@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Departments.Requests.Commands.Create;
+﻿namespace SmartAttendance.Application.Features.Departments.Requests.Commands.Create;
 
 public class CreateDepartmentRequest
 {

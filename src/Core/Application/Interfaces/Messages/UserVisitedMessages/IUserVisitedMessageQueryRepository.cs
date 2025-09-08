@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Messages.UserVisitedMessages;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Messages.UserVisitedMessages;
 
-namespace Shifty.Application.Interfaces.Messages.UserVisitedMessages;
+namespace SmartAttendance.Application.Interfaces.Messages.UserVisitedMessages;
 
 public interface IUserVisitedMessageQueryRepository : IQueryRepository<UserVisitedMessage>,
     IScopedDependency

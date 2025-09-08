@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Users;
+namespace SmartAttendance.Domain.Users;
 
 public class UserRoles : IdentityUserRole<Guid>,
     ISimpleEntity

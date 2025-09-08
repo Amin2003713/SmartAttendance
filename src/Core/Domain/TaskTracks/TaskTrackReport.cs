@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.TaskTracks;
+﻿namespace SmartAttendance.Domain.TaskTracks;
 
 public class TaskTrackReport
 {

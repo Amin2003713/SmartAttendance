@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.Payment;
+﻿using SmartAttendance.Common.General.Enums.Payment;
 
-namespace Shifty.Application.Base.Payment.Request.Queries.ListPayment;
+namespace SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
 
 public class PaymentQueryResponse
 {

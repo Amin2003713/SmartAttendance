@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Payment.Commands.AddActiveUser;
-using Shifty.Application.Interfaces.Tenants.Payment;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.Payment.Commands.AddActiveUser;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.Payment.Commands.AddActiveUser;
+namespace SmartAttendance.RequestHandlers.Base.Payment.Commands.AddActiveUser;
 
 public class AddActiveUserCommandHandler(
     IPaymentQueryRepository queryRepository,
@@ -21,7 +21,7 @@ public class AddActiveUserCommandHandler(
             if (companyPurchase == null)
             {
                 logger.LogWarning("No active company purchase/payment record found.");
-                throw ShiftyException.NotFound(localizer["No active payment record found for this tenant."]);
+                throw SmartAttendanceException.NotFound(localizer["No active payment record found for this tenant."]);
             }
 
             companyPurchase.ActiveUsers++;
@@ -34,7 +34,7 @@ public class AddActiveUserCommandHandler(
 
             return companyPurchase.ActiveUsers;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error occurred while adding active user.");
             throw;
@@ -42,7 +42,7 @@ public class AddActiveUserCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while adding active user.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while adding an active user."]);
         }
     }

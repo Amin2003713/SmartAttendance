@@ -1,8 +1,8 @@
 ﻿// using System.Text.Json;
-// using Shifty.Application.Interfaces.Base.EventInterface;
-// using Shifty.Common.Utilities.MongoHelpers;
+// using SmartAttendance.Application.Interfaces.Base.EventInterface;
+// using SmartAttendance.Common.Utilities.MongoHelpers;
 //
-// namespace Shifty.Persistence.Repositories.Common.EventRepository;
+// namespace SmartAttendance.Persistence.Repositories.Common.EventRepository;
 //
 // /// <summary>
 // ///     MongoDB implementation of IEventReader for reading event-sourced aggregates and snapshots.
@@ -342,3 +342,4 @@
 //         return Expression.Lambda<Func<TDerived, bool>>(newBody, derivedParam);
 //     }
 // }
+

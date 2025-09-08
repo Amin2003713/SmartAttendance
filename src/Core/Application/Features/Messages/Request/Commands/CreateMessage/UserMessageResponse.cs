@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
+﻿namespace SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
 
 public class UserMessageResponse
 

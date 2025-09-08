@@ -1,6 +1,6 @@
-﻿using Role = Shifty.Domain.Users.Role;
+﻿using Role = SmartAttendance.Domain.Users.Role;
 
-namespace Shifty.Persistence.Configuration.Users;
+namespace SmartAttendance.Persistence.Configuration.Users;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {

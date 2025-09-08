@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Queries.GetUserTenants;
+﻿namespace SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 
 public class GetUserTenantResponse
 {

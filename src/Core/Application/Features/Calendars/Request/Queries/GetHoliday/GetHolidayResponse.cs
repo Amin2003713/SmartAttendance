@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
+namespace SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
 
 public class GetHolidayResponse
 {

@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Storage.Commands.UpdateStorage;
-using Shifty.Application.Interfaces.Storages;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Storages;
+using SmartAttendance.Application.Base.Storage.Commands.UpdateStorage;
+using SmartAttendance.Application.Interfaces.Storages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Storages;
 
-namespace Shifty.RequestHandlers.Base.Storages.Commands.UpdateStorage;
+namespace SmartAttendance.RequestHandlers.Base.Storages.Commands.UpdateStorage;
 
 public class UpdateStorageCommandHandler(
     IStorageCommandRepository storageCommandRepository,
@@ -26,7 +26,7 @@ public class UpdateStorageCommandHandler(
         if (existing is null)
         {
             logger.LogWarning("Storage with ID {StorageId} not found.", request.Id);
-            throw ShiftyException.NotFound(localizer["Storage not found."]);
+            throw SmartAttendanceException.NotFound(localizer["Storage not found."]);
         }
 
         var storage = request.Adapt<Storage>();

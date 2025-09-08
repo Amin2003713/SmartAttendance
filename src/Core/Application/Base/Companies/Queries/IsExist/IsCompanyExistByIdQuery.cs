@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Companies.Queries.IsExist;
+﻿namespace SmartAttendance.Application.Base.Companies.Queries.IsExist;
 
 public record IsCompanyExistByIdQuery(
     string Id

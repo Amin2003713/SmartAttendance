@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Messages.UserVisitedMessages;
-using Shifty.Domain.Messages.UserVisitedMessages;
+﻿using SmartAttendance.Application.Interfaces.Messages.UserVisitedMessages;
+using SmartAttendance.Domain.Messages.UserVisitedMessages;
 
-namespace Shifty.Persistence.Repositories.Messages.UserVisitedMessages;
+namespace SmartAttendance.Persistence.Repositories.Messages.UserVisitedMessages;
 
 public class UserVisitedMessageQueryRepository(
     ReadOnlyDbContext dbContext,

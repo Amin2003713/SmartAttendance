@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Messages.Comments;
+﻿using SmartAttendance.Domain.Messages.Comments;
 
-namespace Shifty.Persistence.Configuration.Messages.Comments;
+namespace SmartAttendance.Persistence.Configuration.Messages.Comments;
 
 public class CommentConfig : IEntityTypeConfiguration<Comment>
 {

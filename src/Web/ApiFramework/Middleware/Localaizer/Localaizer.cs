@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 
-namespace Shifty.ApiFramework.Middleware.Localaizer;
+namespace SmartAttendance.ApiFramework.Middleware.Localaizer;
 
 public static class Localaizer
 {

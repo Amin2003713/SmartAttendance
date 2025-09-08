@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Shifty.ApiFramework.Resources.Attributes {
+namespace SmartAttendance.ApiFramework.Resources.Attributes {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

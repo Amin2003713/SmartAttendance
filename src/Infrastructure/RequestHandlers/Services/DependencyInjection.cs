@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Shifty.RequestHandlers.Services;
+namespace SmartAttendance.RequestHandlers.Services;
 
 public static class DependencyInjection
 {

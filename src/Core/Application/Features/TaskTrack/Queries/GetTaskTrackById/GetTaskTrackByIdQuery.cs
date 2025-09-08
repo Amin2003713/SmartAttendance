@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
+﻿using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
 
-namespace Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackById;
+namespace SmartAttendance.Application.Features.TaskTrack.Queries.GetTaskTrackById;
 
 public record GetTaskTrackByIdQuery(
     Guid AggregateId

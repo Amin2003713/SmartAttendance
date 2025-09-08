@@ -1,12 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Storages;
 
-namespace Shifty.Application.Interfaces.Storages;
+namespace SmartAttendance.Application.Interfaces.Storages;
 
-public interface IStorageQueryRepository : IQueryRepository<Domain.Storages.Storage>,
+public interface IStorageQueryRepository : IQueryRepository<Storage>,
     IScopedDependency
 {
     // Task<GetRemainStorageResponse> StorageInfo(CancellationToken cancellationToken);

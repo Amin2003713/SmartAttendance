@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Tenants.Payments;
+﻿using SmartAttendance.Domain.Tenants.Payments;
 
-namespace Shifty.Application.Base.Discounts.Commands.UseDiscount;
+namespace SmartAttendance.Application.Base.Discounts.Commands.UseDiscount;
 
 public record UseDiscountCommand(
     Payments Payment

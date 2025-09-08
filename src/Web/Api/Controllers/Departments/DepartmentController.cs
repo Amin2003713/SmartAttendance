@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Shifty.Application.Features.Departments.Commands.Create;
-using Shifty.Application.Features.Departments.Queries.GetDepartments;
-using Shifty.Application.Features.Departments.Requests.Commands.Create;
-using Shifty.Application.Features.Departments.Requests.Queries.GetDepartments;
+﻿using SmartAttendance.Application.Features.Departments.Commands.Create;
+using SmartAttendance.Application.Features.Departments.Queries.GetDepartments;
+using SmartAttendance.Application.Features.Departments.Requests.Commands.Create;
+using SmartAttendance.Application.Features.Departments.Requests.Queries.GetDepartments;
 
-namespace Shifty.Api.Controllers.Departments;
+namespace SmartAttendance.Api.Controllers.Departments;
 
-public class DepartmentController : ShiftyBaseController
+public class DepartmentController : SmartAttendanceBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create a Department",
         Description = "Creates a new Department ")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task CreateDepartment([FromBody] CreateDepartmentRequest request, CancellationToken cancellationToken)
     {
@@ -21,7 +20,7 @@ public class DepartmentController : ShiftyBaseController
     [HttpGet]
     [SwaggerOperation(Summary = "Get Departments")]
     [ProducesResponseType(typeof(List<GetDepartmentResponse>), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiProblemDetails),           StatusCodes.Status400BadRequest)]
     public async Task<List<GetDepartmentResponse>> GetDepartments(CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetDepartmentsQuery(), cancellationToken);

@@ -1,7 +1,7 @@
 ﻿using Hangfire;
-using Shifty.Application.Interfaces.HangFire;
+using SmartAttendance.Application.Interfaces.HangFire;
 
-namespace Shifty.Persistence.Repositories.HangFire;
+namespace SmartAttendance.Persistence.Repositories.HangFire;
 
 public class HangFireJobRepository(
     ILogger<HangFireJobRepository> logger,

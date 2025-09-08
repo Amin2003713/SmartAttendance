@@ -1,9 +1,9 @@
 ﻿using System.Net.Http;
 using Newtonsoft.Json;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Time.ir;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Time.ir;
 
-namespace Shifty.Persistence.Services.Time.ir;
+namespace SmartAttendance.Persistence.Services.Time.ir;
 
 public class TimeIrService(
     HttpClient httpClient

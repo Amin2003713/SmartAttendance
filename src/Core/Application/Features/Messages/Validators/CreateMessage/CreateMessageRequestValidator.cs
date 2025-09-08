@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
+using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
 
-namespace Shifty.Application.Features.Messages.Validators.CreateMessage;
+namespace SmartAttendance.Application.Features.Messages.Validators.CreateMessage;
 
 public class CreateMessageRequestValidator : AbstractValidator<CreateMessageRequest>
 {

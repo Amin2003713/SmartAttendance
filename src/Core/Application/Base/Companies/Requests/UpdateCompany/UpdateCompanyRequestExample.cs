@@ -1,4 +1,4 @@
-namespace Shifty.Application.Base.Companies.Requests.UpdateCompany;
+namespace SmartAttendance.Application.Base.Companies.Requests.UpdateCompany;
 
 /// <summary>
 ///     A separate example provider for UpdateCompanyRequest if desired.

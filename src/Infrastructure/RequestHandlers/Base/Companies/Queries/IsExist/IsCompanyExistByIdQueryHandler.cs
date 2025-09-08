@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Base.Companies.Queries.IsExist;
-using Shifty.Application.Interfaces.Tenants.Companies;
+﻿using SmartAttendance.Application.Base.Companies.Queries.IsExist;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
-namespace Shifty.RequestHandlers.Base.Companies.Queries.IsExist;
+namespace SmartAttendance.RequestHandlers.Base.Companies.Queries.IsExist;
 
 public record IsCompanyExistByIdQueryHandler(
     ICompanyRepository CompanyRepository,

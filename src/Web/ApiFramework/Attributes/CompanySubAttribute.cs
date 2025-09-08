@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
-namespace Shifty.ApiFramework.Attributes;
+namespace SmartAttendance.ApiFramework.Attributes;
 
 public class CompanySubAttribute
     : ActionFilterAttribute

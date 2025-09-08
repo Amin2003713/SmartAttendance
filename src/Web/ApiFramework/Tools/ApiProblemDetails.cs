@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shifty.ApiFramework.Tools;
+namespace SmartAttendance.ApiFramework.Tools;
 
 public class ApiProblemDetails
 {

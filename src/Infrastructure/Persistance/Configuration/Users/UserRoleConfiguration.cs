@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Configuration.Users;
+﻿namespace SmartAttendance.Persistence.Configuration.Users;
 
 public class UserRoleConfiguration : IEntityTypeConfiguration<UserRoles>
 {

@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
-using Shifty.Common.General.Enums;
+﻿using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
+using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
+namespace SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
 
 public class GetTaskTrackByIdResponse
 {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Commands.AddRole;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.EnumHelpers;
-using Shifty.Common.Utilities.RolesHelper;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Features.Users.Commands.AddRole;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Common.Utilities.RolesHelper;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.UpdateEmployee;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.UpdateEmployee;
 
 public class UpdateEmployeeCommandHandler(
     UserManager<User> userManager,
@@ -26,7 +26,7 @@ public class UpdateEmployeeCommandHandler(
         if (user is null)
         {
             logger.LogWarning("User with ID {UserId} not found.", request.UserId);
-            throw ShiftyException.NotFound(localizer["User not found."]);
+            throw SmartAttendanceException.NotFound(localizer["User not found."]);
         }
 
         // 3. Get current roles
@@ -60,7 +60,7 @@ public class UpdateEmployeeCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Failed to assign role {RoleTypes} to user {UserId}", roleName, request.UserId);
-                throw ShiftyException.BadRequest(localizer["Failed to assign role {0}.", roleName]);
+                throw SmartAttendanceException.BadRequest(localizer["Failed to assign role {0}.", roleName]);
             }
         }
 
@@ -75,7 +75,7 @@ public class UpdateEmployeeCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Failed to remove role {RoleTypes} from user {UserId}", roleName, request.UserId);
-                throw ShiftyException.BadRequest(localizer["Failed to remove role {0}.", roleName]);
+                throw SmartAttendanceException.BadRequest(localizer["Failed to remove role {0}.", roleName]);
             }
         }
 
@@ -99,7 +99,7 @@ public class UpdateEmployeeCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Failed to create missing role: {RoleTypes}", roleName);
-                throw ShiftyException.BadRequest(localizer["Failed to create role {0}.", roleName]);
+                throw SmartAttendanceException.BadRequest(localizer["Failed to create role {0}.", roleName]);
             }
         }
     }

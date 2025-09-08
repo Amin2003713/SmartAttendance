@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.Payment;
+﻿using SmartAttendance.Common.General.Enums.Payment;
 
-namespace Shifty.Application.Base.Payment.Request.Commands.CreatePayment;
+namespace SmartAttendance.Application.Base.Payment.Request.Commands.CreatePayment;
 
 public class CreatePaymentRequest
 {

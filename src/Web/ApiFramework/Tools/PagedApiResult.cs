@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
-namespace Shifty.ApiFramework.Tools;
+namespace SmartAttendance.ApiFramework.Tools;
 
 public class PagedApiResult : PagedApiResult<object>
 {

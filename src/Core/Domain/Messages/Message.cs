@@ -1,10 +1,10 @@
-﻿using Shifty.Common.General.BaseClasses;
-using Shifty.Domain.Messages.Comments;
-using Shifty.Domain.Messages.MessageTargetUsers;
-using Shifty.Domain.Messages.UserLikedMessages;
-using Shifty.Domain.Messages.UserVisitedMessages;
+﻿using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Domain.Messages.Comments;
+using SmartAttendance.Domain.Messages.MessageTargetUsers;
+using SmartAttendance.Domain.Messages.UserLikedMessages;
+using SmartAttendance.Domain.Messages.UserVisitedMessages;
 
-namespace Shifty.Domain.Messages;
+namespace SmartAttendance.Domain.Messages;
 
 public class Message : BaseEntity
 {

@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Messages;
+﻿using SmartAttendance.Domain.Messages;
 
-namespace Shifty.Persistence.Configuration.Messages;
+namespace SmartAttendance.Persistence.Configuration.Messages;
 
 internal class MessageConfig : IEntityTypeConfiguration<Message>
 {

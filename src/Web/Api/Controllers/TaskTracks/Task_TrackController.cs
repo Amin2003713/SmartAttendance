@@ -1,17 +1,17 @@
-﻿using Shifty.Application.Features.TaskTrack.Commands.CreateTaskTrack;
-using Shifty.Application.Features.TaskTrack.Commands.DeleteTaskTrack;
-using Shifty.Application.Features.TaskTrack.Commands.UpdateTaskTrack;
-using Shifty.Application.Features.TaskTrack.Queries.GetTackTracks;
-using Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackById;
-using Shifty.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrack;
-using Shifty.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrack;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
-using Shifty.Common.Utilities.PaginationHelpers;
+﻿using SmartAttendance.Application.Features.TaskTrack.Commands.CreateTaskTrack;
+using SmartAttendance.Application.Features.TaskTrack.Commands.DeleteTaskTrack;
+using SmartAttendance.Application.Features.TaskTrack.Commands.UpdateTaskTrack;
+using SmartAttendance.Application.Features.TaskTrack.Queries.GetTackTracks;
+using SmartAttendance.Application.Features.TaskTrack.Queries.GetTaskTrackById;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrack;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrack;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
+using SmartAttendance.Common.Utilities.PaginationHelpers;
 
-namespace Shifty.Api.Controllers.TaskTracks;
+namespace SmartAttendance.Api.Controllers.TaskTracks;
 
-public class Task_TrackController : ShiftyBaseController
+public class Task_TrackController : SmartAttendanceBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create TaskTracker")]
@@ -33,7 +33,7 @@ public class Task_TrackController : ShiftyBaseController
     [HttpDelete]
     [SwaggerOperation(Summary = "Delete TaskTracker")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task Delete(Guid aggregateId,CancellationToken cancellationToken)
+    public async Task Delete(Guid aggregateId, CancellationToken cancellationToken)
     {
         await Mediator.Send(new DeleteTaskTrackCommand(aggregateId), cancellationToken);
     }
@@ -53,7 +53,8 @@ public class Task_TrackController : ShiftyBaseController
     [HttpGet("Get-Task-Track-By-Id")]
     [SwaggerOperation("Get task with its reports by ID")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<GetTaskTrackByIdResponse> GetTaskWithReports( Guid aggregateId,
+    public async Task<GetTaskTrackByIdResponse> GetTaskWithReports(
+        Guid aggregateId,
         CancellationToken cancellationToken = default)
     {
         return await Mediator.Send(new GetTaskTrackByIdQuery(aggregateId), cancellationToken);

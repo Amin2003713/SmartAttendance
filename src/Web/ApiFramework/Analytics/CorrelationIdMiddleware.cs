@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Shifty.ApiFramework.Analytics;
+namespace SmartAttendance.ApiFramework.Analytics;
 
 public class CorrelationIdMiddleware(
     RequestDelegate next

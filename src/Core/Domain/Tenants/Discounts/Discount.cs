@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.Discount;
+﻿using SmartAttendance.Common.General.Enums.Discount;
 
-namespace Shifty.Domain.Tenants.Discounts;
+namespace SmartAttendance.Domain.Tenants.Discounts;
 
 public class Discount
 {

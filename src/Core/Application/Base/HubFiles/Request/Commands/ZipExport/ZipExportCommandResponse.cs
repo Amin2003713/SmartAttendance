@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Http;
-using Shifty.Common.General.Enums.FileType;
+using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Application.Base.HubFiles.Request.Commands.ZipExport;
+namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
 
 public class ZipExportCommandResponse
 {
     public IFormFile File { get; set; }
+
     // public Guid? ProjectId { get; set; }
     public Guid RowId { get; set; }
     public DateTime ReportDate { get; set; }

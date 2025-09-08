@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>latestmajor</LangVersion>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AWSSDK.S3" Version="4.0.6.3"/>
+        <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="9.2.2"/>
+        <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="9.2.2"/>
+        <PackageReference Include="Hangfire.Core" Version="1.8.20"/>
+        <PackageReference Include="Mapster" Version="7.4.2-pre02"/>
+        <PackageReference Include="MD.PersianDateTime.Standard" Version="2.5.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.13.0"/>
+        <PackageReference Include="Minio" Version="6.0.5"/>
+        <PackageReference Include="MongoDB.Driver" Version="3.4.1"/>
+        <PackageReference Include="PolyCache" Version="1.2.1"/>
+        <PackageReference Include="QuestPDF" Version="2025.7.0"/>
+        <PackageReference Include="SharpCompress" Version="0.40.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Core\Application\SmartAttendance.Application.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Migrations\App\"/>
+        <Folder Include="Migrations\Tenant\"/>
+    </ItemGroup>
+
+</Project>

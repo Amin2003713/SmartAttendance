@@ -1,14 +1,14 @@
-﻿using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Persistence.Services.Seeder;
+﻿using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Persistence.Services.Seeder;
 using BackgroundJob = Hangfire.BackgroundJob;
 using RecurringJob = Hangfire.RecurringJob;
 
 
-namespace Shifty.Persistence.Services.Taskes;
+namespace SmartAttendance.Persistence.Services.Taskes;
 
 public class ScheduledTaskService(
     SeedCalendarService calenderService,
-    ShiftyTenantDbContext context
+    SmartAttendanceTenantDbContext context
 ) : IScopedDependency
 {
     public void ScheduleTasks()

@@ -1,5 +1,6 @@
-﻿using Shifty.Application.Features.Missions.Requests.Commands.Create;
+﻿using SmartAttendance.Application.Features.Missions.Requests.Commands.Create;
 
-namespace Shifty.Application.Features.Missions.Commands.Create;
+namespace SmartAttendance.Application.Features.Missions.Commands.Create;
 
-public class CreateMissionCommand : CreateMissionRequest, IRequest;
+public class CreateMissionCommand : CreateMissionRequest,
+    IRequest;

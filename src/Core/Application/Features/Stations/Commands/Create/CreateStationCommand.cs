@@ -1,5 +1,6 @@
-﻿using Shifty.Application.Features.Stations.Requests.Commands.Create;
+﻿using SmartAttendance.Application.Features.Stations.Requests.Commands.Create;
 
-namespace Shifty.Application.Features.Stations.Commands.Create;
+namespace SmartAttendance.Application.Features.Stations.Commands.Create;
 
-public class CreateStationCommand : CreateStationRequest, IRequest;
+public class CreateStationCommand : CreateStationRequest,
+    IRequest;

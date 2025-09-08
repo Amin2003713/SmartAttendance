@@ -1,3 +1,5 @@
-﻿namespace Shifty.Application.Features.Vehicles.Commands.Delete;
+﻿namespace SmartAttendance.Application.Features.Vehicles.Commands.Delete;
 
-public record DeleteVehicleCommand(Guid Id) : IRequest;
+public record DeleteVehicleCommand(
+    Guid Id
+) : IRequest;

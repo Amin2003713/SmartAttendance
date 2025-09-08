@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.FileType;
+﻿using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Application.Base.HubFiles.Request.Commands.ZipExport;
+namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
 
 public class ZipExportCommandResponseExample : IExamplesProvider<ZipExportCommandResponse>
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.Payment.Request.Commands.CreatePayment;
+using SmartAttendance.Application.Base.Payment.Request.Commands.CreatePayment;
 
-namespace Shifty.Application.Base.Payment.Validators.CreatePayment;
+namespace SmartAttendance.Application.Base.Payment.Validators.CreatePayment;
 
 public class CreatePaymentRequestValidator : AbstractValidator<CreatePaymentRequest>
 {

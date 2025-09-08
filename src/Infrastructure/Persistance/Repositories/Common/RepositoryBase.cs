@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Persistence.Repositories.Common;
+namespace SmartAttendance.Persistence.Repositories.Common;
 
 public abstract class RepositoryBase<TEntity, TDbContext>
     where TEntity : class, IEntity

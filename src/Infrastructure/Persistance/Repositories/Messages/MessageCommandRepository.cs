@@ -1,13 +1,11 @@
-﻿using Shifty.Application.Interfaces.Messages;
-using Shifty.Domain.Messages;
+﻿using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Domain.Messages;
 
-namespace Shifty.Persistence.Repositories.Messages;
+namespace SmartAttendance.Persistence.Repositories.Messages;
 
 public class MessageCommandRepository(
     WriteOnlyDbContext dbContext,
     ILogger<CommandRepository<Message>> logger
 )
     : CommandRepository<Message>(dbContext, logger),
-        IMessageCommandRepository
-{
-}
+        IMessageCommandRepository { }

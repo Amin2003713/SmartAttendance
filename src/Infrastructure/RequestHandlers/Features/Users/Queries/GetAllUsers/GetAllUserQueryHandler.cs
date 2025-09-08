@@ -1,13 +1,13 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Common.Responses.Users.Queries.Base;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetAllUsers;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetAllUsers;
 
 public class GetAllUserQueryHandler(
     IQueryRepository<User> queryRepository,

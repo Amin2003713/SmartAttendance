@@ -1,13 +1,13 @@
-﻿using Shifty.Application.Features.Dashboards.Queries.BudgetDistributionCharts;
-using Shifty.Application.Features.Dashboards.Queries.KPIMetric;
-using Shifty.Application.Features.Dashboards.Requests.ProgressHistory;
-using Shifty.Application.Features.Dashboards.Responses.DashboardCardSummary;
-using Shifty.Application.Features.Dashboards.Responses.ProgressHistory;
-using Shifty.Application.Features.Dashboards.Responses.ResourceChartDat;
+﻿using SmartAttendance.Application.Features.Dashboards.Queries.BudgetDistributionCharts;
+using SmartAttendance.Application.Features.Dashboards.Queries.KPIMetric;
+using SmartAttendance.Application.Features.Dashboards.Requests.ProgressHistory;
+using SmartAttendance.Application.Features.Dashboards.Responses.DashboardCardSummary;
+using SmartAttendance.Application.Features.Dashboards.Responses.ProgressHistory;
+using SmartAttendance.Application.Features.Dashboards.Responses.ResourceChartDat;
 
-namespace Shifty.Api.Controllers.Dashboards;
+namespace SmartAttendance.Api.Controllers.Dashboards;
 
-public class DashboardController : ShiftyBaseController
+public class DashboardController : SmartAttendanceBaseController
 {
     // /// <summary>
     // ///     Retrieves recent entity activities (created/updated)

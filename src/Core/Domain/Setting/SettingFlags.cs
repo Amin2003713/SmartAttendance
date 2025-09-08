@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Setting;
+﻿namespace SmartAttendance.Domain.Setting;
 
 [Flags]
 public enum SettingFlags

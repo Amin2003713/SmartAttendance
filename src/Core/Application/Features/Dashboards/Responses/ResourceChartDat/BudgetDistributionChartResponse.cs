@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Dashboards.Responses.ResourceChartDat;
+﻿namespace SmartAttendance.Application.Features.Dashboards.Responses.ResourceChartDat;
 
 public class BudgetDistributionChartResponse
 {

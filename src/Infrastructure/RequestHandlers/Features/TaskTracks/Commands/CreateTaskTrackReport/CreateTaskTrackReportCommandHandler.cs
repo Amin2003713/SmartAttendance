@@ -1,12 +1,12 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Commands.CreateTaskTrackReport;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Domain.TaskTracks.Events.TaskTrackReports;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Commands.CreateTaskTrackReport;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackReports;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Commands.CreateTaskTrackReport;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Commands.CreateTaskTrackReport;
 
 public class CreateTaskTrackReportCommandHandler(
     ILogger<CreateTaskTrackReportCommandHandler> logger,
@@ -31,7 +31,7 @@ public class CreateTaskTrackReportCommandHandler(
 
             if (taskTrack!.CreatedBy != userId && !taskTrack.AssigneeId.Contains(userId))
             {
-                throw ShiftyException.BadRequest(localizer["You cant not set your work log."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["You cant not set your work log."].Value);
             }
 
             var reportEvent = request.Adapt<TaskTrackReportCreatedEvent>() with
@@ -49,14 +49,14 @@ public class CreateTaskTrackReportCommandHandler(
             logger.LogInformation("TaskTrackReport added to Missions {TaskTrackId} via event sourcing.",
                 taskTrack.AggregateId);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Error adding TaskTrackReport ");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while adding the task report."].Value);
         }
     }

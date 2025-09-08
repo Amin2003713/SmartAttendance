@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Commons.MediaFiles.Requests;
+using SmartAttendance.Application.Commons.MediaFiles.Requests;
 
-namespace Shifty.Application.Commons.MediaFiles.Validators;
+namespace SmartAttendance.Application.Commons.MediaFiles.Validators;
 
 public class UploadMediaFileRequestValidator : AbstractValidator<UploadMediaFileRequest>
 {

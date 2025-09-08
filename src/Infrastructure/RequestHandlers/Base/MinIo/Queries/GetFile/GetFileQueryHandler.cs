@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.MinIo.Queries.GetFile;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.MinIo.Queries.GetFile;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.MinIo.Queries.GetFile;
+namespace SmartAttendance.RequestHandlers.Base.MinIo.Queries.GetFile;
 
 public class GetFileQueryHandler(
     IMinIoQueryRepository minIoQueryRepository,
@@ -23,13 +23,13 @@ public class GetFileQueryHandler(
             if (stream == null)
             {
                 logger.LogWarning("File not found: {FilePath}", request.FilePath);
-                throw ShiftyException.NotFound(localizer["Requested file not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Requested file not found."]);
             }
 
             logger.LogInformation("File retrieved: {FilePath}", request.FilePath);
             return stream;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error while retrieving file {FilePath}.", request?.FilePath);
             throw;
@@ -37,7 +37,7 @@ public class GetFileQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving file {FilePath}.", request?.FilePath);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving the file."]);
         }
     }

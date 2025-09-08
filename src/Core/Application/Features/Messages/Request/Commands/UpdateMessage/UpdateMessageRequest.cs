@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Commons.MediaFiles.Requests;
-using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
+﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
+using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
 
-namespace Shifty.Application.Features.Messages.Request.Commands.UpdateMessage;
+namespace SmartAttendance.Application.Features.Messages.Request.Commands.UpdateMessage;
 
 public class UpdateMessageRequest
 {

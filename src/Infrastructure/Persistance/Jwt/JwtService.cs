@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
-using Shifty.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Persistence.Jwt;
+namespace SmartAttendance.Persistence.Jwt;
 
 public class JwtService(
     UserManager<User> userManager,
@@ -50,7 +50,7 @@ public class JwtService(
         catch (Exception ex)
         {
             logger.LogError(ex.Source, ex);
-            throw ShiftyException.Unauthorized(messages["Unauthorized Access Token"].Value);
+            throw SmartAttendanceException.Unauthorized(messages["Unauthorized Access Token"].Value);
         }
     }
 

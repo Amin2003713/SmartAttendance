@@ -1,15 +1,15 @@
 ﻿using System.Globalization;
 using DNTPersianUtils.Core;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Persistence.Services.Time.ir;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Persistence.Services.Time.ir;
 
 
 // using PersianTools.Core;
 
-namespace Shifty.Persistence.Services.Seeder;
+namespace SmartAttendance.Persistence.Services.Seeder;
 
 public class SeedCalendarService(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     TimeIrService service
 ) : ITransientDependency
 {

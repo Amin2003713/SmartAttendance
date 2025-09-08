@@ -1,10 +1,10 @@
-﻿using Shifty.Application.Base.HubFiles.Queries.GetById;
-using Shifty.Application.Base.MinIo.Commands.DeleteFile;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
+﻿using SmartAttendance.Application.Base.HubFiles.Queries.GetById;
+using SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
 
-namespace Shifty.RequestHandlers.Base.MinIo.Commands.DeleteFile;
+namespace SmartAttendance.RequestHandlers.Base.MinIo.Commands.DeleteFile;
 
 public class DeleteFileCommandHandler(
     IMinIoCommandRepository minIoCommandRepository,
@@ -49,7 +49,7 @@ public class DeleteFileCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error occurred while deleting file {FilePath}.", request?.FilePath);
-            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while deleting the file."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An unexpected error occurred while deleting the file."]);
         }
     }
 }

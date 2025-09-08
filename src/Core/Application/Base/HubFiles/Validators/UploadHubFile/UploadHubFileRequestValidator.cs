@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.HubFiles.Request.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.HubFiles.Request.Commands.UploadHubFile;
 
-namespace Shifty.Application.Base.HubFiles.Validators.UploadHubFile;
+namespace SmartAttendance.Application.Base.HubFiles.Validators.UploadHubFile;
 
 public class UploadHubFileRequestValidator : AbstractValidator<UploadHubFileRequest>
 {

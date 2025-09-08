@@ -1,9 +1,9 @@
 ﻿using Mapster;
-using Shifty.Common.General.Enums;
-using Shifty.Domain.Missions.Events.TaskTrackers;
-using Shifty.Domain.Missions.SnapShots;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Domain.Missions.Events.TaskTrackers;
+using SmartAttendance.Domain.Missions.SnapShots;
 
-namespace Shifty.Domain.Missions.Aggregate;
+namespace SmartAttendance.Domain.Missions.Aggregate;
 
 public class Mission : AggregateRoot<Guid>
 {
@@ -29,7 +29,7 @@ public class Mission : AggregateRoot<Guid>
     [JsonIgnore] public DateTime Reported { get; set; }
 
 
-    #region Factory
+#region Factory
 
     public static Mission New(MissionCreatedEvent @event)
     {
@@ -38,9 +38,9 @@ public class Mission : AggregateRoot<Guid>
         return task;
     }
 
-    #endregion
+#endregion
 
-    #region Behavioral Methods
+#region Behavioral Methods
 
     public void Create(MissionCreatedEvent @event)
     {
@@ -57,9 +57,9 @@ public class Mission : AggregateRoot<Guid>
         RaiseEvent(@event);
     }
 
-    #endregion
+#endregion
 
-    #region Apply Methods
+#region Apply Methods
 
     public void Apply(MissionCreatedEvent @event)
     {
@@ -100,9 +100,9 @@ public class Mission : AggregateRoot<Guid>
         Deleted = true;
     }
 
-    #endregion
+#endregion
 
-    #region Snapshot
+#region Snapshot
 
     protected override void RestoreFromSnapshot(ISnapshot<Guid> snapshot)
     {
@@ -132,5 +132,5 @@ public class Mission : AggregateRoot<Guid>
         return this.Adapt<MissionSnapShot>();
     }
 
-    #endregion
+#endregion
 }

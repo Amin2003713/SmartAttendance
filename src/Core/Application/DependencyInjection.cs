@@ -1,25 +1,24 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using FluentValidation;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Application.Base.Companies.Commands.InitialCompany;
-using Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
-using Shifty.Application.Base.Discounts.Commands.CreateDiscount;
-using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
-using Shifty.Application.Features.Users.Commands.UpdateUser;
-using Shifty.Application.Features.Users.Queries.GetUserTenants;
-using Shifty.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Common.Responses.Users.Queries.Base;
-using Shifty.Common.Utilities.TypeConverters;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Tenants.Discounts;
-using Shifty.Domain.Tenants.Payments;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
+using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
+using SmartAttendance.Application.Base.Discounts.Commands.CreateDiscount;
+using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
+using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
+using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
+using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
+using SmartAttendance.Common.Utilities.TypeConverters;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Domain.Tenants.Discounts;
+using SmartAttendance.Domain.Tenants.Payments;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.Application;
+namespace SmartAttendance.Application;
 
 public static class DependencyInjection
 {
@@ -77,11 +76,11 @@ public static class DependencyInjection
 
     private static void OtherAdaptor()
     {
-        TypeAdapterConfig<InitialCompanyCommand, ShiftyTenantInfo>.NewConfig()
+        TypeAdapterConfig<InitialCompanyCommand, SmartAttendanceTenantInfo>.NewConfig()
             .Map(dest => dest.Identifier, src => src.Domain);
 
 
-        TypeAdapterConfig<ShiftyTenantInfo, GetCompanyInfoResponse>.NewConfig()
+        TypeAdapterConfig<SmartAttendanceTenantInfo, GetCompanyInfoResponse>.NewConfig()
             .Map(dest => dest.Domain, src => src.Identifier)
             .Map(
                 dest => dest.Logo,
@@ -101,8 +100,8 @@ public static class DependencyInjection
 
 
         TypeAdapterConfig<TenantUser, GetUserTenantResponse>.NewConfig()
-            .Map(dest => dest.Domain, src => src.ShiftyTenantInfo.Identifier)
-            .Map(dest => dest.Name,   src => src.ShiftyTenantInfo.Name);
+            .Map(dest => dest.Domain, src => src.SmartAttendanceTenantInfo.Identifier)
+            .Map(dest => dest.Name,   src => src.SmartAttendanceTenantInfo.Name);
 
 
         TypeAdapterConfig.GlobalSettings.Default.IgnoreMember((member, side) => member.Type == typeof(IFormFile));

@@ -1,6 +1,6 @@
-﻿using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+﻿using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 
-namespace Shifty.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
+namespace SmartAttendance.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
 
 public record GetLogPropertyInfoQuery(
     Guid Id

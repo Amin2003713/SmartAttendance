@@ -1,11 +1,11 @@
-﻿using Shifty.Application.Base.Companies.Commands.UpdateCompany;
-using Shifty.Application.Base.Companies.Queries.GetCompanyInfo;
-using Shifty.Application.Base.Companies.Requests.UpdateCompany;
-using Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
+﻿using SmartAttendance.Application.Base.Companies.Commands.UpdateCompany;
+using SmartAttendance.Application.Base.Companies.Queries.GetCompanyInfo;
+using SmartAttendance.Application.Base.Companies.Requests.UpdateCompany;
+using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
 
-namespace Shifty.Api.Controllers.Companies;
+namespace SmartAttendance.Api.Controllers.Companies;
 
-public class CompanyController : ShiftyBaseController
+public class CompanyController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Retrieves detailed information about a company by its identifier.

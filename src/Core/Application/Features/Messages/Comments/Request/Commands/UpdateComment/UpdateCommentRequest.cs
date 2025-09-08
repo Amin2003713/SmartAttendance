@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Comments.Request.Commands.UpdateComment;
+﻿namespace SmartAttendance.Application.Features.Messages.Comments.Request.Commands.UpdateComment;
 
 public class UpdateCommentRequest
 {

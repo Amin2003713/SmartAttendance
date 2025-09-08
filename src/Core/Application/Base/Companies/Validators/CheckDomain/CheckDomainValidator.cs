@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.Companies.Queries.CheckDomain;
+using SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
 
-namespace Shifty.Application.Base.Companies.Validators.CheckDomain;
+namespace SmartAttendance.Application.Base.Companies.Validators.CheckDomain;
 
 public class CheckDomainValidator : AbstractValidator<CheckDomainQuery>
 {

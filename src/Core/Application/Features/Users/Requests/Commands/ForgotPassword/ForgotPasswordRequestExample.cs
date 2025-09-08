@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.ForgotPassword;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPassword;
 
 /// <summary>
 ///     Provides an example for <see cref="ForgotPasswordRequest" /> to be used in API documentation.

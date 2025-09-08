@@ -1,14 +1,14 @@
-﻿using Shifty.Application.Base.Discounts.Commands.CreateDiscount;
-using Shifty.Application.Base.Discounts.Commands.DeleteDiscount;
-using Shifty.Application.Base.Discounts.Queries.CheckDiscount;
-using Shifty.Application.Base.Discounts.Queries.GetAllDiscount;
-using Shifty.Application.Base.Discounts.Request.Commands.CreateDisCount;
-using Shifty.Application.Base.Discounts.Request.Queries.CheckDiscount;
-using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
+﻿using SmartAttendance.Application.Base.Discounts.Commands.CreateDiscount;
+using SmartAttendance.Application.Base.Discounts.Commands.DeleteDiscount;
+using SmartAttendance.Application.Base.Discounts.Queries.CheckDiscount;
+using SmartAttendance.Application.Base.Discounts.Queries.GetAllDiscount;
+using SmartAttendance.Application.Base.Discounts.Request.Commands.CreateDisCount;
+using SmartAttendance.Application.Base.Discounts.Request.Queries.CheckDiscount;
+using SmartAttendance.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 
-namespace Shifty.Api.Controllers.Discounts;
+namespace SmartAttendance.Api.Controllers.Discounts;
 
-public class DiscountController : ShiftyBaseController
+public class DiscountController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Creates a new discount.

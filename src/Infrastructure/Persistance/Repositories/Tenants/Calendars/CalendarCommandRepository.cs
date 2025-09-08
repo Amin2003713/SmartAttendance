@@ -1,5 +1,5 @@
-﻿namespace Shifty.Persistence.Repositories.Tenants.Calendars;
+﻿namespace SmartAttendance.Persistence.Repositories.Tenants.Calendars;
 
 public class CalendarCommandRepository(
-    ShiftyTenantDbContext db
+    SmartAttendanceTenantDbContext db
 ) : ICalendarCommandRepository { }

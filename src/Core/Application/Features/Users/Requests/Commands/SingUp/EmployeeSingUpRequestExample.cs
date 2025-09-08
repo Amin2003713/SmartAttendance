@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.SingUp;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.SingUp;
 
 public class EmployeeSingUpRequestExample : IExamplesProvider<EmployeeSingUpRequest>
 {

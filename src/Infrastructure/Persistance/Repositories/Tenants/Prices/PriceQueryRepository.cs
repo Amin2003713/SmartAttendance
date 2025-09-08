@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Interfaces.Tenants.Prices;
+﻿using SmartAttendance.Application.Interfaces.Tenants.Prices;
 
-namespace Shifty.Persistence.Repositories.Tenants.Prices;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Prices;
 
 public class PriceQueryRepository(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     ILogger<PriceQueryRepository> logger,
     IStringLocalizer<PriceQueryRepository> localizer
 ) : IPriceQueryRepository

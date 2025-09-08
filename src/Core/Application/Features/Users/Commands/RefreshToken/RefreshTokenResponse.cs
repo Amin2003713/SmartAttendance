@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Commands.RefreshToken;
+﻿namespace SmartAttendance.Application.Features.Users.Commands.RefreshToken;
 
 public class RefreshTokenResponse
 {

@@ -1,10 +1,10 @@
-﻿using Shifty.Application.Features.Messages.Queries.GetMessage;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessage;
-using Shifty.Application.Interfaces.Messages;
-using Shifty.Common.Exceptions;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Messages.Queries.GetMessage;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessage;
+using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Messages.Queries.GetMessage;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Queries.GetMessage;
 
 public class GetMessageQueryHandler(
     IMessageQueryRepository messageQueryRepository,
@@ -34,7 +34,7 @@ public class GetMessageQueryHandler(
 
             return messages;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error occurred while retrieving project messages.");
             throw;
@@ -42,7 +42,7 @@ public class GetMessageQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving project messages.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving messages."]);
         }
     }

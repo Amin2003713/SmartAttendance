@@ -1,8 +1,8 @@
 using FluentValidation;
-using Shifty.Application.Base.Companies.Requests.UpdateCompany;
-using Shifty.Application.Commons.MediaFiles.Validators;
+using SmartAttendance.Application.Base.Companies.Requests.UpdateCompany;
+using SmartAttendance.Application.Commons.MediaFiles.Validators;
 
-namespace Shifty.Application.Base.Companies.Validators.UpdateCompany;
+namespace SmartAttendance.Application.Base.Companies.Validators.UpdateCompany;
 
 /// <summary>
 ///     Validator class for , using FluentValidation.

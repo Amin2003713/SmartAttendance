@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Shifty.ApiFramework;
-using Shifty.ApiFramework.Analytics;
-using Shifty.ApiFramework.Configuration;
-using Shifty.ApiFramework.Injections;
-using Shifty.ApiFramework.Middleware.Jwt;
-using Shifty.Application;
-using Shifty.Application.Base.Payment.Commands.CreatePayment;
-using Shifty.Common;
-using Shifty.Common.General;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Db;
-using Shifty.Persistence.Services;
-using Shifty.RequestHandlers.Services;
+using SmartAttendance.ApiFramework;
+using SmartAttendance.ApiFramework.Analytics;
+using SmartAttendance.ApiFramework.Configuration;
+using SmartAttendance.ApiFramework.Injections;
+using SmartAttendance.ApiFramework.Middleware.Jwt;
+using SmartAttendance.Application;
+using SmartAttendance.Application.Base.Payment.Commands.CreatePayment;
+using SmartAttendance.Common;
+using SmartAttendance.Common.General;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Db;
+using SmartAttendance.Persistence.Services;
+using SmartAttendance.RequestHandlers.Services;
 
-namespace Shifty.Api.Services;
+namespace SmartAttendance.Api.Services;
 
 /// <summary>
 ///     Entry point for application service configuration.
@@ -36,13 +36,13 @@ public class Startup
 
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
-            User,                  // User entity model
-            Role,                  // RoleTypes entity model
-            ShiftyTenantInfo,      // Tenant info model
-            ShiftyTenantDbContext, // Multi-tenant DB context
-            ShiftyDbContext,       // Service-specific DB context (non-tenant)
-            Program,               // Reference for localizer (error messages)
-            CreatePaymentCommand   // Optional: Commands for custom Swagger sample
+            User,                           // User entity model
+            Role,                           // RoleTypes entity model
+            SmartAttendanceTenantInfo,      // Tenant info model
+            SmartAttendanceTenantDbContext, // Multi-tenant DB context
+            SmartAttendanceDbContext,       // Service-specific DB context (non-tenant)
+            Program,                        // Reference for localizer (error messages)
+            CreatePaymentCommand            // Optional: Commands for custom Swagger sample
         >(
             AddLoginRecordForUsers // Delegate to log login success for auditing
         );

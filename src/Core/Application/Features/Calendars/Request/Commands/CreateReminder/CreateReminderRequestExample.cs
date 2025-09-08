@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
+﻿namespace SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
 
 public class CreateReminderRequestExample : IExamplesProvider<CreateReminderRequest>
 {

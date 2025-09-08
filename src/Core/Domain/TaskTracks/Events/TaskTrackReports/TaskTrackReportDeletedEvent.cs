@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.TaskTracks.Events.TaskTrackReports;
+﻿namespace SmartAttendance.Domain.TaskTracks.Events.TaskTrackReports;
 
 public record TaskTrackReportDeletedEvent(
     Guid AggregateId,

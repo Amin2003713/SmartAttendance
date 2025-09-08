@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Persistence.Repositories.Common;
+namespace SmartAttendance.Persistence.Repositories.Common;
 
 public class QueryRepository<TEntity>(
     ReadOnlyDbContext dbContext,
@@ -74,7 +74,7 @@ public class QueryRepository<TEntity>(
                 "Error loading collection property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -99,7 +99,7 @@ public class QueryRepository<TEntity>(
                 "Error loading reference property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -138,7 +138,7 @@ public class QueryRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error fetching entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.NotFound();
+            throw SmartAttendanceException.NotFound();
         }
     }
 
@@ -210,7 +210,7 @@ public class QueryRepository<TEntity>(
                 "Error loading collection property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -238,7 +238,7 @@ public class QueryRepository<TEntity>(
                 "Error loading reference property for entity of type {EntityType}",
                 typeof(TEntity).Name);
 
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 

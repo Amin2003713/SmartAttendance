@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Shifty.Application.Features.Users.Commands.AddRole;
-using Shifty.Application.Features.Users.Commands.ForgotPassword;
-using Shifty.Application.Features.Users.Commands.Login;
-using Shifty.Application.Features.Users.Commands.Logout;
-using Shifty.Application.Features.Users.Commands.RefreshToken;
-using Shifty.Application.Features.Users.Commands.RegisterByOwner;
-using Shifty.Application.Features.Users.Commands.SendActivationCode;
-using Shifty.Application.Features.Users.Commands.UpdatePhoneNumber;
-using Shifty.Application.Features.Users.Commands.UpdateUser;
-using Shifty.Application.Features.Users.Commands.Verify;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Features.Users.Queries.GetUserInfo.LoggedIn;
-using Shifty.Application.Features.Users.Requests.Commands.AddRole;
-using Shifty.Application.Features.Users.Requests.Commands.ForgotPassword;
-using Shifty.Application.Features.Users.Requests.Commands.Login;
-using Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
-using Shifty.Application.Features.Users.Requests.Commands.SendActivationCode;
-using Shifty.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
-using Shifty.Application.Features.Users.Requests.Commands.UpdateUser;
-using Shifty.Application.Features.Users.Requests.Commands.Verify;
-using Shifty.Application.Features.Users.Requests.Queries.GetUserRoles;
-using Shifty.Common.Common.Responses.Users.Queries.Base;
-using Shifty.Common.General.Enums;
+using SmartAttendance.Application.Features.Users.Commands.AddRole;
+using SmartAttendance.Application.Features.Users.Commands.ForgotPassword;
+using SmartAttendance.Application.Features.Users.Commands.Login;
+using SmartAttendance.Application.Features.Users.Commands.Logout;
+using SmartAttendance.Application.Features.Users.Commands.RefreshToken;
+using SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
+using SmartAttendance.Application.Features.Users.Commands.SendActivationCode;
+using SmartAttendance.Application.Features.Users.Commands.UpdatePhoneNumber;
+using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
+using SmartAttendance.Application.Features.Users.Commands.Verify;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Features.Users.Queries.GetUserInfo.LoggedIn;
+using SmartAttendance.Application.Features.Users.Requests.Commands.AddRole;
+using SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPassword;
+using SmartAttendance.Application.Features.Users.Requests.Commands.Login;
+using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
+using SmartAttendance.Application.Features.Users.Requests.Commands.SendActivationCode;
+using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
+using SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
+using SmartAttendance.Application.Features.Users.Requests.Commands.Verify;
+using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserRoles;
+using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
+using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Api.Controllers.Users;
+namespace SmartAttendance.Api.Controllers.Users;
 
-public class UserController : ShiftyBaseController
+public class UserController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Initiates a "forgot password" process by getting new code from the user.

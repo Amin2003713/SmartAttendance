@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.DependencyInjection;
-using Shifty.Common.General;
+using SmartAttendance.Common.General;
 
-namespace Shifty.ApiFramework.Tools;
+namespace SmartAttendance.ApiFramework.Tools;
 
 public static class HybridCache
 {

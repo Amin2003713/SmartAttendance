@@ -1,7 +1,7 @@
-﻿using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Common.Responses.Users.Queries.Base;
+﻿using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 
-namespace Shifty.Application.Features.Users.Requests.Queries.GetAllUsers;
+namespace SmartAttendance.Application.Features.Users.Requests.Queries.GetAllUsers;
 
 public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse>>
 {

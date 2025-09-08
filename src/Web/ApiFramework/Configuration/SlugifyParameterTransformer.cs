@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Routing;
 
-namespace Shifty.ApiFramework.Configuration;
+namespace SmartAttendance.ApiFramework.Configuration;
 
 public class SlugifyParameterTransformer : IOutboundParameterTransformer
 {

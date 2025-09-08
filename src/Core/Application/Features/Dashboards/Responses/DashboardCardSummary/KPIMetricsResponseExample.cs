@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.Dashboard;
+﻿using SmartAttendance.Common.General.Enums.Dashboard;
 
-namespace Shifty.Application.Features.Dashboards.Responses.DashboardCardSummary;
+namespace SmartAttendance.Application.Features.Dashboards.Responses.DashboardCardSummary;
 
 public class KPIMetricsResponseExample : IExamplesProvider<List<KPIMetricsResponse>>
 {

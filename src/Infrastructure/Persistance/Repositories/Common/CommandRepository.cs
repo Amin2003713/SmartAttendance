@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Persistence.Repositories.Common;
+namespace SmartAttendance.Persistence.Repositories.Common;
 
 public class CommandRepository<TEntity>(
     WriteOnlyDbContext dbContext,
@@ -30,7 +30,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error adding entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -51,7 +51,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error adding range of entities of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -72,7 +72,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error updating entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -93,7 +93,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error updating range of entities of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -114,7 +114,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error deleting entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -134,7 +134,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error deleting range of entities of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -154,7 +154,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error attaching entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -174,7 +174,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error detaching entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -195,7 +195,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error adding entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -219,7 +219,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error adding range of entities of type {EntityType} , {ex}", typeof(TEntity).Name, ex);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -240,7 +240,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error updating entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -264,7 +264,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error updating range of entities of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -285,7 +285,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error deleting entity of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -298,7 +298,7 @@ public class CommandRepository<TEntity>(
         {
             var item = await Entities.FirstOrDefaultAsync(prediction, cancellationToken);
             if (item == null)
-                ShiftyException.NotFound();
+                SmartAttendanceException.NotFound();
 
             await DeleteAsync(item, cancellationToken, saveNow);
         }
@@ -328,7 +328,7 @@ public class CommandRepository<TEntity>(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error deleting range of entities of type {EntityType}", typeof(TEntity).Name);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 }

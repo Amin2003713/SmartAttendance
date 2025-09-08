@@ -1,18 +1,17 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessage;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Messages;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessage;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessageById;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Messages;
 
-namespace Shifty.Application.Interfaces.Messages;
+namespace SmartAttendance.Application.Interfaces.Messages;
 
 public interface IMessageQueryRepository : IQueryRepository<Message>,
     IScopedDependency
 {
-    Task<List<GetMessageResponse>> GetMessagesAsync(
-        CancellationToken cancellationToken);
+    Task<List<GetMessageResponse>> GetMessagesAsync(CancellationToken cancellationToken);
 
     Task<bool> CanUserPerformDelete(Message message, Guid userId, CancellationToken cancellationToken);
 

@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Features.Messages.Comments.Commands.UpdateComment;
-using Shifty.Application.Interfaces.Messages.Comments;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Features.Messages.Comments.Commands.UpdateComment;
+using SmartAttendance.Application.Interfaces.Messages.Comments;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Messages.Comments.Commands.UpdateComment;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Comments.Commands.UpdateComment;
 
 public class UpdateCommentCommandHandler(
     ICommentCommandRepository commandRepository,
@@ -20,7 +20,7 @@ public class UpdateCommentCommandHandler(
             if (comment == null)
             {
                 logger.LogWarning("Comment with ID {CommentId} not found for update.", request.Id);
-                throw ShiftyException.NotFound(localizer["Comment not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Comment not found."]);
             }
 
             comment.Text = request.Text;
@@ -28,15 +28,15 @@ public class UpdateCommentCommandHandler(
 
             logger.LogInformation("Comment Updated successfully.");
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogWarning(ex, "Business error while updating comment: {Message}", ex.Message);
-            throw ShiftyException.BadRequest(localizer[ex.Message].Value);
+            throw SmartAttendanceException.BadRequest(localizer[ex.Message].Value);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while updating comment");
-            throw ShiftyException.InternalServerError(localizer["Unable to updating comment."]);
+            throw SmartAttendanceException.InternalServerError(localizer["Unable to updating comment."]);
         }
     }
 }

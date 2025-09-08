@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
+using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.UpdatePhoneNumber;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.UpdatePhoneNumber;
 
 public class UpdatePhoneNumberRequestValidator : AbstractValidator<UpdatePhoneNumberRequest>
 {

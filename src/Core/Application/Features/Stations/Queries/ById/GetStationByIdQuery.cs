@@ -1,5 +1,7 @@
-﻿using Shifty.Application.Features.Stations.Requests.Queries.GetStations;
+﻿using SmartAttendance.Application.Features.Stations.Requests.Queries.GetStations;
 
-namespace Shifty.Application.Features.Stations.Queries.ById;
+namespace SmartAttendance.Application.Features.Stations.Queries.ById;
 
-public record GetStationByIdQuery(Guid Id) : IRequest<GetStationResponse>;
+public record GetStationByIdQuery(
+    Guid Id
+) : IRequest<GetStationResponse>;

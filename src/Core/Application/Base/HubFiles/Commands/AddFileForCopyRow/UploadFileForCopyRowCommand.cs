@@ -1,11 +1,10 @@
-﻿using Shifty.Common.General;
-using Shifty.Common.General.Enums.FileType;
+﻿using SmartAttendance.Common.General;
+using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Application.Base.HubFiles.Commands.AddFileForCopyRow;
+namespace SmartAttendance.Application.Base.HubFiles.Commands.AddFileForCopyRow;
 
 public record UploadFileForCopyRowCommand(
     string FileUrl,
-    
     DateTime ReportDate,
     Guid RowId,
     FileStorageType FileStorageType

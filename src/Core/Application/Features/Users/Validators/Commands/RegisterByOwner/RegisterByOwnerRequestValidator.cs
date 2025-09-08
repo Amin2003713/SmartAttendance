@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
-using Shifty.Common.Utilities.RolesHelper;
+using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
+using SmartAttendance.Common.Utilities.RolesHelper;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.RegisterByOwner;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.RegisterByOwner;
 
 public class RegisterByOwnerRequestValidator : AbstractValidator<RegisterByOwnerRequest>
 {

@@ -1,18 +1,18 @@
-﻿using Shifty.Application.Features.Messages.Commands.CreateMessage;
-using Shifty.Application.Features.Messages.Commands.DeleteMassage;
-using Shifty.Application.Features.Messages.Commands.LikeMessage;
-using Shifty.Application.Features.Messages.Commands.UpdateMessage;
-using Shifty.Application.Features.Messages.Commands.VisitMessage;
-using Shifty.Application.Features.Messages.Queries.GetMessage;
-using Shifty.Application.Features.Messages.Queries.GetMessageById;
-using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
-using Shifty.Application.Features.Messages.Request.Commands.UpdateMessage;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessage;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
+﻿using SmartAttendance.Application.Features.Messages.Commands.CreateMessage;
+using SmartAttendance.Application.Features.Messages.Commands.DeleteMassage;
+using SmartAttendance.Application.Features.Messages.Commands.LikeMessage;
+using SmartAttendance.Application.Features.Messages.Commands.UpdateMessage;
+using SmartAttendance.Application.Features.Messages.Commands.VisitMessage;
+using SmartAttendance.Application.Features.Messages.Queries.GetMessage;
+using SmartAttendance.Application.Features.Messages.Queries.GetMessageById;
+using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
+using SmartAttendance.Application.Features.Messages.Request.Commands.UpdateMessage;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessage;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessageById;
 
-namespace Shifty.Api.Controllers.Messages;
+namespace SmartAttendance.Api.Controllers.Messages;
 
-public class MessageController : ShiftyBaseController
+public class MessageController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Creates a new message for a project.
@@ -26,7 +26,7 @@ public class MessageController : ShiftyBaseController
     [HttpPost]
     [SwaggerOperation(Summary = "Create a message",
         Description = "Creates a new message ")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task CreateMessage([FromForm] CreateMessageRequest request, CancellationToken cancellationToken)
     {
@@ -37,7 +37,7 @@ public class MessageController : ShiftyBaseController
     [HttpPut]
     [SwaggerOperation(Summary = "Put a message",
         Description = "Updates a message.")]
-    [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(string),            StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task UpdateMessage([FromForm] UpdateMessageRequest request, CancellationToken cancellationToken)
     {

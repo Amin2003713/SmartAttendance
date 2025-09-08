@@ -4,16 +4,16 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
-namespace Shifty.Persistence.Services.Pdf.GetFactorPdf;
+namespace SmartAttendance.Persistence.Services.Pdf.GetFactorPdf;
 
 public class GetFactorPdfDocument(
-    ShiftyTenantInfo company,
+    SmartAttendanceTenantInfo company,
     Payments payments,
     Price price
 )
     : IDocument
 {
-    private ShiftyTenantInfo Seller { get; } = company;
+    private SmartAttendanceTenantInfo Seller { get; } = company;
     private Payments Payments { get; } = payments;
     private Price Price { get; } = price;
 

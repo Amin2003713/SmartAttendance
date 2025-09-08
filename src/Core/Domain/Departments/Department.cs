@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Departments;
+namespace SmartAttendance.Domain.Departments;
 
 public class Department : BaseEntity
 {

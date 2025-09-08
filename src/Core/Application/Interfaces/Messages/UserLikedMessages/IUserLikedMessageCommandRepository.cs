@@ -1,10 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Messages.UserLikedMessages;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Messages.UserLikedMessages;
 
-namespace Shifty.Application.Interfaces.Messages.UserLikedMessages;
+namespace SmartAttendance.Application.Interfaces.Messages.UserLikedMessages;
 
 public interface IUserLikedMessageCommandRepository : ICommandRepository<UserLikedMessage>,
-    IScopedDependency
-{
-}
+    IScopedDependency { }

@@ -1,7 +1,7 @@
-﻿using Shifty.Common.General.BaseClasses;
-using Shifty.Common.General.Enums.FileType;
+﻿using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Domain.HubFiles;
+namespace SmartAttendance.Domain.HubFiles;
 
 public class HubFile : BaseEntity
 {

@@ -1,7 +1,7 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Common.General.Enums.Discount;
+using SmartAttendance.Common.General.Enums.Discount;
 
-namespace Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
+namespace SmartAttendance.Application.Base.Discounts.Request.Queries.GetAllDiscount;
 
 public class GetAllDiscountResponseExample : IExamplesProvider<GetAllDiscountResponse>
 {

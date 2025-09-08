@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
-using Shifty.Common.General.Enums.Searches;
-using Shifty.Common.Utilities.PaginationHelpers;
+﻿using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
+using SmartAttendance.Common.General.Enums.Searches;
+using SmartAttendance.Common.Utilities.PaginationHelpers;
 
-namespace Shifty.Application.Features.TaskTrack.Queries.GetTackTracks;
+namespace SmartAttendance.Application.Features.TaskTrack.Queries.GetTackTracks;
 
 public record GetTaskTrackQuery(
     int PageNumber = 1,

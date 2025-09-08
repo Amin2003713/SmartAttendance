@@ -1,5 +1,6 @@
-﻿using Shifty.Application.Features.Calendars.Request.Commands.CreateHoliday;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateHoliday;
 
-namespace Shifty.Application.Features.Calendars.Commands.CreateHoliday;
+namespace SmartAttendance.Application.Features.Calendars.Commands.CreateHoliday;
 
-public class CreateHolidayCommand : CreateHolidayRequest, IRequest;
+public class CreateHolidayCommand : CreateHolidayRequest,
+    IRequest;

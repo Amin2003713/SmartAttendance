@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Tenants.Discounts;
+using SmartAttendance.Application.Base.Discounts.Request.Queries.GetAllDiscount;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Tenants.Discounts;
 
-namespace Shifty.Application.Interfaces.Tenants.Discounts;
+namespace SmartAttendance.Application.Interfaces.Tenants.Discounts;
 
 public interface IDiscountQueryRepository : IScopedDependency
 {

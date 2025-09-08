@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Shifty.ApiFramework.Tools;
-using Shifty.Common.Exceptions;
+using SmartAttendance.ApiFramework.Tools;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.ApiFramework.Middleware.Jwt;
+namespace SmartAttendance.ApiFramework.Middleware.Jwt;
 
 /// <summary>
 ///     Middleware that catches any exception thrown downstream (e.g., in JWT validation),

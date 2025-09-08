@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Messages.Comments;
+namespace SmartAttendance.Domain.Messages.Comments;
 
 public class Comment : BaseEntity
 {

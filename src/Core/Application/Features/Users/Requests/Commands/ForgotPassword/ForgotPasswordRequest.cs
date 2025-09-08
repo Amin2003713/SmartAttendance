@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.ForgotPassword;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPassword;
 
 /// <summary>
 ///     A request containing information required to reset a user's password.

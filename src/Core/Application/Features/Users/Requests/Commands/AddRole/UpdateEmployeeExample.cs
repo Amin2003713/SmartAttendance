@@ -1,7 +1,7 @@
-﻿using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.EnumHelpers;
+﻿using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.EnumHelpers;
 
-namespace Shifty.Application.Features.Users.Requests.Commands.AddRole;
+namespace SmartAttendance.Application.Features.Users.Requests.Commands.AddRole;
 
 public class UpdateEmployeeExample : IExamplesProvider<UpdateEmployeeRequest>
 {

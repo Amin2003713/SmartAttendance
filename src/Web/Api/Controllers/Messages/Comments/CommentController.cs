@@ -1,13 +1,13 @@
-﻿using Shifty.Application.Features.Messages.Comments.Commands.CreateComment;
-using Shifty.Application.Features.Messages.Comments.Commands.UpdateComment;
-using Shifty.Application.Features.Messages.Comments.Queries.GetComments;
-using Shifty.Application.Features.Messages.Comments.Request.Commands.CreateComment;
-using Shifty.Application.Features.Messages.Comments.Request.Commands.UpdateComment;
-using Shifty.Application.Features.Messages.Comments.Request.Queries.GetComments;
+﻿using SmartAttendance.Application.Features.Messages.Comments.Commands.CreateComment;
+using SmartAttendance.Application.Features.Messages.Comments.Commands.UpdateComment;
+using SmartAttendance.Application.Features.Messages.Comments.Queries.GetComments;
+using SmartAttendance.Application.Features.Messages.Comments.Request.Commands.CreateComment;
+using SmartAttendance.Application.Features.Messages.Comments.Request.Commands.UpdateComment;
+using SmartAttendance.Application.Features.Messages.Comments.Request.Queries.GetComments;
 
-namespace Shifty.Api.Controllers.Messages.Comments;
+namespace SmartAttendance.Api.Controllers.Messages.Comments;
 
-public class CommentController : ShiftyBaseController
+public class CommentController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Retrieves the list of comments for a specific message or item.

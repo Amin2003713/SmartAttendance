@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Prices.Request.Queries.GetPrice;
+﻿namespace SmartAttendance.Application.Base.Prices.Request.Queries.GetPrice;
 
 public class GetPriceResponse
 {

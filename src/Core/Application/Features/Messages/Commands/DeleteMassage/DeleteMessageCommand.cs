@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Commands.DeleteMassage;
+﻿namespace SmartAttendance.Application.Features.Messages.Commands.DeleteMassage;
 
 public record DeleteMessageCommand(
     Guid MessageId

@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Domain.Calenders.DailyCalender;
+﻿using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Domain.Calenders.DailyCalender;
 
-namespace Shifty.Persistence.Repositories.Calendars.DailyCalendars;
+namespace SmartAttendance.Persistence.Repositories.Calendars.DailyCalendars;
 
 public class DailyCalendarCommandRepository(
     WriteOnlyDbContext dbContext,

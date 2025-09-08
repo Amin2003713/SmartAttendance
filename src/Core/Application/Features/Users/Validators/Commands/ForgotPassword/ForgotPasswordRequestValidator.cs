@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.ForgotPassword;
+using SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPassword;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.ForgotPassword;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.ForgotPassword;
 
 public class ForgotPasswordRequestValidator : AbstractValidator<ForgotPasswordRequest>
 {

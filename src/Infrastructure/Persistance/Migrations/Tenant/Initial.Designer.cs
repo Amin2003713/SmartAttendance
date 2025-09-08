@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shifty.Persistence.Db;
+using SmartAttendance.Persistence.Db;
 
 #nullable disable
 
-namespace Shifty.Persistence.Migrations.Tenant
+namespace SmartAttendance.Persistence.Migrations.Tenant
 {
-    [DbContext(typeof(ShiftyTenantDbContext))]
+    [DbContext(typeof(SmartAttendanceTenantDbContext))]
     [Migration("20250807132441_Initial")]
     partial class Initial
     {
@@ -25,7 +25,7 @@ namespace Shifty.Persistence.Migrations.Tenant
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Discounts.Discount", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Discounts.Discount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Discounts");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Discounts.TenantDiscount", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Discounts.TenantDiscount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,7 +107,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("TenantDiscounts");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments.Payments", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Payments.Payments", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,7 +220,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Price", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Price", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -256,7 +256,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("Prices");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.SmartAttendanceTenantInfo", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(64)
@@ -320,7 +320,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("TenantInfo");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantAdmin", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.TenantAdmin", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -361,7 +361,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("TenantAdmins");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantCalendar", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.TenantCalendar", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -387,7 +387,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("TenantCalendars");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantRequest", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.TenantRequest", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -420,7 +420,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.ToTable("TenantRequests");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantUser", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.TenantUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -449,7 +449,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ShiftyTenantInfoId")
+                    b.Property<string>("SmartAttendanceTenantInfoId")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)");
 
@@ -459,20 +459,20 @@ namespace Shifty.Persistence.Migrations.Tenant
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShiftyTenantInfoId");
+                    b.HasIndex("SmartAttendanceTenantInfoId");
 
                     b.ToTable("TenantUsers");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Discounts.TenantDiscount", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Discounts.TenantDiscount", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.Discounts.Discount", "Discount")
+                    b.HasOne("SmartAttendance.Domain.Tenants.Discounts.Discount", "Discount")
                         .WithMany("TenantDiscount")
                         .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shifty.Domain.Tenants.ShiftyTenantInfo", "Tenant")
+                    b.HasOne("SmartAttendance.Domain.Tenants.SmartAttendanceTenantInfo", "Tenant")
                         .WithMany("TenantDiscounts")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -483,22 +483,22 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Payments.Payments", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Payments.Payments", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.Discounts.Discount", "Discount")
+                    b.HasOne("SmartAttendance.Domain.Tenants.Discounts.Discount", "Discount")
                         .WithMany("Payments")
                         .HasForeignKey("DiscountId");
 
-                    b.HasOne("Shifty.Domain.Tenants.Payments.Payments", "LastPayment")
+                    b.HasOne("SmartAttendance.Domain.Tenants.Payments.Payments", "LastPayment")
                         .WithMany()
                         .HasForeignKey("LastPaymentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Shifty.Domain.Tenants.Price", "Price")
+                    b.HasOne("SmartAttendance.Domain.Tenants.Price", "Price")
                         .WithMany("Payments")
                         .HasForeignKey("PriceId");
 
-                    b.HasOne("Shifty.Domain.Tenants.ShiftyTenantInfo", "Tenant")
+                    b.HasOne("SmartAttendance.Domain.Tenants.SmartAttendanceTenantInfo", "Tenant")
                         .WithMany("Payments")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -513,9 +513,9 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.SmartAttendanceTenantInfo", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.TenantAdmin", "User")
+                    b.HasOne("SmartAttendance.Domain.Tenants.TenantAdmin", "User")
                         .WithMany("Tenants")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -523,30 +523,30 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantUser", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.TenantUser", b =>
                 {
-                    b.HasOne("Shifty.Domain.Tenants.ShiftyTenantInfo", "ShiftyTenantInfo")
+                    b.HasOne("SmartAttendance.Domain.Tenants.SmartAttendanceTenantInfo", "SmartAttendanceTenantInfo")
                         .WithMany("TenantUsers")
-                        .HasForeignKey("ShiftyTenantInfoId")
+                        .HasForeignKey("SmartAttendanceTenantInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ShiftyTenantInfo");
+                    b.Navigation("SmartAttendanceTenantInfo");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Discounts.Discount", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Discounts.Discount", b =>
                 {
                     b.Navigation("Payments");
 
                     b.Navigation("TenantDiscount");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.Price", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.Price", b =>
                 {
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.ShiftyTenantInfo", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.SmartAttendanceTenantInfo", b =>
                 {
                     b.Navigation("Payments");
 
@@ -555,7 +555,7 @@ namespace Shifty.Persistence.Migrations.Tenant
                     b.Navigation("TenantUsers");
                 });
 
-            modelBuilder.Entity("Shifty.Domain.Tenants.TenantAdmin", b =>
+            modelBuilder.Entity("SmartAttendance.Domain.Tenants.TenantAdmin", b =>
                 {
                     b.Navigation("Tenants");
                 });

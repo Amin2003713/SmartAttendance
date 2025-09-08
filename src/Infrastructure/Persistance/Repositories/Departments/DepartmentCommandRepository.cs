@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Departments;
-using Shifty.Domain.Departments;
+﻿using SmartAttendance.Application.Interfaces.Departments;
+using SmartAttendance.Domain.Departments;
 
-namespace Shifty.Persistence.Repositories.Departments;
+namespace SmartAttendance.Persistence.Repositories.Departments;
 
 public class DepartmentCommandRepository(
     WriteOnlyDbContext dbContext,

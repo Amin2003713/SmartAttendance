@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
+﻿using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
 
-namespace Shifty.Application.Features.Messages.Request.Queries.GetMessage;
+namespace SmartAttendance.Application.Features.Messages.Request.Queries.GetMessage;
 
 public class GetMessageResponse
 {

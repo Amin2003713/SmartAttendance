@@ -1,10 +1,10 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Application.Features.Calendars.Queries.GetReminder;
-using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Calendars.Queries.GetReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetReminder;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Queries.GetReminder;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetReminder;
 
 public class GetReminderQueryHandler(
     IdentityService service,
@@ -17,11 +17,11 @@ public class GetReminderQueryHandler(
     {
         try
         {
-            var userId = service.GetUserId<Guid>();
+            var userId       = service.GetUserId<Guid>();
             var startOfMonth = new PersianDateTime(request.Year, request.Month, 1).ToString().ToGregorianDateTime();
-            var range = startOfMonth.GetPersianMonthStartAndEndDates();
-            var fromDate = startOfMonth!.Value;
-            var toDate = range!.EndDate;
+            var range        = startOfMonth.GetPersianMonthStartAndEndDates();
+            var fromDate     = startOfMonth!.Value;
+            var toDate       = range!.EndDate;
 
             logger.LogInformation(
                 "Getting reminders , UserId: {UserId}, DateRange: {From} to {To}",

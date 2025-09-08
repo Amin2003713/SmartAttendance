@@ -1,3 +1,5 @@
-﻿namespace Shifty.Application.Features.Stations.Commands.Delete;
+﻿namespace SmartAttendance.Application.Features.Stations.Commands.Delete;
 
-public record DeleteStationCommand(Guid Id) : IRequest;
+public record DeleteStationCommand(
+    Guid Id
+) : IRequest;

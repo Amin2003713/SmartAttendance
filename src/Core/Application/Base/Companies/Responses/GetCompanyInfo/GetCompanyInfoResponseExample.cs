@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Companies.Responses.CompnaySettings;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Domain.Setting;
+﻿using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Domain.Setting;
 
-namespace Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
+namespace SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
 
 public class GetCompanyInfoResponseExample : IExamplesProvider<GetCompanyInfoResponse>
 {

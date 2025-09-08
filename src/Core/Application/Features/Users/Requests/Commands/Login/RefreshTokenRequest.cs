@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.Login;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.Login;
 
 public class RefreshTokenRequest
 {

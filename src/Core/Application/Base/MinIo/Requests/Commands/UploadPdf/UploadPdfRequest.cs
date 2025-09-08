@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.FileType;
+﻿using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Application.Base.MinIo.Requests.Commands.UploadPdf;
+namespace SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
 
 public class UploadPdfRequest
 {

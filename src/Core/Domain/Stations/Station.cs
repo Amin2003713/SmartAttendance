@@ -1,9 +1,9 @@
-﻿using Shifty.Common.Common.Requests;
-using Shifty.Common.General.BaseClasses;
-using Shifty.Common.General.Enums.StationStatuses;
-using Shifty.Common.General.Enums.StationTypes;
+﻿using SmartAttendance.Common.Common.Requests;
+using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Common.General.Enums.StationStatuses;
+using SmartAttendance.Common.General.Enums.StationTypes;
 
-namespace Shifty.Domain.Stations;
+namespace SmartAttendance.Domain.Stations;
 
 public class Station : BaseEntity
 {

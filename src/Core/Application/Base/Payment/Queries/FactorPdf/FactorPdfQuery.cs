@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Payment.Queries.FactorPdf;
+﻿namespace SmartAttendance.Application.Base.Payment.Queries.FactorPdf;
 
 public class FactorPdfQuery : IRequest<string>
 {

@@ -1,15 +1,16 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Stations.Commands.Create;
-using Shifty.Application.Interfaces.Stations;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Stations;
+using SmartAttendance.Application.Features.Stations.Commands.Create;
+using SmartAttendance.Application.Interfaces.Stations;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Stations;
 
-namespace Shifty.RequestHandlers.Features.Stations.Commands.Create;
+namespace SmartAttendance.RequestHandlers.Features.Stations.Commands.Create;
 
 public class CreateStationCommandHandler(
     IStationCommandRepository commandRepository,
     ILogger<CreateStationCommandHandler> logger,
-    IStringLocalizer<CreateStationCommandHandler> localizer) : IRequestHandler<CreateStationCommand>
+    IStringLocalizer<CreateStationCommandHandler> localizer
+) : IRequestHandler<CreateStationCommand>
 {
     public async Task Handle(CreateStationCommand request, CancellationToken cancellationToken)
     {
@@ -26,17 +27,18 @@ public class CreateStationCommandHandler(
             await commandRepository.AddAsync(station, cancellationToken);
 
 
-            logger.LogInformation("Station created. Id={StationId}, Name={Name}", station.Id,
+            logger.LogInformation("Station created. Id={StationId}, Name={Name}",
+                station.Id,
                 station.Name);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error when creating station. Name={Name}", request!.Name);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while creating the station."]);
         }
     }

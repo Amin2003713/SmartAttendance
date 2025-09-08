@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Commands.Verify;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Features.Users.Commands.Verify;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.Verify;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.Verify;
 
 public class VerifyCommandHandler(
     UserManager<User> userManager,
@@ -25,7 +25,7 @@ public class VerifyCommandHandler(
             var user = await userManager.FindByNameAsync(request.PhoneNumber);
 
             if (user == null)
-                throw ShiftyException.NotFound(additionalData: localizer["User was not found."]
+                throw SmartAttendanceException.NotFound(additionalData: localizer["User was not found."]
                     .Value); // "کاربر یافت نشد."
 
             var isVerified = await VerifyTwoFactorTokenAsync(request.Code, user);
@@ -36,7 +36,7 @@ public class VerifyCommandHandler(
             var result = await userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
-                throw ShiftyException.BadRequest(localizer["User activation failed."]
+                throw SmartAttendanceException.BadRequest(localizer["User activation failed."]
                     .Value); // "فعال‌سازی کاربر انجام نشد."
 
             return new VerifyPhoneNumberResponse
@@ -47,7 +47,7 @@ public class VerifyCommandHandler(
                     : localizer["Invalid code or phone number."].Value       // "کد وارد شده یا شماره تلفن نامعتبر است."
             };
         }
-        catch (ShiftyException e)
+        catch (SmartAttendanceException e)
         {
             logger.LogError(e, "Error during phone number verification.");
             throw;
@@ -60,7 +60,7 @@ public class VerifyCommandHandler(
         {
             return await userManager.VerifyTwoFactorTokenAsync(user!, ApplicationConstant.Identity.CodeGenerator, code);
         }
-        catch (ShiftyException e)
+        catch (SmartAttendanceException e)
         {
             logger.LogError(e, "Error during two-factor token verification.");
             throw;
@@ -68,7 +68,7 @@ public class VerifyCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
-            throw ShiftyException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
                 .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }

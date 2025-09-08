@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.SingUp;
+using SmartAttendance.Application.Features.Users.Requests.Commands.SingUp;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.SingUp;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.SingUp;
 
 public class SingUpRequestValidator : AbstractValidator<EmployeeSingUpRequest>
 {

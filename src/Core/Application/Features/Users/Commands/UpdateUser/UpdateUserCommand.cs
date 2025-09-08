@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Commons.MediaFiles.Requests;
-using Shifty.Application.Features.Users.Requests.Commands.UpdateUser;
+﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
+using SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
 
-namespace Shifty.Application.Features.Users.Commands.UpdateUser;
+namespace SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 
 public class UpdateUserCommand : UpdateUserRequest,
     IRequest

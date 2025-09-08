@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Storage.Request.Commands.DeleteStorage;
+﻿namespace SmartAttendance.Application.Base.Storage.Request.Commands.DeleteStorage;
 
 public class DeleteStorageRequest
 {

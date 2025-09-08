@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Companies.Requests.InitialCompany;
+﻿namespace SmartAttendance.Application.Base.Companies.Requests.InitialCompany;
 
 public class InitialCompanyRequest
 {

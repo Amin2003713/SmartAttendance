@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
-namespace Shifty.ApiFramework.Attributes;
+namespace SmartAttendance.ApiFramework.Attributes;
 
 public static class AuthAttributeCache
 {

@@ -1,34 +1,34 @@
 ﻿using System.IO;
 using SharpCompress.Common;
-using Shifty.Application.Base.HubFiles.Commands.ZipExport;
-using Shifty.Application.Base.HubFiles.Request.Commands.ZipExport;
-using Shifty.Application.Base.MinIo.Commands.UploadPdf;
-using Shifty.Application.Base.MinIo.Commands.UplodeFile;
-using Shifty.Application.Base.MinIo.Requests.Commands.UploadFile;
-using Shifty.Application.Base.MinIo.Requests.Commands.UploadPdf;
-using Shifty.Application.Base.Storage.Request.Queries.StorageResponses;
-using Shifty.Application.Interfaces.HubFiles;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Application.Interfaces.Storages;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.EnumHelpers;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
+using SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
+using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
+using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
+using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
+using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
+using SmartAttendance.Application.Base.Storage.Request.Queries.StorageResponses;
+using SmartAttendance.Application.Interfaces.HubFiles;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Application.Interfaces.Storages;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Domain.HubFiles;
 using WriterFactory = SharpCompress.Writers.WriterFactory;
 
-namespace Shifty.Persistence.Repositories.HubFiles;
+namespace SmartAttendance.Persistence.Repositories.HubFiles;
 
 public class HubFileCommandRepository(
     WriteOnlyDbContext dbContext,
     ILogger<HubFileCommandRepository> logger,
     IStringLocalizer<HubFileCommandRepository> localizer,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContextAccessor,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContextAccessor,
     IMinIoCommandRepository minIoCommandRepository,
     IMinIoQueryRepository minIoQueryRepository,
     IStorageCommandRepository storageCommandRepository
 ) : CommandRepository<HubFile>(dbContext, logger),
     IHubFileCommandRepository
 {
-    public ShiftyTenantInfo tenantContext => tenantContextAccessor.MultiTenantContext.TenantInfo!;
+    public SmartAttendanceTenantInfo tenantContext => tenantContextAccessor.MultiTenantContext.TenantInfo!;
 
 
     public async Task<HubFile> PostFile(UploadFileRequest uploadFileRequest, CancellationToken cancellationToken)
@@ -59,11 +59,11 @@ public class HubFileCommandRepository(
     {
         // logger.LogInformation("Generating ZIP file for ProjectId: {ProjectId}", Zipfile.ProjectId);
 
-        var files = await TableNoTracking.Where(a => 
+        var files = await TableNoTracking.Where(a =>
                 // a.ProjectId == Zipfile.ProjectId &&
-                                                     a.ReferenceIdType == Zipfile.RowType &&
-                                                     a.ReportDate >= Zipfile.FromDate &&
-                                                     a.ReportDate <= Zipfile.ToDate)
+                a.ReferenceIdType == Zipfile.RowType &&
+                a.ReportDate >= Zipfile.FromDate &&
+                a.ReportDate <= Zipfile.ToDate)
             .GroupBy(a => a.Name)
             .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
             .ToListAsync(cancellationToken);
@@ -143,7 +143,7 @@ public class HubFileCommandRepository(
             await AddAsync(path, cancellationToken);
             logger.LogInformation("PDF file metadata saved successfully. FileId: {FileId}", path.Id);
 
-            return (GetUrlPath(path.Id, FileType.Pdf, FileStorageType.PdfExports));
+            return GetUrlPath(path.Id, FileType.Pdf, FileStorageType.PdfExports);
         }
         catch (OutOfMemoryException)
         {

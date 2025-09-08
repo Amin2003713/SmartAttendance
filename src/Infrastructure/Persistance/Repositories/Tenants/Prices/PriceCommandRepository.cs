@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Interfaces.Tenants.Prices;
+﻿using SmartAttendance.Application.Interfaces.Tenants.Prices;
 
-namespace Shifty.Persistence.Repositories.Tenants.Prices;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Prices;
 
 public class PriceCommandRepository(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     IdentityService identityService,
     ILogger<PriceCommandRepository> logger,
     IStringLocalizer<PriceCommandRepository> localizer
@@ -29,7 +29,7 @@ public class PriceCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error creating new price");
-            throw ShiftyException.InternalServerError(localizer["An error occurred while creating new price."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while creating new price."]);
         }
     }
 }

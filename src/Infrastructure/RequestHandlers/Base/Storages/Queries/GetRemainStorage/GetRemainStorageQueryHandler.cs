@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Storage.Queries.GetAllRemainStorage;
-using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorage;
-using Shifty.Application.Interfaces.Storages;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Base.Storage.Queries.GetAllRemainStorage;
+using SmartAttendance.Application.Base.Storage.Request.Queries.GetRemainStorage;
+using SmartAttendance.Application.Interfaces.Storages;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Base.Storages.Queries.GetRemainStorage;
+namespace SmartAttendance.RequestHandlers.Base.Storages.Queries.GetRemainStorage;
 
 public class GetRemainStorageQueryHandler(
     IStorageQueryRepository storageQueryRepository,
@@ -24,7 +24,7 @@ public class GetRemainStorageQueryHandler(
         // if (access == null)
         // {
         //     logger.LogWarning("User {UserId} has no access to any projects.", service.GetUserId());
-        //     throw ShiftyException.BadRequest(localizer["You do not have access to any projects."]);
+        //     throw SmartAttendanceException.BadRequest(localizer["You do not have access to any projects."]);
         // }
 
         var result = await storageQueryRepository.StorageInfo(cancellationToken);

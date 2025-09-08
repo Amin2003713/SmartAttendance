@@ -1,20 +1,21 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Missions.Queries.GetById;
-using Shifty.Application.Features.Missions.Requests.Queries.MissionResponse;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Missions.Aggregate;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Missions.Queries.GetById;
+using SmartAttendance.Application.Features.Missions.Requests.Queries.MissionResponse;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Missions.Aggregate;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Missions.Queries.GetById;
+namespace SmartAttendance.RequestHandlers.Features.Missions.Queries.GetById;
 
 public class GetMissionByIdQueryHandler(
     IdentityService identityService,
     ILogger<GetMissionByIdQueryHandler> logger,
     IMediator mediator,
-    IEventReader<Mission, Guid> eventReader) : IRequestHandler<GetMissionByIdQuery, GetMissionResponse>
+    IEventReader<Mission, Guid> eventReader
+) : IRequestHandler<GetMissionByIdQuery, GetMissionResponse>
 {
     public async Task<GetMissionResponse> Handle(GetMissionByIdQuery request, CancellationToken cancellationToken)
     {
@@ -29,12 +30,12 @@ public class GetMissionByIdQueryHandler(
         if (events is null || events.Count == 0)
         {
             logger.LogWarning("No events found for Missions {AggregateId}", request.AggregateId);
-            throw ShiftyException.NotFound("Task not found");
+            throw SmartAttendanceException.NotFound("Task not found");
         }
 
         var mission = new Mission();
 
-        var users = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
+        var users          = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
         var userDictionary = users.ToDictionary(u => u.Id);
 
         var missionResponse = mission.Adapt<GetMissionResponse>();

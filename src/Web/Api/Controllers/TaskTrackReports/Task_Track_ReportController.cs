@@ -1,14 +1,14 @@
-﻿using Shifty.Application.Features.TaskTrack.Commands.CreateTaskTrackReport;
-using Shifty.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
-using Shifty.Application.Features.TaskTrack.Commands.UpdateTaskTrackReport;
-using Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackReportById;
-using Shifty.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrackReport;
-using Shifty.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrackReport;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
+﻿using SmartAttendance.Application.Features.TaskTrack.Commands.CreateTaskTrackReport;
+using SmartAttendance.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
+using SmartAttendance.Application.Features.TaskTrack.Commands.UpdateTaskTrackReport;
+using SmartAttendance.Application.Features.TaskTrack.Queries.GetTaskTrackReportById;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrackReport;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrackReport;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
 
-namespace Shifty.Api.Controllers.TaskTrackReports;
+namespace SmartAttendance.Api.Controllers.TaskTrackReports;
 
-public class Task_Track_ReportController : ShiftyBaseController
+public class Task_Track_ReportController : SmartAttendanceBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create Task-Tracker-Report")]
@@ -38,7 +38,9 @@ public class Task_Track_ReportController : ShiftyBaseController
     [HttpGet("Get-Task-Track-Report-By-Id")]
     [SwaggerOperation("Get task with its reports by ID")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<TaskTrackReportResponse> GetTaskWithReports(Guid aggregateId, Guid reportId,
+    public async Task<TaskTrackReportResponse> GetTaskWithReports(
+        Guid aggregateId,
+        Guid reportId,
         CancellationToken cancellationToken = default)
     {
         return await Mediator.Send(new GetTaskTrackReportByIdQuery(aggregateId, reportId),

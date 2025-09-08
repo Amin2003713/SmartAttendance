@@ -1,13 +1,13 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackById;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Queries.GetTaskTrackById;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackById;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Queries.GetTaskTrackById;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Queries.GetTaskTrackById;
 
 public class GetTaskTrackByIdQueryHandler(
     IdentityService identityService,
@@ -31,7 +31,7 @@ public class GetTaskTrackByIdQueryHandler(
         if (events is null || events.Count == 0)
         {
             logger.LogWarning("No events found for Missions {AggregateId}", request.AggregateId);
-            throw ShiftyException.NotFound("Task not found");
+            throw SmartAttendanceException.NotFound("Task not found");
         }
 
         var taskTrack = new TaskTrack();

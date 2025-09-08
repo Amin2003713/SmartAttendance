@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.Settings.Commands.UpdateSetting;
-using Shifty.Application.Interfaces.Settings;
-using Shifty.Common.Exceptions;
-using Shifty.Common.Utilities.EnumHelpers;
+﻿using SmartAttendance.Application.Base.Settings.Commands.UpdateSetting;
+using SmartAttendance.Application.Interfaces.Settings;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.Utilities.EnumHelpers;
 
-namespace Shifty.RequestHandlers.Base.Settings.Commands.UpdateSetting;
+namespace SmartAttendance.RequestHandlers.Base.Settings.Commands.UpdateSetting;
 
 public class UpdateSettingCommandHandler(
     ISettingCommandRepository repository,
@@ -18,7 +18,7 @@ public class UpdateSettingCommandHandler(
         {
             var setting = await queriesRepository.GetSingleAsync(cancellationToken);
             if (setting == null)
-                throw ShiftyException.NotFound(localizer["Setting Not Found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["Setting Not Found."].Value);
 
             setting.Flags = 0;
 
@@ -32,7 +32,7 @@ public class UpdateSettingCommandHandler(
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw ShiftyException.InternalServerError(localizer["toggle active command failed."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["toggle active command failed."].Value);
         }
     }
 }

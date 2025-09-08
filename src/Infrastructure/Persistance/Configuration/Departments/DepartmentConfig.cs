@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Departments;
+﻿using SmartAttendance.Domain.Departments;
 
-namespace Shifty.Persistence.Configuration.Departments;
+namespace SmartAttendance.Persistence.Configuration.Departments;
 
 public class DepartmentConfig : IEntityTypeConfiguration<Department>
 {
@@ -16,7 +16,7 @@ public class DepartmentConfig : IEntityTypeConfiguration<Department>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(d => d.Manager)
-            .WithMany() 
+            .WithMany()
             .HasForeignKey(d => d.ManagerId)
             .OnDelete(DeleteBehavior.SetNull);
 

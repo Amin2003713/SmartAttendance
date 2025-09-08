@@ -1,9 +1,9 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shifty.Api.Services;
-using Shifty.ApiFramework.Analytics;
+using SmartAttendance.Api.Services;
+using SmartAttendance.ApiFramework.Analytics;
 
-namespace Shifty.Api;
+namespace SmartAttendance.Api;
 
 public class Program
 {

@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Jwt;
-using Shifty.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Application.Interfaces.Jwt;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Persistence.Repositories.Jwt;
+namespace SmartAttendance.Persistence.Repositories.Jwt;
 
 public class RefreshCommandTokenRepository(
     WriteOnlyDbContext dbContext,
@@ -35,7 +35,7 @@ public class RefreshCommandTokenRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error in AddOrUpdateRefreshTokenAsync for UserId: {UserId}", refreshToken.UserId);
-            throw ShiftyException.InternalServerError(localizer["Failed to process refresh token."]);
+            throw SmartAttendanceException.InternalServerError(localizer["Failed to process refresh token."]);
         }
     }
 

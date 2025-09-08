@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Shifty.ApiFramework;
+namespace SmartAttendance.ApiFramework;
 
 public static class DependencyInjection
 {

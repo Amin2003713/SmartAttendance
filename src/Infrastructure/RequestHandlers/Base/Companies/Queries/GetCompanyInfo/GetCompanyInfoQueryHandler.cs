@@ -1,12 +1,12 @@
-﻿using Shifty.Application.Base.Companies.Queries.GetCompanyInfo;
-using Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
-using Shifty.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Application.Interfaces.Settings;
-using Shifty.Application.Interfaces.Tenants.Companies;
-using Shifty.Application.Interfaces.Tenants.Payment;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.Companies.Queries.GetCompanyInfo;
+using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
+using SmartAttendance.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Application.Interfaces.Settings;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.Companies.Queries.GetCompanyInfo;
+namespace SmartAttendance.RequestHandlers.Base.Companies.Queries.GetCompanyInfo;
 
 public class GetCompanyInfoQueryHandler(
     ICompanyRepository companyRepository,
@@ -20,7 +20,7 @@ public class GetCompanyInfoQueryHandler(
     public async Task<GetCompanyInfoResponse> Handle(GetCompanyInfoQuery request, CancellationToken cancellationToken)
     {
         if (!await companyRepository.IdentifierExistsAsync(request.Domain, cancellationToken))
-            throw ShiftyException.NotFound(localizer["Company not found."].Value); // "شرکت یافت نشد."
+            throw SmartAttendanceException.NotFound(localizer["Company not found."].Value); // "شرکت یافت نشد."
 
         var result  = await companyRepository.GetByIdentifierAsync(request.Domain, cancellationToken);
         var setting = await settingQueriesRepository.GetSingleAsync(cancellationToken);
@@ -28,7 +28,7 @@ public class GetCompanyInfoQueryHandler(
         var creator = await mediator.Send(new GetLogPropertyInfoQuery(result.UserId!.Value), cancellationToken);
 
         if (result == null)
-            throw ShiftyException.NotFound(localizer["Company not found."].Value); // "شرکت یافت نشد."
+            throw SmartAttendanceException.NotFound(localizer["Company not found."].Value); // "شرکت یافت نشد."
 
         return GetCompanyInfoResponse.Create(result, setting, payment?.LeftDays() ?? 0, creator);
     }

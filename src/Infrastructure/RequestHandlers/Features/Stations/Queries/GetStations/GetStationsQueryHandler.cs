@@ -1,15 +1,16 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.Stations.Queries.GetStations;
-using Shifty.Application.Features.Stations.Requests.Queries.GetStations;
-using Shifty.Application.Interfaces.Stations;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Features.Stations.Queries.GetStations;
+using SmartAttendance.Application.Features.Stations.Requests.Queries.GetStations;
+using SmartAttendance.Application.Interfaces.Stations;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Stations.Queries.GetStations;
+namespace SmartAttendance.RequestHandlers.Features.Stations.Queries.GetStations;
 
 public class GetStationsQueryHandler(
     IStationQueryRepository queryRepository,
-    ILogger<GetStationsQueryHandler> logger) : IRequestHandler<GetStationsQuery, List<GetStationResponse>>
+    ILogger<GetStationsQueryHandler> logger
+) : IRequestHandler<GetStationsQuery, List<GetStationResponse>>
 {
     public async Task<List<GetStationResponse>> Handle(GetStationsQuery request, CancellationToken cancellationToken)
     {
@@ -29,7 +30,7 @@ public class GetStationsQueryHandler(
 
             return response;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business exception occurred while retrieving stations.");
             throw;

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.AddRole;
-using Shifty.Common.Utilities.RolesHelper;
+using SmartAttendance.Application.Features.Users.Requests.Commands.AddRole;
+using SmartAttendance.Common.Utilities.RolesHelper;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.UpdateEmployee;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.UpdateEmployee;
 
 public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
 {

@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Storage.Commands.DeleteStorage;
-using Shifty.Application.Interfaces.Storages;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Storages;
+using SmartAttendance.Application.Base.Storage.Commands.DeleteStorage;
+using SmartAttendance.Application.Interfaces.Storages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Storages;
 
-namespace Shifty.RequestHandlers.Base.Storages.Commands.DeleteStorage;
+namespace SmartAttendance.RequestHandlers.Base.Storages.Commands.DeleteStorage;
 
 public class DeleteStorageCommandHandler(
     IStorageCommandRepository storageCommandRepository,
@@ -27,7 +27,7 @@ public class DeleteStorageCommandHandler(
         if (storage is null)
         {
             logger.LogWarning("Storage with ID {Id} not found.", request.Id);
-            throw ShiftyException.NotFound(localizer["Storage not found."]);
+            throw SmartAttendanceException.NotFound(localizer["Storage not found."]);
         }
 
         storage = request.Adapt<Storage>();

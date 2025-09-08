@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Common.General.Enums;
-using Shifty.Domain.TaskTracks.Events.TaskTrackers;
-using Shifty.Domain.TaskTracks.Events.TaskTrackReports;
-using Shifty.Domain.TaskTracks.SnapShots;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackers;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackReports;
+using SmartAttendance.Domain.TaskTracks.SnapShots;
 
-namespace Shifty.Domain.TaskTracks.Aggregate;
+namespace SmartAttendance.Domain.TaskTracks.Aggregate;
 
 public class TaskTrack : AggregateRoot<Guid>
 {
@@ -23,7 +23,7 @@ public class TaskTrack : AggregateRoot<Guid>
     public List<TaskTrackReport> Reports { get; set; } = new();
 
 
-    #region Factory
+#region Factory
 
     public static TaskTrack New(TaskTrackCreatedEvent @event)
     {
@@ -32,9 +32,9 @@ public class TaskTrack : AggregateRoot<Guid>
         return task;
     }
 
-    #endregion
+#endregion
 
-    #region Behavioral Methods
+#region Behavioral Methods
 
     public void Create(TaskTrackCreatedEvent @event)
     {
@@ -66,9 +66,9 @@ public class TaskTrack : AggregateRoot<Guid>
         RaiseEvent(@event);
     }
 
-    #endregion
+#endregion
 
-    #region Apply Methods
+#region Apply Methods
 
     public void Apply(TaskTrackCreatedEvent @event)
     {
@@ -135,9 +135,9 @@ public class TaskTrack : AggregateRoot<Guid>
             Reports.Remove(report);
     }
 
-    #endregion
+#endregion
 
-    #region Snapshot
+#region Snapshot
 
     protected override void RestoreFromSnapshot(ISnapshot<Guid> snapshot)
     {
@@ -164,5 +164,5 @@ public class TaskTrack : AggregateRoot<Guid>
         return this.Adapt<TaskTrackSnapShot>();
     }
 
-    #endregion
+#endregion
 }

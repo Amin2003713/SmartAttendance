@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Interfaces.UserPasswords;
+﻿using SmartAttendance.Application.Interfaces.UserPasswords;
 
-namespace Shifty.Persistence.Repositories.UserPasswords;
+namespace SmartAttendance.Persistence.Repositories.UserPasswords;
 
 public class UserPasswordCommandRepository(
     WriteOnlyDbContext dbContext,

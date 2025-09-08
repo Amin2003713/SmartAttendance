@@ -1,14 +1,15 @@
-﻿using Shifty.Application.Features.Vehicles.Commands.Delete;
-using Shifty.Application.Interfaces.Vehicles;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Features.Vehicles.Commands.Delete;
+using SmartAttendance.Application.Interfaces.Vehicles;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Vehicles.Commands.Delete;
+namespace SmartAttendance.RequestHandlers.Features.Vehicles.Commands.Delete;
 
 public class DeleteVehicleCommandHandler(
     IVehicleQueryRepository queryRepository,
     IVehicleCommandRepository commandRepository,
     ILogger<DeleteVehicleCommandHandler> logger,
-    IStringLocalizer<DeleteVehicleCommandHandler> localizer) : IRequestHandler<DeleteVehicleCommand>
+    IStringLocalizer<DeleteVehicleCommandHandler> localizer
+) : IRequestHandler<DeleteVehicleCommand>
 {
     public async Task Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)
     {
@@ -19,14 +20,14 @@ public class DeleteVehicleCommandHandler(
             if (vehicle is null)
             {
                 logger.LogWarning("Vehicles with ID {VehicleId} not found for delete.", request.Id);
-                throw ShiftyException.NotFound(localizer["Vehicle not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Vehicle not found."]);
             }
 
             await commandRepository.DeleteAsync(vehicle, cancellationToken);
 
             logger.LogInformation("Vehicle with ID {VehicleId} deleted successfully.", request.Id);
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error while deleting vehicle {VehicleId}.", request.Id);
             throw;
@@ -34,7 +35,7 @@ public class DeleteVehicleCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while deleting vehicle {VehicleId}.", request.Id);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while deleting the vehicle."]);
         }
     }

@@ -1,8 +1,8 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Users.Queries.GetUserTenants;
-using Shifty.Application.Interfaces.Tenants.Companies;
+using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetUserTenants;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserTenants;
 
 public class GetUserTenantQueryHandler(
     ICompanyRepository repository,

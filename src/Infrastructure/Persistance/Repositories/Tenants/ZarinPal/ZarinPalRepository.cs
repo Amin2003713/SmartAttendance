@@ -1,9 +1,9 @@
 ﻿using Riviera.ZarinPal.V4;
 using Riviera.ZarinPal.V4.Models;
-using Shifty.Application.Base.ZarinPal.Request;
-using Shifty.Application.Interfaces.ZarinPal;
+using SmartAttendance.Application.Base.ZarinPal.Request;
+using SmartAttendance.Application.Interfaces.ZarinPal;
 
-namespace Shifty.Persistence.Repositories.Tenants.ZarinPal;
+namespace SmartAttendance.Persistence.Repositories.Tenants.ZarinPal;
 
 public class ZarinPalRepository(
     ZarinPalService _zarinpal
@@ -19,9 +19,9 @@ public class ZarinPalRepository(
             return result!.Data.Adapt<ZarinPalResponse>();
 
         if (result.Error.Validations!.Count != 0)
-            throw ShiftyException.Validation(result.Error.Message, result.Error.Validations);
+            throw SmartAttendanceException.Validation(result.Error.Message, result.Error.Validations);
 
-        throw ShiftyException.BadRequest(result.Error.Message);
+        throw SmartAttendanceException.BadRequest(result.Error.Message);
     }
 
     public async Task<ZarinPalVerifyResponse> VerifyPayment(
@@ -29,7 +29,7 @@ public class ZarinPalRepository(
         CancellationToken cancellationToken)
     {
         if (_zarinpal.IsStatusValid(request.Status) == false)
-            throw ShiftyException.BadRequest("Invalid status");
+            throw SmartAttendanceException.BadRequest("Invalid status");
 
 
         var result = await _zarinpal.VerifyPaymentAsync(request.Amount, request.Authority, cancellationToken);
@@ -39,9 +39,9 @@ public class ZarinPalRepository(
                 return result.Data.Adapt<ZarinPalVerifyResponse>();
 
         if (result.Error.Validations!.Count != 0)
-            throw ShiftyException.Validation(result.Error.Message, result.Error.Validations);
+            throw SmartAttendanceException.Validation(result.Error.Message, result.Error.Validations);
 
 
-        throw ShiftyException.BadRequest("Invalid payment amount");
+        throw SmartAttendanceException.BadRequest("Invalid payment amount");
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.HubFiles.Commands.ZipExport;
-using Shifty.Application.Base.HubFiles.Request.Queries.GetFile;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
+using SmartAttendance.Application.Base.HubFiles.Request.Queries.GetFile;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Application.Interfaces.HubFiles;
+namespace SmartAttendance.Application.Interfaces.HubFiles;
 
 public interface IHubFileQueryRepository : IQueryRepository<HubFile>,
     IScopedDependency

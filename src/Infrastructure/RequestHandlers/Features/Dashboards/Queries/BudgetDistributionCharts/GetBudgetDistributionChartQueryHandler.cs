@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Features.Dashboards.Queries.BudgetDistributionCharts;
-using Shifty.Application.Features.Dashboards.Responses.ResourceChartDat;
+﻿using SmartAttendance.Application.Features.Dashboards.Queries.BudgetDistributionCharts;
+using SmartAttendance.Application.Features.Dashboards.Responses.ResourceChartDat;
 
-namespace Shifty.RequestHandlers.Features.Dashboards.Queries.BudgetDistributionCharts;
+namespace SmartAttendance.RequestHandlers.Features.Dashboards.Queries.BudgetDistributionCharts;
 
 public class
     GetBudgetDistributionChartQueryHandler : IRequestHandler<BudgetDistributionChartQuery,

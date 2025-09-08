@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Messages.MessageTargetUsers;
+namespace SmartAttendance.Domain.Messages.MessageTargetUsers;
 
 public class MessageTargetUser : BaseEntity
 {

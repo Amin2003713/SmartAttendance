@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.Verify;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.Verify;
 
 public class VerifyPhoneNumberRequestExample : IExamplesProvider<VerifyPhoneNumberRequest>
 {

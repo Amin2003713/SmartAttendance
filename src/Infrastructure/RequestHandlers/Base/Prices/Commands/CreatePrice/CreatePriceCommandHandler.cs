@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Prices.Commands.CreatePrice;
-using Shifty.Application.Interfaces.Tenants.Prices;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Application.Base.Prices.Commands.CreatePrice;
+using SmartAttendance.Application.Interfaces.Tenants.Prices;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.RequestHandlers.Base.Prices.Commands.CreatePrice;
+namespace SmartAttendance.RequestHandlers.Base.Prices.Commands.CreatePrice;
 
 public class CreatePriceCommandHandler(
     IPriceCommandRepository commandRepository,
@@ -24,7 +24,7 @@ public class CreatePriceCommandHandler(
 
             logger.LogInformation("Price created successfully: {Title}", entity.Amount);
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business exception occurred while creating price.");
             throw;
@@ -32,7 +32,7 @@ public class CreatePriceCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating price.");
-            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while creating the price."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An unexpected error occurred while creating the price."]);
         }
     }
 }

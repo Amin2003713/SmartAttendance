@@ -1,11 +1,11 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
-using Shifty.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
-using Shifty.Application.Interfaces.Tenants.Companies;
+using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
+using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
 // Added for logging
 
-namespace Shifty.Persistence.Repositories.Users;
+namespace SmartAttendance.Persistence.Repositories.Users;
 
 public class UserCommandRepository(
     WriteOnlyDbContext dbContext,
@@ -16,7 +16,7 @@ public class UserCommandRepository(
     IPaymentQueryRepository paymentQueryRepository,
     IPaymentCommandRepository paymentCommandRepository,
     UserManager<User> userService,
-    ShiftyTenantDbContext db
+    SmartAttendanceTenantDbContext db
 )
     : CommandRepository<User>(dbContext, logger),
         IUserCommandRepository
@@ -39,30 +39,30 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating last login date for user: {UserId}", user.Id);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
     public async Task<Guid> RegisterByOwnerAsync(RegisterByOwnerRequest request, CancellationToken cancellationToken)
     {
         if (!request.PhoneNumber.IsValidIranianMobileNumber())
-            ShiftyException.BadRequest();
+            SmartAttendanceException.BadRequest();
 
         // Check if the user already exists
         if (await TableNoTracking.AnyAsync(u => u.UserName == request.PhoneNumber, cancellationToken))
-            ShiftyException.Conflict();
+            SmartAttendanceException.Conflict();
 
         // Retrieve the company by ID
         var company = await companyRepository.GetByIdAsync(service.TenantInfo!.Id, cancellationToken);
 
         if (company == null)
-            ShiftyException.NotFound();
+            SmartAttendanceException.NotFound();
 
         // Get the operator (current user) information
         var operatorUser = await Entities.FindAsync(service.GetUserId());
 
         if (operatorUser == null)
-            ShiftyException.BadRequest();
+            SmartAttendanceException.BadRequest();
 
 
         // Validate the company's purchase plan
@@ -70,10 +70,10 @@ public class UserCommandRepository(
 
 
         if (companyPurchase == null)
-            ShiftyException.NotFound("خرید معتبری یافت نشد.");
+            SmartAttendanceException.NotFound("خرید معتبری یافت نشد.");
 
         if (companyPurchase!.ActiveUsers + 1 > companyPurchase.UsersCount)
-            ShiftyException.Forbidden("You have reached the maximum number of users allowed.");
+            SmartAttendanceException.Forbidden("You have reached the maximum number of users allowed.");
 
         // Create a new user entity
         var newUser = new User
@@ -102,7 +102,7 @@ public class UserCommandRepository(
             var creationResult = await userService.CreateAsync(newUser, request.NationalCode);
 
             if (!creationResult.Succeeded)
-                ShiftyException.BadRequest(creationResult.Errors.Select(a => a.Description).ToString()!);
+                SmartAttendanceException.BadRequest(creationResult.Errors.Select(a => a.Description).ToString()!);
 
 
             await transaction.CommitAsync(cancellationToken);
@@ -113,7 +113,7 @@ public class UserCommandRepository(
             await paymentCommandRepository.Update(companyPurchase, cancellationToken);
 
             var tenantUser = newUser.Adapt<TenantUser>();
-            tenantUser.ShiftyTenantInfoId = service.TenantInfo.Id;
+            tenantUser.SmartAttendanceTenantInfoId = service.TenantInfo.Id;
             await companyRepository.CreateAsync(tenantUser, cancellationToken);
 
 
@@ -131,7 +131,7 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             await transaction.RollbackAsync(cancellationToken);
-            ShiftyException.BadRequest("مشکلی هنگام ثبت اطلاعات شما رخ داده است.");
+            SmartAttendanceException.BadRequest("مشکلی هنگام ثبت اطلاعات شما رخ داده است.");
         }
 
         return newUser.Id;
@@ -148,7 +148,7 @@ public class UserCommandRepository(
             cancellationToken);
 
         if (exists)
-            throw ShiftyException.Conflict("This user already exists");
+            throw SmartAttendanceException.Conflict("This user already exists");
 
 
         var oldPhoneNumber = user!.PhoneNumber;
@@ -227,12 +227,12 @@ public class UserCommandRepository(
                 return user!;
 
             logger.LogInformation("User found with username: {Username}", username);
-            throw ShiftyException.NotFound(additionalData: localizer["User was not found."]);
+            throw SmartAttendanceException.NotFound(additionalData: localizer["User was not found."]);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving user with username: {Username}", username);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -255,7 +255,7 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating security stamp for user: {UserId}", user.Id);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -277,7 +277,7 @@ public class UserCommandRepository(
             if (exists)
             {
                 logger.LogWarning("Cannot add user. Username already exists: {Username}", user.UserName);
-                throw ShiftyException.Conflict(additionalData: localizer["Username already exists."]);
+                throw SmartAttendanceException.Conflict(additionalData: localizer["Username already exists."]);
             }
 
             var passwordHash = SecurityHelper.GetSha256Hash(password);
@@ -289,7 +289,7 @@ public class UserCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error adding new user with username: {Username}", user.UserName);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 }

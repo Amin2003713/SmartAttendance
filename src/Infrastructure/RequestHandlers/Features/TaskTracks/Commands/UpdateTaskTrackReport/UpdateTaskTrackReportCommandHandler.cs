@@ -1,12 +1,12 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Commands.UpdateTaskTrackReport;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Domain.TaskTracks.Events.TaskTrackReports;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Commands.UpdateTaskTrackReport;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackReports;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Commands.UpdateTaskTrackReport;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Commands.UpdateTaskTrackReport;
 
 public class UpdateTaskTrackReportCommandHandler(
     IEventReader<TaskTrack, Guid> eventReader,
@@ -24,17 +24,17 @@ public class UpdateTaskTrackReportCommandHandler(
         if (!await eventReader.ExistsAsync(request.TaskTrackId, cancellationToken))
         {
             logger.LogWarning("Missions {TackTrackId} not found.", request.TaskTrackId);
-            throw ShiftyException.NotFound(localizer["Missions not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Missions not found."].Value);
         }
 
         var userId = identityService.GetUserId<Guid>();
 
         var taskTrack = await eventReader.GetSingleAsync(
             x => x.AggregateId == request.TaskTrackId && x.UserId == identityService.GetUserId<Guid>(),
-            cancellationToken: cancellationToken);
+            cancellationToken);
 
         if (taskTrack is null)
-            throw ShiftyException.NotFound(localizer["Missions not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Missions not found."].Value);
 
         var report = taskTrack.Reports.FirstOrDefault(r => r.ReportId == request.ReportId);
 
@@ -44,13 +44,13 @@ public class UpdateTaskTrackReportCommandHandler(
                 request.ReportId,
                 request.TaskTrackId);
 
-            throw ShiftyException.NotFound(localizer["Report not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Report not found."].Value);
         }
 
         if (report.ReportCreatedBy != userId)
         {
             logger.LogWarning("User {UserId} tried to update a report not owned by them.", userId);
-            throw ShiftyException.Forbidden(localizer["You can only update your own report."].Value);
+            throw SmartAttendanceException.Forbidden(localizer["You can only update your own report."].Value);
         }
 
         var updateEvent = request.Adapt<TaskTrackReportUpdatedEvent>() with
