@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Messages.UserLikedMessages;
-using Shifty.Domain.Messages.UserLikedMessages;
+﻿using SmartAttendance.Application.Interfaces.Messages.UserLikedMessages;
+using SmartAttendance.Domain.Messages.UserLikedMessages;
 
-namespace Shifty.Persistence.Repositories.Messages.UserLikedMessages;
+namespace SmartAttendance.Persistence.Repositories.Messages.UserLikedMessages;
 
 public class UserLikedMessagesQueryRepository(
     ReadOnlyDbContext dbContext,

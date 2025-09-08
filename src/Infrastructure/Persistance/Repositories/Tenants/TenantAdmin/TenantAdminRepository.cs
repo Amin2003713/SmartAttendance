@@ -1,18 +1,18 @@
-﻿using Shifty.Application.Interfaces.Tenants.Users;
-using Shifty.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Application.Interfaces.Tenants.Users;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
 // Added for logging
 
-namespace Shifty.Persistence.Repositories.Tenants.TenantAdmin;
+namespace SmartAttendance.Persistence.Repositories.Tenants.TenantAdmin;
 
 public class TenantAdminRepository : ITenantAdminRepository,
     IScopedDependency
 {
-    private readonly ShiftyTenantDbContext _dbContext;
+    private readonly SmartAttendanceTenantDbContext _dbContext;
     private readonly ILogger<TenantAdminRepository> _logger;
 
     // Constructor with dependency injection for DbContext and Logger
-    public TenantAdminRepository(ShiftyTenantDbContext dbContext, ILogger<TenantAdminRepository> logger)
+    public TenantAdminRepository(SmartAttendanceTenantDbContext dbContext, ILogger<TenantAdminRepository> logger)
     {
         _dbContext = dbContext;
         _logger = logger;
@@ -55,7 +55,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
 
             return user;
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             // Re-throw custom exceptions without additional logging
             throw;
@@ -63,7 +63,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
         catch (Exception ex)
         {
             _logger.LogError(ex.Source, ex);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
@@ -88,7 +88,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
         catch (Exception ex)
         {
             _logger.LogError(ex.Source, ex);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 

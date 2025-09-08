@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Setting;
+﻿using SmartAttendance.Domain.Setting;
 
-namespace Shifty.Application.Base.Settings.Queries.GetSetting;
+namespace SmartAttendance.Application.Base.Settings.Queries.GetSetting;
 
 public class GetSettingQueryResponse
 {

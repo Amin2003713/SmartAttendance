@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.DeleteRole;
-using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.TypeConverters;
+using SmartAttendance.Application.Features.Users.Requests.Commands.DeleteRole;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.TypeConverters;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.DeleteRole;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.DeleteRole;
 
 public class DeleteRoleRequestValidator : AbstractValidator<DeleteRoleRequest>
 {

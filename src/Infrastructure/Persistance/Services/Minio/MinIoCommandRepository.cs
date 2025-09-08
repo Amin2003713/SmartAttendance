@@ -1,16 +1,16 @@
 ﻿using System.IO;
 using Amazon.S3;
 using Amazon.S3.Model;
-using Shifty.Application.Base.MinIo.Commands.UploadPdf;
-using Shifty.Application.Base.MinIo.Commands.UplodeFile;
-using Shifty.Application.Interfaces.HangFire;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.EnumHelpers;
-using Shifty.Common.Utilities.TypeConverters;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
+using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
+using SmartAttendance.Application.Interfaces.HangFire;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Common.Utilities.TypeConverters;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Persistence.Services.Minio;
+namespace SmartAttendance.Persistence.Services.Minio;
 
 public class MinIoCommandRepository(
     WriteOnlyDbContext dbContext,
@@ -226,6 +226,7 @@ public class MinIoCommandRepository(
             });
         }
     }
+
     private async Task UploadObjectAsync(
         string bucketName,
         string objectName,

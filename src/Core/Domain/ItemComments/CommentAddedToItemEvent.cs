@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.ItemComments;
+﻿namespace SmartAttendance.Domain.ItemComments;
 
 public record CommentAddedToItemEvent(
     string Text,

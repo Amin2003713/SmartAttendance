@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Features.Messages.Comments.Request.Queries.GetComments;
-using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
+﻿using SmartAttendance.Application.Features.Messages.Comments.Request.Queries.GetComments;
+using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
 
-namespace Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
+namespace SmartAttendance.Application.Features.Messages.Request.Queries.GetMessageById;
 
 public class GetMessageByIdResponse
 {

@@ -1,10 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Messages.MessageTargetUsers;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Messages.MessageTargetUsers;
 
-namespace Shifty.Application.Interfaces.Messages.MessageTargetUsers;
+namespace SmartAttendance.Application.Interfaces.Messages.MessageTargetUsers;
 
 public interface IMessageTargetUsersQueryRepository : IQueryRepository<MessageTargetUser>,
-    IScopedDependency
-{
-}
+    IScopedDependency { }

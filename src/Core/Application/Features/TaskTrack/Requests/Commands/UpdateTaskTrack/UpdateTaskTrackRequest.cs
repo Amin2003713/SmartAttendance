@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums;
+﻿using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrack;
+namespace SmartAttendance.Application.Features.TaskTrack.Requests.Commands.UpdateTaskTrack;
 
 public class UpdateTaskTrackRequest
 {

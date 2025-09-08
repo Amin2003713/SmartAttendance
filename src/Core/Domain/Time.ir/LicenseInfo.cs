@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Time.ir;
+﻿namespace SmartAttendance.Domain.Time.ir;
 
 public class LicenseInfo
 {

@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.Settings.Commands.UpdateSetting;
-using Shifty.Application.Base.Settings.Requests.UpdateSetting;
+﻿using SmartAttendance.Application.Base.Settings.Commands.UpdateSetting;
+using SmartAttendance.Application.Base.Settings.Requests.UpdateSetting;
 
-namespace Shifty.Api.Controllers.Settings;
+namespace SmartAttendance.Api.Controllers.Settings;
 
-public class SettingController : ShiftyBaseController
+public class SettingController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Updates the company settings.

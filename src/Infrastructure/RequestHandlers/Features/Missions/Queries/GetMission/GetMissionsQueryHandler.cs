@@ -1,29 +1,31 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Missions.Queries.GetMissions;
-using Shifty.Application.Features.Missions.Requests.Queries.MissionResponse;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Missions.Aggregate;
+using SmartAttendance.Application.Features.Missions.Queries.GetMissions;
+using SmartAttendance.Application.Features.Missions.Requests.Queries.MissionResponse;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Missions.Aggregate;
 
-namespace Shifty.RequestHandlers.Features.Missions.Queries.GetMission;
+namespace SmartAttendance.RequestHandlers.Features.Missions.Queries.GetMission;
 
 public class GetMissionsQueryHandler(
     ILogger<GetMissionsQueryHandler> logger,
     IStringLocalizer<GetMissionsQueryHandler> localizer,
     IMediator mediator,
-    IEventReader<Mission, Guid> eventReader) : IRequestHandler<GetMissionsQuery, List<GetMissionResponse>>
+    IEventReader<Mission, Guid> eventReader
+) : IRequestHandler<GetMissionsQuery, List<GetMissionResponse>>
 {
-    public async Task<List<GetMissionResponse>> Handle(GetMissionsQuery request,
+    public async Task<List<GetMissionResponse>> Handle(
+        GetMissionsQuery request,
         CancellationToken cancellationToken)
     {
         try
         {
-            var events = await eventReader.LoadHybridAsync(null!, null!, cancellationToken);
+            var                      events   = await eventReader.LoadHybridAsync(null!, null!, cancellationToken);
             List<GetMissionResponse> missions = [];
 
-            var users = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
+            var users          = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
             var userDictionary = users.ToDictionary(u => u.Id);
 
             foreach (var mission in events)
@@ -49,7 +51,7 @@ public class GetMissionsQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error loading mission events");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An error occurred while retrieving mission data."].Value);
         }
     }

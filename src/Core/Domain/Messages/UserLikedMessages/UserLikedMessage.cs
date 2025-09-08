@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Messages.UserLikedMessages;
+namespace SmartAttendance.Domain.Messages.UserLikedMessages;
 
 public class UserLikedMessage : BaseEntity
 {

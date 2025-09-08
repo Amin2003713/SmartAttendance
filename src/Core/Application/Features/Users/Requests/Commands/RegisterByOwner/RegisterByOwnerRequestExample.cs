@@ -1,7 +1,7 @@
-﻿using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.EnumHelpers;
+﻿using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.EnumHelpers;
 
-namespace Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
+namespace SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
 
 public class RegisterByOwnerRequestExample : IExamplesProvider<RegisterByOwnerRequest>
 {

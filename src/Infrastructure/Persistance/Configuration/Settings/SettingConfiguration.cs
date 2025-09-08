@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Configuration.Settings;
+﻿namespace SmartAttendance.Persistence.Configuration.Settings;
 
 public class SettingConfiguration : IEntityTypeConfiguration<Setting>
 {

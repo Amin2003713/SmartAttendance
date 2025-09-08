@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Setting;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Setting;
 
-namespace Shifty.Application.Interfaces.Settings;
+namespace SmartAttendance.Application.Interfaces.Settings;
 
 public interface ISettingQueriesRepository : IQueryRepository<Setting>,
     IScopedDependency { }

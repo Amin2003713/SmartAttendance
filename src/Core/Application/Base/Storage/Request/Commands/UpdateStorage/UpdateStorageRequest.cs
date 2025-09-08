@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Storage.Request.Commands.UpdateStorage;
+﻿namespace SmartAttendance.Application.Base.Storage.Request.Commands.UpdateStorage;
 
 public class UpdateStorageRequest
 {

@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Users.Requests.Commands.Login;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.Login;
 
-namespace Shifty.Application.Features.Users.Commands.Login;
+namespace SmartAttendance.Application.Features.Users.Commands.Login;
 
 public class LoginCommand : LoginRequest,
     IRequest<LoginResponse>;

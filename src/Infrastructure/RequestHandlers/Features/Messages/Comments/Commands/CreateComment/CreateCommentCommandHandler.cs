@@ -1,11 +1,11 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Messages.Comments.Commands.CreateComment;
-using Shifty.Application.Interfaces.Messages.Comments;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Messages.Comments;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Messages.Comments.Commands.CreateComment;
+using SmartAttendance.Application.Interfaces.Messages.Comments;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Messages.Comments;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Messages.Comments.Commands.CreateComment;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Comments.Commands.CreateComment;
 
 public class CreateCommentCommandHandler(
     ICommentCommandRepository commandRepository,
@@ -28,15 +28,15 @@ public class CreateCommentCommandHandler(
 
             logger.LogInformation("Comment created by UserId: {UserId}", userId);
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogWarning(ex, "Business error while creating comment: {Message}", ex.Message);
-            throw ShiftyException.BadRequest(localizer[ex.Message].Value);
+            throw SmartAttendanceException.BadRequest(localizer[ex.Message].Value);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while creating comment");
-            throw ShiftyException.InternalServerError(localizer["Unable to create comment."]);
+            throw SmartAttendanceException.InternalServerError(localizer["Unable to create comment."]);
         }
     }
 }

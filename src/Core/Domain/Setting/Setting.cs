@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Setting;
+namespace SmartAttendance.Domain.Setting;
 
 public class Setting : BaseEntity
 {

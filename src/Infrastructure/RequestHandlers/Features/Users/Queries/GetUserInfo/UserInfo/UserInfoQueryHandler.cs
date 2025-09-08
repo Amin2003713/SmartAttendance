@@ -1,13 +1,13 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Application.Features.Users.Queries.GetUserInfo.LoggedIn;
-using Shifty.Common.Common.Responses.Users.Queries.Base;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Application.Features.Users.Queries.GetUserInfo.LoggedIn;
+using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetUserInfo.UserInfo;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserInfo.UserInfo;
 
 public class UserInfoQueryHandler(
     UserManager<User> userManager,
@@ -24,7 +24,7 @@ public class UserInfoQueryHandler(
         logger.LogInformation("User info retrieved successfully for current user.");
 
         if (user == null)
-            throw ShiftyException.NotFound(localizer["User not found"].Value);
+            throw SmartAttendanceException.NotFound(localizer["User not found"].Value);
 
         var result = user.Adapt<GetUserResponse>();
 

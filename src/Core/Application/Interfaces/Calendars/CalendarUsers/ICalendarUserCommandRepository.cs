@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Calenders.CalenderUsers;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Calenders.CalenderUsers;
 
-namespace Shifty.Application.Interfaces.Calendars.CalendarUsers;
+namespace SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
 
 public interface ICalendarUserCommandRepository : ICommandRepository<CalendarUser>,
     IScopedDependency { }

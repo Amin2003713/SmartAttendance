@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Features.Users.Queries.GetUserInfo.ByPhoneNumber;
-using Shifty.Application.Features.Users.Requests.Queries.GetUserInfo.ByPhoneNumber;
+﻿using SmartAttendance.Application.Features.Users.Queries.GetUserInfo.ByPhoneNumber;
+using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.ByPhoneNumber;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetUserInfo.ByPhoneNumber;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserInfo.ByPhoneNumber;
 
 /// <summary>
 ///     Handles the <see cref="UserInfoByPhoneNumberQuery" />, returning user information based on a phone number.

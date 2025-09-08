@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Common.Common.ESBase;
+using SmartAttendance.Common.Common.ESBase;
 
-namespace Shifty.Application.Interfaces.Base.EventInterface;
+namespace SmartAttendance.Application.Interfaces.Base.EventInterface;
 
 /// <summary>
 ///     Interface for writing event-sourced aggregates to the event store.

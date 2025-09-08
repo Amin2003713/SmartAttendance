@@ -1,14 +1,12 @@
-﻿using Shifty.Application.Features.Messages.Commands.VisitMessage;
-using Shifty.Application.Features.Messages.Queries.GetMessageById;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
-using Shifty.Application.Interfaces.Messages;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Messages.Commands.VisitMessage;
+using SmartAttendance.Application.Features.Messages.Queries.GetMessageById;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessageById;
+using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Messages.Queries.GetMessageById;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Queries.GetMessageById;
 
 public class GetMessageByIdQueryHandler(
     IMessageQueryRepository messageQueryRepository,
@@ -32,7 +30,7 @@ public class GetMessageByIdQueryHandler(
             if (!identityService.GetRoles().Contains(Roles.Messages_Read))
             {
                 logger.LogWarning("User {UserId} doesn't have global ReadMessages role.", userId);
-                throw ShiftyException.Forbidden(localizer["You do not have the necessary role to read messages."]);
+                throw SmartAttendanceException.Forbidden(localizer["You do not have the necessary role to read messages."]);
             }
 
 
@@ -41,7 +39,7 @@ public class GetMessageByIdQueryHandler(
             if (message is null)
             {
                 logger.LogWarning("Message with ID {MessageId} not found.", request.Id);
-                throw ShiftyException.NotFound(localizer["Message not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Message not found."]);
             }
 
             await mediator.Send(new VisitMessageCommand(message.Id), cancellationToken);
@@ -49,7 +47,7 @@ public class GetMessageByIdQueryHandler(
 
             return message;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business exception occurred while fetching message {MessageId}.", request.Id);
             throw;
@@ -58,7 +56,7 @@ public class GetMessageByIdQueryHandler(
         {
             logger.LogError(ex, "Unexpected error occurred while fetching message {MessageId}.", request.Id);
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving the message."]);
         }
     }

@@ -1,19 +1,20 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Features.Vehicles.Queries.GetVehicles;
-using Shifty.Application.Features.Vehicles.Requests.Queries.GetVehicles;
-using Shifty.Application.Interfaces.Vehicles;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Features.Vehicles.Queries.GetVehicles;
+using SmartAttendance.Application.Features.Vehicles.Requests.Queries.GetVehicles;
+using SmartAttendance.Application.Interfaces.Vehicles;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Vehicles.Queries.GetVehicles;
+namespace SmartAttendance.RequestHandlers.Features.Vehicles.Queries.GetVehicles;
 
 public class GetVehiclesQueryHandler(
     IVehicleQueryRepository queryRepository,
     IMediator mediator,
     ILogger<GetVehiclesQueryHandler> logger,
-    IStringLocalizer<GetVehiclesQueryHandler> localizer)
+    IStringLocalizer<GetVehiclesQueryHandler> localizer
+)
     : IRequestHandler<GetVehiclesQuery, List<GetVehicleQueryResponse>>
 {
     public async Task<List<GetVehicleQueryResponse>> Handle(
@@ -23,7 +24,11 @@ public class GetVehiclesQueryHandler(
         try
         {
             var rawData = await queryRepository.TableNoTracking
-                .Select(x => new { Vehicle = x.Adapt<GetVehicleQueryResponse>(), x.ResponsibleId })
+                .Select(x => new
+                {
+                    Vehicle = x.Adapt<GetVehicleQueryResponse>(),
+                    x.ResponsibleId
+                })
                 .ToListAsync(cancellationToken);
 
             if (rawData.Count == 0)
@@ -32,7 +37,7 @@ public class GetVehiclesQueryHandler(
                 return [];
             }
 
-            var users = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
+            var users          = await mediator.Send(new GetAllUsersQuery(), cancellationToken);
             var userDictionary = users.ToDictionary(u => u.Id);
 
             foreach (var entry in rawData)
@@ -51,7 +56,7 @@ public class GetVehiclesQueryHandler(
 
             return vehicles;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogWarning(ex, localizer["BusinessErrorWhileRetrieving"]);
             throw;

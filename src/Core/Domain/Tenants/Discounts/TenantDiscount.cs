@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Tenants.Discounts;
+﻿namespace SmartAttendance.Domain.Tenants.Discounts;
 
 public class TenantDiscount
 {
@@ -8,6 +8,6 @@ public class TenantDiscount
     public Discount Discount { get; set; }
 
     public string TenantId { get; set; }
-    public ShiftyTenantInfo Tenant { get; set; }
+    public SmartAttendanceTenantInfo Tenant { get; set; }
     public bool IsUsed { get; set; } = false;
 }

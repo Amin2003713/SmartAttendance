@@ -1,3 +1,3 @@
-﻿namespace Shifty.Application.Features.Dashboards.Requests.DashboardCardSummary;
+﻿namespace SmartAttendance.Application.Features.Dashboards.Requests.DashboardCardSummary;
 
 public record KPIMetricsRequest;

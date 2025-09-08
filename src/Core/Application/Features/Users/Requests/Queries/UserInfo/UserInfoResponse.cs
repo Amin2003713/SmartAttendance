@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Queries.UserInfo;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Queries.UserInfo;
 
 public class UserInfoResponse
 {

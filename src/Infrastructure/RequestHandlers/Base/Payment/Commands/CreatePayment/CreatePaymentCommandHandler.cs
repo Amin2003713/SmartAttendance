@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Payment.Commands.CreatePayment;
-using Shifty.Application.Interfaces.Tenants.Payment;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.Payment.Commands.CreatePayment;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.Payment.Commands.CreatePayment;
+namespace SmartAttendance.RequestHandlers.Base.Payment.Commands.CreatePayment;
 
 public class CreatePaymentCommandHandler(
     IPaymentCommandRepository paymentCommandRepository,
@@ -23,14 +23,14 @@ public class CreatePaymentCommandHandler(
             if (paymentUri == null)
             {
                 logger.LogWarning("Payment creation failed for tenant.");
-                throw ShiftyException.BadRequest(localizer["Unable to create payment."]);
+                throw SmartAttendanceException.BadRequest(localizer["Unable to create payment."]);
             }
 
             logger.LogInformation("Payment created successfully: {PaymentUri}", paymentUri.AbsoluteUri);
 
             return paymentUri.AbsoluteUri;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error occurred while creating payment.");
             throw;
@@ -38,7 +38,7 @@ public class CreatePaymentCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating payment.");
-            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while creating payment."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An unexpected error occurred while creating payment."]);
         }
     }
 }

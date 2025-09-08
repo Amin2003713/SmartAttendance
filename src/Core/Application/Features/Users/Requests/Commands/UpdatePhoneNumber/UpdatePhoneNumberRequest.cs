@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 
 public class UpdatePhoneNumberRequest
 {

@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Queries.GetReminder;
 
-namespace Shifty.Application.Features.Calendars.Queries.GetReminder;
+namespace SmartAttendance.Application.Features.Calendars.Queries.GetReminder;
 
 public record GetReminderQuery(
     int Year,

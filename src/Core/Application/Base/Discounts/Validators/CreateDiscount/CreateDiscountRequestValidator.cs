@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.Discounts.Request.Commands.CreateDisCount;
+using SmartAttendance.Application.Base.Discounts.Request.Commands.CreateDisCount;
 
-namespace Shifty.Application.Base.Discounts.Validators.CreateDiscount;
+namespace SmartAttendance.Application.Base.Discounts.Validators.CreateDiscount;
 
 public class CreateDiscountRequestValidator : AbstractValidator<CreateDiscountRequest>
 {

@@ -1,11 +1,11 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Messages.Commands.VisitMessage;
-using Shifty.Application.Interfaces.Messages.UserVisitedMessages;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Messages.UserVisitedMessages;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Messages.Commands.VisitMessage;
+using SmartAttendance.Application.Interfaces.Messages.UserVisitedMessages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Messages.UserVisitedMessages;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Messages.Commands.VisitMessage;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Commands.VisitMessage;
 
 public class VisitMessageCommandHandler(
     IdentityService service,
@@ -45,7 +45,7 @@ public class VisitMessageCommandHandler(
                     request.Id);
             }
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business exception occurred while visiting message.");
             throw;
@@ -53,7 +53,7 @@ public class VisitMessageCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while visiting message.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while visiting the message."]);
         }
     }

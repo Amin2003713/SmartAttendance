@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums;
+﻿using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrack;
+namespace SmartAttendance.Application.Features.TaskTrack.Requests.Commands.CreateTaskTrack;
 
 public class CreateTaskTrackRequest
 {

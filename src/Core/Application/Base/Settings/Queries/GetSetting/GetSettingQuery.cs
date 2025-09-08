@@ -1,3 +1,3 @@
-﻿namespace Shifty.Application.Base.Settings.Queries.GetSetting;
+﻿namespace SmartAttendance.Application.Base.Settings.Queries.GetSetting;
 
 public class GetSettingQuery : IRequest<GetSettingQueryResponse>;

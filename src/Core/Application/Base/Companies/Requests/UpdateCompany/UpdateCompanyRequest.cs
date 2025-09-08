@@ -1,6 +1,6 @@
-using Shifty.Application.Commons.MediaFiles.Requests;
+using SmartAttendance.Application.Commons.MediaFiles.Requests;
 
-namespace Shifty.Application.Base.Companies.Requests.UpdateCompany;
+namespace SmartAttendance.Application.Base.Companies.Requests.UpdateCompany;
 
 /// <summary>
 ///     Represents the UpdateCompanyCommand request object.

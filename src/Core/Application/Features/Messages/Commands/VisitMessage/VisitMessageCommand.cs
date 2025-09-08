@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Commands.VisitMessage;
+﻿namespace SmartAttendance.Application.Features.Messages.Commands.VisitMessage;
 
 public record VisitMessageCommand(
     Guid Id

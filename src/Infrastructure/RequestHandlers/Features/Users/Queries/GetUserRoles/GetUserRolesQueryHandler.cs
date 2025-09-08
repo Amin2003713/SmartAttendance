@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Features.Users.Requests.Queries.GetUserRoles;
-using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.EnumHelpers;
+﻿using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserRoles;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.EnumHelpers;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetUserRoles;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserRoles;
 
 public class
     GetUserRolesQueryHandler : IRequestHandler<GetUserRolesQuery,

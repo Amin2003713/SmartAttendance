@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.Storage.Queries.GetAllRemainStorage;
-using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorage;
+﻿using SmartAttendance.Application.Base.Storage.Queries.GetAllRemainStorage;
+using SmartAttendance.Application.Base.Storage.Request.Queries.GetRemainStorage;
 
-namespace Shifty.Api.Controllers.Storages;
+namespace SmartAttendance.Api.Controllers.Storages;
 
-public class StorageController : ShiftyBaseController
+public class StorageController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Retrieves remaining storage across all projects.

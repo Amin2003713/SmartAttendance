@@ -1,7 +1,7 @@
-﻿using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.EnumHelpers;
+﻿using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.EnumHelpers;
 
-namespace Shifty.Application.Features.Users.Requests.Commands.DeleteRole;
+namespace SmartAttendance.Application.Features.Users.Requests.Commands.DeleteRole;
 
 public class DeleteRoleRequestExample : IExamplesProvider<DeleteRoleRequest>
 {

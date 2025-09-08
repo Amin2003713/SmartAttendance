@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Users;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.Application.Interfaces.UserPasswords;
+namespace SmartAttendance.Application.Interfaces.UserPasswords;
 
 public interface IUserPasswordQueryRepository : IQueryRepository<UserPassword>,
     IScopedDependency;

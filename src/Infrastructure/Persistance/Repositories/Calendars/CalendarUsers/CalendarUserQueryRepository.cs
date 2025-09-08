@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Repositories.Calendars.CalendarUsers;
+﻿namespace SmartAttendance.Persistence.Repositories.Calendars.CalendarUsers;
 
 public class CalendarUserQueryRepository(
     ReadOnlyDbContext dbContext,
@@ -28,7 +28,7 @@ public class CalendarUserQueryRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error retrieving calendar users for CalendarId: {CalendarId}", calendarId);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving calendar users."]);
         }
     }

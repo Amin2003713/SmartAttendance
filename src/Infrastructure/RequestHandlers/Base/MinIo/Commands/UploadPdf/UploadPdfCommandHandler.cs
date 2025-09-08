@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.MinIo.Commands.UploadPdf;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.MinIo.Commands.UploadPdf;
+namespace SmartAttendance.RequestHandlers.Base.MinIo.Commands.UploadPdf;
 
 public class UploadPdfCommandHandler(
     IMinIoCommandRepository minIoCommandRepository,
@@ -24,7 +24,7 @@ public class UploadPdfCommandHandler(
 
             return request.Path;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error during PDF upload.");
             throw;
@@ -32,7 +32,7 @@ public class UploadPdfCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error during PDF upload.");
-            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while uploading the PDF."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An unexpected error occurred while uploading the PDF."]);
         }
     }
 }

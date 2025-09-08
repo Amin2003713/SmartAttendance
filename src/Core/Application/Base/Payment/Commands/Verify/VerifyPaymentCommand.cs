@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Payment.Commands.Verify;
+﻿namespace SmartAttendance.Application.Base.Payment.Commands.Verify;
 
 public record VerifyPaymentCommand(
     string Authority,

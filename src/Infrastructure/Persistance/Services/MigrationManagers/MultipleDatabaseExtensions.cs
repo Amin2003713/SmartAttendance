@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Interfaces.Base;
+﻿using SmartAttendance.Application.Interfaces.Base;
 
-namespace Shifty.Persistence.Services.MigrationManagers;
+namespace SmartAttendance.Persistence.Services.MigrationManagers;
 
 public static class MultipleDatabaseExtensions
 {
@@ -17,7 +17,7 @@ public static class MultipleDatabaseExtensions
         {
             using var scopeTenant = services.BuildServiceProvider().CreateScope();
 
-            var tenantDbContext = scopeTenant.ServiceProvider.GetRequiredService<ShiftyTenantDbContext>();
+            var tenantDbContext = scopeTenant.ServiceProvider.GetRequiredService<SmartAttendanceTenantDbContext>();
             if (!await tenantDbContext.Database.CanConnectAsync(cancellationToken))
                 await tenantDbContext.Database.MigrateAsync(cancellationToken);
 

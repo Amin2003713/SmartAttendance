@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Commons.ItemComment.Create;
+﻿namespace SmartAttendance.Application.Commons.ItemComment.Create;
 
 public record CreateItemCommentRequest(
     string Text,

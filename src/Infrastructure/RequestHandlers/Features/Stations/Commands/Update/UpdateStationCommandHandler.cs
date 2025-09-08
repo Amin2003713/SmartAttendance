@@ -1,26 +1,28 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Stations.Commands.Update;
-using Shifty.Application.Interfaces.Stations;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Stations;
+using SmartAttendance.Application.Features.Stations.Commands.Update;
+using SmartAttendance.Application.Interfaces.Stations;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Stations;
 
-namespace Shifty.RequestHandlers.Features.Stations.Commands.Update;
+namespace SmartAttendance.RequestHandlers.Features.Stations.Commands.Update;
 
 public class UpdateStationCommandHandler(
     IStationCommandRepository commandRepository,
     IStationQueryRepository queryRepository,
     ILogger<UpdateStationCommandHandler> logger,
-    IStringLocalizer<UpdateStationCommandHandler> localizer) : IRequestHandler<UpdateStationCommand>
+    IStringLocalizer<UpdateStationCommandHandler> localizer
+) : IRequestHandler<UpdateStationCommand>
 {
     public async Task Handle(UpdateStationCommand request, CancellationToken cancellationToken)
     {
         try
         {
             var station = await queryRepository.GetSingleAsync(cancellationToken, x => x.Id == request.Id);
+
             if (station is null)
             {
                 logger.LogWarning("Stations with ID {StationId} not found for update.", request.Id);
-                throw ShiftyException.NotFound(localizer["Station not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Station not found."]);
             }
 
             station.Update(request.Adapt<Station>());
@@ -31,7 +33,7 @@ public class UpdateStationCommandHandler(
         }
 
 
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error while updating station {StationId}.", request.Id);
             throw;
@@ -39,7 +41,7 @@ public class UpdateStationCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while updating station {StationId}.", request.Id);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while updating the station."]);
         }
     }

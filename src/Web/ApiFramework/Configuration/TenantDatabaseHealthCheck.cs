@@ -8,9 +8,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Shifty.Persistence.Db;
+using SmartAttendance.Persistence.Db;
 
-namespace Shifty.ApiFramework.Configuration;
+namespace SmartAttendance.ApiFramework.Configuration;
 
 public class TenantDatabaseHealthCheck(
     IServiceProvider serviceProvider
@@ -26,7 +26,7 @@ public class TenantDatabaseHealthCheck(
         try
         {
             using var scope       = serviceProvider.CreateScope();
-            var       tenantStore = scope.ServiceProvider.GetRequiredService<ShiftyTenantDbContext>();
+            var       tenantStore = scope.ServiceProvider.GetRequiredService<SmartAttendanceTenantDbContext>();
 
             // Get all tenant configurations
             var tenants = await tenantStore.TenantInfo.ToListAsync(cancellationToken);

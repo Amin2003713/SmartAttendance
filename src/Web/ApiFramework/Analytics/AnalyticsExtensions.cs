@@ -7,9 +7,9 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Exceptions;
-using Shifty.Common.General;
+using SmartAttendance.Common.General;
 
-namespace Shifty.ApiFramework.Analytics;
+namespace SmartAttendance.ApiFramework.Analytics;
 
 public static class AnalyticsExtensions
 {

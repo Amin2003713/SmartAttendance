@@ -1,12 +1,12 @@
-﻿using Shifty.Application.Base.Payment.Commands.CreatePayment;
-using Shifty.Application.Base.Payment.Commands.Verify;
-using Shifty.Application.Base.Payment.Queries.ListPayments;
-using Shifty.Application.Base.Payment.Request.Commands.CreatePayment;
-using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
+﻿using SmartAttendance.Application.Base.Payment.Commands.CreatePayment;
+using SmartAttendance.Application.Base.Payment.Commands.Verify;
+using SmartAttendance.Application.Base.Payment.Queries.ListPayments;
+using SmartAttendance.Application.Base.Payment.Request.Commands.CreatePayment;
+using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
 
-namespace Shifty.Api.Controllers.Payment;
+namespace SmartAttendance.Api.Controllers.Payment;
 
-public class PaymentController : ShiftyBaseController
+public class PaymentController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Retrieves a list of all payments.

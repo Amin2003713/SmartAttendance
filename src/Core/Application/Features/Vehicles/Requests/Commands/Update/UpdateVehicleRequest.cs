@@ -1,6 +1,6 @@
-using Shifty.Application.Features.Vehicles.Requests.Commands.Create;
+using SmartAttendance.Application.Features.Vehicles.Requests.Commands.Create;
 
-namespace Shifty.Application.Features.Vehicles.Requests.Commands.Update;
+namespace SmartAttendance.Application.Features.Vehicles.Requests.Commands.Update;
 
 public class UpdateVehicleRequest : CreateVehicleRequest
 {

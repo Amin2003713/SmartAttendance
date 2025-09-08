@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Shifty.ApiFramework.Swagger;
+namespace SmartAttendance.ApiFramework.Swagger;
 
 public class EnumModelBinder : IModelBinder
 {

@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Interfaces.Storages;
+﻿using SmartAttendance.Application.Interfaces.Storages;
 
-namespace Shifty.Persistence.Repositories.Storage;
+namespace SmartAttendance.Persistence.Repositories.Storage;
 
 public class StorageCommandRepository(
     WriteOnlyDbContext dbContext,

@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
+﻿namespace SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
 
 public class TaskTrackReportResponse
 {

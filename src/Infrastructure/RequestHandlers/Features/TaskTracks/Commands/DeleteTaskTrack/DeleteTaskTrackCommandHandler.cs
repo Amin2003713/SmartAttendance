@@ -1,12 +1,12 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Commands.DeleteTaskTrack;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Domain.TaskTracks.Events.TaskTrackers;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Commands.DeleteTaskTrack;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackers;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Commands.DeleteTaskTrack;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Commands.DeleteTaskTrack;
 
 public class DeleteTaskTrackCommandHandler(
     IdentityService identityService,
@@ -26,7 +26,7 @@ public class DeleteTaskTrackCommandHandler(
 
         var taskTrack = await eventReader.GetSingleAsync(
             x => x.AggregateId == request.AggregateId && x.UserId == userId,
-            cancellationToken: cancellationToken);
+            cancellationToken);
 
         if (taskTrack is null)
         {
@@ -34,7 +34,7 @@ public class DeleteTaskTrackCommandHandler(
                 request.AggregateId,
                 userId);
 
-            throw ShiftyException.NotFound(localizer["No Missions reports found to delete."].Value);
+            throw SmartAttendanceException.NotFound(localizer["No Missions reports found to delete."].Value);
         }
 
         var deleteEvent = request.Adapt<TaskTrackDeletedEvent>() with

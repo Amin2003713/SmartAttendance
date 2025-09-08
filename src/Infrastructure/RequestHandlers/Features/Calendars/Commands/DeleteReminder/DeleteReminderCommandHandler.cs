@@ -1,12 +1,10 @@
-﻿using Shifty.Application.Features.Calendars.Commands.DeleteReminder;
-using Shifty.Application.Interfaces.Calendars.CalendarUsers;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Calendars.Commands.DeleteReminder;
+using SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Commands.DeleteReminder;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.DeleteReminder;
 
 public class DeleteReminderCommandHandler(
     IdentityService service,
@@ -35,7 +33,7 @@ public class DeleteReminderCommandHandler(
             if (reminder == null)
             {
                 logger.LogWarning("Reminder {ReminderId} not found.", request.ReminderId);
-                throw ShiftyException.NotFound(localizer["Reminder not found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["Reminder not found."].Value);
             }
 
             if (reminder.CreatedBy != userId)
@@ -44,7 +42,7 @@ public class DeleteReminderCommandHandler(
                     userId,
                     request.ReminderId);
 
-                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
 
             var associatedUsers =
@@ -58,7 +56,7 @@ public class DeleteReminderCommandHandler(
                 request.ReminderId,
                 userId);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
@@ -69,7 +67,7 @@ public class DeleteReminderCommandHandler(
                 request.ReminderId,
                 userId);
 
-            throw ShiftyException.InternalServerError(localizer["Unable to delete reminder."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["Unable to delete reminder."].Value);
         }
     }
 }

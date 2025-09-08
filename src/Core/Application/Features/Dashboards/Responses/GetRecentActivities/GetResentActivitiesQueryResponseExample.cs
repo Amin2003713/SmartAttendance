@@ -1,8 +1,8 @@
-﻿// using Shifty.Common.Common.Responses.PropertyChanges;
+﻿// using SmartAttendance.Common.Common.Responses.PropertyChanges;
 // 
 // using Swashbuckle.AspNetCore.Filters;
 //
-// namespace Shifty.Application.Dashboards.Responses.GetRecentActivities;
+// namespace SmartAttendance.Application.Dashboards.Responses.GetRecentActivities;
 //
 // public class GetResentActivitiesQueryResponseExample : IExamplesProvider<List<GetResentActivities>>
 // {

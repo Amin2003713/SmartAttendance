@@ -1,13 +1,13 @@
-﻿using Shifty.Application.Features.Messages.Comments.Request.Queries.GetComments;
-using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessage;
-using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
-using Shifty.Application.Interfaces.Messages;
-using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.TypeConverters;
-using Shifty.Domain.Messages;
+﻿using SmartAttendance.Application.Features.Messages.Comments.Request.Queries.GetComments;
+using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessage;
+using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessageById;
+using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.TypeConverters;
+using SmartAttendance.Domain.Messages;
 
-namespace Shifty.Persistence.Repositories.Messages;
+namespace SmartAttendance.Persistence.Repositories.Messages;
 
 public class MessageQueryRepository(
     ReadOnlyDbContext dbContext,
@@ -20,8 +20,7 @@ public class MessageQueryRepository(
     : QueryRepository<Message>(dbContext, logger),
         IMessageQueryRepository
 {
-    public async Task<List<GetMessageResponse>> GetMessagesAsync(
-        CancellationToken cancellationToken)
+    public async Task<List<GetMessageResponse>> GetMessagesAsync(CancellationToken cancellationToken)
     {
         try
         {
@@ -97,7 +96,7 @@ public class MessageQueryRepository(
         {
             logger.LogError(ex, "Error fetching messages");
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 additionalData: localizer["An error occurred while retrieving messages."]);
         }
     }
@@ -135,7 +134,7 @@ public class MessageQueryRepository(
                     userId,
                     entity.Id);
 
-                throw ShiftyException.Forbidden(localizer["You are not authorized to view this message."]);
+                throw SmartAttendanceException.Forbidden(localizer["You are not authorized to view this message."]);
             }
 
 
@@ -216,13 +215,12 @@ public class MessageQueryRepository(
         {
             logger.LogError(ex, "Error occurred while retrieving message. MessageId: {MessageId}", id);
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 additionalData: localizer["An error occurred while retrieving the message."]);
         }
     }
 
-    private async Task<Expression<Func<Message, bool>>> BuildMessageFilter(
-        Guid userId)
+    private async Task<Expression<Func<Message, bool>>> BuildMessageFilter(Guid userId)
     {
         var roles = service.GetRoles();
 

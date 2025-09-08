@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.Users.Commands.ForgotPassword;
-using Shifty.Application.Interfaces.UserPasswords;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Features.Users.Commands.ForgotPassword;
+using SmartAttendance.Application.Interfaces.UserPasswords;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.ForgotPassword;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.ForgotPassword;
 
 /// <summary>
 ///     Handles the <see cref="ForgotPasswordCommand" /> by implementing password reset logic.
@@ -30,10 +30,10 @@ public class ForgotPasswordCommandHandler(
             var userResult = await userManager.FindByNameAsync(request.UserName);
 
             if (userResult == null)
-                throw ShiftyException.NotFound(localizer["User was not found."].Value); // "کاربر یافت نشد."
+                throw SmartAttendanceException.NotFound(localizer["User was not found."].Value); // "کاربر یافت نشد."
 
             if (!await VerifyTwoFactorTokenAsync(request.Code, userResult))
-                throw ShiftyException.Forbidden(localizer["Otp Code was invalid."]);
+                throw SmartAttendanceException.Forbidden(localizer["Otp Code was invalid."]);
 
             var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == userResult.Id)
                 .ToListAsync(cancellationToken);
@@ -43,7 +43,7 @@ public class ForgotPasswordCommandHandler(
                 .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
             {
                 logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserName);
-                throw ShiftyException.BadRequest(localizer["Dont Reuse Old Password"]);
+                throw SmartAttendanceException.BadRequest(localizer["Dont Reuse Old Password"]);
             }
 
 
@@ -51,7 +51,7 @@ public class ForgotPasswordCommandHandler(
             var passwordResetToken = await userManager.GeneratePasswordResetTokenAsync(userResult);
 
             if (passwordResetToken == null)
-                throw ShiftyException.Forbidden(localizer["Action not allowed."].Value); // "انجام این عملیات مجاز نیست."
+                throw SmartAttendanceException.Forbidden(localizer["Action not allowed."].Value); // "انجام این عملیات مجاز نیست."
 
             var result = await userManager.ResetPasswordAsync(userResult, passwordResetToken, request.NewPassword);
 
@@ -60,7 +60,7 @@ public class ForgotPasswordCommandHandler(
                 logger.LogError("Password reset failed: {Errors}",
                     string.Join(", ", result.Errors.Select(e => e.Description)));
 
-                throw ShiftyException.Validation(localizer["Password change error."],
+                throw SmartAttendanceException.Validation(localizer["Password change error."],
                     result.Errors); // "خطا در تغییر رمز عبور."
             }
 
@@ -87,7 +87,7 @@ public class ForgotPasswordCommandHandler(
         {
             return await userManager.VerifyTwoFactorTokenAsync(user!, ApplicationConstant.Identity.CodeGenerator, code);
         }
-        catch (ShiftyException e)
+        catch (SmartAttendanceException e)
         {
             logger.LogError(e, "Error during two-factor token verification.");
             throw;
@@ -95,7 +95,7 @@ public class ForgotPasswordCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
-            throw ShiftyException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
                 .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }

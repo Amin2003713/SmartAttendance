@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.General.Enums;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Application.Features.Missions.Requests.Queries.MissionResponse;
+namespace SmartAttendance.Application.Features.Missions.Requests.Queries.MissionResponse;
 
 public class GetMissionResponse
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.Companies.Requests.InitialCompany;
+using SmartAttendance.Application.Base.Companies.Requests.InitialCompany;
 
-namespace Shifty.Application.Base.Companies.Validators.InitialCompany;
+namespace SmartAttendance.Application.Base.Companies.Validators.InitialCompany;
 
 public class InitialCompanyRequestValidator : AbstractValidator<InitialCompanyRequest>
 {

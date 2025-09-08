@@ -1,9 +1,9 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Settings.Queries.GetSetting;
-using Shifty.Application.Interfaces.Settings;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Base.Settings.Queries.GetSetting;
+using SmartAttendance.Application.Interfaces.Settings;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.Settings.Queries.GetSetting;
+namespace SmartAttendance.RequestHandlers.Base.Settings.Queries.GetSetting;
 
 public class GetSettingQueryHandler(
     ISettingQueriesRepository repository,
@@ -20,7 +20,7 @@ public class GetSettingQueryHandler(
             if (result == null)
             {
                 logger.LogWarning("No active price found.");
-                throw ShiftyException.NotFound(localizer["No Setting configuration found."]);
+                throw SmartAttendanceException.NotFound(localizer["No Setting configuration found."]);
             }
 
             logger.LogInformation("Setting retrieved successfully. ID: {Id}", result.Id);
@@ -29,7 +29,7 @@ public class GetSettingQueryHandler(
         }
 
 
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business exception occurred while retrieving Setting.");
             throw;
@@ -38,7 +38,7 @@ public class GetSettingQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving Setting.");
-            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred while retrieving Setting."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An unexpected error occurred while retrieving Setting."]);
         }
     }
 }

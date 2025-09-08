@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
+﻿namespace SmartAttendance.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
 
 public record GetRemainStorageByProjectResponse(
     decimal TotalStorageMb,

@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Repositories.Calendars.CalendarUsers;
+﻿namespace SmartAttendance.Persistence.Repositories.Calendars.CalendarUsers;
 
 public class CalendarUserCommandRepository(
     WriteOnlyDbContext dbContext,

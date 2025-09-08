@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Dashboards.Requests.GetRecentActivities;
+﻿namespace SmartAttendance.Application.Features.Dashboards.Requests.GetRecentActivities;
 
 public class GetRecentActivitiesRequest
 {

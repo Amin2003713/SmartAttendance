@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.RoleTypes;
+﻿using SmartAttendance.Common.General.Enums.RoleTypes;
 
-namespace Shifty.Domain.Tenants;
+namespace SmartAttendance.Domain.Tenants;
 
 public class TenantAdmin
 {
@@ -13,7 +13,7 @@ public class TenantAdmin
 
     public string FatherName { get; set; }
     public string NationalCode { get; set; }
-    public List<ShiftyTenantInfo> Tenants { get; set; } = [];
+    public List<SmartAttendanceTenantInfo> Tenants { get; set; } = [];
     public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
 
     public string? FullName()

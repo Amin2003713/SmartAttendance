@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Features.Dashboards.Queries.ProgressHistory;
-using Shifty.Application.Features.Dashboards.Responses.ProgressHistory;
+﻿using SmartAttendance.Application.Features.Dashboards.Queries.ProgressHistory;
+using SmartAttendance.Application.Features.Dashboards.Responses.ProgressHistory;
 
-namespace Shifty.RequestHandlers.Features.Dashboards.Queries.ProjectProgressHistory;
+namespace SmartAttendance.RequestHandlers.Features.Dashboards.Queries.ProjectProgressHistory;
 
 public class
     ProjectProgressHistoryQueryHandler : IRequestHandler<ProjectProgressHistoryQuery,

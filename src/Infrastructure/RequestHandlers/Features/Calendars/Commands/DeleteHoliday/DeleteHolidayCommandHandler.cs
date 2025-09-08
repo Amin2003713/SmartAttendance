@@ -1,11 +1,9 @@
-﻿using Shifty.Application.Features.Calendars.Commands.DeleteHoliday;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.Access;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Calendars.Commands.DeleteHoliday;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Commands.DeleteHoliday;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.DeleteHoliday;
 
 public class DeleteHolidayCommandHandler(
     IdentityService service,
@@ -33,7 +31,7 @@ public class DeleteHolidayCommandHandler(
             if (holiday == null)
             {
                 logger.LogWarning("Holiday with Id {HolidayId} not found.", request.HolidayId);
-                throw ShiftyException.NotFound(localizer["Not Found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["Not Found."].Value);
             }
 
 
@@ -43,7 +41,7 @@ public class DeleteHolidayCommandHandler(
                     userId,
                     request.HolidayId);
 
-                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
 
             await dailyCalendarCommandRepository.DeleteAsync(holiday, cancellationToken);
@@ -52,7 +50,7 @@ public class DeleteHolidayCommandHandler(
                 request.HolidayId,
                 userId);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
@@ -64,7 +62,7 @@ public class DeleteHolidayCommandHandler(
                 userId,
                 ex.Message);
 
-            throw ShiftyException.InternalServerError(localizer["Unable to delete holiday."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["Unable to delete holiday."].Value);
         }
     }
 }

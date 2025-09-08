@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Calendars.Request.Commands.UpdateHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateHoliday;
 
-namespace Shifty.Application.Features.Calendars.Validators.UpdateHoliday;
+namespace SmartAttendance.Application.Features.Calendars.Validators.UpdateHoliday;
 
 public class UpdateHolidayRequestValidator : AbstractValidator<UpdateHolidayRequest>
 {

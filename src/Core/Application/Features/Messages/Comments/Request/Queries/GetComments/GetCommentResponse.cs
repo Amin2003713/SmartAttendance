@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Comments.Request.Queries.GetComments;
+﻿namespace SmartAttendance.Application.Features.Messages.Comments.Request.Queries.GetComments;
 
 public class GetCommentResponse
 {

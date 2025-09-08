@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.Discount;
+﻿using SmartAttendance.Common.General.Enums.Discount;
 
-namespace Shifty.Application.Base.Discounts.Request.Queries.CheckDiscount;
+namespace SmartAttendance.Application.Base.Discounts.Request.Queries.CheckDiscount;
 
 public class CheckDiscountIsValidResponse
 {

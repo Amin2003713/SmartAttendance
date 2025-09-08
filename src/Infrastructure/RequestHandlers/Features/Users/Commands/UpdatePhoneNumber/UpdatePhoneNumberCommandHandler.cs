@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Commands.UpdatePhoneNumber;
-using Shifty.Application.Interfaces.Users;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Users.Commands.UpdatePhoneNumber;
+using SmartAttendance.Application.Interfaces.Users;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.UpdatePhoneNumber;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.UpdatePhoneNumber;
 
 public class UpdatePhoneNumberCommandHandler(
     IUserCommandRepository commandRepository,
@@ -27,7 +27,7 @@ public class UpdatePhoneNumberCommandHandler(
                 a => a.Id == userId);
 
             if (user == null)
-                throw ShiftyException.NotFound(localizer["User was not found."]);
+                throw SmartAttendanceException.NotFound(localizer["User was not found."]);
 
             user.PhoneNumber = request.PhoneNumber;
 
@@ -39,7 +39,7 @@ public class UpdatePhoneNumberCommandHandler(
             if (!isValid)
             {
                 logger.LogWarning("Invalid code entered for phone number update: {Phone}", request.PhoneNumber);
-                throw ShiftyException.BadRequest(localizer["Invalid or expired activation code."]);
+                throw SmartAttendanceException.BadRequest(localizer["Invalid or expired activation code."]);
             }
 
             await commandRepository.UpdatePhoneNumberAsync(request, userId, cancellationToken);

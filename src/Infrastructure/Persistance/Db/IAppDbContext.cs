@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Db;
+﻿namespace SmartAttendance.Persistence.Db;
 
 public interface IAppDbContext
 {

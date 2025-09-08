@@ -1,7 +1,7 @@
-﻿using Shifty.Common.General.Enums.Genders;
-using Shifty.Common.General.Enums.RoleTypes;
+﻿using SmartAttendance.Common.General.Enums.Genders;
+using SmartAttendance.Common.General.Enums.RoleTypes;
 
-namespace Shifty.Application.Features.Users.Requests.Commands.RegisterByOwner;
+namespace SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
 
 public class RegisterByOwnerRequest
 {
@@ -22,7 +22,7 @@ public class RegisterByOwnerRequest
     public string PersonnelNumber { get; set; }
 
     public RoleType roleType { get; set; }
-   
+
     public string PhoneNumber { get; set; }
 
     public List<string> Roles { get; set; }

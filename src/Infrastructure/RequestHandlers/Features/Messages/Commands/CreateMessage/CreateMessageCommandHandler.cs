@@ -1,14 +1,14 @@
 ﻿using Mapster;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Features.Messages.Commands.CreateMessage;
-using Shifty.Application.Interfaces.Messages;
-using Shifty.Application.Interfaces.Messages.MessageTargetUsers;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Domain.Messages;
-using Shifty.Domain.Messages.MessageTargetUsers;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Features.Messages.Commands.CreateMessage;
+using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Application.Interfaces.Messages.MessageTargetUsers;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Domain.Messages;
+using SmartAttendance.Domain.Messages.MessageTargetUsers;
 
-namespace Shifty.RequestHandlers.Features.Messages.Commands.CreateMessage;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Commands.CreateMessage;
 
 public class CreateMessageCommandHandler(
     IMessageCommandRepository messageCommandRepository,
@@ -28,7 +28,7 @@ public class CreateMessageCommandHandler(
 
             var message = request.Adapt<Message>();
 
-                if (request.ImageFile is { MediaFile: not null })
+            if (request.ImageFile is { MediaFile: not null })
             {
                 logger.LogInformation("Uploading image for message {MessageId} ",
                     message.Id);
@@ -37,12 +37,13 @@ public class CreateMessageCommandHandler(
                 await request.ImageFile.MediaFile.CopyToAsync(imgStream, cancellationToken);
 
                 var uploaded = await mediator.Send(new UploadHubFileCommand
-                {
-                    File = request.ImageFile.MediaFile,
-                    ReportDate = DateTime.Now,
-                    RowId = message.Id,
-                    RowType = FileStorageType.CompanyMessage
-                }, cancellationToken);
+                    {
+                        File = request.ImageFile.MediaFile,
+                        ReportDate = DateTime.Now,
+                        RowId = message.Id,
+                        RowType = FileStorageType.CompanyMessage
+                    },
+                    cancellationToken);
 
                 message.ImageUrl = uploaded.Url;
             }
@@ -66,7 +67,7 @@ public class CreateMessageCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating message.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while creating the message."]);
         }
     }

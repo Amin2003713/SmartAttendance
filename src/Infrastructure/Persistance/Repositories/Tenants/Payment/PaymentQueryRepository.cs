@@ -1,15 +1,15 @@
-﻿using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
+﻿using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
 
-namespace Shifty.Persistence.Repositories.Tenants.Payment;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Payment;
 
 public class PaymentQueryRepository(
-    ShiftyTenantDbContext db,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContextAccessor,
+    SmartAttendanceTenantDbContext db,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContextAccessor,
     ILogger<PaymentQueryRepository> logger,
     IStringLocalizer<PaymentQueryRepository> localizer
 ) : IPaymentQueryRepository
 {
-    private ShiftyTenantInfo TenantInfo => tenantContextAccessor.MultiTenantContext.TenantInfo!;
+    private SmartAttendanceTenantInfo TenantInfo => tenantContextAccessor.MultiTenantContext.TenantInfo!;
 
     public async Task<List<PaymentQueryResponse>> ListPayments(CancellationToken cancellationToken)
     {

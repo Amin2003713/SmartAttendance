@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Discounts.Commands.UseDiscount;
-using Shifty.Application.Interfaces.Tenants.Discounts;
-using Shifty.Common.General.Enums.Discount;
+﻿using SmartAttendance.Application.Base.Discounts.Commands.UseDiscount;
+using SmartAttendance.Application.Interfaces.Tenants.Discounts;
+using SmartAttendance.Common.General.Enums.Discount;
 
-namespace Shifty.RequestHandlers.Base.Discounts.Commands.UseDiscount;
+namespace SmartAttendance.RequestHandlers.Base.Discounts.Commands.UseDiscount;
 
 public record UseDiscountCommandHandler(
     IDiscountQueryRepository QueryRepository,

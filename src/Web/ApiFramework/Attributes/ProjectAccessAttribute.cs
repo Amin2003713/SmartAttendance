@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Shifty.ApiFramework.Tools;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.ApiFramework.Tools;
 
-namespace Shifty.ApiFramework.Attributes;
+namespace SmartAttendance.ApiFramework.Attributes;
 
 public class ProjectAccessAttribute(
     params int[] requiredAccess

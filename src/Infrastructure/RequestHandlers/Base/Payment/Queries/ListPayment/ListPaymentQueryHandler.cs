@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.Payment.Queries.ListPayments;
-using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
-using Shifty.Application.Interfaces.Tenants.Payment;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.Payment.Queries.ListPayments;
+using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.Payment.Queries.ListPayment;
+namespace SmartAttendance.RequestHandlers.Base.Payment.Queries.ListPayment;
 
 public class ListPaymentQueryHandler(
     IPaymentQueryRepository paymentQueryRepository,
@@ -24,7 +24,7 @@ public class ListPaymentQueryHandler(
             logger.LogInformation("Retrieved {Count} payments.", result.Count);
             return result;
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business exception occurred while listing payments.");
             throw;
@@ -32,7 +32,7 @@ public class ListPaymentQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while listing payments.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving the payments."]);
         }
     }

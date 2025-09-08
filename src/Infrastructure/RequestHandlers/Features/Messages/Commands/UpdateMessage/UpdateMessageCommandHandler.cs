@@ -1,17 +1,16 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.MinIo.Commands.DeleteFile;
-using Shifty.Application.Features.Messages.Commands.UpdateMessage;
-using Shifty.Application.Interfaces.Messages;
-using Shifty.Application.Interfaces.Messages.MessageTargetUsers;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.TypeConverters;
-using Shifty.Domain.Messages;
-using Shifty.Domain.Messages.MessageTargetUsers;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
+using SmartAttendance.Application.Features.Messages.Commands.UpdateMessage;
+using SmartAttendance.Application.Interfaces.Messages;
+using SmartAttendance.Application.Interfaces.Messages.MessageTargetUsers;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Domain.Messages;
+using SmartAttendance.Domain.Messages.MessageTargetUsers;
 
-namespace Shifty.RequestHandlers.Features.Messages.Commands.UpdateMessage;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Commands.UpdateMessage;
 
 public class UpdateMessageCommandHandler(
     IMediator mediator,
@@ -30,7 +29,7 @@ public class UpdateMessageCommandHandler(
         if (message == null)
         {
             logger.LogWarning("Message with ID {MessageId} not found for update.", request.Id);
-            throw ShiftyException.NotFound(localizer["Message not found."]);
+            throw SmartAttendanceException.NotFound(localizer["Message not found."]);
         }
 
         if (request.ImageFile is { MediaFile: not null })
@@ -43,7 +42,7 @@ public class UpdateMessageCommandHandler(
                 if (!deleteResponse)
                 {
                     logger.LogError("Failed to delete old image for Message {Id}.", message.Id);
-                    throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
+                    throw SmartAttendanceException.InternalServerError(localizer["Failed to delete old image."].Value);
                 }
             }
 
@@ -52,11 +51,12 @@ public class UpdateMessageCommandHandler(
 
 
             var uploaded = await mediator.Send(new UploadHubFileCommand
-            {
-                File = request.ImageFile.MediaFile,
-                RowId = message.Id,
-                RowType = FileStorageType.CompanyMessage
-            }, cancellationToken);
+                {
+                    File = request.ImageFile.MediaFile,
+                    RowId = message.Id,
+                    RowType = FileStorageType.CompanyMessage
+                },
+                cancellationToken);
 
             message.ImageUrl = uploaded.Url;
         }

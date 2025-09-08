@@ -1,11 +1,11 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Messages.Commands.LikeMessage;
-using Shifty.Application.Interfaces.Messages.UserLikedMessages;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Messages.UserLikedMessages;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Messages.Commands.LikeMessage;
+using SmartAttendance.Application.Interfaces.Messages.UserLikedMessages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Messages.UserLikedMessages;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Messages.Commands.LikeMessages;
+namespace SmartAttendance.RequestHandlers.Features.Messages.Commands.LikeMessages;
 
 public class LikeMessageCommandHandler(
     IdentityService service,
@@ -44,7 +44,7 @@ public class LikeMessageCommandHandler(
                 logger.LogInformation("User {UserId} unliked message {MessageId}.", userId, request.MessageId);
             }
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error occurred while updating like status.");
             throw;
@@ -52,7 +52,7 @@ public class LikeMessageCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while updating like status.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while updating the like status."]);
         }
     }

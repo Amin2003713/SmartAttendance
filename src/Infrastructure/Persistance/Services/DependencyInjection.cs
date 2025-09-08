@@ -1,7 +1,7 @@
-﻿using Shifty.Persistence.Repositories.HangFire;
-using Shifty.Persistence.Services.Injections;
+﻿using SmartAttendance.Persistence.Repositories.HangFire;
+using SmartAttendance.Persistence.Services.Injections;
 
-namespace Shifty.Persistence.Services;
+namespace SmartAttendance.Persistence.Services;
 
 public static class DependencyInjection
 {
@@ -11,15 +11,15 @@ public static class DependencyInjection
             TenantAdmin,
             Seeder.Seeder,
             HangFireJobRepository,
-            ShiftyDbContext, ReadOnlyDbContext, WriteOnlyDbContext>(
+            SmartAttendanceDbContext, ReadOnlyDbContext, WriteOnlyDbContext>(
             (provider, connStr) =>
             {
                 var identity = provider.GetRequiredService<IdentityService>();
-                var options = new DbContextOptionsBuilder<ShiftyDbContext>()
+                var options = new DbContextOptionsBuilder<SmartAttendanceDbContext>()
                     .UseSqlServer(connStr)
                     .Options;
 
-                return new ShiftyDbContext(options, identity);
+                return new SmartAttendanceDbContext(options, identity);
             },
             (provider, connStr) =>
             {
@@ -47,7 +47,7 @@ public static class DependencyInjection
                 };
 
                 var client = new MongoClient(mongoUrlBuilder.ToMongoUrl());
-                return client.GetDatabase($"Shifty{"_" + tenantDb}");
+                return client.GetDatabase($"SmartAttendance{"_" + tenantDb}");
             },
             ApplicationConstant.AppOptions.TenantStore
         );
@@ -56,9 +56,9 @@ public static class DependencyInjection
         return services;
     }
 
-    private static DbContextOptions<ShiftyDbContext> CreateContextOptions(string connectionString)
+    private static DbContextOptions<SmartAttendanceDbContext> CreateContextOptions(string connectionString)
     {
-        var contextOptions = new DbContextOptionsBuilder<ShiftyDbContext>()
+        var contextOptions = new DbContextOptionsBuilder<SmartAttendanceDbContext>()
             .UseSqlServer(connectionString)
             .Options;
 

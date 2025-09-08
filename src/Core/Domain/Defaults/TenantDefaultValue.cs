@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Tenants.Payments;
+﻿using SmartAttendance.Domain.Tenants.Payments;
 
-namespace Shifty.Domain.Defaults;
+namespace SmartAttendance.Domain.Defaults;
 
 public abstract class TenantDefaultValue
 {
@@ -14,7 +14,7 @@ public abstract class TenantDefaultValue
     }
 
 
-    public static Payments DemoPayment(User user, ShiftyTenantInfo info)
+    public static Payments DemoPayment(User user, SmartAttendanceTenantInfo info)
     {
         return new Payments
         {

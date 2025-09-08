@@ -1,13 +1,13 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Application.Features.Calendars.Queries.GetCalendar;
-using Shifty.Application.Features.Calendars.Request.Queries.GetCalendar;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Application.Interfaces.Tenants.Calendars;
-using Shifty.Domain.Calenders.DailyCalender;
-using Shifty.Domain.Tenants;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Calendars.Queries.GetCalendar;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetCalendar;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Application.Interfaces.Tenants.Calendars;
+using SmartAttendance.Domain.Calenders.DailyCalender;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Queries.GetCalendar;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetCalendar;
 
 public class GetCalendarQueryHandler(
     IdentityService identityService,

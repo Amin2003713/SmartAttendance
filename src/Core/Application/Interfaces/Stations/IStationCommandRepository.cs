@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Stations;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Stations;
 
-namespace Shifty.Application.Interfaces.Stations;
+namespace SmartAttendance.Application.Interfaces.Stations;
 
 public interface IStationCommandRepository : ICommandRepository<Station>,
     IScopedDependency;

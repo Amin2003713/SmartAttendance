@@ -1,16 +1,17 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Vehicles.Commands.Update;
-using Shifty.Application.Interfaces.Vehicles;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Vehicles;
+using SmartAttendance.Application.Features.Vehicles.Commands.Update;
+using SmartAttendance.Application.Interfaces.Vehicles;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Vehicles;
 
-namespace Shifty.RequestHandlers.Features.Vehicles.Commands.Update;
+namespace SmartAttendance.RequestHandlers.Features.Vehicles.Commands.Update;
 
 public class UpdateVehicleCommandHandler(
     IVehicleQueryRepository queryRepository,
     IVehicleCommandRepository commandRepository,
     ILogger<UpdateVehicleCommandHandler> logger,
-    IStringLocalizer<UpdateVehicleCommandHandler> localizer) : IRequestHandler<UpdateVehicleCommand>
+    IStringLocalizer<UpdateVehicleCommandHandler> localizer
+) : IRequestHandler<UpdateVehicleCommand>
 {
     public async Task Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
     {
@@ -21,7 +22,7 @@ public class UpdateVehicleCommandHandler(
             if (vehicle is null)
             {
                 logger.LogWarning("Vehicles with ID {VehicleId} not found for update.", request.Id);
-                throw ShiftyException.NotFound(localizer["Vehicle not found."]);
+                throw SmartAttendanceException.NotFound(localizer["Vehicle not found."]);
             }
 
             vehicle.Update(request.Adapt<Vehicle>());
@@ -31,7 +32,7 @@ public class UpdateVehicleCommandHandler(
             logger.LogInformation("Vehicles {VehicleId} updated successfully.", vehicle.Id);
         }
 
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error while updating vehicle {VehicleId}.", request.Id);
             throw;
@@ -40,7 +41,7 @@ public class UpdateVehicleCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error while updating vehicle {VehicleId}.", request.Id);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while updating the vehicle."]);
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.Application.Interfaces.Tenants.Users;
+namespace SmartAttendance.Application.Interfaces.Tenants.Users;
 
 public interface ITenantAdminRepository
 {

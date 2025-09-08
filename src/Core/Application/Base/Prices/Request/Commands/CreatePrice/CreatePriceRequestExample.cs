@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Prices.Request.Commands.CreatePrice;
+﻿namespace SmartAttendance.Application.Base.Prices.Request.Commands.CreatePrice;
 
 public class CreatePriceRequestExample : IExamplesProvider<CreatePriceRequest>
 {

@@ -1,5 +1,5 @@
-﻿using Shifty.Application.Features.Messages.Request.Queries.GetMessage;
+﻿using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessage;
 
-namespace Shifty.Application.Features.Messages.Queries.GetMessage;
+namespace SmartAttendance.Application.Features.Messages.Queries.GetMessage;
 
 public record GetMessageQuery : IRequest<List<GetMessageResponse>>;

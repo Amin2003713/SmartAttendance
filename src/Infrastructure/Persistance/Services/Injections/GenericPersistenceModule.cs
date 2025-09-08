@@ -2,11 +2,11 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Application.Interfaces.HangFire;
-using Shifty.Persistence.Services.MigrationManagers;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Application.Interfaces.HangFire;
+using SmartAttendance.Persistence.Services.MigrationManagers;
 
-namespace Shifty.Persistence.Services.Injections;
+namespace SmartAttendance.Persistence.Services.Injections;
 
 public static class GenericPersistenceModule
 {
@@ -33,7 +33,7 @@ public static class GenericPersistenceModule
         services.AddScoped<IPasswordHasher<TAdminUser>, PasswordHasher<TAdminUser>>();
         services.AddKeyedScoped<UserManager<TAdminUser>>("Admins");
 
-        services.AddDbContext<ShiftyTenantDbContext>(options =>
+        services.AddDbContext<SmartAttendanceTenantDbContext>(options =>
             options.UseSqlServer(sqlConnection));
 
         services.AddScoped<IdentityService>();
@@ -54,7 +54,7 @@ public static class GenericPersistenceModule
         {
             var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
 
-            var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>()?.TenantInfo;
+            var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<SmartAttendanceTenantInfo>()?.TenantInfo;
 
             if (tenant?.Identifier != null)
                 return mongoFactory(tenant.Identifier!);
@@ -73,7 +73,7 @@ public static class GenericPersistenceModule
     {
         var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
 
-        var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<ShiftyTenantInfo>()?.TenantInfo;
+        var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<SmartAttendanceTenantInfo>()?.TenantInfo;
 
         if (tenant is not null)
             return tenant.GetConnectionString();

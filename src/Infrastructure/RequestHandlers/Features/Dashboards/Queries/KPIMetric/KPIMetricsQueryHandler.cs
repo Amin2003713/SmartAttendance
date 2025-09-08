@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Features.Dashboards.Queries.KPIMetric;
-using Shifty.Application.Features.Dashboards.Responses.DashboardCardSummary;
-using Shifty.Common.General.Enums.Dashboard;
+﻿using SmartAttendance.Application.Features.Dashboards.Queries.KPIMetric;
+using SmartAttendance.Application.Features.Dashboards.Responses.DashboardCardSummary;
+using SmartAttendance.Common.General.Enums.Dashboard;
 
-namespace Shifty.RequestHandlers.Features.Dashboards.Queries.KPIMetric;
+namespace SmartAttendance.RequestHandlers.Features.Dashboards.Queries.KPIMetric;
 
 public class KPIMetricsQueryHandler : IRequestHandler<KPIMetricsQuery, List<KPIMetricsResponse>>
 {

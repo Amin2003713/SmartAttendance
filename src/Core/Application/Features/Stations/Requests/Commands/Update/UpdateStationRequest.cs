@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Stations.Requests.Commands.Create;
+﻿using SmartAttendance.Application.Features.Stations.Requests.Commands.Create;
 
-namespace Shifty.Application.Features.Stations.Requests.Commands.Update;
+namespace SmartAttendance.Application.Features.Stations.Requests.Commands.Update;
 
 public class UpdateStationRequest : CreateStationRequest
 {

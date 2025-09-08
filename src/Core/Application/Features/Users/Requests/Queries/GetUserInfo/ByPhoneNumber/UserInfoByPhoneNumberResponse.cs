@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Queries.GetUserInfo.ByPhoneNumber;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.ByPhoneNumber;
 
 /// <summary>
 ///     A response containing user information retrieved by phone number.

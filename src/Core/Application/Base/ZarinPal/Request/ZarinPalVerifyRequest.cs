@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.ZarinPal.Request;
+﻿namespace SmartAttendance.Application.Base.ZarinPal.Request;
 
 public record ZarinPalVerifyRequest(
     long Amount,

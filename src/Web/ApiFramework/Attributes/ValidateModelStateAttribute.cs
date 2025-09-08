@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using Shifty.ApiFramework.Tools;
+using SmartAttendance.ApiFramework.Tools;
 
-namespace Shifty.ApiFramework.Attributes;
+namespace SmartAttendance.ApiFramework.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class ValidateModelStateAttribute : ActionFilterAttribute

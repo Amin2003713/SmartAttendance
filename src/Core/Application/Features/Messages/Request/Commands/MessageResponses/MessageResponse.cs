@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Messages.Request.Commands.MessageResponses;
+﻿namespace SmartAttendance.Application.Features.Messages.Request.Commands.MessageResponses;
 
 public class MessageResponse
 {

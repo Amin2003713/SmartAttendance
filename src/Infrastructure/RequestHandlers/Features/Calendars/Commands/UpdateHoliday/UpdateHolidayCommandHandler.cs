@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Features.Calendars.Commands.UpdateHoliday;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Calendars.Commands.UpdateHoliday;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Commands.UpdateHoliday;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.UpdateHoliday;
 
 public class UpdateHolidayCommandHandler(
     IdentityService service,
@@ -31,7 +31,7 @@ public class UpdateHolidayCommandHandler(
                     request.HolidayId,
                     userId);
 
-                throw ShiftyException.NotFound(localizer["Holiday not found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["Holiday not found."].Value);
             }
 
             if (holiday.CreatedBy != userId)
@@ -40,7 +40,7 @@ public class UpdateHolidayCommandHandler(
                     userId,
                     request.HolidayId);
 
-                throw ShiftyException.BadRequest(localizer["Access denied."].Value);
+                throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
 
             var isSameDate = holiday.Date == request.Date;
@@ -58,7 +58,7 @@ public class UpdateHolidayCommandHandler(
                         "Holiday move blocked: Target date {TargetDate} is already a holiday ",
                         request.Date);
 
-                    throw ShiftyException.BadRequest(localizer["The selected date is already marked as a holiday."]
+                    throw SmartAttendanceException.BadRequest(localizer["The selected date is already marked as a holiday."]
                         .Value);
                 }
             }
@@ -73,7 +73,7 @@ public class UpdateHolidayCommandHandler(
                 request.HolidayId,
                 userId);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
@@ -84,7 +84,7 @@ public class UpdateHolidayCommandHandler(
                 request.HolidayId,
                 userId);
 
-            throw ShiftyException.InternalServerError(localizer["Unable to update holiday."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["Unable to update holiday."].Value);
         }
     }
 }

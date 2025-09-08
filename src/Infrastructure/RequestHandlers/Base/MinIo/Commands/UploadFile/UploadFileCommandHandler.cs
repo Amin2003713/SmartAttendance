@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.MinIo.Commands.UplodeFile;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.HubFiles;
+﻿using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.RequestHandlers.Base.MinIo.Commands.UploadFile;
+namespace SmartAttendance.RequestHandlers.Base.MinIo.Commands.UploadFile;
 
 public class UploadFileCommandHandler(
     IMinIoCommandRepository minIoCommandRepository,
@@ -28,9 +28,9 @@ public class UploadFileCommandHandler(
             }
 
             logger.LogWarning("Upload failed or returned null for file: {OriginalFileName}", request?.File?.FileName);
-            throw ShiftyException.BadRequest(localizer["File upload failed."]);
+            throw SmartAttendanceException.BadRequest(localizer["File upload failed."]);
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business error during file upload.");
             throw;
@@ -38,7 +38,7 @@ public class UploadFileCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error during file upload.");
-            throw ShiftyException.InternalServerError(localizer["An unexpected error occurred during file upload."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An unexpected error occurred during file upload."]);
         }
     }
 }

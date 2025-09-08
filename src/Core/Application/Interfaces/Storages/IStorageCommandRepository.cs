@@ -1,9 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Storages;
 
-namespace Shifty.Application.Interfaces.Storages;
+namespace SmartAttendance.Application.Interfaces.Storages;
 
-public interface IStorageCommandRepository : ICommandRepository<Domain.Storages.Storage>,
-    IScopedDependency
-{
-}
+public interface IStorageCommandRepository : ICommandRepository<Storage>,
+    IScopedDependency { }

@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.Application.Interfaces.Tenants.Calendars;
+namespace SmartAttendance.Application.Interfaces.Tenants.Calendars;
 
 public interface ICalendarQueryRepository : IScopedDependency
 {

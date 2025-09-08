@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Dashboards.Responses.ProgressHistory;
+﻿namespace SmartAttendance.Application.Features.Dashboards.Responses.ProgressHistory;
 
 public class ProjectProgressHistoryResponse
 {

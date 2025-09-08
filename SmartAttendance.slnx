@@ -1,0 +1,23 @@
+﻿<Solution>
+    <Folder Name="/Docker/">
+        <Project Path="Docker\Docker.csproj" Type="Classic C#">
+            <Configuration Solution="Release|Any CPU" Project="Debug|Any CPU"/>
+        </Project>
+    </Folder>
+    <Folder Name="/src/"/>
+    <Folder Name="/src/Common/">
+        <Project Path="src\Common\SmartAttendance.Common\SmartAttendance.Common.csproj" Type="Classic C#"/>
+    </Folder>
+    <Folder Name="/src/Core/">
+        <Project Path="src\Core\Application\SmartAttendance.Application.csproj" Type="Classic C#"/>
+        <Project Path="src\Core\Domain\SmartAttendance.Domain.csproj" Type="Classic C#"/>
+    </Folder>
+    <Folder Name="/src/Infrastructure/">
+        <Project Path="src\Infrastructure\Persistance\SmartAttendance.Persistence.csproj" Type="Classic C#"/>
+        <Project Path="src\Infrastructure\RequestHandlers\SmartAttendance.RequestHandlers.csproj" Type="Classic C#"/>
+    </Folder>
+    <Folder Name="/src/Web/">
+        <Project Path="src\Web\ApiFramework\SmartAttendance.ApiFramework.csproj" Type="Classic C#"/>
+        <Project Path="src\Web\Api\SmartAttendance.Api.csproj" Type="Classic C#"/>
+    </Folder>
+</Solution>

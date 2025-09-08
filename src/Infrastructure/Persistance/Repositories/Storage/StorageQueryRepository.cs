@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Payment.Queries.GetActivePayment;
-using Shifty.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
-using Shifty.Application.Interfaces.Storages;
+﻿using SmartAttendance.Application.Base.Payment.Queries.GetActivePayment;
+using SmartAttendance.Application.Base.Storage.Request.Queries.GetRemainStorageByProject;
+using SmartAttendance.Application.Interfaces.Storages;
 
-namespace Shifty.Persistence.Repositories.Storage;
+namespace SmartAttendance.Persistence.Repositories.Storage;
 
 public class StorageQueryRepository(
     ReadOnlyDbContext dbContext,
@@ -48,8 +48,7 @@ public class StorageQueryRepository(
     //     }
     // }
 
-    public async Task<GetRemainStorageByProjectResponse> StorageInfo(
-        CancellationToken cancellationToken)
+    public async Task<GetRemainStorageByProjectResponse> StorageInfo(CancellationToken cancellationToken)
     {
         var payment =
             await mediator.Send(new GetActivePaymentQuery(), cancellationToken);
@@ -64,8 +63,8 @@ public class StorageQueryRepository(
         try
         {
             var storages = await TableNoTracking.Where(a => a.IsActive
-                                                         // && a.ProjectId == projectId
-                                                            )
+                    // && a.ProjectId == projectId
+                )
                 .SumAsync(a => a.StorageUsedByItemMb, cancellationToken);
 
             if (storages is 0)

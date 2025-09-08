@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Calenders.DailyCalender;
+namespace SmartAttendance.Domain.Calenders.DailyCalender;
 
 public class DailyCalendar : BaseEntity
 {

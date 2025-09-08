@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
+﻿namespace SmartAttendance.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
 
 public record DeleteTaskTrackReportCommand(
     Guid AggregateId,

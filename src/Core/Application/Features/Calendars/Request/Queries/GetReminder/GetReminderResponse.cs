@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
 
-namespace Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
+namespace SmartAttendance.Application.Features.Calendars.Request.Queries.GetReminder;
 
 public class GetReminderResponse
 {

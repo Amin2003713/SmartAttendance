@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
 
-namespace Shifty.Persistence.Repositories.Tenants.Calendars;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Calendars;
 
 public class CalendarQueryRepository(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     ILogger<CalendarQueryRepository> logger,
     IStringLocalizer<CalendarQueryRepository> localizer
 )

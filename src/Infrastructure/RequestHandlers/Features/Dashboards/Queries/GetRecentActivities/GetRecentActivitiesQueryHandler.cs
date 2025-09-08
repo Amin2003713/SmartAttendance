@@ -1,7 +1,7 @@
 ﻿// using Mapster;
-// using Shifty.Application.Users.Queries.GetAllUsers;
+// using SmartAttendance.Application.Users.Queries.GetAllUsers;
 //
-// namespace Shifty.RequestHandlers.Dashboards.Queries.GetRecentActivities;
+// namespace SmartAttendance.RequestHandlers.Dashboards.Queries.GetRecentActivities;
 //
 // public class GetRecentActivitiesQueryHandler(
 //     IMediator mediator

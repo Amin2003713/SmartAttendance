@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.Companies.Responses.CompnaySettings;
+﻿namespace SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
 
 public class CompanySettingResponse
 {

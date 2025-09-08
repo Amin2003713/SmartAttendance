@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums;
+﻿using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Domain.TaskTracks.SnapShots;
+namespace SmartAttendance.Domain.TaskTracks.SnapShots;
 
 public class TaskTrackSnapShot : ISnapshot<Guid>
 {
@@ -15,9 +15,9 @@ public class TaskTrackSnapShot : ISnapshot<Guid>
 
     public List<TaskTrackReport> Reports { get; set; }
     public DateTime Reported { get; set; }
+    public bool Deleted { get; init; }
 
     public Guid AggregateId { get; init; }
     public int Version { get; init; }
     public DateTime LastAction { get; init; }
-    public bool Deleted { get; init; }
 }

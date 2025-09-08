@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Riviera.ZarinPal.V4.Models;
-using Shifty.Application.Base.ZarinPal.Request;
-using Shifty.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Application.Base.ZarinPal.Request;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Application.Interfaces.ZarinPal;
+namespace SmartAttendance.Application.Interfaces.ZarinPal;
 
 public interface IZarinPal : IScopedDependency
 {

@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Calenders.DailyCalender;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetReminder;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Calenders.DailyCalender;
 
-namespace Shifty.Application.Interfaces.Calendars.DailyCalendars;
+namespace SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
 
 public interface IDailyCalendarQueryRepository : IQueryRepository<DailyCalendar>,
     IScopedDependency

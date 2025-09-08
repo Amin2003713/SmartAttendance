@@ -5,17 +5,17 @@
 // using Mapster;
 // using Microsoft.AspNetCore.Http;
 // using Microsoft.Extensions.Logging;
-// using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-// using Shifty.Application.Base.MinIo.Commands.DeleteFile;
-// using Shifty.Common.Common.Requests;
-// using Shifty.Common.Exceptions;
-// using Shifty.Common.General;
-// using Shifty.Common.General.Enums.FileType;
-// using Shifty.Common.General.Enums.Workflows;
-// using Shifty.Common.Utilities.InjectionHelpers;
-// using Shifty.Common.Utilities.TypeConverters;
+// using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+// using SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
+// using SmartAttendance.Common.Common.Requests;
+// using SmartAttendance.Common.Exceptions;
+// using SmartAttendance.Common.General;
+// using SmartAttendance.Common.General.Enums.FileType;
+// using SmartAttendance.Common.General.Enums.Workflows;
+// using SmartAttendance.Common.Utilities.InjectionHelpers;
+// using SmartAttendance.Common.Utilities.TypeConverters;
 //
-// namespace Shifty.Application.Base.HubFiles.Request.Commands.FileHelper;
+// namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.FileHelper;
 //
 // public class FileUploadHelper(
 //     ILogger<FileUploadHelper> logger,
@@ -110,7 +110,7 @@
 //
 //
 //             return resultUrl.Adapt<MediaFileStorage>() ??
-//                    throw ShiftyException.InternalServerError("Problem uploading file(s)");
+//                    throw SmartAttendanceException.InternalServerError("Problem uploading file(s)");
 //         }
 //         catch (Exception e)
 //         {
@@ -131,7 +131,7 @@
 //             if (!result1)
 //             {
 //                 logger.LogWarning("Failed to delete old file for aggregate {AggregateId}.", aggregateId);
-//                 throw ShiftyException.InternalServerError("Failed to delete file.");
+//                 throw SmartAttendanceException.InternalServerError("Failed to delete file.");
 //             }
 //
 //             logger.LogInformation("Deleted old file for aggregate {AggregateId}.", aggregateId);
@@ -155,3 +155,4 @@
 //         };
 //     }
 // }
+

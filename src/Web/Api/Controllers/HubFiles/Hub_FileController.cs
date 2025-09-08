@@ -1,14 +1,14 @@
 ﻿using System.Net;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.HubFiles.Commands.ZipExport;
-using Shifty.Application.Base.HubFiles.Queries.GetHubFile;
-using Shifty.Application.Base.HubFiles.Request.Commands.UploadHubFile;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.TypeConverters;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
+using SmartAttendance.Application.Base.HubFiles.Queries.GetHubFile;
+using SmartAttendance.Application.Base.HubFiles.Request.Commands.UploadHubFile;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Common.Utilities.TypeConverters;
 
-namespace Shifty.Api.Controllers.HubFiles;
+namespace SmartAttendance.Api.Controllers.HubFiles;
 
-public class Hub_FileController : ShiftyBaseController
+public class Hub_FileController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Retrieves a file by its ID with optional compression.

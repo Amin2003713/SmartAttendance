@@ -1,7 +1,7 @@
-﻿namespace Shifty.Persistence.Db;
+﻿namespace SmartAttendance.Persistence.Db;
 
 public class ReadOnlyDbContext(
-    DbContextOptions<ShiftyDbContext> options,
+    DbContextOptions<SmartAttendanceDbContext> options,
     IdentityService userId
 )
-    : ShiftyDbContext(options, userId);
+    : SmartAttendanceDbContext(options, userId);

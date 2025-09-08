@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Interfaces.Jwt;
-using Shifty.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Application.Interfaces.Jwt;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Persistence.Repositories.Jwt;
+namespace SmartAttendance.Persistence.Repositories.Jwt;
 
 public class RefreshQueryTokenRepository(
     ReadOnlyDbContext dbContext,
@@ -26,7 +26,7 @@ public class RefreshQueryTokenRepository(
             if (result == null || result.RefreshToken != refreshToken.RefreshToken)
             {
                 logger.LogWarning("Invalid refresh token for UserId: {UserId}", refreshToken.UserId);
-                throw ShiftyException.BadRequest(localizer["Invalid refresh token."]);
+                throw SmartAttendanceException.BadRequest(localizer["Invalid refresh token."]);
             }
 
             logger.LogInformation("Refresh token validated successfully for UserId: {UserId}", refreshToken.UserId);
@@ -35,7 +35,7 @@ public class RefreshQueryTokenRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error while validating refresh token for UserId: {UserId}", refreshToken.UserId);
-            throw ShiftyException.InternalServerError(localizer["Failed to validate refresh token."]);
+            throw SmartAttendanceException.InternalServerError(localizer["Failed to validate refresh token."]);
         }
     }
 

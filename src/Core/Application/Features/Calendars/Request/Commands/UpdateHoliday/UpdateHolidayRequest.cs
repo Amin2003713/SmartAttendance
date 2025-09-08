@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Calendars.Request.Commands.UpdateHoliday;
+﻿namespace SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateHoliday;
 
 public class UpdateHolidayRequest
 {

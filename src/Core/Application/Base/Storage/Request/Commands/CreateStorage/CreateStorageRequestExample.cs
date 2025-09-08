@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums.FileType;
+﻿using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Application.Base.Storage.Request.Commands.CreateStorage;
+namespace SmartAttendance.Application.Base.Storage.Request.Commands.CreateStorage;
 
 public class CreateStorageRequestExample : IExamplesProvider<CreateStorageRequest>
 {

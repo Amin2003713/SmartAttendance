@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using Amazon.S3;
 using Amazon.S3.Model;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Persistence.Services.Minio;
+namespace SmartAttendance.Persistence.Services.Minio;
 
 public class MinIoQueryRepository(
     ReadOnlyDbContext dbContext,

@@ -1,4 +1,4 @@
-﻿namespace Shifty.Domain.Missions.Events.TaskTrackers;
+﻿namespace SmartAttendance.Domain.Missions.Events.TaskTrackers;
 
 public record MissionDeletedEvent(
     Guid AggregateId

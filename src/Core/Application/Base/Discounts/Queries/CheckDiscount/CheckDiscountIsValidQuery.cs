@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Base.Discounts.Request.Queries.CheckDiscount;
+﻿using SmartAttendance.Application.Base.Discounts.Request.Queries.CheckDiscount;
 
-namespace Shifty.Application.Base.Discounts.Queries.CheckDiscount;
+namespace SmartAttendance.Application.Base.Discounts.Queries.CheckDiscount;
 
 public class CheckDiscountIsValidQuery : IRequest<CheckDiscountIsValidResponse>
 {

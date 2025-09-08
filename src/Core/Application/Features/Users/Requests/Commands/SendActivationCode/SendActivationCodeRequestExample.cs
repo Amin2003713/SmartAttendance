@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Commands.SendActivationCode;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.SendActivationCode;
 
 public class SendActivationCodeRequestExample : IExamplesProvider<SendActivationCodeRequest>
 {

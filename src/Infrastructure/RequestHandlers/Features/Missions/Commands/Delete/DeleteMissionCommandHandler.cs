@@ -1,19 +1,20 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Missions.Commands.Delete;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Missions.Aggregate;
-using Shifty.Domain.Missions.Events.TaskTrackers;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Missions.Commands.Delete;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Missions.Aggregate;
+using SmartAttendance.Domain.Missions.Events.TaskTrackers;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Missions.Commands.Delete;
+namespace SmartAttendance.RequestHandlers.Features.Missions.Commands.Delete;
 
 public class DeleteMissionCommandHandler(
     IdentityService identityService,
     ILogger<DeleteMissionCommandHandler> logger,
     IStringLocalizer<DeleteMissionCommandHandler> localizer,
     IEventWriter<Mission, Guid> eventWriter,
-    IEventReader<Mission, Guid> eventReader) : IRequestHandler<DeleteMissionCommand>
+    IEventReader<Mission, Guid> eventReader
+) : IRequestHandler<DeleteMissionCommand>
 {
     public async Task Handle(DeleteMissionCommand request, CancellationToken cancellationToken)
     {
@@ -25,7 +26,7 @@ public class DeleteMissionCommandHandler(
 
         var mission = await eventReader.GetSingleAsync(
             x => x.AggregateId == request.AggregateId && x.UserId == userId,
-            cancellationToken: cancellationToken);
+            cancellationToken);
 
         if (mission is null)
         {
@@ -33,7 +34,7 @@ public class DeleteMissionCommandHandler(
                 request.AggregateId,
                 userId);
 
-            throw ShiftyException.NotFound(localizer["No Missions reports found to delete."].Value);
+            throw SmartAttendanceException.NotFound(localizer["No Missions reports found to delete."].Value);
         }
 
         var deleteEvent = request.Adapt<MissionDeletedEvent>() with

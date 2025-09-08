@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums;
+﻿using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Domain.TaskTracks.Events.TaskTrackers;
+namespace SmartAttendance.Domain.TaskTracks.Events.TaskTrackers;
 
 public record TaskTrackCreatedEvent(
     Guid AggregateId,

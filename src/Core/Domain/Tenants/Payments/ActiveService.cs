@@ -1,4 +1,4 @@
-﻿// namespace Shifty.Domain.Tenants.Payments;
+﻿// namespace SmartAttendance.Domain.Tenants.Payments;
 //
 // public class ActiveService
 // {
@@ -9,3 +9,4 @@
 //
 //     public virtual Payments Payment { get; set; }
 // }
+

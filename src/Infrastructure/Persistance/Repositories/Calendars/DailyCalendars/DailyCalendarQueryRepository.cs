@@ -1,10 +1,10 @@
-﻿using Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
-using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Domain.Calenders.DailyCalender;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetReminder;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Domain.Calenders.DailyCalender;
 
-namespace Shifty.Persistence.Repositories.Calendars.DailyCalendars;
+namespace SmartAttendance.Persistence.Repositories.Calendars.DailyCalendars;
 
 public class DailyCalendarQueryRepository(
     ReadOnlyDbContext dbContext,
@@ -38,7 +38,7 @@ public class DailyCalendarQueryRepository(
             logger.LogError(ex,
                 "Error occurred while checking if the date is already");
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while checking holiday status."]);
         }
     }
@@ -87,7 +87,7 @@ public class DailyCalendarQueryRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error occurred while fetching holidays");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while fetching holidays for project."]);
         }
     }
@@ -143,7 +143,7 @@ public class DailyCalendarQueryRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error occurred while fetching reminders ");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while fetching reminders for project."]);
         }
     }
@@ -166,8 +166,7 @@ public class DailyCalendarQueryRepository(
                                                             (a.IsReminder || a.IsMeeting || a.IsHoliday) &&
                                                             (
                                                                 !a.IsReminder ||
-                                                                a.CalendarUsers.Any(cu => cu.UserId == userId))
-                                                            &&
+                                                                a.CalendarUsers.Any(cu => cu.UserId == userId)) &&
                                                             a.DeletedBy == null)
                 .ToListAsync(cancellationToken);
 
@@ -181,7 +180,7 @@ public class DailyCalendarQueryRepository(
                 "Error occurred while fetching custom holiday for date: {Date} ",
                 endDate);
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while fetching custom holiday."]);
         }
     }

@@ -1,14 +1,14 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.MinIo.Commands.DeleteFile;
-using Shifty.Application.Features.Users.Commands.UpdateUser;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
+using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.UpdateUser;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.UpdateUser;
 
 public class UpdateUserCommandHandler(
     UserManager<User> userManager,
@@ -30,7 +30,7 @@ public class UpdateUserCommandHandler(
             if (user == null)
             {
                 logger.LogWarning("User with ID {UserId} not found.", userId);
-                throw ShiftyException.NotFound(localizer["User not found."]);
+                throw SmartAttendanceException.NotFound(localizer["User not found."]);
             }
 
 
@@ -46,7 +46,7 @@ public class UpdateUserCommandHandler(
                     if (!deleteResponse)
                     {
                         logger.LogError("Failed to delete old image for User {Id}.", user.Id);
-                        throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
+                        throw SmartAttendanceException.InternalServerError(localizer["Failed to delete old image."].Value);
                     }
                 }
 
@@ -82,7 +82,7 @@ public class UpdateUserCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error updating user {UserId}", userId);
-            throw ShiftyException.InternalServerError(localizer["An error occurred while updating the user."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while updating the user."]);
         }
     }
 }

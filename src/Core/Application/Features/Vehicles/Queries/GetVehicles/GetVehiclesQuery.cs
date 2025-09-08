@@ -1,6 +1,5 @@
-﻿using Shifty.Application.Features.Vehicles.Requests.Queries.GetVehicles;
-using Shifty.Common.Common.Requests;
+﻿using SmartAttendance.Application.Features.Vehicles.Requests.Queries.GetVehicles;
 
-namespace Shifty.Application.Features.Vehicles.Queries.GetVehicles;
+namespace SmartAttendance.Application.Features.Vehicles.Queries.GetVehicles;
 
 public class GetVehiclesQuery : IRequest<List<GetVehicleQueryResponse>>;

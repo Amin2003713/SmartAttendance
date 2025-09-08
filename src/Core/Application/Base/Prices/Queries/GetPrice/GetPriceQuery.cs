@@ -1,5 +1,5 @@
-﻿using Shifty.Application.Base.Prices.Request.Queries.GetPrice;
+﻿using SmartAttendance.Application.Base.Prices.Request.Queries.GetPrice;
 
-namespace Shifty.Application.Base.Prices.Queries.GetPrice;
+namespace SmartAttendance.Application.Base.Prices.Queries.GetPrice;
 
 public class GetPriceQuery : IRequest<GetPriceResponse>;

@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Setting;
+﻿using SmartAttendance.Domain.Setting;
 
-namespace Shifty.Application.Base.Settings.Requests.UpdateSetting;
+namespace SmartAttendance.Application.Base.Settings.Requests.UpdateSetting;
 
 public class UpdateSettingRequestExample : IExamplesProvider<UpdateSettingRequest>
 {

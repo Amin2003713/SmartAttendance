@@ -1,11 +1,11 @@
-﻿using Shifty.Application.Base.Prices.Commands.CreatePrice;
-using Shifty.Application.Base.Prices.Queries.GetPrice;
-using Shifty.Application.Base.Prices.Request.Commands.CreatePrice;
-using Shifty.Application.Base.Prices.Request.Queries.GetPrice;
+﻿using SmartAttendance.Application.Base.Prices.Commands.CreatePrice;
+using SmartAttendance.Application.Base.Prices.Queries.GetPrice;
+using SmartAttendance.Application.Base.Prices.Request.Commands.CreatePrice;
+using SmartAttendance.Application.Base.Prices.Request.Queries.GetPrice;
 
-namespace Shifty.Api.Controllers.Prices;
+namespace SmartAttendance.Api.Controllers.Prices;
 
-public class PriceController : ShiftyBaseController
+public class PriceController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Retrieves the current pricing details.

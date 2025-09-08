@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Commands.Login;
+﻿namespace SmartAttendance.Application.Features.Users.Commands.Login;
 
 public class LoginResponse
 {

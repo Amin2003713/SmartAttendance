@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Base.HubFiles.Request.Commands.ZipExport;
-using Shifty.Common.General;
+﻿using SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
+using SmartAttendance.Common.General;
 
-namespace Shifty.Application.Base.HubFiles.Commands.ZipExport;
+namespace SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
 
 public class ZipExportCommand : ZipExportCommandRequest,
     IRequest<MediaFileStorage>;

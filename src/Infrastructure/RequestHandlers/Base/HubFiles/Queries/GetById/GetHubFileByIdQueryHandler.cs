@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Base.HubFiles.Queries.GetById;
-using Shifty.Application.Interfaces.HubFiles;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.HubFiles;
+﻿using SmartAttendance.Application.Base.HubFiles.Queries.GetById;
+using SmartAttendance.Application.Interfaces.HubFiles;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.RequestHandlers.Base.HubFiles.Queries.GetById;
+namespace SmartAttendance.RequestHandlers.Base.HubFiles.Queries.GetById;
 
 public class GetHubFileByIdQueryHandler(
     IHubFileQueryRepository hubFileQueryRepository,
@@ -14,7 +14,7 @@ public class GetHubFileByIdQueryHandler(
     public async Task<HubFile> Handle(GetHubFileByIdQuery request, CancellationToken cancellationToken)
     {
         if (!await hubFileQueryRepository.AnyAsync(file => file.Id == request.Id, cancellationToken))
-            throw ShiftyException.NotFound(localizer["file not found"].Value);
+            throw SmartAttendanceException.NotFound(localizer["file not found"].Value);
 
         return await hubFileQueryRepository.FirstOrDefaultsAsync(a => a.Id == request.Id, cancellationToken);
     }

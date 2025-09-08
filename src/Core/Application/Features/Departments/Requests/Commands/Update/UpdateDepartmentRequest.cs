@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Departments.Requests.Commands.Create;
+﻿using SmartAttendance.Application.Features.Departments.Requests.Commands.Create;
 
-namespace Shifty.Application.Features.Departments.Requests.Commands.Update;
+namespace SmartAttendance.Application.Features.Departments.Requests.Commands.Update;
 
 public class UpdateDepartmentRequest : CreateDepartmentRequest
 {

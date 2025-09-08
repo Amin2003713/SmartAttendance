@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Discounts.Queries.GetAllDiscount;
-using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
-using Shifty.Application.Interfaces.Tenants.Discounts;
+﻿using SmartAttendance.Application.Base.Discounts.Queries.GetAllDiscount;
+using SmartAttendance.Application.Base.Discounts.Request.Queries.GetAllDiscount;
+using SmartAttendance.Application.Interfaces.Tenants.Discounts;
 
-namespace Shifty.RequestHandlers.Base.Discounts.Queries.GetAllDiscount;
+namespace SmartAttendance.RequestHandlers.Base.Discounts.Queries.GetAllDiscount;
 
 public class GetAllDiscountQueryHandler(
     IDiscountQueryRepository discountQueryRepository

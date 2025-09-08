@@ -3,10 +3,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Pluralize.NET;
-using Shifty.Common.Utilities.TypeConverters;
+using SmartAttendance.Common.Utilities.TypeConverters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Shifty.ApiFramework.Swagger;
+namespace SmartAttendance.ApiFramework.Swagger;
 
 public class ApplySummariesOperationFilter : IOperationFilter
 {

@@ -1,11 +1,11 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Application.Base.Discounts.Request.Queries.GetAllDiscount;
-using Shifty.Application.Interfaces.Tenants.Discounts;
+using SmartAttendance.Application.Base.Discounts.Request.Queries.GetAllDiscount;
+using SmartAttendance.Application.Interfaces.Tenants.Discounts;
 
-namespace Shifty.Persistence.Repositories.Tenants.Discounts;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Discounts;
 
 public class DiscountQueryRepository(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     ILogger<DiscountQueryRepository> logger,
     IStringLocalizer<DiscountQueryRepository> localizer
 ) : IDiscountQueryRepository

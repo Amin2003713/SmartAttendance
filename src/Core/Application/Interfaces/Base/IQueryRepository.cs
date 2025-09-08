@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Common.General.BaseClasses;
+using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Application.Interfaces.Base;
+namespace SmartAttendance.Application.Interfaces.Base;
 
 public interface IQueryRepository<TEntity>
     where TEntity : class, IEntity

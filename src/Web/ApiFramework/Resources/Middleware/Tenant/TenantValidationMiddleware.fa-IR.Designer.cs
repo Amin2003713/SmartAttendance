@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Shifty.ApiFramework.Resources.Middleware.Tenant {
+namespace SmartAttendance.ApiFramework.Resources.Middleware.Tenant {
     using System;
     
     
@@ -38,7 +38,7 @@ namespace Shifty.ApiFramework.Resources.Middleware.Tenant {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Shifty.ApiFramework.Resources.Middleware.Tenant.TenantValidationMiddleware.fa-IR", typeof(TenantValidationMiddleware_fa_IR).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartAttendance.ApiFramework.Resources.Middleware.Tenant.TenantValidationMiddleware.fa-IR", typeof(TenantValidationMiddleware_fa_IR).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

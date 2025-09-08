@@ -1,16 +1,16 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Base.Discounts.Commands.UseDiscount;
-using Shifty.Application.Base.Payment.Commands.Verify;
-using Shifty.Application.Base.ZarinPal.Request;
-using Shifty.Application.Interfaces.Tenants.Payment;
-using Shifty.Application.Interfaces.ZarinPal;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums.Payment;
-using Shifty.Domain.Tenants;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Base.Discounts.Commands.UseDiscount;
+using SmartAttendance.Application.Base.Payment.Commands.Verify;
+using SmartAttendance.Application.Base.ZarinPal.Request;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Application.Interfaces.ZarinPal;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums.Payment;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Base.Payment.Commands.Verify;
+namespace SmartAttendance.RequestHandlers.Base.Payment.Commands.Verify;
 
 public record VerifyPaymentCommandHandler(
     IZarinPal ZarinPal,
@@ -18,12 +18,12 @@ public record VerifyPaymentCommandHandler(
     UserManager<User> UserManager,
     IPaymentCommandRepository CommandRepository,
     IPaymentQueryRepository QueryRepository,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> ContextAccessor,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> ContextAccessor,
     ILogger<VerifyPaymentCommandHandler> Logger,
     IStringLocalizer<VerifyPaymentCommandHandler> Localizer
 ) : IRequestHandler<VerifyPaymentCommand, string>
 {
-    private ShiftyTenantInfo TenantInfo => ContextAccessor.MultiTenantContext.TenantInfo!;
+    private SmartAttendanceTenantInfo TenantInfo => ContextAccessor.MultiTenantContext.TenantInfo!;
 
     public async Task<string> Handle(VerifyPaymentCommand request, CancellationToken cancellationToken)
     {
@@ -50,7 +50,7 @@ public record VerifyPaymentCommandHandler(
         if (companyPurchase.LastPaymentId is null)
         {
             Logger.LogError("LastPaymentId is null for authority {Authority}.", request.Authority);
-            throw ShiftyException.BadRequest(Localizer["Invalid payment reference."]);
+            throw SmartAttendanceException.BadRequest(Localizer["Invalid payment reference."]);
         }
 
         var lastPurchase = await QueryRepository.GetPayment(companyPurchase.LastPaymentId.Value, cancellationToken);
@@ -58,7 +58,7 @@ public record VerifyPaymentCommandHandler(
         if (lastPurchase is null)
         {
             Logger.LogError("Last purchase not found for ID {LastPaymentId}.", companyPurchase.LastPaymentId);
-            throw ShiftyException.NotFound(Localizer["Previous payment record not found."]);
+            throw SmartAttendanceException.NotFound(Localizer["Previous payment record not found."]);
         }
 
         var cost = companyPurchase.PaymentType switch
@@ -66,7 +66,7 @@ public record VerifyPaymentCommandHandler(
                        PaymentType.IncreaseStorage => 0, PaymentType.RenewSubscriptionEarly or
                            PaymentType.AddCompanyUser or
                            PaymentType.RenewSubscription => companyPurchase.Cost,
-                       PaymentType.DemoSubscription => 0, _ => throw ShiftyException.BadRequest(Localizer["Invalid payment type."])
+                       PaymentType.DemoSubscription => 0, _ => throw SmartAttendanceException.BadRequest(Localizer["Invalid payment type."])
                    };
 
         var verifyResponse = await ZarinPal.VerifyPayment(

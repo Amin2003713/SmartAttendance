@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Shifty.ApiFramework.Swagger;
+namespace SmartAttendance.ApiFramework.Swagger;
 
 public class UnauthorizedResponsesOperationFilter : IOperationFilter
 {

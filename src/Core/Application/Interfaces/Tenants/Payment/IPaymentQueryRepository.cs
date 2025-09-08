@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Tenants.Payments;
+using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Tenants.Payments;
 
-namespace Shifty.Application.Interfaces.Tenants.Payment;
+namespace SmartAttendance.Application.Interfaces.Tenants.Payment;
 
 public interface IPaymentQueryRepository : IScopedDependency
 {

@@ -1,15 +1,15 @@
-﻿using Shifty.Application.Features.Missions.Commands.Create;
-using Shifty.Application.Features.Missions.Commands.Delete;
-using Shifty.Application.Features.Missions.Commands.Update;
-using Shifty.Application.Features.Missions.Queries.GetById;
-using Shifty.Application.Features.Missions.Queries.GetMissions;
-using Shifty.Application.Features.Missions.Requests.Commands.Create;
-using Shifty.Application.Features.Missions.Requests.Commands.Update;
-using Shifty.Application.Features.Missions.Requests.Queries.MissionResponse;
+﻿using SmartAttendance.Application.Features.Missions.Commands.Create;
+using SmartAttendance.Application.Features.Missions.Commands.Delete;
+using SmartAttendance.Application.Features.Missions.Commands.Update;
+using SmartAttendance.Application.Features.Missions.Queries.GetById;
+using SmartAttendance.Application.Features.Missions.Queries.GetMissions;
+using SmartAttendance.Application.Features.Missions.Requests.Commands.Create;
+using SmartAttendance.Application.Features.Missions.Requests.Commands.Update;
+using SmartAttendance.Application.Features.Missions.Requests.Queries.MissionResponse;
 
-namespace Shifty.Api.Controllers.Missions;
+namespace SmartAttendance.Api.Controllers.Missions;
 
-public class MissionController : ShiftyBaseController
+public class MissionController : SmartAttendanceBaseController
 {
     [HttpPost]
     [SwaggerOperation(Summary = "Create Missions")]
@@ -39,8 +39,7 @@ public class MissionController : ShiftyBaseController
     [HttpGet]
     [SwaggerOperation("Get Mission for a project.")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<List<GetMissionResponse>> GetMissions(
-        CancellationToken cancellationToken = default)
+    public async Task<List<GetMissionResponse>> GetMissions(CancellationToken cancellationToken = default)
     {
         return await Mediator.Send(new GetMissionsQuery(), cancellationToken);
     }
@@ -49,7 +48,8 @@ public class MissionController : ShiftyBaseController
     [HttpGet("Get-Missions-By-Id")]
     [SwaggerOperation("Get Mission by ID")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<GetMissionResponse> GetMissionById(Guid aggregateId,
+    public async Task<GetMissionResponse> GetMissionById(
+        Guid aggregateId,
         CancellationToken cancellationToken = default)
     {
         return await Mediator.Send(new GetMissionByIdQuery(aggregateId), cancellationToken);

@@ -1,5 +1,7 @@
-﻿using Shifty.Application.Features.Vehicles.Requests.Queries.GetVehicles;
+﻿using SmartAttendance.Application.Features.Vehicles.Requests.Queries.GetVehicles;
 
-namespace Shifty.Application.Features.Vehicles.Queries.GetById;
+namespace SmartAttendance.Application.Features.Vehicles.Queries.GetById;
 
-public record GetVehicleByIdQuery(Guid Id) : IRequest<GetVehicleQueryResponse>;
+public record GetVehicleByIdQuery(
+    Guid Id
+) : IRequest<GetVehicleQueryResponse>;

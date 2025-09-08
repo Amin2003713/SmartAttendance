@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Calendars.Request.Queries.GetCalendar;
+﻿namespace SmartAttendance.Application.Features.Calendars.Request.Queries.GetCalendar;
 
 public class GetCalendarResponse
 {

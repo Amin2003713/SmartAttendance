@@ -1,18 +1,18 @@
-﻿using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Defaults;
+﻿using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Defaults;
 
-namespace Shifty.Persistence.Services.RunTimeServiceSetup;
+namespace SmartAttendance.Persistence.Services.RunTimeServiceSetup;
 
 public class RunTimeDatabaseMigrationService(
     IServiceProvider services,
     Seeder.Seeder seeder,
     IPasswordHasher<User> passwordHasher,
-    ShiftyTenantDbContext tenantDbContext,
+    SmartAttendanceTenantDbContext tenantDbContext,
     UserManager<User> userManager
 ) : IScopedDependency
 {
     public virtual async Task<string> MigrateTenantDatabasesAsync(
-        ShiftyTenantInfo tenantInfo,
+        SmartAttendanceTenantInfo tenantInfo,
         string passWord,
         TenantAdmin adminUser,
         CancellationToken cancellationToken)
@@ -22,7 +22,7 @@ public class RunTimeDatabaseMigrationService(
         using var scopeTenant = services.CreateScope();
 
         using var scopeApplication = services.CreateScope();
-        var       dbContext        = scopeApplication.ServiceProvider.GetService<ShiftyDbContext>();
+        var       dbContext        = scopeApplication.ServiceProvider.GetService<SmartAttendanceDbContext>();
         dbContext!.Database.SetConnectionString(tenantInfo.GetConnectionString());
 
         try
@@ -39,7 +39,7 @@ public class RunTimeDatabaseMigrationService(
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw ShiftyException.InternalServerError("migiration appliyeing");
+                throw SmartAttendanceException.InternalServerError("migiration appliyeing");
             }
 
 
@@ -72,7 +72,7 @@ public class RunTimeDatabaseMigrationService(
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw ShiftyException.InternalServerError();
+                throw SmartAttendanceException.InternalServerError();
             }
             finally
             {
@@ -93,15 +93,15 @@ public class RunTimeDatabaseMigrationService(
             Console.WriteLine($@"Migration Managers Error: {e.Message}");
             Console.ResetColor();
             await dbContext.Database.EnsureDeletedAsync(cancellationToken);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
-    private void AddUserToTenant(ShiftyTenantInfo tenantInfo, User user)
+    private void AddUserToTenant(SmartAttendanceTenantInfo tenantInfo, User user)
     {
         var tenantUser = user.Adapt<TenantUser>();
         tenantUser.Id = Guid.CreateVersion7(DateTimeOffset.Now);
-        tenantUser.ShiftyTenantInfoId = tenantInfo.Id;
+        tenantUser.SmartAttendanceTenantInfoId = tenantInfo.Id;
         tenantDbContext.TenantUsers.Add(tenantUser);
     }
 

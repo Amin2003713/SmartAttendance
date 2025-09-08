@@ -1,7 +1,7 @@
-using Shifty.Application.Interfaces.Vehicles;
-using Shifty.Domain.Vehicles;
+using SmartAttendance.Application.Interfaces.Vehicles;
+using SmartAttendance.Domain.Vehicles;
 
-namespace Shifty.Persistence.Repositories.Vehicles;
+namespace SmartAttendance.Persistence.Repositories.Vehicles;
 
 public class VehicleQueryRepository(
     ReadOnlyDbContext dbContext,

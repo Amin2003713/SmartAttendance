@@ -1,18 +1,19 @@
 ﻿using Mapster;
-using Shifty.Application.Features.Departments.Commands.Create;
-using Shifty.Application.Interfaces.Departments;
-using Shifty.Application.Interfaces.Users;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Departments;
+using SmartAttendance.Application.Features.Departments.Commands.Create;
+using SmartAttendance.Application.Interfaces.Departments;
+using SmartAttendance.Application.Interfaces.Users;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Departments;
 
-namespace Shifty.RequestHandlers.Features.Departments.Commands.Create;
+namespace SmartAttendance.RequestHandlers.Features.Departments.Commands.Create;
 
 public class CreateDepartmentCommandHandler(
     IDepartmentCommandRepository commandRepository,
     ILogger<CreateDepartmentCommandHandler> logger,
     IStringLocalizer<CreateDepartmentCommandHandler> localizer,
     IDepartmentQueryRepository queryRepository,
-    IUserQueryRepository userQueryRepository) : IRequestHandler<CreateDepartmentCommand>
+    IUserQueryRepository userQueryRepository
+) : IRequestHandler<CreateDepartmentCommand>
 {
     public async Task Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
     {
@@ -20,7 +21,9 @@ public class CreateDepartmentCommandHandler(
             throw new InvalidNullInputException(nameof(request));
 
         logger.LogInformation("Creating department. Title={Title}, ParentId={ParentId}, ManagerId={ManagerId}",
-            request.Title, request.ParentDepartmentId, request.ManagerId);
+            request.Title,
+            request.ParentDepartmentId,
+            request.ManagerId);
 
         try
         {
@@ -31,7 +34,7 @@ public class CreateDepartmentCommandHandler(
                     x => x.Id == request.ParentDepartmentId.Value);
 
                 if (parent is null)
-                    throw ShiftyException.NotFound(localizer["Parent department not found."]);
+                    throw SmartAttendanceException.NotFound(localizer["Parent department not found."]);
             }
 
             if (request.ManagerId.HasValue)
@@ -41,24 +44,25 @@ public class CreateDepartmentCommandHandler(
                     x => x.Id == request.ManagerId.Value);
 
                 if (manager is null)
-                    throw ShiftyException.NotFound(localizer["Manager user not found."]);
+                    throw SmartAttendanceException.NotFound(localizer["Manager user not found."]);
             }
 
             var department = request.Adapt<Department>();
 
             await commandRepository.AddAsync(department, cancellationToken);
 
-            logger.LogInformation("Department created. Id={DepartmentId}, Name={Name}", department.Id,
+            logger.LogInformation("Department created. Id={DepartmentId}, Name={Name}",
+                department.Id,
                 department.Title);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error when creating department. Name={Name}", request.Title);
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while creating the department."]);
         }
     }

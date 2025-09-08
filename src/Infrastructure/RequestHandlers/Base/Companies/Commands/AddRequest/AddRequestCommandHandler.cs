@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Base.Companies.Commands.AddRequest;
-using Shifty.Application.Interfaces.Tenants.Companies;
+﻿using SmartAttendance.Application.Base.Companies.Commands.AddRequest;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
-namespace Shifty.RequestHandlers.Base.Companies.Commands.AddRequest;
+namespace SmartAttendance.RequestHandlers.Base.Companies.Commands.AddRequest;
 
 public class AddRequestCommandHandler(
     ICompanyRepository companyRepository

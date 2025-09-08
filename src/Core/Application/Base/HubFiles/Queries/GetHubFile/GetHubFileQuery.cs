@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Base.HubFiles.Request.Queries.GetFile;
-using Shifty.Common.General.Enums.FileType;
+﻿using SmartAttendance.Application.Base.HubFiles.Request.Queries.GetFile;
+using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.Application.Base.HubFiles.Queries.GetHubFile;
+namespace SmartAttendance.Application.Base.HubFiles.Queries.GetHubFile;
 
 public class GetHubFileQuery : IRequest<FileTransferResponse>
 {

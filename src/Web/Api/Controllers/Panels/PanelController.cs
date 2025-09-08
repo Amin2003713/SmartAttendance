@@ -1,11 +1,11 @@
-﻿using Shifty.Application.Base.Companies.Commands.InitialCompany;
-using Shifty.Application.Base.Companies.Queries.CheckDomain;
-using Shifty.Application.Base.Companies.Requests.InitialCompany;
-using Shifty.Application.Features.Users.Queries.GetUserTenants;
+﻿using SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
+using SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
+using SmartAttendance.Application.Base.Companies.Requests.InitialCompany;
+using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 
-namespace Shifty.Api.Controllers.Panels;
+namespace SmartAttendance.Api.Controllers.Panels;
 
-public class PanelController : ShiftyBaseController
+public class PanelController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Checks the availability or status of a given domain.

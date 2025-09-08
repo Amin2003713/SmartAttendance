@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.Prices.Request.Commands.CreatePrice;
+using SmartAttendance.Application.Base.Prices.Request.Commands.CreatePrice;
 
-namespace Shifty.Application.Base.Prices.Validators.CreatePrice;
+namespace SmartAttendance.Application.Base.Prices.Validators.CreatePrice;
 
 public class CreatePriceRequestValidator : AbstractValidator<CreatePriceRequest>
 {

@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.Enums;
+﻿using SmartAttendance.Common.General.Enums;
 
-namespace Shifty.Application.Features.Missions.Requests.Commands.Create;
+namespace SmartAttendance.Application.Features.Missions.Requests.Commands.Create;
 
 public class CreateMissionRequest
 {

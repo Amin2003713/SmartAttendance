@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Features.Pdf.Query.GetFactorPdf;
+﻿using SmartAttendance.Application.Features.Pdf.Query.GetFactorPdf;
 
-namespace Shifty.Api.Controllers.Pdf;
+namespace SmartAttendance.Api.Controllers.Pdf;
 
-public class PdfController : ShiftyBaseController
+public class PdfController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Generates and retrieves the PDF file for a specific payment (factor).

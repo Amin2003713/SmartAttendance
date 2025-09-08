@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
+﻿using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
 
-namespace Shifty.Application.Base.Companies.Queries.GetCompanyInfo;
+namespace SmartAttendance.Application.Base.Companies.Queries.GetCompanyInfo;
 
 public record GetCompanyInfoQuery(
     string Domain

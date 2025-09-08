@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Shifty.ApiFramework.Tools;
-using Shifty.Common.Exceptions;
+using SmartAttendance.ApiFramework.Tools;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.ApiFramework.Filters;
+namespace SmartAttendance.ApiFramework.Filters;
 
 public class ApiExceptionFilter : ExceptionFilterAttribute
 {
@@ -44,7 +44,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
                 typeof(ForbiddenException), HandleForbiddenException
             },
             {
-                typeof(ShiftyException), HandleDRPException
+                typeof(SmartAttendanceException), HandleDRPException
             }
         };
     }
@@ -206,7 +206,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
 
     private void HandleDRPException(ExceptionContext context)
     {
-        if (context.Exception is not ShiftyException exception)
+        if (context.Exception is not SmartAttendanceException exception)
             return;
 
         var problemDetails = new ApiProblemDetails

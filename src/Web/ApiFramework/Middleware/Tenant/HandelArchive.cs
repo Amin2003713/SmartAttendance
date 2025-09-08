@@ -2,9 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
-using Shifty.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.ApiFramework.Middleware.Tenant;
+namespace SmartAttendance.ApiFramework.Middleware.Tenant;
 
 public class HandelArchive(
     RequestDelegate next,

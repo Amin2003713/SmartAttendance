@@ -1,20 +1,18 @@
 ﻿using Autofac;
-using Microsoft.Win32;
-using Shifty.ApiFramework.Controller;
-using Shifty.ApiFramework.Injections;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.DynamicTableHelper;
-using Shifty.Common.Utilities.EnumHelpers;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Defaults;
-using Shifty.Domain.Setting;
-using Shifty.Persistence.Db;
-using Shifty.Persistence.Jwt;
-using Shifty.Persistence.Repositories.Common;
-using Shifty.Persistence.Services.Time.ir;
-using Shifty.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
+using SmartAttendance.ApiFramework.Controller;
+using SmartAttendance.ApiFramework.Injections;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.DynamicTableHelper;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Defaults;
+using SmartAttendance.Persistence.Db;
+using SmartAttendance.Persistence.Jwt;
+using SmartAttendance.Persistence.Repositories.Common;
+using SmartAttendance.Persistence.Services.Time.ir;
+using SmartAttendance.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
 
-namespace Shifty.ApiFramework.Configuration;
+namespace SmartAttendance.ApiFramework.Configuration;
 
 public static class AutofacConfigurationExtensions
 {
@@ -39,9 +37,9 @@ public static class AutofacConfigurationExtensions
     private static void RegisterAssemblyDependencies(ContainerBuilder builder)
     {
         // Assemblies by concern
-        var tenantCommonAssembly = typeof(ShiftyBaseController).Assembly;
+        var tenantCommonAssembly = typeof(SmartAttendanceBaseController).Assembly;
         var domainAssembly       = typeof(TenantDefaultValue).Assembly;
-        var persistenceAssembly  = typeof(ShiftyDbContext).Assembly;
+        var persistenceAssembly  = typeof(SmartAttendanceDbContext).Assembly;
         var applicationAssembly  = typeof(JwtService).Assembly;
         var handlerAssembly      = typeof(CreateDiscountCommandHandler).Assembly;
         var frameworkApiAssembly = typeof(AutofacConfigurationExtensions).Assembly;

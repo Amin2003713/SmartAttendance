@@ -1,14 +1,14 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Queries.GetTackTracks;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Common.Utilities.DynamicTableHelper;
-using Shifty.Common.Utilities.PaginationHelpers;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Queries.GetTackTracks;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTracks;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.Utilities.DynamicTableHelper;
+using SmartAttendance.Common.Utilities.PaginationHelpers;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Queries.GetTaskTracks;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Queries.GetTaskTracks;
 
 public class GetTaskTrackQueryHandler(
     IdentityService identityService,
@@ -35,13 +35,13 @@ public class GetTaskTrackQueryHandler(
                 request.PageNumber,
                 request.PageSize);
 
-            var count = 0;
+            var count     = 0;
             var pageCount = 0;
 
             var events = await eventReader.LoadHybridAsync(
                 null!,
                 query => query.GetPaged(request.PageNumber, request.PageSize, out count, out pageCount),
-                cancellationToken: cancellationToken);
+                cancellationToken);
 
             var responses = events.Adapt<List<GetTaskTrackResponse>>();
 
@@ -65,7 +65,7 @@ public class GetTaskTrackQueryHandler(
             logger.LogError(ex,
                 "Error occurred while retrieving TaskTracks ");
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An error occurred while retrieving contractor data."].Value);
         }
     }

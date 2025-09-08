@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Calendars.Request.Commands.UpdateReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
 
-namespace Shifty.Application.Features.Calendars.Validators.UpdateReminder;
+namespace SmartAttendance.Application.Features.Calendars.Validators.UpdateReminder;
 
 public class UpdateReminderRequestValidator : AbstractValidator<UpdateReminderRequest>
 {

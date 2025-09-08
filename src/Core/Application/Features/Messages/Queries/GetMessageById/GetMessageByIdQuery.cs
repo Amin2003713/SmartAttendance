@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Features.Messages.Request.Queries.GetMessageById;
+﻿using SmartAttendance.Application.Features.Messages.Request.Queries.GetMessageById;
 
-namespace Shifty.Application.Features.Messages.Queries.GetMessageById;
+namespace SmartAttendance.Application.Features.Messages.Queries.GetMessageById;
 
 public record GetMessageByIdQuery(
     Guid Id

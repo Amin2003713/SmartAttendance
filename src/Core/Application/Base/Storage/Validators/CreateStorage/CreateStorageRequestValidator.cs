@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Base.Storage.Request.Commands.CreateStorage;
+using SmartAttendance.Application.Base.Storage.Request.Commands.CreateStorage;
 
-namespace Shifty.Application.Base.Storage.Validators.CreateStorage;
+namespace SmartAttendance.Application.Base.Storage.Validators.CreateStorage;
 
 public class CreateStorageRequestValidator : AbstractValidator<CreateStorageRequest>
 {

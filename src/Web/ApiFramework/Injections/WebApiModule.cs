@@ -21,23 +21,23 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Riviera.ZarinPal.V4;
 using Serilog.Enrichers.Correlate;
-using Shifty.ApiFramework.Analytics;
-using Shifty.ApiFramework.Attributes;
-using Shifty.ApiFramework.Configuration;
-using Shifty.ApiFramework.Filters;
-using Shifty.ApiFramework.Middleware.Tenant;
-using Shifty.ApiFramework.Swagger;
-using Shifty.ApiFramework.Tools;
-using Shifty.Common.Behaviours;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.Utilities.IdentityHelpers;
-using Shifty.Domain.Tenants;
-using Shifty.Persistence.Services.Seeder;
-using Shifty.Persistence.Services.Taskes;
+using SmartAttendance.ApiFramework.Analytics;
+using SmartAttendance.ApiFramework.Attributes;
+using SmartAttendance.ApiFramework.Configuration;
+using SmartAttendance.ApiFramework.Filters;
+using SmartAttendance.ApiFramework.Middleware.Tenant;
+using SmartAttendance.ApiFramework.Swagger;
+using SmartAttendance.ApiFramework.Tools;
+using SmartAttendance.Common.Behaviours;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Common.Utilities.IdentityHelpers;
+using SmartAttendance.Domain.Tenants;
+using SmartAttendance.Persistence.Services.Seeder;
+using SmartAttendance.Persistence.Services.Taskes;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Shifty.ApiFramework.Injections;
+namespace SmartAttendance.ApiFramework.Injections;
 
 public static class WebApiModule
 {
@@ -108,7 +108,7 @@ public static class WebApiModule
             options.IsDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
         });
 
-        services.AddHttpClient(); 
+        services.AddHttpClient();
         services.AddHttpClient<ZarinPalService>();
     }
 
@@ -240,16 +240,16 @@ public static class WebApiModule
                         if (context.Exception != null)
                         {
                             if (context.Exception is SecurityTokenExpiredException)
-                                throw ShiftyException.Unauthorized(localizer["Token Expired."].Value);
+                                throw SmartAttendanceException.Unauthorized(localizer["Token Expired."].Value);
 
                             if (context.Exception is UnauthorizedAccessException)
-                                throw ShiftyException.Unauthorized(localizer["Unauthorized access."].Value);
+                                throw SmartAttendanceException.Unauthorized(localizer["Unauthorized access."].Value);
 
                             if (context.Exception is ForbiddenException)
-                                throw ShiftyException.Forbidden(context.Exception?.Message);
+                                throw SmartAttendanceException.Forbidden(context.Exception?.Message);
 
-                            throw ShiftyException.Unauthorized(context.Exception?.Message ??
-                                                            localizer["Unauthorized access."].Value);
+                            throw SmartAttendanceException.Unauthorized(context.Exception?.Message ??
+                                                                        localizer["Unauthorized access."].Value);
                         }
 
 
@@ -262,7 +262,7 @@ public static class WebApiModule
                             .GetRequiredService<IStringLocalizer<TStartUp>>();
 
                         if (context.AuthenticateFailure != null)
-                            throw ShiftyException.Unauthorized(
+                            throw SmartAttendanceException.Unauthorized(
                                 context.AuthenticateFailure?.Message ??
                                 localizer["Unauthorized access."].Value);
 
@@ -272,7 +272,7 @@ public static class WebApiModule
                     OnMessageReceived = async context =>
                     {
                         var tenantSecretKey =
-                            context.HttpContext.GetMultiTenantContext<ShiftyTenantInfo>().TenantInfo !=
+                            context.HttpContext.GetMultiTenantContext<SmartAttendanceTenantInfo>().TenantInfo !=
                             null
                                 ? await context.HttpContext.GenerateShuffledKeyAsync()
                                 : new SymmetricSecurityKey(

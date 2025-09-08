@@ -1,13 +1,13 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Commands.CreateTaskTrack;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Domain.TaskTracks.Events.TaskTrackers;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Commands.CreateTaskTrack;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackers;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Commands.CreateTaskTrack;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Commands.CreateTaskTrack;
 
 public class CreateTaskTrackCommandHandler(
     ILogger<CreateTaskTrackCommandHandler> logger,
@@ -38,7 +38,7 @@ public class CreateTaskTrackCommandHandler(
                 logger.LogWarning("The following users are not members : {Users}",
                     string.Join(",", invalidUsers));
 
-                throw ShiftyException.Forbidden(
+                throw SmartAttendanceException.Forbidden(
                     localizer["One or more assigned users are not members of the selected project."].Value,
                     new
                     {
@@ -61,7 +61,7 @@ public class CreateTaskTrackCommandHandler(
             logger.LogInformation("TaskTrackersES {TaskTrackerId} created via event sourcing.",
                 taskTracking.AggregateId);
         }
-        catch (ShiftyException)
+        catch (SmartAttendanceException)
         {
             throw;
         }
@@ -70,7 +70,7 @@ public class CreateTaskTrackCommandHandler(
             logger.LogInformation(ex.Message,
                 "Error creating TaskTracker via ES .");
 
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while creating the taskTracker."].Value);
         }
     }

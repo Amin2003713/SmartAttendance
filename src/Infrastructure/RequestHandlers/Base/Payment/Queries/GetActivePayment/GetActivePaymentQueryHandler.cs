@@ -1,9 +1,9 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Payment.Queries.GetActivePayment;
-using Shifty.Application.Base.Payment.Request.Queries.ListPayment;
-using Shifty.Application.Interfaces.Tenants.Payment;
+using SmartAttendance.Application.Base.Payment.Queries.GetActivePayment;
+using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
+using SmartAttendance.Application.Interfaces.Tenants.Payment;
 
-namespace Shifty.RequestHandlers.Base.Payment.Queries.GetActivePayment;
+namespace SmartAttendance.RequestHandlers.Base.Payment.Queries.GetActivePayment;
 
 public class GetActivePaymentQueryHandler(
     IPaymentQueryRepository paymentQueryRepository

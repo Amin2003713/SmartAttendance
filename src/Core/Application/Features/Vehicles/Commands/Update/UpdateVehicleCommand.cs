@@ -1,5 +1,6 @@
-﻿using Shifty.Application.Features.Vehicles.Requests.Commands.Update;
+﻿using SmartAttendance.Application.Features.Vehicles.Requests.Commands.Update;
 
-namespace Shifty.Application.Features.Vehicles.Commands.Update;
+namespace SmartAttendance.Application.Features.Vehicles.Commands.Update;
 
-public class UpdateVehicleCommand : UpdateVehicleRequest, IRequest;
+public class UpdateVehicleCommand : UpdateVehicleRequest,
+    IRequest;

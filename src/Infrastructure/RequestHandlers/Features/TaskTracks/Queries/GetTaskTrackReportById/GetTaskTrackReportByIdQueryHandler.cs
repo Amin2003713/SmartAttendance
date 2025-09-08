@@ -1,12 +1,12 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Queries.GetTaskTrackReportById;
-using Shifty.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Queries.GetTaskTrackReportById;
+using SmartAttendance.Application.Features.TaskTrack.Requests.Queries.GetTaskTrackReport;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Queries.GetTaskTrackReportById;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Queries.GetTaskTrackReportById;
 
 public class GetTaskTrackReportByIdQueryHandler(
     IdentityService identityService,
@@ -27,12 +27,12 @@ public class GetTaskTrackReportByIdQueryHandler(
             userId);
 
         var taskTrack = await eventReader.GetSingleAsync(x => x.AggregateId == request.AggregateId,
-            cancellationToken: cancellationToken);
+            cancellationToken);
 
         if (taskTrack is null)
         {
             logger.LogWarning("Missions {AggregateId} not found.", request.AggregateId);
-            throw ShiftyException.NotFound(localizer["No Missions found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["No Missions found."].Value);
         }
 
         if (taskTrack.CreatedBy != userId && !taskTrack.AssigneeId.Contains(userId))
@@ -41,7 +41,7 @@ public class GetTaskTrackReportByIdQueryHandler(
                 userId,
                 request.AggregateId);
 
-            throw ShiftyException.BadRequest(localizer["You can't see logs of this task."].Value);
+            throw SmartAttendanceException.BadRequest(localizer["You can't see logs of this task."].Value);
         }
 
         var report = taskTrack.Reports.FirstOrDefault(r => r.ReportId == request.ReportId);
@@ -52,7 +52,7 @@ public class GetTaskTrackReportByIdQueryHandler(
                 request.ReportId,
                 request.AggregateId);
 
-            throw ShiftyException.NotFound(localizer["Report not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Report not found."].Value);
         }
 
         var response = report.Adapt<TaskTrackReportResponse>();

@@ -1,6 +1,6 @@
-﻿using Shifty.Domain.Setting;
+﻿using SmartAttendance.Domain.Setting;
 
-namespace Shifty.Application.Base.Settings.Commands.UpdateSetting;
+namespace SmartAttendance.Application.Base.Settings.Commands.UpdateSetting;
 
 public record UpdateSettingCommand(
     List<SettingFlags> Flags

@@ -1,6 +1,6 @@
-﻿using Shifty.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Common.Utilities.InjectionHelpers;
 
-namespace Shifty.Persistence.Repositories.Users;
+namespace SmartAttendance.Persistence.Repositories.Users;
 
 public class UserQueryRepository(
     ReadOnlyDbContext dbContext,

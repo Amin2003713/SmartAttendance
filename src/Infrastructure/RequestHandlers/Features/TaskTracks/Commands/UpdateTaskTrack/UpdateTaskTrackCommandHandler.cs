@@ -1,13 +1,13 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Commands.UpdateTaskTrack;
-using Shifty.Application.Features.Users.Queries.GetAllUsers;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Domain.TaskTracks.Events.TaskTrackers;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Commands.UpdateTaskTrack;
+using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackers;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Commands.UpdateTaskTrack;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Commands.UpdateTaskTrack;
 
 public class UpdateTaskTrackCommandHandler(
     IEventReader<TaskTrack, Guid> eventReader,
@@ -26,7 +26,7 @@ public class UpdateTaskTrackCommandHandler(
         if (!await eventReader.ExistsAsync(request.AggregateId, cancellationToken))
         {
             logger.LogWarning("Missions {TackTrackId} not found.", request.AggregateId);
-            throw ShiftyException.NotFound(localizer["Missions not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Missions not found."].Value);
         }
 
         var userId = identityService.GetUserId<Guid>();
@@ -34,7 +34,7 @@ public class UpdateTaskTrackCommandHandler(
 
         var taskTrack = await eventReader.GetSingleAsync(
             x => x.AggregateId == request.AggregateId && x.UserId == identityService.GetUserId<Guid>(),
-            cancellationToken: cancellationToken);
+            cancellationToken);
 
 
         var users = mediator.Send(new GetAllUsersQuery(), cancellationToken);
@@ -52,7 +52,7 @@ public class UpdateTaskTrackCommandHandler(
                 logger.LogWarning("The following users are not members : {Users}",
                     string.Join(",", invalidUsers));
 
-                throw ShiftyException.Forbidden(
+                throw SmartAttendanceException.Forbidden(
                     localizer["One or more assigned users are not members of the selected project."].Value,
                     new
                     {

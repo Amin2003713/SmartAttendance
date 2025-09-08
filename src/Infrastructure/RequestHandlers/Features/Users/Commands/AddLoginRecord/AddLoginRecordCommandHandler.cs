@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Features.Users.Commands.AddLoginRecord;
-using Shifty.Application.Interfaces.Jwt;
-using Shifty.Application.Interfaces.Users;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Features.Users.Commands.AddLoginRecord;
+using SmartAttendance.Application.Interfaces.Jwt;
+using SmartAttendance.Application.Interfaces.Users;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.AddLoginRecord;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.AddLoginRecord;
 
 public class AddLoginRecordCommandHandler(
     IUserCommandRepository userCommandRepository,
@@ -26,16 +26,16 @@ public class AddLoginRecordCommandHandler(
         var user = await userQueryRepository.GetByIdAsync(cancellationToken, request.UserId);
 
         if (user is null)
-            throw ShiftyException.Unauthorized(localizer["Invalid token."]);
+            throw SmartAttendanceException.Unauthorized(localizer["Invalid token."]);
 
         if (!user.IsActive || !user.PhoneNumberConfirmed)
-            throw ShiftyException.Forbidden(localizer["User account is not active."]);
+            throw SmartAttendanceException.Forbidden(localizer["User account is not active."]);
 
         var session =
             await refreshTokenQueryRepository.GetCurrentSessions(request.UniqueTokenIdentifier, cancellationToken);
 
         if (session is null)
-            throw ShiftyException.Unauthorized(localizer["Invalid token."]);
+            throw SmartAttendanceException.Unauthorized(localizer["Invalid token."]);
 
         await userCommandRepository.UpdateLastLoginDateAsync(user, cancellationToken);
     }

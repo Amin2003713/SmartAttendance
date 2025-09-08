@@ -1,9 +1,9 @@
 ﻿using Mapster;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.MinIo.Requests.Commands.UploadFile;
-using Shifty.Domain.HubFiles;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
+using SmartAttendance.Domain.HubFiles;
 
-namespace Shifty.Application.Base.MinIo.Commands.UplodeFile;
+namespace SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 
 public class UploadFileCommand : UploadFileRequest,
     IRequest<HubFile>

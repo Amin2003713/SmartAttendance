@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Commands.SendActivationCode;
+﻿namespace SmartAttendance.Application.Features.Users.Commands.SendActivationCode;
 
 public class SendActivationCodeCommand : IRequest<SendActivationCodeCommandResponse>
 {

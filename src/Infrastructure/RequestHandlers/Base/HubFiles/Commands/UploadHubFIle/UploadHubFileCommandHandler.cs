@@ -1,19 +1,19 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Http;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.MinIo.Commands.UplodeFile;
-using Shifty.Application.Base.Storage.Commands.CreateStorage;
-using Shifty.Application.Base.Storage.Queries.GetAllRemainStorage;
-using Shifty.Application.Interfaces.HubFiles;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Common.Utilities.EnumHelpers;
-using Shifty.Common.Utilities.TypeConverters;
-using Shifty.Domain.HubFiles;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
+using SmartAttendance.Application.Base.Storage.Commands.CreateStorage;
+using SmartAttendance.Application.Base.Storage.Queries.GetAllRemainStorage;
+using SmartAttendance.Application.Interfaces.HubFiles;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Common.Utilities.TypeConverters;
+using SmartAttendance.Domain.HubFiles;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Base.HubFiles.Commands.UploadHubFIle;
+namespace SmartAttendance.RequestHandlers.Base.HubFiles.Commands.UploadHubFIle;
 
 public class UploadHubFileCommandHandler(
     IHubFileCommandRepository hubFileCommandRepository,
@@ -49,7 +49,7 @@ public class UploadHubFileCommandHandler(
         if (request.File is null || request.File.Length == 0)
         {
             logger.LogWarning("File cannot be null or empty.");
-            throw ShiftyException.BadRequest(localizer["File cannot be null or empty."].Value);
+            throw SmartAttendanceException.BadRequest(localizer["File cannot be null or empty."].Value);
         }
     }
 
@@ -63,11 +63,14 @@ public class UploadHubFileCommandHandler(
                 fileSizeMb,
                 remain.AvailableStorageMb);
 
-            throw ShiftyException.BadRequest(localizer["Out of Storage."].Value);
+            throw SmartAttendanceException.BadRequest(localizer["Out of Storage."].Value);
         }
     }
 
-    private async Task TryUpdateStorageAsync(UploadHubFileCommand request, double fileSizeMb, FileType fileType,
+    private async Task TryUpdateStorageAsync(
+        UploadHubFileCommand request,
+        double fileSizeMb,
+        FileType fileType,
         CancellationToken cancellationToken)
     {
         if (request.RowType is FileStorageType.ZipExports or FileStorageType.PdfExports)
@@ -78,7 +81,9 @@ public class UploadHubFileCommandHandler(
         logger.LogInformation("Storage updated for {FileSizeMb} MB.", fileSizeMb);
     }
 
-    private async Task<MediaFileStorage> SaveFileRecordAsync(UploadHubFileCommand request, HubFile path,
+    private async Task<MediaFileStorage> SaveFileRecordAsync(
+        UploadHubFileCommand request,
+        HubFile path,
         CancellationToken cancellationToken)
     {
         try
@@ -87,7 +92,7 @@ public class UploadHubFileCommandHandler(
             logger.LogInformation("File record added successfully. Id: {Id}", path.Id);
 
             var fileUrl = BuildFileUrl(path.Id, path.Type, path.ReferenceIdType);
-            var type = request.File.GetFileType();
+            var type    = request.File.GetFileType();
             return new MediaFileStorage
             {
                 Url = fileUrl.BuildImageUrl()!,
@@ -99,12 +104,12 @@ public class UploadHubFileCommandHandler(
         catch (OutOfMemoryException oomEx)
         {
             // logger.LogError(oomEx, "Out of memory error while saving file record for ProjectId {ProjectId}.", request.ProjectId);
-            throw ShiftyException.BadRequest(localizer["Your storage capacity has been reached."].Value);
+            throw SmartAttendanceException.BadRequest(localizer["Your storage capacity has been reached."].Value);
         }
         catch (Exception ex)
         {
             // logger.LogError(ex, "Unexpected error while saving file record for ProjectId {ProjectId}.", request.ProjectId);
-            throw ShiftyException.InternalServerError(localizer["An error occurred while uploading the file."].Value);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while uploading the file."].Value);
         }
     }
 

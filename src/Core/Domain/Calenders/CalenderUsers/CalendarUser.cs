@@ -1,6 +1,6 @@
-﻿using Shifty.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace Shifty.Domain.Calenders.CalenderUsers;
+namespace SmartAttendance.Domain.Calenders.CalenderUsers;
 
 public class CalendarUser : BaseEntity
 {

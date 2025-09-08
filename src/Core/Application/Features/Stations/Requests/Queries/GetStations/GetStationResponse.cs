@@ -1,8 +1,8 @@
-﻿using Shifty.Common.Common.Requests;
-using Shifty.Common.General.Enums.StationStatuses;
-using Shifty.Common.General.Enums.StationTypes;
+﻿using SmartAttendance.Common.Common.Requests;
+using SmartAttendance.Common.General.Enums.StationStatuses;
+using SmartAttendance.Common.General.Enums.StationTypes;
 
-namespace Shifty.Application.Features.Stations.Requests.Queries.GetStations;
+namespace SmartAttendance.Application.Features.Stations.Requests.Queries.GetStations;
 
 public class GetStationResponse
 {

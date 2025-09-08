@@ -1,10 +1,10 @@
 ﻿using DNTPersianUtils.Core;
-using Shifty.Application.Features.Calendars.Queries.GetHoliday;
-using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Interfaces.Calendars.DailyCalendars;
-using Shifty.Common.Exceptions;
+using SmartAttendance.Application.Features.Calendars.Queries.GetHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
+using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Features.Calendars.Queries.GetHoliday;
+namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetHoliday;
 
 public class GetHolidayQueryHandler(
     IDailyCalendarQueryRepository dailyCalendarQueryRepository,
@@ -19,7 +19,7 @@ public class GetHolidayQueryHandler(
             var fromDate = new PersianDateTime(request.Year, request.Month, 1).ToString().ToGregorianDateTime();
 
             var monthRange = fromDate.GetPersianMonthStartAndEndDates();
-            var toDate = monthRange!.EndDate;
+            var toDate     = monthRange!.EndDate;
 
             logger.LogInformation("Fetching holidays from {Start} to {End}",
                 fromDate,
@@ -43,7 +43,7 @@ public class GetHolidayQueryHandler(
                 request.Year,
                 request.Month);
 
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 }

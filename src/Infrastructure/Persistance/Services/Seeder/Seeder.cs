@@ -1,14 +1,14 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.General.Enums;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Defaults;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Defaults;
 
-namespace Shifty.Persistence.Services.Seeder;
+namespace SmartAttendance.Persistence.Services.Seeder;
 
 public class Seeder : IScopedDependency,
-    IGenericSeeder<ShiftyDbContext>
+    IGenericSeeder<SmartAttendanceDbContext>
 {
-    public async Task SeedAsync(ShiftyDbContext dbContext, CancellationToken cancellationToken)
+    public async Task SeedAsync(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
         try
         {
@@ -21,12 +21,12 @@ public class Seeder : IScopedDependency,
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw ShiftyException.InternalServerError();
+            throw SmartAttendanceException.InternalServerError();
         }
     }
 
 
-    private async Task SeedDefaultSettings(ShiftyDbContext dbContext, CancellationToken cancellationToken)
+    private async Task SeedDefaultSettings(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
         var setting = TenantDefaultValue.Setting();
 
@@ -39,7 +39,7 @@ public class Seeder : IScopedDependency,
     }
 
 
-    private async Task SeedRoles(ShiftyDbContext dbContext, CancellationToken cancellationToken)
+    private async Task SeedRoles(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
         foreach (var role in Enum.GetValues<Roles>())
         {

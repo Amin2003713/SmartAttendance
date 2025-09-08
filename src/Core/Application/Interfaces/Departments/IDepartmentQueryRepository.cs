@@ -1,7 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Departments;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Departments;
 
-namespace Shifty.Application.Interfaces.Departments;
+namespace SmartAttendance.Application.Interfaces.Departments;
 
-public interface IDepartmentQueryRepository: IQueryRepository<Department> , IScopedDependency;
+public interface IDepartmentQueryRepository : IQueryRepository<Department> ,
+    IScopedDependency;

@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.HubFiles.Queries.GetHubFile;
-using Shifty.Application.Base.HubFiles.Request.Queries.GetFile;
-using Shifty.Application.Interfaces.HubFiles;
+﻿using SmartAttendance.Application.Base.HubFiles.Queries.GetHubFile;
+using SmartAttendance.Application.Base.HubFiles.Request.Queries.GetFile;
+using SmartAttendance.Application.Interfaces.HubFiles;
 
-namespace Shifty.RequestHandlers.Base.HubFiles.Queries.GetHubFile;
+namespace SmartAttendance.RequestHandlers.Base.HubFiles.Queries.GetHubFile;
 
 public class GetHubFileQueryHandler(
     IHubFileQueryRepository hubFileQueryRepository

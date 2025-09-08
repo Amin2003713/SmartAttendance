@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.Login;
+using SmartAttendance.Application.Features.Users.Requests.Commands.Login;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.Login;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.Login;
 
 public class LoginRequestValidator : AbstractValidator<LoginRequest>
 {

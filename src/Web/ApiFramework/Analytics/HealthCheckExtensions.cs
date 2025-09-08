@@ -3,9 +3,9 @@ using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using MongoDB.Driver;
-using Shifty.Common.General;
+using SmartAttendance.Common.General;
 
-namespace Shifty.ApiFramework.Analytics;
+namespace SmartAttendance.ApiFramework.Analytics;
 
 public static class HealthCheckExtensions
 {

@@ -1,14 +1,14 @@
 ﻿services:
-  shifty:
+  SmartAttendance:
     build:
       context: ../
       dockerfile: src/Web/Api/Dockerfile
-    container_name: shifty
+    container_name: SmartAttendance
     environment:
       ASPNETCORE_ENVIRONMENT: "${ASPNETCORE_ENVIRONMENT}"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://aspire:4317"
-      OTEL_SERVICE_NAME: "shifty"
-      SERVICE_HOSTNAME: "shifty"
+      OTEL_SERVICE_NAME: "SmartAttendance"
+      SERVICE_HOSTNAME: "SmartAttendance"
       REDIS__CONFIGURATION: "redis:6379,password=${REDIS_PASSWORD}"
       BASE_URL: "${BASE_URL}"
     ports:

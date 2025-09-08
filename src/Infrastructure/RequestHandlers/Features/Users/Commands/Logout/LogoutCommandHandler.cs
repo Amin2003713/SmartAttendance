@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Features.Users.Commands.Logout;
-using Shifty.Application.Interfaces.Jwt;
-using Shifty.Persistence.Services.Identities;
+﻿using SmartAttendance.Application.Features.Users.Commands.Logout;
+using SmartAttendance.Application.Interfaces.Jwt;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.Logout;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.Logout;
 
 public class LogoutCommandHandler(
     IRefreshTokenQueryRepository queryRepository,

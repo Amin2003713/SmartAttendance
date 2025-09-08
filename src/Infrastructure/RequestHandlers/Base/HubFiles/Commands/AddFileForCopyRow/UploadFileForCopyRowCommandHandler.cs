@@ -1,14 +1,14 @@
 ﻿using System.Web;
 using Microsoft.AspNetCore.Http;
-using Shifty.Application.Base.HubFiles.Commands.AddFileForCopyRow;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Interfaces.HubFiles;
-using Shifty.Application.Interfaces.Minio;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Common.General.Enums.FileType;
+using SmartAttendance.Application.Base.HubFiles.Commands.AddFileForCopyRow;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Interfaces.HubFiles;
+using SmartAttendance.Application.Interfaces.Minio;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Common.General.Enums.FileType;
 
-namespace Shifty.RequestHandlers.Base.HubFiles.Commands.AddFileForCopyRow;
+namespace SmartAttendance.RequestHandlers.Base.HubFiles.Commands.AddFileForCopyRow;
 
 public record UploadFileForCopyRowCommandHandler(
     IHubFileQueryRepository HubFileQueryRepository,
@@ -38,7 +38,7 @@ public record UploadFileForCopyRowCommandHandler(
         catch (Exception ex)
         {
             Logger.LogError(ex, "Failed to extract URL parameters from FileUrl {FileUrl}.", request.FileUrl);
-            throw ShiftyException.BadRequest(Localizer["Invalid FileUrl."]);
+            throw SmartAttendanceException.BadRequest(Localizer["Invalid FileUrl."]);
         }
 
         var fileInfo = await HubFileQueryRepository.GetHubFile(
@@ -55,7 +55,7 @@ public record UploadFileForCopyRowCommandHandler(
                 requestParams.fileType,
                 requestParams.fileStorageType);
 
-            throw ShiftyException.NotFound(Localizer["File information is null."]);
+            throw SmartAttendanceException.NotFound(Localizer["File information is null."]);
         }
 
         try
@@ -67,7 +67,6 @@ public record UploadFileForCopyRowCommandHandler(
 
             var uploadResult = await Mediator.Send(new UploadHubFileCommand
                 {
-
                     File = file!,
                     ReportDate = request.ReportDate,
                     RowId = request.RowId,
@@ -84,7 +83,7 @@ public record UploadFileForCopyRowCommandHandler(
             //     "An error occurred while uploading the file for ProjectId {ProjectId}.",
             //     request.ProjectId);
 
-            throw ShiftyException.InternalServerError(Localizer["An error occurred while uploading the file."]);
+            throw SmartAttendanceException.InternalServerError(Localizer["An error occurred while uploading the file."]);
         }
     }
 

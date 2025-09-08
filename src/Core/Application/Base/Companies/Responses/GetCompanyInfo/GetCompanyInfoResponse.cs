@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Companies.Responses.CompnaySettings;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Domain.Setting;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Domain.Setting;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.Application.Base.Companies.Responses.GetCompanyInfo;
+namespace SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
 
 public class GetCompanyInfoResponse
 {
@@ -40,7 +40,7 @@ public class GetCompanyInfoResponse
     public CompanySettingResponse Settings { get; set; }
 
     public static GetCompanyInfoResponse Create(
-        ShiftyTenantInfo companyInfo,
+        SmartAttendanceTenantInfo companyInfo,
         Setting setting,
         int leftDays,
         LogPropertyInfoResponse owner)

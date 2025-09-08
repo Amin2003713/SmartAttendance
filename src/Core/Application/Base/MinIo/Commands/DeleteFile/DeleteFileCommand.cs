@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Base.MinIo.Commands.DeleteFile;
+﻿namespace SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
 
 public record DeleteFileCommand(
     string FilePath

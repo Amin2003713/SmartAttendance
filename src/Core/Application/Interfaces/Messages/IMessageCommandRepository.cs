@@ -1,10 +1,8 @@
-﻿using Shifty.Application.Interfaces.Base;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Messages;
+﻿using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Messages;
 
-namespace Shifty.Application.Interfaces.Messages;
+namespace SmartAttendance.Application.Interfaces.Messages;
 
 public interface IMessageCommandRepository : ICommandRepository<Message>,
-    IScopedDependency
-{
-}
+    IScopedDependency { }

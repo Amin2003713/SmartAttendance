@@ -1,16 +1,16 @@
 ﻿using Finbuckle.MultiTenant.Abstractions;
 using Mapster;
-using Shifty.Application.Base.Discounts.Queries.CheckDiscount;
-using Shifty.Application.Base.Discounts.Request.Queries.CheckDiscount;
-using Shifty.Application.Interfaces.Tenants.Discounts;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Application.Base.Discounts.Queries.CheckDiscount;
+using SmartAttendance.Application.Base.Discounts.Request.Queries.CheckDiscount;
+using SmartAttendance.Application.Interfaces.Tenants.Discounts;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.RequestHandlers.Base.Discounts.Queries.CheckDiscount;
+namespace SmartAttendance.RequestHandlers.Base.Discounts.Queries.CheckDiscount;
 
 public class CheckDiscountIsValidQueryHandler(
     IDiscountQueryRepository discountQueryRepository,
-    IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContext,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContext,
     ILogger<CheckDiscountIsValidQueryHandler> logger,
     IStringLocalizer<CheckDiscountIsValidQueryHandler> localizer
 )
@@ -29,14 +29,14 @@ public class CheckDiscountIsValidQueryHandler(
         if (discount == null)
         {
             logger.LogWarning("Discount with code {Code} not found.", request.Code);
-            throw ShiftyException.NotFound(localizer["Discount not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Discount not found."].Value);
         }
 
         // Check if the discount has expired.
         if (DateTime.UtcNow > discount.StartDate.AddDays(discount.Duration))
         {
             logger.LogWarning("Discount with code {Code} has expired.", request.Code);
-            throw ShiftyException.NotFound(localizer["This discount has expired."].Value);
+            throw SmartAttendanceException.NotFound(localizer["This discount has expired."].Value);
         }
 
         var tenantId       = tenantContext.MultiTenantContext.TenantInfo!.Id!;
@@ -48,7 +48,7 @@ public class CheckDiscountIsValidQueryHandler(
                 request.Code,
                 tenantId);
 
-            throw ShiftyException.NotFound(localizer["Used."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Used."].Value);
         }
 
         // Check if the discount is applicable to the given PackageMonth.
@@ -65,6 +65,6 @@ public class CheckDiscountIsValidQueryHandler(
             request.Code,
             request.PackageMonth);
 
-        throw ShiftyException.NotFound(localizer["Invalid."].Value);
+        throw SmartAttendanceException.NotFound(localizer["Invalid."].Value);
     }
 }

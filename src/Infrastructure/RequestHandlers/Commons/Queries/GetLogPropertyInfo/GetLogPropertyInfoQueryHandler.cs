@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Commons.Queries.GetLogPropertyInfo;
+namespace SmartAttendance.RequestHandlers.Commons.Queries.GetLogPropertyInfo;
 
 public class GetLogPropertyInfoQueryHandler(
     UserManager<User> userManager,
@@ -23,7 +23,7 @@ public class GetLogPropertyInfoQueryHandler(
         if (user == null)
         {
             logger.LogWarning("User with Id {UserId} not found.", request.Id);
-            throw ShiftyException.NotFound("Creator was not found");
+            throw SmartAttendanceException.NotFound("Creator was not found");
         }
 
         logger.LogInformation("User with Id {UserId} found: {UserName}", request.Id, user.FullName());

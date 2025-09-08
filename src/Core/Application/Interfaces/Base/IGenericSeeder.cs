@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shifty.Application.Interfaces.Base;
+namespace SmartAttendance.Application.Interfaces.Base;
 
 public interface IGenericSeeder<in TDbContext>
 {

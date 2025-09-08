@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Shifty.Api.Resources {
+namespace SmartAttendance.Api.Resources {
     using System;
     
     
@@ -38,7 +38,7 @@ namespace Shifty.Api.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Shifty.Api.Resources.Program.fa-IR", typeof(Program_fa_IR).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartAttendance.Api.Resources.Program.fa-IR", typeof(Program_fa_IR).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

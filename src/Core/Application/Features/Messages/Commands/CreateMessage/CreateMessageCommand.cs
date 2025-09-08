@@ -1,7 +1,7 @@
-﻿using Shifty.Application.Commons.MediaFiles.Requests;
-using Shifty.Application.Features.Messages.Request.Commands.CreateMessage;
+﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
+using SmartAttendance.Application.Features.Messages.Request.Commands.CreateMessage;
 
-namespace Shifty.Application.Features.Messages.Commands.CreateMessage;
+namespace SmartAttendance.Application.Features.Messages.Commands.CreateMessage;
 
 public class CreateMessageCommand : CreateMessageRequest,
     IRequest

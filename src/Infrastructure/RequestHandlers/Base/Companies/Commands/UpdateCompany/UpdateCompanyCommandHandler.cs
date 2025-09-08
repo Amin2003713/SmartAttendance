@@ -1,20 +1,20 @@
 using Finbuckle.MultiTenant.Abstractions;
 using Mapster;
-using Shifty.Application.Base.Companies.Commands.UpdateCompany;
-using Shifty.Application.Base.HubFiles.Commands.UploadHubFile;
-using Shifty.Application.Base.MinIo.Commands.DeleteFile;
-using Shifty.Application.Interfaces.Tenants.Companies;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General.Enums.FileType;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Application.Base.Companies.Commands.UpdateCompany;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
+using SmartAttendance.Application.Interfaces.Tenants.Companies;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums.FileType;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.RequestHandlers.Base.Companies.Commands.UpdateCompany;
+namespace SmartAttendance.RequestHandlers.Base.Companies.Commands.UpdateCompany;
 
 /// <summary>
 ///     Handler for UpdateCompanyCommand, implementing IRequestHandler<UpdateCompanyCommand>.
 /// </summary>
 public class UpdateCompanyCommandHandler(
-    IMultiTenantContextAccessor<ShiftyTenantInfo> tenantContextAccessor,
+    IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContextAccessor,
     IStringLocalizer<UpdateCompanyCommandHandler> localizer,
     ICompanyRepository repository,
     IMediator mediator,
@@ -40,12 +40,12 @@ public class UpdateCompanyCommandHandler(
                 logger.LogWarning("Company not found for identifier: {TenantId}",
                     tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
 
-                throw ShiftyException.NotFound(localizer["The requested company was not found."].Value);
+                throw SmartAttendanceException.NotFound(localizer["The requested company was not found."].Value);
             }
 
             logger.LogInformation("Updating company details for {CompanyName}", request.Name);
 
-            company.Update(request.Adapt<ShiftyTenantInfo>());
+            company.Update(request.Adapt<SmartAttendanceTenantInfo>());
 
             if (request.Logo == null)
             {
@@ -56,7 +56,7 @@ public class UpdateCompanyCommandHandler(
                 if (!deleteResponse)
                 {
                     logger.LogError("Failed to delete old image for Company {Id}.", company.Id);
-                    throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
+                    throw SmartAttendanceException.InternalServerError(localizer["Failed to delete old image."].Value);
                 }
             }
 
@@ -72,7 +72,7 @@ public class UpdateCompanyCommandHandler(
                     if (!deleteResponse)
                     {
                         logger.LogError("Failed to delete old image for Company {Id}.", company.Id);
-                        throw ShiftyException.InternalServerError(localizer["Failed to delete old image."].Value);
+                        throw SmartAttendanceException.InternalServerError(localizer["Failed to delete old image."].Value);
                     }
                 }
 
@@ -99,7 +99,7 @@ public class UpdateCompanyCommandHandler(
                 request.Name,
                 tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
         }
-        catch (ShiftyException ex)
+        catch (SmartAttendanceException ex)
         {
             logger.LogError(ex, "Business validation error: {Message}", ex.Message);
             throw;
@@ -107,7 +107,7 @@ public class UpdateCompanyCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "An unexpected error occurred while updating the company.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while processing the request."].Value);
         }
     }

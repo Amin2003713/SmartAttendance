@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Interfaces.Settings;
+﻿using SmartAttendance.Application.Interfaces.Settings;
 
-namespace Shifty.Persistence.Repositories.Settings;
+namespace SmartAttendance.Persistence.Repositories.Settings;
 
 public class SettingQueryRepository(
     ReadOnlyDbContext dbContext,

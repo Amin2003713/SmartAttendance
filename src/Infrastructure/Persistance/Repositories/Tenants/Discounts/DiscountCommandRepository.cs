@@ -1,9 +1,9 @@
-﻿using Shifty.Application.Interfaces.Tenants.Discounts;
+﻿using SmartAttendance.Application.Interfaces.Tenants.Discounts;
 
-namespace Shifty.Persistence.Repositories.Tenants.Discounts;
+namespace SmartAttendance.Persistence.Repositories.Tenants.Discounts;
 
 public class DiscountCommandRepository(
-    ShiftyTenantDbContext db,
+    SmartAttendanceTenantDbContext db,
     IdentityService identityService,
     ILogger<DiscountCommandRepository> logger,
     IStringLocalizer<DiscountCommandRepository> localizer
@@ -23,7 +23,7 @@ public class DiscountCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error while adding discount: {DiscountId}", discount.Id);
-            throw ShiftyException.InternalServerError(localizer["An error occurred while adding the discount."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while adding the discount."]);
         }
     }
 
@@ -48,7 +48,7 @@ public class DiscountCommandRepository(
         catch (Exception ex)
         {
             logger.LogError(ex, "Error while deleting discount with ID: {DiscountId}", discount.Id);
-            throw ShiftyException.InternalServerError(localizer["An error occurred while deleting the discount."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while deleting the discount."]);
         }
     }
 
@@ -69,7 +69,7 @@ public class DiscountCommandRepository(
                 "Error while updating TenantDiscount for TenantId: {TenantId}",
                 tenantDiscount.TenantId);
 
-            throw ShiftyException.InternalServerError(localizer["An error occurred while updating tenant discount."]);
+            throw SmartAttendanceException.InternalServerError(localizer["An error occurred while updating tenant discount."]);
         }
     }
 }

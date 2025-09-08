@@ -1,23 +1,23 @@
-﻿using Shifty.Application.Features.Calendars.Commands.CreateHoliday;
-using Shifty.Application.Features.Calendars.Commands.CreateReminder;
-using Shifty.Application.Features.Calendars.Commands.DeleteHoliday;
-using Shifty.Application.Features.Calendars.Commands.DeleteReminder;
-using Shifty.Application.Features.Calendars.Commands.UpdateHoliday;
-using Shifty.Application.Features.Calendars.Commands.UpdateReminder;
-using Shifty.Application.Features.Calendars.Queries.GetCalendar;
-using Shifty.Application.Features.Calendars.Queries.GetHoliday;
-using Shifty.Application.Features.Calendars.Queries.GetReminder;
-using Shifty.Application.Features.Calendars.Request.Commands.CreateHoliday;
-using Shifty.Application.Features.Calendars.Request.Commands.CreateReminder;
-using Shifty.Application.Features.Calendars.Request.Commands.UpdateHoliday;
-using Shifty.Application.Features.Calendars.Request.Commands.UpdateReminder;
-using Shifty.Application.Features.Calendars.Request.Queries.GetCalendar;
-using Shifty.Application.Features.Calendars.Request.Queries.GetHoliday;
-using Shifty.Application.Features.Calendars.Request.Queries.GetReminder;
+﻿using SmartAttendance.Application.Features.Calendars.Commands.CreateHoliday;
+using SmartAttendance.Application.Features.Calendars.Commands.CreateReminder;
+using SmartAttendance.Application.Features.Calendars.Commands.DeleteHoliday;
+using SmartAttendance.Application.Features.Calendars.Commands.DeleteReminder;
+using SmartAttendance.Application.Features.Calendars.Commands.UpdateHoliday;
+using SmartAttendance.Application.Features.Calendars.Commands.UpdateReminder;
+using SmartAttendance.Application.Features.Calendars.Queries.GetCalendar;
+using SmartAttendance.Application.Features.Calendars.Queries.GetHoliday;
+using SmartAttendance.Application.Features.Calendars.Queries.GetReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetCalendar;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
+using SmartAttendance.Application.Features.Calendars.Request.Queries.GetReminder;
 
-namespace Shifty.Api.Controllers.Calendars;
+namespace SmartAttendance.Api.Controllers.Calendars;
 
-public class CalendarController : ShiftyBaseController
+public class CalendarController : SmartAttendanceBaseController
 {
     /// <summary>
     ///     Gets the calendar data for a specific project and month.

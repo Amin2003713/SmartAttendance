@@ -1,6 +1,6 @@
-﻿using Shifty.Application.Commons.MediaFiles.Requests;
+﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
 
-namespace Shifty.Application.Features.Users.Requests.Commands.UpdateUser;
+namespace SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
 
 public class UpdateUserRequest
 {

@@ -1,12 +1,12 @@
 ﻿using Mapster;
-using Shifty.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
-using Shifty.Application.Interfaces.Base.EventInterface;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.TaskTracks.Aggregate;
-using Shifty.Domain.TaskTracks.Events.TaskTrackReports;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.TaskTrack.Commands.DeleteTaskTrackReport;
+using SmartAttendance.Application.Interfaces.Base.EventInterface;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.TaskTracks.Aggregate;
+using SmartAttendance.Domain.TaskTracks.Events.TaskTrackReports;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.TaskTracks.Commands.DeleteTaskTrackReport;
+namespace SmartAttendance.RequestHandlers.Features.TaskTracks.Commands.DeleteTaskTrackReport;
 
 public class DeleteTaskTrackReportCommandHandler(
     IEventReader<TaskTrack, Guid> eventReader,
@@ -27,21 +27,23 @@ public class DeleteTaskTrackReportCommandHandler(
             request.AggregateId);
 
         var taskTrack = await eventReader.GetSingleAsync(x => x.AggregateId == request.AggregateId,
-            cancellationToken: cancellationToken);
+            cancellationToken);
 
         if (taskTrack is null)
         {
             logger.LogWarning("Missions {AggregateId} not found", request.AggregateId);
-            throw ShiftyException.NotFound(localizer["No Missions reports found to delete."].Value);
+            throw SmartAttendanceException.NotFound(localizer["No Missions reports found to delete."].Value);
         }
 
         var report = taskTrack.Reports.FirstOrDefault(r => r.ReportId == request.ReportId);
 
         if (report is null)
         {
-            logger.LogWarning("Report {ReportId} not found in Missions {AggregateId}", request.ReportId,
+            logger.LogWarning("Report {ReportId} not found in Missions {AggregateId}",
+                request.ReportId,
                 request.AggregateId);
-            throw ShiftyException.NotFound(localizer["Report not found for deletion."].Value);
+
+            throw SmartAttendanceException.NotFound(localizer["Report not found for deletion."].Value);
         }
 
         var deleteEvent = report.Adapt<TaskTrackReportDeletedEvent>() with

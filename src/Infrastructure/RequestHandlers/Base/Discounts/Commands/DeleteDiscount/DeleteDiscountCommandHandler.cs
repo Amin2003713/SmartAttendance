@@ -1,8 +1,8 @@
-﻿using Shifty.Application.Base.Discounts.Commands.DeleteDiscount;
-using Shifty.Application.Interfaces.Tenants.Discounts;
-using Shifty.Common.Exceptions;
+﻿using SmartAttendance.Application.Base.Discounts.Commands.DeleteDiscount;
+using SmartAttendance.Application.Interfaces.Tenants.Discounts;
+using SmartAttendance.Common.Exceptions;
 
-namespace Shifty.RequestHandlers.Base.Discounts.Commands.DeleteDiscount;
+namespace SmartAttendance.RequestHandlers.Base.Discounts.Commands.DeleteDiscount;
 
 public class DeleteDiscountCommandHandler(
     IDiscountQueryRepository discountQueryRepository,
@@ -21,7 +21,7 @@ public class DeleteDiscountCommandHandler(
         if (discount == null)
         {
             logger.LogWarning("Discount with Id {DiscountId} not found.", request.Id);
-            throw ShiftyException.NotFound(localizer["Discount not found."].Value);
+            throw SmartAttendanceException.NotFound(localizer["Discount not found."].Value);
         }
 
         await discountCommandRepository.Delete(discount, cancellationToken);

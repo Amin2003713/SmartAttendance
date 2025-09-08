@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Common.Utilities.InjectionHelpers;
-using Shifty.Domain.Tenants;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.Tenants;
 
-namespace Shifty.Application.Interfaces.Tenants.Prices;
+namespace SmartAttendance.Application.Interfaces.Tenants.Prices;
 
 public interface IPriceQueryRepository : IScopedDependency
 {

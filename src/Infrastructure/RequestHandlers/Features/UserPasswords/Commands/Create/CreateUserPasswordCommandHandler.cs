@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Shifty.Application.Features.UserPasswords.Commands.Create;
-using Shifty.Application.Interfaces.UserPasswords;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Features.UserPasswords.Commands.Create;
+using SmartAttendance.Application.Interfaces.UserPasswords;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.UserPasswords.Commands.Create;
+namespace SmartAttendance.RequestHandlers.Features.UserPasswords.Commands.Create;
 
 public record CreateUserPasswordCommandHandler(
     UserManager<User> UserManager,
@@ -28,7 +28,7 @@ public record CreateUserPasswordCommandHandler(
             .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
         {
             Logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserId);
-            throw ShiftyException.BadRequest(Localizer["Dont Reuse Old Password"]);
+            throw SmartAttendanceException.BadRequest(Localizer["Dont Reuse Old Password"]);
         }
 
         var hashedPass = Hasher.HashPassword(request.UserId, request.Password);

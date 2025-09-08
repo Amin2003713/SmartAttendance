@@ -1,4 +1,4 @@
-﻿namespace Shifty.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
 
 public record GetUserByIdResponse(
     Guid Id,

@@ -1,5 +1,6 @@
-﻿using Shifty.Application.Features.Missions.Requests.Commands.Update;
+﻿using SmartAttendance.Application.Features.Missions.Requests.Commands.Update;
 
-namespace Shifty.Application.Features.Missions.Commands.Update;
+namespace SmartAttendance.Application.Features.Missions.Commands.Update;
 
-public class UpdateMissionCommand : UpdateMissionRequest, IRequest;
+public class UpdateMissionCommand : UpdateMissionRequest,
+    IRequest;

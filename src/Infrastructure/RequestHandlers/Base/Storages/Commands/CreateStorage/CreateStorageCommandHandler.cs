@@ -1,10 +1,10 @@
 ﻿using Mapster;
-using Shifty.Application.Base.Storage.Commands.CreateStorage;
-using Shifty.Application.Interfaces.Storages;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Storages;
+using SmartAttendance.Application.Base.Storage.Commands.CreateStorage;
+using SmartAttendance.Application.Interfaces.Storages;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Storages;
 
-namespace Shifty.RequestHandlers.Base.Storages.Commands.CreateStorage;
+namespace SmartAttendance.RequestHandlers.Base.Storages.Commands.CreateStorage;
 
 public class CreateStorageCommandHandler(
     IStorageCommandRepository storageCommandRepository,
@@ -26,7 +26,7 @@ public class CreateStorageCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while creating storage.");
-            throw ShiftyException.InternalServerError(
+            throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while creating the storage."]);
         }
     }

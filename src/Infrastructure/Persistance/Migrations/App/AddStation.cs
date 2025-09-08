@@ -1,49 +1,47 @@
-﻿using System;
+﻿#nullable disable
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
+namespace SmartAttendance.Persistence.Migrations.App;
 
-namespace Shifty.Persistence.Migrations.App
+/// <inheritdoc />
+public partial class AddStation : Migration
 {
     /// <inheritdoc />
-    public partial class AddStation : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.CreateTable(
-                name: "Stations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AllowedDistance = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
-                    OnWay = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Location_Lat = table.Column<double>(type: "float", nullable: false),
-                    Location_Lng = table.Column<double>(type: "float", nullable: false),
-                    Location_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StationStatus = table.Column<int>(type: "int", nullable: false),
-                    StationType = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stations", x => x.Id);
-                });
-        }
+        migrationBuilder.CreateTable(
+            "Stations",
+            table => new
+            {
+                Id = table.Column<Guid>("uniqueidentifier", nullable: false),
+                Name = table.Column<string>("nvarchar(max)", nullable: false),
+                Code = table.Column<string>("nvarchar(max)", nullable: false),
+                AllowedDistance = table.Column<decimal>("decimal(18,4)", precision: 18, scale: 4, nullable: false),
+                OnWay = table.Column<TimeSpan>("time", nullable: false),
+                Location_Lat = table.Column<double>("float", nullable: false),
+                Location_Lng = table.Column<double>("float", nullable: false),
+                Location_Name = table.Column<string>("nvarchar(max)", nullable: true),
+                StationStatus = table.Column<int>("int", nullable: false),
+                StationType = table.Column<int>("int",   nullable: false),
+                IsActive = table.Column<bool>("bit", nullable: false),
+                CreatedBy = table.Column<Guid>("uniqueidentifier", nullable: true),
+                CreatedAt = table.Column<DateTime>("datetime2", nullable: false),
+                ModifiedBy = table.Column<Guid>("uniqueidentifier", nullable: true),
+                ModifiedAt = table.Column<DateTime>("datetime2", nullable: true),
+                DeletedBy = table.Column<Guid>("uniqueidentifier", nullable: true),
+                DeletedAt = table.Column<DateTime>("datetime2", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_Stations", x => x.Id);
+            });
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Stations");
-        }
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropTable(
+            name: "Stations");
     }
 }

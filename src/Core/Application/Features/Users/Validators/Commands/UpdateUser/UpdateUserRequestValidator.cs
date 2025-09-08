@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shifty.Application.Features.Users.Requests.Commands.UpdateUser;
+using SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
 
-namespace Shifty.Application.Features.Users.Validators.Commands.UpdateUser;
+namespace SmartAttendance.Application.Features.Users.Validators.Commands.UpdateUser;
 
 public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
 {

@@ -1,4 +1,4 @@
-﻿namespace Shifty.Persistence.Jwt;
+﻿namespace SmartAttendance.Persistence.Jwt;
 
 public class AccessToken
 {

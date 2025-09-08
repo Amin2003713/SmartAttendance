@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Queries.GetNameById;
-using Shifty.Common.Exceptions;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Features.Users.Queries.GetNameById;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.RequestHandlers.Features.Users.Queries.GetNameById;
+namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetNameById;
 
 public class GetNameByIdQueryHandler(
     UserManager<User> userManager,
@@ -22,7 +22,7 @@ public class GetNameByIdQueryHandler(
             if (user == null)
             {
                 logger.LogWarning("User with ID {UserId} not found.", request.Id);
-                ShiftyException.NotFound(localizer["User Not Found."]);
+                SmartAttendanceException.NotFound(localizer["User Not Found."]);
             }
 
             var fullName = user!.FullName() ?? "";

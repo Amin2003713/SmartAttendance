@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shifty.Application.Interfaces.Base;
-using Shifty.Domain.Users;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.Application.Interfaces.Jwt;
+namespace SmartAttendance.Application.Interfaces.Jwt;
 
 public interface IRefreshTokenCommandRepository : ICommandRepository<UserToken>
 {

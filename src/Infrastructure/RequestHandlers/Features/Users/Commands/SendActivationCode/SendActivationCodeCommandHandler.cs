@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shifty.Application.Features.Users.Commands.SendActivationCode;
-using Shifty.Application.Interfaces.Users;
-using Shifty.Common.Exceptions;
-using Shifty.Common.General;
-using Shifty.Domain.Users;
-using Shifty.Persistence.Services.Identities;
+using SmartAttendance.Application.Features.Users.Commands.SendActivationCode;
+using SmartAttendance.Application.Interfaces.Users;
+using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General;
+using SmartAttendance.Domain.Users;
+using SmartAttendance.Persistence.Services.Identities;
 
-namespace Shifty.RequestHandlers.Features.Users.Commands.SendActivationCode;
+namespace SmartAttendance.RequestHandlers.Features.Users.Commands.SendActivationCode;
 
 public class SendActivationCodeCommandHandler(
     UserManager<User> userManager,
@@ -32,7 +32,7 @@ public class SendActivationCodeCommandHandler(
 
 
             if (user == null)
-                throw ShiftyException.NotFound(localizer["User was not found."]);
+                throw SmartAttendanceException.NotFound(localizer["User was not found."]);
 
             user.PhoneNumber = request.PhoneNumber;
 
@@ -46,7 +46,7 @@ public class SendActivationCodeCommandHandler(
                 Message = activationCode
             };
         }
-        catch (ShiftyException e)
+        catch (SmartAttendanceException e)
         {
             logger.LogError(e, "Error while sending activation code.");
             throw;

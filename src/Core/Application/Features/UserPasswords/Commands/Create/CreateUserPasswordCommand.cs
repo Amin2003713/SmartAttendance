@@ -1,6 +1,6 @@
-using Shifty.Domain.Users;
+using SmartAttendance.Domain.Users;
 
-namespace Shifty.Application.Features.UserPasswords.Commands.Create;
+namespace SmartAttendance.Application.Features.UserPasswords.Commands.Create;
 
 public record CreateUserPasswordCommand(
     string Password,

@@ -1,7 +1,7 @@
-﻿// using Shifty.Application.Dashboards.Requests.GetRecentActivities;
+﻿// using SmartAttendance.Application.Dashboards.Requests.GetRecentActivities;
 // 
 //
-// namespace Shifty.Application.Dashboards.Queries.GetRecentActivities;
+// namespace SmartAttendance.Application.Dashboards.Queries.GetRecentActivities;
 //
 // public class GetRecentActivitiesQuery : GetRecentActivitiesRequest,
 //     IRequest<List<GetResentActivities>>;
