@@ -44,7 +44,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
                 typeof(ForbiddenException), HandleForbiddenException
             },
             {
-                typeof(SmartAttendanceException), HandleDRPException
+                typeof(SmartAttendanceException), HandleSmException
             }
         };
     }
@@ -204,7 +204,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
         context.ExceptionHandled = true;
     }
 
-    private void HandleDRPException(ExceptionContext context)
+    private void HandleSmException(ExceptionContext context)
     {
         if (context.Exception is not SmartAttendanceException exception)
             return;

@@ -41,7 +41,7 @@ public class InitialCompanyCommandHandler(
         catch (SmartAttendanceException e)
         {
             await transaction.RollbackAsync(cancellationToken);
-            logger.LogError(e, "DRP Exception occurred.");
+            logger.LogError(e, "Sm Exception occurred.");
             throw;
         }
         catch (Exception e)

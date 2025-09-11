@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
 using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
-using SmartAttendance.Application.Base.Discounts.Commands.CreateDiscount;
-using SmartAttendance.Application.Base.Payment.Request.Queries.ListPayment;
 using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
@@ -14,8 +12,6 @@ using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 using SmartAttendance.Common.Utilities.TypeConverters;
 using SmartAttendance.Domain.Tenants;
-using SmartAttendance.Domain.Tenants.Discounts;
-using SmartAttendance.Domain.Tenants.Payments;
 using SmartAttendance.Domain.Users;
 
 namespace SmartAttendance.Application;
@@ -37,7 +33,6 @@ public static class DependencyInjection
 
     private static void ConfigureMaster()
     {
-        DiscountAdaptor();
         OtherAdaptor();
         UserAdaptor();
     }
@@ -107,16 +102,4 @@ public static class DependencyInjection
         TypeAdapterConfig.GlobalSettings.Default.IgnoreMember((member, side) => member.Type == typeof(IFormFile));
     }
 
-
-    private static void DiscountAdaptor()
-    {
-        TypeAdapterConfig<CreateDiscountCommand, Discount>.NewConfig().Map(dest => dest.EndDate, src => src.StartDate.AddDays(src.Duration));
-
-        TypeAdapterConfig<Payments, PaymentQueryResponse>.NewConfig()
-            .Map(dest => dest.Status, src => src.Status == 100 || src.Status == 101);
-        // .Map(dest => dest.AcvtiveServices,
-        //     src => src.ActiveServices.Any()
-        //         ? src.ActiveServices.Select(a => a.Name)
-        //         : new List<string>().AsReadOnly());
-    }
 }

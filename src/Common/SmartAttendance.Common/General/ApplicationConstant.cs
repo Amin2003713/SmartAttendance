@@ -31,8 +31,8 @@ public abstract class ApplicationConstant
         public static string Endpoint { get; set; } = "http://minio:9000";
         public static string AccessKey { get; set; } = "gGdVCDO72q74X9lEKfuz";
         public static string SecretKey { get; set; } = "VLNkSksKp5S7nL8F684qkiBTgMnE5amlKQDTtwQz";
-        public static string DrpFont { get; set; } = "drp/B_Zar.ttf";
-        public static string DrpLoge { get; set; } = "drp/newDrpLogo.png";
+        public static string SmFont { get; set; } = "Sm/B_Zar.ttf";
+        public static string SmLoge { get; set; } = "Sm/newSmLogo.png";
     }
 
     public static class Aspire
@@ -68,7 +68,7 @@ public abstract class ApplicationConstant
             $"Server={Sql.DbServer};Database=SmartAttendance;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
 
         public static string RedisConnectionString { get; set; } =
-            "redis:6379,password=4f7d8a7e6b5c9f4b2a1d3e5f8c0b7a8CCA6B60A3EF40A59128@6@DRP";
+            "redis:6379,password=4f7d8a7e6b5c9f4b2a1d3e5f8c0b7a8CCA6B60A3EF40A59128@6@Sm";
 
         public static string GetSwaggerPath()
         {
@@ -119,7 +119,7 @@ public abstract class ApplicationConstant
 
         public static string Host { get; set; } = "mongodb";
         public static int Port { get; set; } = 27017;
-        public static string DefaultDb { get; set; } = "DRP";
+        public static string DefaultDb { get; set; } = "Sm";
         public static string UserName { get; set; } = "SA";
         public static string Password { get; set; } = "8CCA6B60A3EF40A59128@6D2824C9AEDC";
 

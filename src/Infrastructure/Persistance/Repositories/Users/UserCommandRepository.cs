@@ -13,8 +13,6 @@ public class UserCommandRepository(
     IStringLocalizer<UserCommandRepository> localizer,
     IdentityService service,
     ICompanyRepository companyRepository,
-    IPaymentQueryRepository paymentQueryRepository,
-    IPaymentCommandRepository paymentCommandRepository,
     UserManager<User> userService,
     SmartAttendanceTenantDbContext db
 )
@@ -64,17 +62,6 @@ public class UserCommandRepository(
         if (operatorUser == null)
             SmartAttendanceException.BadRequest();
 
-
-        // Validate the company's purchase plan
-        var companyPurchase = await paymentQueryRepository.GetPayment(cancellationToken);
-
-
-        if (companyPurchase == null)
-            SmartAttendanceException.NotFound("خرید معتبری یافت نشد.");
-
-        if (companyPurchase!.ActiveUsers + 1 > companyPurchase.UsersCount)
-            SmartAttendanceException.Forbidden("You have reached the maximum number of users allowed.");
-
         // Create a new user entity
         var newUser = new User
         {
@@ -85,7 +72,7 @@ public class UserCommandRepository(
             PhoneNumber = request.PhoneNumber,
             NationalCode = request.NationalCode,
             ImageUrl = request.ImageUrl,
-            DepartmentId = request.DepartmentId,
+
             FatherName = request.FatherName,
             PersonnelNumber = request.PersonnelNumber,
             roleType = request.roleType,
@@ -108,10 +95,7 @@ public class UserCommandRepository(
             await transaction.CommitAsync(cancellationToken);
 
 
-            companyPurchase.ActiveUsers++;
-
-            await paymentCommandRepository.Update(companyPurchase, cancellationToken);
-
+ 
             var tenantUser = newUser.Adapt<TenantUser>();
             tenantUser.SmartAttendanceTenantInfoId = service.TenantInfo.Id;
             await companyRepository.CreateAsync(tenantUser, cancellationToken);

@@ -26,14 +26,7 @@ public class GetCompanyInfoResponseExample : IExamplesProvider<GetCompanyInfoRes
             IsLegal = true,
             Logo = "https://example.com/logo.png",
             ActivityType = "Construction",
-            RemainingDays = 365,
-            Owner =
-                new LogPropertyInfoResponse
-                {
-                    Id = Guid.Empty,
-                    Name = "Aghdas",
-                    Profile = "https://example.com/Profil.png"
-                },
+            
             Settings = new CompanySettingResponse
             {
                 Flags = (long)(SettingFlags.CompanyEnabled | SettingFlags.InitialStepper)

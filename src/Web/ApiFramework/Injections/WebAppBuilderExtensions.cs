@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
-using SmartAttendance.ApiFramework.Analytics;
 using SmartAttendance.ApiFramework.Middleware.Localaizer;
 using SmartAttendance.ApiFramework.Middleware.Tenant;
 using SmartAttendance.Common.General;
@@ -27,7 +26,7 @@ public static class WebAppBuilderExtensions
 
         app.UseMultiTenant();
         app.UseMiddleware<TenantValidationMiddleware>();
-        app.UseMiddleware<CorrelationIdMiddleware>();
+        
         app.UseMiddleware<HandelArchive>();
 
         app.UseAppSwagger();

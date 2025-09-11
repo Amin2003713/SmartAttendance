@@ -45,7 +45,7 @@
       "publishAllPorts": true,
       "useSSL": false,
       "environmentVariables": {
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://DRPAspireService:4317",
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://SmAspireService:4317",
         "DOTNET_USE_POLLING_FILE_WATCHER": "1",
         "DOTNET_HOSTING_OPTIMIZATION_CACHE": "1",
         "DOTNET_RUNNING_IN_CONTAINER": "true",

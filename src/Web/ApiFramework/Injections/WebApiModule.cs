@@ -21,7 +21,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Riviera.ZarinPal.V4;
 using Serilog.Enrichers.Correlate;
-using SmartAttendance.ApiFramework.Analytics;
 using SmartAttendance.ApiFramework.Attributes;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Filters;
@@ -74,7 +73,6 @@ public static class WebApiModule
 
         services.AddHybridCaching();
 
-        services.AddTransient<CorrelationIdMiddleware>();
         services.AddTransient<TenantValidationMiddleware>();
         services.AddTransient<HandelArchive>();
 
@@ -96,7 +94,6 @@ public static class WebApiModule
         services.AddScoped<ValidateModelStateAttribute>();
         services.AddLocalization(options => options.ResourcesPath = resourcesPath);
 
-        services.AddCustomHealthChecks();
     }
 
 

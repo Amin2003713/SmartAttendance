@@ -5,12 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using SmartAttendance.ApiFramework;
-using SmartAttendance.ApiFramework.Analytics;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Injections;
 using SmartAttendance.ApiFramework.Middleware.Jwt;
 using SmartAttendance.Application;
-using SmartAttendance.Application.Base.Payment.Commands.CreatePayment;
+using SmartAttendance.Application.Features.UserPasswords.Commands.Create;
 using SmartAttendance.Common;
 using SmartAttendance.Common.General;
 using SmartAttendance.Domain.Tenants;
@@ -31,8 +30,7 @@ public class Startup
     /// </summary>
     public void ConfigureServices(IServiceCollection services)
     {
-        // Add Serilog for structured logging
-        services.AddSerilogLogging();
+        
 
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
@@ -42,7 +40,7 @@ public class Startup
             SmartAttendanceTenantDbContext, // Multi-tenant DB context
             SmartAttendanceDbContext,       // Service-specific DB context (non-tenant)
             Program,                        // Reference for localizer (error messages)
-            CreatePaymentCommand            // Optional: Commands for custom Swagger sample
+            CreateUserPasswordCommand            // Optional: Commands for custom Swagger sample
         >(
             AddLoginRecordForUsers // Delegate to log login success for auditing
         );

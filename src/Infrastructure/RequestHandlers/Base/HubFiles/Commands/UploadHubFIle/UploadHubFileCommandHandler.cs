@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
 using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
-using SmartAttendance.Application.Base.Storage.Commands.CreateStorage;
-using SmartAttendance.Application.Base.Storage.Queries.GetAllRemainStorage;
 using SmartAttendance.Application.Interfaces.HubFiles;
 using SmartAttendance.Common.Exceptions;
 using SmartAttendance.Common.General;
@@ -32,7 +30,7 @@ public class UploadHubFileCommandHandler(
         ValidateRequestFile(request);
 
         var fileSizeMb = request.File.Length.BytesToMegabytes();
-        await EnsureStorageAvailableAsync(fileSizeMb, cancellationToken);
+
 
         var bucketPath = await hubFileQueryRepository.GetBucketPath(request, userId, cancellationToken);
         logger.LogInformation("Bucket path resolved: {BucketPath}", bucketPath);
@@ -40,7 +38,7 @@ public class UploadHubFileCommandHandler(
         var uploadResult = await mediator.Send(UploadFileCommand.Create(request, bucketPath), cancellationToken);
         logger.LogInformation("File uploaded to MinIO. File Id: {Id}", uploadResult.Id);
 
-        await TryUpdateStorageAsync(request, fileSizeMb, uploadResult.Type, cancellationToken);
+
         return await SaveFileRecordAsync(request, uploadResult, cancellationToken);
     }
 
@@ -53,33 +51,6 @@ public class UploadHubFileCommandHandler(
         }
     }
 
-    private async Task EnsureStorageAvailableAsync(double fileSizeMb, CancellationToken cancellationToken)
-    {
-        var remain = await mediator.Send(new GetAllRemainStorageQuery(), cancellationToken);
-
-        if (remain.AvailableStorageMb < (decimal)fileSizeMb)
-        {
-            logger.LogWarning("Insufficient storage. Required: {Required} MB, Available: {Available} MB.",
-                fileSizeMb,
-                remain.AvailableStorageMb);
-
-            throw SmartAttendanceException.BadRequest(localizer["Out of Storage."].Value);
-        }
-    }
-
-    private async Task TryUpdateStorageAsync(
-        UploadHubFileCommand request,
-        double fileSizeMb,
-        FileType fileType,
-        CancellationToken cancellationToken)
-    {
-        if (request.RowType is FileStorageType.ZipExports or FileStorageType.PdfExports)
-            return;
-
-        var storageCommand = request.Adapt<CreateStorageCommand>().AddFileSize(fileSizeMb, fileType);
-        await mediator.Send(storageCommand, cancellationToken);
-        logger.LogInformation("Storage updated for {FileSizeMb} MB.", fileSizeMb);
-    }
 
     private async Task<MediaFileStorage> SaveFileRecordAsync(
         UploadHubFileCommand request,

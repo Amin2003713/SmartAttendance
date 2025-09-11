@@ -7,9 +7,7 @@ public class SmartAttendanceTenantInfo : ITenantInfo
     public string? Address { get; set; }
     public Guid? UserId { get; set; }
     public TenantAdmin? User { get; set; }
-    public List<Payments.Payments>? Payments { get; set; } = [];
-    public List<TenantDiscount>? TenantDiscounts { get; set; } = [];
-
+    
     public string? LegalName { get; set; }
 
     public string? NationalCode { get; set; }

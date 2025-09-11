@@ -59,7 +59,7 @@ public static class GenericPersistenceModule
             if (tenant?.Identifier != null)
                 return mongoFactory(tenant.Identifier!);
 
-            return mongoFactory("drp");
+            return mongoFactory("Sm");
         });
 
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));

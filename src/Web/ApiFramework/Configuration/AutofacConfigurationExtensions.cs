@@ -10,7 +10,7 @@ using SmartAttendance.Persistence.Db;
 using SmartAttendance.Persistence.Jwt;
 using SmartAttendance.Persistence.Repositories.Common;
 using SmartAttendance.Persistence.Services.Time.ir;
-using SmartAttendance.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
+
 
 namespace SmartAttendance.ApiFramework.Configuration;
 
@@ -41,7 +41,6 @@ public static class AutofacConfigurationExtensions
         var domainAssembly       = typeof(TenantDefaultValue).Assembly;
         var persistenceAssembly  = typeof(SmartAttendanceDbContext).Assembly;
         var applicationAssembly  = typeof(JwtService).Assembly;
-        var handlerAssembly      = typeof(CreateDiscountCommandHandler).Assembly;
         var frameworkApiAssembly = typeof(AutofacConfigurationExtensions).Assembly;
         var ipaFrameworkAssembly = typeof(WebApiModule).Assembly;
         var ipaModelsAssembly    = typeof(EnumExtensions).Assembly;
@@ -53,7 +52,6 @@ public static class AutofacConfigurationExtensions
             domainAssembly,
             persistenceAssembly,
             applicationAssembly,
-            handlerAssembly,
             frameworkApiAssembly,
             ipaFrameworkAssembly,
             ipaModelsAssembly,

@@ -16,5 +16,5 @@ global using SmartAttendance.Domain.Calenders.CalenderUsers;
 global using SmartAttendance.Domain.Calenders.DailyCalender;
 global using SmartAttendance.Domain.Setting;
 global using SmartAttendance.Domain.Tenants;
-global using SmartAttendance.Domain.Tenants.Discounts;
+
 global using SmartAttendance.Domain.Users;

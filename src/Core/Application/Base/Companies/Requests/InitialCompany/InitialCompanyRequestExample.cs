@@ -13,8 +13,8 @@ public class InitialCompanyRequestExample : IExamplesProvider<InitialCompanyRequ
             LastName = "Doe",             // Example last name
             NationalCode = "1234567890",
             FatherName = "ALi",
-            Password = "@NimaDrp1",
-            ConfirmPassword = "@NimaDrp1"
+            Password = "@NimaSm1",
+            ConfirmPassword = "@NimaSm1"
         };
     }
 }

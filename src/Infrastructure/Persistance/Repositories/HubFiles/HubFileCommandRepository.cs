@@ -6,10 +6,10 @@ using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
 using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
 using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
-using SmartAttendance.Application.Base.Storage.Request.Queries.StorageResponses;
+
 using SmartAttendance.Application.Interfaces.HubFiles;
 using SmartAttendance.Application.Interfaces.Minio;
-using SmartAttendance.Application.Interfaces.Storages;
+
 using SmartAttendance.Common.General.Enums.FileType;
 using SmartAttendance.Common.Utilities.EnumHelpers;
 using SmartAttendance.Domain.HubFiles;
@@ -23,8 +23,7 @@ public class HubFileCommandRepository(
     IStringLocalizer<HubFileCommandRepository> localizer,
     IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContextAccessor,
     IMinIoCommandRepository minIoCommandRepository,
-    IMinIoQueryRepository minIoQueryRepository,
-    IStorageCommandRepository storageCommandRepository
+    IMinIoQueryRepository minIoQueryRepository
 ) : CommandRepository<HubFile>(dbContext, logger),
     IHubFileCommandRepository
 {
@@ -123,20 +122,6 @@ public class HubFileCommandRepository(
 
         var path = await minIoCommandRepository.UploadPdfAsync(files, cancellationToken);
 
-        var storage = new StorageResponse(
-            // file.ProjectId,
-            path.Path,
-            path.Type,
-            new decimal(file.File.Length / (1024.0 * 1024.0)));
-
-
-        var storages = storage.Adapt<Domain.Storages.Storage>();
-
-        if (file.RowType is not (FileStorageType.ZipExports or FileStorageType.PdfExports))
-        {
-            await storageCommandRepository.AddAsync(storages, cancellationToken);
-            logger.LogInformation("Storage record added for path: {Path}", path.Path);
-        }
 
         try
         {
@@ -144,11 +129,6 @@ public class HubFileCommandRepository(
             logger.LogInformation("PDF file metadata saved successfully. FileId: {FileId}", path.Id);
 
             return GetUrlPath(path.Id, FileType.Pdf, FileStorageType.PdfExports);
-        }
-        catch (OutOfMemoryException)
-        {
-            // logger.LogError("Out of memory while saving PDF file. ProjectId: {ProjectId}", file.ProjectId);
-            throw new Exception(localizer["Your storage quota has been exceeded."]);
         }
         catch (Exception ex)
         {

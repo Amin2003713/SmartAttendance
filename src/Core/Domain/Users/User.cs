@@ -1,7 +1,7 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Genders;
 using SmartAttendance.Common.General.Enums.RoleTypes;
-using SmartAttendance.Domain.Departments;
+
 
 namespace SmartAttendance.Domain.Users;
 
@@ -18,10 +18,6 @@ public class User : IdentityUser<Guid>,
     public GenderType Gender { get; set; }
 
     public bool IsLeader { get; set; }
-
-    public Guid? DepartmentId { get; set; }
-
-    public virtual Department Department { get; set; }
 
     public RoleType roleType { get; set; }
 

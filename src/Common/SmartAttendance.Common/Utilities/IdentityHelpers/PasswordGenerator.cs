@@ -13,7 +13,7 @@ public static class PasswordGenerator
     {
         Console.WriteLine($@"Environment is  : {ApplicationConstant.IsDevelopment}");
         if (ApplicationConstant.IsDevelopment)
-            return "@AminDrp1";
+            return "@AminSm1";
 
 
         if (length < 8) throw new ArgumentException("Password length must be at least 8 characters.");

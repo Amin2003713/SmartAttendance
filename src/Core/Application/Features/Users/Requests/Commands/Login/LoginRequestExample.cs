@@ -7,7 +7,7 @@ public class LoginRequestExample : IExamplesProvider<LoginRequest>
         return new LoginRequest
         {
             UserName = "09134041709",
-            Password = "@NimaDrp1"
+            Password = "@NimaSm1"
         };
     }
 }
