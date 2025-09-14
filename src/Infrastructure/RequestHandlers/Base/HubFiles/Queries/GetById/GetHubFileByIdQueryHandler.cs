@@ -6,7 +6,7 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.RequestHandlers.Base.HubFiles.Queries.GetById;
 
 public class GetHubFileByIdQueryHandler(
-    IHubFileQueryRepository hubFileQueryRepository,
+    IHubFileQueryRepository                      hubFileQueryRepository,
     IStringLocalizer<GetHubFileByIdQueryHandler> localizer
 )
     : IRequestHandler<GetHubFileByIdQuery, HubFile>

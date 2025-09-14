@@ -5,8 +5,8 @@ using SmartAttendance.Common.Exceptions;
 namespace SmartAttendance.RequestHandlers.Base.MinIo.Queries.GetFile;
 
 public class GetFileQueryHandler(
-    IMinIoQueryRepository minIoQueryRepository,
-    ILogger<GetFileQueryHandler> logger,
+    IMinIoQueryRepository                 minIoQueryRepository,
+    ILogger<GetFileQueryHandler>          logger,
     IStringLocalizer<GetFileQueryHandler> localizer
 )
     : IRequestHandler<GetFileQuery, Stream>
@@ -37,6 +37,7 @@ public class GetFileQueryHandler(
         catch (Exception ex)
         {
             logger.LogError(ex, "Unexpected error occurred while retrieving file {FilePath}.", request?.FilePath);
+
             throw SmartAttendanceException.InternalServerError(
                 localizer["An unexpected error occurred while retrieving the file."]);
         }

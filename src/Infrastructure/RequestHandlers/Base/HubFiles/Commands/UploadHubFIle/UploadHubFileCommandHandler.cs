@@ -1,5 +1,4 @@
-﻿using Mapster;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
 using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 using SmartAttendance.Application.Interfaces.HubFiles;
@@ -14,11 +13,11 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Base.HubFiles.Commands.UploadHubFIle;
 
 public class UploadHubFileCommandHandler(
-    IHubFileCommandRepository hubFileCommandRepository,
-    IMediator mediator,
-    IdentityService identityService,
-    IHubFileQueryRepository hubFileQueryRepository,
-    ILogger<UploadHubFileCommandHandler> logger,
+    IHubFileCommandRepository                     hubFileCommandRepository,
+    IMediator                                     mediator,
+    IdentityService                               identityService,
+    IHubFileQueryRepository                       hubFileQueryRepository,
+    ILogger<UploadHubFileCommandHandler>          logger,
     IStringLocalizer<UploadHubFileCommandHandler> localizer
 ) : IRequestHandler<UploadHubFileCommand, MediaFileStorage>
 {
@@ -54,8 +53,8 @@ public class UploadHubFileCommandHandler(
 
     private async Task<MediaFileStorage> SaveFileRecordAsync(
         UploadHubFileCommand request,
-        HubFile path,
-        CancellationToken cancellationToken)
+        HubFile              path,
+        CancellationToken    cancellationToken)
     {
         try
         {
@@ -64,12 +63,13 @@ public class UploadHubFileCommandHandler(
 
             var fileUrl = BuildFileUrl(path.Id, path.Type, path.ReferenceIdType);
             var type    = request.File.GetFileType();
+
             return new MediaFileStorage
             {
-                Url = fileUrl.BuildImageUrl()!,
-                FileName = request.File.FileName,
+                Url        = fileUrl.BuildImageUrl()!,
+                FileName   = request.File.FileName,
                 Compressed = type == FileType.Picture ? fileUrl.BuildImageUrl(true) : null,
-                Type = type
+                Type       = type
             };
         }
         catch (OutOfMemoryException oomEx)
@@ -93,9 +93,10 @@ public class UploadHubFileCommandHandler(
     public static IFormFile ToFormFile(byte[] bytes, string fileName, string contentType = "application/octet-stream")
     {
         var stream = new MemoryStream(bytes);
+
         return new FormFile(stream, 0, bytes.Length, "file", fileName)
         {
-            Headers = new HeaderDictionary(),
+            Headers     = new HeaderDictionary(),
             ContentType = contentType
         };
     }

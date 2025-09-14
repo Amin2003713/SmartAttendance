@@ -12,6 +12,7 @@ public static class PasswordGenerator
     public static string GeneratePassword(int length = 8)
     {
         Console.WriteLine($@"Environment is  : {ApplicationConstant.IsDevelopment}");
+
         if (ApplicationConstant.IsDevelopment)
             return "@AminSm1";
 

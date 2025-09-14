@@ -1,16 +1,14 @@
 ﻿using SmartAttendance.Application.Base.Companies.Queries.GetCompanyInfo;
 using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
-
 using SmartAttendance.Application.Interfaces.Settings;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
-
 using SmartAttendance.Common.Exceptions;
 
 namespace SmartAttendance.RequestHandlers.Base.Companies.Queries.GetCompanyInfo;
 
 public class GetCompanyInfoQueryHandler(
-    ICompanyRepository companyRepository,
-    ISettingQueriesRepository settingQueriesRepository,
+    ICompanyRepository                           companyRepository,
+    ISettingQueriesRepository                    settingQueriesRepository,
     IStringLocalizer<GetCompanyInfoQueryHandler> localizer
 )
     : IRequestHandler<GetCompanyInfoQuery, GetCompanyInfoResponse>

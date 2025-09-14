@@ -3,13 +3,13 @@
 namespace SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
 
 public class UploadPdfCommand : UploadPdfRequest,
-    IRequest<string>
+                                IRequest<string>
 {
     public UploadPdfCommand(string path, UploadPdfRequest file, Guid userId)
     {
-        Path = path;
+        Path       = path;
         FileUpload = file;
-        UserId = userId;
+        UserId     = userId;
     }
 
     public UploadPdfCommand() { }

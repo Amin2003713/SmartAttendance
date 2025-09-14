@@ -7,8 +7,8 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetReminder;
 
 public class GetReminderQueryHandler(
-    IdentityService service,
-    IDailyCalendarQueryRepository dailyCalendarQueryRepository,
+    IdentityService                  service,
+    IDailyCalendarQueryRepository    dailyCalendarQueryRepository,
     ILogger<GetReminderQueryHandler> logger
 )
     : IRequestHandler<GetReminderQuery, List<GetReminderResponse>>
@@ -36,17 +36,17 @@ public class GetReminderQueryHandler(
                 cancellationToken);
 
             logger.LogInformation("Found {Count} reminders  UserId: {UserId}",
-                reminders.Count,
-                userId);
+                                  reminders.Count,
+                                  userId);
 
             return reminders;
         }
         catch (Exception ex)
         {
             logger.LogError(ex,
-                "Error retrieving reminders  Month: {Month}, Year: {Year}",
-                request.Month,
-                request.Year);
+                            "Error retrieving reminders  Month: {Month}, Year: {Year}",
+                            request.Month,
+                            request.Year);
 
             throw;
         }

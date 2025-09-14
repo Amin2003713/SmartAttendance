@@ -24,7 +24,7 @@ public class PanelController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails),   StatusCodes.Status400BadRequest)]
     public virtual async Task<CheckDomainResponse> CheckDomain(
         [FromQuery] string domain,
-        CancellationToken cancellationToken)
+        CancellationToken  cancellationToken)
     {
         return await Mediator.Send(new CheckDomainQuery(domain), cancellationToken);
     }
@@ -41,7 +41,7 @@ public class PanelController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(string),                      400)]
     public async Task<List<GetUserTenantResponse>> GetUserTenants(
         [FromQuery] string userName,
-        CancellationToken cancellationToken)
+        CancellationToken  cancellationToken)
     {
         return await Mediator.Send(new GetUserTenantQuery(userName), cancellationToken);
     }
@@ -60,7 +60,7 @@ public class PanelController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     public virtual async Task<string> InitialCompany(
         [FromBody] InitialCompanyRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                cancellationToken)
     {
         return await Mediator.Send(request.Adapt<InitialCompanyCommand>(), cancellationToken);
     }

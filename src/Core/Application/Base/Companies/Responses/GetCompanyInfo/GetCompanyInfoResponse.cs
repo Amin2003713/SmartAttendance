@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
-using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Domain.Setting;
 using SmartAttendance.Domain.Tenants;
 
@@ -41,7 +40,7 @@ public class GetCompanyInfoResponse
         Setting                   setting)
     {
         var result = companyInfo.Adapt<GetCompanyInfoResponse>();
-        result.Settings      = setting.Adapt<CompanySettingResponse>();
+        result.Settings = setting.Adapt<CompanySettingResponse>();
 
         return result;
     }

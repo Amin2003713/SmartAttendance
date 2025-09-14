@@ -22,7 +22,6 @@ global using Microsoft.Extensions.Logging;
 global using MongoDB.Driver;
 global using SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
 global using SmartAttendance.Application.Interfaces.Tenants.Calendars;
-
 global using SmartAttendance.Application.Interfaces.Users;
 global using SmartAttendance.Common.Common.ESBase;
 global using SmartAttendance.Common.Exceptions;

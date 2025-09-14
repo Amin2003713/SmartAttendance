@@ -21,8 +21,8 @@ public static class SecurityExtensions
 
         // ۳. GetOrCreate: در صورت کش‌میس، HMAC اجرا می‌شود
         var keyBytes = await cache.GetOrCreateAsync(cacheKey,
-            token => CreateKey("0.0.0.0", tenant, token),
-            cancellationToken: context.RequestAborted);
+                                                    token => CreateKey("0.0.0.0", tenant, token),
+                                                    cancellationToken: context.RequestAborted);
 
         return keyBytes;
     }

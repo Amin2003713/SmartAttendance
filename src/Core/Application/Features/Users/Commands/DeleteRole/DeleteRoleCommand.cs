@@ -3,4 +3,4 @@
 namespace SmartAttendance.Application.Features.Users.Commands.DeleteRole;
 
 public class DeleteRoleCommand : DeleteRoleRequest,
-    IRequest { }
+                                 IRequest { }

@@ -7,8 +7,8 @@ using SmartAttendance.Common.Utilities.InjectionHelpers;
 namespace SmartAttendance.ApiFramework.Middleware.Tenant;
 
 public class HandelArchive(
-    RequestDelegate next,
-    IMediator mediator,
+    RequestDelegate                 next,
+    IMediator                       mediator,
     IStringLocalizer<HandelArchive> localizer
 )
     : ITransientDependency
@@ -62,7 +62,7 @@ public class HandelArchive(
     {
         return context.Request.Path.Value!.Contains("/api") &&
                (context.Request.Path.Value!.Contains("company") ||
-                context.Request.Path.Value!.Contains("user") ||
+                context.Request.Path.Value!.Contains("user")    ||
                 context.Request.Path.Value!.Contains("setting") ||
                 context.Request.Path.Value!.Contains("payment"));
     }

@@ -3,8 +3,8 @@
 namespace SmartAttendance.Persistence.Repositories.Settings;
 
 public class SettingCommandRepository(
-    WriteOnlyDbContext dbContext,
+    WriteOnlyDbContext                  dbContext,
     ILogger<CommandRepository<Setting>> logger
 )
     : CommandRepository<Setting>(dbContext, logger),
-        ISettingCommandRepository;
+      ISettingCommandRepository;

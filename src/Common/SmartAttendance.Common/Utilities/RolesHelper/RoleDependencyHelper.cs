@@ -4,44 +4,45 @@ namespace SmartAttendance.Common.Utilities.RolesHelper;
 
 public static class RoleDependencyHelper
 {
-    private readonly static Dictionary<Roles, (List<Roles> Add, List<Roles> Remove)> RoleDependencies = new()
-    {
-        [Roles.Admin] = (
-            Enum.GetValues<Roles>().Where(r => r != Roles.Admin).ToList(),
-            Enum.GetValues<Roles>().Where(r => r != Roles.Admin).ToList()
-        ),
-        [Roles.Messages_Create] = ([Roles.Messages_Read], []),
-        [Roles.Messages_Edit] = ([Roles.Messages_Read], []),
-        [Roles.Messages_Delete] = ([Roles.Messages_Read], []),
-        [Roles.Messages_Read] = ([], [
-            Roles.Messages_Create,
-            Roles.Messages_Edit,
-            Roles.Messages_Delete,
-            Roles.ManageMessages
-        ]),
-        [Roles.ManageUsers] = ([Roles.Users_Create, Roles.Users_Edit, Roles.Users_Delete], [
-            Roles.Users_Create,
-            Roles.Users_Edit,
-            Roles.Users_Delete,
-            Roles.Admin
-        ]),
-        [Roles.ManageProjects] = (
-            [Roles.Projects_Create, Roles.Projects_Edit, Roles.Projects_Delete, Roles.Projects_Archive], [
-                Roles.Admin,
-                Roles.Projects_Create,
-                Roles.Projects_Edit,
-                Roles.Projects_Delete,
-                Roles.Projects_Archive
-            ]),
-        [Roles.ManageMessages] = (
-            [Roles.Messages_Create, Roles.Messages_Edit, Roles.Messages_Delete, Roles.Messages_Read], [
-                Roles.Admin,
+    private readonly static Dictionary<Roles, (List<Roles> Add, List<Roles> Remove)> RoleDependencies
+        = new Dictionary<Roles, (List<Roles> Add, List<Roles> Remove)>
+        {
+            [Roles.Admin] = (
+                Enum.GetValues<Roles>().Where(r => r != Roles.Admin).ToList(),
+                Enum.GetValues<Roles>().Where(r => r != Roles.Admin).ToList()
+            ),
+            [Roles.Messages_Create] = ([Roles.Messages_Read], []),
+            [Roles.Messages_Edit]   = ([Roles.Messages_Read], []),
+            [Roles.Messages_Delete] = ([Roles.Messages_Read], []),
+            [Roles.Messages_Read] = ([], [
                 Roles.Messages_Create,
                 Roles.Messages_Edit,
                 Roles.Messages_Delete,
-                Roles.Messages_Read
-            ])
-    };
+                Roles.ManageMessages
+            ]),
+            [Roles.ManageUsers] = ([Roles.Users_Create, Roles.Users_Edit, Roles.Users_Delete], [
+                Roles.Users_Create,
+                Roles.Users_Edit,
+                Roles.Users_Delete,
+                Roles.Admin
+            ]),
+            [Roles.ManageProjects] = (
+                [Roles.Projects_Create, Roles.Projects_Edit, Roles.Projects_Delete, Roles.Projects_Archive], [
+                    Roles.Admin,
+                    Roles.Projects_Create,
+                    Roles.Projects_Edit,
+                    Roles.Projects_Delete,
+                    Roles.Projects_Archive
+                ]),
+            [Roles.ManageMessages] = (
+                [Roles.Messages_Create, Roles.Messages_Edit, Roles.Messages_Delete, Roles.Messages_Read], [
+                    Roles.Admin,
+                    Roles.Messages_Create,
+                    Roles.Messages_Edit,
+                    Roles.Messages_Delete,
+                    Roles.Messages_Read
+                ])
+        };
 
     public static HashSet<Roles> GetAllAdditiveRoles(this Roles role)
     {

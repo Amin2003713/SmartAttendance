@@ -3,15 +3,15 @@
 namespace SmartAttendance.Persistence.Repositories.Tenants.Calendars;
 
 public class CalendarQueryRepository(
-    SmartAttendanceTenantDbContext db,
-    ILogger<CalendarQueryRepository> logger,
+    SmartAttendanceTenantDbContext            db,
+    ILogger<CalendarQueryRepository>          logger,
     IStringLocalizer<CalendarQueryRepository> localizer
 )
     : ICalendarQueryRepository
 {
     public async Task<List<TenantCalendar>> GetPublicCalendarEvents(
         Expression<Func<TenantCalendar, bool>> predicate,
-        CancellationToken cancellationToken)
+        CancellationToken                      cancellationToken)
     {
         try
         {
@@ -53,26 +53,25 @@ public class CalendarQueryRepository(
     }
 
     public async Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-        DateTime startAt,
-        DateTime endAt,
+        DateTime          startAt,
+        DateTime          endAt,
         CancellationToken cancellationToken)
     {
         try
         {
             logger.LogInformation("Fetching holidays from {Start} to {End} ",
-                startAt,
-                endAt);
+                                  startAt,
+                                  endAt);
 
-            var publicHolidays = await db.TenantCalendars
-                .Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday)
-                .Select(e => new GetHolidayResponse
-                {
-                    Date = e.Date,
-                    Message = e.Details,
-                    IsCustom = false,
-                    Id = e.Id
-                })
-                .ToListAsync(cancellationToken);
+            var publicHolidays = await db.TenantCalendars.Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday).
+                                          Select(e => new GetHolidayResponse
+                                          {
+                                              Date     = e.Date,
+                                              Message  = e.Details,
+                                              IsCustom = false,
+                                              Id       = e.Id
+                                          }).
+                                          ToListAsync(cancellationToken);
 
             return publicHolidays.OrderBy(h => h.Date).ToList();
         }

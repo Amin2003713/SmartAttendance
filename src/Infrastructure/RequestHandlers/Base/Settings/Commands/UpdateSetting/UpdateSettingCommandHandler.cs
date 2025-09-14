@@ -6,8 +6,8 @@ using SmartAttendance.Common.Utilities.EnumHelpers;
 namespace SmartAttendance.RequestHandlers.Base.Settings.Commands.UpdateSetting;
 
 public class UpdateSettingCommandHandler(
-    ISettingCommandRepository repository,
-    ISettingQueriesRepository queriesRepository,
+    ISettingCommandRepository                     repository,
+    ISettingQueriesRepository                     queriesRepository,
     IStringLocalizer<UpdateSettingCommandHandler> localizer
 )
     : IRequestHandler<UpdateSettingCommand>
@@ -17,6 +17,7 @@ public class UpdateSettingCommandHandler(
         try
         {
             var setting = await queriesRepository.GetSingleAsync(cancellationToken);
+
             if (setting == null)
                 throw SmartAttendanceException.NotFound(localizer["Setting Not Found."].Value);
 

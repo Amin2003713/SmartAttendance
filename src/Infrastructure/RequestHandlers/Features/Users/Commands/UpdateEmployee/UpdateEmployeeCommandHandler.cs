@@ -9,9 +9,9 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.UpdateEmployee;
 
 public class UpdateEmployeeCommandHandler(
-    UserManager<User> userManager,
-    RoleManager<Role> roleManager,
-    ILogger<UpdateEmployeeCommandHandler> logger,
+    UserManager<User>                              userManager,
+    RoleManager<Role>                              roleManager,
+    ILogger<UpdateEmployeeCommandHandler>          logger,
     IStringLocalizer<UpdateEmployeeCommandHandler> localizer
 ) : IRequestHandler<UpdateEmployeeCommand>
 {
@@ -31,22 +31,14 @@ public class UpdateEmployeeCommandHandler(
 
         // 3. Get current roles
         var currentRoleNames = await userManager.GetRolesAsync(user);
-        var currentRoles = currentRoleNames
-            .Where(RoleParser.IsValid)
-            .Select(RoleParser.Parse)
-            .ToHashSet();
+        var currentRoles     = currentRoleNames.Where(RoleParser.IsValid).Select(RoleParser.Parse).ToHashSet();
 
         // 4. Determine roles to add
-        var rolesToAdd = requestedRoles
-            .Except(currentRoles)
-            .SelectMany(r => r.GetAllAdditiveRoles())
-            .ToHashSet();
+        var rolesToAdd = requestedRoles.Except(currentRoles).SelectMany(r => r.GetAllAdditiveRoles()).ToHashSet();
 
         // 5. Determine roles to remove
-        var baseRemovals = currentRoles.Except(requestedRoles);
-        var rolesToRemove = baseRemovals
-            .SelectMany(r => r.GetAllRemovableRoles())
-            .ToHashSet();
+        var baseRemovals  = currentRoles.Except(requestedRoles);
+        var rolesToRemove = baseRemovals.SelectMany(r => r.GetAllRemovableRoles()).ToHashSet();
 
         // 6. Ensure all roles to be added exist
         await EnsureRolesExist(rolesToAdd);
@@ -92,7 +84,7 @@ public class UpdateEmployeeCommandHandler(
 
             var result = await roleManager.CreateAsync(new Role
             {
-                Name = roleName,
+                Name        = roleName,
                 Description = roleName
             });
 

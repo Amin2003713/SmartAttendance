@@ -4,11 +4,11 @@ using SmartAttendance.Common.General.BaseClasses;
 namespace SmartAttendance.Persistence.Repositories.Common;
 
 public class CommandRepository<TEntity>(
-    WriteOnlyDbContext dbContext,
+    WriteOnlyDbContext                  dbContext,
     ILogger<CommandRepository<TEntity>> logger
 )
     : RepositoryBase<TEntity, WriteOnlyDbContext>(dbContext, logger),
-        ICommandRepository<TEntity>
+      ICommandRepository<TEntity>
     where TEntity : class, IEntity
 {
     private readonly WriteOnlyDbContext _dbContext = dbContext;
@@ -201,8 +201,8 @@ public class CommandRepository<TEntity>(
 
     public async Task AddRangeAsync(
         IEnumerable<TEntity> entities,
-        CancellationToken cancellationToken,
-        bool saveNow = true)
+        CancellationToken    cancellationToken,
+        bool                 saveNow = true)
     {
         try
         {
@@ -246,8 +246,8 @@ public class CommandRepository<TEntity>(
 
     public async Task UpdateRangeAsync(
         IEnumerable<TEntity> entities,
-        CancellationToken cancellationToken,
-        bool saveNow = true)
+        CancellationToken    cancellationToken,
+        bool                 saveNow = true)
     {
         try
         {
@@ -291,12 +291,13 @@ public class CommandRepository<TEntity>(
 
     public async Task DeleteAsync(
         Expression<Func<TEntity, bool>> prediction,
-        CancellationToken cancellationToken,
-        bool saveNow = true)
+        CancellationToken               cancellationToken,
+        bool                            saveNow = true)
     {
         try
         {
             var item = await Entities.FirstOrDefaultAsync(prediction, cancellationToken);
+
             if (item == null)
                 SmartAttendanceException.NotFound();
 
@@ -311,8 +312,8 @@ public class CommandRepository<TEntity>(
 
     public async Task DeleteRangeAsync(
         IEnumerable<TEntity> entities,
-        CancellationToken cancellationToken,
-        bool saveNow = true)
+        CancellationToken    cancellationToken,
+        bool                 saveNow = true)
     {
         try
         {

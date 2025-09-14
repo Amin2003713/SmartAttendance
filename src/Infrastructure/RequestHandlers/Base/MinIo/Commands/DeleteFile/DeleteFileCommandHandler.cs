@@ -7,9 +7,9 @@ using SmartAttendance.Common.General;
 namespace SmartAttendance.RequestHandlers.Base.MinIo.Commands.DeleteFile;
 
 public class DeleteFileCommandHandler(
-    IMinIoCommandRepository minIoCommandRepository,
-    IMediator mediator,
-    ILogger<DeleteFileCommandHandler> logger,
+    IMinIoCommandRepository                    minIoCommandRepository,
+    IMediator                                  mediator,
+    ILogger<DeleteFileCommandHandler>          logger,
     IStringLocalizer<DeleteFileCommandHandler> localizer
 )
     : IRequestHandler<DeleteFileCommand, bool>
@@ -31,8 +31,7 @@ public class DeleteFileCommandHandler(
 
             if (path.Contains("localhost") || path.Contains(ApplicationConstant.Const.BaseDomain))
             {
-                var id = path.Split('/', StringSplitOptions.RemoveEmptyEntries)[4]
-                    .Split("?", StringSplitOptions.RemoveEmptyEntries)[0];
+                var id = path.Split('/', StringSplitOptions.RemoveEmptyEntries)[4].Split("?", StringSplitOptions.RemoveEmptyEntries)[0];
 
                 path = (await mediator.Send(new GetHubFileByIdQuery(Guid.Parse(id)), cancellationToken)).Path;
             }

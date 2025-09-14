@@ -17,7 +17,7 @@ namespace SmartAttendance.ApiFramework.Middleware.Jwt;
 public class JwtExceptionHandlingMiddleware
 {
     // Reuse a single JsonSerializerOptions to avoid re‐allocating on each exception.
-    private readonly static JsonSerializerOptions _jsonOptions = new()
+    private readonly static JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         // Not indenting improves throughput (no need for pretty‐printed output).
@@ -33,7 +33,7 @@ public class JwtExceptionHandlingMiddleware
     /// </summary>
     public JwtExceptionHandlingMiddleware(RequestDelegate next, ILogger<JwtExceptionHandlingMiddleware> logger)
     {
-        _next = next;
+        _next   = next;
         _logger = logger;
     }
 
@@ -88,7 +88,7 @@ public class JwtExceptionHandlingMiddleware
         var errorDetails = new ApiProblemDetails
         {
             Status = (int)statusCode,
-            Title = title,
+            Title  = title,
             Detail = exception.Message
         };
 

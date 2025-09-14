@@ -7,24 +7,24 @@ namespace SmartAttendance.Common.Behaviours;
 
 public class RequestResponseLoggingBehavior<TRequest, TResponse>(
     ILogger<RequestResponseLoggingBehavior<TRequest, TResponse>> _logger,
-    IHttpContextAccessor _httpContextAccessor
+    IHttpContextAccessor                                         _httpContextAccessor
 )
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : class
 {
     private const int MaxStringLength = 500;
 
-    private readonly static JsonSerializerOptions _jsonOptions = new()
+    private readonly static JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
     {
-        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        ReferenceHandler       = ReferenceHandler.IgnoreCycles,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        WriteIndented = true
+        WriteIndented          = true
     };
 
     public async Task<TResponse> Handle(
-        TRequest request,
+        TRequest                          request,
         RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+        CancellationToken                 cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
 

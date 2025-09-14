@@ -7,10 +7,10 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.DeleteRole;
 
 public class DeleteRoleCommandHandler(
-    IdentityService service,
-    UserManager<User> userManager,
-    RoleManager<Role> roleManager,
-    ILogger<DeleteRoleCommandHandler> logger,
+    IdentityService                            service,
+    UserManager<User>                          userManager,
+    RoleManager<Role>                          roleManager,
+    ILogger<DeleteRoleCommandHandler>          logger,
     IStringLocalizer<DeleteRoleCommandHandler> localizer
 ) : IRequestHandler<DeleteRoleCommand>
 {

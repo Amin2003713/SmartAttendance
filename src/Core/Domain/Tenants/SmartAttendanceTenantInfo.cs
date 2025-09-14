@@ -7,7 +7,7 @@ public class SmartAttendanceTenantInfo : ITenantInfo
     public string? Address { get; set; }
     public Guid? UserId { get; set; }
     public TenantAdmin? User { get; set; }
-    
+
     public string? LegalName { get; set; }
 
     public string? NationalCode { get; set; }
@@ -43,11 +43,11 @@ public class SmartAttendanceTenantInfo : ITenantInfo
 
     public bool IsCompanyRegistrationCompleted()
     {
-        return !(string.IsNullOrEmpty(LegalName) ||
+        return !(string.IsNullOrEmpty(LegalName)    ||
                  string.IsNullOrEmpty(NationalCode) ||
-                 string.IsNullOrEmpty(City) ||
-                 string.IsNullOrEmpty(Province) ||
-                 string.IsNullOrEmpty(Town) ||
+                 string.IsNullOrEmpty(City)         ||
+                 string.IsNullOrEmpty(Province)     ||
+                 string.IsNullOrEmpty(Town)         ||
                  string.IsNullOrEmpty(PhoneNumber));
     }
 
@@ -59,16 +59,16 @@ public class SmartAttendanceTenantInfo : ITenantInfo
 
     public void Update(SmartAttendanceTenantInfo request)
     {
-        Address = request.Address;
-        Name = request.Name;
-        LegalName = request.LegalName;
+        Address      = request.Address;
+        Name         = request.Name;
+        LegalName    = request.LegalName;
         NationalCode = request.NationalCode;
-        City = request.City;
-        Province = request.Province;
-        Town = request.Town;
-        PostalCode = request.PostalCode;
-        PhoneNumber = request.PhoneNumber;
-        IsLegal = request.IsLegal;
+        City         = request.City;
+        Province     = request.Province;
+        Town         = request.Town;
+        PostalCode   = request.PostalCode;
+        PhoneNumber  = request.PhoneNumber;
+        IsLegal      = request.IsLegal;
         ActivityType = request.ActivityType;
     }
 }

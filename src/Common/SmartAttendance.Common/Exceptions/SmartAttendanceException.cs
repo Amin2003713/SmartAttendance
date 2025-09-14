@@ -12,10 +12,10 @@ public class SmartAttendanceException : Exception
     /// <param name="innerException">The inner exception.</param>
     /// <param name="additionalData">Any additional data related to the exception.</param>
     public SmartAttendanceException(
-        string message = null,
+        string         message        = null,
         HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError,
-        Exception innerException = null,
-        object additionalData = null)
+        Exception      innerException = null,
+        object         additionalData = null)
         : base(message, innerException)
     {
         HttpStatusCode = httpStatusCode;
@@ -55,10 +55,10 @@ public class SmartAttendanceException : Exception
     ///     Creates a SmException with all parameters.
     /// </summary>
     public static SmartAttendanceException Create(
-        string message,
+        string         message,
         HttpStatusCode httpStatusCode,
-        Exception innerException,
-        object additionalData)
+        Exception      innerException,
+        object         additionalData)
     {
         return new SmartAttendanceException(message, httpStatusCode, innerException, additionalData);
     }
@@ -77,7 +77,7 @@ public class SmartAttendanceException : Exception
     ///     Creates an Unauthorized SmException (HTTP 401).
     /// </summary>
     public static UnauthorizedAccessException Unauthorized(
-        string message = "Unauthorized access.",
+        string message        = "Unauthorized access.",
         object additionalData = null)
     {
         return new UnauthorizedAccessException(message + "\n" + additionalData);
@@ -111,7 +111,7 @@ public class SmartAttendanceException : Exception
     ///     Creates an InternalServerError SmException (HTTP 500).
     /// </summary>
     public static SmartAttendanceException InternalServerError(
-        string message = "An unexpected error occurred.",
+        string message        = "An unexpected error occurred.",
         object additionalData = null)
     {
         return new SmartAttendanceException(message, HttpStatusCode.InternalServerError, null, additionalData);

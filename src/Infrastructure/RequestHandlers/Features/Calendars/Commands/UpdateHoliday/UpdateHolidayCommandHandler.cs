@@ -6,20 +6,21 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.UpdateHoliday;
 
 public class UpdateHolidayCommandHandler(
-    IdentityService service,
-    IDailyCalendarQueryRepository dailyCalendarQueryRepository,
-    IDailyCalendarCommandRepository dailyCalendarCommandRepository,
+    IdentityService                               service,
+    IDailyCalendarQueryRepository                 dailyCalendarQueryRepository,
+    IDailyCalendarCommandRepository               dailyCalendarCommandRepository,
     IStringLocalizer<UpdateHolidayCommandHandler> localizer,
-    ILogger<UpdateHolidayCommandHandler> logger
+    ILogger<UpdateHolidayCommandHandler>          logger
 )
     : IRequestHandler<UpdateHolidayCommand>
 {
     public async Task Handle(UpdateHolidayCommand request, CancellationToken cancellationToken)
     {
         var userId = service.GetUserId<Guid>();
+
         logger.LogInformation("User {UserId} initiated holiday update for HolidayId {HolidayId}",
-            userId,
-            request.HolidayId);
+                              userId,
+                              request.HolidayId);
 
         try
         {
@@ -28,8 +29,8 @@ public class UpdateHolidayCommandHandler(
             if (holiday == null)
             {
                 logger.LogWarning("Holiday {HolidayId} not found during update attempt by User {UserId}",
-                    request.HolidayId,
-                    userId);
+                                  request.HolidayId,
+                                  userId);
 
                 throw SmartAttendanceException.NotFound(localizer["Holiday not found."].Value);
             }
@@ -37,8 +38,8 @@ public class UpdateHolidayCommandHandler(
             if (holiday.CreatedBy != userId)
             {
                 logger.LogWarning("User {UserId} attempted to update a holiday {HolidayId} they did not create.",
-                    userId,
-                    request.HolidayId);
+                                  userId,
+                                  request.HolidayId);
 
                 throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
@@ -58,20 +59,19 @@ public class UpdateHolidayCommandHandler(
                         "Holiday move blocked: Target date {TargetDate} is already a holiday ",
                         request.Date);
 
-                    throw SmartAttendanceException.BadRequest(localizer["The selected date is already marked as a holiday."]
-                        .Value);
+                    throw SmartAttendanceException.BadRequest(localizer["The selected date is already marked as a holiday."].Value);
                 }
             }
 
-            holiday.Date = request.Date;
-            holiday.Details = request.Details;
+            holiday.Date      = request.Date;
+            holiday.Details   = request.Details;
             holiday.IsHoliday = true;
 
             await dailyCalendarCommandRepository.UpdateAsync(holiday, cancellationToken);
 
             logger.LogInformation("Holiday {HolidayId} successfully updated by User {UserId}",
-                request.HolidayId,
-                userId);
+                                  request.HolidayId,
+                                  userId);
         }
         catch (SmartAttendanceException)
         {
@@ -80,9 +80,9 @@ public class UpdateHolidayCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex,
-                "Unexpected error occurred while updating holiday {HolidayId} by User {UserId}",
-                request.HolidayId,
-                userId);
+                            "Unexpected error occurred while updating holiday {HolidayId} by User {UserId}",
+                            request.HolidayId,
+                            userId);
 
             throw SmartAttendanceException.InternalServerError(localizer["Unable to update holiday."].Value);
         }

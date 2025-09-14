@@ -15,10 +15,10 @@ public class GetHubFileQuery : IRequest<FileTransferResponse>
     {
         return new GetHubFileQuery
         {
-            FileId = fileId,
-            FileType = fileType,
+            FileId        = fileId,
+            FileType      = fileType,
             ReferenceType = storageType,
-            Compress = compress
+            Compress      = compress
         };
     }
 }

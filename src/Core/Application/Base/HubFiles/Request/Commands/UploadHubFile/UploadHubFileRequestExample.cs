@@ -11,8 +11,8 @@ public class UploadHubFileRequestExample : IExamplesProvider<UploadHubFileReques
             File = null!,
 
             ReportDate = DateTime.UtcNow,
-            RowId = Guid.NewGuid(),
-            RowType = FileStorageType.Material
+            RowId      = Guid.NewGuid(),
+            RowType    = FileStorageType.Material
         };
     }
 }

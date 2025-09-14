@@ -11,12 +11,12 @@ public interface ICalendarQueryRepository : IScopedDependency
 {
     Task<List<TenantCalendar>> GetPublicCalendarEvents(
         Expression<Func<TenantCalendar, bool>> predicate,
-        CancellationToken cancellationToken);
+        CancellationToken                      cancellationToken);
 
     Task<bool> IsAlreadyHoliday(DateTime dateTime, CancellationToken cancellationToken);
 
     Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-        DateTime startAt,
-        DateTime endAt,
+        DateTime          startAt,
+        DateTime          endAt,
         CancellationToken cancellationToken);
 }

@@ -9,11 +9,11 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.UpdatePhoneNumber;
 
 public class UpdatePhoneNumberCommandHandler(
-    IUserCommandRepository commandRepository,
-    UserManager<User> userManager,
-    IdentityService identityService,
-    IUserQueryRepository userRepository,
-    ILogger<UpdatePhoneNumberCommandHandler> logger,
+    IUserCommandRepository                            commandRepository,
+    UserManager<User>                                 userManager,
+    IdentityService                                   identityService,
+    IUserQueryRepository                              userRepository,
+    ILogger<UpdatePhoneNumberCommandHandler>          logger,
     IStringLocalizer<UpdatePhoneNumberCommandHandler> localizer
 ) : IRequestHandler<UpdatePhoneNumberCommand>
 {
@@ -24,7 +24,7 @@ public class UpdatePhoneNumberCommandHandler(
             var userId = identityService.GetUserId<Guid>();
 
             var user = await userRepository.GetSingleAsync(cancellationToken,
-                a => a.Id == userId);
+                                                           a => a.Id == userId);
 
             if (user == null)
                 throw SmartAttendanceException.NotFound(localizer["User was not found."]);

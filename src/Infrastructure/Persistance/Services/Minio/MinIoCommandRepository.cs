@@ -13,20 +13,20 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.Persistence.Services.Minio;
 
 public class MinIoCommandRepository(
-    WriteOnlyDbContext dbContext,
+    WriteOnlyDbContext                  dbContext,
     ILogger<CommandRepository<HubFile>> logger,
-    IHangFireJobRepository hangFireJobRepository
+    IHangFireJobRepository              hangFireJobRepository
 )
     : CommandRepository<HubFile>(dbContext, logger),
-        IMinIoCommandRepository
+      IMinIoCommandRepository
 {
-    private readonly AmazonS3Client _s3Client = new(ApplicationConstant.Minio.AccessKey,
-        ApplicationConstant.Minio.SecretKey,
-        new AmazonS3Config
-        {
-            ServiceURL = ApplicationConstant.Minio.Endpoint, // MinIO URL
-            ForcePathStyle = true
-        });
+    private readonly AmazonS3Client _s3Client = new AmazonS3Client(ApplicationConstant.Minio.AccessKey,
+                                                                   ApplicationConstant.Minio.SecretKey,
+                                                                   new AmazonS3Config
+                                                                   {
+                                                                       ServiceURL     = ApplicationConstant.Minio.Endpoint, // MinIO URL
+                                                                       ForcePathStyle = true
+                                                                   });
 
     public async Task<HubFile> UploadFileAsync(UploadFileCommand file, CancellationToken cancellationToken)
     {
@@ -38,17 +38,18 @@ public class MinIoCommandRepository(
             if (file?.File == null)
                 throw new ArgumentNullException(nameof(file));
 
-            file.Path = Path.Combine(file.Path, $"file-{DateTime.UtcNow:hh:mm:ss}-{file.File.FileName}").ToLower();
+            file.Path                    = Path.Combine(file.Path, $"file-{DateTime.UtcNow:hh:mm:ss}-{file.File.FileName}").ToLower();
             var (bucketName, objectName) = ParsePath(file.Path);
             await EnsureBucketExistsAsync(bucketName);
 
             var fileType = file.File.GetFileType();
 
             await using var stream = await file.File.OpenReadStream().CompressIfImageAsync(fileType);
+
             var request = new PutObjectRequest
             {
-                BucketName = bucketName,
-                Key = objectName,
+                BucketName  = bucketName,
+                Key         = objectName,
                 InputStream = stream,
                 ContentType = file.File.ContentType
             };
@@ -59,11 +60,11 @@ public class MinIoCommandRepository(
             {
                 Path = file.Path,
 
-                Name = file.File.FileName,
+                Name            = file.File.FileName,
                 ReferenceIdType = file.RowType,
-                ReportDate = file.ReportDate,
-                ReferenceId = file.RowId,
-                Type = fileType
+                ReportDate      = file.ReportDate,
+                ReferenceId     = file.RowId,
+                Type            = fileType
             };
         }
         catch (Exception e)
@@ -81,7 +82,7 @@ public class MinIoCommandRepository(
         if (file.File == null || file.File.Length == 0)
             throw new ArgumentNullException(nameof(file.File));
 
-        file.Path = Path.Combine(file.Path, file.FileName);
+        file.Path                    = Path.Combine(file.Path, file.FileName);
         var (bucketName, objectName) = ParsePath(file.Path);
         await EnsureBucketExistsAsync(bucketName);
 
@@ -89,14 +90,15 @@ public class MinIoCommandRepository(
         await UploadObjectAsync(bucketName, objectName, stream, file.File.Length, "application/pdf", cancellationToken);
 
         var extension = Path.GetExtension(file.FileName).TrimStart('.').ToLowerInvariant();
+
         var hubFile = new HubFile
         {
             Path = file.Path,
 
-            Name = file.FileName,
+            Name            = file.FileName,
             ReferenceIdType = file.RowType,
-            ReportDate = DateTime.UtcNow,
-            ReferenceId = file.RowId,
+            ReportDate      = DateTime.UtcNow,
+            ReferenceId     = file.RowId,
             Type = extension switch
                    {
                        "pdf" => FileType.Pdf, "zip" => FileType.Zip, _ => FileType.Picture
@@ -118,27 +120,28 @@ public class MinIoCommandRepository(
         if (file.File == null || file.File.Length == 0)
             throw new ArgumentNullException(nameof(file.File));
 
-        file.Path = Path.Combine(file.Path, file.FileName);
+        file.Path                    = Path.Combine(file.Path, file.FileName);
         var (bucketName, objectName) = ParsePath(file.Path);
         await EnsureBucketExistsAsync(bucketName);
 
         await using var stream = new MemoryStream(file.File);
+
         await UploadObjectAsync(bucketName,
-            objectName,
-            stream,
-            file.File.Length,
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            cancellationToken);
+                                objectName,
+                                stream,
+                                file.File.Length,
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                cancellationToken);
 
         var hubFile = new HubFile
         {
             Path = file.Path,
 
-            Name = file.FileName,
+            Name            = file.FileName,
             ReferenceIdType = file.RowType,
-            ReportDate = DateTime.UtcNow,
-            ReferenceId = file.RowId,
-            Type = FileType.Excel
+            ReportDate      = DateTime.UtcNow,
+            ReferenceId     = file.RowId,
+            Type            = FileType.Excel
         };
 
         hangFireJobRepository.AddDelayedJob(() => DeletePdfFile(hubFile.Path), TimeSpan.FromMinutes(30));
@@ -151,7 +154,7 @@ public class MinIoCommandRepository(
         if (string.IsNullOrWhiteSpace(file.Path)) throw new ArgumentNullException(nameof(file.Path));
         if (file.File == null || file.File.Length == 0) throw new ArgumentNullException(nameof(file.File));
 
-        file.Path = Path.Combine(file.Path, file.FileName);
+        file.Path                    = Path.Combine(file.Path, file.FileName);
         var (bucketName, objectName) = ParsePath(file.Path);
         await EnsureBucketExistsAsync(bucketName);
 
@@ -162,11 +165,11 @@ public class MinIoCommandRepository(
         {
             Path = file.Path,
 
-            Name = file.FileName,
+            Name            = file.FileName,
             ReferenceIdType = file.RowType,
-            ReportDate = DateTime.UtcNow,
-            ReferenceId = file.RowId,
-            Type = FileType.Xml
+            ReportDate      = DateTime.UtcNow,
+            ReferenceId     = file.RowId,
+            Type            = FileType.Xml
         };
 
         hangFireJobRepository.AddDelayedJob(() => DeletePdfFile(hubFile.Path), TimeSpan.FromMinutes(30));
@@ -182,10 +185,11 @@ public class MinIoCommandRepository(
         try
         {
             var (bucketName, objectName) = ParsePath(filePath);
+
             var request = new DeleteObjectRequest
             {
                 BucketName = bucketName,
-                Key = objectName
+                Key        = objectName
             };
 
             await _s3Client.DeleteObjectAsync(request, cancellationToken);
@@ -206,6 +210,7 @@ public class MinIoCommandRepository(
     private(string bucketName, string objectName) ParsePath(string path)
     {
         var segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
         if (segments.Length < 2)
             throw new ArgumentException("The path must include a bucket name and an object name.");
 
@@ -228,19 +233,19 @@ public class MinIoCommandRepository(
     }
 
     private async Task UploadObjectAsync(
-        string bucketName,
-        string objectName,
-        Stream stream,
-        long size,
-        string contentType,
+        string            bucketName,
+        string            objectName,
+        Stream            stream,
+        long              size,
+        string            contentType,
         CancellationToken cancellationToken)
     {
         var request = new PutObjectRequest
         {
-            BucketName = bucketName,
-            Key = objectName,
-            InputStream = stream,
-            ContentType = contentType,
+            BucketName      = bucketName,
+            Key             = objectName,
+            InputStream     = stream,
+            ContentType     = contentType,
             AutoCloseStream = false,
             Headers =
             {

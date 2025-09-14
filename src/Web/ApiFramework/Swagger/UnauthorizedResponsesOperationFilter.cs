@@ -12,11 +12,11 @@ public class UnauthorizedResponsesOperationFilter : IOperationFilter
     private readonly string schemeName;
 
     public UnauthorizedResponsesOperationFilter(
-        bool includeUnauthorizedAndForbiddenResponses,
+        bool   includeUnauthorizedAndForbiddenResponses,
         string schemeName = "Bearer")
     {
         this.includeUnauthorizedAndForbiddenResponses = includeUnauthorizedAndForbiddenResponses;
-        this.schemeName = schemeName;
+        this.schemeName                               = schemeName;
     }
 
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
@@ -35,16 +35,16 @@ public class UnauthorizedResponsesOperationFilter : IOperationFilter
         if (includeUnauthorizedAndForbiddenResponses)
         {
             operation.Responses.TryAdd("401",
-                new OpenApiResponse
-                {
-                    Description = "Unauthorized"
-                });
+                                       new OpenApiResponse
+                                       {
+                                           Description = "Unauthorized"
+                                       });
 
             operation.Responses.TryAdd("403",
-                new OpenApiResponse
-                {
-                    Description = "Forbidden"
-                });
+                                       new OpenApiResponse
+                                       {
+                                           Description = "Forbidden"
+                                       });
         }
     }
 }

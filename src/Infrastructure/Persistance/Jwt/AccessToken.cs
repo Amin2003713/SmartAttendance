@@ -5,16 +5,16 @@ public class AccessToken
     public AccessToken(JwtSecurityToken securityToken)
     {
         access_token = new JwtSecurityTokenHandler().WriteToken(securityToken);
-        token_type = "Bearer";
-        expires_in = (int)(securityToken.ValidTo - DateTime.UtcNow).TotalSeconds;
+        token_type   = "Bearer";
+        expires_in   = (int)(securityToken.ValidTo - DateTime.UtcNow).TotalSeconds;
     }
 
     public AccessToken(JwtSecurityToken securityToken, string refreshToken, int refreshTokenExpiresIn)
     {
-        access_token = new JwtSecurityTokenHandler().WriteToken(securityToken);
-        token_type = "Bearer";
-        expires_in = (int)(securityToken.ValidTo - DateTime.UtcNow).TotalSeconds;
-        refresh_token = refreshToken;
+        access_token           = new JwtSecurityTokenHandler().WriteToken(securityToken);
+        token_type             = "Bearer";
+        expires_in             = (int)(securityToken.ValidTo - DateTime.UtcNow).TotalSeconds;
+        refresh_token          = refreshToken;
         refreshToken_expiresIn = refreshTokenExpiresIn;
     }
 

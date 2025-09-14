@@ -8,16 +8,16 @@ using SmartAttendance.Application.Interfaces.Tenants.Companies;
 namespace SmartAttendance.Persistence.Repositories.Users;
 
 public class UserCommandRepository(
-    WriteOnlyDbContext dbContext,
-    ILogger<CommandRepository<User>> logger,
+    WriteOnlyDbContext                      dbContext,
+    ILogger<CommandRepository<User>>        logger,
     IStringLocalizer<UserCommandRepository> localizer,
-    IdentityService service,
-    ICompanyRepository companyRepository,
-    UserManager<User> userService,
-    SmartAttendanceTenantDbContext db
+    IdentityService                         service,
+    ICompanyRepository                      companyRepository,
+    UserManager<User>                       userService,
+    SmartAttendanceTenantDbContext          db
 )
     : CommandRepository<User>(dbContext, logger),
-        IUserCommandRepository
+      IUserCommandRepository
 {
     // Constructor with dependency injection for DbContext and Loggers
 
@@ -65,19 +65,19 @@ public class UserCommandRepository(
         // Create a new user entity
         var newUser = new User
         {
-            UserName = request.PhoneNumber,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Email = $"{request.PhoneNumber}{ApplicationConstant.Const.EmailSuffix}",
-            PhoneNumber = request.PhoneNumber,
+            UserName     = request.PhoneNumber,
+            FirstName    = request.FirstName,
+            LastName     = request.LastName,
+            Email        = $"{request.PhoneNumber}{ApplicationConstant.Const.EmailSuffix}",
+            PhoneNumber  = request.PhoneNumber,
             NationalCode = request.NationalCode,
-            ImageUrl = request.ImageUrl,
+            ImageUrl     = request.ImageUrl,
 
-            FatherName = request.FatherName,
+            FatherName      = request.FatherName,
             PersonnelNumber = request.PersonnelNumber,
-            roleType = request.roleType,
-            IsLeader = request.IsLeader,
-            Gender = request.Gender,
+            roleType        = request.roleType,
+            IsLeader        = request.IsLeader,
+            Gender          = request.Gender,
 
             CreatedBy = operatorUser!.Id
         };
@@ -95,7 +95,6 @@ public class UserCommandRepository(
             await transaction.CommitAsync(cancellationToken);
 
 
- 
             var tenantUser = newUser.Adapt<TenantUser>();
             tenantUser.SmartAttendanceTenantInfoId = service.TenantInfo.Id;
             await companyRepository.CreateAsync(tenantUser, cancellationToken);
@@ -123,13 +122,13 @@ public class UserCommandRepository(
 
     public async Task UpdatePhoneNumberAsync(
         UpdatePhoneNumberRequest request,
-        Guid userId,
-        CancellationToken cancellationToken)
+        Guid                     userId,
+        CancellationToken        cancellationToken)
     {
         var user = await userService.FindByIdAsync(userId.ToString()!);
 
         var exists = await TableNoTracking.AnyAsync(a => a.Id != userId && a.UserName == request.PhoneNumber,
-            cancellationToken);
+                                                    cancellationToken);
 
         if (exists)
             throw SmartAttendanceException.Conflict("This user already exists");
@@ -137,7 +136,7 @@ public class UserCommandRepository(
 
         var oldPhoneNumber = user!.PhoneNumber;
         user.PhoneNumber = request.PhoneNumber;
-        user.UserName = request.PhoneNumber;
+        user.UserName    = request.PhoneNumber;
 
         await userService.UpdateAsync(user);
 
@@ -148,7 +147,7 @@ public class UserCommandRepository(
         if (tenantUser != null)
         {
             tenantUser.PhoneNumber = request.PhoneNumber;
-            tenantUser.UserName = request.PhoneNumber;
+            tenantUser.UserName    = request.PhoneNumber;
             db.Update(tenantUser);
         }
 
@@ -175,7 +174,7 @@ public class UserCommandRepository(
         if (tenantUser != null)
         {
             tenantUser.FirstName = user.FirstName;
-            tenantUser.LastName = user.LastName;
+            tenantUser.LastName  = user.LastName;
             db.Update(tenantUser);
         }
 
@@ -184,7 +183,7 @@ public class UserCommandRepository(
         if (owner != null)
         {
             owner.FirstName = user.FirstName;
-            owner.LastName = user.LastName;
+            owner.LastName  = user.LastName;
             db.Update(owner);
         }
 
@@ -204,8 +203,7 @@ public class UserCommandRepository(
         try
         {
             var passwordHash = SecurityHelper.GetSha256Hash(password);
-            var user = await Table.Where(p => p.UserName == username && p.PasswordHash == passwordHash)
-                .SingleOrDefaultAsync(cancellationToken);
+            var user         = await Table.Where(p => p.UserName == username && p.PasswordHash == passwordHash).SingleOrDefaultAsync(cancellationToken);
 
             if (user != null)
                 return user!;

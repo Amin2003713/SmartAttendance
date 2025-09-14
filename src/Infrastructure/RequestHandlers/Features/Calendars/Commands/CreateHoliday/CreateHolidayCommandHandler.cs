@@ -7,17 +7,17 @@ using SmartAttendance.Domain.Calenders.DailyCalender;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.CreateHoliday;
 
 public class CreateHolidayCommandHandler(
-    IDailyCalendarQueryRepository dailyCalendarQueryRepository,
-    IDailyCalendarCommandRepository dailyCalendarCommandRepository,
+    IDailyCalendarQueryRepository                 dailyCalendarQueryRepository,
+    IDailyCalendarCommandRepository               dailyCalendarCommandRepository,
     IStringLocalizer<CreateHolidayCommandHandler> localizer,
-    ILogger<CreateHolidayCommandHandler> logger
+    ILogger<CreateHolidayCommandHandler>          logger
 )
     : IRequestHandler<CreateHolidayCommand>
 {
     public async Task Handle(CreateHolidayCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Starting CreateHolidayCommand on Date: {Date}",
-            request.Date);
+                              request.Date);
 
         try
         {
@@ -46,9 +46,9 @@ public class CreateHolidayCommandHandler(
         {
             // Log detailed error with context, but throw a short, descriptive message.
             logger.LogError(ex,
-                "Error creating holiday on Date: {Date}. Exception details: {ExceptionMessage}",
-                request.Date,
-                ex.Message);
+                            "Error creating holiday on Date: {Date}. Exception details: {ExceptionMessage}",
+                            request.Date,
+                            ex.Message);
 
             throw;
         }

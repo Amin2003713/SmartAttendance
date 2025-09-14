@@ -10,30 +10,30 @@ namespace SmartAttendance.ApiFramework.Tools;
 public class PagedApiResult : PagedApiResult<object>
 {
     public PagedApiResult(
-        object data,
-        int? total = null,
-        int statusCode = StatusCodes.Status200OK,
-        string[] messages = null,
-        string[] errors = null)
+        object   data,
+        int?     total      = null,
+        int      statusCode = StatusCodes.Status200OK,
+        string[] messages   = null,
+        string[] errors     = null)
         : base(data, total, statusCode, messages, errors) { }
 }
 
 public class PagedApiResult<T> : IActionResult,
-    IDisposable,
-    IStatusCodeActionResult
+                                 IDisposable,
+                                 IStatusCodeActionResult
 {
     public PagedApiResult(
-        T data,
-        int? total = null,
-        int statusCode = StatusCodes.Status200OK,
-        string[] messages = null,
-        string[] errors = null)
+        T        data,
+        int?     total      = null,
+        int      statusCode = StatusCodes.Status200OK,
+        string[] messages   = null,
+        string[] errors     = null)
     {
-        Data = data;
+        Data       = data;
         StatusCode = statusCode;
-        Messages = messages;
-        Errors = errors;
-        Total = total;
+        Messages   = messages;
+        Errors     = errors;
+        Total      = total;
     }
 
     public string[] Errors { get; set; }

@@ -10,12 +10,12 @@ using SmartAttendance.Persistence.Services.RunTimeServiceSetup;
 namespace SmartAttendance.RequestHandlers.Base.Companies.Commands.InitialCompany;
 
 public class InitialCompanyCommandHandler(
-    ICompanyRepository repository,
-    ITenantAdminRepository tenantAdminRepository,
-    RunTimeDatabaseMigrationService runTimeDatabaseMigrationService,
+    ICompanyRepository                             repository,
+    ITenantAdminRepository                         tenantAdminRepository,
+    RunTimeDatabaseMigrationService                runTimeDatabaseMigrationService,
     IStringLocalizer<InitialCompanyCommandHandler> localizer,
-    ILogger<InitialCompanyCommandHandler> logger,
-    SmartAttendanceTenantDbContext dbContext
+    ILogger<InitialCompanyCommandHandler>          logger,
+    SmartAttendanceTenantDbContext                 dbContext
 )
     : IRequestHandler<InitialCompanyCommand, string>
 {
@@ -57,6 +57,7 @@ public class InitialCompanyCommandHandler(
         try
         {
             var tenantAdmin = await tenantAdminRepository.CreateAsync(request.Adapt<TenantAdmin>(), cancellationToken);
+
             if (tenantAdmin == null)
                 throw SmartAttendanceException.InternalServerError(
                     additionalData: localizer["Company admin was not created."].Value);
@@ -72,8 +73,8 @@ public class InitialCompanyCommandHandler(
 
     private async Task<SmartAttendanceTenantInfo> InitialCompany(
         InitialCompanyCommand request,
-        Guid userId,
-        CancellationToken cancellationToken)
+        Guid                  userId,
+        CancellationToken     cancellationToken)
     {
         try
         {
@@ -100,16 +101,16 @@ public class InitialCompanyCommandHandler(
 
     private async Task<string> MigrateDatabaseAsync(
         SmartAttendanceTenantInfo company,
-        string password,
-        TenantAdmin adminUser,
-        CancellationToken cancellationToken)
+        string                    password,
+        TenantAdmin               adminUser,
+        CancellationToken         cancellationToken)
     {
         try
         {
             return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company,
-                password,
-                adminUser,
-                cancellationToken);
+                                                                                     password,
+                                                                                     adminUser,
+                                                                                     cancellationToken);
         }
         catch (SmartAttendanceException e)
         {
@@ -119,8 +120,7 @@ public class InitialCompanyCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected server error during database migration.");
-            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Unexpected server error occurred."]
-                .Value);
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Unexpected server error occurred."].Value);
         }
     }
 }

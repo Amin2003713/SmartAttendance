@@ -9,8 +9,8 @@ public class ZipExportCommandRequestExample : IExamplesProvider<ZipExportCommand
         return new ZipExportCommandRequest
         {
             FromDate = DateTime.UtcNow.AddDays(-7),
-            ToDate = DateTime.UtcNow,
-            RowType = FileStorageType.Picture
+            ToDate   = DateTime.UtcNow,
+            RowType  = FileStorageType.Picture
         };
     }
 }

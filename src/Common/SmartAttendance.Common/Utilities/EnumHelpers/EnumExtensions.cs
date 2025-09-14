@@ -94,12 +94,12 @@ public static class EnumExtensions
     public static Dictionary<string, int> ToDictionary<TEnum>()
         where TEnum : Enum
     {
-        return Enum.GetValues(typeof(TEnum))
-            .Cast<TEnum>()
-            .ToDictionary(
-                key => key.GetEnumNames(),
-                value => Convert.ToInt32(value)
-            );
+        return Enum.GetValues(typeof(TEnum)).
+                    Cast<TEnum>().
+                    ToDictionary(
+                        key => key.GetEnumNames(),
+                        value => Convert.ToInt32(value)
+                    );
     }
 
 

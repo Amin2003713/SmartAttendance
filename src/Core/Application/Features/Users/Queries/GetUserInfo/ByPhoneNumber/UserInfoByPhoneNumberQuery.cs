@@ -6,4 +6,4 @@ namespace SmartAttendance.Application.Features.Users.Queries.GetUserInfo.ByPhone
 ///     A query object to retrieve user information by phone number.
 /// </summary>
 public class UserInfoByPhoneNumberQuery : UserInfoByPhoneNumberRequest,
-    IRequest<UserInfoByPhoneNumberResponse> { }
+                                          IRequest<UserInfoByPhoneNumberResponse> { }

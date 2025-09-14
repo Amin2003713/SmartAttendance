@@ -5,13 +5,13 @@ using SmartAttendance.Application.Interfaces.Tenants.Companies;
 namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserTenants;
 
 public class GetUserTenantQueryHandler(
-    ICompanyRepository repository,
+    ICompanyRepository                 repository,
     ILogger<GetUserTenantQueryHandler> logger
 ) : IRequestHandler<GetUserTenantQuery, List<GetUserTenantResponse>>
 {
     public async Task<List<GetUserTenantResponse>> Handle(
         GetUserTenantQuery request,
-        CancellationToken cancellationToken)
+        CancellationToken  cancellationToken)
     {
         var result = await repository.FindByUserNameAsync(request.UserName, cancellationToken);
 

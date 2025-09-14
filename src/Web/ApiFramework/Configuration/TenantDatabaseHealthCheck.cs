@@ -18,7 +18,7 @@ public class TenantDatabaseHealthCheck(
 {
     public async Task<HealthCheckResult> CheckHealthAsync(
         HealthCheckContext context,
-        CancellationToken cancellationToken = default)
+        CancellationToken  cancellationToken = default)
     {
         var healthReport     = new Dictionary<string, object>();
         var unhealthyTenants = new List<string>();
@@ -57,13 +57,13 @@ public class TenantDatabaseHealthCheck(
                 catch (SqlException ex)
                 {
                     tenantStatus["HealthStatus"] = "Unhealthy";
-                    tenantStatus["Error"] = ex.Message;
+                    tenantStatus["Error"]        = ex.Message;
                     unhealthyTenants.Add(tenant.Name);
                 }
                 catch (Exception ex)
                 {
                     tenantStatus["HealthStatus"] = "Unhealthy";
-                    tenantStatus["Error"] = $"Unexpected error: {ex.Message}";
+                    tenantStatus["Error"]        = $"Unexpected error: {ex.Message}";
                     unhealthyTenants.Add(tenant.Name);
                 }
                 finally

@@ -7,8 +7,8 @@ public class UpdateHolidayRequestExample : IExamplesProvider<UpdateHolidayReques
         return new UpdateHolidayRequest
         {
             HolidayId = Guid.Empty,
-            Details = " ویرایش تعطیل",
-            Date = DateTime.Today
+            Details   = " ویرایش تعطیل",
+            Date      = DateTime.Today
         };
     }
 }

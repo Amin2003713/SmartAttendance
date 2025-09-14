@@ -11,16 +11,16 @@ public class CompanyRepository : ICompanyRepository
     private readonly IStringLocalizer<CompanyRepository> _messages; // Logger instance
 
     public CompanyRepository(
-        SmartAttendanceTenantDbContext dbContext,
-        ILogger<CompanyRepository> logger,
+        SmartAttendanceTenantDbContext      dbContext,
+        ILogger<CompanyRepository>          logger,
         IStringLocalizer<CompanyRepository> messages,
-        IdentityService identityService)
+        IdentityService                     identityService)
     {
-        _dbContext = dbContext;
-        _logger = logger;
-        _messages = messages;
+        _dbContext       = dbContext;
+        _logger          = logger;
+        _messages        = messages;
         _identityService = identityService;
-        Entities = _dbContext.TenantInfo;
+        Entities         = _dbContext.TenantInfo;
     }
 
     public DbSet<SmartAttendanceTenantInfo> Entities { get; }
@@ -35,8 +35,8 @@ public class CompanyRepository : ICompanyRepository
 
     public async Task<SmartAttendanceTenantInfo> CreateAsync(
         SmartAttendanceTenantInfo tenantInfo,
-        CancellationToken cancellationToken,
-        bool saveNow = true)
+        CancellationToken         cancellationToken,
+        bool                      saveNow = true)
     {
         try
         {
@@ -49,8 +49,9 @@ public class CompanyRepository : ICompanyRepository
                 return tenantInfo!;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo!.Identifier,
-                       cancellationToken) ??
+                                                              cancellationToken) ??
                    null!;
         }
         catch (Exception e)
@@ -90,7 +91,7 @@ public class CompanyRepository : ICompanyRepository
 
     public Task<SmartAttendanceTenantInfo> GetEntity(
         Expression<Func<SmartAttendanceTenantInfo, bool>> prediction,
-        CancellationToken cancellationToken)
+        CancellationToken                                 cancellationToken)
     {
         return Entities.SingleOrDefaultAsync(prediction, cancellationToken);
     }
@@ -104,32 +105,32 @@ public class CompanyRepository : ICompanyRepository
 
     public Task<List<TenantUser>> FindByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
     {
-        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo)
-            .Where(a => a.PhoneNumber == phoneNumber &&
-                        (_identityService.TenantInfo == null ||
-                         a.SmartAttendanceTenantInfoId.ToString() ==
-                         _identityService.TenantInfo.Id))
-            .ToListAsync(cancellationToken)!;
+        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo).
+                          Where(a => a.PhoneNumber == phoneNumber &&
+                                     (_identityService.TenantInfo == null ||
+                                      a.SmartAttendanceTenantInfoId.ToString() ==
+                                      _identityService.TenantInfo.Id)).
+                          ToListAsync(cancellationToken)!;
     }
 
     public Task<TenantUser> FindByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo)
-            .Where(a => a.Id == userId &&
-                        (_identityService.TenantInfo == null ||
-                         a.SmartAttendanceTenantInfoId.ToString() ==
-                         _identityService.TenantInfo.Id))
-            .FirstOrDefaultAsync(cancellationToken)!;
+        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo).
+                          Where(a => a.Id == userId &&
+                                     (_identityService.TenantInfo == null ||
+                                      a.SmartAttendanceTenantInfoId.ToString() ==
+                                      _identityService.TenantInfo.Id)).
+                          FirstOrDefaultAsync(cancellationToken)!;
     }
 
     public Task<List<TenantUser>> FindByUserNameAsync(string userName, CancellationToken cancellationToken)
     {
-        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo)
-            .Where(a => a.UserName == userName &&
-                        (_identityService.TenantInfo == null ||
-                         a.SmartAttendanceTenantInfoId.ToString() ==
-                         _identityService.TenantInfo.Id))
-            .ToListAsync(cancellationToken)!;
+        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo).
+                          Where(a => a.UserName == userName &&
+                                     (_identityService.TenantInfo == null ||
+                                      a.SmartAttendanceTenantInfoId.ToString() ==
+                                      _identityService.TenantInfo.Id)).
+                          ToListAsync(cancellationToken)!;
     }
 
     public async Task AddRequest(AddRequestCommand request, CancellationToken cancellationToken)
@@ -141,12 +142,12 @@ public class CompanyRepository : ICompanyRepository
 
         var tenantRequest = new TenantRequest
         {
-            Endpoint = request.EndPoint,
-            RequestTime = DateTime.UtcNow,
-            TenantId = request.TenantId,
-            UserId = request.UserId,
+            Endpoint      = request.EndPoint,
+            RequestTime   = DateTime.UtcNow,
+            TenantId      = request.TenantId,
+            UserId        = request.UserId,
             CorrelationId = request.CorrelationId,
-            ServiceName = request.ServiceName
+            ServiceName   = request.ServiceName
         };
 
         _dbContext.TenantRequests.Add(tenantRequest);

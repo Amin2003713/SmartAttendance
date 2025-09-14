@@ -77,11 +77,11 @@ public class ApplySummariesOperationFilter : IOperationFilter
                 return sourceArray.Any(name => actionName.Equals(name,         StringComparison.OrdinalIgnoreCase) ||
                                                actionName.Equals($"{name}All", StringComparison.OrdinalIgnoreCase) ||
                                                actionName.Equals($"{name}{pluralizeName}",
-                                                   StringComparison.OrdinalIgnoreCase) ||
+                                                                 StringComparison.OrdinalIgnoreCase) ||
                                                actionName.Equals($"{name}All{singularizeName}",
-                                                   StringComparison.OrdinalIgnoreCase) ||
+                                                                 StringComparison.OrdinalIgnoreCase) ||
                                                actionName.Equals($"{name}All{pluralizeName}",
-                                                   StringComparison.OrdinalIgnoreCase));
+                                                                 StringComparison.OrdinalIgnoreCase));
             }
 
             bool IsActionName(params string[] names)

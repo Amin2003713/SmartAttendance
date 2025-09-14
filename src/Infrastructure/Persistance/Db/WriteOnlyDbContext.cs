@@ -2,6 +2,6 @@ namespace SmartAttendance.Persistence.Db;
 
 public class WriteOnlyDbContext(
     DbContextOptions<SmartAttendanceDbContext> options,
-    IdentityService userId
+    IdentityService                            userId
 )
     : SmartAttendanceDbContext(options, userId);

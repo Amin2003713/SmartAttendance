@@ -12,7 +12,7 @@
         <Content Include=".env.development.local"/>
         <Content Include=".env.development.Server"/>
         <Content Include=".env.production.server"/>
-        <Content Include="databses.docker-compose.yaml" />
+        <Content Include="databses.docker-compose.yaml"/>
         <Content Include="services.docker-compose.yaml"/>
     </ItemGroup>
 </Project>

@@ -13,55 +13,54 @@ public class SmartAttendanceTenantDbContext(
     public DbSet<TenantRequest> TenantRequests { get; set; }
 
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<SmartAttendanceTenantInfo>(builder =>
-        {
-            // Primary Key
-            builder.HasKey(t => t.Id);
+                                                       {
+                                                           // Primary Key
+                                                           builder.HasKey(t => t.Id);
 
 
-            
-            // Additional Properties
-            builder.Property(t => t.Name).IsRequired().HasMaxLength(100);
-            
-        });
+                                                           // Additional Properties
+                                                           builder.Property(t => t.Name).IsRequired().HasMaxLength(100);
+                                                       });
 
         // Payments Entity Configuration
         modelBuilder.Entity<TenantAdmin>(builder =>
-        {
-            // Primary Key
-            builder.HasKey(u => u.Id);
+                                         {
+                                             // Primary Key
+                                             builder.HasKey(u => u.Id);
 
-            // Relationships
-            builder.HasMany(u => u.Tenants)
-                .WithOne(t => t.User)
-                .HasForeignKey(t => t.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
+                                             // Relationships
+                                             builder.HasMany(u => u.Tenants).
+                                                     WithOne(t => t.User).
+                                                     HasForeignKey(t => t.UserId).
+                                                     OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
 
-            builder.Property(u => u.RegisteredAt).ValueGeneratedOnAdd();
-        });
+                                             builder.Property(u => u.RegisteredAt).ValueGeneratedOnAdd();
+                                         });
 
 
         modelBuilder.Entity<TenantUser>(builder =>
-        {
-            builder.HasKey(u => u.Id);
+                                        {
+                                            builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.RegisteredAt).ValueGeneratedOnAdd();
+                                            builder.Property(u => u.RegisteredAt).ValueGeneratedOnAdd();
 
-            builder.HasOne(a => a.SmartAttendanceTenantInfo).WithMany(t => t.TenantUsers).HasForeignKey(t => t.SmartAttendanceTenantInfoId);
+                                            builder.HasOne(a => a.SmartAttendanceTenantInfo).
+                                                    WithMany(t => t.TenantUsers).
+                                                    HasForeignKey(t => t.SmartAttendanceTenantInfoId);
 
-            builder.HasQueryFilter(a => a.IsActive);
-        });
+                                            builder.HasQueryFilter(a => a.IsActive);
+                                        });
 
         modelBuilder.Entity<TenantCalendar>(builder =>
-        {
-            builder.HasKey(u => u.Id);
-            builder.HasQueryFilter(a => a.IsActive);
-        });
+                                            {
+                                                builder.HasKey(u => u.Id);
+                                                builder.HasQueryFilter(a => a.IsActive);
+                                            });
 
         modelBuilder.Entity<TenantRequest>(builder => { builder.HasKey(u => u.Id); });
     }

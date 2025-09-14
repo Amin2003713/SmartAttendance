@@ -18,21 +18,21 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
     private readonly UserManager<User>                            _userManager;
 
     public RefreshTokenCommandHandler(
-        UserManager<User> userManager,
-        IJwtService jwtService,
-        IRefreshTokenCommandRepository refreshTokenRepository,
-        ILogger<RefreshTokenCommandHandler> logger,
+        UserManager<User>                            userManager,
+        IJwtService                                  jwtService,
+        IRefreshTokenCommandRepository               refreshTokenRepository,
+        ILogger<RefreshTokenCommandHandler>          logger,
         IStringLocalizer<RefreshTokenCommandHandler> localizer,
-        IRefreshTokenQueryRepository refreshTokenQueryRepository)
+        IRefreshTokenQueryRepository                 refreshTokenQueryRepository)
     {
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-        _jwtService = jwtService ?? throw new ArgumentNullException(nameof(jwtService));
+        _jwtService  = jwtService  ?? throw new ArgumentNullException(nameof(jwtService));
 
         _refreshTokenRepository =
             refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
 
-        _logger = logger;
-        _localizer = localizer;
+        _logger                      = logger;
+        _localizer                   = localizer;
         _refreshTokenQueryRepository = refreshTokenQueryRepository;
     }
 
@@ -46,15 +46,14 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
             var userId = await _jwtService.ValidateJwtAccessTokenAsync(request.AccessToken);
 
             if (userId.userId == null)
-                throw SmartAttendanceException.Unauthorized(_localizer["Invalid access token."]
-                    .Value); // "توکن دسترسی نامعتبر است."
+                throw SmartAttendanceException.Unauthorized(_localizer["Invalid access token."].Value); // "توکن دسترسی نامعتبر است."
 
             var refreshToken = new UserToken
             {
-                UserId = userId.userId.Value,
+                UserId       = userId.userId.Value,
                 RefreshToken = request.RefreshToken,
-                AccessToken = null!,
-                UniqueId = userId.uniq.Value
+                AccessToken  = null!,
+                UniqueId     = userId.uniq.Value
             };
 
             await _refreshTokenQueryRepository.ValidateRefreshTokenAsync(refreshToken, cancellationToken);
@@ -69,18 +68,18 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
 
             var updateRefreshToken = new UserToken
             {
-                UserId = user.Id,
-                ExpiryTime = DateTime.UtcNow.AddDays(jwt.refreshToken_expiresIn),
+                UserId       = user.Id,
+                ExpiryTime   = DateTime.UtcNow.AddDays(jwt.refreshToken_expiresIn),
                 RefreshToken = jwt.refresh_token,
-                AccessToken = jwt.access_token.ComputeSha256Hash(),
-                UniqueId = uniqueId
+                AccessToken  = jwt.access_token.ComputeSha256Hash(),
+                UniqueId     = uniqueId
             };
 
             await _refreshTokenRepository.AddOrUpdateRefreshTokenAsync(updateRefreshToken, cancellationToken);
 
             return new RefreshTokenResponse
             {
-                AccessToken = jwt.access_token,
+                AccessToken  = jwt.access_token,
                 RefreshToken = jwt.refresh_token
             };
         }

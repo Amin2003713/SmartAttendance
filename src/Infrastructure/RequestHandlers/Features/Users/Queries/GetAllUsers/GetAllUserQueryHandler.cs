@@ -10,9 +10,9 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetAllUsers;
 
 public class GetAllUserQueryHandler(
-    IQueryRepository<User> queryRepository,
-    IMediator mediator,
-    UserManager<User> userManager,
+    IQueryRepository<User>          queryRepository,
+    IMediator                       mediator,
+    UserManager<User>               userManager,
     ILogger<GetAllUserQueryHandler> logger
 ) : IRequestHandler<GetAllUsersQuery, List<GetUserResponse>>
 {
@@ -31,8 +31,7 @@ public class GetAllUserQueryHandler(
                 result.CreatedBy =
                     await mediator.Send(new GetLogPropertyInfoQuery(user.CreatedBy.Value), cancellationToken);
 
-            result.Roles = (await userManager.GetRolesAsync(user) as List<string>)!.Select(NormalizeName)
-                .ToList();
+            result.Roles = (await userManager.GetRolesAsync(user) as List<string>)!.Select(NormalizeName).ToList();
 
             results.Add(result);
         }
@@ -55,8 +54,8 @@ public class GetAllUserQueryHandler(
 
     private bool IsPascalCase(string s)
     {
-        return !string.IsNullOrWhiteSpace(s) &&
-               char.IsUpper(s[0]) &&
+        return !string.IsNullOrWhiteSpace(s)         &&
+               char.IsUpper(s[0])                    &&
                (s.Length == 1 || char.IsLower(s[1])) &&
                !s.Contains('_');
     }

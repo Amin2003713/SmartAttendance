@@ -117,7 +117,7 @@ public class ProjectAccessAttribute(
     {
         if (context.Request.Query.TryGetValue(projectIdKey, out var queryValue) &&
             Guid.TryParse(queryValue, out var projectId) ||
-            context.Request.HasFormContentType &&
+            context.Request.HasFormContentType                                &&
             context.Request.Form.TryGetValue(projectIdKey, out var formValue) &&
             Guid.TryParse(formValue, out projectId))
             return projectId;
@@ -128,9 +128,9 @@ public class ProjectAccessAttribute(
 
         var bodyParam =
             actionContext.ActionDescriptor.Parameters.FirstOrDefault(p =>
-                p.BindingInfo?.BindingSource == BindingSource.Body);
+                                                                         p.BindingInfo?.BindingSource == BindingSource.Body);
 
-        if (bodyParam == null ||
+        if (bodyParam == null                                                        ||
             !actionContext.ActionArguments.TryGetValue(bodyParam.Name, out var body) ||
             body == null)
             return null;
@@ -139,10 +139,7 @@ public class ProjectAccessAttribute(
         {
             var jsonObject = JObject.Parse(JsonConvert.SerializeObject(body));
 
-            return jsonObject.Properties()
-                .FirstOrDefault(p => p.Name.Equals(projectIdKey, StringComparison.OrdinalIgnoreCase))
-                ?.Value
-                ?.ToObject<Guid>();
+            return jsonObject.Properties().FirstOrDefault(p => p.Name.Equals(projectIdKey, StringComparison.OrdinalIgnoreCase))?.Value?.ToObject<Guid>();
         }
         catch
         {
@@ -155,7 +152,7 @@ public class ProjectAccessAttribute(
         context.Result = new ObjectResult(new ApiProblemDetails
         {
             Status = statusCode,
-            Title = title,
+            Title  = title,
             Detail = detail
         })
         {

@@ -11,12 +11,12 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.Application.Interfaces.HubFiles;
 
 public interface IHubFileQueryRepository : IQueryRepository<HubFile>,
-    IScopedDependency
+                                           IScopedDependency
 {
     Task<FileTransferResponse> GetHubFile(
-        Guid rowId,
-        FileType fileType,
-        FileStorageType referenceType,
+        Guid              rowId,
+        FileType          fileType,
+        FileStorageType   referenceType,
         CancellationToken cancellationToken);
 
     Task<string> GetBucketPath(UploadHubFileCommand request, Guid? userId, CancellationToken cancellationToken);

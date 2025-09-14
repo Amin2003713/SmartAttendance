@@ -2,11 +2,10 @@
 using SmartAttendance.Common.General.Enums.Genders;
 using SmartAttendance.Common.General.Enums.RoleTypes;
 
-
 namespace SmartAttendance.Domain.Users;
 
 public class User : IdentityUser<Guid>,
-    IEntity
+                    IEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -33,13 +32,13 @@ public class User : IdentityUser<Guid>,
 
     public void SetPasswordHash(string hashPassword)
     {
-        UserName = PhoneNumber;
+        UserName           = PhoneNumber;
         NormalizedUserName = PhoneNumber!.ToUpper();
-        SecurityStamp = Guid.NewGuid().ToString();
-        ConcurrencyStamp = Guid.NewGuid().ToString();
-        PasswordHash = hashPassword;
-        Email = $"{PhoneNumber}@gmail.com";
-        NormalizedEmail = Email.ToUpper();
+        SecurityStamp      = Guid.NewGuid().ToString();
+        ConcurrencyStamp   = Guid.NewGuid().ToString();
+        PasswordHash       = hashPassword;
+        Email              = $"{PhoneNumber}@gmail.com";
+        NormalizedEmail    = Email.ToUpper();
     }
 
 
@@ -50,11 +49,11 @@ public class User : IdentityUser<Guid>,
 
     public void Update(User source)
     {
-        FirstName = source.FirstName;
-        LastName = source.LastName;
-        Profile = source.Profile;
-        Address = source.Address;
-        BirthDate = source.BirthDate;
+        FirstName  = source.FirstName;
+        LastName   = source.LastName;
+        Profile    = source.Profile;
+        Address    = source.Address;
+        BirthDate  = source.BirthDate;
         ModifiedAt = DateTime.UtcNow;
     }
 

@@ -6,12 +6,12 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.DeleteHoliday;
 
 public class DeleteHolidayCommandHandler(
-    IdentityService service,
-    IDailyCalendarQueryRepository dailyCalendarQueryRepository,
-    IMediator mediator,
-    IDailyCalendarCommandRepository dailyCalendarCommandRepository,
+    IdentityService                               service,
+    IDailyCalendarQueryRepository                 dailyCalendarQueryRepository,
+    IMediator                                     mediator,
+    IDailyCalendarCommandRepository               dailyCalendarCommandRepository,
     IStringLocalizer<DeleteHolidayCommandHandler> localizer,
-    ILogger<DeleteHolidayCommandHandler> logger
+    ILogger<DeleteHolidayCommandHandler>          logger
 )
     : IRequestHandler<DeleteHolidayCommand>
 {
@@ -20,9 +20,9 @@ public class DeleteHolidayCommandHandler(
         var userId = service.GetUserId<Guid>();
 
         logger.LogInformation("User {UserId} requested deletion of holiday with Id {HolidayId} at {Timestamp}.",
-            userId,
-            request.HolidayId,
-            DateTime.UtcNow);
+                              userId,
+                              request.HolidayId,
+                              DateTime.UtcNow);
 
         try
         {
@@ -38,8 +38,8 @@ public class DeleteHolidayCommandHandler(
             if (holiday.CreatedBy != userId)
             {
                 logger.LogWarning("User {UserId} attempted unauthorized deletion of holiday {HolidayId}.",
-                    userId,
-                    request.HolidayId);
+                                  userId,
+                                  request.HolidayId);
 
                 throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
@@ -47,8 +47,8 @@ public class DeleteHolidayCommandHandler(
             await dailyCalendarCommandRepository.DeleteAsync(holiday, cancellationToken);
 
             logger.LogInformation("Successfully deleted holiday with Id {HolidayId} for user {UserId}.",
-                request.HolidayId,
-                userId);
+                                  request.HolidayId,
+                                  userId);
         }
         catch (SmartAttendanceException)
         {
@@ -57,10 +57,10 @@ public class DeleteHolidayCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex,
-                "Error occurred while deleting holiday with Id {HolidayId} for user {UserId}. Error details: {ErrorMessage}",
-                request.HolidayId,
-                userId,
-                ex.Message);
+                            "Error occurred while deleting holiday with Id {HolidayId} for user {UserId}. Error details: {ErrorMessage}",
+                            request.HolidayId,
+                            userId,
+                            ex.Message);
 
             throw SmartAttendanceException.InternalServerError(localizer["Unable to delete holiday."].Value);
         }

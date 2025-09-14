@@ -17,7 +17,7 @@ public class
     /// <returns>A task that returns <see cref="UserInfoByPhoneNumberResponse" /> when completed.</returns>
     public async Task<UserInfoByPhoneNumberResponse> Handle(
         UserInfoByPhoneNumberQuery request,
-        CancellationToken cancellationToken)
+        CancellationToken          cancellationToken)
     {
         return new UserInfoByPhoneNumberResponse();
     }

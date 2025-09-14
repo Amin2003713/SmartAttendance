@@ -5,9 +5,9 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.Logout;
 
 public class LogoutCommandHandler(
-    IRefreshTokenQueryRepository queryRepository,
+    IRefreshTokenQueryRepository   queryRepository,
     IRefreshTokenCommandRepository commandRepository,
-    IdentityService identityService
+    IdentityService                identityService
 )
     : IRequestHandler<LogoutCommand>
 {

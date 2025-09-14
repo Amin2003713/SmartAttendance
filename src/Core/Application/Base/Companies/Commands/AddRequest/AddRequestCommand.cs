@@ -3,7 +3,7 @@
 public record AddRequestCommand(
     string EndPoint,
     string TenantId,
-    Guid? UserId,
+    Guid?  UserId,
     string CorrelationId,
     string ServiceName
 ) : IRequest;

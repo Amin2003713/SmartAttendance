@@ -9,7 +9,7 @@ namespace SmartAttendance.ApiFramework.Attributes;
 
 public static class AuthAttributeCache
 {
-    private readonly static ConcurrentDictionary<MethodInfo, bool> _authCache = new();
+    private readonly static ConcurrentDictionary<MethodInfo, bool> _authCache = new ConcurrentDictionary<MethodInfo, bool>();
 
     public static bool HasAuthenticationAttributes(ActionContext context)
     {
@@ -22,7 +22,7 @@ public static class AuthAttributeCache
         if (_authCache.TryGetValue(methodInfo, out var cachedResult)) return cachedResult;
 
         // Check for authentication attributes on method or controller
-        var hasAuthAttribute = methodInfo.GetCustomAttributes<AuthorizeAttribute>().Any() ||
+        var hasAuthAttribute = methodInfo.GetCustomAttributes<AuthorizeAttribute>().Any()     ||
                                methodInfo.GetCustomAttributes<ProjectAccessAttribute>().Any() ||
                                methodInfo.DeclaringType?.GetCustomAttributes<AuthorizeAttribute>().Any() ==
                                true ||

@@ -10,14 +10,14 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetCalendar;
 
 public class GetCalendarQueryHandler(
-    IdentityService identityService,
-    ICalendarQueryRepository calendarQueryRepository,
-    IDailyCalendarQueryRepository dailyCalendarQueryRepository,
+    IdentityService                  identityService,
+    ICalendarQueryRepository         calendarQueryRepository,
+    IDailyCalendarQueryRepository    dailyCalendarQueryRepository,
     ILogger<GetCalendarQueryHandler> logger
 ) : IRequestHandler<GetCalendarQuery, List<GetCalendarResponse>>
 {
     public async Task<List<GetCalendarResponse>> Handle(
-        GetCalendarQuery request,
+        GetCalendarQuery  request,
         CancellationToken cancellationToken)
     {
         var currentUserId = identityService.GetUserId<Guid>();
@@ -34,13 +34,13 @@ public class GetCalendarQueryHandler(
         var monthEndGregorian = monthStartGregorian.GetPersianMonthStartAndEndDates()!.EndDate;
 
         var publicCalendarEntries = await calendarQueryRepository.GetPublicCalendarEvents(calendar =>
-                                            calendar.Date >= monthStartGregorian &&
-                                            calendar.Date <= monthEndGregorian &&
-                                            calendar.IsActive &&
-                                            (calendar.IsHoliday ||
-                                             calendar.IsWeekend ||
-                                             calendar.Details != null),
-                                        cancellationToken) ??
+                                                                                              calendar.Date >= monthStartGregorian &&
+                                                                                              calendar.Date <= monthEndGregorian   &&
+                                                                                              calendar.IsActive                    &&
+                                                                                              (calendar.IsHoliday ||
+                                                                                               calendar.IsWeekend ||
+                                                                                               calendar.Details != null),
+                                                                                          cancellationToken) ??
                                     [];
 
 
@@ -52,25 +52,24 @@ public class GetCalendarQueryHandler(
                                     [];
 
 
-        var publicByDate = publicCalendarEntries.GroupBy(e => e.Date.Date)
-            .ToDictionary(g => g.Key, g => g.First());
+        var publicByDate = publicCalendarEntries.GroupBy(e => e.Date.Date).ToDictionary(g => g.Key, g => g.First());
 
-        var customByDate = customCalendarEntries.GroupBy(h => h.Date.Date)
-            .ToDictionary(g => g.Key,
-                g =>
-                {
-                    var merged = new DailyCalendar
-                    {
-                        Date = g.Key,
-                        IsReminder = g.Any(x => x.IsReminder),
-                        IsHoliday = g.Any(x => x.IsHoliday),
-                        IsMeeting = g.Any(x => x.IsMeeting),
-                        Details = g.Select(x => x.Details).FirstOrDefault(d => !string.IsNullOrWhiteSpace(d)),
-                        CalendarUsers = []
-                    };
+        var customByDate = customCalendarEntries.GroupBy(h => h.Date.Date).
+                                                 ToDictionary(g => g.Key,
+                                                              g =>
+                                                              {
+                                                                  var merged = new DailyCalendar
+                                                                  {
+                                                                      Date          = g.Key,
+                                                                      IsReminder    = g.Any(x => x.IsReminder),
+                                                                      IsHoliday     = g.Any(x => x.IsHoliday),
+                                                                      IsMeeting     = g.Any(x => x.IsMeeting),
+                                                                      Details       = g.Select(x => x.Details).FirstOrDefault(d => !string.IsNullOrWhiteSpace(d)),
+                                                                      CalendarUsers = []
+                                                                  };
 
-                    return merged;
-                });
+                                                                  return merged;
+                                                              });
 
 
         var datesWithPublicEvent = publicByDate.Keys;
@@ -95,17 +94,17 @@ public class GetCalendarQueryHandler(
             var hasReminder = IsReminder(customEntry);
 
             if (!isPublicHolidayOrWeekend &&
-                !isCustomHoliday &&
+                !isCustomHoliday          &&
                 !hasReminder)
                 continue;
 
 
             calendarResponses.Add(new GetCalendarResponse
             {
-                Date = date,
-                IsHoliday = isPublicHolidayOrWeekend,
+                Date            = date,
+                IsHoliday       = isPublicHolidayOrWeekend,
                 IsCustomHoliday = isCustomHoliday,
-                HasReminder = hasReminder
+                HasReminder     = hasReminder
             });
         }
 
@@ -123,8 +122,8 @@ public class GetCalendarQueryHandler(
         var isDayOff = publicEntry.IsHoliday || publicEntry.IsWeekend;
 
         logger.LogTrace("Checked IsPublicHolidayOrWeekend for {Date}: {IsDayOff}",
-            publicEntry.Date,
-            isDayOff);
+                        publicEntry.Date,
+                        isDayOff);
 
         return isDayOff;
     }

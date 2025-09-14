@@ -10,7 +10,7 @@ namespace SmartAttendance.Common.Common.ESBase;
 /// <typeparam name="TId">Type of the aggregate ID (e.g., long, Guid)</typeparam>
 public abstract class AggregateRoot<TId>
 {
-    private readonly List<IDomainEvent> _uncommittedEvents = new();
+    private readonly List<IDomainEvent> _uncommittedEvents = new List<IDomainEvent>();
     public List<EventDocument<TId>> StoredEvents { get; protected set; } = [];
 
     /// <summary>
@@ -142,11 +142,11 @@ public abstract class AggregateRoot<TId>
 
         // 2) Group all ReviewEvents by (int)PerformedByLevel.
         //    Then pick the single‐most‐recent (largest DataReviewedAt) log per level.
-        var mostRecentLogPerLevel = ReviewEvents.Values.GroupBy(log => (int)log.PerformedByLevel)
-            .ToDictionary(
-                grp => grp.Key,
-                grp => grp.OrderByDescending(x => x.DataReviewedAt).First()
-            );
+        var mostRecentLogPerLevel = ReviewEvents.Values.GroupBy(log => (int)log.PerformedByLevel).
+                                                 ToDictionary(
+                                                     grp => grp.Key,
+                                                     grp => grp.OrderByDescending(x => x.DataReviewedAt).First()
+                                                 );
 
         // 3) Build a Dictionary<UserType, ReviewAction> for levels 1..maxLevel.
         var result = new Dictionary<UserType, ReviewAction>(maxLevel);

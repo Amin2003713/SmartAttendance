@@ -7,7 +7,7 @@ public class VerifyPhoneNumberRequestExample : IExamplesProvider<VerifyPhoneNumb
         return new VerifyPhoneNumberRequest
         {
             PhoneNumber = "09134041709", // Example phone number
-            Code = "123456"              // Example verification code
+            Code        = "123456"       // Example verification code
         };
     }
 }

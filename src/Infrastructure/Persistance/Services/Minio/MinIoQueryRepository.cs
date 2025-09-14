@@ -7,11 +7,11 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.Persistence.Services.Minio;
 
 public class MinIoQueryRepository(
-    ReadOnlyDbContext dbContext,
+    ReadOnlyDbContext                 dbContext,
     ILogger<QueryRepository<HubFile>> logger
 )
     : QueryRepository<HubFile>(dbContext, logger),
-        IMinIoQueryRepository
+      IMinIoQueryRepository
 {
     private AmazonS3Client? _s3Client;
 
@@ -20,9 +20,9 @@ public class MinIoQueryRepository(
         ApplicationConstant.Minio.SecretKey,
         new AmazonS3Config
         {
-            ServiceURL = ApplicationConstant.Minio.Endpoint,
+            ServiceURL     = ApplicationConstant.Minio.Endpoint,
             ForcePathStyle = true,
-            UseHttp = true
+            UseHttp        = true
             // RegionEndpoint = Amazon.RegionEndpoint.USEast1
         });
 
@@ -33,7 +33,7 @@ public class MinIoQueryRepository(
         var request = new GetObjectRequest
         {
             BucketName = bucketName,
-            Key = objectName
+            Key        = objectName
         };
 
         using var response       = await S3Client.GetObjectAsync(request, cancellationToken);

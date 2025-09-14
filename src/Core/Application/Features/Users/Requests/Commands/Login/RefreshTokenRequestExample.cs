@@ -7,7 +7,7 @@ public class RefreshTokenRequestExample : IExamplesProvider<RefreshTokenRequest>
         return new RefreshTokenRequest
         {
             RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", // Example refresh token
-            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."   // Example access token
+            AccessToken  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  // Example access token
         };
     }
 }

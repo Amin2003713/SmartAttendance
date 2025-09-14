@@ -8,7 +8,7 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserInfo.GetById;
 
 public class GetUserByIdQueryHandler(
-    UserManager<User> userManager,
+    UserManager<User>                userManager,
     ILogger<GetUserByIdQueryHandler> logger
 ) : IRequestHandler<GetUserByIdQuery, GetUserByIdResponse>
 {

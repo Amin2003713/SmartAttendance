@@ -7,7 +7,7 @@ using RecurringJob = Hangfire.RecurringJob;
 namespace SmartAttendance.Persistence.Services.Taskes;
 
 public class ScheduledTaskService(
-    SeedCalendarService calenderService,
+    SeedCalendarService            calenderService,
     SmartAttendanceTenantDbContext context
 ) : IScopedDependency
 {
@@ -27,8 +27,8 @@ public class ScheduledTaskService(
 
 
             BackgroundJob.Schedule(() => ActivateCalenderJob(),
-                TimeSpan.FromSeconds(150
-                ));
+                                   TimeSpan.FromSeconds(150
+                                   ));
         }
         catch (Exception e)
         {

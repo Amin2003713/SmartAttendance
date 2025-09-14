@@ -4,7 +4,7 @@ using SmartAttendance.Application.Interfaces.Tenants.Companies;
 namespace SmartAttendance.RequestHandlers.Base.Companies.Queries.IsExist;
 
 public record IsCompanyExistByIdQueryHandler(
-    ICompanyRepository CompanyRepository,
+    ICompanyRepository                      CompanyRepository,
     ILogger<IsCompanyExistByIdQueryHandler> Logger
 )
     : IRequestHandler<IsCompanyExistByIdQuery, bool>

@@ -6,7 +6,7 @@ public class CreateHolidayRequestExample : IExamplesProvider<CreateHolidayReques
     {
         return new CreateHolidayRequest
         {
-            Date = DateTime.Today,
+            Date    = DateTime.Today,
             Details = "تعطیل"
         };
     }

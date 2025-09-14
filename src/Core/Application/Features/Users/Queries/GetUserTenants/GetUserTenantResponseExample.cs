@@ -8,15 +8,15 @@ public class GetUserTenantResponseExample : IExamplesProvider<List<GetUserTenant
     {
         return new List<GetUserTenantResponse>
         {
-            new()
+            new GetUserTenantResponse
             {
                 Domain = $"tehran.{ApplicationConstant.Const.BaseDomain}",
-                Name = "Tehran co "
+                Name   = "Tehran co "
             },
-            new()
+            new GetUserTenantResponse
             {
                 Domain = $"esf.{ApplicationConstant.Const.BaseDomain}",
-                Name = "Isfahan co "
+                Name   = "Isfahan co "
             }
         };
     }

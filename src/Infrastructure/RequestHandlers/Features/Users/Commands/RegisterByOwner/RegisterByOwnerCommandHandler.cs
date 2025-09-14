@@ -7,10 +7,10 @@ using SmartAttendance.Common.Exceptions;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.RegisterByOwner;
 
 public class RegisterByOwnerCommandHandler(
-    IUserCommandRepository commandRepository,
-    IUserQueryRepository queryRepository,
-    IMediator mediator,
-    ILogger<RegisterByOwnerCommandHandler> logger,
+    IUserCommandRepository                          commandRepository,
+    IUserQueryRepository                            queryRepository,
+    IMediator                                       mediator,
+    ILogger<RegisterByOwnerCommandHandler>          logger,
     IStringLocalizer<RegisterByOwnerCommandHandler> localizer
 ) : IRequestHandler<RegisterByOwnerCommand>
 {
@@ -19,7 +19,7 @@ public class RegisterByOwnerCommandHandler(
         try
         {
             if (await queryRepository.TableNoTracking.AnyAsync(a => a.PhoneNumber == request.PhoneNumber,
-                    cancellationToken))
+                                                               cancellationToken))
             {
                 logger.LogWarning("Duplicate phone number detected: {PhoneNumber}", request.PhoneNumber);
                 throw SmartAttendanceException.BadRequest(localizer["This phone number is already registered."].Value);
@@ -29,14 +29,14 @@ public class RegisterByOwnerCommandHandler(
 
 
             await mediator.Send(new UpdateEmployeeCommand
-                {
-                    Roles = request.Roles.Select(a => a).ToList(),
-                    UserId = userId
-                },
-                cancellationToken);
+                                {
+                                    Roles  = request.Roles.Select(a => a).ToList(),
+                                    UserId = userId
+                                },
+                                cancellationToken);
 
             logger.LogInformation("User with phone number {PhoneNumber} registered by owner successfully.",
-                request.PhoneNumber);
+                                  request.PhoneNumber);
         }
         catch (Exception e)
         {

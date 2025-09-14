@@ -6,7 +6,7 @@ using SmartAttendance.Common.Utilities.InjectionHelpers;
 namespace SmartAttendance.Persistence.Repositories.Tenants.TenantAdmin;
 
 public class TenantAdminRepository : ITenantAdminRepository,
-    IScopedDependency
+                                     IScopedDependency
 {
     private readonly SmartAttendanceTenantDbContext _dbContext;
     private readonly ILogger<TenantAdminRepository> _logger;
@@ -15,7 +15,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
     public TenantAdminRepository(SmartAttendanceTenantDbContext dbContext, ILogger<TenantAdminRepository> logger)
     {
         _dbContext = dbContext;
-        _logger = logger;
+        _logger    = logger;
     }
 
     private DbSet<Domain.Tenants.TenantAdmin> Entities => _dbContext.TenantAdmins;
@@ -41,7 +41,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
     /// <returns>The created TenantAdmin user.</returns>
     public async Task<Domain.Tenants.TenantAdmin> CreateAsync(
         Domain.Tenants.TenantAdmin user,
-        CancellationToken cancellationToken)
+        CancellationToken          cancellationToken)
     {
         try
         {
@@ -50,8 +50,9 @@ public class TenantAdminRepository : ITenantAdminRepository,
 
             Entities.Add(user);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             _logger.LogInformation("TenantAdmin user with phone number: {PhoneNumber} created successfully.",
-                user.PhoneNumber);
+                                   user.PhoneNumber);
 
             return user;
         }
@@ -74,7 +75,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The TenantAdmin user.</returns>
     public async Task<Domain.Tenants.TenantAdmin> GetByCompanyOrPhoneNumberAsync(
-        string phoneNumber,
+        string            phoneNumber,
         CancellationToken cancellationToken)
     {
         try
@@ -99,7 +100,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The Ipa.Models.Tenants.TenantAdmin user if found; otherwise, null.</returns>
     private async Task<Domain.Tenants.TenantAdmin> GetByCompanyOrPhoneNumber(
-        string phoneNumber,
+        string            phoneNumber,
         CancellationToken cancellationToken)
     {
         return (await Table.SingleOrDefaultAsync(a => a.PhoneNumber == phoneNumber, cancellationToken))!;

@@ -30,8 +30,6 @@ public class Startup
     /// </summary>
     public void ConfigureServices(IServiceCollection services)
     {
-        
-
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
             User,                           // User entity model
@@ -40,7 +38,7 @@ public class Startup
             SmartAttendanceTenantDbContext, // Multi-tenant DB context
             SmartAttendanceDbContext,       // Service-specific DB context (non-tenant)
             Program,                        // Reference for localizer (error messages)
-            CreateUserPasswordCommand            // Optional: Commands for custom Swagger sample
+            CreateUserPasswordCommand       // Optional: Commands for custom Swagger sample
         >(
             AddLoginRecordForUsers // Delegate to log login success for auditing
         );
