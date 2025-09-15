@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+@layout MudBaseLayout
+
+
+
+<MudLayout>
+
+
+    <AppBar DrawerToggle="DrawerToggle"/>
+
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu/>
+    </MudDrawer>
+
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+
+@code
+{
+    private bool _drawerOpen = true;
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

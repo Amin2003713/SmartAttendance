@@ -1,0 +1,216 @@
+﻿@page "/register"
+@using App.Applications.Users.Requests.Registers
+<MudContainer MaxWidth="MaxWidth.Small"
+              Class="d-flex justify-center align-center"
+              Style="height: 100svh; overflow:auto; padding: 0 !important;">
+    <MudCard Elevation="10" Style="border-radius: 20px; width: 100%; padding:20px; margin: 0;">
+
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="2">
+            <MudImage
+                Src="_content/Ui.Components/Icons/login.png"
+                Alt="لوگوی ثبت‌نام"
+                Width="160"
+                Height="160"
+                ObjectFit="ObjectFit.Contain"
+                ObjectPosition="ObjectPosition.Center"/>
+
+            <MudText Typo="Typo.h1" Align="Align.Center">
+                ایجاد حساب کاربری
+            </MudText>
+        </MudStack>
+
+        <AppForm TModel="RegisterRequest" Model="Request" OnValidSubmit="RegisterAsync">
+            <FormProps>
+
+                <!-- PhoneNumber -->
+                <MudTextField For="@(() => Request.PhoneNumber)"
+                              @bind-Value="Request.PhoneNumber"
+                              Label="شماره موبایل"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              HelperText="این شماره به عنوان نام کاربری استفاده می‌شود"
+                              HelperTextOnFocus/>
+
+                <!-- Password -->
+                <MudTextField For="@(() => Request.Password)"
+                              @bind-Value="Request.Password"
+                              Label="رمز عبور"
+                              InputType="@_passwordInput"
+                              Adornment="Adornment.End"
+                              AdornmentIcon="@(_passwordInput == InputType.Password ? MaterialIcons.Filled.Visibility : MaterialIcons.Filled.VisibilityOff)"
+                              OnAdornmentClick="TogglePassword"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              HelperText="رمز عبور باید حداقل ۶ کاراکتر باشد"
+                              HelperTextOnFocus/>
+
+                <!-- First / Last Name -->
+                <MudStack Row="true" Spacing="2">
+                    <MudTextField For="@(() => Request.FirstName)"
+                                  @bind-Value="Request.FirstName"
+                                  Label="نام"
+                                  Variant="Variant.Outlined"
+                                  FullWidth="true"
+                                  HelperText="نام خود را وارد کنید"
+                                  HelperTextOnFocus
+                                  Immediate="true"
+                    />
+                    <MudTextField For="@(() => Request.LastName)"
+                                  @bind-Value="Request.LastName"
+                                  Label="نام خانوادگی"
+                                  Variant="Variant.Outlined"
+                                  FullWidth="true"
+                                  HelperText="نام خانوادگی خود را وارد کنید"
+                                  HelperTextOnFocus
+                                  Immediate="true"/>
+                </MudStack>
+
+                <!-- FullName (auto from first/last; قابل ویرایش) -->
+                <MudHidden Hidden>
+                    <MudTextField
+                        @bind-Value="@(_fullName)"
+                        Label="نام و نام خانوادگی"
+                        Variant="Variant.Outlined"
+                        FullWidth="true"
+                        HelperText="در صورت نیاز می‌توانید ویرایش کنید"
+                        HelperTextOnFocus/>
+                </MudHidden>
+
+                <!-- Email (optional) -->
+                <MudTextField For="@(() => Request.Email)"
+                              @bind-Value="Request.Email"
+                              Label="ایمیل (اختیاری)"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              HelperText="برای بازیابی رمز عبور مفید است"
+                              HelperTextOnFocus
+                              InputMode="InputMode.email"
+                />
+
+
+                <MudTextField For="@(() => Request.Address)"
+                              @bind-Value="Request.Address"
+                              Label="آدرس"
+                              Variant="Variant.Outlined"
+                              FullWidth="true"
+                              Lines="1"
+                              HelperText="نشانی دقیق پستی (اختیاری)"
+                              HelperTextOnFocus
+                              Text="@Request.Address"/>
+
+
+                <MudFileUpload T="IBrowserFile" FilesChanged="OnFilesSelected!">
+                    <ActivatorContent>
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   FullWidth
+                                   StartIcon="@MaterialIcons.Filled.CloudUpload">
+                            @if (string.IsNullOrEmpty(Request.Profile?.Name ?? null))
+                            {
+                                @("تصویر پروفایل(اختیاری)")
+                            }
+                            else
+                            {
+                                @(Request.Profile?.Name)
+                            }
+                        </MudButton>
+                    </ActivatorContent>
+                </MudFileUpload>
+            </FormProps>
+
+            <SubmitButton>
+                <MudStack Class="mt-4">
+                    <MudButton Color="Color.Primary"
+                               Variant="Variant.Filled"
+                               OnClick="@(async () => await RegisterAsync(Request))"
+                               FullWidth="true"
+                               Disabled="@ApiCalling">
+                        @if (ApiCalling)
+                        {
+                            <CircularProgress Size="Size.Small" Color="Color.Info"/>
+                        }
+                        else
+                        {
+                            @("ثبت‌نام")
+                        }
+                    </MudButton>
+
+                    <MudStack Row="true" Justify="Justify.FlexEnd" Class="mt-2" Reverse>
+                        <MudLink OnClick="GoToLogin"
+                                 Color="Color.Info"
+                                 Underline="Underline.Hover"
+                                 Typo="Typo.h6">
+                            از قبل حساب دارید؟ ورود
+                        </MudLink>
+                    </MudStack>
+                </MudStack>
+            </SubmitButton>
+        </AppForm>
+
+    </MudCard>
+</MudContainer>
+
+@code {
+    
+
+    
+
+    private RegisterRequest Request { get;  } = new();
+
+    private bool ApiCalling { get; set; }
+    private InputType _passwordInput = InputType.Password;
+
+
+    private string _fullName
+    {
+        get => Request?.FirstName + " " + Request?.LastName;
+        set => value = Request?.FirstName + " " + Request?.LastName;
+    }
+
+
+    private void TogglePassword()
+    {
+        _passwordInput = _passwordInput == InputType.Password ? InputType.Text : InputType.Password;
+    }
+
+
+    private Task OnFilesSelected(IBrowserFile file)
+    {
+        Request.Profile = null;
+
+
+        Request.Profile = file;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async Task RegisterAsync(RegisterRequest _)
+    {
+        ApiCalling = true;
+
+        try
+        {
+            await Mediator.Send(Request);
+
+            Snackbar.ShowSuccess("ثبت‌نام با موفقیت انجام شد.\nدرحال ورود ...");
+
+            await Mediator.Send(new LoginRequest
+            {
+                Password = Request.Password ,
+                PhoneNumber = Request.PhoneNumber
+            });
+        }
+        catch (Exception e) { }
+        finally
+        {
+            ApiCalling = false;
+            StateHasChanged();
+        }
+    }
+
+    private void GoToLogin()
+    {
+        NavigationManager.NavigateTo("/Login");
+    }
+
+}

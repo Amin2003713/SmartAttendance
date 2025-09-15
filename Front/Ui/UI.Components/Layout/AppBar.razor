@@ -1,0 +1,48 @@
+﻿<MudAppBar Elevation="3"
+           Fixed
+           Gutters>
+
+    <!-- Left cluster -->
+    <MudIconButton Icon="@MaterialIcons.Filled.Menu"
+                   Color="Color.Default"
+                   OnClick="@(e => DrawerToggle.InvokeAsync())"/>
+
+    <MudText Typo="Typo.h1" Class=" font-bold"><a href="/">مطب من</a></MudText>
+
+    <MudSpacer/>
+
+    <MudBadge Dot="true" Color="Color.Error" Overlap="true">
+        <MudIconButton Icon="@MaterialIcons.Filled.Notifications"
+                       Color="Color.Default"/>
+    </MudBadge>
+
+    <!-- Notifications -->
+    <MudIconButton Edge="Edge.Start" OnClick="@Logout" Icon="@MaterialIcons.Filled.Logout">
+        خروج
+    </MudIconButton>
+
+
+</MudAppBar>
+
+@code {
+    
+
+
+    [Parameter] public EventCallback DrawerToggle { get; set; }
+
+    private void GoToProfile()
+    {
+        NavigationManager.NavigateTo("/profile");
+    }
+
+    private void GoToSettings()
+    {
+        NavigationManager.NavigateTo("/settings");
+    }
+
+    private async Task Logout()
+    {
+        await StateProvider.Logout();
+    }
+
+}

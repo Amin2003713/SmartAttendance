@@ -1,0 +1,111 @@
+﻿@using System.Security.Claims
+
+@using App.Applications.Users.Queries.GetUserInfo
+@using App.Applications.Users.Requests.UserInfos
+@using App.Applications.Users.Requests.UserQueries
+@using UI.Components.Common.BaseComponents.Dialogs
+@using UI.Components.Common.BaseComponents.Picture
+
+<MudNavMenu Class="app-nav" Margin="Margin.Normal" Rounded Bordered Dense>
+
+    <!-- همیشه قابل نمایش -->
+    <MudNavLink Href="/" Icon="@MaterialIcons.Filled.Home" IconColor="Color.Primary">
+        صفحه اصلی
+    </MudNavLink>
+
+    <AuthorizeView>
+        <Authorized Context="auth">
+          
+            <MudDivider Class="my-2"/>
+
+            <!-- User card -->
+            <MudNavGroup Title="حساب کاربری" Icon="@MaterialIcons.Filled.AccountCircle" IconColor="Color.Primary"
+                         Expanded="true">
+                <MudNavLink OnClick="OpenUserInfo">
+                    <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                        <MudAvatar Size="Size.Medium">
+                            <ServerImage Src="@StateProvider.User?.Profile"/>
+                        </MudAvatar>
+                        <MudStack Spacing="0">
+                            <MudText Typo="Typo.subtitle1" Bold="true">
+                                @* @($"{GetRoleDisplayName(auth.User)}: {StateProvider.User?.FirstName} {StateProvider.User?.LastName}") *@
+                            </MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @StateProvider.User?.UserName
+                            </MudText>
+                        </MudStack>
+                    </MudStack>
+                </MudNavLink>
+            </MudNavGroup>
+        </Authorized>
+
+        <NotAuthorized>
+            <MudDivider Class="my-2"/>
+            <MudText Class="px-2" Typo="Typo.caption" Color="Color.Secondary">
+                برای دسترسی بیشتر وارد شوید
+            </MudText>
+        </NotAuthorized>
+    </AuthorizeView>
+</MudNavMenu>
+
+<style>
+    /* tighter + consistent look */
+    .app-nav .mud-nav-link {
+        border-radius: 10px;
+    }
+
+    .app-nav .mud-nav-link .mud-icon-root {
+        opacity: .9;
+    }
+
+    .app-nav .mud-nav-group {
+        margin-top: 4px;
+    }
+
+    .app-nav .mud-nav-group .mud-nav-link {
+        margin-inline-start: .25rem;
+    }
+</style>
+
+@code {
+    
+
+    private async Task OpenRegisterDialog()
+    {
+        var opts = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            FullWidth        = true,
+            MaxWidth         = MaxWidth.Small
+        };
+
+        await DialogService.ShowAsync<RegisterDialog>("ثبت‌نام", opts);
+    }
+
+  
+
+    private async Task OpenUserInfo()
+    {
+        var opts = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth         = MaxWidth.Medium,
+            FullWidth        = true,
+            CloseButton      = true,
+            Position         = DialogPosition.Center
+        };
+
+        var model     = await Mediator.Send(new GetUserInfoQuery());
+
+        var prms = new DialogParameters
+        {
+            ["Model"]     = model,
+        };
+
+        await DialogService.ShowAsync<ProfileInfoDialog>("اطلاعات کاربر", prms, opts);
+    }
+
+    
+
+
+}
