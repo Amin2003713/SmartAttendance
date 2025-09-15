@@ -5,21 +5,22 @@ using SmartAttendance.Common.Utilities.InjectionHelpers;
 namespace SmartAttendance.Persistence.Jwt;
 
 public class JwtService(
-    UserManager<User> userManager,
-    ILogger<JwtService> logger,
+    UserManager<User>            userManager,
+    ILogger<JwtService>          logger,
     IStringLocalizer<JwtService> messages,
-    IHttpContextAccessor accessor
+    IHttpContextAccessor         accessor
 )
     : IJwtService,
-        IScopedDependency
+      IScopedDependency
 {
     public async Task<AccessToken> GenerateAsync(User user, string uniqueId)
     {
         var secretKey = await accessor.HttpContext!.GenerateShuffledKeyAsync();
+
         // Load keys securely
         var signingCredentials = new SigningCredentials(secretKey,
-            SecurityAlgorithms.HmacSha256Signature,
-            SecurityAlgorithms.HmacSha256Signature);
+                                                        SecurityAlgorithms.HmacSha256Signature,
+                                                        SecurityAlgorithms.HmacSha256Signature);
 
 
         // Get claims for the user
@@ -28,13 +29,13 @@ public class JwtService(
 
         var descriptor = new SecurityTokenDescriptor
         {
-            Issuer = ApplicationConstant.JwtSettings.Issuer,
-            Audience = ApplicationConstant.JwtSettings.Audience,
-            IssuedAt = DateTime.UtcNow,
-            NotBefore = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.NotBeforeMinutes),
-            Expires = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.ExpirationMinutes),
+            Issuer             = ApplicationConstant.JwtSettings.Issuer,
+            Audience           = ApplicationConstant.JwtSettings.Audience,
+            IssuedAt           = DateTime.UtcNow,
+            NotBefore          = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.NotBeforeMinutes),
+            Expires            = DateTime.UtcNow.AddMinutes(ApplicationConstant.JwtSettings.ExpirationMinutes),
             SigningCredentials = signingCredentials,
-            Subject = new ClaimsIdentity(claims)
+            Subject            = new ClaimsIdentity(claims)
         };
 
         try
@@ -44,8 +45,8 @@ public class JwtService(
             var securityToken = tokenHandler.CreateJwtSecurityToken(descriptor);
 
             return new AccessToken(securityToken,
-                GenerateRefreshToken(),
-                ApplicationConstant.JwtSettings.RefreshTokenValidityInDays);
+                                   GenerateRefreshToken(),
+                                   ApplicationConstant.JwtSettings.RefreshTokenValidityInDays);
         }
         catch (Exception ex)
         {
@@ -63,15 +64,15 @@ public class JwtService(
         try
         {
             tokenHandler.ValidateToken(token,
-                new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = secretKey,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                },
-                out var validatedToken);
+                                       new TokenValidationParameters
+                                       {
+                                           ValidateIssuerSigningKey = true,
+                                           IssuerSigningKey         = secretKey,
+                                           ValidateIssuer           = false,
+                                           ValidateAudience         = false,
+                                           ClockSkew                = TimeSpan.Zero
+                                       },
+                                       out var validatedToken);
 
             var jwtSecurityToken = (JwtSecurityToken)validatedToken;
             var userId           = Guid.Parse(jwtSecurityToken.Claims.First(claim => claim.Type == "id").Value);
@@ -90,12 +91,12 @@ public class JwtService(
     {
         var claims = new List<Claim>
         {
-            new("id", user.Id.ToString()),
-            new("username", user.UserName ?? string.Empty),
-            new("firstName", user.FirstName ?? string.Empty),
-            new("lastName", user.LastName ?? string.Empty),
-            new("phoneNumber", user.PhoneNumber ?? string.Empty),
-            new("uniqueTokenIdentifier", uniqueId)
+            new Claim("id",                    user.Id.ToString()),
+            new Claim("username",              user.UserName    ?? string.Empty),
+            new Claim("firstName",             user.FirstName   ?? string.Empty),
+            new Claim("lastName",              user.LastName    ?? string.Empty),
+            new Claim("phoneNumber",           user.PhoneNumber ?? string.Empty),
+            new Claim("uniqueTokenIdentifier", uniqueId)
         };
 
         if (!string.IsNullOrEmpty(user.Profile))
@@ -103,7 +104,7 @@ public class JwtService(
 
         if (user.LastActionOnServer.HasValue)
             claims.Add(new Claim("lastLoginDate",
-                user.LastActionOnServer.Value.ToString("s")));
+                                 user.LastActionOnServer.Value.ToString("s")));
 
         // هر نقش را جداگانه به یک Claim تبدیل کنید
         var userRoles = await userManager.GetRolesAsync(user);
@@ -123,10 +124,9 @@ public class JwtService(
         var       byteArray = new byte[32];
         rng.GetBytes(byteArray);
 
-        return Convert.ToBase64String(byteArray)
-            .Replace("+", string.Empty)
-            . // Avoid URL-unsafe characters
-            Replace("/",  string.Empty)
-            .Replace("=", string.Empty);
+        return Convert.ToBase64String(byteArray).
+                       Replace("+", string.Empty). // Avoid URL-unsafe characters
+                       Replace("/", string.Empty).
+                       Replace("=", string.Empty);
     }
 }

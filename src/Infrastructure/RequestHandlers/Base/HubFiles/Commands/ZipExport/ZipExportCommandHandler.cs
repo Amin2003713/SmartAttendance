@@ -16,12 +16,12 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.RequestHandlers.Base.HubFiles.Commands.ZipExport;
 
 public class ZipExportCommandHandler(
-    IHubFileQueryRepository hubFileQueryRepository,
-    IMinIoQueryRepository minIoQueryRepository,
-    IMediator mediator,
-    IHangFireJobRepository jobRepository,
-    IMinIoCommandRepository minIoCommandRepository,
-    ILogger<ZipExportCommandHandler> logger,
+    IHubFileQueryRepository                   hubFileQueryRepository,
+    IMinIoQueryRepository                     minIoQueryRepository,
+    IMediator                                 mediator,
+    IHangFireJobRepository                    jobRepository,
+    IMinIoCommandRepository                   minIoCommandRepository,
+    ILogger<ZipExportCommandHandler>          logger,
     IStringLocalizer<ZipExportCommandHandler> localizer
 )
     : IRequestHandler<ZipExportCommand, MediaFileStorage>
@@ -57,8 +57,8 @@ public class ZipExportCommandHandler(
         {
             File = zip,
 
-            RowType = FileStorageType.ZipExports,
-            RowId = Guid.NewGuid(),
+            RowType    = FileStorageType.ZipExports,
+            RowId      = Guid.NewGuid(),
             ReportDate = DateTime.UtcNow
         };
 
@@ -122,6 +122,7 @@ public class ZipExportCommandHandler(
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "Error retrieving file {FileName} from storage.", hubFile.Name);
+
                     throw SmartAttendanceException.InternalServerError(
                         localizer["Error retrieving file {0} from storage.", hubFile.Name].Value);
                 }
@@ -141,6 +142,7 @@ public class ZipExportCommandHandler(
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "Error adding file {FileName} to ZIP.", hubFile.Name);
+
                     throw SmartAttendanceException.InternalServerError(
                         localizer["Error adding file {0} to ZIP.", hubFile.Name].Value);
                 }
@@ -160,7 +162,7 @@ public class ZipExportCommandHandler(
             "file",
             $"report_{files.First().Type}_{DateTime.UtcNow:yyyy_MM_dd_HH_mm_ss}.zip")
         {
-            Headers = new HeaderDictionary(),
+            Headers     = new HeaderDictionary(),
             ContentType = "application/zip"
         };
 

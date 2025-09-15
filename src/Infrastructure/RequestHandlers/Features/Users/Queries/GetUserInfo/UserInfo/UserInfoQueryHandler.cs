@@ -10,11 +10,11 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserInfo.UserInfo;
 
 public class UserInfoQueryHandler(
-    UserManager<User> userManager,
-    IdentityService identityService,
-    IMediator mediator,
+    UserManager<User>                      userManager,
+    IdentityService                        identityService,
+    IMediator                              mediator,
     IStringLocalizer<UserInfoQueryHandler> localizer,
-    ILogger<UserInfoQueryHandler> logger
+    ILogger<UserInfoQueryHandler>          logger
 ) : IRequestHandler<LoggedInUserInfoQuery, GetUserResponse>
 {
     public async Task<GetUserResponse> Handle(LoggedInUserInfoQuery request, CancellationToken cancellationToken)

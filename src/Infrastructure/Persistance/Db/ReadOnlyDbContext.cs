@@ -2,6 +2,6 @@
 
 public class ReadOnlyDbContext(
     DbContextOptions<SmartAttendanceDbContext> options,
-    IdentityService userId
+    IdentityService                            userId
 )
     : SmartAttendanceDbContext(options, userId);

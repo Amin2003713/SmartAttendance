@@ -15,63 +15,63 @@ public interface IQueryRepository<TEntity>
     IQueryable<TEntity> TableNoTracking { get; }
 
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-    bool       Any(Expression<Func<TEntity, bool>> predicate);
+    bool       Any(Expression<Func<TEntity, bool>>      predicate);
 
-    TEntity            GetById(params object[] ids);
+    TEntity            GetById(params object[]        ids);
     ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids);
 
     Task<TEntity> GetSingleAsync(
-        CancellationToken cancellationToken,
+        CancellationToken               cancellationToken,
         Expression<Func<TEntity, bool>> predicate = null!);
 
     Task<TEntity> FirstOrDefaultsAsync(
-        Expression<Func<TEntity, bool>> predicate = null!,
-        CancellationToken cancellationToken = default);
+        Expression<Func<TEntity, bool>> predicate         = null!,
+        CancellationToken               cancellationToken = default);
 
     TEntity GetSingle(Expression<Func<TEntity, bool>> predicate = null!);
 
     void LoadCollection<TProperty>(
-        TEntity entity,
+        TEntity                                           entity,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty)
         where TProperty : class;
 
     Task LoadCollectionAsync<TProperty>(
-        TEntity entity,
+        TEntity                                           entity,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty,
-        CancellationToken cancellationToken)
+        CancellationToken                                 cancellationToken)
         where TProperty : class;
 
     void LoadReference<TProperty>(
-        TEntity entity,
+        TEntity                              entity,
         Expression<Func<TEntity, TProperty>> referenceProperty)
         where TProperty : class;
 
     Task LoadReferenceAsync<TProperty>(
-        TEntity entity,
+        TEntity                              entity,
         Expression<Func<TEntity, TProperty>> referenceProperty,
-        CancellationToken cancellationToken)
+        CancellationToken                    cancellationToken)
         where TProperty : class;
 
 
     void LoadCollection<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                              entities,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty)
         where TProperty : class;
 
     Task LoadCollectionAsync<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                              entities,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty,
-        CancellationToken cancellationToken)
+        CancellationToken                                 cancellationToken)
         where TProperty : class;
 
     void LoadReference<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                 entities,
         Expression<Func<TEntity, TProperty>> referenceProperty)
         where TProperty : class;
 
     Task LoadReferenceAsync<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                 entities,
         Expression<Func<TEntity, TProperty>> referenceProperty,
-        CancellationToken cancellationToken)
+        CancellationToken                    cancellationToken)
         where TProperty : class;
 }

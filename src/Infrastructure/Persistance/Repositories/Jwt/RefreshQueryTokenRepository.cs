@@ -4,14 +4,14 @@ using SmartAttendance.Common.Utilities.InjectionHelpers;
 namespace SmartAttendance.Persistence.Repositories.Jwt;
 
 public class RefreshQueryTokenRepository(
-    ReadOnlyDbContext dbContext,
-    ILogger<RefreshQueryTokenRepository> logger,
+    ReadOnlyDbContext                               dbContext,
+    ILogger<RefreshQueryTokenRepository>            logger,
     IStringLocalizer<RefreshCommandTokenRepository> localizer,
-    ILogger<QueryRepository<UserToken>> writeOnlyLogger
+    ILogger<QueryRepository<UserToken>>             writeOnlyLogger
 )
     : QueryRepository<UserToken>(dbContext, writeOnlyLogger),
-        IRefreshTokenQueryRepository,
-        IScopedDependency
+      IRefreshTokenQueryRepository,
+      IScopedDependency
 {
     public async Task<bool> ValidateRefreshTokenAsync(UserToken refreshToken, CancellationToken cancellationToken)
     {
@@ -40,12 +40,11 @@ public class RefreshQueryTokenRepository(
     }
 
     public async Task<List<UserToken>> GetSessions(
-        Guid UserId,
-        Guid uniqueId,
+        Guid              UserId,
+        Guid              uniqueId,
         CancellationToken httpContextRequestAborted)
     {
-        var result = await TableNoTracking.Where(a => a.UserId == UserId && a.UniqueId != uniqueId)
-            .ToListAsync(httpContextRequestAborted);
+        var result = await TableNoTracking.Where(a => a.UserId == UserId && a.UniqueId != uniqueId).ToListAsync(httpContextRequestAborted);
 
         return result;
     }
@@ -53,6 +52,6 @@ public class RefreshQueryTokenRepository(
     public async Task<UserToken?> GetCurrentSessions(Guid uniqueId, CancellationToken httpContextRequestAborted)
     {
         return (await TableNoTracking.FirstOrDefaultAsync(a => a.UniqueId == uniqueId && a.IsActive,
-            httpContextRequestAborted))!;
+                                                          httpContextRequestAborted))!;
     }
 }

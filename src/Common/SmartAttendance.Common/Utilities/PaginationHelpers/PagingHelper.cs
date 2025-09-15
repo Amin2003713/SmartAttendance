@@ -5,15 +5,15 @@ public static class PagingHelper
 {
     public static List<T> GetPaged<T>(
         this OrderedParallelQuery<T> query,
-        int page,
-        int pageSize,
-        out int rowCount,
-        out int pageCount)
+        int                          page,
+        int                          pageSize,
+        out int                      rowCount,
+        out int                      pageCount)
         where T : class
     {
         if (query == null || !query.Any())
         {
-            rowCount = 0;
+            rowCount  = 0;
             pageCount = 0;
             return [];
         }

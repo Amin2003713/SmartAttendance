@@ -4,7 +4,7 @@ using SmartAttendance.Common.General.Enums;
 namespace SmartAttendance.Persistence.Services.Identities;
 
 public class IdentityService(
-    IHttpContextAccessor accessor,
+    IHttpContextAccessor                                   accessor,
     IMultiTenantContextAccessor<SmartAttendanceTenantInfo> contextAccessor
 )
 {
@@ -77,9 +77,9 @@ public class IdentityService(
     public List<Roles> GetRoles()
     {
         var roleClaims = Identity?
-            .FindAll(ClaimTypes.Role)
-            .Select(c => c.Value)
-            .ToList();
+                         .FindAll(ClaimTypes.Role).
+                         Select(c => c.Value).
+                         ToList();
 
         if (roleClaims == null || !roleClaims.Any())
             return new List<Roles>();
@@ -87,7 +87,7 @@ public class IdentityService(
         var roles = new List<Roles>();
 
         foreach (var roleName in roleClaims.SelectMany(claim =>
-                     claim.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)))
+                                                           claim.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)))
         {
             if (Enum.TryParse<Roles>(roleName, true, out var role))
                 roles.Add(role);

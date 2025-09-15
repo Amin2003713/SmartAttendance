@@ -36,9 +36,4 @@
         <ProjectReference Include="..\..\Core\Application\SmartAttendance.Application.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Migrations\App\"/>
-        <Folder Include="Migrations\Tenant\"/>
-    </ItemGroup>
-
 </Project>

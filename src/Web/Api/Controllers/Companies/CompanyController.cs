@@ -44,9 +44,9 @@ public class CompanyController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
     public virtual async Task UpdateCompany(
         [FromForm] UpdateCompanyRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken               cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateCompanyCommand>().AddMedia(request.Logo),
-            cancellationToken);
+                            cancellationToken);
     }
 }

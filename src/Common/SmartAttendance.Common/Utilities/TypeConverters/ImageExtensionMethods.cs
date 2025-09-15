@@ -31,20 +31,21 @@ public static class ImageExtensionMethods
         // Resize in place:
         // e.g. 1280x720 -> 640x360 with lower JPEG quality
         image.Mutate(ctx =>
-            ctx.Resize(new ResizeOptions
-            {
-                Mode = ResizeMode.Max,
-                Size = new Size(640 / 2, 360 / 2)
-            })
+                         ctx.Resize(new ResizeOptions
+                         {
+                             Mode = ResizeMode.Max,
+                             Size = new Size(640 / 2, 360 / 2)
+                         })
         );
 
         // Save directly to a new MemoryStream
         using var previewStream = new MemoryStream();
+
         await image.SaveAsync(previewStream,
-            new JpegEncoder
-            {
-                Quality = 20 // e.g. "low" quality
-            });
+                              new JpegEncoder
+                              {
+                                  Quality = 20 // e.g. "low" quality
+                              });
 
         return previewStream.ToArray();
     }
@@ -77,7 +78,7 @@ public static class ImageExtensionMethods
             var tempStream = new MemoryStream();
             await sourceStream.CopyToAsync(tempStream);
             tempStream.Position = 0;
-            sourceStream = tempStream;
+            sourceStream        = tempStream;
         }
         else
         {
@@ -122,6 +123,7 @@ public static class ImageExtensionMethods
 
         // Encode as JPEG
         var outputStream = new MemoryStream();
+
         var encoder = new JpegEncoder
         {
             Quality = quality

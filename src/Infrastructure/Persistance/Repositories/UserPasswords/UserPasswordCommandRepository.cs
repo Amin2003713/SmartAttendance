@@ -3,8 +3,8 @@
 namespace SmartAttendance.Persistence.Repositories.UserPasswords;
 
 public class UserPasswordCommandRepository(
-    WriteOnlyDbContext dbContext,
+    WriteOnlyDbContext                       dbContext,
     ILogger<CommandRepository<UserPassword>> logger
 )
     : CommandRepository<UserPassword>(dbContext, logger),
-        IUserPasswordCommandRepository;
+      IUserPasswordCommandRepository;

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.Utilities.EfCoreHelper;
-using SmartAttendance.Persistence.Configuration.Departments;
+using SmartAttendance.Persistence.Configuration.Users;
 using Users_Role = SmartAttendance.Domain.Users.Role;
+
 
 namespace SmartAttendance.Persistence.Db;
 
@@ -15,7 +16,7 @@ public class SmartAttendanceDbContext :
 
     public SmartAttendanceDbContext(
         DbContextOptions<SmartAttendanceDbContext> options,
-        IdentityService currentUserId)
+        IdentityService                            currentUserId)
         : base(options)
     {
         _identityService = currentUserId;
@@ -51,7 +52,7 @@ public class SmartAttendanceDbContext :
         modelBuilder.AddPluralizingTableNameConvention();
         modelBuilder.AddDecimalConvention();
         modelBuilder.AddGlobalIsActiveFilter();
-        modelBuilder.ApplyConfiguration(new DepartmentConfig());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
 
         modelBuilder.AddFeatureBasedSchema(entitiesAssembly.GetType());
 
@@ -77,19 +78,19 @@ public class SmartAttendanceDbContext :
             {
                 case EntityState.Added:
                     entry.Entity.CreatedBy ??= currentUserId ?? null!;
-                    entry.Entity.IsActive = true;
+                    entry.Entity.IsActive  =   true;
                     break;
 
                 case EntityState.Modified:
-                    entry.Entity.ModifiedAt = DateTime.UtcNow;
+                    entry.Entity.ModifiedAt =   DateTime.UtcNow;
                     entry.Entity.ModifiedBy ??= currentUserId ?? null!;
                     break;
 
                 case EntityState.Deleted:
-                    entry.Entity.DeletedAt = DateTime.UtcNow;
+                    entry.Entity.DeletedAt =   DateTime.UtcNow;
                     entry.Entity.DeletedBy ??= currentUserId ?? null!;
-                    entry.Entity.IsActive = false;
-                    entry.State = EntityState.Modified;
+                    entry.Entity.IsActive  =   false;
+                    entry.State            =   EntityState.Modified;
                     break;
             }
         }

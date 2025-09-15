@@ -9,8 +9,8 @@ public class RegisterByOwnerRequestExample : IExamplesProvider<RegisterByOwnerRe
     {
         return new RegisterByOwnerRequest
         {
-            FirstName = "نیما",
-            LastName = "بیات",
+            FirstName   = "نیما",
+            LastName    = "بیات",
             PhoneNumber = "09123456789",
             Roles =
             [

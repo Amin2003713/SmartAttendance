@@ -9,13 +9,13 @@ public class UpdateReminderRequestExample : IExamplesProvider<UpdateReminderRequ
         return new UpdateReminderRequest
         {
             ReminderId = Guid.Empty,
-            Details = "ویرایش یادآور",
-            Date = DateTime.Today,
+            Details    = "ویرایش یادآور",
+            Date       = DateTime.Today,
             TargetUsers = new List<UserTargetRequest>
             {
-                new()
+                new UserTargetRequest
                 {
-                    Id = Guid.Empty,
+                    Id   = Guid.Empty,
                     Name = "نام کاربر"
                 }
             }

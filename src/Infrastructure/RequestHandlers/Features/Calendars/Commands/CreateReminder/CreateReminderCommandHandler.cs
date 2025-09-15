@@ -10,11 +10,11 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Commands.CreateReminder;
 
 public class CreateReminderCommandHandler(
-    IdentityService service,
-    IDailyCalendarCommandRepository dailyCalendarCommandRepository,
-    ICalendarUserCommandRepository calendarUserCommandRepository,
+    IdentityService                                service,
+    IDailyCalendarCommandRepository                dailyCalendarCommandRepository,
+    ICalendarUserCommandRepository                 calendarUserCommandRepository,
     IStringLocalizer<CreateReminderCommandHandler> localizer,
-    ILogger<CreateReminderCommandHandler> logger
+    ILogger<CreateReminderCommandHandler>          logger
 )
     : IRequestHandler<CreateReminderCommand>
 {
@@ -43,11 +43,11 @@ public class CreateReminderCommandHandler(
 
 
             var reminderUsers = targetUsers.Select(a => new CalendarUser
-                {
-                    CalendarId = reminderDailyCalendar.Id,
-                    UserId = a
-                })
-                .ToList();
+                                            {
+                                                CalendarId = reminderDailyCalendar.Id,
+                                                UserId     = a
+                                            }).
+                                            ToList();
 
             await calendarUserCommandRepository.AddRangeAsync(reminderUsers, cancellationToken);
 
@@ -58,9 +58,9 @@ public class CreateReminderCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex,
-                "Error creating reminder  for UserId: {UserId}. Error details: {ErrorMessage}",
-                userId,
-                ex.Message);
+                            "Error creating reminder  for UserId: {UserId}. Error details: {ErrorMessage}",
+                            userId,
+                            ex.Message);
 
             throw SmartAttendanceException.InternalServerError(localizer["Reminder creation failed."].Value);
         }

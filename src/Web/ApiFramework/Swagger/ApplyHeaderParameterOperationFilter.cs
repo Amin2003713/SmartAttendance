@@ -10,39 +10,39 @@ public class ApplyHeaderParameterOperationFilter : IOperationFilter
     {
         operation.Parameters.Add(new OpenApiParameter
         {
-            Name = "X-Tenant",
-            In = ParameterLocation.Header,
+            Name        = "X-Tenant",
+            In          = ParameterLocation.Header,
             Description = "your Organization header",
-            Required = true,
+            Required    = true,
             Schema = new OpenApiSchema
             {
-                Type = "string",
+                Type    = "string",
                 Default = new OpenApiString("aaa")
             }
         });
 
         operation.Parameters.Add(new OpenApiParameter
         {
-            Name = "X-Accept-Language",
-            In = ParameterLocation.Header,
+            Name        = "X-Accept-Language",
+            In          = ParameterLocation.Header,
             Description = "the language of the client.",
-            Required = true,
+            Required    = true,
             Schema = new OpenApiSchema
             {
-                Type = "string",
+                Type    = "string",
                 Default = new OpenApiString("fa-IR")
             }
         });
 
         operation.Parameters.Add(new OpenApiParameter
         {
-            Name = "X-Device-Type",
-            In = ParameterLocation.Header,
+            Name        = "X-Device-Type",
+            In          = ParameterLocation.Header,
             Description = "your Organization header",
-            Required = true,
+            Required    = true,
             Schema = new OpenApiSchema
             {
-                Type = "string",
+                Type    = "string",
                 Default = new OpenApiString("Browser")
             }
         });

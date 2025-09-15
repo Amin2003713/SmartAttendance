@@ -1,21 +1,20 @@
 ﻿using SmartAttendance.Common.Utilities.InjectionHelpers;
-using SmartAttendance.Domain.Defaults;
 
 namespace SmartAttendance.Persistence.Services.RunTimeServiceSetup;
 
 public class RunTimeDatabaseMigrationService(
-    IServiceProvider services,
-    Seeder.Seeder seeder,
-    IPasswordHasher<User> passwordHasher,
+    IServiceProvider               services,
+    Seeder.Seeder                  seeder,
+    IPasswordHasher<User>          passwordHasher,
     SmartAttendanceTenantDbContext tenantDbContext,
-    UserManager<User> userManager
+    UserManager<User>              userManager
 ) : IScopedDependency
 {
     public virtual async Task<string> MigrateTenantDatabasesAsync(
         SmartAttendanceTenantInfo tenantInfo,
-        string passWord,
-        TenantAdmin adminUser,
-        CancellationToken cancellationToken)
+        string                    passWord,
+        TenantAdmin               adminUser,
+        CancellationToken         cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(tenantInfo.GetConnectionString());
 
@@ -55,13 +54,6 @@ public class RunTimeDatabaseMigrationService(
 
                 dbContext.Users.Add(user);
 
-                var payment = TenantDefaultValue.DemoPayment(user, tenantInfo);
-                tenantDbContext.Payments.Add(payment);
-
-                // var activeService = TenantDefaultValue.CreateActiveService(payment);
-                // await tenantDbContext.Set<ActiveService>().AddRangeAsync(activeService, cancellationToken);
-
-
                 AddUserToTenant(tenantInfo, user);
                 await tenantDbContext.SaveChangesAsync(cancellationToken);
 
@@ -77,6 +69,7 @@ public class RunTimeDatabaseMigrationService(
             finally
             {
                 var adminRoles = await dbContext.Roles.ToListAsync(cancellationToken);
+
                 if (adminRoles != null)
                     dbContext.UserRoles.AddRange(adminRoles.Select(a => new UserRoles
                     {
@@ -100,7 +93,7 @@ public class RunTimeDatabaseMigrationService(
     private void AddUserToTenant(SmartAttendanceTenantInfo tenantInfo, User user)
     {
         var tenantUser = user.Adapt<TenantUser>();
-        tenantUser.Id = Guid.CreateVersion7(DateTimeOffset.Now);
+        tenantUser.Id                          = Guid.CreateVersion7(DateTimeOffset.Now);
         tenantUser.SmartAttendanceTenantInfoId = tenantInfo.Id;
         tenantDbContext.TenantUsers.Add(tenantUser);
     }

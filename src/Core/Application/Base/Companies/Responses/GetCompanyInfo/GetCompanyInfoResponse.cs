@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
-using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Domain.Setting;
 using SmartAttendance.Domain.Tenants;
 
@@ -11,8 +10,6 @@ public class GetCompanyInfoResponse
     public string? LandLine { get; set; } = null!;
 
     public string? Address { get; set; } = null!;
-
-    public LogPropertyInfoResponse Owner { get; set; }
 
     public string? LegalName { get; set; }
 
@@ -36,19 +33,15 @@ public class GetCompanyInfoResponse
     public string Domain { get; set; }
     public string Name { get; set; }
 
-    public long RemainingDays { get; set; }
     public CompanySettingResponse Settings { get; set; }
 
     public static GetCompanyInfoResponse Create(
         SmartAttendanceTenantInfo companyInfo,
-        Setting setting,
-        int leftDays,
-        LogPropertyInfoResponse owner)
+        Setting                   setting)
     {
         var result = companyInfo.Adapt<GetCompanyInfoResponse>();
         result.Settings = setting.Adapt<CompanySettingResponse>();
-        result.RemainingDays = leftDays;
-        result.Owner = owner;
+
         return result;
     }
 }

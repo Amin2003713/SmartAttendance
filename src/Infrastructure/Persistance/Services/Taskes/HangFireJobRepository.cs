@@ -4,7 +4,7 @@ using SmartAttendance.Application.Interfaces.HangFire;
 namespace SmartAttendance.Persistence.Services.Taskes;
 
 public class HangFireJobRepository(
-    ILogger<HangFireJobRepository> logger,
+    ILogger<HangFireJobRepository>          logger,
     IStringLocalizer<HangFireJobRepository> localizer
 ) : IHangFireJobRepository
 {
@@ -46,8 +46,8 @@ public class HangFireJobRepository(
     public void AddOrUpdateRecurringJob(string recurringJobId, Expression<Action> methodCall, string cronExpression)
     {
         logger.LogInformation("Adding or updating recurring job: {JobId} with Cron: {Cron}",
-            recurringJobId,
-            cronExpression);
+                              recurringJobId,
+                              cronExpression);
 
         try
         {

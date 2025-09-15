@@ -10,9 +10,9 @@ public class ZipExportCommandResponseExample : IExamplesProvider<ZipExportComman
         {
             File = null!,
 
-            RowId = Guid.NewGuid(),
+            RowId      = Guid.NewGuid(),
             ReportDate = DateTime.UtcNow,
-            RowType = FileStorageType.ZipExports
+            RowType    = FileStorageType.ZipExports
         };
     }
 }

@@ -6,7 +6,7 @@ public static class ExpressionHelper
 {
     public static Expression<Func<T, bool>> And<T>(
         this Expression<Func<T, bool>> first,
-        Expression<Func<T, bool>> second)
+        Expression<Func<T, bool>>      second)
     {
         var parameter  = first.Parameters[0];
         var visitor    = new ReplaceParameterVisitor(second.Parameters[0], parameter);
@@ -19,7 +19,7 @@ public static class ExpressionHelper
 
     public static Expression<Func<T, bool>> Or<T>(
         this Expression<Func<T, bool>> first,
-        Expression<Func<T, bool>> second)
+        Expression<Func<T, bool>>      second)
     {
         var parameter  = first.Parameters[0];
         var visitor    = new ReplaceParameterVisitor(second.Parameters[0], parameter);
@@ -49,25 +49,26 @@ public static class ExpressionHelper
 
     public static Expression<Func<T, bool>> AndIf<T>(
         this Expression<Func<T, bool>> expr,
-        bool condition,
-        Expression<Func<T, bool>> next)
+        bool                           condition,
+        Expression<Func<T, bool>>      next)
     {
         return condition ? expr.And(next) : expr;
     }
 
     public static Expression<Func<T, bool>> OrIf<T>(
         this Expression<Func<T, bool>> expr,
-        bool condition,
-        Expression<Func<T, bool>> next)
+        bool                           condition,
+        Expression<Func<T, bool>>      next)
     {
         return condition ? expr.Or(next) : expr;
     }
 
     public static Expression<Func<T, bool>> Combine<T>(
-        this IEnumerable<Expression<Func<T, bool>>> expressions,
+        this IEnumerable<Expression<Func<T, bool>>>    expressions,
         Func<Expression, Expression, BinaryExpression> combiner)
     {
         var exprList = expressions.ToList();
+
         if (!exprList.Any())
             return True<T>();
 

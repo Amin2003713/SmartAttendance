@@ -6,9 +6,9 @@ namespace SmartAttendance.Common.Exceptions;
 ///     Represents an HTTP 403 Forbidden error.
 /// </summary>
 public class ForbiddenException(
-    string message,
+    string    message,
     Exception innerException,
-    object additionalData = null
+    object    additionalData = null
 ) : SmartAttendanceException(
     message,
     HttpStatusCode.Forbidden,

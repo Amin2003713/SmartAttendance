@@ -6,20 +6,18 @@ namespace SmartAttendance.Common.Utilities.ObjectDiffFinderHelper;
 public static class PropertyChangeHelper
 {
     public static List<PropertyChange> GetDifferencesFromEvent(
-        string typeName,
-        string oldDataJson,
-        string newDataJson,
-        DateTime lastModifiedAt,
-        string modifiedBy,
+        string               typeName,
+        string               oldDataJson,
+        string               newDataJson,
+        DateTime             lastModifiedAt,
+        string               modifiedBy,
         Func<string, Type?>? typeResolver = null)
     {
         var diffs = new List<PropertyChange>();
 
         // مشخص کردن نوع بر اساس نام
-        var type = typeResolver?.Invoke(typeName) ?? FindTypeInAllAssemblies(typeName);
-        var baseType = typeof(IDomainEvent).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Select(a => a.Name)
-            .ToList();
+        var type     = typeResolver?.Invoke(typeName) ?? FindTypeInAllAssemblies(typeName);
+        var baseType = typeof(IDomainEvent).GetProperties(BindingFlags.Public | BindingFlags.Instance).Select(a => a.Name).ToList();
 
         if (type == null)
             return diffs;
@@ -39,10 +37,10 @@ public static class PropertyChangeHelper
             let newValue = prop.GetValue(newObj)?.ToString()?.Trim()
             where oldValue != newValue && (oldValue != null || newValue != null)
             select new PropertyChange(prop.Name,
-                oldValue,
-                newValue,
-                lastModifiedAt,
-                modifiedBy));
+                                      oldValue,
+                                      newValue,
+                                      lastModifiedAt,
+                                      modifiedBy));
 
         return diffs;
     }

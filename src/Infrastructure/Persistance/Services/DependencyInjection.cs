@@ -15,9 +15,7 @@ public static class DependencyInjection
             (provider, connStr) =>
             {
                 var identity = provider.GetRequiredService<IdentityService>();
-                var options = new DbContextOptionsBuilder<SmartAttendanceDbContext>()
-                    .UseSqlServer(connStr)
-                    .Options;
+                var options  = new DbContextOptionsBuilder<SmartAttendanceDbContext>().UseSqlServer(connStr).Options;
 
                 return new SmartAttendanceDbContext(options, identity);
             },
@@ -38,12 +36,12 @@ public static class DependencyInjection
             {
                 var mongoUrlBuilder = new MongoUrlBuilder
                 {
-                    Server = new MongoServerAddress(ApplicationConstant.Mongo.Host, ApplicationConstant.Mongo.Port),
-                    DatabaseName = ApplicationConstant.Mongo.DefaultDb,
-                    Username = ApplicationConstant.Mongo.UserName,
-                    Password = ApplicationConstant.Mongo.Password,
+                    Server               = new MongoServerAddress(ApplicationConstant.Mongo.Host, ApplicationConstant.Mongo.Port),
+                    DatabaseName         = ApplicationConstant.Mongo.DefaultDb,
+                    Username             = ApplicationConstant.Mongo.UserName,
+                    Password             = ApplicationConstant.Mongo.Password,
                     AuthenticationSource = "admin",
-                    AllowInsecureTls = true
+                    AllowInsecureTls     = true
                 };
 
                 var client = new MongoClient(mongoUrlBuilder.ToMongoUrl());
@@ -58,9 +56,7 @@ public static class DependencyInjection
 
     private static DbContextOptions<SmartAttendanceDbContext> CreateContextOptions(string connectionString)
     {
-        var contextOptions = new DbContextOptionsBuilder<SmartAttendanceDbContext>()
-            .UseSqlServer(connectionString)
-            .Options;
+        var contextOptions = new DbContextOptionsBuilder<SmartAttendanceDbContext>().UseSqlServer(connectionString).Options;
 
         return contextOptions;
     }

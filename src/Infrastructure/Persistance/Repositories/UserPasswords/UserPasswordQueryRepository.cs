@@ -3,8 +3,8 @@
 namespace SmartAttendance.Persistence.Repositories.UserPasswords;
 
 public class UserPasswordQueryRepository(
-    ReadOnlyDbContext dbContext,
+    ReadOnlyDbContext                      dbContext,
     ILogger<QueryRepository<UserPassword>> logger
 )
     : QueryRepository<UserPassword>(dbContext, logger),
-        IUserPasswordQueryRepository;
+      IUserPasswordQueryRepository;

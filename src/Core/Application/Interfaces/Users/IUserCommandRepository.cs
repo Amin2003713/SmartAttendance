@@ -9,10 +9,10 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.Application.Interfaces.Users;
 
 public interface IUserCommandRepository : ICommandRepository<User>,
-    IScopedDependency
+                                          IScopedDependency
 {
-    Task       UpdateLastLoginDateAsync(User user, CancellationToken cancellationToken);
-    Task<Guid> RegisterByOwnerAsync(RegisterByOwnerRequest request, CancellationToken cancellationToken);
-    Task       UpdatePhoneNumberAsync(UpdatePhoneNumberRequest request, Guid userId, CancellationToken cancellationToken);
-    Task       UpdateUserAsync(User user, CancellationToken cancellationToken);
+    Task       UpdateLastLoginDateAsync(User                   user,    CancellationToken cancellationToken);
+    Task<Guid> RegisterByOwnerAsync(RegisterByOwnerRequest     request, CancellationToken cancellationToken);
+    Task       UpdatePhoneNumberAsync(UpdatePhoneNumberRequest request, Guid              userId, CancellationToken cancellationToken);
+    Task       UpdateUserAsync(User                            user,    CancellationToken cancellationToken);
 }

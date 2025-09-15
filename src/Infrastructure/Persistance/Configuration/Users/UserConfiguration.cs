@@ -7,10 +7,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(p => p.UserName).IsRequired().HasMaxLength(100);
 
         builder.ToTable("Users");
-
-        builder.HasOne(u => u.Department)
-            .WithMany(d => d.Users)
-            .HasForeignKey(u => u.DepartmentId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

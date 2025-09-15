@@ -34,8 +34,8 @@ public class CalendarController : SmartAttendanceBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetCalendarResponse>> GetCalendar(
-        int year,
-        int month,
+        int               year,
+        int               month,
         CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetCalendarQuery(year, month), cancellationToken);
@@ -54,7 +54,7 @@ public class CalendarController : SmartAttendanceBaseController
     [ProjectAccess((int)TenantAccess.ReminderAccess)]
     public async Task AddReminderToCalendar(
         [FromBody] CreateReminderRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                cancellationToken)
     {
         await Mediator.Send(request.Adapt<CreateReminderCommand>(), cancellationToken);
     }
@@ -70,7 +70,7 @@ public class CalendarController : SmartAttendanceBaseController
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task AddHolidayToCalendar(
         [FromBody] CreateHolidayRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken               cancellationToken)
     {
         await Mediator.Send(request.Adapt<CreateHolidayCommand>(), cancellationToken);
     }
@@ -91,8 +91,8 @@ public class CalendarController : SmartAttendanceBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetHolidayResponse>> GetHolidays(
-        int year,
-        int month,
+        int               year,
+        int               month,
         CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetHolidayQuery(year, month), cancellationToken);
@@ -113,8 +113,8 @@ public class CalendarController : SmartAttendanceBaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<List<GetReminderResponse>> GetReminder(
-        int year,
-        int month,
+        int               year,
+        int               month,
         CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetReminderQuery(year, month), cancellationToken);
@@ -134,7 +134,7 @@ public class CalendarController : SmartAttendanceBaseController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task UpdateReminder(
         [FromBody] UpdateReminderRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateReminderCommand>(), cancellationToken);
     }
@@ -154,7 +154,7 @@ public class CalendarController : SmartAttendanceBaseController
     [ProjectAccess((int)TenantAccess.HolidayAccess)]
     public async Task UpdateHoliday(
         [FromBody] UpdateHolidayRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken               cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateHolidayCommand>(), cancellationToken);
     }

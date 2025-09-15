@@ -14,9 +14,9 @@ public class ValidationBehavior<TRequest, TResponse>(
         validators?.ToList() ?? throw new ArgumentNullException(nameof(validators));
 
     public async Task<TResponse> Handle(
-        TRequest request,
+        TRequest                          request,
         RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+        CancellationToken                 cancellationToken)
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));
@@ -29,8 +29,7 @@ public class ValidationBehavior<TRequest, TResponse>(
         var context = new ValidationContext<TRequest>(request);
 
         // run all validations in parallel
-        var results = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)))
-            .ConfigureAwait(false);
+        var results = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken))).ConfigureAwait(false);
 
         // collect all failures (FluentValidation guarantees non-null Error objects)
         var errors = results.SelectMany(r => r.Errors).Where(e => e != null).ToList();

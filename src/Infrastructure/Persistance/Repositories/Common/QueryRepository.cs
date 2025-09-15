@@ -4,11 +4,11 @@ using SmartAttendance.Common.General.BaseClasses;
 namespace SmartAttendance.Persistence.Repositories.Common;
 
 public class QueryRepository<TEntity>(
-    ReadOnlyDbContext dbContext,
+    ReadOnlyDbContext                 dbContext,
     ILogger<QueryRepository<TEntity>> logger
 )
     : RepositoryBase<TEntity, ReadOnlyDbContext>(dbContext, logger),
-        IQueryRepository<TEntity>
+      IQueryRepository<TEntity>
     where TEntity : class, IEntity
 {
     public virtual TEntity GetById(params object[] ids)
@@ -17,6 +17,7 @@ public class QueryRepository<TEntity>(
         {
             Logger.LogInformation("Fetching entity of type {EntityType}", typeof(TEntity).Name);
             var entity = Entities.Find(ids);
+
             if (entity != null)
                 return entity;
 
@@ -40,6 +41,7 @@ public class QueryRepository<TEntity>(
         try
         {
             Logger.LogInformation("Fetching single entity of type {EntityType} with predicate", typeof(TEntity).Name);
+
             return (predicate is null
                 ? TableNoTracking.SingleOrDefault()
                 : TableNoTracking.SingleOrDefault(predicate)!)!;
@@ -52,7 +54,7 @@ public class QueryRepository<TEntity>(
     }
 
     public void LoadCollection<TProperty>(
-        TEntity entity,
+        TEntity                                           entity,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty)
         where TProperty : class
     {
@@ -64,15 +66,16 @@ public class QueryRepository<TEntity>(
             if (!collection.IsLoaded)
             {
                 collection.Load();
+
                 Logger.LogInformation("Collection property loaded for entity of type {EntityType}",
-                    typeof(TEntity).Name);
+                                      typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                "Error loading collection property for entity of type {EntityType}",
-                typeof(TEntity).Name);
+                            "Error loading collection property for entity of type {EntityType}",
+                            typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
@@ -89,22 +92,23 @@ public class QueryRepository<TEntity>(
             if (!reference.IsLoaded)
             {
                 reference.Load();
+
                 Logger.LogInformation("Reference property loaded for entity of type {EntityType}",
-                    typeof(TEntity).Name);
+                                      typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                "Error loading reference property for entity of type {EntityType}",
-                typeof(TEntity).Name);
+                            "Error loading reference property for entity of type {EntityType}",
+                            typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
     }
 
     public void LoadCollection<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                              entities,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty)
         where TProperty : class
     {
@@ -115,7 +119,7 @@ public class QueryRepository<TEntity>(
     }
 
     public void LoadReference<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                 entities,
         Expression<Func<TEntity, TProperty>> referenceProperty)
         where TProperty : class
     {
@@ -144,18 +148,19 @@ public class QueryRepository<TEntity>(
 
     public async Task<bool> AnyAsync(
         Expression<Func<TEntity, bool>> predicate,
-        CancellationToken cancellationToken = default)
+        CancellationToken               cancellationToken = default)
     {
         return await TableNoTracking.AnyAsync(predicate, cancellationToken);
     }
 
     public virtual async Task<TEntity> GetSingleAsync(
-        CancellationToken cancellationToken,
+        CancellationToken               cancellationToken,
         Expression<Func<TEntity, bool>> predicate = null!)
     {
         try
         {
             Logger.LogInformation("Fetching single entity of type {EntityType} with predicate", typeof(TEntity).Name);
+
             return (predicate is null
                        ? await TableNoTracking.SingleOrDefaultAsync(cancellationToken)
                        : await TableNoTracking.SingleOrDefaultAsync(predicate, cancellationToken)) ??
@@ -169,12 +174,13 @@ public class QueryRepository<TEntity>(
     }
 
     public Task<TEntity> FirstOrDefaultsAsync(
-        Expression<Func<TEntity, bool>> predicate = null,
-        CancellationToken cancellationToken = default)
+        Expression<Func<TEntity, bool>> predicate         = null,
+        CancellationToken               cancellationToken = default)
     {
         try
         {
             Logger.LogInformation("Fetching single entity of type {EntityType} with predicate", typeof(TEntity).Name);
+
             return (predicate is null
                 ? TableNoTracking.FirstOrDefaultAsync(cancellationToken)
                 : TableNoTracking.FirstOrDefaultAsync(predicate, cancellationToken)!)!;
@@ -187,9 +193,9 @@ public class QueryRepository<TEntity>(
     }
 
     public async Task LoadCollectionAsync<TProperty>(
-        TEntity entity,
+        TEntity                                           entity,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty,
-        CancellationToken cancellationToken)
+        CancellationToken                                 cancellationToken)
         where TProperty : class
     {
         try
@@ -200,24 +206,25 @@ public class QueryRepository<TEntity>(
             if (!collection.IsLoaded)
             {
                 await collection.LoadAsync(cancellationToken).ConfigureAwait(false);
+
                 Logger.LogInformation("Collection property loaded for entity of type {EntityType}",
-                    typeof(TEntity).Name);
+                                      typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                "Error loading collection property for entity of type {EntityType}",
-                typeof(TEntity).Name);
+                            "Error loading collection property for entity of type {EntityType}",
+                            typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
     }
 
     public async Task LoadReferenceAsync<TProperty>(
-        TEntity entity,
+        TEntity                              entity,
         Expression<Func<TEntity, TProperty>> referenceProperty,
-        CancellationToken cancellationToken)
+        CancellationToken                    cancellationToken)
         where TProperty : class
     {
         try
@@ -228,24 +235,25 @@ public class QueryRepository<TEntity>(
             if (!reference.IsLoaded)
             {
                 await reference.LoadAsync(cancellationToken).ConfigureAwait(false);
+
                 Logger.LogInformation("Reference property loaded for entity of type {EntityType}",
-                    typeof(TEntity).Name);
+                                      typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                "Error loading reference property for entity of type {EntityType}",
-                typeof(TEntity).Name);
+                            "Error loading reference property for entity of type {EntityType}",
+                            typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
     }
 
     public async Task LoadCollectionAsync<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                              entities,
         Expression<Func<TEntity, IEnumerable<TProperty>>> collectionProperty,
-        CancellationToken cancellationToken = default)
+        CancellationToken                                 cancellationToken = default)
         where TProperty : class
     {
         foreach (var entity in entities)
@@ -255,9 +263,9 @@ public class QueryRepository<TEntity>(
     }
 
     public async Task LoadReferenceAsync<TProperty>(
-        IEnumerable<TEntity> entities,
+        IEnumerable<TEntity>                 entities,
         Expression<Func<TEntity, TProperty>> referenceProperty,
-        CancellationToken cancellationToken = default)
+        CancellationToken                    cancellationToken = default)
         where TProperty : class
     {
         foreach (var entity in entities)

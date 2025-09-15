@@ -15,12 +15,12 @@ public static class GenericPersistenceModule
         TSeeder,
         THangfireRepo,
         TAppDbContext, TReadDb, TWriteDb>(
-        this IServiceCollection services,
+        this IServiceCollection                       services,
         Func<IServiceProvider, string, TAppDbContext> appDbFactory,
-        Func<IServiceProvider, string, TReadDb> readDbFactory,
-        Func<IServiceProvider, string, TWriteDb> writeDbFactory,
-        Func<string, IMongoDatabase> mongoFactory,
-        string sqlConnection)
+        Func<IServiceProvider, string, TReadDb>       readDbFactory,
+        Func<IServiceProvider, string, TWriteDb>      writeDbFactory,
+        Func<string, IMongoDatabase>                  mongoFactory,
+        string                                        sqlConnection)
         where TAdminUser : class
         where TSeeder : class, IGenericSeeder<TAppDbContext>
         where THangfireRepo : class, IHangFireJobRepository
@@ -34,7 +34,7 @@ public static class GenericPersistenceModule
         services.AddKeyedScoped<UserManager<TAdminUser>>("Admins");
 
         services.AddDbContext<SmartAttendanceTenantDbContext>(options =>
-            options.UseSqlServer(sqlConnection));
+                                                                  options.UseSqlServer(sqlConnection));
 
         services.AddScoped<IdentityService>();
 
@@ -51,16 +51,16 @@ public static class GenericPersistenceModule
         services.AddScoped(provider => writeDbFactory(provider, ResolveTenantIdentifier(provider)));
 
         services.AddScoped<IMongoDatabase>(provider =>
-        {
-            var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
+                                           {
+                                               var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
 
-            var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<SmartAttendanceTenantInfo>()?.TenantInfo;
+                                               var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<SmartAttendanceTenantInfo>()?.TenantInfo;
 
-            if (tenant?.Identifier != null)
-                return mongoFactory(tenant.Identifier!);
+                                               if (tenant?.Identifier != null)
+                                                   return mongoFactory(tenant.Identifier!);
 
-            return mongoFactory("drp");
-        });
+                                               return mongoFactory("Sm");
+                                           });
 
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 

@@ -18,5 +18,5 @@ public interface IMinIoCommandRepository : IScopedDependency
     Task<HubFile> UploadXmlAsync(UploadPdfCommand file, CancellationToken cancellationToken);
 
     Task<bool> DeleteFileAsync(string filePath, CancellationToken cancellationToken);
-    void       DeletePdfFile(string filePath);
+    void       DeletePdfFile(string   filePath);
 }

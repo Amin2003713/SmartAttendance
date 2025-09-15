@@ -21,8 +21,9 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
 
     public ApiExceptionFilter(ILogger<ApiExceptionFilter> logger, IStringLocalizer<ApiExceptionFilter> localizer)
     {
-        _logger = logger;
+        _logger    = logger;
         _localizer = localizer;
+
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
             {
@@ -44,7 +45,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
                 typeof(ForbiddenException), HandleForbiddenException
             },
             {
-                typeof(SmartAttendanceException), HandleDRPException
+                typeof(SmartAttendanceException), HandleSmException
             }
         };
     }
@@ -75,7 +76,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
         var problemDetails = new ApiProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
-            Title = _localizer["Internal Server Error"].Value, // "خطای داخلی سرور"
+            Title  = _localizer["Internal Server Error"].Value, // "خطای داخلی سرور"
             Detail = context.Exception.Message
         };
 
@@ -94,12 +95,12 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
             var problemDetails = new ApiProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
-                Title = _localizer["Validation Error"].Value,    // "خطای اعتبارسنجی"
+                Title  = _localizer["Validation Error"].Value,   // "خطای اعتبارسنجی"
                 Detail = _localizer["Validation details"].Value, // "جزئیات اعتبارسنجی"
                 Errors = exception.Errors
             };
 
-            context.Result = new BadRequestObjectResult(problemDetails);
+            context.Result           = new BadRequestObjectResult(problemDetails);
             context.ExceptionHandled = true;
         }
     }
@@ -107,6 +108,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
     private static Dictionary<string, List<string>> Errors(IEnumerable<ValidationFailure> failures)
     {
         var failureGroups = failures.GroupBy(e => e.PropertyName, e => e.ErrorMessage);
+
         return !failureGroups.Any()
             ? new Dictionary<string, List<string>>()
             : failureGroups.ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToList());
@@ -119,12 +121,12 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
             var problemDetails = new ApiProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
-                Title = _localizer["Validation Error"].Value,    // "خطای اعتبارسنجی"
+                Title  = _localizer["Validation Error"].Value,   // "خطای اعتبارسنجی"
                 Detail = _localizer["Validation details"].Value, // "جزئیات اعتبارسنجی"
                 Errors = Errors(exception.Errors)
             };
 
-            context.Result = new BadRequestObjectResult(problemDetails);
+            context.Result           = new BadRequestObjectResult(problemDetails);
             context.ExceptionHandled = true;
         }
     }
@@ -132,25 +134,27 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
     private void HandleNotFoundException(ExceptionContext context)
     {
         var exception = context.Exception as NotFoundException;
+
         var problemDetails = new ApiProblemDetails
         {
             Status = StatusCodes.Status404NotFound,
-            Title = _localizer["Not Found"].Value, // "یافت نشد"
+            Title  = _localizer["Not Found"].Value, // "یافت نشد"
             Detail = exception?.Message ??
                      _localizer["The requested resource was not found."].Value // "منبع مورد نظر یافت نشد"
         };
 
-        context.Result = new NotFoundObjectResult(problemDetails);
+        context.Result           = new NotFoundObjectResult(problemDetails);
         context.ExceptionHandled = true;
     }
 
     private void HandleConflictException(ExceptionContext context)
     {
         var exception = context.Exception as ConflictException;
+
         var problemDetails = new ApiProblemDetails
         {
             Status = StatusCodes.Status409Conflict,
-            Title = _localizer["Conflict"].Value,                                 // "تداخل"
+            Title  = _localizer["Conflict"].Value,                                // "تداخل"
             Detail = exception?.Message ?? _localizer["Conflict occurred."].Value // "تداخل رخ داده است"
         };
 
@@ -170,9 +174,8 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
         var problemDetails = new ApiProblemDetails
         {
             Status = StatusCodes.Status401Unauthorized,
-            Title = _localizer["Unauthorized"].Value, // "غیرمجاز"
-            Detail = _localizer["You are not authorized to perform this action."]
-                .Value // "شما مجاز به انجام این عملیات نیستید"
+            Title  = _localizer["Unauthorized"].Value,                                  // "غیرمجاز"
+            Detail = _localizer["You are not authorized to perform this action."].Value // "شما مجاز به انجام این عملیات نیستید"
         };
 
         context.Result = new ObjectResult(problemDetails)
@@ -190,10 +193,9 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
         var problemDetails = new ApiProblemDetails
         {
             Status = StatusCodes.Status403Forbidden,
-            Title = _localizer["Forbidden"].Value, // "ممنوع"
+            Title  = _localizer["Forbidden"].Value, // "ممنوع"
             Detail = exception?.Message ??
-                     _localizer["You do not have permission to access this resource."]
-                         .Value // "شما اجازه دسترسی به این منبع را ندارید"
+                     _localizer["You do not have permission to access this resource."].Value // "شما اجازه دسترسی به این منبع را ندارید"
         };
 
         context.Result = new ObjectResult(problemDetails)
@@ -204,7 +206,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
         context.ExceptionHandled = true;
     }
 
-    private void HandleDRPException(ExceptionContext context)
+    private void HandleSmException(ExceptionContext context)
     {
         if (context.Exception is not SmartAttendanceException exception)
             return;
@@ -212,7 +214,7 @@ public class ApiExceptionFilter : ExceptionFilterAttribute
         var problemDetails = new ApiProblemDetails
         {
             Status = (int)exception.HttpStatusCode,
-            Title = exception.Message,                                                      // Localized title
+            Title  = exception.Message,                                                     // Localized title
             Detail = exception.AdditionalData ?? _localizer["Internal Server Error"].Value, // Localized detail
             Errors = []
         };

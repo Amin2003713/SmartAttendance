@@ -4,9 +4,7 @@ namespace SmartAttendance.Common.Utilities.RolesHelper;
 
 public static class RoleParser
 {
-    public readonly static HashSet<string> ValidRoleNames = Enum
-        .GetNames(typeof(Roles))
-        .ToHashSet(StringComparer.OrdinalIgnoreCase);
+    public readonly static HashSet<string> ValidRoleNames = Enum.GetNames(typeof(Roles)).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
     public static bool IsValid(string roleName)
     {
@@ -23,16 +21,11 @@ public static class RoleParser
 
     public static List<Roles> ParseMany(List<string> inputRoles)
     {
-        var invalid = inputRoles
-            .Where(r => !IsValid(r))
-            .ToList();
+        var invalid = inputRoles.Where(r => !IsValid(r)).ToList();
 
         if (invalid.Any())
             throw new ArgumentException($"Invalid roles: {string.Join(", ", invalid)}");
 
-        return inputRoles
-            .Select(Parse)
-            .Distinct()
-            .ToList();
+        return inputRoles.Select(Parse).Distinct().ToList();
     }
 }

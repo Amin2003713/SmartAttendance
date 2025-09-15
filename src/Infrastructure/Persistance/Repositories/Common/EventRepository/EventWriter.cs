@@ -21,14 +21,15 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
     ///     Includes runtime-safe deserialization via type name mapping.
     /// </summary>
     public EventWriter(
-        IMongoDatabase database,
-        IdentityService identityService,
+        IMongoDatabase                database,
+        IdentityService               identityService,
         IEventReader<TAggregate, TId> eventReader)
     {
-        _database = database;
+        _database        = database;
         _identityService = identityService;
 
         _eventReader = eventReader;
+
         // — single-field on AggregateId —
         var aggIdIndex = new CreateIndexModel<EventDocument<TId>>(
             Builders<EventDocument<TId>>.IndexKeys.Ascending(e => e.AggregateId),
@@ -58,9 +59,7 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
 
         // — your existing indexes —
         var compoundEventIndex = new CreateIndexModel<EventDocument<TId>>(
-            Builders<EventDocument<TId>>.IndexKeys.Ascending(e => e.AggregateId)
-                .Ascending(e => e.Version)
-                .Descending(e => e.OccurredOn),
+            Builders<EventDocument<TId>>.IndexKeys.Ascending(e => e.AggregateId).Ascending(e => e.Version).Descending(e => e.OccurredOn),
             new CreateIndexOptions
             {
                 Name = "idx_events_AggId_Version_OccurredOn"
@@ -141,51 +140,51 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
 
         // Build event documents
         var docs = list.SelectMany(agg =>
-            {
-                // use Result to get the completed version task
-                var version = versionTasks[agg].Result + 1;
+                                   {
+                                       // use Result to get the completed version task
+                                       var version = versionTasks[agg].Result + 1;
 
-                return agg.GetUncommittedEvents()
-                    .Select(evt => new EventDocument<TId>
-                    {
-                        Id = Guid.CreateVersion7(DateTimeOffset.UtcNow),
-                        AggregateId = agg.AggregateId,
-                        Version = version++,
-                        Type = evt.GetType().Name!,
-                        Data = SerializeEvent(evt),
-                        OccurredOn = DateTime.Now,
-                        UserId = userId,
-                        Reported = evt.Reported
-                    });
-            })
-            .ToList();
+                                       return agg.GetUncommittedEvents().
+                                                  Select(evt => new EventDocument<TId>
+                                                  {
+                                                      Id          = Guid.CreateVersion7(DateTimeOffset.UtcNow),
+                                                      AggregateId = agg.AggregateId,
+                                                      Version     = version++,
+                                                      Type        = evt.GetType().Name!,
+                                                      Data        = SerializeEvent(evt),
+                                                      OccurredOn  = DateTime.Now,
+                                                      UserId      = userId,
+                                                      Reported    = evt.Reported
+                                                  });
+                                   }).
+                        ToList();
 
         if (docs.Count > 0)
             await Events.InsertManyAsync(docs, cancellationToken: cancellationToken);
 
         // Build and save snapshots in bulk
-        var snapshots = list.Where(agg => agg.Version % 2 == 0 || agg.Version == 0)
-            .Select(agg =>
-            {
-                var snap     = agg.GetSnapshot();
-                var reported = agg.GetUncommittedEvents().First().Reported;
+        var snapshots = list.Where(agg => agg.Version % 2 == 0 || agg.Version == 0).
+                             Select(agg =>
+                                    {
+                                        var snap     = agg.GetSnapshot();
+                                        var reported = agg.GetUncommittedEvents().First().Reported;
 
-                return new SnapShotDocument<TId>
-                {
-                    Id = Guid.CreateVersion7(),
-                    AggregateId = snap.AggregateId,
-                    Version = snap.Version,
-                    Type = snap.GetType().Name!,
-                    Data = JsonSerializer.Serialize(
-                        snap,
-                        snap.GetType(),
-                        ApplicationConstant.Mongo.JsonOptions),
-                    OccurredOn = DateTime.Now,
-                    Reported = reported,
-                    UserId = userId
-                };
-            })
-            .ToList();
+                                        return new SnapShotDocument<TId>
+                                        {
+                                            Id          = Guid.CreateVersion7(),
+                                            AggregateId = snap.AggregateId,
+                                            Version     = snap.Version,
+                                            Type        = snap.GetType().Name!,
+                                            Data = JsonSerializer.Serialize(
+                                                snap,
+                                                snap.GetType(),
+                                                ApplicationConstant.Mongo.JsonOptions),
+                                            OccurredOn = DateTime.Now,
+                                            Reported   = reported,
+                                            UserId     = userId
+                                        };
+                                    }).
+                             ToList();
 
         if (snapshots.Count > 0)
             await SnapShots.InsertManyAsync(snapshots, cancellationToken: cancellationToken);
@@ -205,8 +204,8 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
 
         if (aggregate.Version % 2 == 0 || aggregate.Version == 0)
             await SaveSnapshotAsync(aggregate.GetSnapshot(),
-                aggregate.GetUncommittedEvents().FirstOrDefault()!.Reported,
-                cancellationToken);
+                                    aggregate.GetUncommittedEvents().FirstOrDefault()!.Reported,
+                                    cancellationToken);
 
         aggregate.ClearUncommittedEvents();
     }
@@ -218,8 +217,8 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
     }
 
     public async Task SaveSnapshotAsync(
-        ISnapshot<TId> snapshot,
-        DateTime reported,
+        ISnapshot<TId>    snapshot,
+        DateTime          reported,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
@@ -230,17 +229,17 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
         // 1) Build your full snapshot document, 
         var doc = new SnapShotDocument<TId>
         {
-            Id = Guid.CreateVersion7(),
+            Id          = Guid.CreateVersion7(),
             AggregateId = snapshot.AggregateId,
-            Version = snapshot.Version,
-            Type = snapshot.GetType().Name!,
+            Version     = snapshot.Version,
+            Type        = snapshot.GetType().Name!,
             Data = JsonSerializer.Serialize(
                 snapshot,
                 snapshot.GetType(),
                 ApplicationConstant.Mongo.JsonOptions),
             OccurredOn = DateTime.Now,
-            Reported = reported,
-            UserId = userId
+            Reported   = reported,
+            UserId     = userId
         };
 
         await SnapShots.InsertOneAsync(doc, cancellationToken: cancellationToken);
@@ -258,8 +257,8 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
 
     public async Task AppendEventsAsync(
         IEnumerable<IDomainEvent> events,
-        TId aggregateId,
-        CancellationToken cancellationToken = default)
+        TId                       aggregateId,
+        CancellationToken         cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(events);
 
@@ -269,17 +268,17 @@ public class EventWriter<TAggregate, TId> : IEventWriter<TAggregate, TId>
         var startVersion = await _eventReader.GetLatestVersionAsync(aggregateId, cancellationToken) + 1;
 
         var docs = events.Select((e, _) => new EventDocument<TId>
-            {
-                Id = Guid.CreateVersion7(DateTimeOffset.Now),
-                AggregateId = aggregateId,
-                Version = startVersion++,
-                Type = e.GetType().Name!,
-                Data = SerializeEvent(e),
-                OccurredOn = DateTime.Now,
-                UserId = userId,
-                Reported = e.Reported
-            })
-            .ToList();
+                          {
+                              Id          = Guid.CreateVersion7(DateTimeOffset.Now),
+                              AggregateId = aggregateId,
+                              Version     = startVersion++,
+                              Type        = e.GetType().Name!,
+                              Data        = SerializeEvent(e),
+                              OccurredOn  = DateTime.Now,
+                              UserId      = userId,
+                              Reported    = e.Reported
+                          }).
+                          ToList();
 
         await Events.InsertManyAsync(docs, null!, cancellationToken);
     }

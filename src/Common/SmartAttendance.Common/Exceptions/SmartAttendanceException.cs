@@ -12,10 +12,10 @@ public class SmartAttendanceException : Exception
     /// <param name="innerException">The inner exception.</param>
     /// <param name="additionalData">Any additional data related to the exception.</param>
     public SmartAttendanceException(
-        string message = null,
+        string         message        = null,
         HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError,
-        Exception innerException = null,
-        object additionalData = null)
+        Exception      innerException = null,
+        object         additionalData = null)
         : base(message, innerException)
     {
         HttpStatusCode = httpStatusCode;
@@ -28,7 +28,7 @@ public class SmartAttendanceException : Exception
     // Static factory methods for common scenarios
 
     /// <summary>
-    ///     Creates a DRPException with a message.
+    ///     Creates a SmException with a message.
     /// </summary>
     public static SmartAttendanceException Create(string message)
     {
@@ -36,7 +36,7 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates a DRPException with a message and additional data.
+    ///     Creates a SmException with a message and additional data.
     /// </summary>
     public static SmartAttendanceException Create(string message, object additionalData)
     {
@@ -44,7 +44,7 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates a DRPException with a specific HTTP status code and message.
+    ///     Creates a SmException with a specific HTTP status code and message.
     /// </summary>
     public static SmartAttendanceException Create(HttpStatusCode httpStatusCode, string message)
     {
@@ -52,13 +52,13 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates a DRPException with all parameters.
+    ///     Creates a SmException with all parameters.
     /// </summary>
     public static SmartAttendanceException Create(
-        string message,
+        string         message,
         HttpStatusCode httpStatusCode,
-        Exception innerException,
-        object additionalData)
+        Exception      innerException,
+        object         additionalData)
     {
         return new SmartAttendanceException(message, httpStatusCode, innerException, additionalData);
     }
@@ -66,7 +66,7 @@ public class SmartAttendanceException : Exception
 #region Predefined API Exceptions
 
     /// <summary>
-    ///     Creates a NotFound DRPException (HTTP 404).
+    ///     Creates a NotFound SmException (HTTP 404).
     /// </summary>
     public static NotFoundException NotFound(string message = "Resource not found.", object additionalData = null)
     {
@@ -74,17 +74,17 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates an Unauthorized DRPException (HTTP 401).
+    ///     Creates an Unauthorized SmException (HTTP 401).
     /// </summary>
     public static UnauthorizedAccessException Unauthorized(
-        string message = "Unauthorized access.",
+        string message        = "Unauthorized access.",
         object additionalData = null)
     {
         return new UnauthorizedAccessException(message + "\n" + additionalData);
     }
 
     /// <summary>
-    ///     Creates a BadRequest DRPException (HTTP 400).
+    ///     Creates a BadRequest SmException (HTTP 400).
     /// </summary>
     public static SmartAttendanceException BadRequest(string message = "Bad request.", object additionalData = null)
     {
@@ -92,7 +92,7 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates a Validation DRPException (HTTP 400) with validation errors.
+    ///     Creates a Validation SmException (HTTP 400) with validation errors.
     /// </summary>
     public static SmartAttendanceException Validation(string message = "Validation failed.", object additionalData = null)
     {
@@ -100,7 +100,7 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates a Conflict DRPException (HTTP 409).
+    ///     Creates a Conflict SmException (HTTP 409).
     /// </summary>
     public static ConflictException Conflict(string message = "Conflict occurred.", object additionalData = null)
     {
@@ -108,10 +108,10 @@ public class SmartAttendanceException : Exception
     }
 
     /// <summary>
-    ///     Creates an InternalServerError DRPException (HTTP 500).
+    ///     Creates an InternalServerError SmException (HTTP 500).
     /// </summary>
     public static SmartAttendanceException InternalServerError(
-        string message = "An unexpected error occurred.",
+        string message        = "An unexpected error occurred.",
         object additionalData = null)
     {
         return new SmartAttendanceException(message, HttpStatusCode.InternalServerError, null, additionalData);

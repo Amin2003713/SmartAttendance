@@ -7,15 +7,15 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.Verify;
 
 public class VerifyCommandHandler(
-    UserManager<User> userManager,
-    ILogger<VerifyCommandHandler> logger,
+    UserManager<User>                      userManager,
+    ILogger<VerifyCommandHandler>          logger,
     IStringLocalizer<VerifyCommandHandler> localizer
 )
     : IRequestHandler<VerifyPhoneNumberCommand, VerifyPhoneNumberResponse>
 {
     public async Task<VerifyPhoneNumberResponse> Handle(
         VerifyPhoneNumberCommand request,
-        CancellationToken cancellationToken)
+        CancellationToken        cancellationToken)
     {
         if (request is null)
             throw new InvalidNullInputException(nameof(request));
@@ -25,8 +25,7 @@ public class VerifyCommandHandler(
             var user = await userManager.FindByNameAsync(request.PhoneNumber);
 
             if (user == null)
-                throw SmartAttendanceException.NotFound(additionalData: localizer["User was not found."]
-                    .Value); // "کاربر یافت نشد."
+                throw SmartAttendanceException.NotFound(additionalData: localizer["User was not found."].Value); // "کاربر یافت نشد."
 
             var isVerified = await VerifyTwoFactorTokenAsync(request.Code, user);
 
@@ -36,8 +35,7 @@ public class VerifyCommandHandler(
             var result = await userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
-                throw SmartAttendanceException.BadRequest(localizer["User activation failed."]
-                    .Value); // "فعال‌سازی کاربر انجام نشد."
+                throw SmartAttendanceException.BadRequest(localizer["User activation failed."].Value); // "فعال‌سازی کاربر انجام نشد."
 
             return new VerifyPhoneNumberResponse
             {
@@ -68,8 +66,9 @@ public class VerifyCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
-            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
-                .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
+
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."].
+                                                                   Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }
 }

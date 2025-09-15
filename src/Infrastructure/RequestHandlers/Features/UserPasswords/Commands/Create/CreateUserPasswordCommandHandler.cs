@@ -8,11 +8,11 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Features.UserPasswords.Commands.Create;
 
 public record CreateUserPasswordCommandHandler(
-    UserManager<User> UserManager,
-    IUserPasswordQueryRepository PasswordQueryRepository,
-    IUserPasswordCommandRepository PasswordCommandRepository,
-    IPasswordHasher<User> Hasher,
-    ILogger<CreateUserPasswordCommandHandler> Logger,
+    UserManager<User>                                  UserManager,
+    IUserPasswordQueryRepository                       PasswordQueryRepository,
+    IUserPasswordCommandRepository                     PasswordCommandRepository,
+    IPasswordHasher<User>                              Hasher,
+    ILogger<CreateUserPasswordCommandHandler>          Logger,
     IStringLocalizer<CreateUserPasswordCommandHandler> Localizer
 ) : IRequestHandler<CreateUserPasswordCommand>
 {
@@ -20,12 +20,10 @@ public record CreateUserPasswordCommandHandler(
     {
         Logger.LogInformation("Starting password creation for userId: {UserId}", request.UserId.Id);
         // Prevent using the same password as any previous one
-        var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == request.UserId.Id)
-            .ToListAsync(cancellationToken);
+        var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == request.UserId.Id).ToListAsync(cancellationToken);
 
-        if (previousPasswords
-            .Select(prev => Hasher.VerifyHashedPassword(request.UserId, prev.PasswordHash, request.Password))
-            .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
+        if (previousPasswords.Select(prev => Hasher.VerifyHashedPassword(request.UserId, prev.PasswordHash, request.Password)).
+                              Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
         {
             Logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserId);
             throw SmartAttendanceException.BadRequest(Localizer["Dont Reuse Old Password"]);
@@ -35,7 +33,7 @@ public record CreateUserPasswordCommandHandler(
 
         var userPass = new UserPassword
         {
-            UserId = request.UserId.Id,
+            UserId       = request.UserId.Id,
             PasswordHash = hashedPass
         };
 

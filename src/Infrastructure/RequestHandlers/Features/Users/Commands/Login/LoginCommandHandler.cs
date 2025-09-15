@@ -9,10 +9,10 @@ using SmartAttendance.Persistence.Jwt;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.Login;
 
 public class LoginCommandHandler(
-    UserManager<User> userManager,
-    IJwtService jwtService,
-    IRefreshTokenCommandRepository refreshTokenRepository,
-    ILogger<LoginCommandHandler> logger,
+    UserManager<User>                     userManager,
+    IJwtService                           jwtService,
+    IRefreshTokenCommandRepository        refreshTokenRepository,
+    ILogger<LoginCommandHandler>          logger,
     IStringLocalizer<LoginCommandHandler> localizer
 ) : IRequestHandler<LoginCommand, LoginResponse>
 {
@@ -45,8 +45,7 @@ public class LoginCommandHandler(
 
                 if (localEnd.Date == DateTime.MaxValue.Date)
                     throw SmartAttendanceException.Forbidden(
-                        localizer["User account is locked dou To many failed login attempts. Please contact support."]
-                            .Value);
+                        localizer["User account is locked dou To many failed login attempts. Please contact support."].Value);
 
                 string msg = localizer["User account is locked until {0}.", localEnd.ToLocalTime()];
                 throw SmartAttendanceException.Forbidden(msg);
@@ -75,7 +74,7 @@ public class LoginCommandHandler(
 
                     throw SmartAttendanceException.Forbidden(
                         localizer["Account locked for {0} minutes after 3 failed attempts.",
-                            FirstLockoutDuration.TotalMinutes].Value
+                                  FirstLockoutDuration.TotalMinutes].Value
                     );
                 }
 
@@ -87,7 +86,7 @@ public class LoginCommandHandler(
 
                     throw SmartAttendanceException.Forbidden(
                         localizer["Account locked for {0} minutes after 4 failed attempts.",
-                            SecondLockoutDuration.TotalMinutes].Value
+                                  SecondLockoutDuration.TotalMinutes].Value
                     );
                 }
 
@@ -97,8 +96,7 @@ public class LoginCommandHandler(
                     var until = DateTimeOffset.MaxValue.ToUniversalTime();
                     await userManager.SetLockoutEndDateAsync(user, until);
 
-                    throw SmartAttendanceException.Forbidden(localizer["Too many failed login attempts. Please contact support."]
-                        .Value);
+                    throw SmartAttendanceException.Forbidden(localizer["Too many failed login attempts. Please contact support."].Value);
                 }
 
                 // 1st or 2nd failure → just say “invalid credentials.”
@@ -115,11 +113,11 @@ public class LoginCommandHandler(
             // 7. Persist/update the refresh token record.
             var refreshToken = new UserToken
             {
-                UniqueId = uniqueId,
-                AccessToken = jwt.access_token.ComputeSha256Hash(),
+                UniqueId     = uniqueId,
+                AccessToken  = jwt.access_token.ComputeSha256Hash(),
                 RefreshToken = jwt.refresh_token,
-                UserId = user.Id,
-                ExpiryTime = DateTime.UtcNow.AddSeconds(jwt.expires_in)
+                UserId       = user.Id,
+                ExpiryTime   = DateTime.UtcNow.AddSeconds(jwt.expires_in)
             };
 
             await refreshTokenRepository.AddOrUpdateRefreshTokenAsync(refreshToken, cancellationToken);
@@ -127,7 +125,7 @@ public class LoginCommandHandler(
             // 8. Return tokens.
             return new LoginResponse
             {
-                Token = jwt.access_token,
+                Token        = jwt.access_token,
                 RefreshToken = refreshToken.RefreshToken
             };
         }

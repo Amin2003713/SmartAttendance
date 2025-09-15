@@ -1,8 +1,8 @@
 ﻿namespace SmartAttendance.Persistence.Repositories.Calendars.CalendarUsers;
 
 public class CalendarUserCommandRepository(
-    WriteOnlyDbContext dbContext,
+    WriteOnlyDbContext                       dbContext,
     ILogger<CommandRepository<CalendarUser>> logger
 )
     : CommandRepository<CalendarUser>(dbContext, logger),
-        ICalendarUserCommandRepository { }
+      ICalendarUserCommandRepository { }

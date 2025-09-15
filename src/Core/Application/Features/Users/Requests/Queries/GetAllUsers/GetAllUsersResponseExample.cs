@@ -9,43 +9,43 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
     {
         return new List<GetUserResponse>
         {
-            new()
+            new GetUserResponse
             {
-                FirstName = "John",
-                LastName = "Doe",
-                Profile = "https://example.com/profiles/johndoe.jpg",
-                ProfileCompress = "https://example.com/profiles/johndoe.jpg",
-                Address = "123 Main St, Anytown, USA",
+                FirstName          = "John",
+                LastName           = "Doe",
+                Profile            = "https://example.com/profiles/johndoe.jpg",
+                ProfileCompress    = "https://example.com/profiles/johndoe.jpg",
+                Address            = "123 Main St, Anytown, USA",
                 LastActionOnServer = DateTime.Parse("2025-04-14T12:00:00Z"),
-                JobTitle = "Senior Developer",
-                BirthDate = DateTime.Parse("1990-05-15T00:00:00Z"),
-                Id = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
-                IsActive = true,
+                JobTitle           = "Senior Developer",
+                BirthDate          = DateTime.Parse("1990-05-15T00:00:00Z"),
+                Id                 = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                IsActive           = true,
                 CreatedBy =
                     new LogPropertyInfoResponse
                     {
-                        Id = Guid.Empty,
-                        Name = "Aghdas",
+                        Id      = Guid.Empty,
+                        Name    = "Aghdas",
                         Profile = "https://example.com/Profil.png"
                     },
                 CreatedAt = DateTime.Parse("2025-04-14T12:00:00Z")
             },
-            new()
+            new GetUserResponse
             {
-                FirstName = "Jane",
-                LastName = "Smith",
-                Profile = "https://example.com/profiles/janesmith.jpg",
-                ProfileCompress = "https://example.com/profiles/janesmith.jpg",
-                Address = "456 Elm St, Somecity, USA",
+                FirstName          = "Jane",
+                LastName           = "Smith",
+                Profile            = "https://example.com/profiles/janesmith.jpg",
+                ProfileCompress    = "https://example.com/profiles/janesmith.jpg",
+                Address            = "456 Elm St, Somecity, USA",
                 LastActionOnServer = DateTime.Parse("2025-04-14T13:00:00Z"),
-                JobTitle = "Product Manager",
-                BirthDate = DateTime.Parse("1985-10-20T00:00:00Z"),
-                Id = Guid.Parse("4ea85f64-5717-4562-b3fc-2c963f66afa8"),
-                IsActive = true,
+                JobTitle           = "Product Manager",
+                BirthDate          = DateTime.Parse("1985-10-20T00:00:00Z"),
+                Id                 = Guid.Parse("4ea85f64-5717-4562-b3fc-2c963f66afa8"),
+                IsActive           = true,
                 CreatedBy =
                     new LogPropertyInfoResponse
                     {
-                        Id = Guid.Empty,
+                        Id   = Guid.Empty,
                         Name = "Aghdas",
 
                         Profile = "https://example.com/Profil.png"

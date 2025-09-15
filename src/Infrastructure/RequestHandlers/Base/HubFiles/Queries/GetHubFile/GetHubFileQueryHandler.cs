@@ -12,8 +12,8 @@ public class GetHubFileQueryHandler(
     public async Task<FileTransferResponse> Handle(GetHubFileQuery request, CancellationToken cancellationToken)
     {
         return await hubFileQueryRepository.GetHubFile(request.FileId,
-            request.FileType,
-            request.ReferenceType,
-            cancellationToken);
+                                                       request.FileType,
+                                                       request.ReferenceType,
+                                                       cancellationToken);
     }
 }

@@ -12,12 +12,12 @@ namespace SmartAttendance.RequestHandlers.Features.Users.Commands.ForgotPassword
 ///     Handles the <see cref="ForgotPasswordCommand" /> by implementing password reset logic.
 /// </summary>
 public class ForgotPasswordCommandHandler(
-    UserManager<User> userManager,
-    IUserPasswordQueryRepository PasswordQueryRepository,
-    IUserPasswordCommandRepository PasswordCommandRepository,
+    UserManager<User>                              userManager,
+    IUserPasswordQueryRepository                   PasswordQueryRepository,
+    IUserPasswordCommandRepository                 PasswordCommandRepository,
     IStringLocalizer<ForgotPasswordCommandHandler> localizer,
-    IPasswordHasher<User> Hasher,
-    ILogger<ForgotPasswordCommandHandler> logger
+    IPasswordHasher<User>                          Hasher,
+    ILogger<ForgotPasswordCommandHandler>          logger
 )
     : IRequestHandler<ForgotPasswordCommand>
 {
@@ -35,12 +35,10 @@ public class ForgotPasswordCommandHandler(
             if (!await VerifyTwoFactorTokenAsync(request.Code, userResult))
                 throw SmartAttendanceException.Forbidden(localizer["Otp Code was invalid."]);
 
-            var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == userResult.Id)
-                .ToListAsync(cancellationToken);
+            var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == userResult.Id).ToListAsync(cancellationToken);
 
-            if (previousPasswords
-                .Select(prev => Hasher.VerifyHashedPassword(userResult, prev.PasswordHash, request.NewPassword))
-                .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
+            if (previousPasswords.Select(prev => Hasher.VerifyHashedPassword(userResult, prev.PasswordHash, request.NewPassword)).
+                                  Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
             {
                 logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserName);
                 throw SmartAttendanceException.BadRequest(localizer["Dont Reuse Old Password"]);
@@ -58,16 +56,16 @@ public class ForgotPasswordCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Password reset failed: {Errors}",
-                    string.Join(", ", result.Errors.Select(e => e.Description)));
+                                string.Join(", ", result.Errors.Select(e => e.Description)));
 
                 throw SmartAttendanceException.Validation(localizer["Password change error."],
-                    result.Errors); // "خطا در تغییر رمز عبور."
+                                                          result.Errors); // "خطا در تغییر رمز عبور."
             }
 
 
             var userPass = new UserPassword
             {
-                UserId = userResult.Id,
+                UserId       = userResult.Id,
                 PasswordHash = userResult.PasswordHash!
             };
 
@@ -95,8 +93,9 @@ public class ForgotPasswordCommandHandler(
         catch (Exception e)
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
-            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
-                .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
+
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."].
+                                                                   Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }
 }

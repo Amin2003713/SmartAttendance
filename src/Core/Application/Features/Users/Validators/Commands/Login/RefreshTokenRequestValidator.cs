@@ -7,14 +7,8 @@ public class RefreshTokenRequestValidator : AbstractValidator<RefreshTokenReques
 {
     public RefreshTokenRequestValidator(IStringLocalizer<RefreshTokenRequestValidator> localizer)
     {
-        RuleFor(x => x.RefreshToken)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage(localizer["Invalid or missing token."].Value); // "توکن نامعتبر یا مفقود است."
+        RuleFor(x => x.RefreshToken).NotNull().NotEmpty().WithMessage(localizer["Invalid or missing token."].Value); // "توکن نامعتبر یا مفقود است."
 
-        RuleFor(x => x.AccessToken)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage(localizer["Invalid or missing token."].Value); // "توکن نامعتبر یا مفقود است."
+        RuleFor(x => x.AccessToken).NotNull().NotEmpty().WithMessage(localizer["Invalid or missing token."].Value); // "توکن نامعتبر یا مفقود است."
     }
 }

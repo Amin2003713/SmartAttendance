@@ -10,7 +10,7 @@ namespace SmartAttendance.Persistence.Services.Seeder;
 
 public class SeedCalendarService(
     SmartAttendanceTenantDbContext db,
-    TimeIrService service
+    TimeIrService                  service
 ) : ITransientDependency
 {
     public async Task SeedCalender()
@@ -33,14 +33,14 @@ public class SeedCalendarService(
                 foreach (var dailyCalender in data)
                 {
                     var calender = await db.TenantCalendars.FirstOrDefaultAsync(a =>
-                        a.Date == dailyCalender.Date &&
-                        a.IsHoliday == dailyCalender.IsHoliday &&
-                        a.IsWeekend == dailyCalender.IsWeekend);
+                                                                                    a.Date      == dailyCalender.Date      &&
+                                                                                    a.IsHoliday == dailyCalender.IsHoliday &&
+                                                                                    a.IsWeekend == dailyCalender.IsWeekend);
 
                     if (calender is not null) continue;
 
                     var update = await db.TenantCalendars.FirstOrDefaultAsync(a =>
-                        a.Date == dailyCalender.Date);
+                                                                                  a.Date == dailyCalender.Date);
 
                     if (update is null)
                     {
@@ -50,7 +50,7 @@ public class SeedCalendarService(
 
                     update.IsHoliday = dailyCalender.IsHoliday;
                     update.IsWeekend = dailyCalender.IsWeekend;
-                    update.Details = dailyCalender.Details!.Trim();
+                    update.Details   = dailyCalender.Details!.Trim();
 
                     db.Entry(update).State = EntityState.Modified;
                 }

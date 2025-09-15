@@ -11,10 +11,10 @@ using SmartAttendance.Common.General.Enums.FileType;
 namespace SmartAttendance.RequestHandlers.Base.HubFiles.Commands.AddFileForCopyRow;
 
 public record UploadFileForCopyRowCommandHandler(
-    IHubFileQueryRepository HubFileQueryRepository,
-    IMinIoCommandRepository MinIoCommandRepository,
-    IMediator Mediator,
-    ILogger<UploadFileForCopyRowCommandHandler> Logger,
+    IHubFileQueryRepository                              HubFileQueryRepository,
+    IMinIoCommandRepository                              MinIoCommandRepository,
+    IMediator                                            Mediator,
+    ILogger<UploadFileForCopyRowCommandHandler>          Logger,
     IStringLocalizer<UploadFileForCopyRowCommandHandler> Localizer
 )
     : IRequestHandler<UploadFileForCopyRowCommand, MediaFileStorage>
@@ -66,13 +66,13 @@ public record UploadFileForCopyRowCommandHandler(
             //     request.RowId);
 
             var uploadResult = await Mediator.Send(new UploadHubFileCommand
-                {
-                    File = file!,
-                    ReportDate = request.ReportDate,
-                    RowId = request.RowId,
-                    RowType = request.FileStorageType
-                },
-                cancellationToken);
+                                                   {
+                                                       File       = file!,
+                                                       ReportDate = request.ReportDate,
+                                                       RowId      = request.RowId,
+                                                       RowType    = request.FileStorageType
+                                                   },
+                                                   cancellationToken);
 
             Logger.LogInformation("File uploaded successfully. Upload result: {UploadResult}", uploadResult);
             return uploadResult;
@@ -97,6 +97,7 @@ public record UploadFileForCopyRowCommandHandler(
         var rowId = Guid.Parse(uri.Segments.Last());
 
         var queryParams = HttpUtility.ParseQueryString(uri.Query);
+
         if (!Enum.TryParse<FileType>(queryParams["Type"], true, out var fileType))
             throw new ArgumentException("Invalid FileType in URL parameters.");
 
@@ -112,9 +113,10 @@ public record UploadFileForCopyRowCommandHandler(
     public static IFormFile ToFormFile(byte[] bytes, string fileName, string contentType = "application/octet-stream")
     {
         var stream = new MemoryStream(bytes);
+
         var formFile = new FormFile(stream, 0, bytes.Length, "file", fileName)
         {
-            Headers = new HeaderDictionary(),
+            Headers     = new HeaderDictionary(),
             ContentType = contentType
         };
 

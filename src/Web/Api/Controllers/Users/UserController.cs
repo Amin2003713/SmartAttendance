@@ -43,7 +43,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(BadRequestResult), StatusCodes.Status403Forbidden)]
     public async Task ForgotPasswordAsync(
         [FromBody] ForgotPasswordRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                cancellationToken)
     {
         await Mediator.Send(request.Adapt<ForgotPasswordCommand>(), cancellationToken);
     }
@@ -67,7 +67,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails),  StatusCodes.Status500InternalServerError)]
     public virtual async Task<LoginResponse> LoginAsync(
         [FromBody] LoginRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken       cancellationToken)
     {
         return await Mediator.Send(request.Adapt<LoginCommand>(), cancellationToken);
     }
@@ -91,7 +91,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails),    StatusCodes.Status500InternalServerError)]
     public virtual async Task<RefreshTokenResponse> RefreshTokenAsync(
         [FromBody] RefreshTokenRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken              cancellationToken)
     {
         return await Mediator.Send(request.Adapt<RefreshTokenCommand>(), cancellationToken);
     }
@@ -133,7 +133,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails),         StatusCodes.Status500InternalServerError)]
     public virtual async Task<VerifyPhoneNumberResponse> VerifyPhoneNumberAsync(
         [FromBody] VerifyPhoneNumberRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                   cancellationToken)
     {
         return await Mediator.Send(request.Adapt<VerifyPhoneNumberCommand>(), cancellationToken);
     }
@@ -156,7 +156,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails),                 StatusCodes.Status500InternalServerError)]
     public virtual async Task<SendActivationCodeCommandResponse> SendActivationCode(
         [FromBody] SendActivationCodeRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                    cancellationToken)
     {
         return await Mediator.Send(request.Adapt<SendActivationCodeCommand>(), cancellationToken);
     }
@@ -181,7 +181,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails),  StatusCodes.Status500InternalServerError)]
     public virtual async Task RegisterByOwner(
         [FromBody] RegisterByOwnerRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                 cancellationToken)
     {
         await Mediator.Send(request.Adapt<RegisterByOwnerCommand>(), cancellationToken);
     }
@@ -205,7 +205,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status500InternalServerError)]
     public virtual async Task UpdatePhoneNumber(
         [FromBody] UpdatePhoneNumberRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken                   cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdatePhoneNumberCommand>(), cancellationToken);
     }
@@ -231,7 +231,7 @@ public class UserController : SmartAttendanceBaseController
     public virtual async Task UpdateUser([FromForm] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateUserCommand>().AddFiles(request.ImageFile!),
-            cancellationToken);
+                            cancellationToken);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public class UserController : SmartAttendanceBaseController
     /// <response code="403">User is not authorized to access this data.</response>
     /// <response code="500">Internal server error.</response>
     [SwaggerOperation(Summary = "Get User Info",
-        Description = "Gets profile information of the currently logged-in user.")]
+                      Description = "Gets profile information of the currently logged-in user.")]
     [HttpGet("User-Info")]
     [Authorize]
     [ProducesResponseType(typeof(GetUserResponse),    StatusCodes.Status200OK)]

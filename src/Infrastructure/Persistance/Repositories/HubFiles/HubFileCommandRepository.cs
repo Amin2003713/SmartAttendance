@@ -6,10 +6,8 @@ using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
 using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
 using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
-using SmartAttendance.Application.Base.Storage.Request.Queries.StorageResponses;
 using SmartAttendance.Application.Interfaces.HubFiles;
 using SmartAttendance.Application.Interfaces.Minio;
-using SmartAttendance.Application.Interfaces.Storages;
 using SmartAttendance.Common.General.Enums.FileType;
 using SmartAttendance.Common.Utilities.EnumHelpers;
 using SmartAttendance.Domain.HubFiles;
@@ -18,13 +16,12 @@ using WriterFactory = SharpCompress.Writers.WriterFactory;
 namespace SmartAttendance.Persistence.Repositories.HubFiles;
 
 public class HubFileCommandRepository(
-    WriteOnlyDbContext dbContext,
-    ILogger<HubFileCommandRepository> logger,
-    IStringLocalizer<HubFileCommandRepository> localizer,
+    WriteOnlyDbContext                                     dbContext,
+    ILogger<HubFileCommandRepository>                      logger,
+    IStringLocalizer<HubFileCommandRepository>             localizer,
     IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContextAccessor,
-    IMinIoCommandRepository minIoCommandRepository,
-    IMinIoQueryRepository minIoQueryRepository,
-    IStorageCommandRepository storageCommandRepository
+    IMinIoCommandRepository                                minIoCommandRepository,
+    IMinIoQueryRepository                                  minIoQueryRepository
 ) : CommandRepository<HubFile>(dbContext, logger),
     IHubFileCommandRepository
 {
@@ -60,13 +57,13 @@ public class HubFileCommandRepository(
         // logger.LogInformation("Generating ZIP file for ProjectId: {ProjectId}", Zipfile.ProjectId);
 
         var files = await TableNoTracking.Where(a =>
-                // a.ProjectId == Zipfile.ProjectId &&
-                a.ReferenceIdType == Zipfile.RowType &&
-                a.ReportDate >= Zipfile.FromDate &&
-                a.ReportDate <= Zipfile.ToDate)
-            .GroupBy(a => a.Name)
-            .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
-            .ToListAsync(cancellationToken);
+                                                    // a.ProjectId == Zipfile.ProjectId &&
+                                                    a.ReferenceIdType == Zipfile.RowType  &&
+                                                    a.ReportDate      >= Zipfile.FromDate &&
+                                                    a.ReportDate      <= Zipfile.ToDate).
+                                          GroupBy(a => a.Name).
+                                          Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault()).
+                                          ToListAsync(cancellationToken);
 
         if (files.Count == 0)
         {
@@ -80,8 +77,8 @@ public class HubFileCommandRepository(
         {
             File = zip,
 
-            RowType = FileStorageType.ZipExports,
-            RowId = Guid.NewGuid(),
+            RowType    = FileStorageType.ZipExports,
+            RowId      = Guid.NewGuid(),
             ReportDate = DateTime.UtcNow
         };
 
@@ -94,7 +91,7 @@ public class HubFileCommandRepository(
 
 
     public async Task<string> SavePdfFile(
-        UploadPdfCommand file,
+        UploadPdfCommand  file,
         CancellationToken cancellationToken)
     {
         var minioPath = await GetBucketPath(file.Adapt<UploadFileRequest>(), cancellationToken);
@@ -104,39 +101,25 @@ public class HubFileCommandRepository(
             File = file.File,
 
             FileName = file.FileName,
-            RowId = Guid.NewGuid(),
-            RowType = FileStorageType.PdfExports
+            RowId    = Guid.NewGuid(),
+            RowType  = FileStorageType.PdfExports
         };
 
         var files = new UploadPdfCommand
         {
             File = file.File,
 
-            FileName = file.FileName,
-            RowId = Guid.NewGuid(),
-            RowType = FileStorageType.PdfExports,
+            FileName   = file.FileName,
+            RowId      = Guid.NewGuid(),
+            RowType    = FileStorageType.PdfExports,
             FileUpload = uploadPdfRequest,
-            Path = minioPath,
-            UserId = Guid.Empty
+            Path       = minioPath,
+            UserId     = Guid.Empty
         };
 
 
         var path = await minIoCommandRepository.UploadPdfAsync(files, cancellationToken);
 
-        var storage = new StorageResponse(
-            // file.ProjectId,
-            path.Path,
-            path.Type,
-            new decimal(file.File.Length / (1024.0 * 1024.0)));
-
-
-        var storages = storage.Adapt<Domain.Storages.Storage>();
-
-        if (file.RowType is not (FileStorageType.ZipExports or FileStorageType.PdfExports))
-        {
-            await storageCommandRepository.AddAsync(storages, cancellationToken);
-            logger.LogInformation("Storage record added for path: {Path}", path.Path);
-        }
 
         try
         {
@@ -144,11 +127,6 @@ public class HubFileCommandRepository(
             logger.LogInformation("PDF file metadata saved successfully. FileId: {FileId}", path.Id);
 
             return GetUrlPath(path.Id, FileType.Pdf, FileStorageType.PdfExports);
-        }
-        catch (OutOfMemoryException)
-        {
-            // logger.LogError("Out of memory while saving PDF file. ProjectId: {ProjectId}", file.ProjectId);
-            throw new Exception(localizer["Your storage quota has been exceeded."]);
         }
         catch (Exception ex)
         {
@@ -274,8 +252,7 @@ public class HubFileCommandRepository(
             return Path.Combine(path, uploadFileRequest.RowType.GetEnglishName()).ToLower();
 
 
-        return Path.Combine(path, uploadFileRequest.RowType.GetEnglishName(), $"Date-{DateTime.UtcNow:yyyyMMdd}")
-            .ToLower();
+        return Path.Combine(path, uploadFileRequest.RowType.GetEnglishName(), $"Date-{DateTime.UtcNow:yyyyMMdd}").ToLower();
     }
 
     private string GetUrlPath(Guid id, FileType fileType, FileStorageType storageType, bool compress = false)
@@ -320,12 +297,12 @@ public class HubFileCommandRepository(
         var resultStream = new MemoryStream(zipStream.ToArray());
 
         var zipFile = new FormFile(resultStream,
-            0,
-            resultStream.Length,
-            "file",
-            $"report_{filePaths.FirstOrDefault()?.Type.ToString() ?? "Unknown"}_{DateTime.UtcNow:yyyy_MM_dd_HH_mm_ss}.zip")
+                                   0,
+                                   resultStream.Length,
+                                   "file",
+                                   $"report_{filePaths.FirstOrDefault()?.Type.ToString() ?? "Unknown"}_{DateTime.UtcNow:yyyy_MM_dd_HH_mm_ss}.zip")
         {
-            Headers = new HeaderDictionary(),
+            Headers     = new HeaderDictionary(),
             ContentType = "application/zip"
         };
 

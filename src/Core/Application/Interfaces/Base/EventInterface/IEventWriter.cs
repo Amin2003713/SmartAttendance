@@ -54,8 +54,8 @@ public interface IEventWriter<TAggregate, TId>
     /// </code>
     /// </example>
     Task SaveSnapshotAsync(
-        ISnapshot<TId> snapshot,
-        DateTime reported,
+        ISnapshot<TId>    snapshot,
+        DateTime          reported,
         CancellationToken cancellationToken = default);
 
     /// <summary>

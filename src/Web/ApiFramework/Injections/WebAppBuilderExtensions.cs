@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
-using SmartAttendance.ApiFramework.Analytics;
 using SmartAttendance.ApiFramework.Middleware.Localaizer;
 using SmartAttendance.ApiFramework.Middleware.Tenant;
 using SmartAttendance.Common.General;
@@ -18,8 +17,8 @@ public static class WebAppBuilderExtensions
 {
     public static void UseWebApi<TResourceUsage>(
         this IApplicationBuilder app,
-        string scalarTitle = "API Reference",
-        string? ScalarRoutTemp = null!)
+        string                   scalarTitle    = "API Reference",
+        string?                  ScalarRoutTemp = null!)
     {
         app.UseCors(builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 
@@ -27,7 +26,7 @@ public static class WebAppBuilderExtensions
 
         app.UseMultiTenant();
         app.UseMiddleware<TenantValidationMiddleware>();
-        app.UseMiddleware<CorrelationIdMiddleware>();
+
         app.UseMiddleware<HandelArchive>();
 
         app.UseAppSwagger();
@@ -39,52 +38,52 @@ public static class WebAppBuilderExtensions
         app.ConfigureAutomaticTasks();
 
         app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
+                         {
+                             endpoints.MapControllers();
 
-            endpoints.MapScalarApiReference(opt =>
-            {
-                opt.OpenApiRoutePattern = (ApplicationConstant.AppOptions.GetSwaggerPath() ??
-                                           ScalarRoutTemp)!;
+                             endpoints.MapScalarApiReference(opt =>
+                                                             {
+                                                                 opt.OpenApiRoutePattern = (ApplicationConstant.AppOptions.GetSwaggerPath() ??
+                                                                                            ScalarRoutTemp)!;
 
-                opt.Servers = [];
-                opt.Title = scalarTitle;
-                opt.Theme = ScalarTheme.BluePlanet;
-                opt.Layout = ScalarLayout.Classic;
+                                                                 opt.Servers = [];
+                                                                 opt.Title   = scalarTitle;
+                                                                 opt.Theme   = ScalarTheme.BluePlanet;
+                                                                 opt.Layout  = ScalarLayout.Classic;
 
-                opt.DefaultHttpClient
-                    = new KeyValuePair<ScalarTarget, ScalarClient>(ScalarTarget.Http, ScalarClient.Axios);
+                                                                 opt.DefaultHttpClient
+                                                                     = new KeyValuePair<ScalarTarget, ScalarClient>(ScalarTarget.Http, ScalarClient.Axios);
 
-                opt.DarkMode = true;
+                                                                 opt.DarkMode = true;
 
-                opt.EnabledClients = new[]
-                {
-                    ScalarClient.Axios,
-                    ScalarClient.Http2,
-                    ScalarClient.Httpie,
-                    ScalarClient.Requests,
-                    ScalarClient.Native,
-                    ScalarClient.HttpClient,
-                    ScalarClient.Curl
-                };
+                                                                 opt.EnabledClients = new[]
+                                                                 {
+                                                                     ScalarClient.Axios,
+                                                                     ScalarClient.Http2,
+                                                                     ScalarClient.Httpie,
+                                                                     ScalarClient.Requests,
+                                                                     ScalarClient.Native,
+                                                                     ScalarClient.HttpClient,
+                                                                     ScalarClient.Curl
+                                                                 };
 
-                opt.HideModels = true;
-                opt.OperationSorter = OperationSorter.Alpha;
-                opt.DynamicBaseServerUrl = true;
-                opt.ShowSidebar = true;
-                opt.PersistentAuthentication = true;
-            });
+                                                                 opt.HideModels               = true;
+                                                                 opt.OperationSorter          = OperationSorter.Alpha;
+                                                                 opt.DynamicBaseServerUrl     = true;
+                                                                 opt.ShowSidebar              = true;
+                                                                 opt.PersistentAuthentication = true;
+                                                             });
 
-            endpoints.MapHangfireDashboard();
+                             endpoints.MapHangfireDashboard();
 
 
-            endpoints.MapHealthChecks("/api/health",
-                new HealthCheckOptions
-                {
-                    Predicate = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
-        });
+                             endpoints.MapHealthChecks("/api/health",
+                                                       new HealthCheckOptions
+                                                       {
+                                                           Predicate      = _ => true,
+                                                           ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                                                       });
+                         });
 
         app.UseHangfireDashboard(
             // , new DashboardOptions
@@ -121,19 +120,19 @@ public static class WebAppBuilderExtensions
         app.UseSwagger(options => { options.RouteTemplate = "api/swagger/{documentName}/swagger.json"; });
 
         app.UseReDoc(options =>
-        {
-            options.EnableUntrustedSpec();
-            options.ScrollYOffset(10);
-            options.HideHostname();
-            options.HideDownloadButton();
-            options.ExpandResponses("200,201");
-            options.RequiredPropsFirst();
-            options.NoAutoAuth();
-            options.PathInMiddlePanel();
-            options.HideLoading();
-            options.NativeScrollbars();
-            options.OnlyRequiredInSamples();
-            options.SortPropsAlphabetically();
-        });
+                     {
+                         options.EnableUntrustedSpec();
+                         options.ScrollYOffset(10);
+                         options.HideHostname();
+                         options.HideDownloadButton();
+                         options.ExpandResponses("200,201");
+                         options.RequiredPropsFirst();
+                         options.NoAutoAuth();
+                         options.PathInMiddlePanel();
+                         options.HideLoading();
+                         options.NativeScrollbars();
+                         options.OnlyRequiredInSamples();
+                         options.SortPropsAlphabetically();
+                     });
     }
 }

@@ -6,7 +6,7 @@ using CancellationToken = System.Threading.CancellationToken;
 namespace SmartAttendance.RequestHandlers.Base.Companies.Queries.CheckDomain;
 
 public class CheckDomainQueryHandler(
-    ICompanyRepository companyRepository,
+    ICompanyRepository                        companyRepository,
     IStringLocalizer<CheckDomainQueryHandler> localizer
 )
     : IRequestHandler<CheckDomainQuery, CheckDomainResponse>

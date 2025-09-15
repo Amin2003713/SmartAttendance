@@ -6,19 +6,19 @@ using SmartAttendance.Common.Exceptions;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.AddLoginRecord;
 
 public class AddLoginRecordCommandHandler(
-    IUserCommandRepository userCommandRepository,
-    IUserQueryRepository userQueryRepository,
-    IRefreshTokenQueryRepository refreshTokenQueryRepository,
+    IUserCommandRepository                         userCommandRepository,
+    IUserQueryRepository                           userQueryRepository,
+    IRefreshTokenQueryRepository                   refreshTokenQueryRepository,
     IStringLocalizer<AddLoginRecordCommandHandler> localizer,
-    ILogger<AddLoginRecordCommandHandler> logger
+    ILogger<AddLoginRecordCommandHandler>          logger
 )
     : IRequestHandler<AddLoginRecordCommand>
 {
     public async Task Handle(AddLoginRecordCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("<UNK> AddLoginRecordCommand request for user {UserId} , {token}",
-            request.UserId!,
-            request.UniqueTokenIdentifier);
+                              request.UserId!,
+                              request.UniqueTokenIdentifier);
 
         if (request.UserId == Guid.Empty)
             return;

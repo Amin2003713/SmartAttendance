@@ -3,7 +3,7 @@
 namespace SmartAttendance.Domain.Users;
 
 public class UserRoles : IdentityUserRole<Guid>,
-    ISimpleEntity
+                         ISimpleEntity
 {
     public Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
 }

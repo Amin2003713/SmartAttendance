@@ -48,7 +48,7 @@ public interface IEventReader<TAggregate, TId>
 
     Task<List<EventDocument<TId>>> LoadEventsAsync(
         Expression<Func<BaseEventStoreModel<TId>, bool>> predicate,
-        CancellationToken cancellationToken = default);
+        CancellationToken                                cancellationToken = default);
 
     /// <summary>
     ///     Retrieves the most recent version of an aggregate.
@@ -70,12 +70,12 @@ public interface IEventReader<TAggregate, TId>
     /// </example>
     Task<List<TAggregate>> LoadByPredicateAsync(
         Expression<Func<BaseEventStoreModel<TId>, bool>> predicate,
-        CancellationToken cancellationToken = default);
+        CancellationToken                                cancellationToken = default);
 
 
     Task<List<TResult>> LoadStateByPredicateAsync<TResult>(
         Expression<Func<BaseEventStoreModel<TId>, bool>> predicate,
-        CancellationToken cancellationToken = default);
+        CancellationToken                                cancellationToken = default);
 
 
     /// <summary>
@@ -87,8 +87,8 @@ public interface IEventReader<TAggregate, TId>
     /// </code>
     /// </example>
     Task<TAggregate?> GetSingleAsync(
-        Expression<Func<BaseEventStoreModel<TId>, bool>> predicate = null!,
-        CancellationToken cancellationToken = default);
+        Expression<Func<BaseEventStoreModel<TId>, bool>> predicate         = null!,
+        CancellationToken                                cancellationToken = default);
 
 
     /// <summary>
@@ -101,7 +101,7 @@ public interface IEventReader<TAggregate, TId>
     /// </example>
     Task<bool> AnyAsync(
         Expression<Func<BaseEventStoreModel<TId>, bool>> predicate,
-        CancellationToken cancellationToken = default);
+        CancellationToken                                cancellationToken = default);
 
 
     /// <summary>
@@ -115,7 +115,7 @@ public interface IEventReader<TAggregate, TId>
     ValueTask<TAggregate?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
 
     Task<List<TAggregate>> LoadHybridAsync(
-        Expression<Func<BaseEventStoreModel<TId>, bool>> predicate = null,
-        Func<OrderedParallelQuery<TAggregate>, List<TAggregate>> paginate = null,
-        CancellationToken cancellationToken = default);
+        Expression<Func<BaseEventStoreModel<TId>, bool>>         predicate         = null,
+        Func<OrderedParallelQuery<TAggregate>, List<TAggregate>> paginate          = null,
+        CancellationToken                                        cancellationToken = default);
 }

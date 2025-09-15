@@ -7,13 +7,13 @@ public class CreateReminderRequestExample : IExamplesProvider<CreateReminderRequ
         return new CreateReminderRequest
         {
             Details = "یادآوری ",
-            Date = DateTime.Today,
+            Date    = DateTime.Today,
             TargetUsers =
                 new List<UserTargetRequest>
                 {
-                    new()
+                    new UserTargetRequest
                     {
-                        Id = Guid.Empty,
+                        Id   = Guid.Empty,
                         Name = "نام کاربر "
                     }
                 }

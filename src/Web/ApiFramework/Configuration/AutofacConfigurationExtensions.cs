@@ -10,7 +10,6 @@ using SmartAttendance.Persistence.Db;
 using SmartAttendance.Persistence.Jwt;
 using SmartAttendance.Persistence.Repositories.Common;
 using SmartAttendance.Persistence.Services.Time.ir;
-using SmartAttendance.RequestHandlers.Base.Discounts.Commands.CreateDiscount;
 
 namespace SmartAttendance.ApiFramework.Configuration;
 
@@ -24,14 +23,10 @@ public static class AutofacConfigurationExtensions
 
     private static void RegisterGenericRepositories(ContainerBuilder builder)
     {
-        builder.RegisterGeneric(typeof(CommandRepository<>))
-            .As(typeof(ICommandRepository<>))
-            .InstancePerLifetimeScope();
+        builder.RegisterGeneric(typeof(CommandRepository<>)).As(typeof(ICommandRepository<>)).InstancePerLifetimeScope();
 
         builder.RegisterGeneric(typeof(QueryRepository<>)).As(typeof(IQueryRepository<>)).InstancePerLifetimeScope();
-        builder.RegisterGeneric(typeof(TableTranslatorService<>))
-            .As(typeof(ITableTranslatorService<>))
-            .InstancePerLifetimeScope();
+        builder.RegisterGeneric(typeof(TableTranslatorService<>)).As(typeof(ITableTranslatorService<>)).InstancePerLifetimeScope();
     }
 
     private static void RegisterAssemblyDependencies(ContainerBuilder builder)
@@ -41,7 +36,6 @@ public static class AutofacConfigurationExtensions
         var domainAssembly       = typeof(TenantDefaultValue).Assembly;
         var persistenceAssembly  = typeof(SmartAttendanceDbContext).Assembly;
         var applicationAssembly  = typeof(JwtService).Assembly;
-        var handlerAssembly      = typeof(CreateDiscountCommandHandler).Assembly;
         var frameworkApiAssembly = typeof(AutofacConfigurationExtensions).Assembly;
         var ipaFrameworkAssembly = typeof(WebApiModule).Assembly;
         var ipaModelsAssembly    = typeof(EnumExtensions).Assembly;
@@ -53,7 +47,6 @@ public static class AutofacConfigurationExtensions
             domainAssembly,
             persistenceAssembly,
             applicationAssembly,
-            handlerAssembly,
             frameworkApiAssembly,
             ipaFrameworkAssembly,
             ipaModelsAssembly,
@@ -61,24 +54,12 @@ public static class AutofacConfigurationExtensions
         };
 
         // Register scoped dependencies
-        builder.RegisterAssemblyTypes(allAssemblies)
-            .AssignableTo<IScopedDependency>()
-            .AsImplementedInterfaces()
-            .AsSelf()
-            .InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(allAssemblies).AssignableTo<IScopedDependency>().AsImplementedInterfaces().AsSelf().InstancePerLifetimeScope();
 
         // Register transient dependencies
-        builder.RegisterAssemblyTypes(allAssemblies)
-            .AssignableTo<ITransientDependency>()
-            .AsImplementedInterfaces()
-            .AsSelf()
-            .InstancePerDependency();
+        builder.RegisterAssemblyTypes(allAssemblies).AssignableTo<ITransientDependency>().AsImplementedInterfaces().AsSelf().InstancePerDependency();
 
         // Register singleton dependencies
-        builder.RegisterAssemblyTypes(allAssemblies)
-            .AssignableTo<ISingletonDependency>()
-            .AsImplementedInterfaces()
-            .AsSelf()
-            .SingleInstance();
+        builder.RegisterAssemblyTypes(allAssemblies).AssignableTo<ISingletonDependency>().AsImplementedInterfaces().AsSelf().SingleInstance();
     }
 }

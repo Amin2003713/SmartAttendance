@@ -9,7 +9,7 @@ public static class MultipleDatabaseExtensions
     /// </summary>
     public static async Task AddAndMigrateTenantDatabases<TDbContext, TSeeder>(
         this IServiceCollection services,
-        CancellationToken cancellationToken = default)
+        CancellationToken       cancellationToken = default)
         where TDbContext : DbContext
         where TSeeder : class, IGenericSeeder<TDbContext>
     {
@@ -18,6 +18,7 @@ public static class MultipleDatabaseExtensions
             using var scopeTenant = services.BuildServiceProvider().CreateScope();
 
             var tenantDbContext = scopeTenant.ServiceProvider.GetRequiredService<SmartAttendanceTenantDbContext>();
+
             if (!await tenantDbContext.Database.CanConnectAsync(cancellationToken))
                 await tenantDbContext.Database.MigrateAsync(cancellationToken);
 
@@ -27,6 +28,7 @@ public static class MultipleDatabaseExtensions
             var seeder = scopeTenant.ServiceProvider.GetRequiredService<TSeeder>();
 
             var tenantsInDb = await tenantDbContext.TenantInfo.ToListAsync(cancellationToken);
+
             if (tenantsInDb.Count == 0)
                 return;
 

@@ -5,8 +5,8 @@ using SmartAttendance.Common.Exceptions;
 namespace SmartAttendance.RequestHandlers.Base.MinIo.Commands.UploadPdf;
 
 public class UploadPdfCommandHandler(
-    IMinIoCommandRepository minIoCommandRepository,
-    ILogger<UploadPdfCommandHandler> logger,
+    IMinIoCommandRepository                   minIoCommandRepository,
+    ILogger<UploadPdfCommandHandler>          logger,
     IStringLocalizer<UploadPdfCommandHandler> localizer
 )
     : IRequestHandler<UploadPdfCommand, string>

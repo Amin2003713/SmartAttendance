@@ -6,8 +6,8 @@ using SmartAttendance.Common.Exceptions;
 namespace SmartAttendance.RequestHandlers.Base.Settings.Queries.GetSetting;
 
 public class GetSettingQueryHandler(
-    ISettingQueriesRepository repository,
-    ILogger<GetSettingQueryHandler> logger,
+    ISettingQueriesRepository                repository,
+    ILogger<GetSettingQueryHandler>          logger,
     IStringLocalizer<GetSettingQueryHandler> localizer
 ) : IRequestHandler<GetSettingQuery, GetSettingQueryResponse>
 {

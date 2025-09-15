@@ -11,10 +11,10 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.UpdateUser;
 
 public class UpdateUserCommandHandler(
-    UserManager<User> userManager,
-    IdentityService identityService,
-    IMediator mediator,
-    ILogger<UpdateUserCommandHandler> logger,
+    UserManager<User>                          userManager,
+    IdentityService                            identityService,
+    IMediator                                  mediator,
+    ILogger<UpdateUserCommandHandler>          logger,
     IStringLocalizer<UpdateUserCommandHandler> localizer
 )
     : IRequestHandler<UpdateUserCommand>
@@ -41,7 +41,7 @@ public class UpdateUserCommandHandler(
                     var path = user.Profile.Replace("https://", "").Replace("http://", "");
 
                     var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
-                        cancellationToken);
+                                                             cancellationToken);
 
                     if (!deleteResponse)
                     {
@@ -56,8 +56,8 @@ public class UpdateUserCommandHandler(
                     File = request.ImageFile.MediaFile,
 
                     ReportDate = DateTime.UtcNow,
-                    RowType = FileStorageType.ProfilePicture,
-                    RowId = userId
+                    RowType    = FileStorageType.ProfilePicture,
+                    RowId      = userId
                 };
 
                 var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);
@@ -71,7 +71,7 @@ public class UpdateUserCommandHandler(
 
             if (!string.IsNullOrWhiteSpace(request.Email))
             {
-                user.Email = request.Email;
+                user.Email           = request.Email;
                 user.NormalizedEmail = request.Email.ToUpperInvariant();
             }
 

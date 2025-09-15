@@ -58,14 +58,14 @@ public static class StringExtensions
         if (urls == null) return new List<string?>();
 
         return urls.Select(url =>
-            {
-                if (string.IsNullOrWhiteSpace(url))
-                    return null;
+                           {
+                               if (string.IsNullOrWhiteSpace(url))
+                                   return null;
 
-                var shouldCompress = url.Contains("Picture", StringComparison.OrdinalIgnoreCase);
+                               var shouldCompress = url.Contains("Picture", StringComparison.OrdinalIgnoreCase);
 
-                return url.BuildImageUrl(shouldCompress);
-            })
-            .ToList();
+                               return url.BuildImageUrl(shouldCompress);
+                           }).
+                    ToList();
     }
 }

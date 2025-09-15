@@ -4,15 +4,15 @@ using SmartAttendance.Common.Utilities.InjectionHelpers;
 namespace SmartAttendance.Persistence.Repositories.Jwt;
 
 public class RefreshCommandTokenRepository(
-    WriteOnlyDbContext dbContext,
-    IRefreshTokenQueryRepository queryRepository,
-    ILogger<RefreshCommandTokenRepository> logger,
-    ILogger<CommandRepository<UserToken>> writeOnlyLogger,
+    WriteOnlyDbContext                              dbContext,
+    IRefreshTokenQueryRepository                    queryRepository,
+    ILogger<RefreshCommandTokenRepository>          logger,
+    ILogger<CommandRepository<UserToken>>           writeOnlyLogger,
     IStringLocalizer<RefreshCommandTokenRepository> localizer
 )
     : CommandRepository<UserToken>(dbContext, writeOnlyLogger),
-        IRefreshTokenCommandRepository,
-        IScopedDependency
+      IRefreshTokenCommandRepository,
+      IScopedDependency
 {
     public async Task AddOrUpdateRefreshTokenAsync(UserToken refreshToken, CancellationToken cancellationToken)
     {

@@ -32,9 +32,7 @@ public class TimeIrService(
         var result = new List<TenantCalendar>();
 
 
-        foreach (var day in apiResponse!.Data.DayList.OrderByDescending(a => a.IndexInBase1)
-                     .DistinctBy(a => a.IndexInBase1)
-                     .ToList())
+        foreach (var day in apiResponse!.Data.DayList.OrderByDescending(a => a.IndexInBase1).DistinctBy(a => a.IndexInBase1).ToList())
         {
             var Calendar = new TenantCalendar
             {

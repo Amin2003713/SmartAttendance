@@ -36,12 +36,11 @@ public class ApiData
     {
         var yearAndMonth = CalendarDetailList.FirstOrDefault(a => a.Base == calendarDetailsBase)!.GetPersianMonthYear();
 
-        var lastday = ConvertPersianToGregorian(yearAndMonth.Year, yearAndMonth.MonthIndex, 1)
-            .GetPersianMonthStartAndEndDates();
+        var lastday = ConvertPersianToGregorian(yearAndMonth.Year, yearAndMonth.MonthIndex, 1).GetPersianMonthStartAndEndDates();
 
         var date = ConvertPersianToGregorian(yearAndMonth.Year,
-            yearAndMonth.MonthIndex,
-            Math.Min(day, lastday.LastDayNumber));
+                                             yearAndMonth.MonthIndex,
+                                             Math.Min(day, lastday.LastDayNumber));
 
         return date;
     }

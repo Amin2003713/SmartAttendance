@@ -7,14 +7,14 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Commons.Queries.GetLogPropertyInfo;
 
 public class GetLogPropertyInfoQueryHandler(
-    UserManager<User> userManager,
+    UserManager<User>                       userManager,
     ILogger<GetLogPropertyInfoQueryHandler> logger
 )
     : IRequestHandler<GetLogPropertyInfoQuery, LogPropertyInfoResponse>
 {
     public async Task<LogPropertyInfoResponse> Handle(
         GetLogPropertyInfoQuery request,
-        CancellationToken cancellationToken)
+        CancellationToken       cancellationToken)
     {
         logger.LogInformation("Fetching log property info for UserId: {UserId}", request.Id);
 
@@ -27,10 +27,11 @@ public class GetLogPropertyInfoQueryHandler(
         }
 
         logger.LogInformation("User with Id {UserId} found: {UserName}", request.Id, user.FullName());
+
         return new LogPropertyInfoResponse
         {
-            Id = Guid.Empty,
-            Name = "Aghdas",
+            Id      = Guid.Empty,
+            Name    = "Aghdas",
             Profile = "https://example.com/Profil.png"
         };
     }

@@ -1,12 +1,11 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Genders;
 using SmartAttendance.Common.General.Enums.RoleTypes;
-using SmartAttendance.Domain.Departments;
 
 namespace SmartAttendance.Domain.Users;
 
 public class User : IdentityUser<Guid>,
-    IEntity
+                    IEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -18,10 +17,6 @@ public class User : IdentityUser<Guid>,
     public GenderType Gender { get; set; }
 
     public bool IsLeader { get; set; }
-
-    public Guid? DepartmentId { get; set; }
-
-    public virtual Department Department { get; set; }
 
     public RoleType roleType { get; set; }
 
@@ -37,13 +32,13 @@ public class User : IdentityUser<Guid>,
 
     public void SetPasswordHash(string hashPassword)
     {
-        UserName = PhoneNumber;
+        UserName           = PhoneNumber;
         NormalizedUserName = PhoneNumber!.ToUpper();
-        SecurityStamp = Guid.NewGuid().ToString();
-        ConcurrencyStamp = Guid.NewGuid().ToString();
-        PasswordHash = hashPassword;
-        Email = $"{PhoneNumber}@gmail.com";
-        NormalizedEmail = Email.ToUpper();
+        SecurityStamp      = Guid.NewGuid().ToString();
+        ConcurrencyStamp   = Guid.NewGuid().ToString();
+        PasswordHash       = hashPassword;
+        Email              = $"{PhoneNumber}@gmail.com";
+        NormalizedEmail    = Email.ToUpper();
     }
 
 
@@ -54,11 +49,11 @@ public class User : IdentityUser<Guid>,
 
     public void Update(User source)
     {
-        FirstName = source.FirstName;
-        LastName = source.LastName;
-        Profile = source.Profile;
-        Address = source.Address;
-        BirthDate = source.BirthDate;
+        FirstName  = source.FirstName;
+        LastName   = source.LastName;
+        Profile    = source.Profile;
+        Address    = source.Address;
+        BirthDate  = source.BirthDate;
         ModifiedAt = DateTime.UtcNow;
     }
 

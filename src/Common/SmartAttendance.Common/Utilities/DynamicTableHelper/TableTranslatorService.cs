@@ -8,7 +8,7 @@ public class TableTranslatorService<THandler>(
 ) : ITableTranslatorService<THandler>
 {
     // Cache property info for each type to avoid repeated reflection.
-    private readonly ConcurrentDictionary<Type, List<PropertyInfo>> _propertyCache = new();
+    private readonly ConcurrentDictionary<Type, List<PropertyInfo>> _propertyCache = new ConcurrentDictionary<Type, List<PropertyInfo>>();
 
     // Retrieves all column (property) names for type T.
     public List<string> GetColumnNames<T>()
@@ -44,6 +44,7 @@ public class TableTranslatorService<THandler>(
     {
         // Try to locate the property on type T.
         var prop = typeof(T).GetProperty(columnName, BindingFlags.Public | BindingFlags.Instance);
+
         if (prop == null)
             throw new ArgumentException($"Column '{columnName}' does not exist in type '{typeof(T).Name}'.");
 
@@ -54,7 +55,7 @@ public class TableTranslatorService<THandler>(
     private List<PropertyInfo> GetProperties<T>()
     {
         return _propertyCache.GetOrAdd(typeof(T),
-            type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList());
+                                       type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList());
     }
 
     // Determines if a type is numeric (supports nullable numeric types as well).
@@ -62,6 +63,7 @@ public class TableTranslatorService<THandler>(
     {
         // Unwrap nullable types
         var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
+
         return Type.GetTypeCode(underlyingType) switch
                {
                    TypeCode.Byte or TypeCode.SByte or TypeCode.UInt16 or TypeCode.UInt32 or TypeCode.UInt64 or TypeCode.Int16

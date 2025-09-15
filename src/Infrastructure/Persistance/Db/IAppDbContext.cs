@@ -6,6 +6,6 @@ public interface IAppDbContext
         where T : class;
 
     Task<int> SaveChangesAsync(CancellationToken cancellation);
-    Task<int> ExecuteSqlRawAsync(string query, CancellationToken cancellationToken);
-    Task<int> ExecuteSqlRawAsync(string query);
+    Task<int> ExecuteSqlRawAsync(string          query, CancellationToken cancellationToken);
+    Task<int> ExecuteSqlRawAsync(string          query);
 }

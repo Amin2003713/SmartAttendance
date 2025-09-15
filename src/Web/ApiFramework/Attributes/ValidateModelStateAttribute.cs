@@ -18,8 +18,7 @@ public class ValidateModelStateAttribute : ActionFilterAttribute
     public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         // Resolve a localizer for our attribute’s own messages
-        var localizer = context.HttpContext.RequestServices
-            .GetRequiredService<IStringLocalizer<ValidateModelStateAttribute>>();
+        var localizer = context.HttpContext.RequestServices.GetRequiredService<IStringLocalizer<ValidateModelStateAttribute>>();
 
         // Collect all validation failures from FluentValidation
         var allFailures = new Dictionary<string, List<string>>();
@@ -65,7 +64,7 @@ public class ValidateModelStateAttribute : ActionFilterAttribute
             var problemDetails = new ApiProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
-                Title = localizer["Validation Error"],
+                Title  = localizer["Validation Error"],
                 Detail = localizer["Validation failed. Please check the entered data."].Value,
                 Errors = allFailures
             };

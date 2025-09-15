@@ -6,8 +6,8 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.RequestHandlers.Base.MinIo.Commands.UploadFile;
 
 public class UploadFileCommandHandler(
-    IMinIoCommandRepository minIoCommandRepository,
-    ILogger<UploadFileCommandHandler> logger,
+    IMinIoCommandRepository                    minIoCommandRepository,
+    ILogger<UploadFileCommandHandler>          logger,
     IStringLocalizer<UploadFileCommandHandler> localizer
 )
     : IRequestHandler<UploadFileCommand, HubFile>

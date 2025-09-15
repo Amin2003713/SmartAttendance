@@ -12,7 +12,7 @@ public abstract class RepositoryBase<TEntity, TDbContext>
     public RepositoryBase(TDbContext dbContext, ILogger logger)
     {
         DbContext = dbContext;
-        Logger = logger;
+        Logger    = logger;
     }
 
 

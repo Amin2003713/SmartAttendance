@@ -6,9 +6,9 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetNameById;
 
 public class GetNameByIdQueryHandler(
-    UserManager<User> userManager,
+    UserManager<User>                  userManager,
     IStringLocalizer<GetNameByIdQuery> localizer,
-    ILogger<GetNameByIdQueryHandler> logger
+    ILogger<GetNameByIdQueryHandler>   logger
 ) : IRequestHandler<GetNameByIdQuery, string>
 {
     public async Task<string> Handle(GetNameByIdQuery request, CancellationToken cancellationToken)

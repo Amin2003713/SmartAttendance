@@ -3,4 +3,4 @@
 namespace SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
 
 public class RegisterByOwnerCommand : RegisterByOwnerRequest,
-    IRequest { }
+                                      IRequest { }
