@@ -6,7 +6,7 @@ using SmartAttendance.Domain.Defaults;
 namespace SmartAttendance.Persistence.Services.Seeder;
 
 public class Seeder : IScopedDependency,
-                      IGenericSeeder<SmartAttendanceDbContext>
+    IGenericSeeder<SmartAttendanceDbContext>
 {
     public async Task SeedAsync(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {

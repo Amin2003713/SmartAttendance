@@ -5,7 +5,7 @@ using SmartAttendance.Domain.Calenders.DailyCalender;
 namespace SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
 
 public interface IDailyCalendarQueryRepository : IQueryRepository<DailyCalendar>,
-                                                 IScopedDependency
+    IScopedDependency
 {
     Task<List<DailyCalendar>?> GetCustomCalendarEvents(
         DateTime          startDate,

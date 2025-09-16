@@ -5,93 +5,94 @@ using SmartAttendance.Domain.ValueObjects;
 namespace SmartAttendance.Domain.UserAggregate;
 
 // نقش دامنه
-public sealed class Role(RoleId id, string name) : Entity<RoleId>(id)
-{
-	public string Name { get; } = string.IsNullOrWhiteSpace(name)
-		? throw new DomainValidationException("نام نقش الزامی است.")
-		: name.Trim();
-}
 
 // کاربر دامنه
 public sealed class UserAggregate : AggregateRoot<UserId>
 {
-	private readonly HashSet<RoleId> _roleIds = new();
+    private readonly HashSet<RoleId> _roleIds = new();
 
-	public string FirstName { get; private set; }
-	public string LastName { get; private set; }
-	public EmailAddress Email { get; private set; }
-	public PhoneNumber Phone { get; private set; }
-	public NationalCode NationalCode { get; private set; }
+    public UserAggregate(UserId id, string firstName, string lastName, EmailAddress email, PhoneNumber phone, NationalCode nationalCode)
+        : base(id)
+    {
+        FirstName = Normalize(firstName, "نام");
+        LastName = Normalize(lastName,   "نام خانوادگی");
+        Email = email ?? throw new DomainValidationException("ایمیل الزامی است.");
+        Phone = phone ?? throw new DomainValidationException("تلفن الزامی است.");
+        NationalCode = nationalCode ?? throw new DomainValidationException("کد ملی الزامی است.");
+    }
 
-	public int FailedLoginCount { get; private set; }
-	public bool IsLocked { get; private set; }
-	public DateTime? LockedAtUtc { get; private set; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public EmailAddress Email { get; private set; }
+    public PhoneNumber Phone { get; private set; }
+    public NationalCode NationalCode { get; private set; }
 
-	public IReadOnlyCollection<RoleId> Roles => _roleIds;
+    public int FailedLoginCount { get; private set; }
+    public bool IsLocked { get; private set; }
+    public DateTime? LockedAtUtc { get; private set; }
 
-	public UserAggregate(UserId id, string firstName, string lastName, EmailAddress email, PhoneNumber phone, NationalCode nationalCode)
-		: base(id)
-	{
-		FirstName = Normalize(firstName, "نام");
-		LastName = Normalize(lastName, "نام خانوادگی");
-		Email = email ?? throw new DomainValidationException("ایمیل الزامی است.");
-		Phone = phone ?? throw new DomainValidationException("تلفن الزامی است.");
-		NationalCode = nationalCode ?? throw new DomainValidationException("کد ملی الزامی است.");
-	}
+    public IReadOnlyCollection<RoleId> Roles => _roleIds;
 
-	private static string Normalize(string value, string field)
-	{
-		value = value?.Trim() ?? throw new DomainValidationException($"{field} الزامی است.");
-		if (value.Length is < 2 or > 100) throw new DomainValidationException($"{field} نامعتبر است.");
-		return value;
-	}
+    private static string Normalize(string value, string field)
+    {
+        value = value?.Trim() ?? throw new DomainValidationException($"{field} الزامی است.");
+        if (value.Length is < 2 or > 100) throw new DomainValidationException($"{field} نامعتبر است.");
 
-	public void AssignRole(RoleId roleId)
-	{
-		if (_roleIds.Add(roleId))
-		{
-			RaiseDomainEvent(new RoleAssignedEvent(Id, roleId));
-		}
-	}
+        return value;
+    }
 
-	public void RemoveRole(RoleId roleId)
-	{
-		if (_roleIds.Remove(roleId))
-		{
-			RaiseDomainEvent(new RoleRemovedEvent(Id, roleId));
-		}
-	}
+    public void AssignRole(RoleId roleId)
+    {
+        if (_roleIds.Add(roleId))
+        {
+            RaiseDomainEvent(new RoleAssignedEvent(Id, roleId));
+        }
+    }
 
-	public void RegisterFailedLogin(int thresholdToLock = 5)
-	{
-		FailedLoginCount++;
-		RaiseDomainEvent(new FailedLoginRegisteredEvent(Id, FailedLoginCount));
+    public void RemoveRole(RoleId roleId)
+    {
+        if (_roleIds.Remove(roleId))
+        {
+            RaiseDomainEvent(new RoleRemovedEvent(Id, roleId));
+        }
+    }
 
-		if (!IsLocked && FailedLoginCount >= thresholdToLock)
-		{
-			IsLocked = true;
-			LockedAtUtc = DateTime.UtcNow;
-			RaiseDomainEvent(new UserLockedEvent(Id));
-		}
-	}
+    public void RegisterFailedLogin(int thresholdToLock = 5)
+    {
+        FailedLoginCount++;
+        RaiseDomainEvent(new FailedLoginRegisteredEvent(Id, FailedLoginCount));
 
-	public void ResetFailedLogins() => FailedLoginCount = 0;
+        if (!IsLocked && FailedLoginCount >= thresholdToLock)
+        {
+            IsLocked = true;
+            LockedAtUtc = DateTime.UtcNow;
+            RaiseDomainEvent(new UserLockedEvent(Id));
+        }
+    }
 
-	public void Unlock()
-	{
-		if (!IsLocked) return;
-		IsLocked = false;
-		LockedAtUtc = null;
-		FailedLoginCount = 0;
-		RaiseDomainEvent(new UserUnlockedEvent(Id));
-	}
+    public void ResetFailedLogins()
+    {
+        FailedLoginCount = 0;
+    }
 
-	public void UpdateContact(EmailAddress email, PhoneNumber phone)
-	{
-		Email = email ?? throw new DomainValidationException("ایمیل الزامی است.");
-		Phone = phone ?? throw new DomainValidationException("تلفن الزامی است.");
-	}
+    public void Unlock()
+    {
+        if (!IsLocked) return;
 
-	public bool HasRole(string roleName) => roleName != null && _roleIds.Any();
+        IsLocked = false;
+        LockedAtUtc = null;
+        FailedLoginCount = 0;
+        RaiseDomainEvent(new UserUnlockedEvent(Id));
+    }
+
+    public void UpdateContact(EmailAddress email, PhoneNumber phone)
+    {
+        Email = email ?? throw new DomainValidationException("ایمیل الزامی است.");
+        Phone = phone ?? throw new DomainValidationException("تلفن الزامی است.");
+    }
+
+    public bool HasRole(string roleName)
+    {
+        return roleName != null && _roleIds.Any();
+    }
 }
-

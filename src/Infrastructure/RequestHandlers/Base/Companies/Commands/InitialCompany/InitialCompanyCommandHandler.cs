@@ -108,9 +108,9 @@ public class InitialCompanyCommandHandler(
         try
         {
             return await runTimeDatabaseMigrationService.MigrateTenantDatabasesAsync(company,
-                                                                                     password,
-                                                                                     adminUser,
-                                                                                     cancellationToken);
+                password,
+                adminUser,
+                cancellationToken);
         }
         catch (SmartAttendanceException e)
         {

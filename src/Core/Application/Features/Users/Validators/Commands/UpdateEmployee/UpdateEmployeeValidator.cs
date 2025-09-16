@@ -9,10 +9,10 @@ public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeRequest>
     {
         RuleFor(x => x.UserId).NotEmpty().WithMessage(localizer["UserId is required."]);
 
-        RuleFor(x => x.Roles).
-            NotNull().
-            WithMessage(localizer["RoleTypes are required."]).
-            Must(roles => roles.All(RoleParser.IsValid)).
-            WithMessage(localizer["RoleTypes must be within the allowed role definitions."]);
+        RuleFor(x => x.Roles)
+            .NotNull()
+            .WithMessage(localizer["RoleTypes are required."])
+            .Must(roles => roles.All(RoleParser.IsValid))
+            .WithMessage(localizer["RoleTypes must be within the allowed role definitions."]);
     }
 }

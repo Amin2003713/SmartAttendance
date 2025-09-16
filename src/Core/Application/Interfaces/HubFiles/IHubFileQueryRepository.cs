@@ -5,7 +5,7 @@ using SmartAttendance.Application.Base.HubFiles.Request.Queries.GetFile;
 namespace SmartAttendance.Application.Interfaces.HubFiles;
 
 public interface IHubFileQueryRepository : IQueryRepository<HubFile>,
-                                           IScopedDependency
+    IScopedDependency
 {
     Task<FileTransferResponse> GetHubFile(
         Guid              rowId,

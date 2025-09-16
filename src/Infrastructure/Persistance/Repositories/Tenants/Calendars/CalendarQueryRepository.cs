@@ -60,18 +60,18 @@ public class CalendarQueryRepository(
         try
         {
             logger.LogInformation("Fetching holidays from {Start} to {End} ",
-                                  startAt,
-                                  endAt);
+                startAt,
+                endAt);
 
-            var publicHolidays = await db.TenantCalendars.Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday).
-                                          Select(e => new GetHolidayResponse
-                                          {
-                                              Date     = e.Date,
-                                              Message  = e.Details,
-                                              IsCustom = false,
-                                              Id       = e.Id
-                                          }).
-                                          ToListAsync(cancellationToken);
+            var publicHolidays = await db.TenantCalendars.Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday)
+                .Select(e => new GetHolidayResponse
+                {
+                    Date     = e.Date,
+                    Message  = e.Details,
+                    IsCustom = false,
+                    Id       = e.Id
+                })
+                .ToListAsync(cancellationToken);
 
             return publicHolidays.OrderBy(h => h.Date).ToList();
         }

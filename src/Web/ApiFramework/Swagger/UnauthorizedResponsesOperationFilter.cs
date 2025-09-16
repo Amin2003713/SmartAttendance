@@ -35,16 +35,16 @@ public class UnauthorizedResponsesOperationFilter : IOperationFilter
         if (includeUnauthorizedAndForbiddenResponses)
         {
             operation.Responses.TryAdd("401",
-                                       new OpenApiResponse
-                                       {
-                                           Description = "Unauthorized"
-                                       });
+                new OpenApiResponse
+                {
+                    Description = "Unauthorized"
+                });
 
             operation.Responses.TryAdd("403",
-                                       new OpenApiResponse
-                                       {
-                                           Description = "Forbidden"
-                                       });
+                new OpenApiResponse
+                {
+                    Description = "Forbidden"
+                });
         }
     }
 }

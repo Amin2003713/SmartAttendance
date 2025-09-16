@@ -10,10 +10,10 @@ public static class DependencyInjection
         services.AddLocalization(options => options.ResourcesPath = "Resources");
 
         services.AddMediatR(cfg =>
-                            {
-                                cfg.RegisterGenericHandlers = true;
-                                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-                            });
+        {
+            cfg.RegisterGenericHandlers = true;
+            cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
 
         // services.AddTransient<
         //     IRequestHandler<GetDailyReportQuery<Weather , GetWeatherDailyReportResponse> ,

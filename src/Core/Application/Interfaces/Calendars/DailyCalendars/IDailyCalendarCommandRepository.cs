@@ -3,4 +3,4 @@
 namespace SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
 
 public interface IDailyCalendarCommandRepository : ICommandRepository<DailyCalendar>,
-                                                   IScopedDependency;
+    IScopedDependency;

@@ -17,7 +17,7 @@ public class UserCommandRepository(
     SmartAttendanceTenantDbContext          db
 )
     : CommandRepository<User>(dbContext, logger),
-      IUserCommandRepository
+        IUserCommandRepository
 {
     // Constructor with dependency injection for DbContext and Loggers
 
@@ -128,7 +128,7 @@ public class UserCommandRepository(
         var user = await userService.FindByIdAsync(userId.ToString()!);
 
         var exists = await TableNoTracking.AnyAsync(a => a.Id != userId && a.UserName == request.PhoneNumber,
-                                                    cancellationToken);
+            cancellationToken);
 
         if (exists)
             throw SmartAttendanceException.Conflict("This user already exists");

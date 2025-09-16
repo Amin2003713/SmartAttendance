@@ -6,7 +6,7 @@ using SmartAttendance.Common.Utilities.InjectionHelpers;
 namespace SmartAttendance.Persistence.Repositories.Tenants.TenantAdmin;
 
 public class TenantAdminRepository : ITenantAdminRepository,
-                                     IScopedDependency
+    IScopedDependency
 {
     private readonly SmartAttendanceTenantDbContext _dbContext;
     private readonly ILogger<TenantAdminRepository> _logger;
@@ -52,7 +52,7 @@ public class TenantAdminRepository : ITenantAdminRepository,
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             _logger.LogInformation("TenantAdmin user with phone number: {PhoneNumber} created successfully.",
-                                   user.PhoneNumber);
+                user.PhoneNumber);
 
             return user;
         }

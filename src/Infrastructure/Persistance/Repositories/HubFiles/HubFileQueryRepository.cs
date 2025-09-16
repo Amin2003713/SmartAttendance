@@ -18,7 +18,7 @@ public class HubFileQueryRepository(
     IMultiTenantContextAccessor<SmartAttendanceTenantInfo> tenantContext
 )
     : QueryRepository<HubFile>(dbContext, logger),
-      IHubFileQueryRepository
+        IHubFileQueryRepository
 {
     public async Task<FileTransferResponse> GetHubFile(
         Guid              rowId,
@@ -27,9 +27,9 @@ public class HubFileQueryRepository(
         CancellationToken cancellationToken)
     {
         logger.LogInformation("Retrieving hub file. FileId: {FileId}, FileType: {FileType}, StorageType: {StorageType}",
-                              rowId,
-                              fileType,
-                              storageType);
+            rowId,
+            fileType,
+            storageType);
 
         var file = await TableNoTracking.FirstOrDefaultAsync(
             a => a.Id == rowId && a.Type == fileType && a.ReferenceIdType == storageType,
@@ -54,15 +54,15 @@ public class HubFileQueryRepository(
         //     zipfile.ProjectId,
         //     zipfile.RowType);
 
-        var files = await DbContext.Set<HubFile>().
-                                    Where(a =>
-                                              // a.ProjectId == zipfile.ProjectId &&
-                                              a.ReferenceIdType == zipfile.RowType  &&
-                                              a.ReportDate      >= zipfile.FromDate &&
-                                              a.ReportDate      <= zipfile.ToDate).
-                                    GroupBy(a => a.Name).
-                                    Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault()).
-                                    ToListAsync(cancellationToken);
+        var files = await DbContext.Set<HubFile>()
+            .Where(a =>
+                // a.ProjectId == zipfile.ProjectId &&
+                a.ReferenceIdType == zipfile.RowType  &&
+                a.ReportDate      >= zipfile.FromDate &&
+                a.ReportDate      <= zipfile.ToDate)
+            .GroupBy(a => a.Name)
+            .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
+            .ToListAsync(cancellationToken);
 
         logger.LogInformation("ZIP files retrieved. Count: {Count}", files.Count);
         return files;
@@ -86,12 +86,12 @@ public class HubFileQueryRepository(
 
 
         var finalPath = Path.Combine(
-                                 path,
-                                 $"Date-{DateTime.UtcNow:yyyy-MM-dd}",
-                                 $"User-{userId}",
-                                 request.RowType.GetEnglishName()
-                             ).
-                             ToLower();
+                path,
+                $"Date-{DateTime.UtcNow:yyyy-MM-dd}",
+                $"User-{userId}",
+                request.RowType.GetEnglishName()
+            )
+            .ToLower();
 
         logger.LogInformation("Bucket path generated: {Path}", finalPath);
 

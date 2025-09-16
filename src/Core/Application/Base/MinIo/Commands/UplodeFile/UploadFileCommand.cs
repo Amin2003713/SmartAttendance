@@ -4,7 +4,7 @@ using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
 namespace SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 
 public class UploadFileCommand : UploadFileRequest,
-                                 IRequest<HubFile>
+    IRequest<HubFile>
 {
     public string Path { get; set; }
 

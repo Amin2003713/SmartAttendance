@@ -11,13 +11,13 @@ public static class ModelBuilderExtensions
     {
         var serviceName = filterModel.Namespace?.Split('.').FirstOrDefault() ?? "dbo";
 
-        var entityTypes = modelBuilder.Model.GetEntityTypes().
-                                       Where(e =>
-                                                 !e.ClrType.IsGenericTypeDefinition         &&
-                                                 e.ClrType.Assembly == filterModel.Assembly &&
-                                                 !e.ClrType.IsDerivedFromGeneric(filterModel)
-                                       ).
-                                       ToList();
+        var entityTypes = modelBuilder.Model.GetEntityTypes()
+            .Where(e =>
+                !e.ClrType.IsGenericTypeDefinition         &&
+                e.ClrType.Assembly == filterModel.Assembly &&
+                !e.ClrType.IsDerivedFromGeneric(filterModel)
+            )
+            .ToList();
 
         var allNamespaces = entityTypes.GroupBy(e => e.ClrType.Namespace ?? "").ToDictionary(g => g.Key, g => g.ToList());
 
@@ -58,9 +58,9 @@ public static class ModelBuilderExtensions
         static string ToSnakeCase(string input)
         {
             return string.Concat(
-                              input.Select((c, i) =>
-                                               i > 0 && char.IsUpper(c) ? "_" + c : c.ToString())).
-                          ToLowerInvariant();
+                    input.Select((c, i) =>
+                        i > 0 && char.IsUpper(c) ? "_" + c : c.ToString()))
+                .ToLowerInvariant();
         }
     }
 
@@ -138,9 +138,9 @@ public static class ModelBuilderExtensions
     /// <param name="modelBuilder"></param>
     public static void AddRestrictDeleteBehaviorConvention(this ModelBuilder modelBuilder)
     {
-        var cascadeFKs = modelBuilder.Model.GetEntityTypes().
-                                      SelectMany(t => t.GetForeignKeys()).
-                                      Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+        var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+            .SelectMany(t => t.GetForeignKeys())
+            .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
         foreach (var fk in cascadeFKs)
         {
@@ -169,10 +169,10 @@ public static class ModelBuilderExtensions
                     var applyConcreteMethod = applyGenericMethod.MakeGenericMethod(iface.GenericTypeArguments[0]);
 
                     applyConcreteMethod.Invoke(modelBuilder,
-                                               new[]
-                                               {
-                                                   Activator.CreateInstance(type)
-                                               });
+                        new[]
+                        {
+                            Activator.CreateInstance(type)
+                        });
                 }
             }
         }
@@ -194,16 +194,16 @@ public static class ModelBuilderExtensions
             "BaseEntities"
         };
 
-        var types = assemblies.SelectMany(a => a.GetExportedTypes()).
-                               Where(c =>
-                                         c.IsClass                           &&
-                                         !c.IsAbstract                       &&
-                                         c.IsPublic                          &&
-                                         typeof(IEntity).IsAssignableFrom(c) &&
-                                         !excludedNames.Contains(c.Name)     &&
-                                         !c.Name.Contains("BaseEntity")      &&
-                                         !c.Name.Contains("BaseEntities")
-                               );
+        var types = assemblies.SelectMany(a => a.GetExportedTypes())
+            .Where(c =>
+                c.IsClass                           &&
+                !c.IsAbstract                       &&
+                c.IsPublic                          &&
+                typeof(IEntity).IsAssignableFrom(c) &&
+                !excludedNames.Contains(c.Name)     &&
+                !c.Name.Contains("BaseEntity")      &&
+                !c.Name.Contains("BaseEntities")
+            );
 
         foreach (var type in types)
         {
@@ -224,9 +224,9 @@ public static class ModelBuilderExtensions
 
     public static void AddDecimalConvention(this ModelBuilder modelBuilder)
     {
-        var decimalProps = modelBuilder.Model.GetEntityTypes().
-                                        SelectMany(t => t.GetProperties()).
-                                        Where(p => (Nullable.GetUnderlyingType(p.ClrType) ?? p.ClrType) == typeof(decimal));
+        var decimalProps = modelBuilder.Model.GetEntityTypes()
+            .SelectMany(t => t.GetProperties())
+            .Where(p => (Nullable.GetUnderlyingType(p.ClrType) ?? p.ClrType) == typeof(decimal));
 
         foreach (var property in decimalProps)
         {

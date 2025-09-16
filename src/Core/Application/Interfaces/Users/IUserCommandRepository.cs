@@ -4,7 +4,7 @@ using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNu
 namespace SmartAttendance.Application.Interfaces.Users;
 
 public interface IUserCommandRepository : ICommandRepository<User>,
-                                          IScopedDependency
+    IScopedDependency
 {
     Task       UpdateLastLoginDateAsync(User                   user,    CancellationToken cancellationToken);
     Task<Guid> RegisterByOwnerAsync(RegisterByOwnerRequest     request, CancellationToken cancellationToken);

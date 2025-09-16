@@ -3,7 +3,7 @@
 namespace SmartAttendance.Domain.Users;
 
 public class Role : IdentityRole<Guid>,
-                    ISimpleEntity
+    ISimpleEntity
 {
     public string Description { get; set; }
     public bool IsActive { get; set; } = true;

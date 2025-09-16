@@ -19,8 +19,8 @@ public class PagedApiResult : PagedApiResult<object>
 }
 
 public class PagedApiResult<T> : IActionResult,
-                                 IDisposable,
-                                 IStatusCodeActionResult
+    IDisposable,
+    IStatusCodeActionResult
 {
     public PagedApiResult(
         T        data,

@@ -3,7 +3,7 @@
 namespace SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 
 public class UpdateUserCommand : UpdateUserRequest,
-                                 IRequest
+    IRequest
 {
     public UpdateUserCommand AddFiles(UploadMediaFileRequest profile)
     {

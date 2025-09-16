@@ -3,7 +3,7 @@
 namespace SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
 
 public interface ICalendarUserQueryRepository : IQueryRepository<CalendarUser>,
-                                                IScopedDependency
+    IScopedDependency
 {
     Task<List<CalendarUser>> GetCalendarUserByCalendarId(Guid calendarId, CancellationToken cancellationToken);
 }

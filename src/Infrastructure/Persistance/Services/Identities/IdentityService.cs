@@ -77,9 +77,9 @@ public class IdentityService(
     public List<RolesType> GetRoles()
     {
         var roleClaims = Identity?
-                         .FindAll(ClaimTypes.Role).
-                         Select(c => c.Value).
-                         ToList();
+            .FindAll(ClaimTypes.Role)
+            .Select(c => c.Value)
+            .ToList();
 
         if (roleClaims == null || !roleClaims.Any())
             return new List<RolesType>();
@@ -87,7 +87,7 @@ public class IdentityService(
         var roles = new List<RolesType>();
 
         foreach (var roleName in roleClaims.SelectMany(claim =>
-                                                           claim.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)))
+                     claim.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)))
         {
             if (Enum.TryParse<RolesType>(roleName, true, out var role))
                 roles.Add(role);

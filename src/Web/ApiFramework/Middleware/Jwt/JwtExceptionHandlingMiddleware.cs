@@ -17,7 +17,7 @@ namespace SmartAttendance.ApiFramework.Middleware.Jwt;
 public class JwtExceptionHandlingMiddleware
 {
     // Reuse a single JsonSerializerOptions to avoid re‐allocating on each exception.
-    private readonly static JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+    private readonly static JsonSerializerOptions _jsonOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         // Not indenting improves throughput (no need for pretty‐printed output).

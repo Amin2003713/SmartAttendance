@@ -231,7 +231,7 @@ public class UserController : SmartAttendanceBaseController
     public virtual async Task UpdateUser([FromForm] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateUserCommand>().AddFiles(request.ImageFile!),
-                            cancellationToken);
+            cancellationToken);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public class UserController : SmartAttendanceBaseController
     /// <response code="403">User is not authorized to access this data.</response>
     /// <response code="500">Internal server error.</response>
     [SwaggerOperation(Summary = "Get User Info",
-                      Description = "Gets profile information of the currently logged-in user.")]
+        Description = "Gets profile information of the currently logged-in user.")]
     [HttpGet("User-Info")]
     [Authorize]
     [ProducesResponseType(typeof(GetUserResponse),    StatusCodes.Status200OK)]
@@ -289,10 +289,10 @@ public class UserController : SmartAttendanceBaseController
     /// <response code="500">An unexpected server error occurred.</response>
     [HttpGet("Get-RoleTypes")]
     [ProducesResponseType(typeof(IDictionary<string, List<KeyValuePair<RolesType, string>>>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ApiProblemDetails),                                          StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiProblemDetails),                                          StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ApiProblemDetails),                                          StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ApiProblemDetails),                                          StatusCodes.Status500InternalServerError)]
     public async Task<IDictionary<string, List<KeyValuePair<RolesType, string>>>> GetRoles(CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetUserRolesQuery(), cancellationToken);

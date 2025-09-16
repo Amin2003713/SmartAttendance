@@ -28,7 +28,7 @@ public class Hub_FileController : SmartAttendanceBaseController
 //     [AllowAnonymous]
 // #endif
     [SwaggerOperation(Summary = "Get HubFile",
-                      Description = "Fetches a file based on its ID and returns it as an attachment.")]
+        Description = "Fetches a file based on its ID and returns it as an attachment.")]
     [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -46,7 +46,7 @@ public class Hub_FileController : SmartAttendanceBaseController
                           };
 
         var file = await Mediator.Send(GetHubFileQuery.Create(fileId, type, referenceType, compress),
-                                       cancellationToken);
+            cancellationToken);
 
         Response.Headers.Append("Content-Disposition", $"attachment; filename={WebUtility.UrlEncode(file.FileName)}");
         return File(await file.FileBytes.CompressAsync(compress), contentType);

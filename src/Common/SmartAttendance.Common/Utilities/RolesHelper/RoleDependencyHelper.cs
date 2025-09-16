@@ -5,7 +5,7 @@ namespace SmartAttendance.Common.Utilities.RolesHelper;
 public static class RoleDependencyHelper
 {
     private readonly static Dictionary<RolesType, (List<RolesType> Add, List<RolesType> Remove)> RoleDependencies
-        = new Dictionary<RolesType, (List<RolesType> Add, List<RolesType> Remove)>
+        = new()
         {
             [RolesType.Admin] = (
                 Enum.GetValues<RolesType>().Where(r => r != RolesType.Admin).ToList(),

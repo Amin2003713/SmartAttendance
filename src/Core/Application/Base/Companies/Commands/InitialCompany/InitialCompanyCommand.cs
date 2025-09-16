@@ -3,4 +3,4 @@
 namespace SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
 
 public class InitialCompanyCommand : InitialCompanyRequest,
-                                     IRequest<string>;
+    IRequest<string>;

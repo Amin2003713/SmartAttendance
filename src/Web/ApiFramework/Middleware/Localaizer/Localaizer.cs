@@ -13,48 +13,45 @@ public static class Localaizer
     public static IApplicationBuilder UseLocalaizer(this IApplicationBuilder app)
     {
         app.UseRequestLocalization(options =>
-                                   {
-                                       options.RequestCultureProviders.Clear();
+        {
+            options.RequestCultureProviders.Clear();
 
-                                       IList<CultureInfo> supportedCultures =
-                                       [
-                                           new CultureInfo("fa-IR")
-                                           {
-                                               DateTimeFormat =
-                                               {
-                                                   Calendar = new GregorianCalendar()
-                                               }
-                                           },
-                                           new CultureInfo("en-US")
-                                           {
-                                               DateTimeFormat =
-                                               {
-                                                   Calendar = new GregorianCalendar()
-                                               }
-                                           }
-                                       ];
+            IList<CultureInfo> supportedCultures =
+            [
+                new ("fa-IR")
+                {
+                    DateTimeFormat =
+                    {
+                        Calendar = new GregorianCalendar()
+                    }
+                },
+                new ("en-US")
+                {
+                    DateTimeFormat =
+                    {
+                        Calendar = new GregorianCalendar()
+                    }
+                }
+            ];
 
-                                       options.SupportedCultures     = supportedCultures;
-                                       options.SupportedUICultures   = supportedCultures;
-                                       options.DefaultRequestCulture = new RequestCulture("fa-IR");
+            options.SupportedCultures     = supportedCultures;
+            options.SupportedUICultures   = supportedCultures;
+            options.DefaultRequestCulture = new RequestCulture("fa-IR");
 
-                                       options.RequestCultureProviders.Insert(0,
-                                                                              new CustomRequestCultureProvider(context =>
-                                                                              {
-                                                                                  var culture = context.Request.Headers["X-Accept-Language"].
-                                                                                                        ToString().
-                                                                                                        Split(',').
-                                                                                                        FirstOrDefault();
+            options.RequestCultureProviders.Insert(0,
+                new CustomRequestCultureProvider(context =>
+                {
+                    var culture = context.Request.Headers["X-Accept-Language"].ToString().Split(',').FirstOrDefault();
 
-                                                                                  if (!string.IsNullOrEmpty(culture) &&
-                                                                                      supportedCultures.Any(c => c.Name.Equals(culture,
-                                                                                          StringComparison.OrdinalIgnoreCase)) &&
-                                                                                      culture != "*")
-                                                                                      return Task.FromResult(new ProviderCultureResult(culture));
+                    if (!string.IsNullOrEmpty(culture) &&
+                        supportedCultures.Any(c => c.Name.Equals(culture,
+                            StringComparison.OrdinalIgnoreCase)) &&
+                        culture != "*")
+                        return Task.FromResult(new ProviderCultureResult(culture));
 
-                                                                                  return Task.FromResult(new ProviderCultureResult("fa-IR"));
-                                                                              }));
-                                   });
+                    return Task.FromResult(new ProviderCultureResult("fa-IR"));
+                }));
+        });
 
         return app;
     }

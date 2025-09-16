@@ -6,13 +6,12 @@ namespace SmartAttendance.Domain.Services;
 
 // سرویس دامنه: همگام‌سازی آفلاین (idempotent)
 /// <summary>
-/// مسئول همگام‌سازی آفلاین رکوردهای حضور. باید idempotent باشد.
+///     مسئول همگام‌سازی آفلاین رکوردهای حضور. باید idempotent باشد.
 /// </summary>
 public interface IOfflineSyncService
 {
 	/// <summary>
-	/// همگام‌سازی یک رکورد حضور. در صورت موفقیت true برمی‌گرداند.
+	///     همگام‌سازی یک رکورد حضور. در صورت موفقیت true برمی‌گرداند.
 	/// </summary>
 	Task<bool> SyncAttendanceAsync(AttendanceId attendanceId, CancellationToken ct = default);
 }
-

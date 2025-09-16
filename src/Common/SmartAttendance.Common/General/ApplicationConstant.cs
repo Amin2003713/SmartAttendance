@@ -42,7 +42,7 @@ public abstract class ApplicationConstant
         public readonly static string OtelEndpoint = "http://aspire:18889";
 
 
-        public readonly static Dictionary<string, string> HeaderKey = new Dictionary<string, string>
+        public readonly static Dictionary<string, string> HeaderKey = new()
         {
             {
                 "x-otlp-api-key", "FC83FFEF-1C71-4C88-97D7-27CE9570F131"
@@ -50,10 +50,10 @@ public abstract class ApplicationConstant
         };
 
         public static Action<OtlpExporterOptions> OtlpExporter => options =>
-                                                                  {
-                                                                      options.Endpoint = new Uri(OtelEndpoint);
-                                                                      if (!string.IsNullOrEmpty(Header)) options.Headers = Header;
-                                                                  };
+        {
+            options.Endpoint = new Uri(OtelEndpoint);
+            if (!string.IsNullOrEmpty(Header)) options.Headers = Header;
+        };
     }
 
     public static class AppOptions
@@ -103,7 +103,7 @@ public abstract class ApplicationConstant
 
     public static class Mongo
     {
-        public readonly static JsonSerializerOptions JsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+        public readonly static JsonSerializerOptions JsonOptions = new (JsonSerializerDefaults.Web)
         {
             PropertyNamingPolicy        = JsonNamingPolicy.CamelCase,
             PropertyNameCaseInsensitive = true,
