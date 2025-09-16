@@ -74,7 +74,7 @@ public class IdentityService(
         return DateTime.TryParse(lastLoginDate, out var date) ? date : null;
     }
 
-    public List<Roles> GetRoles()
+    public List<RolesType> GetRoles()
     {
         var roleClaims = Identity?
                          .FindAll(ClaimTypes.Role).
@@ -82,14 +82,14 @@ public class IdentityService(
                          ToList();
 
         if (roleClaims == null || !roleClaims.Any())
-            return new List<Roles>();
+            return new List<RolesType>();
 
-        var roles = new List<Roles>();
+        var roles = new List<RolesType>();
 
         foreach (var roleName in roleClaims.SelectMany(claim =>
                                                            claim.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)))
         {
-            if (Enum.TryParse<Roles>(roleName, true, out var role))
+            if (Enum.TryParse<RolesType>(roleName, true, out var role))
                 roles.Add(role);
         }
 

@@ -1,7 +1,4 @@
 ﻿using System.Reflection;
-using FluentValidation;
-using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
 using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
@@ -11,8 +8,6 @@ using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.Ge
 using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 using SmartAttendance.Common.Utilities.TypeConverters;
-using SmartAttendance.Domain.Tenants;
-using SmartAttendance.Domain.Users;
 
 namespace SmartAttendance.Application;
 

@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Users.Requests.Commands.Verify;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.Verify;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.Verify;
 

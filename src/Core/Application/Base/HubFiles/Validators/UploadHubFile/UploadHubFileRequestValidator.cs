@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Base.HubFiles.Request.Commands.UploadHubFile;
+﻿using SmartAttendance.Application.Base.HubFiles.Request.Commands.UploadHubFile;
 
 namespace SmartAttendance.Application.Base.HubFiles.Validators.UploadHubFile;
 

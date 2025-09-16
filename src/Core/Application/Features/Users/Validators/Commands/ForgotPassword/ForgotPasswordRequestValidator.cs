@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPassword;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPassword;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.ForgotPassword;
 

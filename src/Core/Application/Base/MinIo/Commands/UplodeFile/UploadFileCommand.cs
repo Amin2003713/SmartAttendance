@@ -1,7 +1,5 @@
-﻿using Mapster;
-using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+﻿using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
 using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
-using SmartAttendance.Domain.HubFiles;
 
 namespace SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 

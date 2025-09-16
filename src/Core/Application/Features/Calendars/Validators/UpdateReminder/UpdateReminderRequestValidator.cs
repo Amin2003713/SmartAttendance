@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
 
 namespace SmartAttendance.Application.Features.Calendars.Validators.UpdateReminder;
 

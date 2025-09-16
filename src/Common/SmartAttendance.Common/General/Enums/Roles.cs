@@ -1,6 +1,6 @@
 ﻿namespace SmartAttendance.Common.General.Enums;
 
-public enum Roles : byte
+public enum RolesType : byte
 {
     [Display(Name = "پشتیبانی")]   Support,
     [Display(Name = "مدیر سیستم")] Admin,

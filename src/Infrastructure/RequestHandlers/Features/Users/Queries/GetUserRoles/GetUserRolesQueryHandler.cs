@@ -6,19 +6,19 @@ namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserRoles;
 
 public class
     GetUserRolesQueryHandler : IRequestHandler<GetUserRolesQuery,
-    IDictionary<string, List<KeyValuePair<Roles, string>>>>
+    IDictionary<string, List<KeyValuePair<RolesType, string>>>>
 {
-    public Task<IDictionary<string, List<KeyValuePair<Roles, string>>>> Handle(
+    public Task<IDictionary<string, List<KeyValuePair<RolesType, string>>>> Handle(
         GetUserRolesQuery request,
         CancellationToken cancellationToken)
     {
-        return Task.FromResult<IDictionary<string, List<KeyValuePair<Roles, string>>>>(Enum.GetValues<Roles>().
+        return Task.FromResult<IDictionary<string, List<KeyValuePair<RolesType, string>>>>(Enum.GetValues<RolesType>().
                                                                                             Where(r => r.ToString().StartsWith("Admin_")).
                                                                                             Select(groupRole =>
                                                                                                    {
                                                                                                        var category = groupRole.ToString().Split('_', 2)[1];
 
-                                                                                                       var children = Enum.GetValues<Roles>().
+                                                                                                       var children = Enum.GetValues<RolesType>().
                                                                                                            Where(r => r.GetEnglishName().
                                                                                                                StartsWith($"{category}_")).
                                                                                                            ToList();
@@ -30,7 +30,7 @@ public class
                                                                                                                {
                                                                                                                    groupRole
                                                                                                                }.Concat(children).
-                                                                                                               Select(r => new KeyValuePair<Roles, string>(
+                                                                                                               Select(r => new KeyValuePair<RolesType, string>(
                                                                                                                    r,
                                                                                                                    r.GetDisplayName())).
                                                                                                                ToList()
@@ -40,13 +40,13 @@ public class
                                                                                             {
                                                                                                 new
                                                                                                 {
-                                                                                                    GroupKey = Roles.Admin.GetEnglishName(),
+                                                                                                    GroupKey = RolesType.Admin.GetEnglishName(),
                                                                                                     Items
-                                                                                                        = new List<KeyValuePair<Roles, string>>
+                                                                                                        = new List<KeyValuePair<RolesType, string>>
                                                                                                         {
-                                                                                                            new KeyValuePair<Roles, string>(
-                                                                                                                Roles.Admin,
-                                                                                                                Roles.Admin.GetDisplayName())
+                                                                                                            new KeyValuePair<RolesType, string>(
+                                                                                                                RolesType.Admin,
+                                                                                                                RolesType.Admin.GetDisplayName())
                                                                                                         }
                                                                                                 }
                                                                                             }).

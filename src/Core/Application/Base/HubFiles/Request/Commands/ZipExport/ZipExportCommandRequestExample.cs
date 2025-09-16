@@ -1,6 +1,4 @@
-﻿using SmartAttendance.Common.General.Enums.FileType;
-
-namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
+﻿namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
 
 public class ZipExportCommandRequestExample : IExamplesProvider<ZipExportCommandRequest>
 {

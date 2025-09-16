@@ -1,11 +1,6 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
+﻿using SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
 using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
 using SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
-using SmartAttendance.Application.Interfaces.Base;
-using SmartAttendance.Common.Utilities.InjectionHelpers;
-using SmartAttendance.Domain.HubFiles;
 
 namespace SmartAttendance.Application.Interfaces.HubFiles;
 

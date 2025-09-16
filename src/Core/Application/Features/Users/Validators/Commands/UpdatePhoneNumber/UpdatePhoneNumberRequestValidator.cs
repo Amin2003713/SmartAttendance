@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.UpdatePhoneNumber;
 

@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateHoliday;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateHoliday;
 
 namespace SmartAttendance.Application.Features.Calendars.Validators.UpdateHoliday;
 

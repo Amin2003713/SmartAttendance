@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using FluentValidation;
-using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
 using SmartAttendance.Common.Utilities.RolesHelper;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.RegisterByOwner;

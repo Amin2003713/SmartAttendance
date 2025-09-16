@@ -1,6 +1,4 @@
-﻿using SmartAttendance.Domain.Setting;
-
-namespace SmartAttendance.Application.Base.Settings.Commands.UpdateSetting;
+﻿namespace SmartAttendance.Application.Base.Settings.Commands.UpdateSetting;
 
 public record UpdateSettingCommand(
     List<SettingFlags> Flags

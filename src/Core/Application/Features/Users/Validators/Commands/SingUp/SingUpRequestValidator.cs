@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Users.Requests.Commands.SingUp;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.SingUp;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.SingUp;
 

@@ -1,4 +1,3 @@
-using FluentValidation;
 using SmartAttendance.Application.Base.Companies.Requests.UpdateCompany;
 using SmartAttendance.Application.Commons.MediaFiles.Validators;
 

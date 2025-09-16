@@ -12,8 +12,8 @@ public class DeleteRoleRequestExample : IExamplesProvider<DeleteRoleRequest>
             Role = string.Join(",",
                                new List<string>
                                {
-                                   Roles.Users_Delete.GetEnglishName(),
-                                   Roles.Messages_Edit.GetEnglishName()
+                                   RolesType.Users_Delete.GetEnglishName(),
+                                   RolesType.Messages_Edit.GetEnglishName()
                                })
         };
     }

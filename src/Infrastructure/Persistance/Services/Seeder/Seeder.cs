@@ -41,7 +41,7 @@ public class Seeder : IScopedDependency,
 
     private async Task SeedRoles(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
-        foreach (var role in Enum.GetValues<Roles>())
+        foreach (var role in Enum.GetValues<RolesType>())
         {
             if (await dbContext.Roles.AnyAsync(r => r.Name == role.ToString(), cancellationToken))
                 continue;

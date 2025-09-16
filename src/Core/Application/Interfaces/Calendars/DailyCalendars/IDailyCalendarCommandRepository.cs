@@ -1,6 +1,4 @@
-﻿using SmartAttendance.Application.Interfaces.Base;
-using SmartAttendance.Common.Utilities.InjectionHelpers;
-using SmartAttendance.Domain.Calenders.DailyCalender;
+﻿using SmartAttendance.Domain.Calenders.DailyCalender;
 
 namespace SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
 

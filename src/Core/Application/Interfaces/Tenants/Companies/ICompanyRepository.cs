@@ -1,9 +1,5 @@
 ﻿using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 using SmartAttendance.Application.Base.Companies.Commands.AddRequest;
-using SmartAttendance.Common.Utilities.InjectionHelpers;
-using SmartAttendance.Domain.Tenants;
 
 namespace SmartAttendance.Application.Interfaces.Tenants.Companies;
 

@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
-
-namespace SmartAttendance.Application.Features.Calendars.Validators.CreateReminder;
+﻿namespace SmartAttendance.Application.Features.Calendars.Validators.CreateReminder;
 
 public class CreateReminderRequestValidator : AbstractValidator<CreateReminderRequest>
 {

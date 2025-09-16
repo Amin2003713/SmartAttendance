@@ -14,9 +14,9 @@ public class RegisterByOwnerRequestExample : IExamplesProvider<RegisterByOwnerRe
             PhoneNumber = "09123456789",
             Roles =
             [
-                Roles.Users_Create.GetEnglishName(), Roles.Projects_Edit.GetEnglishName(),
-                Roles.Users_Edit.GetEnglishName(),
-                Roles.Messages_Read.GetEnglishName()
+                RolesType.Users_Create.GetEnglishName(), RolesType.Projects_Edit.GetEnglishName(),
+                RolesType.Users_Edit.GetEnglishName(),
+                RolesType.Messages_Read.GetEnglishName()
             ]
         };
     }

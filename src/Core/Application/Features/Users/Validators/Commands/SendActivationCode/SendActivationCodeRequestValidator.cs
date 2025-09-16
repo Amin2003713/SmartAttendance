@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Features.Users.Requests.Commands.SendActivationCode;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.SendActivationCode;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.SendActivationCode;
 

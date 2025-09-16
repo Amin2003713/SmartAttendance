@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
+﻿using SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
 
 namespace SmartAttendance.Application.Base.HubFiles.Validators.ZipExport;
 

@@ -288,12 +288,12 @@ public class UserController : SmartAttendanceBaseController
     /// <response code="403">Access to this resource is forbidden.</response>
     /// <response code="500">An unexpected server error occurred.</response>
     [HttpGet("Get-RoleTypes")]
-    [ProducesResponseType(typeof(IDictionary<string, List<KeyValuePair<Roles, string>>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IDictionary<string, List<KeyValuePair<RolesType, string>>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ApiProblemDetails),                                      StatusCodes.Status500InternalServerError)]
-    public async Task<IDictionary<string, List<KeyValuePair<Roles, string>>>> GetRoles(CancellationToken cancellationToken)
+    public async Task<IDictionary<string, List<KeyValuePair<RolesType, string>>>> GetRoles(CancellationToken cancellationToken)
     {
         return await Mediator.Send(new GetUserRolesQuery(), cancellationToken);
     }

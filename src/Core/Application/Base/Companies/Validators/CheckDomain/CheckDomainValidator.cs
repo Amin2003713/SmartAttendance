@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
+﻿using SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
 
 namespace SmartAttendance.Application.Base.Companies.Validators.CheckDomain;
 

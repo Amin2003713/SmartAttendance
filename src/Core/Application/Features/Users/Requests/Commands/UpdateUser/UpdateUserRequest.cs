@@ -1,6 +1,4 @@
-﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
-
-namespace SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
+﻿namespace SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
 
 public class UpdateUserRequest
 {
