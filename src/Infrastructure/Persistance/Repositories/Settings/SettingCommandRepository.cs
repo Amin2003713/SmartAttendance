@@ -7,4 +7,4 @@ public class SettingCommandRepository(
     ILogger<CommandRepository<Setting>> logger
 )
     : CommandRepository<Setting>(dbContext, logger),
-      ISettingCommandRepository;
+        ISettingCommandRepository;

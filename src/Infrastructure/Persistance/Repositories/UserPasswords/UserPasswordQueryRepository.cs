@@ -7,4 +7,4 @@ public class UserPasswordQueryRepository(
     ILogger<QueryRepository<UserPassword>> logger
 )
     : QueryRepository<UserPassword>(dbContext, logger),
-      IUserPasswordQueryRepository;
+        IUserPasswordQueryRepository;

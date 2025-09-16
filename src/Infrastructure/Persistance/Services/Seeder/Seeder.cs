@@ -6,7 +6,7 @@ using SmartAttendance.Domain.Defaults;
 namespace SmartAttendance.Persistence.Services.Seeder;
 
 public class Seeder : IScopedDependency,
-                      IGenericSeeder<SmartAttendanceDbContext>
+    IGenericSeeder<SmartAttendanceDbContext>
 {
     public async Task SeedAsync(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
@@ -41,7 +41,7 @@ public class Seeder : IScopedDependency,
 
     private async Task SeedRoles(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
-        foreach (var role in Enum.GetValues<Roles>())
+        foreach (var role in Enum.GetValues<RolesType>())
         {
             if (await dbContext.Roles.AnyAsync(r => r.Name == role.ToString(), cancellationToken))
                 continue;

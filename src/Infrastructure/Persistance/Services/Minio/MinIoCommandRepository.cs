@@ -18,15 +18,15 @@ public class MinIoCommandRepository(
     IHangFireJobRepository              hangFireJobRepository
 )
     : CommandRepository<HubFile>(dbContext, logger),
-      IMinIoCommandRepository
+        IMinIoCommandRepository
 {
-    private readonly AmazonS3Client _s3Client = new AmazonS3Client(ApplicationConstant.Minio.AccessKey,
-                                                                   ApplicationConstant.Minio.SecretKey,
-                                                                   new AmazonS3Config
-                                                                   {
-                                                                       ServiceURL     = ApplicationConstant.Minio.Endpoint, // MinIO URL
-                                                                       ForcePathStyle = true
-                                                                   });
+    private readonly AmazonS3Client _s3Client = new (ApplicationConstant.Minio.AccessKey,
+        ApplicationConstant.Minio.SecretKey,
+        new AmazonS3Config
+        {
+            ServiceURL     = ApplicationConstant.Minio.Endpoint, // MinIO URL
+            ForcePathStyle = true
+        });
 
     public async Task<HubFile> UploadFileAsync(UploadFileCommand file, CancellationToken cancellationToken)
     {
@@ -127,11 +127,11 @@ public class MinIoCommandRepository(
         await using var stream = new MemoryStream(file.File);
 
         await UploadObjectAsync(bucketName,
-                                objectName,
-                                stream,
-                                file.File.Length,
-                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                                cancellationToken);
+            objectName,
+            stream,
+            file.File.Length,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            cancellationToken);
 
         var hubFile = new HubFile
         {

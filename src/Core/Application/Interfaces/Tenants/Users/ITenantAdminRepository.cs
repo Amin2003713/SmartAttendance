@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using SmartAttendance.Domain.Tenants;
-
-namespace SmartAttendance.Application.Interfaces.Tenants.Users;
+﻿namespace SmartAttendance.Application.Interfaces.Tenants.Users;
 
 public interface ITenantAdminRepository
 {

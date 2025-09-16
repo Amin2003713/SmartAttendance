@@ -11,10 +11,10 @@ public class UpdateEmployeeExample : IExamplesProvider<UpdateEmployeeRequest>
         {
             Roles = new List<string>
             {
-                Roles.Admin.GetEnglishName(),
-                Roles.ManageProjects.GetEnglishName(),
-                Roles.Projects_Create.GetEnglishName(),
-                Roles.Users_Create.GetEnglishName()
+                RolesType.Admin.GetEnglishName(),
+                RolesType.ManageProjects.GetEnglishName(),
+                RolesType.Projects_Create.GetEnglishName(),
+                RolesType.Users_Create.GetEnglishName()
             }
         };
     }

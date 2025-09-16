@@ -22,8 +22,8 @@ public record CreateUserPasswordCommandHandler(
         // Prevent using the same password as any previous one
         var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == request.UserId.Id).ToListAsync(cancellationToken);
 
-        if (previousPasswords.Select(prev => Hasher.VerifyHashedPassword(request.UserId, prev.PasswordHash, request.Password)).
-                              Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
+        if (previousPasswords.Select(prev => Hasher.VerifyHashedPassword(request.UserId, prev.PasswordHash, request.Password))
+            .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
         {
             Logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserId);
             throw SmartAttendanceException.BadRequest(Localizer["Dont Reuse Old Password"]);

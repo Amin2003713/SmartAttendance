@@ -74,7 +74,7 @@ public class UpdateEmployeeCommandHandler(
         logger.LogInformation("Updated roles for user {UserId}", request.UserId);
     }
 
-    private async Task EnsureRolesExist(IEnumerable<Roles> roles)
+    private async Task EnsureRolesExist(IEnumerable<RolesType> roles)
     {
         foreach (var role in roles)
         {

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using SmartAttendance.Common.General.Enums.FileType;
-
-namespace SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
+﻿namespace SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadFile;
 
 public class UploadFileRequest
 {

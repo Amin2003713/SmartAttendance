@@ -28,7 +28,7 @@ public class SendActivationCodeCommandHandler(
             var userId = identityService.GetUserId<Guid>();
 
             var user = await userRepository.GetSingleAsync(cancellationToken,
-                                                           a => a.PhoneNumber == request.PhoneNumber || a.Id == userId);
+                a => a.PhoneNumber == request.PhoneNumber || a.Id == userId);
 
 
             if (user == null)

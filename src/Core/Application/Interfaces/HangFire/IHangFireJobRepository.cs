@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using SmartAttendance.Common.Utilities.InjectionHelpers;
 
 namespace SmartAttendance.Application.Interfaces.HangFire;
 

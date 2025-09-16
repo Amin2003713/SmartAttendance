@@ -17,7 +17,7 @@ public class EnumModelBinder : IModelBinder
             bindingContext.Result = ModelBindingResult.Success(result);
         else
             bindingContext.ModelState.AddModelError(bindingContext.ModelName,
-                                                    $"Invalid value for {bindingContext.ModelType.Name}.");
+                $"Invalid value for {bindingContext.ModelType.Name}.");
 
         return Task.CompletedTask;
     }

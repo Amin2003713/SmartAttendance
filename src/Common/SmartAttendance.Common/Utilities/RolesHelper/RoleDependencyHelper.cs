@@ -4,63 +4,63 @@ namespace SmartAttendance.Common.Utilities.RolesHelper;
 
 public static class RoleDependencyHelper
 {
-    private readonly static Dictionary<Roles, (List<Roles> Add, List<Roles> Remove)> RoleDependencies
-        = new Dictionary<Roles, (List<Roles> Add, List<Roles> Remove)>
+    private readonly static Dictionary<RolesType, (List<RolesType> Add, List<RolesType> Remove)> RoleDependencies
+        = new()
         {
-            [Roles.Admin] = (
-                Enum.GetValues<Roles>().Where(r => r != Roles.Admin).ToList(),
-                Enum.GetValues<Roles>().Where(r => r != Roles.Admin).ToList()
+            [RolesType.Admin] = (
+                Enum.GetValues<RolesType>().Where(r => r != RolesType.Admin).ToList(),
+                Enum.GetValues<RolesType>().Where(r => r != RolesType.Admin).ToList()
             ),
-            [Roles.Messages_Create] = ([Roles.Messages_Read], []),
-            [Roles.Messages_Edit]   = ([Roles.Messages_Read], []),
-            [Roles.Messages_Delete] = ([Roles.Messages_Read], []),
-            [Roles.Messages_Read] = ([], [
-                Roles.Messages_Create,
-                Roles.Messages_Edit,
-                Roles.Messages_Delete,
-                Roles.ManageMessages
+            [RolesType.Messages_Create] = ([RolesType.Messages_Read], []),
+            [RolesType.Messages_Edit]   = ([RolesType.Messages_Read], []),
+            [RolesType.Messages_Delete] = ([RolesType.Messages_Read], []),
+            [RolesType.Messages_Read] = ([], [
+                RolesType.Messages_Create,
+                RolesType.Messages_Edit,
+                RolesType.Messages_Delete,
+                RolesType.ManageMessages
             ]),
-            [Roles.ManageUsers] = ([Roles.Users_Create, Roles.Users_Edit, Roles.Users_Delete], [
-                Roles.Users_Create,
-                Roles.Users_Edit,
-                Roles.Users_Delete,
-                Roles.Admin
+            [RolesType.ManageUsers] = ([RolesType.Users_Create, RolesType.Users_Edit, RolesType.Users_Delete], [
+                RolesType.Users_Create,
+                RolesType.Users_Edit,
+                RolesType.Users_Delete,
+                RolesType.Admin
             ]),
-            [Roles.ManageProjects] = (
-                [Roles.Projects_Create, Roles.Projects_Edit, Roles.Projects_Delete, Roles.Projects_Archive], [
-                    Roles.Admin,
-                    Roles.Projects_Create,
-                    Roles.Projects_Edit,
-                    Roles.Projects_Delete,
-                    Roles.Projects_Archive
+            [RolesType.ManageProjects] = (
+                [RolesType.Projects_Create, RolesType.Projects_Edit, RolesType.Projects_Delete, RolesType.Projects_Archive], [
+                    RolesType.Admin,
+                    RolesType.Projects_Create,
+                    RolesType.Projects_Edit,
+                    RolesType.Projects_Delete,
+                    RolesType.Projects_Archive
                 ]),
-            [Roles.ManageMessages] = (
-                [Roles.Messages_Create, Roles.Messages_Edit, Roles.Messages_Delete, Roles.Messages_Read], [
-                    Roles.Admin,
-                    Roles.Messages_Create,
-                    Roles.Messages_Edit,
-                    Roles.Messages_Delete,
-                    Roles.Messages_Read
+            [RolesType.ManageMessages] = (
+                [RolesType.Messages_Create, RolesType.Messages_Edit, RolesType.Messages_Delete, RolesType.Messages_Read], [
+                    RolesType.Admin,
+                    RolesType.Messages_Create,
+                    RolesType.Messages_Edit,
+                    RolesType.Messages_Delete,
+                    RolesType.Messages_Read
                 ])
         };
 
-    public static HashSet<Roles> GetAllAdditiveRoles(this Roles role)
+    public static HashSet<RolesType> GetAllAdditiveRoles(this RolesType role)
     {
-        var result  = new HashSet<Roles>();
-        var visited = new HashSet<Roles>();
+        var result  = new HashSet<RolesType>();
+        var visited = new HashSet<RolesType>();
         ResolveAdditiveRoles(role, result, visited);
         return result;
     }
 
-    public static HashSet<Roles> GetAllRemovableRoles(this Roles role)
+    public static HashSet<RolesType> GetAllRemovableRoles(this RolesType role)
     {
-        var result  = new HashSet<Roles>();
-        var visited = new HashSet<Roles>();
+        var result  = new HashSet<RolesType>();
+        var visited = new HashSet<RolesType>();
         ResolveRemovableRoles(role, result, visited);
         return result;
     }
 
-    private static void ResolveAdditiveRoles(this Roles role, HashSet<Roles> result, HashSet<Roles> visited)
+    private static void ResolveAdditiveRoles(this RolesType role, HashSet<RolesType> result, HashSet<RolesType> visited)
     {
         if (visited.Contains(role)) return;
 
@@ -74,7 +74,7 @@ public static class RoleDependencyHelper
             }
     }
 
-    private static void ResolveRemovableRoles(this Roles role, HashSet<Roles> result, HashSet<Roles> visited)
+    private static void ResolveRemovableRoles(this RolesType role, HashSet<RolesType> result, HashSet<RolesType> visited)
     {
         if (visited.Contains(role)) return;
 

@@ -5,7 +5,7 @@ using SmartAttendance.Common.General.Enums.RoleTypes;
 namespace SmartAttendance.Domain.Users;
 
 public class User : IdentityUser<Guid>,
-                    IEntity
+    IEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

@@ -8,7 +8,7 @@ public class CommandRepository<TEntity>(
     ILogger<CommandRepository<TEntity>> logger
 )
     : RepositoryBase<TEntity, WriteOnlyDbContext>(dbContext, logger),
-      ICommandRepository<TEntity>
+        ICommandRepository<TEntity>
     where TEntity : class, IEntity
 {
     private readonly WriteOnlyDbContext _dbContext = dbContext;

@@ -39,8 +39,8 @@ public class ApiData
         var lastday = ConvertPersianToGregorian(yearAndMonth.Year, yearAndMonth.MonthIndex, 1).GetPersianMonthStartAndEndDates();
 
         var date = ConvertPersianToGregorian(yearAndMonth.Year,
-                                             yearAndMonth.MonthIndex,
-                                             Math.Min(day, lastday.LastDayNumber));
+            yearAndMonth.MonthIndex,
+            Math.Min(day, lastday.LastDayNumber));
 
         return date;
     }

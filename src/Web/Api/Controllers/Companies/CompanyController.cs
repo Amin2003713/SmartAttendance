@@ -47,6 +47,6 @@ public class CompanyController : SmartAttendanceBaseController
         CancellationToken               cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateCompanyCommand>().AddMedia(request.Logo),
-                            cancellationToken);
+            cancellationToken);
     }
 }

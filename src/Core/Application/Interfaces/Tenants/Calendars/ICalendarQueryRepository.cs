@@ -1,9 +1,5 @@
 ﻿using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
-using SmartAttendance.Common.Utilities.InjectionHelpers;
-using SmartAttendance.Domain.Tenants;
 
 namespace SmartAttendance.Application.Interfaces.Tenants.Calendars;
 

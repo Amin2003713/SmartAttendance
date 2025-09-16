@@ -10,11 +10,11 @@ public class DeleteRoleRequestExample : IExamplesProvider<DeleteRoleRequest>
         return new DeleteRoleRequest
         {
             Role = string.Join(",",
-                               new List<string>
-                               {
-                                   Roles.Users_Delete.GetEnglishName(),
-                                   Roles.Messages_Edit.GetEnglishName()
-                               })
+                new List<string>
+                {
+                    RolesType.Users_Delete.GetEnglishName(),
+                    RolesType.Messages_Edit.GetEnglishName()
+                })
         };
     }
 }

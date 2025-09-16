@@ -1,6 +1,4 @@
-﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
-
-namespace SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
+﻿namespace SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
 
 public class UpdateReminderRequestExample : IExamplesProvider<UpdateReminderRequest>
 {
@@ -13,7 +11,7 @@ public class UpdateReminderRequestExample : IExamplesProvider<UpdateReminderRequ
             Date       = DateTime.Today,
             TargetUsers = new List<UserTargetRequest>
             {
-                new UserTargetRequest
+                new()
                 {
                     Id   = Guid.Empty,
                     Name = "نام کاربر"

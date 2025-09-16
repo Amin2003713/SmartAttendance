@@ -1,5 +1,4 @@
 ﻿using SmartAttendance.Common.General;
-using SmartAttendance.Common.General.Enums.FileType;
 
 namespace SmartAttendance.Application.Base.HubFiles.Commands.AddFileForCopyRow;
 

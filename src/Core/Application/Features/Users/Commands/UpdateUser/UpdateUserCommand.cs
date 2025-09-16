@@ -1,10 +1,9 @@
-﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
-using SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
+﻿using SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
 
 namespace SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 
 public class UpdateUserCommand : UpdateUserRequest,
-                                 IRequest
+    IRequest
 {
     public UpdateUserCommand AddFiles(UploadMediaFileRequest profile)
     {
