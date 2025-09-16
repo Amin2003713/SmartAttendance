@@ -67,8 +67,8 @@ public class VerifyCommandHandler(
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
 
-            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
-                .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."].
+                                                                   Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }
 }

@@ -41,7 +41,7 @@ public class UpdateUserCommandHandler(
                     var path = user.Profile.Replace("https://", "").Replace("http://", "");
 
                     var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
-                        cancellationToken);
+                                                             cancellationToken);
 
                     if (!deleteResponse)
                     {

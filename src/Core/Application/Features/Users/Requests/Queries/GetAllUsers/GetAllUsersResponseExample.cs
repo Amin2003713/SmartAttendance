@@ -9,7 +9,7 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
     {
         return new List<GetUserResponse>
         {
-            new()
+            new GetUserResponse
             {
                 FirstName          = "John",
                 LastName           = "Doe",
@@ -30,7 +30,7 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
                     },
                 CreatedAt = DateTime.Parse("2025-04-14T12:00:00Z")
             },
-            new()
+            new GetUserResponse
             {
                 FirstName          = "Jane",
                 LastName           = "Smith",

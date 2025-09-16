@@ -12,4 +12,3 @@ global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using SmartAttendance.Common.General;
 global using SmartAttendance.Common.General.Enums.FileType;
-global using SmartAttendance.Common.General.Enums.Workflows;

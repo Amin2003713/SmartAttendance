@@ -5,4 +5,4 @@ public class CalendarUserCommandRepository(
     ILogger<CommandRepository<CalendarUser>> logger
 )
     : CommandRepository<CalendarUser>(dbContext, logger),
-        ICalendarUserCommandRepository { }
+      ICalendarUserCommandRepository { }

@@ -1,4 +1,5 @@
 ﻿using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
+using SmartAttendance.Domain.Setting;
 
 namespace SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
 

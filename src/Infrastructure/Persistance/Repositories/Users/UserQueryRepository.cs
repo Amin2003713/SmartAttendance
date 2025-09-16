@@ -7,5 +7,5 @@ public class UserQueryRepository(
     ILogger<QueryRepository<User>> logger
 )
     : QueryRepository<User>(dbContext, logger),
-        IUserQueryRepository,
-        IScopedDependency;
+      IUserQueryRepository,
+      IScopedDependency;

@@ -1,4 +1,6 @@
-﻿namespace SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
+﻿using SmartAttendance.Common.General.Enums.FileType;
+
+namespace SmartAttendance.Application.Base.MinIo.Requests.Commands.UploadPdf;
 
 public class UploadPdfRequest
 {

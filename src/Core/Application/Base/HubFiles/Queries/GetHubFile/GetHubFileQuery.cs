@@ -1,4 +1,5 @@
 ﻿using SmartAttendance.Application.Base.HubFiles.Request.Queries.GetFile;
+using SmartAttendance.Common.General.Enums.FileType;
 
 namespace SmartAttendance.Application.Base.HubFiles.Queries.GetHubFile;
 

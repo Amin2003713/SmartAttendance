@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using SmartAttendance.ApiFramework;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Injections;
@@ -74,6 +75,9 @@ public class Startup
 
         // Use centralized JWT exception handler
         app.UseMiddleware<JwtExceptionHandlingMiddleware>();
+
+        // Use Serilog request logging
+        app.UseSerilogRequestLogging();
 
         // Register shared WebAPI conventions including Swagger and resource tracking
         app.UseWebApi<Empty>("Tenant API Reference");

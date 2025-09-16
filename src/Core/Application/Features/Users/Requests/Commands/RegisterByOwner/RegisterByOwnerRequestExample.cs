@@ -12,12 +12,7 @@ public class RegisterByOwnerRequestExample : IExamplesProvider<RegisterByOwnerRe
             FirstName   = "نیما",
             LastName    = "بیات",
             PhoneNumber = "09123456789",
-            Roles =
-            [
-                RolesType.Users_Create.GetEnglishName(), RolesType.Projects_Edit.GetEnglishName(),
-                RolesType.Users_Edit.GetEnglishName(),
-                RolesType.Messages_Read.GetEnglishName()
-            ]
+            
         };
     }
 }

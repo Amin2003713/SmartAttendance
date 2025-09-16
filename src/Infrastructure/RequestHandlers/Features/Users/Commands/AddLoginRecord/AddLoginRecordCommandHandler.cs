@@ -17,8 +17,8 @@ public class AddLoginRecordCommandHandler(
     public async Task Handle(AddLoginRecordCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("<UNK> AddLoginRecordCommand request for user {UserId} , {token}",
-            request.UserId!,
-            request.UniqueTokenIdentifier);
+                              request.UserId!,
+                              request.UniqueTokenIdentifier);
 
         if (request.UserId == Guid.Empty)
             return;

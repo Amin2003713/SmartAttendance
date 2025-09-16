@@ -14,7 +14,7 @@ public class RequestResponseLoggingBehavior<TRequest, TResponse>(
 {
     private const int MaxStringLength = 500;
 
-    private readonly static JsonSerializerOptions _jsonOptions = new()
+    private readonly static JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
     {
         ReferenceHandler       = ReferenceHandler.IgnoreCycles,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,

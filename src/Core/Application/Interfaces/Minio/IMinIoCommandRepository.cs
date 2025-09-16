@@ -1,5 +1,9 @@
-﻿using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using SmartAttendance.Application.Base.MinIo.Commands.UploadPdf;
 using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+using SmartAttendance.Domain.HubFiles;
 
 namespace SmartAttendance.Application.Interfaces.Minio;
 

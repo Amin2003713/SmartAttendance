@@ -9,7 +9,7 @@ namespace SmartAttendance.ApiFramework.Attributes;
 
 public static class AuthAttributeCache
 {
-    private readonly static ConcurrentDictionary<MethodInfo, bool> _authCache = new ();
+    private readonly static ConcurrentDictionary<MethodInfo, bool> _authCache = new ConcurrentDictionary<MethodInfo, bool>();
 
     public static bool HasAuthenticationAttributes(ActionContext context)
     {

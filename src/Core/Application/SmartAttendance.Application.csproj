@@ -31,7 +31,33 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Abstractions\Identity\" />
         <Folder Include="Base\"/>
+        <Folder Include="Common\Mapping\" />
+        <Folder Include="Features\Attendance\Commands\" />
+        <Folder Include="Features\Attendance\Queries\" />
+        <Folder Include="Features\Attendance\Requests\" />
+        <Folder Include="Features\Attendance\Responses\" />
+        <Folder Include="Features\Attendance\Validators\" />
+        <Folder Include="Features\Documents\Commands\" />
+        <Folder Include="Features\Documents\Queries\" />
+        <Folder Include="Features\Documents\Requests\" />
+        <Folder Include="Features\Documents\Validators\" />
+        <Folder Include="Features\Notifications\Commands\" />
+        <Folder Include="Features\Notifications\Queries\" />
+        <Folder Include="Features\Notifications\Requests\" />
+        <Folder Include="Features\Notifications\Responses\" />
+        <Folder Include="Features\Notifications\Validators\" />
+        <Folder Include="Features\Plans\Commands\" />
+        <Folder Include="Features\Plans\Queries\" />
+        <Folder Include="Features\Plans\Requests\" />
+        <Folder Include="Features\Plans\Responses\" />
+        <Folder Include="Features\Plans\Validators\" />
+        <Folder Include="Features\Roles\Commands\" />
+        <Folder Include="Features\Roles\Queries\" />
+        <Folder Include="Features\Roles\Requests\" />
+        <Folder Include="Features\Roles\Responses\" />
+        <Folder Include="Features\Roles\Validators\" />
         <Folder Include="Interfaces\Calendars\"/>
     </ItemGroup>
 
@@ -39,6 +65,71 @@
         <Compile Remove="Users\Queries\GetUserTenants\GetUserTenantResponse.cs"/>
         <Compile Remove="Users\Queries\GetUserTenants\GetUserTenantQuery.cs"/>
         <Compile Remove="Settings\Queries\GetSetting\GetSettingQuery.cs"/>
+        <Compile Remove="Abstractions\Identity\IIdentityManagementService.cs" />
+        <Compile Remove="Abstractions\IAttendanceRepository.cs" />
+        <Compile Remove="Abstractions\IDocumentRepository.cs" />
+        <Compile Remove="Abstractions\INotificationRepository.cs" />
+        <Compile Remove="Abstractions\IPlanRepository.cs" />
+        <Compile Remove="Abstractions\IRoleReadService.cs" />
+        <Compile Remove="Abstractions\IRoleRepository.cs" />
+        <Compile Remove="Abstractions\IUnitOfWork.cs" />
+        <Compile Remove="Abstractions\IUserRepository.cs" />
+        <Compile Remove="Features\Attendance\Commands\ApproveExcuseCommand.cs" />
+        <Compile Remove="Features\Attendance\Commands\ApproveExcuseCommandHandler.cs" />
+        <Compile Remove="Features\Attendance\Commands\RecordAttendanceCommand.cs" />
+        <Compile Remove="Features\Attendance\Queries\GetAttendanceStatusQuery.cs" />
+        <Compile Remove="Features\Attendance\Validators\ApproveExcuseValidator.cs" />
+        <Compile Remove="Features\Documents\Commands\ApproveDocumentCommand.cs" />
+        <Compile Remove="Features\Documents\Commands\ApproveDocumentCommandHandler.cs" />
+        <Compile Remove="Features\Documents\Commands\RejectDocumentCommand.cs" />
+        <Compile Remove="Features\Documents\Commands\RejectDocumentCommandHandler.cs" />
+        <Compile Remove="Features\Documents\Commands\UploadDocumentCommand.cs" />
+        <Compile Remove="Features\Documents\Validators\RejectDocumentValidator.cs" />
+        <Compile Remove="Features\Notifications\Commands\CreateNotificationCommand.cs" />
+        <Compile Remove="Features\Notifications\Commands\CreateNotificationCommandHandler.cs" />
+        <Compile Remove="Features\Notifications\Commands\DeleteNotificationCommand.cs" />
+        <Compile Remove="Features\Notifications\Commands\DeleteNotificationCommandHandler.cs" />
+        <Compile Remove="Features\Notifications\Commands\MarkNotificationReadCommand.cs" />
+        <Compile Remove="Features\Notifications\Queries\GetNotificationsByUserQuery.cs" />
+        <Compile Remove="Features\Notifications\Validators\CreateNotificationValidator.cs" />
+        <Compile Remove="Features\Plans\Commands\CancelEnrollmentCommand.cs" />
+        <Compile Remove="Features\Plans\Commands\CancelEnrollmentCommandHandler.cs" />
+        <Compile Remove="Features\Plans\Commands\CreatePlanCommand.cs" />
+        <Compile Remove="Features\Plans\Commands\CreatePlanCommandHandler.cs" />
+        <Compile Remove="Features\Plans\Commands\DeletePlanCommand.cs" />
+        <Compile Remove="Features\Plans\Commands\DeletePlanCommandHandler.cs" />
+        <Compile Remove="Features\Plans\Commands\EnrollStudentCommand.cs" />
+        <Compile Remove="Features\Plans\Commands\EnrollStudentCommandHandler.cs" />
+        <Compile Remove="Features\Plans\Commands\UpdatePlanCommand.cs" />
+        <Compile Remove="Features\Plans\Queries\GetPlanByIdQuery.cs" />
+        <Compile Remove="Features\Plans\Queries\GetPlanByIdQueryHandler.cs" />
+        <Compile Remove="Features\Plans\Queries\ListPlansQuery.cs" />
+        <Compile Remove="Features\Plans\Requests\CreatePlanRequest.cs" />
+        <Compile Remove="Features\Plans\Validators\CreatePlanValidator.cs" />
+        <Compile Remove="Features\Roles\Commands\AssignRoleCommand.cs" />
+        <Compile Remove="Features\Roles\Commands\CreateRoleCommand.cs" />
+        <Compile Remove="Features\Roles\Queries\GetRoleByIdQueryHandler.cs" />
+        <Compile Remove="Features\Roles\Queries\ListRolesQuery.cs" />
+        <Compile Remove="Features\Roles\Requests\AssignRoleRequest.cs" />
+        <Compile Remove="Features\Roles\Validators\AssignRoleValidator.cs" />
+        <Compile Remove="Features\Users\Commands\CreateUserCommand.cs" />
+        <Compile Remove="Features\Users\Commands\CreateUserCommandHandler.cs" />
+        <Compile Remove="Features\Users\Commands\DeleteUserCommand.cs" />
+        <Compile Remove="Features\Users\Commands\DeleteUserCommandHandler.cs" />
+        <Compile Remove="Features\Users\Commands\ForgotPasswordCommandHandler.cs" />
+        <Compile Remove="Features\Users\Commands\ResetPasswordCommand.cs" />
+        <Compile Remove="Features\Users\Commands\UpdateUserCommand.cs" />
+        <Compile Remove="Features\Users\Commands\UpdateUserCommandHandler.cs" />
+        <Compile Remove="Features\Users\Queries\GetUserProfileQuery.cs" />
+        <Compile Remove="Features\Users\Queries\GetUserProfileQueryHandler.cs" />
+        <Compile Remove="Features\Users\Requests\CreateUserRequest.cs" />
+        <Compile Remove="Features\Users\Requests\ForgotPasswordRequest.cs" />
+        <Compile Remove="Features\Users\Requests\ResetPasswordRequest.cs" />
+        <Compile Remove="Features\Users\Requests\UpdateUserRequest.cs" />
+        <Compile Remove="Features\Users\Validators\CreateUserValidator.cs" />
+        <Compile Remove="Features\Users\Validators\ForgotPasswordValidator.cs" />
+        <Compile Remove="Features\Users\Validators\ResetPasswordValidator.cs" />
+        <Compile Remove="Features\Users\Validators\UpdateUserValidator.cs" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-﻿namespace SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
+﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.CreateReminder;
+
+namespace SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
 
 public class UpdateReminderRequest
 {

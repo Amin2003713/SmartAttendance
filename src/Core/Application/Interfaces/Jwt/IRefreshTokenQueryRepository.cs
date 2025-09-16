@@ -1,4 +1,9 @@
-﻿namespace SmartAttendance.Application.Interfaces.Jwt;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using SmartAttendance.Application.Interfaces.Base;
+using SmartAttendance.Domain.Users;
+
+namespace SmartAttendance.Application.Interfaces.Jwt;
 
 public interface IRefreshTokenQueryRepository : IQueryRepository<UserToken>
 {

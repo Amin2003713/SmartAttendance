@@ -51,7 +51,7 @@ public class CompanyRepository : ICompanyRepository
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo!.Identifier,
-                       cancellationToken) ??
+                                                              cancellationToken) ??
                    null!;
         }
         catch (Exception e)
@@ -105,32 +105,32 @@ public class CompanyRepository : ICompanyRepository
 
     public Task<List<TenantUser>> FindByPhoneNumberAsync(string phoneNumber, CancellationToken cancellationToken)
     {
-        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo)
-            .Where(a => a.PhoneNumber == phoneNumber &&
-                        (_identityService.TenantInfo == null ||
-                         a.SmartAttendanceTenantInfoId.ToString() ==
-                         _identityService.TenantInfo.Id))
-            .ToListAsync(cancellationToken)!;
+        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo).
+                          Where(a => a.PhoneNumber == phoneNumber &&
+                                     (_identityService.TenantInfo == null ||
+                                      a.SmartAttendanceTenantInfoId.ToString() ==
+                                      _identityService.TenantInfo.Id)).
+                          ToListAsync(cancellationToken)!;
     }
 
     public Task<TenantUser> FindByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo)
-            .Where(a => a.Id == userId &&
-                        (_identityService.TenantInfo == null ||
-                         a.SmartAttendanceTenantInfoId.ToString() ==
-                         _identityService.TenantInfo.Id))
-            .FirstOrDefaultAsync(cancellationToken)!;
+        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo).
+                          Where(a => a.Id == userId &&
+                                     (_identityService.TenantInfo == null ||
+                                      a.SmartAttendanceTenantInfoId.ToString() ==
+                                      _identityService.TenantInfo.Id)).
+                          FirstOrDefaultAsync(cancellationToken)!;
     }
 
     public Task<List<TenantUser>> FindByUserNameAsync(string userName, CancellationToken cancellationToken)
     {
-        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo)
-            .Where(a => a.UserName == userName &&
-                        (_identityService.TenantInfo == null ||
-                         a.SmartAttendanceTenantInfoId.ToString() ==
-                         _identityService.TenantInfo.Id))
-            .ToListAsync(cancellationToken)!;
+        return _dbContext.TenantUsers.Include(a => a.SmartAttendanceTenantInfo).
+                          Where(a => a.UserName == userName &&
+                                     (_identityService.TenantInfo == null ||
+                                      a.SmartAttendanceTenantInfoId.ToString() ==
+                                      _identityService.TenantInfo.Id)).
+                          ToListAsync(cancellationToken)!;
     }
 
     public async Task AddRequest(AddRequestCommand request, CancellationToken cancellationToken)

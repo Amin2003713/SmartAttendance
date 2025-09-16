@@ -6,4 +6,4 @@ namespace SmartAttendance.Application.Features.Users.Commands.ForgotPassword;
 ///     Represents a command to reset a user's password. Inherits from <see cref="ForgotPasswordRequest" />.
 /// </summary>
 public class ForgotPasswordCommand : ForgotPasswordRequest,
-    IRequest;
+                                     IRequest;

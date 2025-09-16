@@ -12,5 +12,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using SmartAttendance.ApiFramework.Attributes;
 global using SmartAttendance.ApiFramework.Controller;
 global using SmartAttendance.ApiFramework.Tools;
-global using SmartAttendance.Common.General.Enums.Access;
 global using Swashbuckle.AspNetCore.Annotations;

@@ -51,7 +51,6 @@ public class CalendarController : SmartAttendanceBaseController
     [HttpPost("Add-Reminder")]
     [SwaggerOperation("Add-Reminder")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProjectAccess((int)TenantAccess.ReminderAccess)]
     public async Task AddReminderToCalendar(
         [FromBody] CreateReminderRequest request,
         CancellationToken                cancellationToken)
@@ -151,7 +150,6 @@ public class CalendarController : SmartAttendanceBaseController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProjectAccess((int)TenantAccess.HolidayAccess)]
     public async Task UpdateHoliday(
         [FromBody] UpdateHolidayRequest request,
         CancellationToken               cancellationToken)

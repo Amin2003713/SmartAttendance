@@ -57,13 +57,13 @@ public class HubFileCommandRepository(
         // logger.LogInformation("Generating ZIP file for ProjectId: {ProjectId}", Zipfile.ProjectId);
 
         var files = await TableNoTracking.Where(a =>
-                // a.ProjectId == Zipfile.ProjectId &&
-                a.ReferenceIdType == Zipfile.RowType  &&
-                a.ReportDate      >= Zipfile.FromDate &&
-                a.ReportDate      <= Zipfile.ToDate)
-            .GroupBy(a => a.Name)
-            .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
-            .ToListAsync(cancellationToken);
+                                                    // a.ProjectId == Zipfile.ProjectId &&
+                                                    a.ReferenceIdType == Zipfile.RowType  &&
+                                                    a.ReportDate      >= Zipfile.FromDate &&
+                                                    a.ReportDate      <= Zipfile.ToDate).
+                                          GroupBy(a => a.Name).
+                                          Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault()).
+                                          ToListAsync(cancellationToken);
 
         if (files.Count == 0)
         {
@@ -297,10 +297,10 @@ public class HubFileCommandRepository(
         var resultStream = new MemoryStream(zipStream.ToArray());
 
         var zipFile = new FormFile(resultStream,
-            0,
-            resultStream.Length,
-            "file",
-            $"report_{filePaths.FirstOrDefault()?.Type.ToString() ?? "Unknown"}_{DateTime.UtcNow:yyyy_MM_dd_HH_mm_ss}.zip")
+                                   0,
+                                   resultStream.Length,
+                                   "file",
+                                   $"report_{filePaths.FirstOrDefault()?.Type.ToString() ?? "Unknown"}_{DateTime.UtcNow:yyyy_MM_dd_HH_mm_ss}.zip")
         {
             Headers     = new HeaderDictionary(),
             ContentType = "application/zip"

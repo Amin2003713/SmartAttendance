@@ -7,18 +7,18 @@
 public class ReferenceJsonConverter<T> : JsonConverter<T>
     where T : class
 {
-    private readonly HashSet<string> _skipProperties = new (new HashSet<string>
-        {
-            "ProjectId",
-            "IsActive",
-            "CreatedBy",
-            "CreatedAt",
-            "ModifiedBy",
-            "ModifiedAt",
-            "DeletedBy",
-            "DeletedAt"
-        },
-        StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _skipProperties = new HashSet<string>(new HashSet<string>
+                                                                           {
+                                                                               "ProjectId",
+                                                                               "IsActive",
+                                                                               "CreatedBy",
+                                                                               "CreatedAt",
+                                                                               "ModifiedBy",
+                                                                               "ModifiedAt",
+                                                                               "DeletedBy",
+                                                                               "DeletedAt"
+                                                                           },
+                                                                           StringComparer.OrdinalIgnoreCase);
 
     public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

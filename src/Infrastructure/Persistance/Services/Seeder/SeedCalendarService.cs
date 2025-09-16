@@ -33,14 +33,14 @@ public class SeedCalendarService(
                 foreach (var dailyCalender in data)
                 {
                     var calender = await db.TenantCalendars.FirstOrDefaultAsync(a =>
-                        a.Date      == dailyCalender.Date      &&
-                        a.IsHoliday == dailyCalender.IsHoliday &&
-                        a.IsWeekend == dailyCalender.IsWeekend);
+                                                                                    a.Date      == dailyCalender.Date      &&
+                                                                                    a.IsHoliday == dailyCalender.IsHoliday &&
+                                                                                    a.IsWeekend == dailyCalender.IsWeekend);
 
                     if (calender is not null) continue;
 
                     var update = await db.TenantCalendars.FirstOrDefaultAsync(a =>
-                        a.Date == dailyCalender.Date);
+                                                                                  a.Date == dailyCalender.Date);
 
                     if (update is null)
                     {

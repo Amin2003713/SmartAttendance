@@ -1,3 +1,5 @@
+using SmartAttendance.Application.Commons.MediaFiles.Requests;
+
 namespace SmartAttendance.Application.Base.Companies.Commands.UpdateCompany;
 
 /// <summary>

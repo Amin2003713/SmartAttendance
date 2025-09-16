@@ -66,13 +66,13 @@ public record UploadFileForCopyRowCommandHandler(
             //     request.RowId);
 
             var uploadResult = await Mediator.Send(new UploadHubFileCommand
-                {
-                    File       = file!,
-                    ReportDate = request.ReportDate,
-                    RowId      = request.RowId,
-                    RowType    = request.FileStorageType
-                },
-                cancellationToken);
+                                                   {
+                                                       File       = file!,
+                                                       ReportDate = request.ReportDate,
+                                                       RowId      = request.RowId,
+                                                       RowType    = request.FileStorageType
+                                                   },
+                                                   cancellationToken);
 
             Logger.LogInformation("File uploaded successfully. Upload result: {UploadResult}", uploadResult);
             return uploadResult;

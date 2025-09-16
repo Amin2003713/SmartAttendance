@@ -11,8 +11,8 @@ public class RefreshCommandTokenRepository(
     IStringLocalizer<RefreshCommandTokenRepository> localizer
 )
     : CommandRepository<UserToken>(dbContext, writeOnlyLogger),
-        IRefreshTokenCommandRepository,
-        IScopedDependency
+      IRefreshTokenCommandRepository,
+      IScopedDependency
 {
     public async Task AddOrUpdateRefreshTokenAsync(UserToken refreshToken, CancellationToken cancellationToken)
     {

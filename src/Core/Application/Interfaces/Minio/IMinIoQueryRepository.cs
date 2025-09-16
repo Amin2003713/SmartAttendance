@@ -1,4 +1,9 @@
-﻿namespace SmartAttendance.Application.Interfaces.Minio;
+﻿using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
+
+namespace SmartAttendance.Application.Interfaces.Minio;
 
 public interface IMinIoQueryRepository : IScopedDependency
 {

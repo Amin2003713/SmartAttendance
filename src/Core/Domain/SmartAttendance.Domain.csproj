@@ -23,4 +23,66 @@
         <ProjectReference Include="..\..\Common\SmartAttendance.Common\SmartAttendance.Common.csproj"/>
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Folder Include="AttendanceAggregate\" />
+      <Folder Include="Common\" />
+      <Folder Include="Docs\" />
+      <Folder Include="DocumentAggregate\" />
+      <Folder Include="Events\" />
+      <Folder Include="NotificationAggregate\" />
+      <Folder Include="PlanAggregate\" />
+      <Folder Include="Services\" />
+      <Folder Include="UserAggregate\" />
+      <Folder Include="ValueObjects\" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Remove="AttendanceAggregate\AttendanceAggregate.cs" />
+      <Compile Remove="Common\AggregateRoot.cs" />
+      <Compile Remove="Common\AttendanceId.cs" />
+      <Compile Remove="Common\BusinessRuleViolationException.cs" />
+      <Compile Remove="Common\DocumentId.cs" />
+      <Compile Remove="Common\DomainException.cs" />
+      <Compile Remove="Common\Entity.cs" />
+      <Compile Remove="Common\ForbiddenOperationException.cs" />
+      <Compile Remove="Common\IDomainEvent.cs" />
+      <Compile Remove="Common\PlanId.cs" />
+      <Compile Remove="Common\RoleId.cs" />
+      <Compile Remove="DocumentAggregate\Document.cs" />
+      <Compile Remove="Events\AttendanceRecordedEvent.cs" />
+      <Compile Remove="Events\DocumentApprovedEvent.cs" />
+      <Compile Remove="Events\DocumentRejectedEvent.cs" />
+      <Compile Remove="Events\EnrollmentCanceledEvent.cs" />
+      <Compile Remove="Events\ExcusalApprovedEvent.cs" />
+      <Compile Remove="Events\FailedLoginRegisteredEvent.cs" />
+      <Compile Remove="Events\GPSValidatedEvent.cs" />
+      <Compile Remove="Events\NotificationMarkedAsReadEvent.cs" />
+      <Compile Remove="Events\OfflineSyncPerformedEvent.cs" />
+      <Compile Remove="Events\PlanCapacityReachedEvent.cs" />
+      <Compile Remove="Events\PointsCalculatedEvent.cs" />
+      <Compile Remove="Events\QRValidatedEvent.cs" />
+      <Compile Remove="Events\RoleAssignedEvent.cs" />
+      <Compile Remove="Events\RoleRemovedEvent.cs" />
+      <Compile Remove="Events\StudentRegisteredToPlanEvent.cs" />
+      <Compile Remove="Events\UserLockedEvent.cs" />
+      <Compile Remove="Services\IAttendanceValidationService.cs" />
+      <Compile Remove="Services\IOfflineSyncService.cs" />
+      <Compile Remove="UserAggregate\Role.cs" />
+      <Compile Remove="ValueObjects\AttendanceStatus.cs" />
+      <Compile Remove="ValueObjects\EmailAddress.cs" />
+      <Compile Remove="ValueObjects\GPSCoordinate.cs" />
+      <Compile Remove="ValueObjects\NationalCode.cs" />
+      <Compile Remove="ValueObjects\PhoneNumber.cs" />
+      <Compile Remove="ValueObjects\PlanCapacity.cs" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <None Remove="Docs\BusinessRules.md" />
+      <None Remove="Docs\README.md" />
+      <None Remove="Docs\TestingGuide.md" />
+    </ItemGroup>
+
 </Project>

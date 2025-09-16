@@ -36,4 +36,28 @@
         <ProjectReference Include="..\..\Core\Application\SmartAttendance.Application.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\Features\" />
+      <Folder Include="Mongo\Context\" />
+      <Folder Include="Mongo\DependencyInjection\" />
+      <Folder Include="Mongo\Documents\" />
+      <Folder Include="Mongo\Mappers\" />
+      <Folder Include="Mongo\Repositories\" />
+      <Folder Include="Mongo\Services\" />
+      <Folder Include="Mongo\UnitOfWork\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Mongo\Documents\AttendanceDocument.cs" />
+      <Compile Remove="Mongo\Documents\DocumentDocument.cs" />
+      <Compile Remove="Mongo\Documents\NotificationDocument.cs" />
+      <Compile Remove="Mongo\Documents\PlanDocument.cs" />
+      <Compile Remove="Mongo\Documents\RoleDocument.cs" />
+      <Compile Remove="Mongo\Repositories\MongoAttendanceRepository.cs" />
+      <Compile Remove="Mongo\Repositories\MongoDocumentRepository.cs" />
+      <Compile Remove="Mongo\Repositories\MongoNotificationRepository.cs" />
+      <Compile Remove="Mongo\Repositories\MongoPlanRepository.cs" />
+      <Compile Remove="Mongo\Repositories\MongoRoleRepository.cs" />
+    </ItemGroup>
+
 </Project>

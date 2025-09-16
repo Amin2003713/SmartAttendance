@@ -1,4 +1,7 @@
-﻿namespace SmartAttendance.Application.Commons.MediaFiles.Requests;
+﻿using System.IO;
+using Microsoft.AspNetCore.Http;
+
+namespace SmartAttendance.Application.Commons.MediaFiles.Requests;
 
 public class UploadMediaFileRequest
 {

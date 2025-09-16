@@ -23,8 +23,8 @@ public class DeleteReminderCommandHandler(
         var userId = service.GetUserId<Guid>();
 
         logger.LogInformation("User {UserId} initiated deletion for reminder {ReminderId}.",
-            userId,
-            request.ReminderId);
+                              userId,
+                              request.ReminderId);
 
         try
         {
@@ -39,8 +39,8 @@ public class DeleteReminderCommandHandler(
             if (reminder.CreatedBy != userId)
             {
                 logger.LogWarning("User {UserId} attempted to delete reminder {ReminderId} not created by them.",
-                    userId,
-                    request.ReminderId);
+                                  userId,
+                                  request.ReminderId);
 
                 throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
@@ -53,8 +53,8 @@ public class DeleteReminderCommandHandler(
             await dailyCalendarCommandRepository.DeleteAsync(reminder, cancellationToken);
 
             logger.LogInformation("Successfully deleted reminder {ReminderId} by user {UserId}.",
-                request.ReminderId,
-                userId);
+                                  request.ReminderId,
+                                  userId);
         }
         catch (SmartAttendanceException)
         {
@@ -63,9 +63,9 @@ public class DeleteReminderCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex,
-                "Unexpected error while deleting reminder {ReminderId} for user {UserId}.",
-                request.ReminderId,
-                userId);
+                            "Unexpected error while deleting reminder {ReminderId} for user {UserId}.",
+                            request.ReminderId,
+                            userId);
 
             throw SmartAttendanceException.InternalServerError(localizer["Unable to delete reminder."].Value);
         }

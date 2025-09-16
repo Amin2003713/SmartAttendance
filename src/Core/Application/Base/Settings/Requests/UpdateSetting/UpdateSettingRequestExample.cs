@@ -1,4 +1,6 @@
-﻿namespace SmartAttendance.Application.Base.Settings.Requests.UpdateSetting;
+﻿using SmartAttendance.Domain.Setting;
+
+namespace SmartAttendance.Application.Base.Settings.Requests.UpdateSetting;
 
 public class UpdateSettingRequestExample : IExamplesProvider<UpdateSettingRequest>
 {

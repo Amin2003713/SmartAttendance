@@ -37,8 +37,8 @@ public class ForgotPasswordCommandHandler(
 
             var previousPasswords = await PasswordQueryRepository.TableNoTracking.Where(a => a.UserId == userResult.Id).ToListAsync(cancellationToken);
 
-            if (previousPasswords.Select(prev => Hasher.VerifyHashedPassword(userResult, prev.PasswordHash, request.NewPassword))
-                .Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
+            if (previousPasswords.Select(prev => Hasher.VerifyHashedPassword(userResult, prev.PasswordHash, request.NewPassword)).
+                                  Any(verifyResult => verifyResult == PasswordVerificationResult.Success))
             {
                 logger.LogWarning("User {UserId} tried to reuse an old password.", request.UserName);
                 throw SmartAttendanceException.BadRequest(localizer["Dont Reuse Old Password"]);
@@ -56,10 +56,10 @@ public class ForgotPasswordCommandHandler(
             if (!result.Succeeded)
             {
                 logger.LogError("Password reset failed: {Errors}",
-                    string.Join(", ", result.Errors.Select(e => e.Description)));
+                                string.Join(", ", result.Errors.Select(e => e.Description)));
 
                 throw SmartAttendanceException.Validation(localizer["Password change error."],
-                    result.Errors); // "خطا در تغییر رمز عبور."
+                                                          result.Errors); // "خطا در تغییر رمز عبور."
             }
 
 
@@ -94,8 +94,8 @@ public class ForgotPasswordCommandHandler(
         {
             logger.LogError(e, "Unexpected error during two-factor token verification.");
 
-            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."]
-                .Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
+            throw SmartAttendanceException.InternalServerError(additionalData: localizer["Two-factor token verification failed."].
+                                                                   Value); // "احراز هویت دو مرحله‌ای ناموفق بود."
         }
     }
 }

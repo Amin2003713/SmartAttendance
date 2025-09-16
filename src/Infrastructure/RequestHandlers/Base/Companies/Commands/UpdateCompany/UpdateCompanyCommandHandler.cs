@@ -28,7 +28,7 @@ public class UpdateCompanyCommandHandler(
         try
         {
             logger.LogInformation("Starting update process for company with identifier: {TenantId}",
-                tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
+                                  tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
 
             var company = await repository.GetEntity(
                 info => info.Identifier == tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier,
@@ -38,7 +38,7 @@ public class UpdateCompanyCommandHandler(
             if (company == null)
             {
                 logger.LogWarning("Company not found for identifier: {TenantId}",
-                    tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
+                                  tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
 
                 throw SmartAttendanceException.NotFound(localizer["The requested company was not found."].Value);
             }
@@ -52,7 +52,7 @@ public class UpdateCompanyCommandHandler(
                 var path = company.Logo!.Replace("https://", "").Replace("http://", "");
 
                 var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
-                    cancellationToken);
+                                                         cancellationToken);
 
                 if (!deleteResponse)
                 {
@@ -69,7 +69,7 @@ public class UpdateCompanyCommandHandler(
                     var path = company.Logo!.Replace("https://", "").Replace("http://", "");
 
                     var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
-                        cancellationToken);
+                                                             cancellationToken);
 
                     if (!deleteResponse)
                     {
@@ -98,8 +98,8 @@ public class UpdateCompanyCommandHandler(
             await repository.Update(company);
 
             logger.LogInformation("Successfully updated company {CompanyName} (Identifier: {TenantId})",
-                request.Name,
-                tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
+                                  request.Name,
+                                  tenantContextAccessor.MultiTenantContext.TenantInfo!.Identifier);
         }
         catch (SmartAttendanceException ex)
         {

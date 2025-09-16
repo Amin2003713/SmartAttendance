@@ -1,4 +1,5 @@
-﻿using SmartAttendance.Application.Features.Users.Requests.Commands.Login;
+﻿using FluentValidation;
+using SmartAttendance.Application.Features.Users.Requests.Commands.Login;
 
 namespace SmartAttendance.Application.Features.Users.Validators.Commands.Login;
 

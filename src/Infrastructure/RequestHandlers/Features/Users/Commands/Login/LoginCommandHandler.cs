@@ -74,7 +74,7 @@ public class LoginCommandHandler(
 
                     throw SmartAttendanceException.Forbidden(
                         localizer["Account locked for {0} minutes after 3 failed attempts.",
-                            FirstLockoutDuration.TotalMinutes].Value
+                                  FirstLockoutDuration.TotalMinutes].Value
                     );
                 }
 
@@ -86,7 +86,7 @@ public class LoginCommandHandler(
 
                     throw SmartAttendanceException.Forbidden(
                         localizer["Account locked for {0} minutes after 4 failed attempts.",
-                            SecondLockoutDuration.TotalMinutes].Value
+                                  SecondLockoutDuration.TotalMinutes].Value
                     );
                 }
 

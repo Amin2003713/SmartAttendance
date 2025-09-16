@@ -3,4 +3,4 @@
 namespace SmartAttendance.Application.Features.Users.Commands.AddRole;
 
 public class UpdateEmployeeCommand : UpdateEmployeeRequest,
-    IRequest { }
+                                     IRequest { }

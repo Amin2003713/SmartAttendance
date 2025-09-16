@@ -9,13 +9,7 @@ public class UpdateEmployeeExample : IExamplesProvider<UpdateEmployeeRequest>
     {
         return new UpdateEmployeeRequest
         {
-            Roles = new List<string>
-            {
-                RolesType.Admin.GetEnglishName(),
-                RolesType.ManageProjects.GetEnglishName(),
-                RolesType.Projects_Create.GetEnglishName(),
-                RolesType.Users_Create.GetEnglishName()
-            }
+            
         };
     }
 }

@@ -1,5 +1,5 @@
-﻿using SmartAttendance.Common.General.Enums.Genders;
-using SmartAttendance.Common.General.Enums.RoleTypes;
+﻿using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.General.Enums.Genders;
 
 namespace SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
 
@@ -21,9 +21,8 @@ public class RegisterByOwnerRequest
 
     public string PersonnelNumber { get; set; }
 
-    public RoleType roleType { get; set; }
+    public UserType Type { get; set; }
 
     public string PhoneNumber { get; set; }
 
-    public List<string> Roles { get; set; }
 }

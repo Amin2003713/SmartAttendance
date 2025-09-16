@@ -7,4 +7,4 @@ public class UserPasswordCommandRepository(
     ILogger<CommandRepository<UserPassword>> logger
 )
     : CommandRepository<UserPassword>(dbContext, logger),
-        IUserPasswordCommandRepository;
+      IUserPasswordCommandRepository;

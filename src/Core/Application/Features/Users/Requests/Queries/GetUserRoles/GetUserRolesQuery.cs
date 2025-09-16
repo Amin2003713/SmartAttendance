@@ -2,4 +2,4 @@
 
 namespace SmartAttendance.Application.Features.Users.Requests.Queries.GetUserRoles;
 
-public record GetUserRolesQuery : IRequest<IDictionary<string, List<KeyValuePair<RolesType, string>>>>;
+public record GetUserRolesQuery : IRequest<IDictionary<string, List<KeyValuePair<Roles, string>>>>;

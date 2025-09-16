@@ -1,4 +1,5 @@
-﻿using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
+﻿using FluentValidation;
+using SmartAttendance.Application.Features.Calendars.Request.Commands.UpdateReminder;
 
 namespace SmartAttendance.Application.Features.Calendars.Validators.UpdateReminder;
 
@@ -8,11 +9,11 @@ public class UpdateReminderRequestValidator : AbstractValidator<UpdateReminderRe
     {
         RuleFor(x => x.ReminderId).NotEmpty().WithMessage(localizer["Holiday ID is required."]);
 
-        RuleFor(x => x.Details)
-            .NotEmpty()
-            .WithMessage(localizer["ِDetails is required."])
-            .Length(1, 255)
-            .WithMessage(localizer["Details must be between 1 and 255 characters."]);
+        RuleFor(x => x.Details).
+            NotEmpty().
+            WithMessage(localizer["ِDetails is required."]).
+            Length(1, 255).
+            WithMessage(localizer["Details must be between 1 and 255 characters."]);
 
 
         RuleFor(x => x.Date).NotEmpty().WithMessage(localizer["Date is required."]);

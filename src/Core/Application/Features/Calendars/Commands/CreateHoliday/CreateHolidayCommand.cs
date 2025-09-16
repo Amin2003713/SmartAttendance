@@ -3,4 +3,4 @@
 namespace SmartAttendance.Application.Features.Calendars.Commands.CreateHoliday;
 
 public class CreateHolidayCommand : CreateHolidayRequest,
-    IRequest;
+                                    IRequest;

@@ -7,4 +7,4 @@ public class SettingQueryRepository(
     ILogger<QueryRepository<Setting>> logger
 )
     : QueryRepository<Setting>(dbContext, logger),
-        ISettingQueriesRepository;
+      ISettingQueriesRepository;

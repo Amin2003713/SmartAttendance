@@ -1,4 +1,8 @@
-﻿namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
+﻿using System.IO;
+using Microsoft.AspNetCore.Http;
+using SmartAttendance.Common.General.Enums.FileType;
+
+namespace SmartAttendance.Application.Base.HubFiles.Request.Commands.ZipExport;
 
 public class ZipExportCommandResponse
 {

@@ -1,4 +1,7 @@
-﻿using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
+﻿using Mapster;
+using SmartAttendance.Application.Base.Companies.Responses.CompnaySettings;
+using SmartAttendance.Domain.Setting;
+using SmartAttendance.Domain.Tenants;
 
 namespace SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
 

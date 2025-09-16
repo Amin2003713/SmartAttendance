@@ -1,11 +1,11 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Common.General.Enums;
 using SmartAttendance.Common.General.Enums.Genders;
-using SmartAttendance.Common.General.Enums.RoleTypes;
 
 namespace SmartAttendance.Domain.Users;
 
 public class User : IdentityUser<Guid>,
-    IEntity
+                    IEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -18,7 +18,7 @@ public class User : IdentityUser<Guid>,
 
     public bool IsLeader { get; set; }
 
-    public RoleType roleType { get; set; }
+    public UserType Type { get; set; }
 
     public string? PersonnelNumber { get; set; }
     public string? Profile { get; set; }

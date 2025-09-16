@@ -8,4 +8,4 @@ public class DailyCalendarCommandRepository(
     ILogger<CommandRepository<DailyCalendar>> logger
 )
     : CommandRepository<DailyCalendar>(dbContext, logger),
-        IDailyCalendarCommandRepository { }
+      IDailyCalendarCommandRepository { }

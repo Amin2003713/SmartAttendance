@@ -10,8 +10,8 @@ public class RefreshQueryTokenRepository(
     ILogger<QueryRepository<UserToken>>             writeOnlyLogger
 )
     : QueryRepository<UserToken>(dbContext, writeOnlyLogger),
-        IRefreshTokenQueryRepository,
-        IScopedDependency
+      IRefreshTokenQueryRepository,
+      IScopedDependency
 {
     public async Task<bool> ValidateRefreshTokenAsync(UserToken refreshToken, CancellationToken cancellationToken)
     {
@@ -52,6 +52,6 @@ public class RefreshQueryTokenRepository(
     public async Task<UserToken?> GetCurrentSessions(Guid uniqueId, CancellationToken httpContextRequestAborted)
     {
         return (await TableNoTracking.FirstOrDefaultAsync(a => a.UniqueId == uniqueId && a.IsActive,
-            httpContextRequestAborted))!;
+                                                          httpContextRequestAborted))!;
     }
 }

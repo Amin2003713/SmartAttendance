@@ -37,8 +37,8 @@ public class UpdateReminderCommandHandler(
             if (reminder.CreatedBy != userId)
             {
                 logger.LogWarning("User {UserId} tried to edit reminder {ReminderId} not created by them.",
-                    userId,
-                    request.ReminderId);
+                                  userId,
+                                  request.ReminderId);
 
                 throw SmartAttendanceException.BadRequest(localizer["Access denied."].Value);
             }
@@ -61,17 +61,17 @@ public class UpdateReminderCommandHandler(
             await calendarUserCommandRepository.DeleteRangeAsync(calendarUser, cancellationToken);
 
             var reminderUsers = targetUsers.Select(guid => new CalendarUser
-                {
-                    UserId     = guid,
-                    CalendarId = request.ReminderId
-                })
-                .ToList();
+                                            {
+                                                UserId     = guid,
+                                                CalendarId = request.ReminderId
+                                            }).
+                                            ToList();
 
             await calendarUserCommandRepository.AddRangeAsync(reminderUsers, cancellationToken);
 
             logger.LogInformation("Reminder {ReminderId} successfully updated by User {UserId}",
-                request.ReminderId,
-                userId);
+                                  request.ReminderId,
+                                  userId);
         }
         catch (SmartAttendanceException)
         {
@@ -80,9 +80,9 @@ public class UpdateReminderCommandHandler(
         catch (Exception ex)
         {
             logger.LogError(ex,
-                "Unexpected error while updating reminder {ReminderId} by user {UserId}",
-                request.ReminderId,
-                userId);
+                            "Unexpected error while updating reminder {ReminderId} by user {UserId}",
+                            request.ReminderId,
+                            userId);
 
             throw SmartAttendanceException.InternalServerError(localizer["Unable to update reminder."].Value);
         }
