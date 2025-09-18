@@ -68,7 +68,7 @@ public abstract class ApplicationConstant
             $"Server={Sql.DbServer};Database=SmartAttendance;{Sql.MultipleActiveResultSets};{Sql.Encrypt};{Sql.UserNameAndPass}";
 
         public static string RedisConnectionString { get; set; } =
-            "redis:6379,password=4f7d8a7e6b5c9f4b2a1d3e5f8c0b7a8CCA6B60A3EF40A59128@6@Sm";
+            "redis:6379,password=4f7d8a7e6b5c9f4b2a1d3e5f8c0b7a8CCA6B60A3EF40A59128@6@DRP";
 
         public static string GetSwaggerPath()
         {

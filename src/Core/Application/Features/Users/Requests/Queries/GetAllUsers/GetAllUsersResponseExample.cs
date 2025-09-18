@@ -29,7 +29,7 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
                 {
                     Id      = Guid.Empty,
                     Name    = "Admin User",
-                    Profile = "https://example.com/profile_admin.png"
+                    ProfilePicture = "https://example.com/profile_admin.png"
                 },
                 CreatedAt = DateTime.Parse("2025-04-14T12:00:00Z")
             },
@@ -53,7 +53,7 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
                 {
                     Id      = Guid.Empty,
                     Name    = "Admin User",
-                    Profile = "https://example.com/profile_admin.png"
+                    ProfilePicture = "https://example.com/profile_admin.png"
                 },
                 CreatedAt = DateTime.Parse("2025-04-14T13:00:00Z")
             }

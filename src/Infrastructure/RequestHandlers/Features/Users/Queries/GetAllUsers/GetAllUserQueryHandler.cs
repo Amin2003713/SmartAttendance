@@ -31,7 +31,7 @@ public class GetAllUserQueryHandler(
                 result.CreatedBy =
                     await mediator.Send(new GetLogPropertyInfoQuery(user.CreatedBy.Value), cancellationToken);
 
-            result.Role = (await userManager.GetRolesAsync(user) as List<string>)?.Select(NormalizeName).ToList()[0] ?? "";
+            result.Role = (await userManager.GetRolesAsync(user) as List<string>)?.Select(NormalizeName).ToList().FirstOrDefault() ?? "";
 
             results.Add(result);
         }
@@ -46,10 +46,7 @@ public class GetAllUserQueryHandler(
         if (IsPascalCase(name))
             return ToCamelCase(name);
 
-        if (IsSnakeCase(name))
-            return name.ToLowerInvariant();
-
-        return name.ToLower();
+        return IsSnakeCase(name) ? name.ToLowerInvariant() : name.ToLower();
     }
 
     private bool IsPascalCase(string s)

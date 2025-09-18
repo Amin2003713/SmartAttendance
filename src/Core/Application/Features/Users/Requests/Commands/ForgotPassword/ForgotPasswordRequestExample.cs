@@ -10,7 +10,7 @@ public class ForgotPasswordRequestExample : IExamplesProvider<ForgotPasswordRequ
     {
         return new ForgotPasswordRequest
         {
-            UserName        = "09134041709",
+            UserName        = "09131283883",
             NewPassword     = "@Aa123456",
             ConfirmPassword = "@Aa123456"
         };

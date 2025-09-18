@@ -1,4 +1,5 @@
-﻿using SmartAttendance.Application.Commons.MediaFiles.Requests;
+﻿using SmartAttendance.Common.Common.Requests;
+using SmartAttendance.Common.General.Enums;
 using SmartAttendance.Common.General.Enums.Genders;
 
 namespace SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
@@ -7,6 +8,7 @@ public class RegisterByOwnerRequest
 {
     public string PersonalNumber { get; set; } = null!;
 
+    public Roles Role { get; set; }
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }

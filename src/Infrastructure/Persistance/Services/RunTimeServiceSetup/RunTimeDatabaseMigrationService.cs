@@ -1,4 +1,6 @@
-﻿using SmartAttendance.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 
 namespace SmartAttendance.Persistence.Services.RunTimeServiceSetup;
 
@@ -7,8 +9,7 @@ public class RunTimeDatabaseMigrationService(
     Seeder.Seeder seeder,
     IPasswordHasher<User> passwordHasher,
     SmartAttendanceTenantDbContext tenantDbContext,
-    UserManager<User> userManager,
-    RoleManager<IdentityRole<Guid>> roleManager
+    UserManager<User> userManager
 ) : IScopedDependency
 {
     public virtual async Task<string> MigrateTenantDatabasesAsync(
@@ -66,13 +67,13 @@ public class RunTimeDatabaseMigrationService(
     {
         var universityUser = user.Adapt<UniversityUser>();
         universityUser.Id = Guid.CreateVersion7(DateTimeOffset.Now);
-        universityUser.UniversityTenantInfo.Id = tenantInfo.Id;
+        universityUser.UniversityTenantInfoId = tenantInfo.Id;
         tenantDbContext.UniversityUsers.Add(universityUser);
     }
 
     private async Task EnsureAdminRoleExistsAsync(SmartAttendanceDbContext dbContext, User user, CancellationToken cancellationToken)
     {
-        var adminRoleName = "Admin";
+        var adminRoleName = Roles.Admin.GetEnglishName().ToLower();
 
         // Ensure role exists
         if (!await dbContext.Roles.AnyAsync(r => r.Name == adminRoleName, cancellationToken))
@@ -87,7 +88,7 @@ public class RunTimeDatabaseMigrationService(
             await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        var adminRole = await dbContext.Roles.FirstAsync(r => r.Name == adminRoleName, cancellationToken);
+        var adminRole = await dbContext.Roles.FirstAsync(r => r.Name == adminRoleName , cancellationToken);
 
         // Assign role to user
         if (!await dbContext.UserRoles.AnyAsync(ur => ur.UserId == user.Id && ur.RoleId == adminRole.Id, cancellationToken))

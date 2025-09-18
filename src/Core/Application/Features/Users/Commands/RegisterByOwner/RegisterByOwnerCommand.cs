@@ -1,6 +1,14 @@
 ﻿using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
+using SmartAttendance.Common.Common.Requests;
 
 namespace SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
 
 public class RegisterByOwnerCommand : RegisterByOwnerRequest,
-    IRequest { }
+    IRequest
+{
+    public RegisterByOwnerCommand AddFiles(UploadMediaFileRequest? fileRequest)
+    {
+        this.ProfilePicture = fileRequest;
+        return this;
+    }
+}

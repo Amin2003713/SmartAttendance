@@ -20,7 +20,6 @@ using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Riviera.ZarinPal.V4;
-using Serilog.Enrichers.Correlate;
 using SmartAttendance.ApiFramework.Attributes;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Filters;
@@ -58,7 +57,6 @@ public static class WebApiModule
 
         services.AddSingleton<IMultiTenantContext<TTenantInfo>, MultiTenantContext<TTenantInfo>>();
         services.AddHttpContextAccessor();
-        services.AddCorrelationContextEnricher();
         services.AddZarinPal();
 
         services.AddSwaggerGenWithOptions<TApplication>(swaggerTitle);
@@ -76,7 +74,6 @@ public static class WebApiModule
         services.AddTransient<HandelArchive>();
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestResponseLoggingBehavior<,>));
 
         services.AddRouting(options =>
         {

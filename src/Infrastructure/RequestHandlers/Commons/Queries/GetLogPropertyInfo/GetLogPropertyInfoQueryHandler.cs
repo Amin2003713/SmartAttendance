@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
 using SmartAttendance.Application.Commons.Queries.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Common.Exceptions;
@@ -28,11 +29,6 @@ public class GetLogPropertyInfoQueryHandler(
 
         logger.LogInformation("User with Id {UserId} found: {UserName}", request.Id, user.FullName());
 
-        return new LogPropertyInfoResponse
-        {
-            Id      = Guid.Empty,
-            Name    = "Aghdas",
-            Profile = "https://example.com/Profil.png"
-        };
+        return user.Adapt<LogPropertyInfoResponse>();
     }
 }

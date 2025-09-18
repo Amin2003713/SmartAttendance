@@ -1,7 +1,9 @@
 ﻿using DNTPersianUtils.Core;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Commands.DeleteFile;
 using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
-using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
+using SmartAttendance.Common.General.Enums.FileType;
 
 // Added for logging
 
@@ -14,7 +16,8 @@ public class UserCommandRepository(
     IdentityService                         service,
     IUniversityRepository                      UniversityRepository,
     UserManager<User>                       userService,
-    SmartAttendanceTenantDbContext          db
+    SmartAttendanceTenantDbContext          db    ,
+    IMediator                      mediator
 )
     : CommandRepository<User>(dbContext, logger),
         IUserCommandRepository
@@ -41,13 +44,17 @@ public class UserCommandRepository(
         }
     }
 
-    public async Task<Guid> RegisterByOwnerAsync(RegisterByOwnerRequest request, CancellationToken cancellationToken)
+    public async Task<User> RegisterByOwnerAsync(RegisterByOwnerRequest request, CancellationToken cancellationToken)
     {
         if (!request.PhoneNumber.IsValidIranianMobileNumber())
             SmartAttendanceException.BadRequest();
 
+
         // Check if the user already exists
-        if (await TableNoTracking.AnyAsync(u => u.UserName == request.PhoneNumber, cancellationToken))
+        if (await TableNoTracking
+                .AnyAsync(u => u.UserName == request.PhoneNumber ||
+                               u.PersonalNumber == request.PersonalNumber,
+                    cancellationToken))
             SmartAttendanceException.Conflict();
 
         // Retrieve the University by ID
@@ -96,6 +103,39 @@ public class UserCommandRepository(
             await UniversityRepository.CreateAsync(UniversityUser, cancellationToken);
 
 
+            if (request.ProfilePicture?.MediaFile != null)
+            {
+                if (!string.IsNullOrWhiteSpace(newUser.ProfilePicture))
+                {
+                    var path = newUser.ProfilePicture!.Replace("https://", "").Replace("http://", "");
+
+                    var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
+                        cancellationToken);
+
+                    if (!deleteResponse)
+                    {
+                        logger.LogError("Failed to delete old image for newUser {Id}.", newUser.Id);
+                        throw SmartAttendanceException.InternalServerError(localizer["Failed to delete old image."].Value);
+                    }
+                }
+
+
+                var uploadCommand = new UploadHubFileCommand
+                {
+                    File       = request.ProfilePicture.MediaFile,
+                    ReportDate = DateTime.UtcNow,
+                    RowType    = FileStorageType.ProfilePicture,
+                    RowId      = (newUser.Id)
+                };
+
+                var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);
+
+                newUser.ProfilePicture = uploadImageResponse.Url;
+
+                logger.LogInformation("Uploaded image for newUser{newUserId}.", newUser.Id);
+            }
+
+
             // Send SMS notification to the user
             // var owner = await _userService.FindByIdAsync(University.User.Id.ToString());
             // await _smsService.SendUserPassForNewUser(new SendAddToUniversityOwnerRegisteredUserSmsDto()
@@ -113,51 +153,9 @@ public class UserCommandRepository(
             SmartAttendanceException.BadRequest("مشکلی هنگام ثبت اطلاعات شما رخ داده است.");
         }
 
-        return newUser.Id;
+        return newUser;
     }
 
-    public async Task UpdatePhoneNumberAsync(
-        UpdatePhoneNumberRequest request,
-        Guid                     userId,
-        CancellationToken        cancellationToken)
-    {
-        var user = await userService.FindByIdAsync(userId.ToString()!);
-
-        var exists = await TableNoTracking.AnyAsync(a => a.Id != userId && a.UserName == request.PhoneNumber,
-            cancellationToken);
-
-        if (exists)
-            throw SmartAttendanceException.Conflict("This user already exists");
-
-
-        var oldPhoneNumber = user!.PhoneNumber;
-        user.PhoneNumber = request.PhoneNumber;
-        user.UserName    = request.PhoneNumber;
-
-        await userService.UpdateAsync(user);
-
-        var UniversityUser =
-            await db.UniversityUsers.FirstOrDefaultAsync(t => t.PhoneNumber == oldPhoneNumber, cancellationToken);
-
-
-        if (UniversityUser != null)
-        {
-            UniversityUser.PhoneNumber = request.PhoneNumber;
-            UniversityUser.UserName    = request.PhoneNumber;
-            db.Update(UniversityUser);
-        }
-
-        var owner = await db.UniversityAdmins.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
-
-        if (owner != null)
-        {
-            owner.PhoneNumber = request.PhoneNumber;
-
-            db.Update(owner);
-        }
-
-        await db.SaveChangesAsync(cancellationToken);
-    }
 
     public async Task UpdateUserAsync(User user, CancellationToken cancellationToken)
     {

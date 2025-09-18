@@ -9,7 +9,7 @@ public class UniversityUser
     public string NationalCode { get; set; }
     public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
     public string UniversityTenantInfoId { get; set; }
-    public UniversityTenantInfo UniversityTenantInfo { get; set; }
+    public UniversityTenantInfo UniversityTenantInfo { get; set; } 
     public bool IsActive { get; set; } = true;
     public string UserName { get; set; }
 }

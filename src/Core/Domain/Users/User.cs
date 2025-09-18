@@ -15,7 +15,7 @@ public class User : IdentityUser<Guid>,
 
     public GenderType Gender { get; set; }
 
-    public string PersonalNumber { get; set; } = null!;
+    public string? PersonalNumber { get; set; } = null!;
 
 
     public string? ProfilePicture { get; set; }

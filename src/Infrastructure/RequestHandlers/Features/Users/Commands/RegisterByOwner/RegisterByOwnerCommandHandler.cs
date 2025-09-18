@@ -1,16 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SmartAttendance.Application.Features.Users.Commands.AddRole;
 using SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
 using SmartAttendance.Application.Interfaces.Users;
 using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.Utilities.EnumHelpers;
+using SmartAttendance.Domain.Users;
 
 namespace SmartAttendance.RequestHandlers.Features.Users.Commands.RegisterByOwner;
 
 public class RegisterByOwnerCommandHandler(
     IUserCommandRepository                          commandRepository,
     IUserQueryRepository                            queryRepository,
-    IMediator                                       mediator,
     ILogger<RegisterByOwnerCommandHandler>          logger,
+    RoleManager<IdentityRole<Guid>> RoleManager,
+    UserManager<User> _userManager,
     IStringLocalizer<RegisterByOwnerCommandHandler> localizer
 ) : IRequestHandler<RegisterByOwnerCommand>
 {
@@ -25,14 +29,22 @@ public class RegisterByOwnerCommandHandler(
                 throw SmartAttendanceException.BadRequest(localizer["This phone number is already registered."].Value);
             }
 
-            var userId = await commandRepository.RegisterByOwnerAsync(request, cancellationToken);
+            var user = await commandRepository.RegisterByOwnerAsync(request, cancellationToken);
 
 
-            await mediator.Send(new UpdateEmployeeCommand
-                {
-                    UserId = userId
-                },
-                cancellationToken);
+            if (!await RoleManager.RoleExistsAsync(request.Role.GetEnglishName().ToLower()))
+            {
+                // Optionally, create the role if it doesn't exist
+                var roleResult = await RoleManager.CreateAsync(new IdentityRole<Guid>(request.Role.GetEnglishName().ToLower()));
+                if (!roleResult.Succeeded)
+                    throw SmartAttendanceException.InternalServerError(string.Join(", ", roleResult.Errors.Select(e => e.Description)));
+            }
+
+
+            var addResult = await _userManager.AddToRolesAsync(user, [request.Role.GetEnglishName().ToLower()]);
+            if (!addResult.Succeeded)
+                throw SmartAttendanceException.InternalServerError(string.Join(", ", addResult.Errors.Select(e => e.Description)));
+
 
             logger.LogInformation("User with phone number {PhoneNumber} registered by owner successfully.",
                 request.PhoneNumber);

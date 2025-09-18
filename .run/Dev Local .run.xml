@@ -2,7 +2,12 @@
   <configuration default="false" name="Dev Local " type="docker-deploy" factoryName="docker-compose.yml" server-name="Local">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="envFilePath" value="E:\Projects\SmartAttendance\SmartAttendance\Docker\.env.development.local" />
+        <option name="envFilePath" value="E:\Personal\Shifty\Docker\.env.development.local" />
+        <option name="envFilePaths">
+          <list>
+            <option value="E:\Personal\Shifty\Docker\.env.development.local" />
+          </list>
+        </option>
         <option name="commandLineOptions" value="--build" />
         <option name="sourceFilePath" value="Docker/services.docker-compose.yaml" />
         <option name="upRemoveOrphans" value="true" />

@@ -6,7 +6,6 @@ using SmartAttendance.Application.Features.Users.Commands.Logout;
 using SmartAttendance.Application.Features.Users.Commands.RefreshToken;
 using SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
 using SmartAttendance.Application.Features.Users.Commands.SendActivationCode;
-using SmartAttendance.Application.Features.Users.Commands.UpdatePhoneNumber;
 using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 using SmartAttendance.Application.Features.Users.Commands.Verify;
 using SmartAttendance.Application.Features.Users.Queries.GetAllUsers;
@@ -16,7 +15,6 @@ using SmartAttendance.Application.Features.Users.Requests.Commands.ForgotPasswor
 using SmartAttendance.Application.Features.Users.Requests.Commands.Login;
 using SmartAttendance.Application.Features.Users.Requests.Commands.RegisterByOwner;
 using SmartAttendance.Application.Features.Users.Requests.Commands.SendActivationCode;
-using SmartAttendance.Application.Features.Users.Requests.Commands.UpdatePhoneNumber;
 using SmartAttendance.Application.Features.Users.Requests.Commands.UpdateUser;
 using SmartAttendance.Application.Features.Users.Requests.Commands.Verify;
 using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserRoles;
@@ -180,34 +178,10 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ForbidResult),       StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ApiProblemDetails),  StatusCodes.Status500InternalServerError)]
     public virtual async Task RegisterByOwner(
-        [FromBody] RegisterByOwnerRequest request,
+        [FromForm] RegisterByOwnerRequest request,
         CancellationToken                 cancellationToken)
     {
-        await Mediator.Send(request.Adapt<RegisterByOwnerCommand>(), cancellationToken);
-    }
-
-    /// <summary>
-    ///     Updates the phone number of a user.
-    /// </summary>
-    /// <param name="request">The request containing new phone number and verification code.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <response code="204">Phone number updated successfully.</response>
-    /// <response code="400">Invalid phone number or code.</response>
-    /// <response code="401">Unauthorized access.</response>
-    /// <response code="403">Access forbidden.</response>
-    /// <response code="500">Internal server error.</response>
-    [HttpPut("Update-PhoneNumber")]
-    [SwaggerOperation(Summary = "Update Phone Number", Description = "Updates user's phone number using verification.")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status500InternalServerError)]
-    public virtual async Task UpdatePhoneNumber(
-        [FromBody] UpdatePhoneNumberRequest request,
-        CancellationToken                   cancellationToken)
-    {
-        await Mediator.Send(request.Adapt<UpdatePhoneNumberCommand>(), cancellationToken);
+        await Mediator.Send(request.Adapt<RegisterByOwnerCommand>().AddFiles(request.ProfilePicture!), cancellationToken);
     }
 
 
@@ -275,7 +249,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task UpdateEmployee([FromBody] UpdateEmployeeRequest request, CancellationToken cancellationToken)
     {
-        await Mediator.Send(request.Adapt<UpdateEmployeeCommand>(), cancellationToken);
+        await Mediator.Send(request.Adapt<UpdateEmployeeCommand>().AddFiles(request.ProfilePicture!), cancellationToken);
     }
 
     /// <summary>

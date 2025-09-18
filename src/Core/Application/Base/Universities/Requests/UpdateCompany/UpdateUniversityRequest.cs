@@ -1,4 +1,5 @@
-using SmartAttendance.Application.Commons.MediaFiles.Requests;
+
+using SmartAttendance.Common.Common.Requests;
 
 namespace SmartAttendance.Application.Base.Universities.Requests.UpdateCompany;
 

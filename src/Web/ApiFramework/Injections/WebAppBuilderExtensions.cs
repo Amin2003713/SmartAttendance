@@ -76,13 +76,6 @@ public static class WebAppBuilderExtensions
 
             endpoints.MapHangfireDashboard();
 
-
-            endpoints.MapHealthChecks("/api/health",
-                new HealthCheckOptions
-                {
-                    Predicate      = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
         });
 
         app.UseHangfireDashboard(

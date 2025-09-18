@@ -10,7 +10,7 @@ public class UserInfoByPhoneNumberRequestExample : IExamplesProvider<UserInfoByP
     {
         return new UserInfoByPhoneNumberRequest
         {
-            PhoneNumber = "09134041709"
+            PhoneNumber = "09131283883"
         };
     }
 }
