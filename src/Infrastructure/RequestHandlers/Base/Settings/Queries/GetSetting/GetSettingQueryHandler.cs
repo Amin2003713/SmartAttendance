@@ -9,9 +9,9 @@ public class GetSettingQueryHandler(
     ISettingQueriesRepository                repository,
     ILogger<GetSettingQueryHandler>          logger,
     IStringLocalizer<GetSettingQueryHandler> localizer
-) : IRequestHandler<GetSettingQuery, GetSettingQueryResponse>
+) : IRequestHandler<GetSettingQuery, GetUniversitySettingResponse>
 {
-    public async Task<GetSettingQueryResponse> Handle(GetSettingQuery request, CancellationToken cancellationToken)
+    public async Task<GetUniversitySettingResponse> Handle(GetSettingQuery request, CancellationToken cancellationToken)
     {
         try
         {
@@ -25,7 +25,7 @@ public class GetSettingQueryHandler(
 
             logger.LogInformation("Setting retrieved successfully. ID: {Id}", result.Id);
 
-            return result.Adapt<GetSettingQueryResponse>();
+            return result.Adapt<GetUniversitySettingResponse>();
         }
 
 

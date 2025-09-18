@@ -5,7 +5,7 @@ using SmartAttendance.Application.Interfaces.Tenants.Companies;
 namespace SmartAttendance.RequestHandlers.Features.Users.Queries.GetUserTenants;
 
 public class GetUserTenantQueryHandler(
-    ICompanyRepository                 repository,
+    IUniversityRepository                 repository,
     ILogger<GetUserTenantQueryHandler> logger
 ) : IRequestHandler<GetUserTenantQuery, List<GetUserTenantResponse>>
 {

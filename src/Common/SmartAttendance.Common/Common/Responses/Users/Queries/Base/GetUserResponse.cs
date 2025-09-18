@@ -1,43 +1,51 @@
 ﻿using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.General.Enums.Genders;
 
 namespace SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 
 public class GetUserResponse
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string LastName { get; set; }
-
-    public Guid Id { get; set; }
+    public string? LastName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Profile { get; set; }
+    public string? FatherName { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? ProfileCompress { get; set; }
+    public string? NationalCode { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GenderType? Gender { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PersonalNumber { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Roles? Type { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? ProfilePicture { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Address { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string> Roles { get; set; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? LastActionOnServer { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? JobTitle { get; set; }
-
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public DateTime? BirthDate { get; set; }
+
+    public Guid Id { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -48,10 +56,18 @@ public class GetUserResponse
     public DateTime CreatedAt { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-
     public string? Email { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? FullName { get; set; }
 
-    public string FullName { get; set; }
+    // Optional: Additional helper fields for university usage
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? UniversityDomain { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? UniversityName { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Role { get; set; }
 }

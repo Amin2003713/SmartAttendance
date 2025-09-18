@@ -4,7 +4,7 @@ namespace SmartAttendance.Common.Common.ESBase;
 
 public class EventDocument<TId> : BaseEventStoreModel<TId>
 {
-    public UserType PerformedByLevel { get; init; }
+    public Roles PerformedByLevel { get; init; }
     public Guid UserId { get; set; }
     public Guid Id { get; set; }
     public TId AggregateId { get; set; } = default!;

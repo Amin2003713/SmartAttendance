@@ -1,6 +1,3 @@
 ﻿namespace SmartAttendance.Domain.Features.Excuses;
 
-public class Excuse
-{
-    
-}
+public class Excuse { }

@@ -231,7 +231,7 @@
 //             .WithCancellation(cancellationToken)
 //             .Where(sg =>
 //             {
-//                 // if (access is not { Node: UserType.Contractor } || isSuperUser)
+//                 // if (access is not { Node: Roles.Contractor } || isSuperUser)
 //                 //     return true;
 //
 //                 return eventsById.TryGetValue(sg.AggregateId, out var evs) &&
@@ -278,8 +278,8 @@
 //                 // return access switch
 //                 //        {
 //                 //            null                                                                => aggregate,
-//                 //            { Node: UserType.Stakeholder } when aggregate.Node != UserType.None => aggregate,
-//                 //            { Node: UserType.Contractor } when aggregate.Node == UserType.None  => aggregate,
+//                 //            { Node: Roles.Stakeholder } when aggregate.Node != Roles.None => aggregate,
+//                 //            { Node: Roles.Contractor } when aggregate.Node == Roles.None  => aggregate,
 //                 //            _                                                                   => aggregate.Node >= access.Node ? aggregate : null!
 //                 //        };
 //             })

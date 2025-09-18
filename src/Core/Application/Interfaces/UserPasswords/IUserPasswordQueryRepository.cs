@@ -5,4 +5,4 @@ using SmartAttendance.Domain.Users;
 namespace SmartAttendance.Application.Interfaces.UserPasswords;
 
 public interface IUserPasswordQueryRepository : IQueryRepository<UserPassword>,
-                                                IScopedDependency;
+    IScopedDependency;

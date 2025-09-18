@@ -7,13 +7,13 @@
 // namespace SmartAttendance.Persistence.Services.Pdf.GetFactorPdf;
 //
 // public class GetFactorPdfDocument(
-//     SmartAttendanceTenantInfo company,
+//     UniversityTenantInfo University,
 //     Payments payments,
 //     Price price
 // )
 //     : IDocument
 // {
-//     private SmartAttendanceTenantInfo Seller { get; } = company;
+//     private UniversityTenantInfo Seller { get; } = University;
 //     private Payments Payments { get; } = payments;
 //     private Price Price { get; } = price;
 //

@@ -13,7 +13,7 @@ public class UpdateReminderRequestExample : IExamplesProvider<UpdateReminderRequ
             Date       = DateTime.Today,
             TargetUsers = new List<UserTargetRequest>
             {
-                new UserTargetRequest
+                new()
                 {
                     Id   = Guid.Empty,
                     Name = "نام کاربر"

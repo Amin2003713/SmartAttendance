@@ -128,7 +128,7 @@ public class ProjectAccessAttribute(
 
         var bodyParam =
             actionContext.ActionDescriptor.Parameters.FirstOrDefault(p =>
-                                                                         p.BindingInfo?.BindingSource == BindingSource.Body);
+                p.BindingInfo?.BindingSource == BindingSource.Body);
 
         if (bodyParam == null                                                        ||
             !actionContext.ActionArguments.TryGetValue(bodyParam.Name, out var body) ||

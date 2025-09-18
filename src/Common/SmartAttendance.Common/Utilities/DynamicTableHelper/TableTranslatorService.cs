@@ -8,7 +8,7 @@ public class TableTranslatorService<THandler>(
 ) : ITableTranslatorService<THandler>
 {
     // Cache property info for each type to avoid repeated reflection.
-    private readonly ConcurrentDictionary<Type, List<PropertyInfo>> _propertyCache = new ConcurrentDictionary<Type, List<PropertyInfo>>();
+    private readonly ConcurrentDictionary<Type, List<PropertyInfo>> _propertyCache = new ();
 
     // Retrieves all column (property) names for type T.
     public List<string> GetColumnNames<T>()
@@ -55,7 +55,7 @@ public class TableTranslatorService<THandler>(
     private List<PropertyInfo> GetProperties<T>()
     {
         return _propertyCache.GetOrAdd(typeof(T),
-                                       type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList());
+            type => type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList());
     }
 
     // Determines if a type is numeric (supports nullable numeric types as well).

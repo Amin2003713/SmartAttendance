@@ -33,8 +33,7 @@ public class Startup
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
             User,                           // User entity model
-            Role,                           // RoleTypes entity model
-            SmartAttendanceTenantInfo,      // Tenant info model
+            UniversityTenantInfo,           // Tenant info model
             SmartAttendanceTenantDbContext, // Multi-tenant DB context
             SmartAttendanceDbContext,       // Service-specific DB context (non-tenant)
             Program,                        // Reference for localizer (error messages)

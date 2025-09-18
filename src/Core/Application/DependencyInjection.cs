@@ -3,8 +3,8 @@ using FluentValidation;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
-using SmartAttendance.Application.Base.Companies.Responses.GetCompanyInfo;
+using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
+using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
 using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
@@ -37,67 +37,62 @@ public static class DependencyInjection
         UserAdaptor();
     }
 
-
     private static void UserAdaptor()
     {
-        TypeAdapterConfig<UpdateUserCommand, User>.NewConfig().
-                                                   Map(dest => dest.Profile,
-                                                       src => src.ImageFile != null && src.ImageFile.MediaUrl != null
-                                                           ? src.ImageFile.MediaUrl
-                                                           : null);
+        TypeAdapterConfig<UpdateUserCommand, User>.NewConfig()
+            .Map(dest => dest.ProfilePicture,
+                src => src.ProfilePicture != null && src.ProfilePicture.MediaUrl != null
+                    ? src.ProfilePicture.MediaUrl
+                    : null);
 
-        TypeAdapterConfig<User, GetUserByIdResponse>.NewConfig().
-                                                     Map(
-                                                         dest => dest.Profile,
-                                                         src => src.Profile != null
-                                                             ? src.Profile!.BuildImageUrl(false)
-                                                             : null).
-                                                     Map(dest => dest.ProfileCompress,
-                                                         src => src.Profile != null
-                                                             ? src.Profile!.BuildImageUrl(true)
-                                                             : null);
+        TypeAdapterConfig<User, GetUserByIdResponse>.NewConfig()
+            .Map(dest => dest.Profile,
+                src => src.ProfilePicture != null
+                    ? src.ProfilePicture!.BuildImageUrl(false)
+                    : null)
+            .Map(dest => dest.ProfileCompress,
+                src => src.ProfilePicture != null
+                    ? src.ProfilePicture!.BuildImageUrl(true)
+                    : null);
 
-        TypeAdapterConfig<User, GetUserResponse>.NewConfig().
-                                                 Map(
-                                                     dest => dest.Profile,
-                                                     src => src.Profile != null
-                                                         ? src.Profile!.BuildImageUrl(false)
-                                                         : null).
-                                                 Map(dest => dest.ProfileCompress,
-                                                     src => src.Profile != null
-                                                         ? src.Profile!.BuildImageUrl(true)
-                                                         : null);
+        TypeAdapterConfig<User, GetUserResponse>.NewConfig()
+            .Map(dest => dest.ProfilePicture,
+                src => src.ProfilePicture != null
+                    ? src.ProfilePicture!.BuildImageUrl(false)
+                    : null);
     }
 
     private static void OtherAdaptor()
     {
-        TypeAdapterConfig<InitialCompanyCommand, SmartAttendanceTenantInfo>.NewConfig().Map(dest => dest.Identifier, src => src.Domain);
+        // Initial university creation
+        TypeAdapterConfig<InitialUniversityCommand, UniversityTenantInfo>.NewConfig()
+            .Map(dest => dest.Identifier, src => src.Domain);
 
+        // University info response mapping
+        TypeAdapterConfig<UniversityTenantInfo, GetUniversityInfoResponse>.NewConfig()
+            .Map(dest => dest.Domain, src => src.Identifier)
+            .Map(dest => dest.Logo,
+                src => src.Logo != null
+                    ? src.Logo!.BuildImageUrl(false)
+                    : null);
 
-        TypeAdapterConfig<SmartAttendanceTenantInfo, GetCompanyInfoResponse>.NewConfig().
-                                                                             Map(dest => dest.Domain, src => src.Identifier).
-                                                                             Map(
-                                                                                 dest => dest.Logo,
-                                                                                 src => src.Logo != null
-                                                                                     ? src.Logo!.BuildImageUrl(false)
-                                                                                     : null);
+        // User log info
+        TypeAdapterConfig<User, GetUserResponse>.NewConfig()
+            .Map(dest => dest.CreatedBy,
+                src => src.CreatedBy == null
+                    ? null
+                    : new LogPropertyInfoResponse
+                    {
+                        Id = src.CreatedBy.Value
+                    });
 
+        // Tenant user mapping
+        TypeAdapterConfig<UniversityUser, GetUserTenantResponse>.NewConfig()
+            .Map(dest => dest.Domain, src => src.UniversityTenantInfo.Identifier)
+            .Map(dest => dest.Name,   src => src.UniversityTenantInfo.Name);
 
-        TypeAdapterConfig<User, GetUserResponse>.NewConfig().
-                                                 Map(dest => dest.CreatedBy,
-                                                     src => src.CreatedBy == null
-                                                         ? null
-                                                         : new LogPropertyInfoResponse
-                                                         {
-                                                             Id = src.CreatedBy.Value
-                                                         });
-
-
-        TypeAdapterConfig<TenantUser, GetUserTenantResponse>.NewConfig().
-                                                             Map(dest => dest.Domain, src => src.SmartAttendanceTenantInfo.Identifier).
-                                                             Map(dest => dest.Name,   src => src.SmartAttendanceTenantInfo.Name);
-
-
-        TypeAdapterConfig.GlobalSettings.Default.IgnoreMember((member, side) => member.Type == typeof(IFormFile));
+        // Ignore IFormFile globally
+        TypeAdapterConfig.GlobalSettings.Default.IgnoreMember((member, side) =>
+            member.Type == typeof(IFormFile));
     }
 }

@@ -1,6 +1,3 @@
 ﻿namespace SmartAttendance.Domain.Features.Plans;
 
-public class Plan
-{
-    
-}
+public class Plan { }

@@ -10,7 +10,7 @@ using SmartAttendance.Domain.HubFiles;
 namespace SmartAttendance.Application.Interfaces.HubFiles;
 
 public interface IHubFileCommandRepository : ICommandRepository<HubFile>,
-                                             IScopedDependency
+    IScopedDependency
 {
     Task<HubFile> PostFile(UploadFileRequest   uploadFileRequest, CancellationToken cancellationToken);
     Task<string>  GetZipAsync(ZipExportCommand ZipFile,           CancellationToken cancellationToken);

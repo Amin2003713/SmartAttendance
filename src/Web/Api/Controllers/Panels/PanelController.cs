@@ -1,6 +1,6 @@
-﻿using SmartAttendance.Application.Base.Companies.Commands.InitialCompany;
-using SmartAttendance.Application.Base.Companies.Queries.CheckDomain;
-using SmartAttendance.Application.Base.Companies.Requests.InitialCompany;
+﻿using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
+using SmartAttendance.Application.Base.Universities.Queries.CheckDomain;
+using SmartAttendance.Application.Base.Universities.Requests.InitialUniversity;
 using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 
 namespace SmartAttendance.Api.Controllers.Panels;
@@ -47,21 +47,21 @@ public class PanelController : SmartAttendanceBaseController
     }
 
     /// <summary>
-    ///     Creates a new company (tenant).
+    ///     Creates a new University (tenant).
     /// </summary>
-    /// <param name="request">The request containing the details of the company to create.</param>
+    /// <param name="request">The request containing the details of the University to create.</param>
     /// <param name="cancellationToken"></param>
-    /// <returns>The response containing the created company details.</returns>
-    /// <response code="200">Returns the created company details.</response>
-    /// <response code="400">If the request is invalid or the company could not be created.</response>
-    [HttpPost("initialize-company")]
+    /// <returns>The response containing the created University details.</returns>
+    /// <response code="200">Returns the created University details.</response>
+    /// <response code="400">If the request is invalid or the University could not be created.</response>
+    [HttpPost("initialize-University")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
-    public virtual async Task<string> InitialCompany(
-        [FromBody] InitialCompanyRequest request,
+    public virtual async Task<string> InitialUniversity(
+        [FromBody] InitialUniversityRequest request,
         CancellationToken                cancellationToken)
     {
-        return await Mediator.Send(request.Adapt<InitialCompanyCommand>(), cancellationToken);
+        return await Mediator.Send(request.Adapt<InitialUniversityCommand>(), cancellationToken);
     }
 }

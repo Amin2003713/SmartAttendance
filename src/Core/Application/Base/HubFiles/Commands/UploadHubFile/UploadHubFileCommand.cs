@@ -4,4 +4,4 @@ using SmartAttendance.Common.General;
 namespace SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
 
 public class UploadHubFileCommand : UploadHubFileRequest,
-                                    IRequest<MediaFileStorage>;
+    IRequest<MediaFileStorage>;

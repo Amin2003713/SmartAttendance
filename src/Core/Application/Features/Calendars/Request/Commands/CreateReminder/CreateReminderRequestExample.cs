@@ -11,7 +11,7 @@ public class CreateReminderRequestExample : IExamplesProvider<CreateReminderRequ
             TargetUsers =
                 new List<UserTargetRequest>
                 {
-                    new UserTargetRequest
+                    new()
                     {
                         Id   = Guid.Empty,
                         Name = "نام کاربر "

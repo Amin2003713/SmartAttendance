@@ -230,8 +230,8 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status500InternalServerError)]
     public virtual async Task UpdateUser([FromForm] UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        await Mediator.Send(request.Adapt<UpdateUserCommand>().AddFiles(request.ImageFile!),
-                            cancellationToken);
+        await Mediator.Send(request.Adapt<UpdateUserCommand>().AddFiles(request.ProfilePicture!),
+            cancellationToken);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ public class UserController : SmartAttendanceBaseController
     /// <response code="403">User is not authorized to access this data.</response>
     /// <response code="500">Internal server error.</response>
     [SwaggerOperation(Summary = "Get User Info",
-                      Description = "Gets profile information of the currently logged-in user.")]
+        Description = "Gets profile information of the currently logged-in user.")]
     [HttpGet("User-Info")]
     [Authorize]
     [ProducesResponseType(typeof(GetUserResponse),    StatusCodes.Status200OK)]

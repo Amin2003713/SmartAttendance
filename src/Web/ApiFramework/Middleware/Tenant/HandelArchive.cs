@@ -50,7 +50,7 @@ public class HandelArchive(
 //             return;
 //         }
 //
-//         if (!tenant.Flags.HasFlag(SettingFlags.CompanyEnabled))
+//         if (!tenant.Flags.HasFlag(SettingFlags.UniversityEnabled))
 //         {
 //             if()
 //         }
@@ -61,7 +61,7 @@ public class HandelArchive(
     private static bool SkipTenantValidation(HttpContext context)
     {
         return context.Request.Path.Value!.Contains("/api") &&
-               (context.Request.Path.Value!.Contains("company") ||
+               (context.Request.Path.Value!.Contains("University") ||
                 context.Request.Path.Value!.Contains("user")    ||
                 context.Request.Path.Value!.Contains("setting") ||
                 context.Request.Path.Value!.Contains("payment"));

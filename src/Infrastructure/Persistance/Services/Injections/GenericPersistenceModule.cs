@@ -34,7 +34,7 @@ public static class GenericPersistenceModule
         services.AddKeyedScoped<UserManager<TAdminUser>>("Admins");
 
         services.AddDbContext<SmartAttendanceTenantDbContext>(options =>
-                                                                  options.UseSqlServer(sqlConnection));
+            options.UseSqlServer(sqlConnection));
 
         services.AddScoped<IdentityService>();
 
@@ -51,16 +51,16 @@ public static class GenericPersistenceModule
         services.AddScoped(provider => writeDbFactory(provider, ResolveTenantIdentifier(provider)));
 
         services.AddScoped<IMongoDatabase>(provider =>
-                                           {
-                                               var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
+        {
+            var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
 
-                                               var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<SmartAttendanceTenantInfo>()?.TenantInfo;
+            var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<UniversityTenantInfo>()?.TenantInfo;
 
-                                               if (tenant?.Identifier != null)
-                                                   return mongoFactory(tenant.Identifier!);
+            if (tenant?.Identifier != null)
+                return mongoFactory(tenant.Identifier!);
 
-                                               return mongoFactory("Sm");
-                                           });
+            return mongoFactory("Sm");
+        });
 
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
@@ -73,7 +73,7 @@ public static class GenericPersistenceModule
     {
         var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
 
-        var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<SmartAttendanceTenantInfo>()?.TenantInfo;
+        var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<UniversityTenantInfo>()?.TenantInfo;
 
         if (tenant is not null)
             return tenant.GetConnectionString();

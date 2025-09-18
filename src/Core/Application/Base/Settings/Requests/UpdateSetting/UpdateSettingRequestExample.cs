@@ -10,7 +10,7 @@ public class UpdateSettingRequestExample : IExamplesProvider<UpdateSettingReques
         {
             Flags =
             [
-                SettingFlags.CompanyEnabled, SettingFlags.InitialStepper
+                SettingFlags.UniversityEnabled, SettingFlags.InitialStepper
             ]
         };
     }

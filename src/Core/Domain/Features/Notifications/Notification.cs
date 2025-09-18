@@ -1,6 +1,3 @@
 ﻿namespace SmartAttendance.Domain.Features.Notifications;
 
-public class Notification
-{
-    
-}
+public class Notification { }

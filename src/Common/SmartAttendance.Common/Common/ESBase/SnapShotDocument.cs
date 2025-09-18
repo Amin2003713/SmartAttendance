@@ -4,7 +4,7 @@ namespace SmartAttendance.Common.Common.ESBase;
 
 public class SnapShotDocument<TId> : BaseEventStoreModel<TId>
 {
-    public UserType Node { get; set; }
+    public Roles Node { get; set; }
     public Guid Id { get; set; } = Guid.NewGuid();
     public TId AggregateId { get; set; } = default!;
     public long Version { get; set; }

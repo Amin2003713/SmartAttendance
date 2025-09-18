@@ -9,11 +9,10 @@ public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {
         RuleFor(x => x.UserName).NotEmpty().WithMessage(localizer["Username is required."].Value); // "نام کاربری الزامی است."
 
-        RuleFor(x => x.Password).
-            NotEmpty().
-            WithMessage(localizer["Password is required."].Value) // "رمز عبور الزامی است."
-            .
-            MinimumLength(8).
-            WithMessage(localizer["Password must be at least 8 characters long."].Value); // "رمز عبور باید حداقل ۸ کاراکتر باشد."
+        RuleFor(x => x.Password)
+            .NotEmpty()
+            .WithMessage(localizer["Password is required."].Value) // "رمز عبور الزامی است."
+            .MinimumLength(8)
+            .WithMessage(localizer["Password must be at least 8 characters long."].Value); // "رمز عبور باید حداقل ۸ کاراکتر باشد."
     }
 }

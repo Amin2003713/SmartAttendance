@@ -5,4 +5,4 @@ using SmartAttendance.Domain.Setting;
 namespace SmartAttendance.Application.Interfaces.Settings;
 
 public interface ISettingQueriesRepository : IQueryRepository<Setting>,
-                                             IScopedDependency { }
+    IScopedDependency { }

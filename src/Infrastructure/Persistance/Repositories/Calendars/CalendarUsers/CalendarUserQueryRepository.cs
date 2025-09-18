@@ -6,7 +6,7 @@ public class CalendarUserQueryRepository(
     IStringLocalizer<CalendarUserQueryRepository> localizer
 )
     : QueryRepository<CalendarUser>(dbContext, logger),
-      ICalendarUserQueryRepository
+        ICalendarUserQueryRepository
 {
     public async Task<List<CalendarUser>> GetCalendarUserByCalendarId(
         Guid              calendarId,
@@ -19,8 +19,8 @@ public class CalendarUserQueryRepository(
             var associatedUsers = await TableNoTracking.Where(cu => cu.CalendarId == calendarId).ToListAsync(cancellationToken);
 
             logger.LogInformation("Retrieved {Count} calendar users for CalendarId: {CalendarId}",
-                                  associatedUsers.Count,
-                                  calendarId);
+                associatedUsers.Count,
+                calendarId);
 
             return associatedUsers;
         }

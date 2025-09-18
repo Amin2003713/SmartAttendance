@@ -8,7 +8,7 @@ public class QueryRepository<TEntity>(
     ILogger<QueryRepository<TEntity>> logger
 )
     : RepositoryBase<TEntity, ReadOnlyDbContext>(dbContext, logger),
-      IQueryRepository<TEntity>
+        IQueryRepository<TEntity>
     where TEntity : class, IEntity
 {
     public virtual TEntity GetById(params object[] ids)
@@ -68,14 +68,14 @@ public class QueryRepository<TEntity>(
                 collection.Load();
 
                 Logger.LogInformation("Collection property loaded for entity of type {EntityType}",
-                                      typeof(TEntity).Name);
+                    typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                            "Error loading collection property for entity of type {EntityType}",
-                            typeof(TEntity).Name);
+                "Error loading collection property for entity of type {EntityType}",
+                typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
@@ -94,14 +94,14 @@ public class QueryRepository<TEntity>(
                 reference.Load();
 
                 Logger.LogInformation("Reference property loaded for entity of type {EntityType}",
-                                      typeof(TEntity).Name);
+                    typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                            "Error loading reference property for entity of type {EntityType}",
-                            typeof(TEntity).Name);
+                "Error loading reference property for entity of type {EntityType}",
+                typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
@@ -208,14 +208,14 @@ public class QueryRepository<TEntity>(
                 await collection.LoadAsync(cancellationToken).ConfigureAwait(false);
 
                 Logger.LogInformation("Collection property loaded for entity of type {EntityType}",
-                                      typeof(TEntity).Name);
+                    typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                            "Error loading collection property for entity of type {EntityType}",
-                            typeof(TEntity).Name);
+                "Error loading collection property for entity of type {EntityType}",
+                typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }
@@ -237,14 +237,14 @@ public class QueryRepository<TEntity>(
                 await reference.LoadAsync(cancellationToken).ConfigureAwait(false);
 
                 Logger.LogInformation("Reference property loaded for entity of type {EntityType}",
-                                      typeof(TEntity).Name);
+                    typeof(TEntity).Name);
             }
         }
         catch (Exception ex)
         {
             Logger.LogError(ex,
-                            "Error loading reference property for entity of type {EntityType}",
-                            typeof(TEntity).Name);
+                "Error loading reference property for entity of type {EntityType}",
+                typeof(TEntity).Name);
 
             throw SmartAttendanceException.InternalServerError();
         }

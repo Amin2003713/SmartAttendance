@@ -9,47 +9,52 @@ public class GetAllUsersResponseExample : IExamplesProvider<List<GetUserResponse
     {
         return new List<GetUserResponse>
         {
-            new GetUserResponse
+            new()
             {
+                Id                 = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
                 FirstName          = "John",
                 LastName           = "Doe",
-                Profile            = "https://example.com/profiles/johndoe.jpg",
-                ProfileCompress    = "https://example.com/profiles/johndoe.jpg",
+                FatherName         = "Michael",
+                NationalCode       = "1234567890",
+                ProfilePicture            = "https://example.com/profiles/johndoe.jpg",
                 Address            = "123 Main St, Anytown, USA",
+                Email              = "johndoe@example.com",
                 LastActionOnServer = DateTime.Parse("2025-04-14T12:00:00Z"),
-                JobTitle           = "Senior Developer",
                 BirthDate          = DateTime.Parse("1990-05-15T00:00:00Z"),
-                Id                 = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
                 IsActive           = true,
-                CreatedBy =
-                    new LogPropertyInfoResponse
-                    {
-                        Id      = Guid.Empty,
-                        Name    = "Aghdas",
-                        Profile = "https://example.com/Profil.png"
-                    },
+                FullName           = "John Doe",
+                UniversityDomain   = "tehranuni.edu",
+                UniversityName     = "Tehran University",
+                CreatedBy          = new LogPropertyInfoResponse
+                {
+                    Id      = Guid.Empty,
+                    Name    = "Admin User",
+                    Profile = "https://example.com/profile_admin.png"
+                },
                 CreatedAt = DateTime.Parse("2025-04-14T12:00:00Z")
             },
-            new GetUserResponse
+            new()
             {
+                Id                 = Guid.Parse("4ea85f64-5717-4562-b3fc-2c963f66afa8"),
                 FirstName          = "Jane",
                 LastName           = "Smith",
-                Profile            = "https://example.com/profiles/janesmith.jpg",
-                ProfileCompress    = "https://example.com/profiles/janesmith.jpg",
+                FatherName         = "Robert",
+                NationalCode       = "0987654321",
+                ProfilePicture            = "https://example.com/profiles/janesmith.jpg",
                 Address            = "456 Elm St, Somecity, USA",
+                Email              = "janesmith@example.com",
                 LastActionOnServer = DateTime.Parse("2025-04-14T13:00:00Z"),
-                JobTitle           = "Product Manager",
                 BirthDate          = DateTime.Parse("1985-10-20T00:00:00Z"),
-                Id                 = Guid.Parse("4ea85f64-5717-4562-b3fc-2c963f66afa8"),
                 IsActive           = true,
-                CreatedBy =
-                    new LogPropertyInfoResponse
-                    {
-                        Id   = Guid.Empty,
-                        Name = "Aghdas",
-
-                        Profile = "https://example.com/Profil.png"
-                    },
+                FullName           = "Jane Smith",
+                UniversityDomain   = "azaduni.edu",
+                UniversityName     = "Azad University",
+                CreatedBy          = new LogPropertyInfoResponse
+                {
+                    Id      = Guid.Empty,
+                    Name    = "Admin User",
+                    Profile = "https://example.com/profile_admin.png"
+                },
                 CreatedAt = DateTime.Parse("2025-04-14T13:00:00Z")
             }
         };

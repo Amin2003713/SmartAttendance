@@ -11,7 +11,7 @@ public class MinIoQueryRepository(
     ILogger<QueryRepository<HubFile>> logger
 )
     : QueryRepository<HubFile>(dbContext, logger),
-      IMinIoQueryRepository
+        IMinIoQueryRepository
 {
     private AmazonS3Client? _s3Client;
 

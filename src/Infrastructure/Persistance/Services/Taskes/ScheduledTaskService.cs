@@ -27,8 +27,8 @@ public class ScheduledTaskService(
 
 
             BackgroundJob.Schedule(() => ActivateCalenderJob(),
-                                   TimeSpan.FromSeconds(150
-                                   ));
+                TimeSpan.FromSeconds(150
+                ));
         }
         catch (Exception e)
         {

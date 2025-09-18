@@ -26,7 +26,7 @@ public class SmartAttendanceBaseController : ControllerBase
     protected IMediator Mediator => GetService<IMediator>();
     protected IdentityService IdentityService => GetService<IdentityService>();
 
-    protected IMultiTenantContext<SmartAttendanceTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<SmartAttendanceTenantInfo>();
+    protected IMultiTenantContext<UniversityTenantInfo> TenantContext => HttpContext.GetMultiTenantContext<UniversityTenantInfo>();
 
     public T GetService<T>()
     {

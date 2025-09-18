@@ -32,7 +32,7 @@ public class UserInfoQueryHandler(
             result.CreatedBy =
                 await mediator.Send(new GetLogPropertyInfoQuery(user.CreatedBy.Value), cancellationToken);
 
-        result.Roles = (await userManager.GetRolesAsync(user) as List<string>)!.Select(a => a.ToLower()).ToList();
+        result.Role = (await userManager.GetRolesAsync(user) as List<string>)?.ToList()[0] ?? "";
 
 
         return result;

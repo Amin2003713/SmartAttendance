@@ -12,12 +12,12 @@ public class UserCommandRepository(
     ILogger<CommandRepository<User>>        logger,
     IStringLocalizer<UserCommandRepository> localizer,
     IdentityService                         service,
-    ICompanyRepository                      companyRepository,
+    IUniversityRepository                      UniversityRepository,
     UserManager<User>                       userService,
     SmartAttendanceTenantDbContext          db
 )
     : CommandRepository<User>(dbContext, logger),
-      IUserCommandRepository
+        IUserCommandRepository
 {
     // Constructor with dependency injection for DbContext and Loggers
 
@@ -50,10 +50,10 @@ public class UserCommandRepository(
         if (await TableNoTracking.AnyAsync(u => u.UserName == request.PhoneNumber, cancellationToken))
             SmartAttendanceException.Conflict();
 
-        // Retrieve the company by ID
-        var company = await companyRepository.GetByIdAsync(service.TenantInfo!.Id, cancellationToken);
+        // Retrieve the University by ID
+        var University = await UniversityRepository.GetByIdAsync(service.TenantInfo!.Id, cancellationToken);
 
-        if (company == null)
+        if (University == null)
             SmartAttendanceException.NotFound();
 
         // Get the operator (current user) information
@@ -61,6 +61,7 @@ public class UserCommandRepository(
 
         if (operatorUser == null)
             SmartAttendanceException.BadRequest();
+
 
         // Create a new user entity
         var newUser = new User
@@ -71,14 +72,9 @@ public class UserCommandRepository(
             Email        = $"{request.PhoneNumber}{ApplicationConstant.Const.EmailSuffix}",
             PhoneNumber  = request.PhoneNumber,
             NationalCode = request.NationalCode,
-            ImageUrl     = request.ImageUrl,
-
             FatherName      = request.FatherName,
-            PersonnelNumber = request.PersonnelNumber,
-            Type        = request.Type,
-            IsLeader        = request.IsLeader,
+            PersonalNumber = request.PersonalNumber,
             Gender          = request.Gender,
-
             CreatedBy = operatorUser!.Id
         };
 
@@ -95,18 +91,18 @@ public class UserCommandRepository(
             await transaction.CommitAsync(cancellationToken);
 
 
-            var tenantUser = newUser.Adapt<TenantUser>();
-            tenantUser.SmartAttendanceTenantInfoId = service.TenantInfo.Id;
-            await companyRepository.CreateAsync(tenantUser, cancellationToken);
+            var UniversityUser = newUser.Adapt<UniversityUser>();
+            UniversityUser.UniversityTenantInfoId = service.TenantInfo.Id;
+            await UniversityRepository.CreateAsync(UniversityUser, cancellationToken);
 
 
             // Send SMS notification to the user
-            // var owner = await _userService.FindByIdAsync(company.User.Id.ToString());
-            // await _smsService.SendUserPassForNewUser(new SendAddToCompanyOwnerRegisteredUserSmsDto()
+            // var owner = await _userService.FindByIdAsync(University.User.Id.ToString());
+            // await _smsService.SendUserPassForNewUser(new SendAddToUniversityOwnerRegisteredUserSmsDto()
             // {
             //     ReceiverName = newUser.LastName,
             //     ReceiverPhoneNumber = newUser.PhoneNumber,
-            //     CompanyName = company.Name,
+            //     UniversityName = University.Name,
             //     OwnerName = owner!.LastName,
             //     UserPass = newUser.UserName
             // }, cancellationToken);
@@ -128,7 +124,7 @@ public class UserCommandRepository(
         var user = await userService.FindByIdAsync(userId.ToString()!);
 
         var exists = await TableNoTracking.AnyAsync(a => a.Id != userId && a.UserName == request.PhoneNumber,
-                                                    cancellationToken);
+            cancellationToken);
 
         if (exists)
             throw SmartAttendanceException.Conflict("This user already exists");
@@ -140,18 +136,18 @@ public class UserCommandRepository(
 
         await userService.UpdateAsync(user);
 
-        var tenantUser =
-            await db.TenantUsers.FirstOrDefaultAsync(t => t.PhoneNumber == oldPhoneNumber, cancellationToken);
+        var UniversityUser =
+            await db.UniversityUsers.FirstOrDefaultAsync(t => t.PhoneNumber == oldPhoneNumber, cancellationToken);
 
 
-        if (tenantUser != null)
+        if (UniversityUser != null)
         {
-            tenantUser.PhoneNumber = request.PhoneNumber;
-            tenantUser.UserName    = request.PhoneNumber;
-            db.Update(tenantUser);
+            UniversityUser.PhoneNumber = request.PhoneNumber;
+            UniversityUser.UserName    = request.PhoneNumber;
+            db.Update(UniversityUser);
         }
 
-        var owner = await db.TenantAdmins.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+        var owner = await db.UniversityAdmins.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
 
         if (owner != null)
         {
@@ -169,16 +165,16 @@ public class UserCommandRepository(
 
         var phoneNumber = user.PhoneNumber;
 
-        var tenantUser = await db.TenantUsers.FirstOrDefaultAsync(t => t.PhoneNumber == phoneNumber, cancellationToken);
+        var UniversityUser = await db.UniversityUsers.FirstOrDefaultAsync(t => t.PhoneNumber == phoneNumber, cancellationToken);
 
-        if (tenantUser != null)
+        if (UniversityUser != null)
         {
-            tenantUser.FirstName = user.FirstName;
-            tenantUser.LastName  = user.LastName;
-            db.Update(tenantUser);
+            UniversityUser.FirstName = user.FirstName;
+            UniversityUser.LastName  = user.LastName;
+            db.Update(UniversityUser);
         }
 
-        var owner = await db.TenantAdmins.FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
+        var owner = await db.UniversityAdmins.FirstOrDefaultAsync(u => u.Id == user.Id, cancellationToken);
 
         if (owner != null)
         {

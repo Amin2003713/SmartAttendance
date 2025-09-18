@@ -6,7 +6,7 @@ namespace SmartAttendance.Api.Controllers.Settings;
 public class SettingController : SmartAttendanceBaseController
 {
     /// <summary>
-    ///     Updates the company settings.
+    ///     Updates the University settings.
     /// </summary>
     /// <param name="request">The request containing updated setting values.</param>
     /// <param name="cancellationToken">Cancellation token for the request.</param>
@@ -15,7 +15,7 @@ public class SettingController : SmartAttendanceBaseController
     /// <response code="401">Unauthorized to perform this action.</response>
     /// <response code="404">Setting not found.</response>
     [HttpPut("update")]
-    [SwaggerOperation(Summary = "Update Settings", Description = "Updates company-level settings.")]
+    [SwaggerOperation(Summary = "Update Settings", Description = "Updates University-level settings.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status401Unauthorized)]

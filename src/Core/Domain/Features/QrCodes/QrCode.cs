@@ -1,6 +1,3 @@
 ﻿namespace SmartAttendance.Domain.Features.QrCodes;
 
-public class QrCode
-{
-    
-}
+public class QrCode { }

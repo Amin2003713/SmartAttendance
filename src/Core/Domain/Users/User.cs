@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using SmartAttendance.Common.General.BaseClasses;
-using SmartAttendance.Common.General.Enums;
+﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Genders;
 
 namespace SmartAttendance.Domain.Users;
@@ -17,10 +15,8 @@ public class User : IdentityUser<Guid>,
 
     public GenderType Gender { get; set; }
 
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public string PersonalNumber { get; set; } = null!;
 
-    public UserType Type { get; set; }
 
     public string? ProfilePicture { get; set; }
     public string? Address { get; set; }
@@ -53,7 +49,6 @@ public class User : IdentityUser<Guid>,
         Address    = source.Address;
         BirthDate  = source.BirthDate;
         ModifiedAt = DateTime.UtcNow;
-
     }
 
 #region log_props

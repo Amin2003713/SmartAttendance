@@ -4,4 +4,4 @@ using SmartAttendance.Common.General;
 namespace SmartAttendance.Application.Base.HubFiles.Commands.ZipExport;
 
 public class ZipExportCommand : ZipExportCommandRequest,
-                                IRequest<MediaFileStorage>;
+    IRequest<MediaFileStorage>;

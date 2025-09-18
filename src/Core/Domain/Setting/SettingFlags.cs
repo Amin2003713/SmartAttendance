@@ -3,6 +3,6 @@
 [Flags]
 public enum SettingFlags
 {
-    CompanyEnabled = 1 << 0,
-    InitialStepper = 1 << 1
+    UniversityEnabled = 1 << 0,
+    InitialStepper    = 1 << 1
 }

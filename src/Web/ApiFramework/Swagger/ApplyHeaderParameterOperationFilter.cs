@@ -17,7 +17,7 @@ public class ApplyHeaderParameterOperationFilter : IOperationFilter
             Schema = new OpenApiSchema
             {
                 Type    = "string",
-                Default = new OpenApiString("aaa")
+                Default = new OpenApiString("iau-esfahan")
             }
         });
 

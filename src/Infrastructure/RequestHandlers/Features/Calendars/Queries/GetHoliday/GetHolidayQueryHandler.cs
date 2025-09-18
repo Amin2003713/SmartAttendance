@@ -22,8 +22,8 @@ public class GetHolidayQueryHandler(
             var toDate     = monthRange!.EndDate;
 
             logger.LogInformation("Fetching holidays from {Start} to {End}",
-                                  fromDate,
-                                  toDate);
+                fromDate,
+                toDate);
 
             var holidays =
                 await dailyCalendarQueryRepository.GetHolidaysForMonth(
@@ -32,16 +32,16 @@ public class GetHolidayQueryHandler(
                     cancellationToken);
 
             logger.LogInformation("Found {Count} holidays ",
-                                  holidays.Count);
+                holidays.Count);
 
             return holidays;
         }
         catch (Exception ex)
         {
             logger.LogError(ex,
-                            "Error occurred while fetching holidays  Year: {Year}, Month: {Month}",
-                            request.Year,
-                            request.Month);
+                "Error occurred while fetching holidays  Year: {Year}, Month: {Month}",
+                request.Year,
+                request.Month);
 
             throw SmartAttendanceException.InternalServerError();
         }

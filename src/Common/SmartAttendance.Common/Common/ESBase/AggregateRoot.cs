@@ -9,7 +9,7 @@ namespace SmartAttendance.Common.Common.ESBase;
 /// <typeparam name="TId">Type of the aggregate ID (e.g., long, Guid)</typeparam>
 public abstract class AggregateRoot<TId>
 {
-    private readonly List<IDomainEvent> _uncommittedEvents = new List<IDomainEvent>();
+    private readonly List<IDomainEvent> _uncommittedEvents = new ();
 
     /// <summary>
     ///     Aggregate identifier.
@@ -22,9 +22,7 @@ public abstract class AggregateRoot<TId>
     /// </summary>
     public int Version { get; protected set; } = -1;
 
-    public UserType Node { get; protected set; }
-
-
+    public Roles Node { get; protected set; }
     public DateTime LastAction { get; protected set; }
 
     public bool Deleted { get; protected set; }
@@ -89,7 +87,6 @@ public abstract class AggregateRoot<TId>
 
         if (events is not null)
             LoadFromHistory(events);
-
     }
 
     /// <summary>
@@ -107,7 +104,6 @@ public abstract class AggregateRoot<TId>
         Version++;
         LastAction = @event.EventTime;
     }
-
 
 
     /// <summary>

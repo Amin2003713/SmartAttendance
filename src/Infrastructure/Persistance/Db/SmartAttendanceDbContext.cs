@@ -2,14 +2,11 @@
 using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.Utilities.EfCoreHelper;
 using SmartAttendance.Persistence.Configuration.Users;
-using Users_Role = SmartAttendance.Domain.Users.Role;
-
 
 namespace SmartAttendance.Persistence.Db;
 
 public class SmartAttendanceDbContext :
-    IdentityDbContext<User, Users_Role, Guid, IdentityUserClaim<Guid>, UserRoles,
-        IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>,
+    IdentityDbContext<User , IdentityRole<Guid> , Guid>,
     IAppDbContext
 {
     private readonly IdentityService? _identityService;

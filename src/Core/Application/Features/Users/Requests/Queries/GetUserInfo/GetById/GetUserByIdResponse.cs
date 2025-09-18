@@ -4,9 +4,16 @@ public record GetUserByIdResponse(
     Guid      Id,
     string    FirstName,
     string    LastName,
+    string?   FatherName,
+    string?   NationalCode,
     string?   ProfileCompress,
     string?   Profile,
     string?   Address,
-    DateTime? LastLoginDate,
-    DateTime? BirthDate
+    string?   Email,
+    DateTime? LastActionOnServer,
+    DateTime? BirthDate,
+    bool      IsActive,
+    string?   FullName,
+    string?   UniversityDomain,
+    string?   UniversityName
 );

@@ -18,7 +18,7 @@
 // public class GetFactorPdfQueryHandler(
 //     IdentityService service,
 //     IPaymentQueryRepository paymentQueryRepository,
-//     IMultiTenantContextAccessor<SmartAttendanceTenantInfo> accessor,
+//     IMultiTenantContextAccessor<UniversityTenantInfo> accessor,
 //     IPriceQueryRepository priceQueryRepository,
 //     UserManager<User> userManager,
 //     ILogger<GetFactorPdfQueryHandler> logger,

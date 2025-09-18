@@ -34,14 +34,14 @@ public class UpdateUserCommandHandler(
             }
 
 
-            if (request.ImageFile?.MediaFile != null)
+            if (request.ProfilePicture?.MediaFile != null)
             {
-                if (!string.IsNullOrWhiteSpace(user.Profile))
+                if (!string.IsNullOrWhiteSpace(user.ProfilePicture))
                 {
-                    var path = user.Profile.Replace("https://", "").Replace("http://", "");
+                    var path = user.ProfilePicture.Replace("https://", "").Replace("http://", "");
 
                     var deleteResponse = await mediator.Send(new DeleteFileCommand(path),
-                                                             cancellationToken);
+                        cancellationToken);
 
                     if (!deleteResponse)
                     {
@@ -53,7 +53,7 @@ public class UpdateUserCommandHandler(
 
                 var uploadCommand = new UploadHubFileCommand
                 {
-                    File = request.ImageFile.MediaFile,
+                    File = request.ProfilePicture.MediaFile,
 
                     ReportDate = DateTime.UtcNow,
                     RowType    = FileStorageType.ProfilePicture,
@@ -62,18 +62,12 @@ public class UpdateUserCommandHandler(
 
                 var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);
 
-                update.Profile = uploadImageResponse.Url;
+                update.ProfilePicture = uploadImageResponse.Url;
 
                 logger.LogInformation("Uploaded image for Profile{UserId}.", user.Id);
             }
 
             user.Update(update);
-
-            if (!string.IsNullOrWhiteSpace(request.Email))
-            {
-                user.Email           = request.Email;
-                user.NormalizedEmail = request.Email.ToUpperInvariant();
-            }
 
             await userManager.UpdateAsync(user);
 

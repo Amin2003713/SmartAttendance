@@ -18,5 +18,5 @@ public class ValidationException() : Exception("One or more validation failures 
         }
     }
 
-    public Dictionary<string, List<string>> Errors { get; } = new Dictionary<string, List<string>>();
+    public Dictionary<string, List<string>> Errors { get; } = new ();
 }

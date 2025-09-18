@@ -31,7 +31,7 @@ public class TenantValidationMiddleware(
             return;
         }
 
-        var tenantService = context.GetMultiTenantContext<SmartAttendanceTenantInfo>().TenantInfo;
+        var tenantService = context.GetMultiTenantContext<UniversityTenantInfo>().TenantInfo;
 
         if (tenantService is null || tenantService!.Id == null)
         {

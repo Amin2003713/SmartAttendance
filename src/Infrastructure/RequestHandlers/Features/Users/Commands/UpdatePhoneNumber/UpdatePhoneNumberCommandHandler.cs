@@ -24,7 +24,7 @@ public class UpdatePhoneNumberCommandHandler(
             var userId = identityService.GetUserId<Guid>();
 
             var user = await userRepository.GetSingleAsync(cancellationToken,
-                                                           a => a.Id == userId);
+                a => a.Id == userId);
 
             if (user == null)
                 throw SmartAttendanceException.NotFound(localizer["User was not found."]);

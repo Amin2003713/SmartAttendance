@@ -6,7 +6,7 @@ using SmartAttendance.Domain.Defaults;
 namespace SmartAttendance.Persistence.Services.Seeder;
 
 public class Seeder : IScopedDependency,
-                      IGenericSeeder<SmartAttendanceDbContext>
+    IGenericSeeder<SmartAttendanceDbContext>
 {
     public async Task SeedAsync(SmartAttendanceDbContext dbContext, CancellationToken cancellationToken)
     {
@@ -46,13 +46,11 @@ public class Seeder : IScopedDependency,
             if (await dbContext.Roles.AnyAsync(r => r.Name == role.ToString(), cancellationToken))
                 continue;
 
-            var newRole = new Role
+            var newRole = new IdentityRole<Guid>
             {
                 Name             = role.ToString(),
                 Id               = Guid.CreateVersion7(),
-                Description      = role.ToString(),
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
-                IsActive         = true,
                 NormalizedName   = role.ToString().ToUpper()
             };
 

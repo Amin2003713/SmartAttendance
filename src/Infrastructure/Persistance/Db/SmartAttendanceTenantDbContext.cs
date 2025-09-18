@@ -4,64 +4,74 @@ namespace SmartAttendance.Persistence.Db;
 
 public class SmartAttendanceTenantDbContext(
     DbContextOptions<SmartAttendanceTenantDbContext> options
-) : EFCoreStoreDbContext<SmartAttendanceTenantInfo>(options)
+) : EFCoreStoreDbContext<UniversityTenantInfo>(options)
 {
-    public DbSet<TenantAdmin> TenantAdmins { get; set; }
+    public DbSet<UniversityAdmin> UniversityAdmins { get; set; }
     public DbSet<TenantCalendar> TenantCalendars { get; set; }
-    public DbSet<TenantUser> TenantUsers { get; set; }
-
+    public DbSet<UniversityUser> UniversityUsers { get; set; }
     public DbSet<TenantRequest> TenantRequests { get; set; }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<SmartAttendanceTenantInfo>(builder =>
-                                                       {
-                                                           // Primary Key
-                                                           builder.HasKey(t => t.Id);
+        // UniversityTenantInfo
+        modelBuilder.Entity<UniversityTenantInfo>(builder =>
+        {
+            builder.HasKey(t => t.Id);
 
+            builder.Property(t => t.Name)
+                .IsRequired()
+                .HasMaxLength(150);
 
-                                                           // Additional Properties
-                                                           builder.Property(t => t.Name).IsRequired().HasMaxLength(100);
-                                                       });
+            builder.Property(t => t.BranchName)
+                .HasMaxLength(100);
 
-        // Payments Entity Configuration
-        modelBuilder.Entity<TenantAdmin>(builder =>
-                                         {
-                                             // Primary Key
-                                             builder.HasKey(u => u.Id);
+            builder.HasMany(t => t.Users)
+                .WithOne(u => u.UniversityTenantInfo)
+                .HasForeignKey(u => u.UniversityTenantInfoId);
+        });
 
-                                             // Relationships
-                                             builder.HasMany(u => u.Tenants).
-                                                     WithOne(t => t.User).
-                                                     HasForeignKey(t => t.UserId).
-                                                     OnDelete(DeleteBehavior.Restrict); // Restrict delete behavior
+        // UniversityAdmin
+        modelBuilder.Entity<UniversityAdmin>(builder =>
+        {
+            builder.HasKey(u => u.Id);
 
-                                             builder.Property(u => u.RegisteredAt).ValueGeneratedOnAdd();
-                                         });
+            builder.HasMany(u => u.Tenants)
+                .WithOne(t => t.BranchAdmin)
+                .HasForeignKey(t => t.BranchAdminId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property(u => u.RegisteredAt)
+                .ValueGeneratedOnAdd();
+        });
 
-        modelBuilder.Entity<TenantUser>(builder =>
-                                        {
-                                            builder.HasKey(u => u.Id);
+        // UniversityUser
+        modelBuilder.Entity<UniversityUser>(builder =>
+        {
+            builder.HasKey(u => u.Id);
 
-                                            builder.Property(u => u.RegisteredAt).ValueGeneratedOnAdd();
+            builder.Property(u => u.RegisteredAt)
+                .ValueGeneratedOnAdd();
 
-                                            builder.HasOne(a => a.SmartAttendanceTenantInfo).
-                                                    WithMany(t => t.TenantUsers).
-                                                    HasForeignKey(t => t.SmartAttendanceTenantInfoId);
+            builder.HasOne(u => u.UniversityTenantInfo)
+                .WithMany(t => t.Users)
+                .HasForeignKey(u => u.UniversityTenantInfoId);
 
-                                            builder.HasQueryFilter(a => a.IsActive);
-                                        });
+            builder.HasQueryFilter(u => u.IsActive);
+        });
 
+        // TenantCalendar
         modelBuilder.Entity<TenantCalendar>(builder =>
-                                            {
-                                                builder.HasKey(u => u.Id);
-                                                builder.HasQueryFilter(a => a.IsActive);
-                                            });
+        {
+            builder.HasKey(c => c.Id);
+            builder.HasQueryFilter(c => c.IsActive);
+        });
 
-        modelBuilder.Entity<TenantRequest>(builder => { builder.HasKey(u => u.Id); });
+        // TenantRequest
+        modelBuilder.Entity<TenantRequest>(builder =>
+        {
+            builder.HasKey(r => r.Id);
+        });
     }
 }

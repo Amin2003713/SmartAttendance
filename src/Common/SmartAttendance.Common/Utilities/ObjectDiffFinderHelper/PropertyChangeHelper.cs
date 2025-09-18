@@ -37,10 +37,10 @@ public static class PropertyChangeHelper
             let newValue = prop.GetValue(newObj)?.ToString()?.Trim()
             where oldValue != newValue && (oldValue != null || newValue != null)
             select new PropertyChange(prop.Name,
-                                      oldValue,
-                                      newValue,
-                                      lastModifiedAt,
-                                      modifiedBy));
+                oldValue,
+                newValue,
+                lastModifiedAt,
+                modifiedBy));
 
         return diffs;
     }
