@@ -50,6 +50,8 @@ public static class DependencyInjection
                 src => src.ProfilePicture != null
                     ? src.ProfilePicture!.BuildImageUrl(false)
                     : null)
+            .Map(dest => dest.FullName,
+                src => src.FullName())
             .Map(dest => dest.ProfileCompress,
                 src => src.ProfilePicture != null
                     ? src.ProfilePicture!.BuildImageUrl(true)

@@ -247,7 +247,7 @@ public class UserController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status500InternalServerError)]
-    public async Task UpdateEmployee([FromBody] UpdateEmployeeRequest request, CancellationToken cancellationToken)
+    public async Task UpdateEmployee([FromForm] UpdateEmployeeRequest request, CancellationToken cancellationToken)
     {
         await Mediator.Send(request.Adapt<UpdateEmployeeCommand>().AddFiles(request.ProfilePicture!), cancellationToken);
     }

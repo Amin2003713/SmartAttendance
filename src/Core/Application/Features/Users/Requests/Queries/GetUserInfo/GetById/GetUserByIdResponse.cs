@@ -13,7 +13,5 @@ public record GetUserByIdResponse(
     DateTime? LastActionOnServer,
     DateTime? BirthDate,
     bool      IsActive,
-    string?   FullName,
-    string?   UniversityDomain,
-    string?   UniversityName
+    string?   FullName
 );
