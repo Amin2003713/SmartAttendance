@@ -1,11 +1,12 @@
-﻿using SmartAttendance.Common.General.BaseClasses;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums;
 using SmartAttendance.Common.General.Enums.Genders;
 
 namespace SmartAttendance.Domain.Users;
 
 public class User : IdentityUser<Guid>,
-                    IEntity
+    IEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -16,17 +17,14 @@ public class User : IdentityUser<Guid>,
 
     public GenderType Gender { get; set; }
 
-    public bool IsLeader { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public string PersonalNumber { get; set; } = null!;
 
     public UserType Type { get; set; }
 
-    public string? PersonnelNumber { get; set; }
-    public string? Profile { get; set; }
+    public string? ProfilePicture { get; set; }
     public string? Address { get; set; }
     public DateTime? LastActionOnServer { get; set; }
-
-    public string? ImageUrl { get; set; }
-
     public DateTime? BirthDate { get; set; }
     public override Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
 
@@ -51,10 +49,11 @@ public class User : IdentityUser<Guid>,
     {
         FirstName  = source.FirstName;
         LastName   = source.LastName;
-        Profile    = source.Profile;
+        ProfilePicture    = source.ProfilePicture;
         Address    = source.Address;
         BirthDate  = source.BirthDate;
         ModifiedAt = DateTime.UtcNow;
+
     }
 
 #region log_props

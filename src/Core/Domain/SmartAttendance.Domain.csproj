@@ -25,20 +25,6 @@
 
 
     <ItemGroup>
-      <Folder Include="AttendanceAggregate\" />
-      <Folder Include="Common\" />
-      <Folder Include="Docs\" />
-      <Folder Include="DocumentAggregate\" />
-      <Folder Include="Events\" />
-      <Folder Include="NotificationAggregate\" />
-      <Folder Include="PlanAggregate\" />
-      <Folder Include="Services\" />
-      <Folder Include="UserAggregate\" />
-      <Folder Include="ValueObjects\" />
-    </ItemGroup>
-
-
-    <ItemGroup>
       <Compile Remove="AttendanceAggregate\AttendanceAggregate.cs" />
       <Compile Remove="Common\AggregateRoot.cs" />
       <Compile Remove="Common\AttendanceId.cs" />
