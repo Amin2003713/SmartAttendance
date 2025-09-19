@@ -6,6 +6,7 @@
     using App.Common.Exceptions;
     using App.Common.General;
     using App.Common.Utilities.LifeTime;
+    using App.Persistence.Services.Tenants;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Localization;
@@ -19,13 +20,16 @@
     {
         private readonly IStringLocalizer<RefitDelegatingHandler> _localizer;
         private readonly IServiceScopeFactory                     _scopeFactory;
+        private readonly TenantStateProvider                      _tenantStateProvider;
 
         public RefitDelegatingHandler(
             IStringLocalizer<RefitDelegatingHandler> localizer,
-            IServiceScopeFactory                     scopeFactory)
+            IServiceScopeFactory                     scopeFactory,
+            TenantStateProvider tenantStateProvider)
         {
             _localizer         = localizer;
             _scopeFactory = scopeFactory;
+            _tenantStateProvider = tenantStateProvider;
 
             InnerHandler = new HttpClientHandler
             {
@@ -41,6 +45,8 @@
             try
             {
                 await AddTokenHeaderAsync(request.Headers);
+                request.RequestUri = new Uri(UpdateUrlAsync(request.RequestUri.AbsoluteUri , _tenantStateProvider.CurrentTenant!));
+
                 return await base.SendAsync(request, cancellationToken);
             }
             catch (HttpRequestException)
@@ -60,7 +66,6 @@
         private async Task AddTokenHeaderAsync(HttpRequestHeaders headers)
         {
             try
-
             {
                 using var scope    = _scopeFactory.CreateScope();
                 var       mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
@@ -77,6 +82,18 @@
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+
+        private string UpdateUrlAsync(string requestUrl , string companyId = null!)
+        {
+            if (!string.IsNullOrEmpty(companyId))
+                return requestUrl.Replace(
+                    ApplicationConstants.Server.ServerUrl ,
+                    $"{companyId}.{ApplicationConstants.Server.ServerUrl}" ,
+                    StringComparison.OrdinalIgnoreCase);
+
+            return requestUrl;
         }
 
         private bool IsTokenExpired(string token)

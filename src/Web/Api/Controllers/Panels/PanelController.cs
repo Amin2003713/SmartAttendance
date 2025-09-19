@@ -1,6 +1,8 @@
 ﻿using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
 using SmartAttendance.Application.Base.Universities.Queries.CheckDomain;
+using SmartAttendance.Application.Base.Universities.Queries.ListAvailableUniversities;
 using SmartAttendance.Application.Base.Universities.Requests.InitialUniversity;
+using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
 using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 
 namespace SmartAttendance.Api.Controllers.Panels;
@@ -63,5 +65,23 @@ public class PanelController : SmartAttendanceBaseController
         CancellationToken                cancellationToken)
     {
         return await Mediator.Send(request.Adapt<InitialUniversityCommand>(), cancellationToken);
+    }
+
+    /// <summary>
+    ///     Creates a new University (tenant).
+    /// </summary>
+    /// <param name="request">The request containing the details of the University to create.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>The response containing the created University details.</returns>
+    /// <response code="200">Returns the created University details.</response>
+    /// <response code="400">If the request is invalid or the University could not be created.</response>
+    [HttpPost("get-Tenants")]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
+    public virtual async Task<List<GetUniversityInfoResponse>> ListAvailableUniversities(
+        CancellationToken                cancellationToken)
+    {
+        return await Mediator.Send(new ListAvailableUniversitiesQuery(), cancellationToken);
     }
 }

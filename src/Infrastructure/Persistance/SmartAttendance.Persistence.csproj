@@ -11,7 +11,7 @@
         <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="9.2.2"/>
         <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="9.2.2"/>
         <PackageReference Include="Hangfire.Core" Version="1.8.20"/>
-        <PackageReference Include="Mapster" Version="7.4.2-pre02"/>
+        <PackageReference Include="Mapster" Version="7.4.0" />
         <PackageReference Include="MD.PersianDateTime.Standard" Version="2.5.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7"/>
         <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0"/>

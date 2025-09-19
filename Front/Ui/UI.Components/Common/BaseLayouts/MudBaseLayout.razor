@@ -1,21 +1,22 @@
+@using App.Persistence.Services.Tenants
 @inject IStringLocalizer<MudBaseLayout> Localizer
+@inject TenantStateProvider TenantProvider
 @inherits LayoutComponentBase
 
-
 <MudRTLProvider RightToLeft="Settings?.IsRTL ?? false">
-
     <MudThemeProvider @ref="@_mudThemeProvider"
-                      Theme="@ThemeService.CurrentTheme" ObserveSystemThemeChange
+                      Theme="@ThemeService.CurrentTheme"
+                      ObserveSystemThemeChange
                       IsDarkMode="@ThemeService.IsDarkMode"/>
-
 
     <MudBreakpointProvider/>
     <MudPopoverProvider/>
     <MudDialogProvider/>
     <MudSnackbarProvider/>
+
     <CascadingValue Value="UpdateUi">
         <MudLayout class="page">
-            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Style=" padding: 0 !important;">
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Style="padding: 0 !important;">
                 @Body
             </MudContainer>
         </MudLayout>
@@ -23,14 +24,24 @@
 </MudRTLProvider>
 
 @code {
-
     private MudThemeProvider _mudThemeProvider = null!;
     public Settings? Settings { get; set; }
-
 
     private void UpdateUi()
     {
         StateHasChanged();
+    }
+
+    private void ResolveTenant()
+    {
+        // Just fetch current tenant from the provider
+        var tenant = TenantProvider.CurrentTenant;
+
+        if (!string.IsNullOrEmpty(tenant))
+        {
+            Console.WriteLine($"Resolved Tenant: {tenant}");
+            // you could store in Settings or use for API requests
+        }
     }
 
     protected override async Task OnInitializedAsync()
@@ -38,6 +49,16 @@
         Settings = await Mediator.Send(new LoadSettingsQuery());
 
         ThemeService.ThemeChanged += HandleThemeChanged!;
+        TenantProvider.TenantChanged += HandleTenantChanged;
+
+        // Ensure initial resolve
+        ResolveTenant();
+    }
+
+    private void HandleTenantChanged(string newTenant)
+    {
+        Console.WriteLine($"Tenant switched to {newTenant}");
+        InvokeAsync(StateHasChanged);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -58,6 +79,6 @@
     public void Dispose()
     {
         ThemeService.ThemeChanged -= HandleThemeChanged!;
+        TenantProvider.TenantChanged -= HandleTenantChanged;
     }
-
 }
