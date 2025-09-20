@@ -1,6 +1,6 @@
-﻿using SmartAttendance.Domain.Setting;
+﻿using App.Common.General.Enums.Setting;
 
-namespace SmartAttendance.Application.Base.Settings.Requests.UpdateSetting;
+namespace App.Applications.Settings.Requests.UpdateSetting;
 
 public class UpdateSettingRequest
 {

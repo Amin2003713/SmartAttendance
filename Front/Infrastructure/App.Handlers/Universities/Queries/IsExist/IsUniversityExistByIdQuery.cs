@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace SmartAttendance.Application.Base.Universities.Queries.IsExist;
+﻿namespace App.Handlers.Universities.Queries.IsExist;
 
 public record IsUniversityExistByIdQuery(
     string Id

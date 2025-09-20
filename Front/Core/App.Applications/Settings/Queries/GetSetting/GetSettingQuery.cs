@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace SmartAttendance.Application.Base.Settings.Queries.GetSetting;
+namespace App.Applications.Settings.Queries.GetSetting;
 
 public class GetSettingQuery : IRequest<GetUniversitySettingResponse>;

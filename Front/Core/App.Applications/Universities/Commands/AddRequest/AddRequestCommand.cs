@@ -1,4 +1,6 @@
-﻿namespace SmartAttendance.Application.Base.Universities.Commands.AddRequest;
+﻿using MediatR;
+
+namespace App.Applications.Universities.Commands.AddRequest;
 
 public record AddRequestCommand(
     string EndPoint,

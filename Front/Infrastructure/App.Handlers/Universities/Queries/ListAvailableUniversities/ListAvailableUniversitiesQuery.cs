@@ -1,6 +1,5 @@
-using MediatR;
-using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
+using App.Applications.Universities.Responses.GetCompanyInfo;
 
-namespace SmartAttendance.Application.Base.Universities.Queries.ListAvailableUniversities;
+namespace App.Handlers.Universities.Queries.ListAvailableUniversities;
 
 public record ListAvailableUniversitiesQuery : IRequest<List<GetUniversityInfoResponse>>;

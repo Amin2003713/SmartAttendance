@@ -1,7 +1,7 @@
-﻿using MediatR;
-using SmartAttendance.Domain.Setting;
+﻿using App.Common.General.Enums.Setting;
+using MediatR;
 
-namespace SmartAttendance.Application.Base.Settings.Commands.UpdateSetting;
+namespace App.Applications.Settings.Commands.UpdateSetting;
 
 public record UpdateSettingCommand(
     List<SettingFlags> Flags

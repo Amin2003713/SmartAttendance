@@ -1,4 +1,4 @@
-﻿namespace SmartAttendance.Application.Base.Universities.Responses.CompnaySettings;
+﻿namespace App.Applications.Universities.Responses.CompnaySettings;
 
 public class UniversitySettingResponse
 {

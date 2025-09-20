@@ -1,4 +1,4 @@
-namespace SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
+namespace App.Applications.Users.Queries.GetUserTenants;
 
 public class GetUserTenantResponse
 {

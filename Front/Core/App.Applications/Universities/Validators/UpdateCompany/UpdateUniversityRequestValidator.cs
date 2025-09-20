@@ -1,8 +1,8 @@
+using App.Applications.Universities.Requests.UpdateCompany;
+using App.Common.Utilities.MediaFiles.Validators;
 using FluentValidation;
-using SmartAttendance.Application.Base.Universities.Requests.UpdateCompany;
-using SmartAttendance.Application.Commons.MediaFiles.Validators;
 
-namespace SmartAttendance.Application.Base.Universities.Validators.UpdateCompany;
+namespace App.Applications.Universities.Validators.UpdateCompany;
 
 /// <summary>
 ///     Validator class for UpdateUniversityRequest, using FluentValidation.

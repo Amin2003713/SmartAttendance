@@ -1,6 +1,8 @@
 
 
-namespace SmartAttendance.Application.Base.Universities.Requests.UpdateCompany;
+using App.Common.Utilities.MediaFiles.Requests;
+
+namespace App.Applications.Universities.Requests.UpdateCompany;
 
 /// <summary>
 ///     Represents the UpdateUniversityCommand request object.

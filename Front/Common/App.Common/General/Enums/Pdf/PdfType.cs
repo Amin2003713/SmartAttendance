@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartAttendance.Common.General.Enums.Pdf;
+namespace App.Common.General.Enums.Pdf;
 
 public enum PdfType
 {

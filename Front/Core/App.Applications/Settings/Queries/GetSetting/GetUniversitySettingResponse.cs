@@ -1,8 +1,8 @@
 ﻿
 
-using SmartAttendance.Domain.Setting;
+using App.Common.General.Enums.Setting;
 
-namespace SmartAttendance.Application.Base.Settings.Queries.GetSetting;
+namespace App.Applications.Settings.Queries.GetSetting;
 
 public class GetUniversitySettingResponse
 {

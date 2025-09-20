@@ -1,11 +1,9 @@
-
-
+using App.Applications.Universities.Queries.CheckDomain;
+using App.Applications.Universities.Responses.GetCompanyInfo;
+using App.Applications.Users.Queries.GetUserTenants;
 using Refit;
-using SmartAttendance.Application.Base.Universities.Queries.CheckDomain;
-using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
-using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 
-namespace SmartAttendance.Api.Client.Refit
+namespace App.Applications.Universities.Apis
 {
     public interface IPanelApi
     {

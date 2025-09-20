@@ -1,4 +1,4 @@
-namespace SmartAttendance.Domain.Setting;
+namespace App.Common.General.Enums.Setting;
 
 [Flags]
 public enum SettingFlags

@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using SmartAttendance.Application.Base.Universities.Queries.CheckDomain;
+﻿using App.Applications.Universities.Queries.CheckDomain;
+using FluentValidation;
 
-namespace SmartAttendance.Application.Base.Universities.Validators.CheckDomain;
+namespace App.Applications.Universities.Validators.CheckDomain;
 
 public class CheckDomainValidator : AbstractValidator<CheckDomainQuery>
 {

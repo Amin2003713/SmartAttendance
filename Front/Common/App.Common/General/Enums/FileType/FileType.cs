@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartAttendance.Common.General.Enums.FileType;
+namespace App.Common.General.Enums.FileType;
 
 public enum FileType
 {

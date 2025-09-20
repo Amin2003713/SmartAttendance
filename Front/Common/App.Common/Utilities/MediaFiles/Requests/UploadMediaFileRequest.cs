@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 
+namespace App.Common.Utilities.MediaFiles.Requests;
+
 public class UploadMediaFileRequest
 {
     public string? MediaUrl { get; set; }

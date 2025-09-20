@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace SmartAttendance.Application.Base.Universities.Queries.CheckDomain;
+﻿namespace App.Handlers.Universities.Queries.CheckDomain;
 
 public record CheckDomainQuery(
     string Domain

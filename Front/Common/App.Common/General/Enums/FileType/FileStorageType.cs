@@ -1,4 +1,4 @@
-﻿namespace SmartAttendance.Common.General.Enums.FileType;
+﻿namespace App.Common.General.Enums.FileType;
 
 public enum FileStorageType : byte
 {

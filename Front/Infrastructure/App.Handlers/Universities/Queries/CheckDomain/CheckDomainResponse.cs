@@ -1,4 +1,4 @@
-﻿namespace SmartAttendance.Application.Base.Universities.Queries.CheckDomain;
+﻿namespace App.Handlers.Universities.Queries.CheckDomain;
 
 public record CheckDomainResponse(
     bool   Exist,

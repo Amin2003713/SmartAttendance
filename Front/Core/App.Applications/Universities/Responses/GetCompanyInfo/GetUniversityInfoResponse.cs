@@ -1,8 +1,6 @@
-﻿using Mapster;
-using SmartAttendance.Application.Base.Settings.Queries.GetSetting;
+﻿using App.Applications.Settings.Queries.GetSetting;
 
-
-namespace SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
+namespace App.Applications.Universities.Responses.GetCompanyInfo;
 
 public class GetUniversityInfoResponse
 {

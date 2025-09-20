@@ -1,7 +1,6 @@
-﻿using MediatR;
-using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
+﻿using App.Applications.Universities.Responses.GetCompanyInfo;
 
-namespace SmartAttendance.Application.Base.Universities.Queries.GetUniversityInfo;
+namespace App.Handlers.Universities.Queries.GetUniversityInfo;
 
 public record GetUniversityInfoQuery(
     string Domain

@@ -1,4 +1,4 @@
-﻿namespace SmartAttendance.Common.General.Enums.Dashboard;
+﻿namespace App.Common.General.Enums.Dashboard;
 
 public enum GrowthType : byte
 {

@@ -1,4 +1,4 @@
-﻿namespace SmartAttendance.Common.General.Enums;
+﻿namespace App.Common.General.Enums;
 
 public enum Roles : byte
 {

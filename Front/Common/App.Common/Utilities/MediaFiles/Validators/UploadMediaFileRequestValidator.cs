@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+﻿using App.Common.Utilities.MediaFiles.Requests;
+using FluentValidation;
 
-
-namespace SmartAttendance.Application.Commons.MediaFiles.Validators;
+namespace App.Common.Utilities.MediaFiles.Validators;
 
 public class UploadMediaFileRequestValidator : AbstractValidator<UploadMediaFileRequest>
 {

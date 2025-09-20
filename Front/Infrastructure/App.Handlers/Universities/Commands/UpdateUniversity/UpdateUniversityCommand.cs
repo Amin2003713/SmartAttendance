@@ -1,7 +1,7 @@
 
-using MediatR;
+using App.Common.Utilities.MediaFiles.Requests;
 
-namespace SmartAttendance.Application.Base.Universities.Commands.UpdateUniversity;
+namespace App.Handlers.Universities.Commands.UpdateUniversity;
 
 /// <summary>
 ///     Main class UpdateUniversityCommand implementing IRequest<UpdateUniversityCommandResponse>.

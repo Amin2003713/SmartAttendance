@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmartAttendance.Common.General.Enums.Genders;
+namespace App.Common.General.Enums.Genders;
 
 public enum GenderType
 {
