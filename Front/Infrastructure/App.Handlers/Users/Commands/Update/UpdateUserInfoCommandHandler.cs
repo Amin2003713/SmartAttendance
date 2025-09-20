@@ -19,7 +19,7 @@ public class UpdateUserInfoCommandHandler(
 
             await repository.UpdateAsync(nameof(UserInfo) , user);
 
-            provider.User = user;
+            await provider.SetUserAsync(user);
         }
         catch (Exception e)
         {

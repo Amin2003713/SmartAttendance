@@ -1,0 +1,81 @@
+﻿@page "/list-branches"
+@using App.Applications.Universities.Queries.ListAvailableUniversities
+@using App.Applications.Universities.Responses.GetCompanyInfo
+@using Microsoft.AspNetCore.Authorization
+@using App.Common.General
+@attribute [AllowAnonymous]
+
+
+
+<MudGrid>
+    @if (Universities != null && Universities.Any())
+    {
+        @foreach (var uni in Universities)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Class="cursor-pointer" @onclick="() => NavigateToUni(uni.Domain)">
+                    <MudCardHeader>
+                        <MudAvatar Size="Size.Large" Src="@uni.Logo" Alt="@uni.Name"/>
+                        <div class="ml-3">
+                            <MudText Typo="Typo.h6">@uni.Name</MudText>
+                            @if (!string.IsNullOrWhiteSpace(uni.City))
+                            {
+                                <MudText Typo="Typo.body2" Color="Color.Secondary">@uni.City</MudText>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(uni.UniversityType))
+                            {
+                                <MudText Typo="Typo.body2" Color="Color.Secondary">@uni.UniversityType</MudText>
+                            }
+                        </div>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        @if (!string.IsNullOrWhiteSpace(uni.PhoneNumber))
+                        {
+                            <MudText Typo="Typo.body2">📞 @uni.PhoneNumber</MudText>
+                        }
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    }
+    else
+    {
+        <MudText>No universities available.</MudText>
+    }
+</MudGrid>
+
+
+@code {
+    public List<GetUniversityInfoResponse> Universities { get; set; }
+
+
+    private async Task NavigateToUni(string subdomain)
+    {
+        await local.DeleteAsync("Url");
+        // Get current URI components
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+
+        // Split host and port if present
+        var hostParts = uri.Authority.Split(':'); 
+        var hostOnly  = hostParts[0];
+        var port      = hostParts.Length > 1 ? $":{hostParts[1]}" : "";
+
+        // Build new host with subdomain, keep port if any
+        var newHost = $"{subdomain}.{hostOnly}{port}";
+
+        // Preserve scheme (http/https)
+        var url = $"{uri.Scheme}://{newHost}";
+
+        await local.UpdateAsync("Url" , url );
+
+        NavigationManager.NavigateTo(url, forceLoad: true);
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Mediator.Send(new ListAvailableUniversitiesQuery());
+        Universities = !result.Any() ? [] : result;
+    }
+
+}

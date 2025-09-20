@@ -21,7 +21,7 @@ public class LoginRequestHandler(
             ArgumentNullException.ThrowIfNull(request, nameof(request));
             ArgumentNullException.ThrowIfNull(Apis,    nameof(Apis));
 
-            request.PhoneNumber = request.PhoneNumber.Trim();
+            request.UserName = request.UserName.Trim();
             var result = await Apis.Login(request);
 
             if (!result.IsSuccessStatusCode)

@@ -1,91 +1,85 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 using App.Applications.Users.Commands.Logout;
 using App.Applications.Users.Queries.GetUserInfo;
 using App.Common.Utilities.LifeTime;
 using App.Domain.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace App.Persistence.Services.AuthState;
 
-public class ClientStateProvider (
+public class ClientStateProvider(
     IMediator mediator,
     NavigationManager navigationManager
-) : AuthenticationStateProvider,
-    IScopedDependency
+) : AuthenticationStateProvider, IScopedDependency
 {
-    public UserInfo? User { get;  set; }
+    public UserInfo? User { get;private set; }
+    private Type? _currentPageType;
+
+    public void SetCurrentPageType(Type pageType) => _currentPageType = pageType;
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
         try
         {
+            // Get user info from API if not loaded
             User ??= await mediator.Send(new GetUserInfoQuery());
 
+            // Allow anonymous pages
+            if (_currentPageType != null && _currentPageType.GetCustomAttribute<AllowAnonymousAttribute>() != null)
+            {
+                return User?.Token != null && !IsTokenExpired(User.Token)
+                    ? new AuthenticationState(CreatePrincipal(User.Token))
+                    : Anonymous();
+            }
 
-            if (User?.Token is null)
+            // Protected pages
+            if (User?.Token == null || IsTokenExpired(User.Token))
             {
                 navigationManager.NavigateTo("/login");
                 return Anonymous();
             }
 
-
-            if (!IsTokenExpired(User.Token))
-            {
-                var principal = CreatePrincipal(User.Token);
-                return new AuthenticationState(principal);
-            }
-
-
-            navigationManager.NavigateTo("/login");
-            return Anonymous();
+            return new AuthenticationState(CreatePrincipal(User.Token));
         }
         catch
         {
+            if (_currentPageType != null && _currentPageType.GetCustomAttribute<AllowAnonymousAttribute>() != null)
+                return Anonymous();
+
             navigationManager.NavigateTo("/login");
             return Anonymous();
         }
     }
 
-    private static AuthenticationState Anonymous()
+    private static AuthenticationState Anonymous() =>
+        new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+
+    private static bool IsTokenExpired(string token) =>
+        new JwtSecurityTokenHandler().ReadJwtToken(token).ValidTo <= DateTime.UtcNow;
+
+    private static ClaimsPrincipal CreatePrincipal(string token)
     {
-        return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
-    }
-
-    private static bool IsTokenExpired(string token)
-    {
-        var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
-
-        return jwt.ValidTo <= DateTime.UtcNow;
-    }
-
-
-    private static ClaimsPrincipal CreatePrincipal(string jwtToken)
-    {
-        var jwt      = new JwtSecurityTokenHandler().ReadJwtToken(jwtToken);
+        var jwt      = new JwtSecurityTokenHandler().ReadJwtToken(token);
         var identity = new ClaimsIdentity(jwt.Claims, "jwt");
         return new ClaimsPrincipal(identity);
     }
 
     public async Task Logout()
     {
-        if (User?.Token is not null)
+        if (User?.Token != null)
         {
-            try { await mediator.Send(new LogoutCommand(User.Token)); }
-            catch
-            {
-                /* ignore */
-            }
+            try { await mediator.Send(new LogoutCommand(User.Token)); } catch { }
         }
 
         User = null;
-        var anon = Task.FromResult(Anonymous());
-        NotifyAuthenticationStateChanged(anon);
+        NotifyAuthenticationStateChanged(Task.FromResult(Anonymous()));
         navigationManager.NavigateTo("/login");
     }
-
 
     public Task SetUserAsync(UserInfo? user)
     {

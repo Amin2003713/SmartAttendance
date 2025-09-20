@@ -16,7 +16,11 @@
             />
 
             <MudText Typo="Typo.h1" Align="Align.Center">
-                به سامانه نوبت‌دهی خوش آمدید
+                به سامانه مدیریت حضورغیاب نشاط خوش آمدید
+                <br/>
+                <MudText Align="Align.Center" Typo="Typo.caption">
+                    @TenantState.University?.Name
+                </MudText>
             </MudText>
         </MudStack>
 
@@ -26,8 +30,8 @@
 
                 <!-- Username -->
                 <MudTextField
-                    For="@(() => Request.PhoneNumber)"
-                    @bind-Value="Request.PhoneNumber"
+                    For="@(() => Request.UserName)"
+                    @bind-Value="Request.UserName"
                     Label="نام کاربری"
                     Variant="Variant.Outlined"
                     Margin="Margin.Normal"
@@ -54,7 +58,7 @@
                     <MudLink
                         OnClick="GoToForgotPassword"
                         Color="Color.Info"
-                        Disabled="@string.IsNullOrWhiteSpace(Request.PhoneNumber)"
+                        Disabled="@string.IsNullOrWhiteSpace(Request.UserName)"
                         Underline="Underline.Hover"
                         Typo="Typo.h5"> فراموشی رمز عبور؟
                     </MudLink>
@@ -96,9 +100,7 @@
 </MudContainer>
 
 @code {
-    
 
-    
 
     private LoginRequest Request { get;  } = new ();
     private bool ApiCalling { get; set; }
@@ -132,7 +134,7 @@
 
     private void GoToForgotPassword()
     {
-        NavigationManager.NavigateTo($"/forgot-password?Username={Request.PhoneNumber}");
+        NavigationManager.NavigateTo($"/forgot-password?Username={Request.UserName}");
     }
 
     private void GoToRegister()

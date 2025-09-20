@@ -19,8 +19,7 @@ public class UpdateUniversityRequestExample : IExamplesProvider<UpdateUniversity
             Town         = "Some Town",
             PostalCode   = "1234567890",
             PhoneNumber  = "+989121234567",
-            IsLegal      = true,
-            ActivityType = "Software Development"
+            IsLegal      = true
         };
     }
 }

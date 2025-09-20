@@ -1,7 +1,9 @@
 #region
 
     using System.IdentityModel.Tokens.Jwt;
+    using System.Net;
     using System.Net.Http.Headers;
+    using App.Applications.Users.Commands.Logout;
     using App.Applications.Users.Queries.GetUserInfo;
     using App.Common.Exceptions;
     using App.Common.General;
@@ -21,6 +23,7 @@
         private readonly IStringLocalizer<RefitDelegatingHandler> _localizer;
         private readonly IServiceScopeFactory                     _scopeFactory;
         private readonly TenantStateProvider                      _tenantStateProvider;
+
 
         public RefitDelegatingHandler(
             IStringLocalizer<RefitDelegatingHandler> localizer,
@@ -42,12 +45,22 @@
             ArgumentNullException.ThrowIfNull(request,            nameof(request));
             ArgumentNullException.ThrowIfNull(request.RequestUri, nameof(request.RequestUri));
 
+
             try
             {
-                await AddTokenHeaderAsync(request.Headers);
-                request.RequestUri = new Uri(UpdateUrlAsync(request.RequestUri.AbsoluteUri , _tenantStateProvider.CurrentTenant!));
+                var token = await AddTokenHeaderAsync(request.Headers);
+                request.RequestUri = new Uri(UpdateUrlAsync(request.RequestUri.AbsoluteUri, _tenantStateProvider.CurrentTenant!));
 
-                return await base.SendAsync(request, cancellationToken);
+                var response = await base.SendAsync(request, cancellationToken);
+
+                if (response.StatusCode != HttpStatusCode.Unauthorized || string.IsNullOrEmpty(token))
+                    return response;
+
+                using var scope    = _scopeFactory.CreateScope();
+                var       mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                await mediator.Send(new LogoutCommand(token), cancellationToken);
+
+                return response;
             }
             catch (HttpRequestException)
             {
@@ -63,27 +76,22 @@
             }
         }
 
-        private async Task AddTokenHeaderAsync(HttpRequestHeaders headers)
+        private async Task<string> AddTokenHeaderAsync(HttpRequestHeaders headers)
         {
-            try
-            {
-                using var scope    = _scopeFactory.CreateScope();
-                var       mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var       user     = await mediator.Send(new GetUserInfoQuery());
+            using var scope    = _scopeFactory.CreateScope();
+            var       mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+            var       user     = await mediator.Send(new GetUserInfoQuery());
+
+            headers.Add(ApplicationConstants.Headers.DeviceType, "Browser");
+
+            if (string.IsNullOrEmpty(user?.Token) || IsTokenExpired(user.Token))
+                return user?.Token ?? "";
 
 
-                if (!string.IsNullOrEmpty(user?.Token) && !IsTokenExpired(user.Token))
-                    headers.Authorization = new AuthenticationHeaderValue(ApplicationConstants.Headers.Token, user.Token);
-            }
+            headers.Authorization = new AuthenticationHeaderValue(ApplicationConstants.Headers.Token, user.Token);
+            return  user.Token;
 
-            catch (Exception e)
-
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
-
 
         private string UpdateUrlAsync(string requestUrl , string companyId = null!)
         {

@@ -8,7 +8,7 @@ public class ForgotPasswordRequestValidator : AbstractValidator<ResetPasswordReq
 {
     public ForgotPasswordRequestValidator(IStringLocalizer<ForgotPasswordRequestValidator> localizer)
     {
-        RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage(localizer["PhoneNumberRequired"]).Matches(@"^\d{10,}$").WithMessage(localizer["PhoneNumberMinDigits"]);
+        RuleFor(x => x.UserName).NotEmpty().WithMessage(localizer["PhoneNumberRequired"]).Matches(@"^\d{10,}$").WithMessage(localizer["PhoneNumberMinDigits"]);
 
 
         RuleFor(x => x.Password)

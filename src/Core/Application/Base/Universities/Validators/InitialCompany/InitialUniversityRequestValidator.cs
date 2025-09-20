@@ -34,15 +34,5 @@ public class InitialUniversityRequestValidator : AbstractValidator<InitialUniver
             .Matches("^09[0-9]{9}$")
             .WithMessage(localizer["Phone number format is invalid."].Value); // "فرمت شماره تلفن نامعتبر است."
 
-
-        // New Password
-        RuleFor(x => x.NationalCode)
-            .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(localizer["National Code is required."].Value) // "رمز عبور الزامی است."
-            .MinimumLength(10)
-            .WithMessage(localizer["NationalCode must be at least 10 characters long."].Value)
-            .MaximumLength(10)
-            .WithMessage(localizer["The national code should not be longer than 10 characters."].Value);
     }
 }

@@ -151,9 +151,7 @@
 </MudContainer>
 
 @code {
-    
 
-    
 
     private RegisterRequest Request { get;  } = new();
 
@@ -197,10 +195,13 @@
             await Mediator.Send(new LoginRequest
             {
                 Password = Request.Password ,
-                PhoneNumber = Request.PhoneNumber
+                UserName = Request.PhoneNumber
             });
         }
-        catch (Exception e) { }
+        catch (Exception e)
+        {
+            //
+        }
         finally
         {
             ApiCalling = false;

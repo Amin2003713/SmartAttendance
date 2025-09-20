@@ -1,5 +1,4 @@
 @using App.Persistence.Services.Tenants
-@inject IStringLocalizer<MudBaseLayout> Localizer
 @inject TenantStateProvider TenantProvider
 @inherits LayoutComponentBase
 
@@ -14,43 +13,43 @@
     <MudDialogProvider/>
     <MudSnackbarProvider/>
 
-    <CascadingValue Value="UpdateUi">
-        <MudLayout class="page">
-            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Style="padding: 0 !important;">
-                @Body
-            </MudContainer>
-        </MudLayout>
-    </CascadingValue>
+    <MudLayout class="page">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Style="padding: 0 !important;">
+            @Body
+        </MudContainer>
+    </MudLayout>
 </MudRTLProvider>
 
 @code {
     private MudThemeProvider _mudThemeProvider = null!;
 
-    private void UpdateUi()
-    {
-        StateHasChanged();
-    }
 
-    private void ResolveTenant()
+    private async Task ResolveTenant()
     {
         // Just fetch current tenant from the provider
         var tenant = TenantProvider.CurrentTenant;
 
-        if (!string.IsNullOrEmpty(tenant))
+        if (string.IsNullOrEmpty(tenant) && !NavigationManager.Uri.Contains("/list-branches"))
         {
-            Console.WriteLine($"Resolved Tenant: {tenant}");
-            // you could store in Settings or use for API requests
+            var localUrl = await local.GetAsync<string>("Url");
+
+            if (!string.IsNullOrEmpty(localUrl))
+            {
+                await TenantProvider.UpdateTenantFromUri(localUrl);
+                NavigationManager.NavigateTo(localUrl, forceLoad: true);
+            }
+
+            NavigationManager.NavigateTo("/list-branches");
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-
         ThemeService.ThemeChanged += HandleThemeChanged!;
         TenantProvider.TenantChanged += HandleTenantChanged;
 
         // Ensure initial resolve
-        ResolveTenant();
+        await ResolveTenant();
     }
 
     private void HandleTenantChanged(string newTenant)
@@ -79,4 +78,5 @@
         ThemeService.ThemeChanged -= HandleThemeChanged!;
         TenantProvider.TenantChanged -= HandleTenantChanged;
     }
+
 }

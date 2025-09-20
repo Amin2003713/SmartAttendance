@@ -75,7 +75,7 @@ public class PanelController : SmartAttendanceBaseController
     /// <returns>The response containing the created University details.</returns>
     /// <response code="200">Returns the created University details.</response>
     /// <response code="400">If the request is invalid or the University could not be created.</response>
-    [HttpPost("get-Tenants")]
+    [HttpGet("get-Tenants")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]

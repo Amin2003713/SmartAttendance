@@ -4,6 +4,7 @@ using App.Common.Utilities.LifeTime;
 using App.Domain.Users;
 using App.Handlers.Users.Requests.Login;
 using App.Persistence.Services.Refit;
+using App.Persistence.Services.Tenants;
 using UI.Components.Features.Authorizions.Login;
 
 namespace UI.Web.Services;
@@ -19,6 +20,7 @@ public static class ConfigureDependencyInjectionExtensions
                 typeof(ApiFactory).Assembly ,
                 typeof(LoginRequestHandler).Assembly ,
                 typeof(Login).Assembly ,
+                typeof(TenantStateProvider).Assembly ,
                 typeof(Program).Assembly
             )
             .AddClasses(classes => classes.AssignableTo<IScopedDependency>())

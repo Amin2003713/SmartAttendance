@@ -1,4 +1,6 @@
-
+using App.Applications.Universities.Apis;
+using App.Applications.Universities.Commands.UpdateUniversity;
+using App.Applications.Universities.Requests.UpdateCompany;
 using App.Common.Utilities.MediaFiles.Requests;
 
 namespace App.Handlers.Universities.Commands.UpdateUniversity;
@@ -6,26 +8,24 @@ namespace App.Handlers.Universities.Commands.UpdateUniversity;
 /// <summary>
 ///     Main class UpdateUniversityCommand implementing IRequest<UpdateUniversityCommandResponse>.
 /// </summary>
-public class UpdateUniversityCommand : IRequest
+public class UpdateUniversityCommandHandler(
+    ApiFactory apiFactory ,
+    ISnackbarService snackbarService
+) : IRequestHandler<UpdateUniversityCommand>
 {
-    public string? Address { get; set; } = null!;
-    public string? Name { get; set; }
-    public string? LegalName { get; set; }
-    public string NationalCode { get; set; }
-    public string City { get; set; }
-    public string? Province { get; set; }
-    public string? Town { get; set; }
-    public string? PostalCode { get; set; }
-    public string? PhoneNumber { get; set; }
-    public bool IsLegal { get; set; }
-    public string? LandLine { get; set; }
-    public UploadMediaFileRequest Logo { get; set; }
+    private  IUniversityApi Apis { get; set; } = apiFactory.CreateApi<IUniversityApi>();
 
-    public string? ActivityType { get; set; }
-
-    public UpdateUniversityCommand AddMedia(UploadMediaFileRequest requestLogo)
+    public async Task Handle(UpdateUniversityCommand request, CancellationToken cancellationToken)
     {
-        Logo = requestLogo;
-        return this;
+        try
+        {
+            await Apis.UpdateUniversityAsync(request.Adapt<UpdateUniversityRequest>(), cancellationToken);
+            snackbarService.ShowSuccess("Update was succsessfully done.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            snackbarService.ShowError(e.Message);
+        }
     }
 }

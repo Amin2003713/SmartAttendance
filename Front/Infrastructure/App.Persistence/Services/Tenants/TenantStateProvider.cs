@@ -1,24 +1,30 @@
+using App.Applications.Universities.Queries.GetUniversityInfo;
+using App.Applications.Universities.Responses.GetCompanyInfo;
 using App.Common.Utilities.LifeTime;
+using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace App.Persistence.Services.Tenants;
 
-public abstract class TenantStateProvider : IDisposable,
-    IScopedDependency
+public class TenantStateProvider : IDisposable,
+    ISingletonDependency
 {
     private readonly NavigationManager _navigationManager;
+    private readonly IMediator         _mediator;
 
     public event Action<string>? TenantChanged;
 
     public string? CurrentTenant { get; private set; }
+    public GetUniversityInfoResponse? University { get; private set; }
 
-    protected TenantStateProvider(NavigationManager navigationManager)
+    public TenantStateProvider(NavigationManager navigationManager, IMediator mediator)
     {
         _navigationManager = navigationManager;
+        _mediator = mediator;
 
         // Initialize once at startup
-        UpdateTenantFromUri(_navigationManager.Uri);
+        _ = UpdateTenantFromUri(_navigationManager.Uri);
 
         // Listen to navigation changes
         _navigationManager.LocationChanged += OnLocationChanged;
@@ -26,10 +32,10 @@ public abstract class TenantStateProvider : IDisposable,
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        UpdateTenantFromUri(e.Location);
+        _ = UpdateTenantFromUri(e.Location);
     }
 
-    private void UpdateTenantFromUri(string uri)
+    public async Task UpdateTenantFromUri(string uri)
     {
         try
         {
@@ -37,13 +43,21 @@ public abstract class TenantStateProvider : IDisposable,
             var segments = host.Split('.');
 
             // assume tenant is always the first segment
-            var tenantKey = segments.Length > 2 ? segments[0] : null;
+            var tenantKey = segments.Length > 1 ? segments[0] : null;
 
             if (string.Equals(CurrentTenant, tenantKey, StringComparison.OrdinalIgnoreCase))
                 return;
 
             CurrentTenant = tenantKey;
             TenantChanged?.Invoke(CurrentTenant!);
+            try
+            {
+                University = await _mediator.Send(new GetUniversityInfoQuery(tenantKey!));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
         catch
         {

@@ -22,7 +22,7 @@ public class ForgotPasswordRequestHandler(
                 await mediator.Send(new LoginRequest
                     {
                         Password = request.Password,
-                        PhoneNumber = request.PhoneNumber
+                        UserName = request.UserName
                     },
                     cancellationToken);
             else

@@ -16,6 +16,7 @@ public class UniversityController : SmartAttendanceBaseController
     /// <response code="400">If the request is invalid (e.g., the identifier is missing or incorrect).</response>
     /// <response code="404">If the University with the specified identifier is not found.</response>
     [HttpGet("get-info")]
+    [AllowAnonymous]
     [SwaggerOperation("Retrieve detailed information about a University by its identifier.")]
     [ProducesResponseType(typeof(GetUniversityInfoResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedResult),        StatusCodes.Status401Unauthorized)]

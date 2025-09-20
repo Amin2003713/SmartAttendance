@@ -23,11 +23,7 @@ public class UpdateUniversityRequestValidator : AbstractValidator<UpdateUniversi
             .MaximumLength(100)
             .WithMessage("نام حقوقی نباید بیشتر از ۱۰۰ کاراکتر باشد");
 
-        RuleFor(x => x.NationalCode)
-            .NotEmpty()
-            .WithMessage("کد ملی الزامی است")
-            .Matches(@"^\d{10}$")
-            .WithMessage("کد ملی باید یک عدد ۱۰ رقمی باشد");
+ 
 
         RuleFor(x => x.PhoneNumber)
             .NotEmpty()

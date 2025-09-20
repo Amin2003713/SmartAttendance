@@ -13,7 +13,6 @@
 @using MediatR
 @using MudBlazor
 @using Bromix.MudBlazor.MaterialDesignIcons
-@using MaterialIcons = MudBlazor.FontIcons.MaterialIcons
 
 
 
@@ -25,11 +24,9 @@
 @using UI.Components.Common.BaseLayouts
 @using UI.Components.Common.BaseComponents.Forms
 @using UI.Components.Common.BaseComponents.ValidateionProps
-@using Icons = MudBlazor.FontIcons.MaterialIcons
 @using App.Common.General.Dialogs
 @using App.Common.Utilities.Snackbar
 @using App.Common.Utilities.Storage
-@using App.Persistence.Services.Tenants
 @using UI.Components.Common.BaseComponents.Progresses
 
 
@@ -45,5 +42,6 @@
 @inject IThemeService ThemeService
 @inject ISnackbarService Snackbar
 @inject ILocalStorage local
-@inject  TenantStateProvider  TenantState
 
+
+@layout UnAuthorizedLayout
