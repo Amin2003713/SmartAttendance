@@ -3,7 +3,7 @@
 @inject TenantStateProvider TenantProvider
 @inherits LayoutComponentBase
 
-<MudRTLProvider RightToLeft="Settings?.IsRTL ?? false">
+<MudRTLProvider RightToLeft>
     <MudThemeProvider @ref="@_mudThemeProvider"
                       Theme="@ThemeService.CurrentTheme"
                       ObserveSystemThemeChange
@@ -25,7 +25,6 @@
 
 @code {
     private MudThemeProvider _mudThemeProvider = null!;
-    public Settings? Settings { get; set; }
 
     private void UpdateUi()
     {
@@ -46,7 +45,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Settings = await Mediator.Send(new LoadSettingsQuery());
 
         ThemeService.ThemeChanged += HandleThemeChanged!;
         TenantProvider.TenantChanged += HandleTenantChanged;
