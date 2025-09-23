@@ -4,24 +4,25 @@ using App.Common.Utilities.LifeTime;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace App.Persistence.Services.Tenants;
 
 public class TenantStateProvider : IDisposable,
     ISingletonDependency
 {
-    private readonly NavigationManager _navigationManager;
-    private readonly IMediator         _mediator;
+    private readonly NavigationManager    _navigationManager;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     public event Action<string>? TenantChanged;
 
     public string? CurrentTenant { get; private set; }
     public GetUniversityInfoResponse? University { get; private set; }
 
-    public TenantStateProvider(NavigationManager navigationManager, IMediator mediator)
+    public TenantStateProvider(NavigationManager navigationManager, IServiceScopeFactory scopeFactory)
     {
         _navigationManager = navigationManager;
-        _mediator = mediator;
+        _scopeFactory = scopeFactory;
 
         // Initialize once at startup
         _ = UpdateTenantFromUri(_navigationManager.Uri);
@@ -50,9 +51,12 @@ public class TenantStateProvider : IDisposable,
 
             CurrentTenant = tenantKey;
             TenantChanged?.Invoke(CurrentTenant!);
+
             try
             {
-                University = await _mediator.Send(new GetUniversityInfoQuery(tenantKey!));
+                using var scope    = _scopeFactory.CreateScope();
+                var       mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                University = await mediator.Send(new GetUniversityInfoQuery(tenantKey!));
             }
             catch (Exception e)
             {

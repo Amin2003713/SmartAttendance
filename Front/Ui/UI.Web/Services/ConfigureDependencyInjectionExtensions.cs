@@ -1,6 +1,7 @@
 using App.Applications.Users.Requests.UserInfos;
 using App.Common.General;
 using App.Common.Utilities.LifeTime;
+using App.Common.Utilities.Snackbar;
 using App.Domain.Users;
 using App.Handlers.Users.Requests.Login;
 using App.Persistence.Services.Refit;
@@ -21,6 +22,7 @@ public static class ConfigureDependencyInjectionExtensions
                 typeof(LoginRequestHandler).Assembly ,
                 typeof(Login).Assembly ,
                 typeof(TenantStateProvider).Assembly ,
+                typeof(ISnackbarService).Assembly ,
                 typeof(Program).Assembly
             )
             .AddClasses(classes => classes.AssignableTo<IScopedDependency>())

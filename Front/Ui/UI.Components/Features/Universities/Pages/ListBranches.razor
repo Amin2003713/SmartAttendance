@@ -3,79 +3,126 @@
 @using App.Applications.Universities.Responses.GetCompanyInfo
 @using Microsoft.AspNetCore.Authorization
 @using App.Common.General
+@using MudBlazor
 @attribute [AllowAnonymous]
 
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-8 pa-4">
+    <MudPaper Elevation="2" Class="pa-6 rounded-xl mb-6">
+        <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" GutterBottom="true">
+            دانشگاه های فعال.
+        </MudText>
+        <MudText Typo="Typo.body1" Color="Color.Primary" Align="Align.Center">
+            دانشگاه مورد نظر خود را انتخاب کنید.
+        </MudText>
+    </MudPaper>
 
-
-<MudGrid>
-    @if (Universities != null && Universities.Any())
+    @if (IsLoading)
     {
-        @foreach (var uni in Universities)
-        {
-            <MudItem xs="12" sm="6" md="4">
-                <MudCard Class="cursor-pointer" @onclick="() => NavigateToUni(uni.Domain)">
-                    <MudCardHeader>
-                        <MudAvatar Size="Size.Large" Src="@uni.Logo" Alt="@uni.Name"/>
-                        <div class="ml-3">
-                            <MudText Typo="Typo.h6">@uni.Name</MudText>
+        <MudProgressCircular Indeterminate="true" Color="Color.Primary" Class="d-flex justify-center my-8"/>
+    }
+    else if (Universities != null && Universities.Any())
+    {
+        <MudGrid Justify="Justify.Center" Spacing="4">
+            @foreach (var uni in Universities)
+            {
+                <MudItem xs="12" sm="6" md="4" lg="3">
+                    <MudCard Class="mud-hover-elevation mud-theme-primary rounded-xl overflow-hidden"
+                             Style="height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out;"
+                             Elevation="4"
+                             @onclick="() => NavigateToUni(uni.Domain)">
+
+                        <MudCardMedia Height="140"
+                                      Style="background: linear-gradient(135deg, var(--mud-palette-surface) 0%, var(--mud-palette-background-grey) 100%);"/>
+
+
+                        <MudCardContent Class="pt-4 pb-6 px-4" Style="flex-grow: 1;">
+                            <div class="d-flex align-center mb-3">
+                                <MudAvatar Size="Size.Medium" Src="@uni.Logo" Alt="@uni.Name" Variant="Variant.Filled"
+                                           Color="Color.Primary">
+                                    <MudImage Src="@uni.Logo" Alt="@uni.Name"></MudImage>
+                                </MudAvatar>
+                                <MudSpacer/>
+                                <MudText Typo="Typo.h6"
+                                         Class="mud-text-primary font-weight-bold">@uni.LegalName</MudText>
+                            </div>
+
                             @if (!string.IsNullOrWhiteSpace(uni.City))
                             {
-                                <MudText Typo="Typo.body2" Color="Color.Secondary">@uni.City</MudText>
+                                <div class="d-flex align-center mb-2">
+                                    <MudIcon Icon="@Icons.Filled.LocationOn" Size="Size.Small"
+                                             Color="Color.Secondary" Class="mr-2"/>
+                                    <MudText Typo="Typo.body2" Color="Color.Secondary">@uni.City</MudText>
+                                </div>
                             }
+
                             @if (!string.IsNullOrWhiteSpace(uni.UniversityType))
                             {
-                                <MudText Typo="Typo.body2" Color="Color.Secondary">@uni.UniversityType</MudText>
+                                <div class="d-flex align-center mb-2">
+                                    <MudIcon Icon="@Icons.Filled.School" Size="Size.Small" Color="Color.Info"
+                                             Class="mr-2"/>
+                                    <MudText Typo="Typo.caption" Color="Color.Info">@uni.UniversityType</MudText>
+                                </div>
                             }
-                        </div>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        @if (!string.IsNullOrWhiteSpace(uni.PhoneNumber))
-                        {
-                            <MudText Typo="Typo.body2">📞 @uni.PhoneNumber</MudText>
-                        }
-                    </MudCardContent>
-                </MudCard>
-            </MudItem>
-        }
+
+                            @if (!string.IsNullOrWhiteSpace(uni.PhoneNumber))
+                            {
+                                <div class="d-flex align-center">
+                                    <MudIcon Icon="@Icons.Filled.Phone" Size="Size.Small" Color="Color.Default"
+                                             Class="mr-2"/>
+                                    <MudText Typo="Typo.body2">@uni.PhoneNumber</MudText>
+                                </div>
+                            }
+                        </MudCardContent>
+
+                        <MudCardActions Class="px-4 pb-4">
+                            <MudButton Variant="Variant.Text" Color="Color.Primary"
+                                       EndIcon="@Icons.Filled.ArrowForward" FullWidth="true">
+                                Explore
+                            </MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
     }
     else
     {
-        <MudText>No universities available.</MudText>
+        <MudPaper Elevation="1" Class="pa-8 rounded-lg d-flex flex-column align-center justify-center"
+                  Style="min-height: 300px;">
+            <MudIcon Icon="@Icons.Filled.School" Size="Size.Large" Color="Color.Secondary" Class="mb-4"/>
+            <MudText Typo="Typo.h5" Color="Color.Secondary" Align="Align.Center" GutterBottom="true">
+                No Universities Available
+            </MudText>
+            <MudText Typo="Typo.body1" Color="Color.Secondary" Align="Align.Center">
+                Check back later or contact support for more information.
+            </MudText>
+        </MudPaper>
     }
-</MudGrid>
-
+</MudContainer>
 
 @code {
-    public List<GetUniversityInfoResponse> Universities { get; set; }
-
+    private List<GetUniversityInfoResponse> Universities { get; set; } = new();
+    private bool IsLoading { get; set; } = true;
 
     private async Task NavigateToUni(string subdomain)
     {
         await local.DeleteAsync("Url");
-        // Get current URI components
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
-
-        // Split host and port if present
-        var hostParts = uri.Authority.Split(':'); 
+        var uri       = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var hostParts = uri.Authority.Split(':');
         var hostOnly  = hostParts[0];
         var port      = hostParts.Length > 1 ? $":{hostParts[1]}" : "";
-
-        // Build new host with subdomain, keep port if any
-        var newHost = $"{subdomain}.{hostOnly}{port}";
-
-        // Preserve scheme (http/https)
-        var url = $"{uri.Scheme}://{newHost}";
-
-        await local.UpdateAsync("Url" , url );
-
+        var newHost   = $"{subdomain}.{hostOnly}{port}";
+        var url       = $"{uri.Scheme}://{newHost}";
+        await TenantState.UpdateTenantFromUri(url);
         NavigationManager.NavigateTo(url, forceLoad: true);
     }
 
-
     protected override async Task OnInitializedAsync()
     {
+        IsLoading = true;
         var result = await Mediator.Send(new ListAvailableUniversitiesQuery());
-        Universities = !result.Any() ? [] : result;
+        Universities = result ?? new List<GetUniversityInfoResponse>();
+        IsLoading = false;
     }
 
 }

@@ -24,23 +24,17 @@
     private MudThemeProvider _mudThemeProvider = null!;
 
 
-    private async Task ResolveTenant()
+    private  Task ResolveTenant()
     {
         // Just fetch current tenant from the provider
         var tenant = TenantProvider.CurrentTenant;
 
         if (string.IsNullOrEmpty(tenant) && !NavigationManager.Uri.Contains("/list-branches"))
         {
-            var localUrl = await local.GetAsync<string>("Url");
-
-            if (!string.IsNullOrEmpty(localUrl))
-            {
-                await TenantProvider.UpdateTenantFromUri(localUrl);
-                NavigationManager.NavigateTo(localUrl, forceLoad: true);
-            }
-
             NavigationManager.NavigateTo("/list-branches");
         }
+
+        return Task.CompletedTask;
     }
 
     protected override async Task OnInitializedAsync()

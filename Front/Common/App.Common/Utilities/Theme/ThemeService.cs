@@ -13,18 +13,18 @@ public class ThemeService : IThemeService
         {
             PaletteLight = new PaletteLight
             {
-                Primary                  = "#4CAF50", // Vibrant green for health
-                Secondary                = "#3F51B5", // Deep blue for trust
-                Tertiary                 = "#F06292", // Coral for warmth
-                Background               = "#F5F7FA", // Soft off-white
-                Surface                  = "#FFFFFF", // Clean white
-                AppbarBackground         = "#3F51B5", // Blue for appbar
+                Primary                  = "#8458B3", // Deep purple for main actions
+                Secondary                = "#a0d2eb", // Soft blue for accents
+                Tertiary                 = "#d0bdf4", // Light purple for highlights
+                Background               = "#e5eaf5", // Subtle blueish background
+                Surface                  = "#FFFFFF", // Clean white surfaces
+                AppbarBackground         = "#8458B3", // Purple appbar
                 AppbarText               = "#FFFFFF", // White for contrast
                 DrawerBackground         = "#FFFFFF", // White drawer
                 DrawerText               = "#2E2E2E", // Dark gray text
                 TextPrimary              = "#2E2E2E", // Dark gray for readability
                 TextSecondary            = "#5A5A5A", // Lighter gray for secondary
-                ActionDefault            = "#F06292", // Coral for actions
+                ActionDefault            = "#a28089", // Muted purple for actions
                 ActionDisabled           = "#B0B0B0", // Neutral disabled
                 ActionDisabledBackground = "#E5E5E5", // Light disabled background
                 Divider                  = "#D1D5DB", // Subtle gray divider
@@ -106,9 +106,9 @@ public class ThemeService : IThemeService
         {
             PaletteDark = new PaletteDark
             {
-                Primary                  = "#66BB6A", // Lighter green for health
-                Secondary                = "#5C6BC0", // Softer blue for trust
-                Tertiary                 = "#FF8A80", // Muted coral for warmth
+                Primary                  = "#9e69d6", // Lighter purple for visibility
+                Secondary                = "#c0fcff", // Softer blue for accents
+                Tertiary                 = "#f9e2ff", // Muted light purple for highlights
                 Background               = "#121212", // Standard dark background
                 Surface                  = "#1E1E1E", // Slightly lighter surface
                 AppbarBackground         = "#1E1E1E", // Dark gray appbar
@@ -117,7 +117,7 @@ public class ThemeService : IThemeService
                 DrawerText               = "#B0BEC5", // Light gray text
                 TextPrimary              = "#E8ECEF", // Off-white for readability
                 TextSecondary            = "#A0AEC0", // Muted gray for secondary
-                ActionDefault            = "#FF8A80", // Coral for actions
+                ActionDefault            = "#c299a4", // Lighter muted purple for actions
                 ActionDisabled           = "rgba(255,255,255, 0.3)",
                 ActionDisabledBackground = "rgba(255,255,255, 0.08)",
                 Divider                  = "rgba(255,255,255, 0.12)",
