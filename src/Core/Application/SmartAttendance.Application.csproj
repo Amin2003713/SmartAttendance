@@ -31,17 +31,9 @@
 
     <ItemGroup>
         <Folder Include="Base\"/>
-        <Folder Include="Features\Attachments\Commands\" />
-        <Folder Include="Features\Attachments\Queries\" />
-        <Folder Include="Features\Attachments\Request\Commands\" />
-        <Folder Include="Features\Attachments\Request\Queries\" />
-        <Folder Include="Features\Attachments\Validators\" />
-        <Folder Include="Features\Attendances\Commands\" />
-        <Folder Include="Features\Attendances\Queries\" />
         <Folder Include="Features\Attendances\Request\Commands\" />
         <Folder Include="Features\Attendances\Request\Queries\" />
         <Folder Include="Features\Attendances\Validators\" />
-        <Folder Include="Features\Excuses\Commands\" />
         <Folder Include="Features\Excuses\Queries\" />
         <Folder Include="Features\Excuses\Request\Commands\" />
         <Folder Include="Features\Excuses\Request\Queries\" />

@@ -1,6 +1,7 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
+using SmartAttendance.Domain.Features.Subjects;
 
-namespace SmartAttendance.Domain.Features.Subjects;
+namespace SmartAttendance.Domain.Features.Majors;
 
 public class Major : BaseEntity
 {

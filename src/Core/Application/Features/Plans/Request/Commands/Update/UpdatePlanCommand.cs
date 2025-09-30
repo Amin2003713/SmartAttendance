@@ -1,6 +1,6 @@
 ﻿using SmartAttendance.Application.Features.Plans.Request.Commands.Create;
 
-namespace SmartAttendance.Application.Features.Plans.Commands.Update;
+namespace SmartAttendance.Application.Features.Plans.Request.Commands.Update;
 
 public class  UpdatePlanRequest   : CreatePlanRequest  ,
     IRequest

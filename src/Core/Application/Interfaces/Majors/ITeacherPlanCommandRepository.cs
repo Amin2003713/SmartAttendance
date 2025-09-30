@@ -2,7 +2,7 @@
 using SmartAttendance.Common.Utilities.InjectionHelpers;
 using SmartAttendance.Domain.Features.Subjects;
 
-namespace SmartAttendance.Application.Interfaces.Subjects;
+namespace SmartAttendance.Application.Interfaces.Majors;
 
 public interface ITeacherPlanCommandRepository : ICommandRepository<TeacherPlan>,
     IScopedDependency { }

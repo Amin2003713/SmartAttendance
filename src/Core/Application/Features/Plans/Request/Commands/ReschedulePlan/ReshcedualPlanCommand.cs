@@ -1,4 +1,4 @@
-﻿namespace SmartAttendance.Application.Features.Plans.Commands.ReshcedualPlan;
+﻿namespace SmartAttendance.Application.Features.Plans.Request.Commands.ReschedulePlan;
 
 public class ReschedulePlanRequest :
     IRequest

@@ -1,7 +1,8 @@
 ﻿using Mapster;
 using SmartAttendance.Application.Features.Majors.Queries;
 using SmartAttendance.Application.Features.Plans.Commands.Create;
-using SmartAttendance.Application.Features.Teachers.Queries.GetByIds;
+using SmartAttendance.Application.Features.Subjects.Queries;
+using SmartAttendance.Application.Features.Users.Queries.GetByIds;
 using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Common.Exceptions;
 using SmartAttendance.Domain.Features.Plans;

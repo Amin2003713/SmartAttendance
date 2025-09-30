@@ -1,8 +1,7 @@
-﻿using SmartAttendance.Application.Interfaces.Subjects;
-using SmartAttendance.Common.Utilities.InjectionHelpers;
+﻿using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Domain.Features.Subjects;
 
-namespace SmartAttendance.Persistence.Repositories.Features.Subjects;
+namespace SmartAttendance.Persistence.Repositories.Features.Majors;
 
 public class SubjectCommandRepository(
     WriteOnlyDbContext                       dbContext,

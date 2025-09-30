@@ -1,4 +1,5 @@
-﻿using SmartAttendance.Domain.Features.Subjects;
+﻿using SmartAttendance.Domain.Features.Majors;
+using SmartAttendance.Domain.Features.Subjects;
 
 namespace SmartAttendance.Application.Features.Majors.Responses;
 
