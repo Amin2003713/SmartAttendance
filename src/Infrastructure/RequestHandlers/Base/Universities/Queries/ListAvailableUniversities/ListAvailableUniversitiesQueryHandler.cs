@@ -3,7 +3,7 @@ using SmartAttendance.Application.Base.Universities.Queries.ListAvailableUnivers
 using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Queries.ListAvailableUniversities;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Queries.ListAvailableUniversities;
 
 public class ListAvailableUniversitiesQueryHandler(
     IUniversityRepository universityRepository

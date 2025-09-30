@@ -1,7 +1,7 @@
 ﻿using SmartAttendance.Application.Base.Universities.Commands.AddRequest;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Commands.AddRequest;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Commands.AddRequest;
 
 public class AddRequestCommandHandler(
     IUniversityRepository UniversityRepository

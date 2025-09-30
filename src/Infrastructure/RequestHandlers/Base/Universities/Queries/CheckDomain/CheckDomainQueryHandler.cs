@@ -3,7 +3,7 @@ using SmartAttendance.Application.Interfaces.Tenants.Companies;
 using SmartAttendance.Common.Exceptions;
 using CancellationToken = System.Threading.CancellationToken;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Queries.CheckDomain;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Queries.CheckDomain;
 
 public class CheckDomainQueryHandler(
     IUniversityRepository                        UniversityRepository,

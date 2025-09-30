@@ -1,7 +1,7 @@
 ﻿using SmartAttendance.Application.Base.Universities.Queries.IsExist;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Queries.IsExist;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Queries.IsExist;
 
 public record IsUniversityExistByIdQueryHandler(
     IUniversityRepository                      UniversityRepository,

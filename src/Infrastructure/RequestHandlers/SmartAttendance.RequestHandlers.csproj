@@ -14,6 +14,12 @@
 
     <ItemGroup>
         <Folder Include="Base\"/>
+        <Folder Include="Features\Attachments\" />
+        <Folder Include="Features\Attendances\" />
+        <Folder Include="Features\Excuses\" />
+        <Folder Include="Features\Majors\" />
+        <Folder Include="Features\Notifications\" />
+        <Folder Include="Features\Plans\Queries\" />
     </ItemGroup>
 
 

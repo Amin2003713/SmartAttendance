@@ -8,7 +8,7 @@ using SmartAttendance.Common.Exceptions;
 using SmartAttendance.Common.General.Enums.FileType;
 using SmartAttendance.Domain.Tenants;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Commands.UpdateUniversity;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Commands.UpdateUniversity;
 
 /// <summary>
 ///     Handler for UpdateUniversityCommand, implementing IRequestHandler<UpdateUniversityCommand>.

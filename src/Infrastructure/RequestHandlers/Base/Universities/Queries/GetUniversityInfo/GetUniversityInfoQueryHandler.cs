@@ -4,7 +4,7 @@ using SmartAttendance.Application.Interfaces.Settings;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
 using SmartAttendance.Common.Exceptions;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Queries.GetUniversityInfo;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Queries.GetUniversityInfo;
 
 public class GetUniversityInfoQueryHandler(
     IUniversityRepository                           UniversityRepository,

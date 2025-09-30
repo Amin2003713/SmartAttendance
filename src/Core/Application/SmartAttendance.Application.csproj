@@ -31,6 +31,28 @@
 
     <ItemGroup>
         <Folder Include="Base\"/>
+        <Folder Include="Features\Attachments\Commands\" />
+        <Folder Include="Features\Attachments\Queries\" />
+        <Folder Include="Features\Attachments\Request\Commands\" />
+        <Folder Include="Features\Attachments\Request\Queries\" />
+        <Folder Include="Features\Attachments\Validators\" />
+        <Folder Include="Features\Attendances\Commands\" />
+        <Folder Include="Features\Attendances\Queries\" />
+        <Folder Include="Features\Attendances\Request\Commands\" />
+        <Folder Include="Features\Attendances\Request\Queries\" />
+        <Folder Include="Features\Attendances\Validators\" />
+        <Folder Include="Features\Excuses\Commands\" />
+        <Folder Include="Features\Excuses\Queries\" />
+        <Folder Include="Features\Excuses\Request\Commands\" />
+        <Folder Include="Features\Excuses\Request\Queries\" />
+        <Folder Include="Features\Excuses\Validators\" />
+        <Folder Include="Features\Notifications\Commands\" />
+        <Folder Include="Features\Notifications\Queries\" />
+        <Folder Include="Features\Notifications\Request\Commands\" />
+        <Folder Include="Features\Notifications\Request\Queries\" />
+        <Folder Include="Features\Notifications\Validators\" />
+        <Folder Include="Features\Plans\Queries\" />
+        <Folder Include="Features\Plans\Request\Queries\" />
         <Folder Include="Interfaces\Calendars\"/>
     </ItemGroup>
 
