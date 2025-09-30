@@ -32,21 +32,6 @@ public static class DependencyInjection
                 var options  = CreateContextOptions(connStr);
                 return new WriteOnlyDbContext(options, identity);
             },
-            tenantDb =>
-            {
-                var mongoUrlBuilder = new MongoUrlBuilder
-                {
-                    Server               = new MongoServerAddress(ApplicationConstant.Mongo.Host, ApplicationConstant.Mongo.Port),
-                    DatabaseName         = ApplicationConstant.Mongo.DefaultDb,
-                    Username             = ApplicationConstant.Mongo.UserName,
-                    Password             = ApplicationConstant.Mongo.Password,
-                    AuthenticationSource = "admin",
-                    AllowInsecureTls     = true
-                };
-
-                var client = new MongoClient(mongoUrlBuilder.ToMongoUrl());
-                return client.GetDatabase($"SmartAttendance{"_" + tenantDb}");
-            },
             ApplicationConstant.AppOptions.TenantStore
         );
 

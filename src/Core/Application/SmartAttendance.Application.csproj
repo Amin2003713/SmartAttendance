@@ -16,7 +16,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.0"/>
 
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.7"/>
-        <PackageReference Include="Riviera.ZarinPal" Version="3.0.0-preview.4"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Filters.Abstractions" Version="9.0.0"/>
     </ItemGroup>
 

@@ -1,5 +1,9 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Genders;
+using SmartAttendance.Domain.Features.Attendances;
+using SmartAttendance.Domain.Features.Excuses;
+using SmartAttendance.Domain.Features.Notifications;
+using SmartAttendance.Domain.Features.Plans;
 
 namespace SmartAttendance.Domain.Users;
 
@@ -23,6 +27,12 @@ public class User : IdentityUser<Guid>,
     public DateTime? LastActionOnServer { get; set; }
     public DateTime? BirthDate { get; set; }
     public override Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
+
+    public ICollection<Plan> PlansTaught { get; set; } = new List<Plan>();
+    public ICollection<PlanEnrollment> Enrollments { get; set; } = new List<PlanEnrollment>();
+    public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
+    public ICollection<Excuse> Excuses { get; set; } = new List<Excuse>();
+    public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
     public void SetPasswordHash(string hashPassword)
     {

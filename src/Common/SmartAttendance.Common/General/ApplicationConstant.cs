@@ -1,5 +1,4 @@
 ﻿using System.Text.Encodings.Web;
-using OpenTelemetry.Exporter;
 using SmartAttendance.Common.Utilities.MongoHelpers;
 
 namespace SmartAttendance.Common.General;
@@ -35,26 +34,7 @@ public abstract class ApplicationConstant
         public static string SmLoge { get; set; } = "Sm/newSmLogo.png";
     }
 
-    public static class Aspire
-    {
-        private const string Header = "x-otlp-api-key=FC83FFEF-1C71-4C88-97D7-27CE9570F131";
-
-        public readonly static string OtelEndpoint = "http://aspire:18889";
-
-
-        public readonly static Dictionary<string, string> HeaderKey = new()
-        {
-            {
-                "x-otlp-api-key", "FC83FFEF-1C71-4C88-97D7-27CE9570F131"
-            }
-        };
-
-        public static Action<OtlpExporterOptions> OtlpExporter => options =>
-        {
-            options.Endpoint = new Uri(OtelEndpoint);
-            if (!string.IsNullOrEmpty(Header)) options.Headers = Header;
-        };
-    }
+   
 
     public static class AppOptions
     {
@@ -98,39 +78,6 @@ public abstract class ApplicationConstant
     {
         public readonly static string EmailSuffix    = "@gmail.com";
         public readonly static string BaseDomain     = Environment.GetEnvironmentVariable("BASE_URL") ?? "mrShift.ir";
-        public readonly static int    GrantedStorage = 5120;
     }
 
-    public static class Mongo
-    {
-        public readonly static JsonSerializerOptions JsonOptions = new (JsonSerializerDefaults.Web)
-        {
-            PropertyNamingPolicy        = JsonNamingPolicy.CamelCase,
-            PropertyNameCaseInsensitive = true,
-            WriteIndented               = IsDevelopment,
-            DefaultIgnoreCondition      = JsonIgnoreCondition.WhenWritingNull,
-            Encoder                     = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new ReferenceJsonConverterFactory(),
-                new JsonStringEnumConverter()
-            }
-        };
-
-        public static string Host { get; set; } = "mongodb";
-        public static int Port { get; set; } = 27017;
-        public static string DefaultDb { get; set; } = "Sm";
-        public static string UserName { get; set; } = "SA";
-        public static string Password { get; set; } = "8CCA6B60A3EF40A59128@6D2824C9AEDC";
-
-        public static string GetEventsCollectionName(string name)
-        {
-            return $"{name}_Events";
-        }
-
-        public static string GetSnapShotCollectionName(string name)
-        {
-            return $"{name}_SnapShot";
-        }
-    }
 }

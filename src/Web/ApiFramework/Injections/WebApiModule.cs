@@ -19,7 +19,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Riviera.ZarinPal.V4;
 using SmartAttendance.ApiFramework.Attributes;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Filters;
@@ -57,7 +56,6 @@ public static class WebApiModule
 
         services.AddSingleton<IMultiTenantContext<TTenantInfo>, MultiTenantContext<TTenantInfo>>();
         services.AddHttpContextAccessor();
-        services.AddZarinPal();
 
         services.AddSwaggerGenWithOptions<TApplication>(swaggerTitle);
 
@@ -83,23 +81,12 @@ public static class WebApiModule
         });
 
         services.AddMultiTenant<TTenantInfo>().WithHostStrategy("__tenant__.*").WithHeaderStrategy("X-Tenant").WithEFCoreStore<TTenantDbContext, TTenantInfo>();
+        services.AddHttpClient();
 
         services.AddScoped<ValidateModelStateAttribute>();
         services.AddLocalization(options => options.ResourcesPath = resourcesPath);
     }
 
-
-    public static void AddZarinPal(this IServiceCollection services)
-    {
-        services.Configure<ZarinPalOptions>(options =>
-        {
-            options.MerchantId    = "61c24dc8-870b-4e1f-8da4-733127086510";
-            options.IsDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-        });
-
-        services.AddHttpClient();
-        services.AddHttpClient<ZarinPalService>();
-    }
 
 
     private static void AddSwaggerGenWithOptions<TExample>(this IServiceCollection services, string title)

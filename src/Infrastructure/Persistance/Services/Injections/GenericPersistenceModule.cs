@@ -1,7 +1,5 @@
 ﻿using Finbuckle.MultiTenant;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
+
 using SmartAttendance.Application.Interfaces.Base;
 using SmartAttendance.Application.Interfaces.HangFire;
 using SmartAttendance.Persistence.Services.MigrationManagers;
@@ -19,7 +17,6 @@ public static class GenericPersistenceModule
         Func<IServiceProvider, string, TAppDbContext> appDbFactory,
         Func<IServiceProvider, string, TReadDb>       readDbFactory,
         Func<IServiceProvider, string, TWriteDb>      writeDbFactory,
-        Func<string, IMongoDatabase>                  mongoFactory,
         string                                        sqlConnection)
         where TAdminUser : class
         where TSeeder : class, IGenericSeeder<TAppDbContext>
@@ -49,20 +46,6 @@ public static class GenericPersistenceModule
         services.AddScoped(provider => readDbFactory(provider, ResolveTenantIdentifier(provider)));
 
         services.AddScoped(provider => writeDbFactory(provider, ResolveTenantIdentifier(provider)));
-
-        services.AddScoped<IMongoDatabase>(provider =>
-        {
-            var httpContextAccessor = provider.GetService<IHttpContextAccessor>();
-
-            var tenant = httpContextAccessor?.HttpContext?.GetMultiTenantContext<UniversityTenantInfo>()?.TenantInfo;
-
-            if (tenant?.Identifier != null)
-                return mongoFactory(tenant.Identifier!);
-
-            return mongoFactory("Sm");
-        });
-
-        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
         services.AddAndMigrateTenantDatabases<TAppDbContext, TSeeder>().ConfigureAwait(false);
 
