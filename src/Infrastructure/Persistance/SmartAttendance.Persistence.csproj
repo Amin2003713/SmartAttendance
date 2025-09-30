@@ -48,4 +48,8 @@
         <Compile Remove="Mongo\Repositories\MongoRoleRepository.cs"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\Features\" />
+    </ItemGroup>
+
 </Project>

@@ -268,11 +268,6 @@ namespace SmartAttendance.Persistence.Migrations.Features
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -284,6 +279,11 @@ namespace SmartAttendance.Persistence.Migrations.Features
 
                     b.Property<Guid>("UploadedBy")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -405,6 +405,84 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.ToTable("Excuses", (string)null);
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Features.Majors.Major", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Majors");
+                });
+
+            modelBuilder.Entity("SmartAttendance.Domain.Features.Majors.MajorSubject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("MajorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MajorId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("MajorSubjects");
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Features.Notifications.Notification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -516,9 +594,6 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MajorId");
@@ -573,84 +648,6 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.HasIndex("StudentId");
 
                     b.ToTable("PlanEnrollments", (string)null);
-                });
-
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Major", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Majors");
-                });
-
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.MajorSubject", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("MajorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MajorId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("MajorSubjects");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Subject", b =>
@@ -1243,6 +1240,25 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Features.Majors.MajorSubject", b =>
+                {
+                    b.HasOne("SmartAttendance.Domain.Features.Majors.Major", "Major")
+                        .WithMany("Subjects")
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartAttendance.Domain.Features.Subjects.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Major");
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Features.Notifications.Notification", b =>
                 {
                     b.HasOne("SmartAttendance.Domain.Users.User", "User")
@@ -1256,7 +1272,7 @@ namespace SmartAttendance.Persistence.Migrations.Features
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.Plan", b =>
                 {
-                    b.HasOne("SmartAttendance.Domain.Features.Subjects.Major", "Major")
+                    b.HasOne("SmartAttendance.Domain.Features.Majors.Major", "Major")
                         .WithMany()
                         .HasForeignKey("MajorId");
 
@@ -1280,25 +1296,6 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.Navigation("Plan");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.MajorSubject", b =>
-                {
-                    b.HasOne("SmartAttendance.Domain.Features.Subjects.Major", "Major")
-                        .WithMany("Subjects")
-                        .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SmartAttendance.Domain.Features.Subjects.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Major");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Subject", b =>
@@ -1396,6 +1393,11 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.Navigation("CalendarUsers");
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Features.Majors.Major", b =>
+                {
+                    b.Navigation("Subjects");
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.Plan", b =>
                 {
                     b.Navigation("Attendances");
@@ -1405,11 +1407,6 @@ namespace SmartAttendance.Persistence.Migrations.Features
                     b.Navigation("Subjects");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Major", b =>
-                {
-                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>
