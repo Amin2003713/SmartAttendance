@@ -55,16 +55,7 @@ public class UniversityTenantInfo : ITenantInfo
         return new Uri($"{scheme}://{Identifier}.{ApplicationConstant.Const.BaseDomain}/");
     }
 
-    // 🔹 Check if the branch registration is complete
-    public bool IsBranchRegistrationCompleted()
-    {
-        return !(string.IsNullOrWhiteSpace(Name) ||
-                 string.IsNullOrWhiteSpace(BranchName) ||
-                 string.IsNullOrWhiteSpace(City) ||
-                 string.IsNullOrWhiteSpace(Province) ||
-                 string.IsNullOrWhiteSpace(PhoneNumber) ||
-                 string.IsNullOrWhiteSpace(Email));
-    }
+ 
 
     // 🔹 Update model with another instance
     public void Update(UniversityTenantInfo request)

@@ -1,13 +1,16 @@
 ﻿using Mapster;
+using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
+using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
 using SmartAttendance.Application.Interfaces.Tenants.Users;
 using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums.FileType;
 using SmartAttendance.Domain.Tenants;
 using SmartAttendance.Persistence.Db;
 using SmartAttendance.Persistence.Services.RunTimeServiceSetup;
 
-namespace SmartAttendance.RequestHandlers.Base.Universites.Commands.InitialUniversity;
+namespace SmartAttendance.RequestHandlers.Base.Universities.Commands.InitialUniversity;
 
 public class InitialUniversityCommandHandler(
     IUniversityRepository                             repository,
@@ -15,6 +18,7 @@ public class InitialUniversityCommandHandler(
     RunTimeDatabaseMigrationService                runTimeDatabaseMigrationService,
     IStringLocalizer<InitialUniversityCommandHandler> localizer,
     ILogger<InitialUniversityCommandHandler>          logger,
+    Mediator mediator,
     SmartAttendanceTenantDbContext                 dbContext
 )
     : IRequestHandler<InitialUniversityCommand, string>
@@ -82,6 +86,22 @@ public class InitialUniversityCommandHandler(
                 throw SmartAttendanceException.BadRequest(additionalData: localizer["Tenant domain is not valid."].Value);
 
             var University = request.Adapt<UniversityTenantInfo>();
+
+            if (request.Logo.MediaFile != null)
+            {
+                var path = await mediator.Send(new UploadHubFileCommand()
+                    {
+                        File = request.Logo.MediaFile,
+                        ReportDate = DateTime.Now,
+                        RowId =    new Guid(University.Id!),
+                        RowType = FileStorageType.UniversityLogo
+                    },
+                    cancellationToken);
+
+                if (path!.Url != null)
+                    University.Logo = path.Url;
+            }
+
             University.BranchAdminId = userId;
             var createResult = await repository.CreateAsync(University, cancellationToken);
 

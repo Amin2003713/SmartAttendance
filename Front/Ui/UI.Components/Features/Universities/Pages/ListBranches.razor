@@ -26,52 +26,26 @@
             @foreach (var uni in Universities)
             {
                 <MudItem xs="12" sm="6" md="4" lg="3">
-                    <MudCard Class="mud-hover-elevation mud-theme-primary rounded-xl overflow-hidden"
-                             Style="height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out;"
-                             Elevation="4"
-                             @onclick="() => NavigateToUni(uni.Domain)">
-
-                        <MudCardMedia Height="140"
-                                      Style="background: linear-gradient(135deg, var(--mud-palette-surface) 0%, var(--mud-palette-background-grey) 100%);"/>
+                    <MudCard
+                        Style="height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out;"
+                        Elevation="4"
+                        @onclick="() => NavigateToUni(uni.Domain)">
 
 
                         <MudCardContent Class="pt-4 pb-6 px-4" Style="flex-grow: 1;">
-                            <div class="d-flex align-center mb-3">
-                                <MudAvatar Size="Size.Medium" Src="@uni.Logo" Alt="@uni.Name" Variant="Variant.Filled"
-                                           Color="Color.Primary">
-                                    <MudImage Src="@uni.Logo" Alt="@uni.Name"></MudImage>
-                                </MudAvatar>
-                                <MudSpacer/>
-                                <MudText Typo="Typo.h6"
-                                         Class="mud-text-primary font-weight-bold">@uni.LegalName</MudText>
-                            </div>
-
-                            @if (!string.IsNullOrWhiteSpace(uni.City))
-                            {
-                                <div class="d-flex align-center mb-2">
-                                    <MudIcon Icon="@Icons.Filled.LocationOn" Size="Size.Small"
-                                             Color="Color.Secondary" Class="mr-2"/>
-                                    <MudText Typo="Typo.body2" Color="Color.Secondary">@uni.City</MudText>
-                                </div>
-                            }
-
-                            @if (!string.IsNullOrWhiteSpace(uni.UniversityType))
-                            {
-                                <div class="d-flex align-center mb-2">
-                                    <MudIcon Icon="@Icons.Filled.School" Size="Size.Small" Color="Color.Info"
-                                             Class="mr-2"/>
-                                    <MudText Typo="Typo.caption" Color="Color.Info">@uni.UniversityType</MudText>
-                                </div>
-                            }
-
-                            @if (!string.IsNullOrWhiteSpace(uni.PhoneNumber))
-                            {
-                                <div class="d-flex align-center">
-                                    <MudIcon Icon="@Icons.Filled.Phone" Size="Size.Small" Color="Color.Default"
-                                             Class="mr-2"/>
-                                    <MudText Typo="Typo.body2">@uni.PhoneNumber</MudText>
-                                </div>
-                            }
+                            <MudGrid>
+                                <MudItem md="6">
+                                    <MudImage Src="@uni.Logo"/>
+                                </MudItem>
+                                <MudItem md="6">
+                                    <MudText>2</MudText>
+                                    <MudText>3</MudText>
+                                    <MudText>4</MudText>
+                                    <MudText>54</MudText>
+                                    <MudText>342</MudText>
+                                    <MudText>234</MudText>
+                                </MudItem>
+                            </MudGrid>
                         </MudCardContent>
 
                         <MudCardActions Class="px-4 pb-4">

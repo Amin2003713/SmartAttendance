@@ -30,10 +30,7 @@ public class UpdateUniversityCommand : IRequest
     public UploadMediaFileRequest Logo { get; set; }
 
     // 🔹 Administration
-    public Guid? BranchAdminId { get; set; } // Optional update for branch admin
-
-    // 🔹 Optional University info
-    public string? ActivityType { get; set; }
+    public Guid? BranchAdminId { get; set; } 
 
     // 🔹 Fluent method for adding logo
     public UpdateUniversityCommand AddMedia(UploadMediaFileRequest requestLogo)
