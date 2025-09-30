@@ -1,3 +1,6 @@
-﻿namespace SmartAttendance.Application.Features.Plans.Commands.Update;
+﻿using SmartAttendance.Application.Features.Plans.Request.Commands.Update;
 
-public class UpdatePlanCommand   : UpdatePlanRequest  , IRequest  ;
+namespace SmartAttendance.Application.Features.Plans.Commands.Update;
+
+public class UpdatePlanCommand   : UpdatePlanRequest  ,
+    IRequest  ;

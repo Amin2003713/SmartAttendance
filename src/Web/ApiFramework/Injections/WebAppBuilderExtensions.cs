@@ -2,7 +2,6 @@
 using Finbuckle.MultiTenant;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SmartAttendance.ApiFramework.Middleware.Localaizer;
@@ -74,7 +73,6 @@ public static class WebAppBuilderExtensions
             });
 
             endpoints.MapHangfireDashboard();
-
         });
 
         app.UseHangfireDashboard(

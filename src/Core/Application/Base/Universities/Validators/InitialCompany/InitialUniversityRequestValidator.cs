@@ -33,6 +33,5 @@ public class InitialUniversityRequestValidator : AbstractValidator<InitialUniver
             .WithMessage(localizer["Phone number is required."].Value) // "شماره تلفن الزامی است."
             .Matches("^09[0-9]{9}$")
             .WithMessage(localizer["Phone number format is invalid."].Value); // "فرمت شماره تلفن نامعتبر است."
-
     }
 }

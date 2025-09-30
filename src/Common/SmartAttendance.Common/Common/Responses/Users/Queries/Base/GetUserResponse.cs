@@ -1,5 +1,4 @@
 ﻿using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
-using SmartAttendance.Common.General.Enums;
 using SmartAttendance.Common.General.Enums.Genders;
 
 namespace SmartAttendance.Common.Common.Responses.Users.Queries.Base;

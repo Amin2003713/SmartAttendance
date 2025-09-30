@@ -29,12 +29,6 @@
         <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
 
 
-
-
-
-
-
-
     </ItemGroup>
 
 

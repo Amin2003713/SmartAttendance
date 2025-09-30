@@ -3,8 +3,6 @@ using SmartAttendance.Domain.Features.Attendances;
 
 namespace SmartAttendance.Persistence.Repositories.Features.Attendances;
 
-
-
 public class AttendanceCommandRepository(
     WriteOnlyDbContext                       dbContext,
     ILogger<CommandRepository<Attendance>> logger

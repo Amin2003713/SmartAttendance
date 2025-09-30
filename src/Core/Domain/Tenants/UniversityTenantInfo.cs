@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SmartAttendance.Domain.Tenants;
+﻿namespace SmartAttendance.Domain.Tenants;
 
 public class UniversityTenantInfo : ITenantInfo
 {
-    // 🔹 Core University Info
-    public string? Id { get; set; } = Guid.NewGuid().ToString(); // Unique tenant identifier
-    public string? Identifier { get; set; }                       // Used for subdomain (e.g., tehran.uni-domain.com)
-    public string? Name { get; set; }                             // University name
-    public string? LegalName { get; set; }                        // Official/legal name if different
-    public string? AccreditationCode { get; set; }                // Government or ministry accreditation code
-    public bool IsPublic { get; set; }                            // Public vs private university
+    public string? LegalName { get; set; }         // Official/legal name if different
+    public string? AccreditationCode { get; set; } // Government or ministry accreditation code
+    public bool IsPublic { get; set; }             // Public vs private university
 
     // 🔹 Branch Info
     public string? BranchName { get; set; }                       // Branch location (e.g., Tehran, Isfahan)
@@ -30,7 +23,13 @@ public class UniversityTenantInfo : ITenantInfo
     // 🔹 Administration
     public Guid? BranchAdminId { get; set; }
     public UniversityAdmin? BranchAdmin { get; set; }  // Admin object
+
     public List<UniversityUser>? Users { get; set; } = new(); // University users
+
+    // 🔹 Core University Info
+    public string? Id { get; set; } = Guid.NewGuid().ToString(); // Unique tenant identifier
+    public string? Identifier { get; set; }                      // Used for subdomain (e.g., tehran.uni-domain.com)
+    public string? Name { get; set; }                            // University name
 
     // 🔹 Database/Connection
     public string GetConnectionString()
@@ -55,7 +54,6 @@ public class UniversityTenantInfo : ITenantInfo
         return new Uri($"{scheme}://{Identifier}.{ApplicationConstant.Const.BaseDomain}/");
     }
 
- 
 
     // 🔹 Update model with another instance
     public void Update(UniversityTenantInfo request)

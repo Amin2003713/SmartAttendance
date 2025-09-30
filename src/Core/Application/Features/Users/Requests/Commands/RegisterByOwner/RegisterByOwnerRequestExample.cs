@@ -17,7 +17,7 @@ public class RegisterByOwnerRequestExample : IExamplesProvider<RegisterByOwnerRe
             BirthDate      = new DateTime(1995, 5, 20),
             Address        = "123 Example St, Tehran, Iran",
             Gender         = GenderType.Man,
-            IsActive       = true,
+            IsActive       = true
         };
     }
 }

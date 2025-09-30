@@ -1,7 +1,4 @@
-﻿using System.Text.Encodings.Web;
-using SmartAttendance.Common.Utilities.MongoHelpers;
-
-namespace SmartAttendance.Common.General;
+﻿namespace SmartAttendance.Common.General;
 
 public abstract class ApplicationConstant
 {
@@ -34,7 +31,6 @@ public abstract class ApplicationConstant
         public static string SmLoge { get; set; } = "Sm/newSmLogo.png";
     }
 
-   
 
     public static class AppOptions
     {
@@ -76,8 +72,7 @@ public abstract class ApplicationConstant
 
     public static class Const
     {
-        public readonly static string EmailSuffix    = "@gmail.com";
-        public readonly static string BaseDomain     = Environment.GetEnvironmentVariable("BASE_URL") ?? "mrShift.ir";
+        public readonly static string EmailSuffix = "@gmail.com";
+        public readonly static string BaseDomain  = Environment.GetEnvironmentVariable("BASE_URL") ?? "mrShift.ir";
     }
-
 }

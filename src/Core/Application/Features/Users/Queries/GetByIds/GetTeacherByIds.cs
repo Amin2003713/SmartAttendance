@@ -1,7 +1,6 @@
 ﻿using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 
-namespace SmartAttendance.Application.Features.Teachers.Queries.GetByIds;
-
+namespace SmartAttendance.Application.Features.Users.Queries.GetByIds;
 
 public class GetTeacherByIds(
     List<Guid> Ids

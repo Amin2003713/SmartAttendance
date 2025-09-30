@@ -5,14 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
 using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
-using SmartAttendance.Application.Features.Plans.Commands.Create;
 using SmartAttendance.Application.Features.Users.Commands.UpdateUser;
 using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
 using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 using SmartAttendance.Common.Utilities.TypeConverters;
-using SmartAttendance.Domain.Features.Plans;
 using SmartAttendance.Domain.Tenants;
 using SmartAttendance.Domain.Users;
 
@@ -40,11 +38,7 @@ public static class DependencyInjection
         PlanAdaptor();
     }
 
-    private static void PlanAdaptor()
-    {
-
-
-    }
+    private static void PlanAdaptor() { }
 
     private static void UserAdaptor()
     {

@@ -75,8 +75,6 @@ public class Startup
         app.UseMiddleware<JwtExceptionHandlingMiddleware>();
 
 
-
-
         // Register shared WebAPI conventions including Swagger and resource tracking
         app.UseWebApi<Empty>("Tenant API Reference");
     }

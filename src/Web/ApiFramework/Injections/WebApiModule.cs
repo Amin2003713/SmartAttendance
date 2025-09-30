@@ -88,7 +88,6 @@ public static class WebApiModule
     }
 
 
-
     private static void AddSwaggerGenWithOptions<TExample>(this IServiceCollection services, string title)
     {
         services.AddSwaggerExamplesFromAssemblyOf<TExample>();

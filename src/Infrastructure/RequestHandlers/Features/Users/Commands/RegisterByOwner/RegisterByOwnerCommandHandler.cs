@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SmartAttendance.Application.Features.Users.Commands.AddRole;
 using SmartAttendance.Application.Features.Users.Commands.RegisterByOwner;
 using SmartAttendance.Application.Interfaces.Users;
 using SmartAttendance.Common.Exceptions;

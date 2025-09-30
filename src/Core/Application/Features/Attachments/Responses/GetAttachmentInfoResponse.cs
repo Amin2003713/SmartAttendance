@@ -1,5 +1,4 @@
 ﻿using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
-using SmartAttendance.Domain.Features.Attachments;
 
 namespace SmartAttendance.Application.Features.Attachments.Responses;
 

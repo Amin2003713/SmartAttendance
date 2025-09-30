@@ -1,6 +1,5 @@
 ﻿using SmartAttendance.Application.Features.Attachments.Responses;
 using SmartAttendance.Common.General.Enums.Excuse;
-using SmartAttendance.Domain.Features.Excuses;
 
 namespace SmartAttendance.Application.Features.Excuses.Responses;
 

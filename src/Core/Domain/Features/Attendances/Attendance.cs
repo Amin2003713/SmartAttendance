@@ -1,6 +1,4 @@
-﻿using System.Net.Mail;
-using System.Numerics;
-using SmartAttendance.Common.General.BaseClasses;
+﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Attendance;
 using SmartAttendance.Domain.Features.Excuses;
 using SmartAttendance.Domain.Features.Plans;

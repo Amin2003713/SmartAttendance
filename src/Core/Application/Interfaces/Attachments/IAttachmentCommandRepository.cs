@@ -5,4 +5,4 @@ using SmartAttendance.Domain.Features.Attachments;
 namespace SmartAttendance.Application.Interfaces.Attachments;
 
 public interface IAttachmentCommandRepository : ICommandRepository<Attachment>,
-      IScopedDependency { }
+    IScopedDependency { }

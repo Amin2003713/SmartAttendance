@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-
 using SmartAttendance.Common.Common.Requests;
 
 namespace SmartAttendance.Application.Commons.MediaFiles.Validators;

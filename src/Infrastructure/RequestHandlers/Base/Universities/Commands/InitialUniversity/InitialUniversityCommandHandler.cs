@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using SmartAttendance.Application.Base.HubFiles.Commands.UploadHubFile;
-using SmartAttendance.Application.Base.MinIo.Commands.UplodeFile;
 using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
 using SmartAttendance.Application.Interfaces.Tenants.Companies;
 using SmartAttendance.Application.Interfaces.Tenants.Users;
@@ -89,7 +88,7 @@ public class InitialUniversityCommandHandler(
 
             if (request.Logo.MediaFile != null)
             {
-                var path = await mediator.Send(new UploadHubFileCommand()
+                var path = await mediator.Send(new UploadHubFileCommand
                     {
                         File = request.Logo.MediaFile,
                         ReportDate = DateTime.Now,

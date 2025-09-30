@@ -9,9 +9,6 @@
     <ItemGroup>
 
 
-    
-
-
         <PackageReference Include="Hangfire" Version="1.8.20"/>
 
 
@@ -23,22 +20,14 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.7.0"/>
-  
+
         <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1"/>
         <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
-
-
-
-
-
-
-
 
 
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.7"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3"/>
-
 
 
         <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0"/>

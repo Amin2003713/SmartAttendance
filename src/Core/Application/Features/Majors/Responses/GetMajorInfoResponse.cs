@@ -1,4 +1,4 @@
-﻿using SmartAttendance.Domain.Features.Subjects;
+﻿using SmartAttendance.Domain.Features.Majors;
 
 namespace SmartAttendance.Application.Features.Majors.Responses;
 
@@ -8,8 +8,3 @@ public class GetMajorInfoResponse
     public Guid Id { get; set; }
     public List<MajorSubject> Subjects { get; set; }
 }
-
-record MajorSubjectResponse(
-    Guid Id ,
-    string Name
-)              ;

@@ -125,7 +125,7 @@ public class UserCommandRepository(
                     File       = request.ProfilePicture.MediaFile,
                     ReportDate = DateTime.UtcNow,
                     RowType    = FileStorageType.ProfilePicture,
-                    RowId      = (newUser.Id)
+                    RowId      = newUser.Id
                 };
 
                 var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);

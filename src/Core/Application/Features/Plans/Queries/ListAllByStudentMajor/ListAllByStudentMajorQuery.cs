@@ -1,6 +1,3 @@
 ﻿namespace SmartAttendance.Application.Features.Plans.Queries.ListAllByStudentMajor;
 
-public class ListAllByStudentMajorQuery
-{
-    
-}
+public class ListAllByStudentMajorQuery { }

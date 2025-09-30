@@ -2,8 +2,6 @@
 using SmartAttendance.Application.Features.Majors.Responses;
 using SmartAttendance.Application.Features.Subjects.Responses;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
-using SmartAttendance.Domain.Features.Attendances;
-using SmartAttendance.Domain.Features.Plans;
 
 namespace SmartAttendance.Application.Features.Plans.Responses;
 
@@ -28,9 +26,3 @@ public class GetPlanInfoResponse
     public List<GetEnrollmentResponse> Enrollments { get; set; } = [];
     public List<GetAttendanceInfoResponse> Attendances { get; set; } = [];
 }
-
-public record GetEnrollmentResponse(
-    string StudentName ,
-    string PersonalNumber ,
-    Guid Id
-);

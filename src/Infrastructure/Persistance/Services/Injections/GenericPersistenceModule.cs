@@ -1,5 +1,4 @@
 ﻿using Finbuckle.MultiTenant;
-
 using SmartAttendance.Application.Interfaces.Base;
 using SmartAttendance.Application.Interfaces.HangFire;
 using SmartAttendance.Persistence.Services.MigrationManagers;

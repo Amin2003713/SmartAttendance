@@ -3,7 +3,7 @@ using SmartAttendance.Common.Common.Requests;
 namespace SmartAttendance.Application.Base.Universities.Commands.UpdateUniversity;
 
 /// <summary>
-/// Command for updating a University, fully aligned with UniversityTenantInfo model.
+///     Command for updating a University, fully aligned with UniversityTenantInfo model.
 /// </summary>
 public class UpdateUniversityCommand : IRequest
 {
@@ -30,7 +30,7 @@ public class UpdateUniversityCommand : IRequest
     public UploadMediaFileRequest Logo { get; set; }
 
     // 🔹 Administration
-    public Guid? BranchAdminId { get; set; } 
+    public Guid? BranchAdminId { get; set; }
 
     // 🔹 Fluent method for adding logo
     public UpdateUniversityCommand AddMedia(UploadMediaFileRequest requestLogo)

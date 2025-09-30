@@ -19,7 +19,6 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
-
 global using SmartAttendance.Application.Interfaces.Calendars.CalendarUsers;
 global using SmartAttendance.Application.Interfaces.Tenants.Calendars;
 global using SmartAttendance.Application.Interfaces.Users;

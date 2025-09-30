@@ -8,7 +8,7 @@ public class RegisterByOwnerCommand : RegisterByOwnerRequest,
 {
     public RegisterByOwnerCommand AddFiles(UploadMediaFileRequest? fileRequest)
     {
-        this.ProfilePicture = fileRequest;
+        ProfilePicture = fileRequest;
         return this;
     }
 }

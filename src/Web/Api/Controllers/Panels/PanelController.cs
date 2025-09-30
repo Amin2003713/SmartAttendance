@@ -79,8 +79,7 @@ public class PanelController : SmartAttendanceBaseController
     [AllowAnonymous]
     [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
-    public virtual async Task<List<GetUniversityInfoResponse>> ListAvailableUniversities(
-        CancellationToken                cancellationToken)
+    public virtual async Task<List<GetUniversityInfoResponse>> ListAvailableUniversities(CancellationToken                cancellationToken)
     {
         return await Mediator.Send(new ListAvailableUniversitiesQuery(), cancellationToken);
     }

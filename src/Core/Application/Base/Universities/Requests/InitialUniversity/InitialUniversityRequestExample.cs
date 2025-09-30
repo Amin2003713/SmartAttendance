@@ -23,8 +23,7 @@ public class InitialUniversityRequestExample : IExamplesProvider<InitialUniversi
             FirstName        = "Ali",
             LastName         = "Ahmadi",
             Password        = "@EsfUni123",
-            ConfirmPassword = "@EsfUni123",
-
+            ConfirmPassword = "@EsfUni123"
         };
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Mapster;
-using SmartAttendance.Application.Features.Majors.Queries;
+using SmartAttendance.Application.Features.Majors.Queries.GetById;
 using SmartAttendance.Application.Features.Plans.Commands.Create;
-using SmartAttendance.Application.Features.Teachers.Queries.GetByIds;
+using SmartAttendance.Application.Features.Subjects.Queries;
+using SmartAttendance.Application.Features.Users.Queries.GetByIds;
 using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Common.Exceptions;
 using SmartAttendance.Domain.Features.Plans;
@@ -25,7 +26,7 @@ public class CreatePlanCommandHandler(
         if (subjects.Count != request.SubjectIds.Count)
             throw SmartAttendanceException.NotFound("one of the subjects not found");
 
-        var teachers =  (await mediator.Send(new GetTeacherByIds(request.TeacherIds), cancellationToken));
+        var teachers =  await mediator.Send(new GetTeacherByIds(request.TeacherIds), cancellationToken);
         if (teachers.Count != request.TeacherIds.Count)
             throw SmartAttendanceException.NotFound("one of the teachers not found");
 
@@ -37,7 +38,7 @@ public class CreatePlanCommandHandler(
             })
             .ToList();
 
-        plan.Subjects = subjects.Select(a => new SubjectPlans()
+        plan.Subjects = subjects.Select(a => new SubjectPlans
             {
                 PlanId = plan.Id,
                 SubjectId =  a.Id

@@ -10,7 +10,7 @@ public class Excuse : BaseEntity
     public Guid StudentId { get; set; }
     public Guid PlanId { get; set; }
     public string Reason { get; set; } = default!;
-    public ExcuseStatus Status { get; set; }  
+    public ExcuseStatus Status { get; set; }
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 
     public Guid? AttachmentId { get; set; }

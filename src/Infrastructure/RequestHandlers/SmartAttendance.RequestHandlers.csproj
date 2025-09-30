@@ -14,17 +14,17 @@
 
     <ItemGroup>
         <Folder Include="Base\"/>
-        <Folder Include="Features\Attachments\" />
-        <Folder Include="Features\Attendances\" />
-        <Folder Include="Features\Excuses\" />
-        <Folder Include="Features\Subjects\" />
-        <Folder Include="Features\Notifications\" />
-        <Folder Include="Features\Plans\Queries\" />
+        <Folder Include="Features\Attachments\"/>
+        <Folder Include="Features\Attendances\"/>
+        <Folder Include="Features\Excuses\"/>
+        <Folder Include="Features\Subjects\"/>
+        <Folder Include="Features\Notifications\"/>
+        <Folder Include="Features\Plans\Queries\"/>
     </ItemGroup>
 
 
     <ItemGroup>
-      <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="Mapster" Version="7.4.0"/>
     </ItemGroup>
 
 
