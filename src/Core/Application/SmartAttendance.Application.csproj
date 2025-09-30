@@ -51,7 +51,6 @@
         <Folder Include="Features\Notifications\Request\Commands\" />
         <Folder Include="Features\Notifications\Request\Queries\" />
         <Folder Include="Features\Notifications\Validators\" />
-        <Folder Include="Features\Plans\Queries\" />
         <Folder Include="Features\Plans\Request\Queries\" />
         <Folder Include="Interfaces\Calendars\"/>
     </ItemGroup>

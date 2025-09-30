@@ -12,7 +12,7 @@ public class AttachmentConfiguration : IEntityTypeConfiguration<Attachment>
             .IsRequired()
             .HasMaxLength(255);
 
-        builder.Property(p => p.FilePath)
+        builder.Property(p => p.Url)
             .IsRequired()
             .HasMaxLength(500);
 
