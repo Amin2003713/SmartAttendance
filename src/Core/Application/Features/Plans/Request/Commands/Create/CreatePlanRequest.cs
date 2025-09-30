@@ -7,7 +7,8 @@ public class CreatePlanRequest
     public string CourseName { get; set; } = default!;
     public string Description { get; set; } = default!;
     public required List<Guid> TeacherIds { get; set; }
-    public required List<Guid> MajorIds { get; set; }
+    public required Guid MajorId { get; set; }
+    public required List<Guid> SubjectIds { get; set; }
     public Location Location { get; set; } = default!;
     public string Address { get; set; } = default!;
     public DateTime StartTime { get; set; }

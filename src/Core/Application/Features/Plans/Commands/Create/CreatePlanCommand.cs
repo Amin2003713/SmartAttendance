@@ -1,3 +1,5 @@
-﻿namespace SmartAttendance.Application.Features.Plans.Commands.Create;
+﻿using SmartAttendance.Application.Features.Plans.Request.Commands.Create;
 
-public class CreatePlanCommand : IRequest;
+namespace SmartAttendance.Application.Features.Plans.Commands.Create;
+
+public class CreatePlanCommand : CreatePlanRequest,  IRequest;

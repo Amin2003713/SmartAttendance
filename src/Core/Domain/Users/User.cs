@@ -2,7 +2,7 @@
 using SmartAttendance.Common.General.Enums.Genders;
 using SmartAttendance.Domain.Features.Attendances;
 using SmartAttendance.Domain.Features.Excuses;
-using SmartAttendance.Domain.Features.Majors;
+using SmartAttendance.Domain.Features.Subjects;
 using SmartAttendance.Domain.Features.Notifications;
 using SmartAttendance.Domain.Features.Plans;
 
@@ -29,7 +29,7 @@ public class User : IdentityUser<Guid>,
     public DateTime? BirthDate { get; set; }
     public override Guid Id { get; set; } = Guid.CreateVersion7(DateTimeOffset.Now);
 
-    public ICollection<MajorTeacher> MajorTaught { get; set; } = new List<MajorTeacher>();
+    public ICollection<SubjectTeacher> SubjectTaught { get; set; } = new List<SubjectTeacher>();
     public ICollection<PlanEnrollment> Enrollments { get; set; } = new List<PlanEnrollment>();
     public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
     public ICollection<Excuse> Excuses { get; set; } = new List<Excuse>();

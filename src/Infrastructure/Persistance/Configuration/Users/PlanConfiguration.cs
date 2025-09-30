@@ -21,7 +21,7 @@ public class PlanConfiguration : IEntityTypeConfiguration<Plan>
         builder.Property(p => p.Capacity)
             .IsRequired();
 
-        builder.HasMany(p => p.Majors)
+        builder.HasMany(p => p.Subjects)
             .WithOne(u => u.Plan)
             .HasForeignKey(p => p.PlanId)
             .OnDelete(DeleteBehavior.Restrict);

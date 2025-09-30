@@ -1,14 +1,14 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Domain.Features.Plans;
 
-namespace SmartAttendance.Domain.Features.Majors;
+namespace SmartAttendance.Domain.Features.Subjects;
 
-public class TeacherPlan  : BaseEntity
+public class SubjectPlans  : BaseEntity
 {
     public Guid PlanId { get; set; }
     public Plan Plan { get; set; } = default!;
 
 
-    public Guid TeacherId { get; set; }
-    public User Teacher { get; set; } = default!;
+    public Guid SubjectId { get; set; }
+    public Subject Subject { get; set; } = default!;
 }

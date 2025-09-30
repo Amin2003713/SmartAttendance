@@ -8,7 +8,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.Property(p => p.UserName).IsRequired().HasMaxLength(100);
 
-        builder.HasMany(p => p.MajorTaught)
+        builder.HasMany(p => p.SubjectTaught)
             .WithOne(p => p.Teacher)
             .HasForeignKey(p => p.TeacherId)
             .OnDelete(DeleteBehavior.Restrict);

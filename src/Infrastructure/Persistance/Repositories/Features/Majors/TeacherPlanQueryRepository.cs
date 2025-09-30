@@ -1,7 +1,7 @@
-﻿using SmartAttendance.Application.Interfaces.Majors;
-using SmartAttendance.Domain.Features.Majors;
+﻿using SmartAttendance.Application.Interfaces.Subjects;
+using SmartAttendance.Domain.Features.Subjects;
 
-namespace SmartAttendance.Persistence.Repositories.Features.Majors;
+namespace SmartAttendance.Persistence.Repositories.Features.Subjects;
 
 public class TeacherPlanQueryRepository(
     ReadOnlyDbContext                             dbContext,

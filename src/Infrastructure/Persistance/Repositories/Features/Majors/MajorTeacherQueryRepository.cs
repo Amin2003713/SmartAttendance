@@ -1,12 +1,12 @@
-﻿using SmartAttendance.Application.Interfaces.Majors;
-using SmartAttendance.Domain.Features.Majors;
+﻿using SmartAttendance.Application.Interfaces.Subjects;
+using SmartAttendance.Domain.Features.Subjects;
 
-namespace SmartAttendance.Persistence.Repositories.Features.Majors;
+namespace SmartAttendance.Persistence.Repositories.Features.Subjects;
 
-public class MajorTeacherQueryRepository(
+public class SubjectTeacherQueryRepository(
     ReadOnlyDbContext                             dbContext,
-    ILogger<QueryRepository<MajorTeacher>>          logger,
-    IStringLocalizer<MajorTeacher> localizer
+    ILogger<QueryRepository<SubjectTeacher>>          logger,
+    IStringLocalizer<SubjectTeacher> localizer
 )
-    : QueryRepository<MajorTeacher>(dbContext, logger),
-        IMajorTeacherQueryRepository;
+    : QueryRepository<SubjectTeacher>(dbContext, logger),
+        ISubjectTeacherQueryRepository;

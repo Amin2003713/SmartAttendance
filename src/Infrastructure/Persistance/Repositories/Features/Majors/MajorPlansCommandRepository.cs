@@ -1,11 +1,11 @@
-﻿using SmartAttendance.Application.Interfaces.Majors;
-using SmartAttendance.Domain.Features.Majors;
+﻿using SmartAttendance.Application.Interfaces.Subjects;
+using SmartAttendance.Domain.Features.Subjects;
 
-namespace SmartAttendance.Persistence.Repositories.Features.Majors;
+namespace SmartAttendance.Persistence.Repositories.Features.Subjects;
 
-public class MajorPlansCommandRepository(
+public class SubjectPlansCommandRepository(
     WriteOnlyDbContext                       dbContext,
-    ILogger<CommandRepository<MajorPlans>> logger
+    ILogger<CommandRepository<SubjectPlans>> logger
 )
-    : CommandRepository<MajorPlans>(dbContext, logger),
-        IMajorPlansCommandRepository { }
+    : CommandRepository<SubjectPlans>(dbContext, logger),
+        ISubjectPlansCommandRepository { }

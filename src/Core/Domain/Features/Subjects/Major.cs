@@ -1,8 +1,8 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 
-namespace SmartAttendance.Domain.Features.Majors;
+namespace SmartAttendance.Domain.Features.Subjects;
 
-public class Major  : BaseEntity
+public class Subject  : BaseEntity
 {
     public string Name { get; set; }
 
