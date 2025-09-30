@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartAttendance.Persistence.Db;
 
 #nullable disable
 
-namespace SmartAttendance.Persistence.Migrations.Features
+namespace SmartAttendance.Persistence.Migrations.feat
 {
     [DbContext(typeof(SmartAttendanceDbContext))]
-    [Migration("20250930171241_Initial")]
-    partial class Initial
+    partial class SmartAttendanceDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

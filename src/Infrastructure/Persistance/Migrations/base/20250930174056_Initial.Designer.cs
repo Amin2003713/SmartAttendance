@@ -12,7 +12,7 @@ using SmartAttendance.Persistence.Db;
 namespace SmartAttendance.Persistence.Migrations.@base
 {
     [DbContext(typeof(SmartAttendanceTenantDbContext))]
-    [Migration("20250918075252_Initial")]
+    [Migration("20250930174056_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

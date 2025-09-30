@@ -61,7 +61,7 @@ public class PanelController : SmartAttendanceBaseController
     [ProducesResponseType(typeof(string),            StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiProblemDetails), StatusCodes.Status400BadRequest)]
     public virtual async Task<string> InitialUniversity(
-        [FromBody] InitialUniversityRequest request,
+        [FromForm] InitialUniversityRequest request,
         CancellationToken                cancellationToken)
     {
         return await Mediator.Send(request.Adapt<InitialUniversityCommand>(), cancellationToken);

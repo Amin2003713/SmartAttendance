@@ -49,7 +49,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Migrations\Features\" />
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>
