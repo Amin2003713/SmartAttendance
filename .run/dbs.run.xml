@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="dbs" type="docker-deploy" factoryName="docker-compose.yml" server-name="Local">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="composeProjectName" value="dbs" />
+        <option name="envFilePath" value="" />
+        <option name="commandLineOptions" value="--build" />
+        <option name="sourceFilePath" value="Docker/databses.docker-compose.yaml" />
+        <option name="upRemoveOrphans" value="true" />
+      </settings>
+    </deployment>
+    <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="true" />
+    <method v="2" />
+  </configuration>
+</component>

@@ -26,19 +26,6 @@ services:
       interval: 10s
       retries: 10
 
-  mongodb:
-    image: mongo
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: SA
-      MONGO_INITDB_ROOT_PASSWORD: ${MSSQL_SA_PASSWORD}
-    networks:
-      - shared-network
-    volumes:
-      - "${BASE_PATH}/mongo/data:/data/db:rw"
-    restart: unless-stopped
 
   Sm_minio:
     image: docker.io/bitnami/minio:latest
