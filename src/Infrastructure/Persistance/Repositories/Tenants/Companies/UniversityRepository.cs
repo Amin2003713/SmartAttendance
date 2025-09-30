@@ -38,7 +38,6 @@ public class UniversityRepository : IUniversityRepository
         CancellationToken         cancellationToken,
         bool                      saveNow = true)
     {
-        await using var transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
 
         try
         {
@@ -50,20 +49,17 @@ public class UniversityRepository : IUniversityRepository
             if (!saveNow)
                 return tenantInfo!;
 
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
             return await TableNoTracking.SingleOrDefaultAsync(x => x.Identifier == tenantInfo!.Identifier,
                        cancellationToken) ??
-                   null!;
+                   null!;       
+
         }
         catch (Exception e)
         {
             _logger.LogError(e.Source, e);
-            await transaction.RollbackAsync(cancellationToken);
             throw new SmartAttendanceException(additionalData: "Can't create University Server error");
-        }
-        finally
-        {
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            await transaction.CommitAsync(cancellationToken);
         }
     }
 

@@ -15,9 +15,6 @@ public class User : IdentityUser<Guid>,
     public string LastName { get; set; }
 
     public string FatherName { get; set; }
-
-    public string NationalCode { get; set; }
-
     public GenderType Gender { get; set; }
 
     public string? PersonalNumber { get; set; } = null!;

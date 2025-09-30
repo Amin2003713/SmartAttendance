@@ -687,7 +687,7 @@ namespace SmartAttendance.Persistence.Migrations.feat
                         column: x => x.ExcuseId,
                         principalTable: "Excuses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Attendance_Plans_PlanId",
                         column: x => x.PlanId,

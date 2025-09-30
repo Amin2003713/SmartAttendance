@@ -26,8 +26,8 @@ public abstract class ApplicationConstant
     {
         public static string Endpoint { get; set; } = "http://minio:9000";
         public static string AccessKey { get; set; } = "gGdVCDO72q74X9lEKfuz";
-        public static string SecretKey { get; set; } = "VLNkSksKp5S7nL8F684qkiBTgMnE5amlKQDTtwQz";
         public static string SmFont { get; set; } = "Sm/B_Zar.ttf";
+        public static string SecretKey { get; set; } = "VLNkSksKp5S7nL8F684qkiBTgMnE5amlKQDTtwQz";
         public static string SmLoge { get; set; } = "Sm/newSmLogo.png";
     }
 

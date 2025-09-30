@@ -17,7 +17,7 @@ public class InitialUniversityCommandHandler(
     RunTimeDatabaseMigrationService                runTimeDatabaseMigrationService,
     IStringLocalizer<InitialUniversityCommandHandler> localizer,
     ILogger<InitialUniversityCommandHandler>          logger,
-    Mediator mediator,
+    IMediator mediator,
     SmartAttendanceTenantDbContext                 dbContext
 )
     : IRequestHandler<InitialUniversityCommand, string>

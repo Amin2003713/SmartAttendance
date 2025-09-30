@@ -78,7 +78,6 @@ public class UserCommandRepository(
             LastName     = request.LastName,
             Email        = $"{request.PhoneNumber}{ApplicationConstant.Const.EmailSuffix}",
             PhoneNumber  = request.PhoneNumber,
-            NationalCode = request.NationalCode,
             FatherName      = request.FatherName,
             PersonalNumber = request.PersonalNumber,
             Gender          = request.Gender,

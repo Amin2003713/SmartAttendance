@@ -28,7 +28,6 @@ public class UpdateEmployeeCommandHandler (
         user.FirstName   = request.FirstName ?? user.FirstName;
         user.LastName    = request.LastName ?? user.LastName;
         user.FatherName  = request.FatherName ?? user.FatherName;
-        user.NationalCode = request.NationalCode ?? user.NationalCode;
         user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
         user.BirthDate   = request.BirthDate ?? user.BirthDate;
         user.Address     = request.Address ?? user.Address;
