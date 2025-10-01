@@ -10,7 +10,7 @@ public class GetUserResponse
 
     public string FatherName { get; set; }
 
-    public string NationalCode { get; set; }
+    
 
     public GenderType Gender { get; set; }
 

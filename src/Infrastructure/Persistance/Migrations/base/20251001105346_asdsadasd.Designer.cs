@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartAttendance.Persistence.Db;
 
@@ -11,9 +12,11 @@ using SmartAttendance.Persistence.Db;
 namespace SmartAttendance.Persistence.Migrations.@base
 {
     [DbContext(typeof(SmartAttendanceTenantDbContext))]
-    partial class SmartAttendanceTenantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251001105346_asdsadasd")]
+    partial class asdsadasd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
