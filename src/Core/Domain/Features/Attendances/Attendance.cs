@@ -7,7 +7,7 @@ namespace SmartAttendance.Domain.Features.Attendances;
 
 public class Attendance  : BaseEntity
 {
-    public Guid PlanId { get; set; }
+    public Guid EnrollmentId { get; set; }
     public Guid StudentId { get; set; }
     public AttendanceStatus Status { get; set; }
     public DateTime RecordedAt { get; set; } = DateTime.UtcNow;
@@ -15,7 +15,7 @@ public class Attendance  : BaseEntity
     public Guid? ExcuseId { get; set; }
 
     // Navigation
-    public Plan Plan { get; set; } = default!;
+    public PlanEnrollment Enrollment { get; set; } = default!;
     public User Student { get; set; } = default!;
     public Excuse? Excuse { get; set; }
 }

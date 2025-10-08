@@ -23,6 +23,5 @@ public class GetPlanInfoResponse
     public List<GetSubjectInfoResponse> Subjects { get; set; } = [];
     public List<GetUserResponse> Teacher { get; set; } = [];
 
-    public List<GetEnrollmentResponse> Enrollments { get; set; } = [];
     public List<GetAttendanceInfoResponse> Attendances { get; set; } = [];
 }

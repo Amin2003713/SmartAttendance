@@ -25,5 +25,4 @@ public class Plan : BaseEntity
     public ICollection<TeacherPlan> Teacher { get; set; } = [];
 
     public ICollection<PlanEnrollment> Enrollments { get; set; } = new List<PlanEnrollment>();
-    public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
 }

@@ -1,4 +1,5 @@
 ﻿using SmartAttendance.Application.Features.Excuses.Responses;
+using SmartAttendance.Application.Features.Plans.Responses;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 using SmartAttendance.Common.General.Enums.Attendance;
 
@@ -12,4 +13,7 @@ public class GetAttendanceInfoResponse
     public DateTime RecordedAt { get; set; }
 
     public GetExcuseInfoResponse? Excuse { get; set; }
+
+    public List<GetEnrollmentResponse> Enrollments { get; set; } = [];
+
 }
