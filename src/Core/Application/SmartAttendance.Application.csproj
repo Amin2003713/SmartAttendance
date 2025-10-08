@@ -44,7 +44,6 @@
         <Folder Include="Features\Notifications\Request\Queries\"/>
         <Folder Include="Features\Notifications\Validators\"/>
         <Folder Include="Features\Plans\Request\Queries\"/>
-        <Folder Include="Interfaces\Calendars\"/>
     </ItemGroup>
 
     <ItemGroup>

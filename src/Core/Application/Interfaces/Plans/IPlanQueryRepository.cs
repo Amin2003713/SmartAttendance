@@ -6,3 +6,6 @@ namespace SmartAttendance.Application.Interfaces.Plans;
 
 public interface IPlanQueryRepository : IQueryRepository<Plan>,
     IScopedDependency { }
+
+public interface IPlanEnrollmentQueryRepository : IQueryRepository<PlanEnrollment>,
+    IScopedDependency { }

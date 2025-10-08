@@ -9,3 +9,11 @@ public class PlanCommandRepository(
 )
     : CommandRepository<Plan>(dbContext, logger),
         IPlanCommandRepository { }
+
+
+public class PlanEnrollmentCommandRepository(
+    WriteOnlyDbContext                       dbContext,
+    ILogger<CommandRepository<PlanEnrollment>> logger
+)
+    : CommandRepository<PlanEnrollment>(dbContext, logger),
+        IPlanEnrollmentCommandRepository { }

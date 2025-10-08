@@ -10,3 +10,12 @@ public class PlanQueryRepository(
 )
     : QueryRepository<Plan>(dbContext, logger),
         IPlanQueryRepository;
+
+
+public class PlanEnrollmentQueryRepository(
+    ReadOnlyDbContext                             dbContext,
+    ILogger<QueryRepository<PlanEnrollment>>          logger,
+    IStringLocalizer<PlanEnrollment> localizer
+)
+    : QueryRepository<PlanEnrollment>(dbContext, logger),
+        IPlanEnrollmentQueryRepository;

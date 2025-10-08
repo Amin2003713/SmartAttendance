@@ -11,8 +11,6 @@ global using Newtonsoft.Json;
 global using SmartAttendance.Common.Common.ESBase;
 global using SmartAttendance.Common.General;
 global using SmartAttendance.Common.Utilities.EnumHelpers;
-global using SmartAttendance.Domain.Calenders.CalenderUsers;
-global using SmartAttendance.Domain.Calenders.DailyCalender;
 global using SmartAttendance.Domain.Setting;
 global using SmartAttendance.Domain.Tenants;
 global using SmartAttendance.Domain.Users;

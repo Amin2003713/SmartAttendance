@@ -1,9 +1,12 @@
 ﻿using DNTPersianUtils.Core;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
 using SmartAttendance.Application.Features.Calendars.Queries.GetCalendar;
 using SmartAttendance.Application.Features.Calendars.Request.Queries.GetCalendar;
-using SmartAttendance.Application.Interfaces.Calendars.DailyCalendars;
+using SmartAttendance.Application.Features.Plans.Responses;
+using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Application.Interfaces.Tenants.Calendars;
-using SmartAttendance.Domain.Calenders.DailyCalender;
+using SmartAttendance.Common.General.Enums;
 using SmartAttendance.Domain.Tenants;
 using SmartAttendance.Persistence.Services.Identities;
 
@@ -12,7 +15,7 @@ namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetCalendar
 public class GetCalendarQueryHandler(
     IdentityService                  identityService,
     ICalendarQueryRepository         calendarQueryRepository,
-    IDailyCalendarQueryRepository    dailyCalendarQueryRepository,
+    
     ILogger<GetCalendarQueryHandler> logger
 ) : IRequestHandler<GetCalendarQuery, List<GetCalendarResponse>>
 {
@@ -44,12 +47,7 @@ public class GetCalendarQueryHandler(
                                     [];
 
 
-        var customCalendarEntries = await dailyCalendarQueryRepository.GetCustomCalendarEvents(
-                                        monthStartGregorian,
-                                        monthEndGregorian,
-                                        currentUserId,
-                                        cancellationToken) ??
-                                    [];
+        var userPlans =  await ResolvePlans(monthStartGregorian , monthEndGregorian , cancellationToken);
 
 
         var publicByDate = publicCalendarEntries.GroupBy(e => e.Date.Date).ToDictionary(g => g.Key, g => g.First());
@@ -115,6 +113,7 @@ public class GetCalendarQueryHandler(
         return calendarResponses;
     }
 
+ 
     private bool IsPublicHolidayOrWeekend(TenantCalendar? publicEntry)
     {
         if (publicEntry == null) return false;

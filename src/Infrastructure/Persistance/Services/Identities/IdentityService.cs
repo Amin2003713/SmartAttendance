@@ -74,7 +74,7 @@ public class IdentityService(
         return DateTime.TryParse(lastLoginDate, out var date) ? date : null;
     }
 
-    public List<Roles> GetRoles()
+    public Roles? GetRoles()
     {
         var roleClaims = Identity?
             .FindAll(ClaimTypes.Role)
@@ -82,7 +82,7 @@ public class IdentityService(
             .ToList();
 
         if (roleClaims == null || !roleClaims.Any())
-            return new List<Roles>();
+            return null;
 
         var roles = new List<Roles>();
 
@@ -93,8 +93,12 @@ public class IdentityService(
                 roles.Add(role);
         }
 
-        return roles;
+        if (roles.Count == 0)
+            return null;
+
+        return roles[0];
     }
+
 
     public string GetCustomClaim(string claimType)
     {

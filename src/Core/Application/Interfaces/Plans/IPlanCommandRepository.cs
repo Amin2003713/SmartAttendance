@@ -6,3 +6,7 @@ namespace SmartAttendance.Application.Interfaces.Plans;
 
 public interface IPlanCommandRepository : ICommandRepository<Plan>,
     IScopedDependency { }
+
+
+public interface IPlanEnrollmentCommandRepository : ICommandRepository<PlanEnrollment>,
+    IScopedDependency { }
