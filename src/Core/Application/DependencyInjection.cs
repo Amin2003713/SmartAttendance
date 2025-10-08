@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
 using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
+using SmartAttendance.Application.Features.Attendances.Responses;
+using SmartAttendance.Application.Features.Excuses.Responses;
 using SmartAttendance.Application.Features.Majors.Responses;
 using SmartAttendance.Application.Features.Plans.Responses;
 using SmartAttendance.Application.Features.Subjects.Responses;
@@ -43,6 +45,8 @@ public static class DependencyInjection
         PlanAdaptor();
     }
 
+
+
     private static void PlanAdaptor()
     {
         TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
@@ -55,14 +59,29 @@ public static class DependencyInjection
                     }
                     : null)
             .Map(dest => dest.Attendances,
-                src => src.Attendances.Any()
+                src => src.Attendances.Count != 0
                     ? src.Attendances.Select(a =>
-                        new GetMajorInfoResponse()
+                        new GetAttendanceInfoResponse()
                         {
-                            Id = a.Subject.Id,
-                            Name = a.Subject.Name,
+                            Excuse = a.Excuse.Adapt<GetExcuseInfoResponse>(),
+                            RecordedAt = a.RecordedAt,
+                            Status = a.Status,
+                            Student = a.Student.Adapt<GetUserResponse>()
                         }
                     )
+                    : null)
+            .Map(dest => dest.Enrollments,
+                src => src.Enrollments.Count != 0
+                    ? src.Enrollments.Select(a =>
+                        new GetEnrollmentResponse()
+                        {
+                            Id = a.Id
+                        }
+                    )
+                    : null)
+            .Map(dest => dest.Teacher,
+                src => src.Teacher.Count != 0
+                    ? src.Teacher.Select(a => a.Adapt<GetUserResponse>())
                     : null)
             .Map(dest => dest.Subjects,
                 src => src.Subjects.Any()
