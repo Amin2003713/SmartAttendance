@@ -2,6 +2,6 @@
 
 namespace SmartAttendance.Application.Features.Majors.Queries.GetById;
 
-public class GetMajorById(
+public record GetMajorById(
     Guid Id
 ) : IRequest<GetMajorInfoResponse>;

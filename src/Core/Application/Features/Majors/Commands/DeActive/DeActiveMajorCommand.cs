@@ -1,3 +1,6 @@
-﻿namespace SmartAttendance.Application.Features.Majors.Commands.DeActive;
+﻿using SmartAttendance.Application.Features.Majors.Requests.Create;
 
-public class DeActiveMajorCommand { }
+namespace SmartAttendance.Application.Features.Majors.Commands.DeActive;
+
+public class DeActiveMajorCommand : DeActiveMajorRequest ,
+    IRequest ;

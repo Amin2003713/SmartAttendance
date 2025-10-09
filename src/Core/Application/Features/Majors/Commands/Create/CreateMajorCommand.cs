@@ -1,3 +1,5 @@
-﻿namespace SmartAttendance.Application.Features.Majors.Commands.Create;
+﻿using SmartAttendance.Application.Features.Majors.Requests.Create;
 
-public class CreateMajorCommand { }
+namespace SmartAttendance.Application.Features.Majors.Commands.Create;
+
+public class CreateMajorCommand : CreateMajorRequest , IRequest { }

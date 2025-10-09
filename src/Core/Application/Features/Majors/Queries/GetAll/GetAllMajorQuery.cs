@@ -1,3 +1,5 @@
-﻿namespace SmartAttendance.Application.Features.Majors.Queries.GetAll;
+﻿using SmartAttendance.Application.Features.Majors.Responses;
 
-public class GetAllMajorQuery { }
+namespace SmartAttendance.Application.Features.Majors.Queries.GetAll;
+
+public class GetAllMajorQuery : IRequest<List<GetMajorInfoResponse>> { }

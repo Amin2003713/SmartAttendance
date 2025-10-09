@@ -1,3 +1,9 @@
-﻿namespace SmartAttendance.Application.Features.Majors.Commands.Update;
+﻿using SmartAttendance.Application.Features.Majors.Requests.Create;
 
-public class UpdateMajorCommand { }
+namespace SmartAttendance.Application.Features.Majors.Commands.Update;
+
+public class UpdateMajorCommand    : UpdateMajorRequest  ,
+    IRequest
+{
+    public Guid Id { get; set; }
+}
