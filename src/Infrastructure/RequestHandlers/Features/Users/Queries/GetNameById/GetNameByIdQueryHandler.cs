@@ -55,7 +55,8 @@ public class GetTeacherByIdsHandler(
 
         try
         {
-            return await queryRepository.TableNoTracking.Where(a => request.Ids.Equals(a.Id)).ProjectToType<GetUserResponse>().ToListAsync(cancellationToken);
+            var result = await queryRepository.TableNoTracking.Where(a => request.Ids.Contains(a.Id)).ToListAsync(cancellationToken);
+            return result.Select(a => a.Adapt<GetUserResponse>()).ToList();
         }
         catch (Exception e)
         {
