@@ -1,4 +1,5 @@
 ﻿using SmartAttendance.Domain.Features.Attendances;
+using SmartAttendance.Domain.Features.Excuses;
 
 namespace SmartAttendance.Persistence.Configuration.Users;
 
@@ -13,9 +14,11 @@ public class AttendanceConfiguration : IEntityTypeConfiguration<Attendance>
             .HasMaxLength(50);
 
         builder.HasOne(p => p.Enrollment)
-            .WithOne(p => p.Attendance);
+            .WithOne(p => p.Attendance)
+            .HasForeignKey<Attendance>(a => a.EnrollmentId);
 
         builder.HasOne(p => p.Excuse)
-            .WithOne(u => u.Attendance);
+            .WithOne(u => u.Attendance)
+            .HasForeignKey<Attendance>(a => a.ExcuseId);
     }
 }

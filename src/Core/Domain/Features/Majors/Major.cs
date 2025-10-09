@@ -6,5 +6,8 @@ public class Major : BaseEntity
 {
     public string Name { get; set; }
 
+    public User? HeadMaster { get; set; }
+    public Guid? HeadMasterId { get; set; }
+
     public List<MajorSubject> Subjects { get; set; }
 }

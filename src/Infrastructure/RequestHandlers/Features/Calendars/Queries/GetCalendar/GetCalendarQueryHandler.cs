@@ -3,6 +3,7 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using SmartAttendance.Application.Features.Calendars.Queries.GetCalendar;
 using SmartAttendance.Application.Features.Calendars.Request.Queries.GetCalendar;
+using SmartAttendance.Application.Features.Plans.Queries.GetByDate;
 using SmartAttendance.Application.Features.Plans.Responses;
 using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Application.Interfaces.Tenants.Calendars;
@@ -14,8 +15,8 @@ namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetCalendar
 
 public class GetCalendarQueryHandler(
     IdentityService                  identityService,
+    IMediator mediator,
     ICalendarQueryRepository         calendarQueryRepository,
-    
     ILogger<GetCalendarQueryHandler> logger
 ) : IRequestHandler<GetCalendarQuery, List<GetCalendarResponse>>
 {
@@ -47,53 +48,31 @@ public class GetCalendarQueryHandler(
                                     [];
 
 
-        var userPlans =  await ResolvePlans(monthStartGregorian , monthEndGregorian , cancellationToken);
-
-
-        var publicByDate = publicCalendarEntries.GroupBy(e => e.Date.Date).ToDictionary(g => g.Key, g => g.First());
-
-        var customByDate = customCalendarEntries.GroupBy(h => h.Date.Date)
-            .ToDictionary(g => g.Key,
-                g =>
+        var userPlans = (await mediator.Send(new GetPlanByDateRangeQuery
                 {
-                    var merged = new DailyCalendar
-                    {
-                        Date          = g.Key,
-                        IsReminder    = g.Any(x => x.IsReminder),
-                        IsHoliday     = g.Any(x => x.IsHoliday),
-                        IsMeeting     = g.Any(x => x.IsMeeting),
-                        Details       = g.Select(x => x.Details).FirstOrDefault(d => !string.IsNullOrWhiteSpace(d)),
-                        CalendarUsers = []
-                    };
-
-                    return merged;
-                });
+                    From = monthStartGregorian,
+                    To = monthEndGregorian
+                },
+                cancellationToken))
+            .GroupBy(a => a.StartTime.Date)
+            .ToDictionary(g => g.Key, g => g.ToList());
 
 
-        var datesWithPublicEvent = publicByDate.Keys;
-        var datesWithCustomEntry = customByDate.Keys;
+        var dates = userPlans.Select(a => a.Key).Intersect(publicCalendarEntries.Select(a => a.Key)).ToList();
 
-        var interestingDates = new HashSet<DateTime>(datesWithPublicEvent);
-        interestingDates.UnionWith(datesWithCustomEntry);
+        var calendarResponses = new List<GetCalendarResponse>(dates.Count);
 
-
-        var calendarResponses = new List<GetCalendarResponse>(interestingDates.Count);
-
-        foreach (var date in interestingDates.OrderBy(d => d))
+        foreach (var date in dates.OrderBy(d => d))
         {
-            publicByDate.TryGetValue(date, out var publicEntry);
+            publicCalendarEntries.TryGetValue(date, out var publicEntry);
 
-            var isPublicHolidayOrWeekend = IsPublicHolidayOrWeekend(publicEntry);
+            var isPublicHolidayOrWeekend = IsPublicHolidayOrWeekend(publicEntry ?? []);
 
-            customByDate.TryGetValue(date, out var customEntry);
+            userPlans.TryGetValue(date, out var customEntry);
 
-            var isCustomHoliday = IsCustomHoliday(customEntry);
-
-            var hasReminder = IsReminder(customEntry);
 
             if (!isPublicHolidayOrWeekend &&
-                !isCustomHoliday          &&
-                !hasReminder)
+                customEntry is { Count: 0 })
                 continue;
 
 
@@ -101,8 +80,7 @@ public class GetCalendarQueryHandler(
             {
                 Date            = date,
                 IsHoliday       = isPublicHolidayOrWeekend,
-                IsCustomHoliday = isCustomHoliday,
-                HasReminder     = hasReminder
+                PlanInfos = customEntry ?? []
             });
         }
 
@@ -113,27 +91,9 @@ public class GetCalendarQueryHandler(
         return calendarResponses;
     }
 
- 
-    private bool IsPublicHolidayOrWeekend(TenantCalendar? publicEntry)
+
+    private bool IsPublicHolidayOrWeekend(List<TenantCalendar> publicEntries)
     {
-        if (publicEntry == null) return false;
-
-        var isDayOff = publicEntry.IsHoliday || publicEntry.IsWeekend;
-
-        logger.LogTrace("Checked IsPublicHolidayOrWeekend for {Date}: {IsDayOff}",
-            publicEntry.Date,
-            isDayOff);
-
-        return isDayOff;
-    }
-
-    private static bool IsCustomHoliday(DailyCalendar? dailyEntry)
-    {
-        return dailyEntry is { IsHoliday: true };
-    }
-
-    private static bool IsReminder(DailyCalendar? dailyEntry)
-    {
-        return dailyEntry is { IsReminder: true };
+        return publicEntries is not { Count: 0 } && publicEntries.Any(a => a.IsHoliday || a.IsWeekend);
     }
 }

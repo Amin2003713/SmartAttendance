@@ -1,5 +1,4 @@
-﻿
-namespace SmartAttendance.Persistence.Repositories.Tenants.Calendars;
+﻿namespace SmartAttendance.Persistence.Repositories.Tenants.Calendars;
 
 public class CalendarQueryRepository(
     SmartAttendanceTenantDbContext            db,
@@ -8,13 +7,16 @@ public class CalendarQueryRepository(
 )
     : ICalendarQueryRepository
 {
-    public async Task<List<TenantCalendar>> GetPublicCalendarEvents(
+    public async Task<Dictionary<DateTime, List<TenantCalendar>>> GetPublicCalendarEvents(
         Expression<Func<TenantCalendar, bool>> predicate,
-        CancellationToken                      cancellationToken)
+        CancellationToken cancellationToken)
     {
         try
         {
-            return await db.TenantCalendars.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
+            return await db.TenantCalendars.AsNoTracking()
+                .Where(predicate)
+                .GroupBy(a => a.Date.Date)
+                .ToDictionaryAsync( key => key.Key , values =>  values?.ToList() ?? [] , cancellationToken);
         }
         catch (Exception ex)
         {
@@ -50,7 +52,6 @@ public class CalendarQueryRepository(
             throw new InvalidOperationException(localizer["An error occurred while checking holiday status."]);
         }
     }
-
 
 
     public async Task<TenantCalendar> GetDay(Guid id, CancellationToken cancellationToken)

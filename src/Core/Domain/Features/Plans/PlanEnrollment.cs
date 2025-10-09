@@ -8,11 +8,11 @@ public class PlanEnrollment : BaseEntity
 {
     public Guid PlanId { get; set; }
     public Guid StudentId { get; set; }
-    public Guid AttendanceId { get; set; }
+    public Guid? AttendanceId { get; set; }
     public EnrollmentStatus Status { get; set; }
     public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
 
     public Plan Plan { get; set; } = null!;
     public User Student { get; set; } = null!;
-    public Attendance Attendance { get; set; } = null!;
+    public Attendance? Attendance { get; set; } = null!;
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartAttendance.Persistence.Db;
 
@@ -11,9 +12,11 @@ using SmartAttendance.Persistence.Db;
 namespace SmartAttendance.Persistence.Migrations.feat
 {
     [DbContext(typeof(SmartAttendanceDbContext))]
-    partial class SmartAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251009065201_asdagfrertg")]
+    partial class asdagfrertg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -521,7 +524,7 @@ namespace SmartAttendance.Persistence.Migrations.feat
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AttendanceId")
+                    b.Property<Guid>("AttendanceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1336,7 +1339,8 @@ namespace SmartAttendance.Persistence.Migrations.feat
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.PlanEnrollment", b =>
                 {
-                    b.Navigation("Attendance");
+                    b.Navigation("Attendance")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>

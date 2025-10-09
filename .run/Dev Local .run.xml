@@ -3,7 +3,12 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="composeProjectName" value="serv" />
-        <option name="envFilePath" value="E:\Personal\SmartAttendance\Docker\.env.development.local" />
+        <option name="envFilePath" value="E:\Personal\Shifty\Docker\.env.development.local" />
+        <option name="envFilePaths">
+          <list>
+            <option value="E:\Personal\Shifty\Docker\.env.development.local" />
+          </list>
+        </option>
         <option name="commandLineOptions" value="--build" />
         <option name="sourceFilePath" value="Docker/services.docker-compose.yaml" />
         <option name="upRemoveOrphans" value="true" />
