@@ -8,13 +8,3 @@ public class CreateMajorRequest
     public string Name { get; set; }
     public Guid? HeadMasterId { get; set; }
 }
-
-public class UpdateMajorRequest : CreateMajorRequest
-{
-    public Guid Id { get; set; }
-}
-
-public class DeActiveMajorRequest 
-{
-    public Guid Id { get; set; }
-}

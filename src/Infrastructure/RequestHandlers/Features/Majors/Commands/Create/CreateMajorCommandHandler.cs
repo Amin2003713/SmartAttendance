@@ -1,10 +1,11 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
+using SmartAttendance.Application.Features.Majors.Commands.Create;
 using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Common.Exceptions;
 using SmartAttendance.Domain.Features.Majors;
 
-namespace SmartAttendance.Application.Features.Majors.Commands.Create;
+namespace SmartAttendance.RequestHandlers.Features.Majors.Commands.Create;
 
 public class CreateMajorCommandHandler(
     IMajorQueryRepository queryRepository ,

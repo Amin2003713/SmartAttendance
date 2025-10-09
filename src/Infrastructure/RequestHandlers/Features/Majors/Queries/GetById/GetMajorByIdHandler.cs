@@ -1,11 +1,11 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
-using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Application.Features.Majors.Queries.GetById;
 using SmartAttendance.Application.Features.Majors.Responses;
+using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Common.Exceptions;
 
-namespace SmartAttendance.Application.Features.Majors.Queries.GetById;
+namespace SmartAttendance.RequestHandlers.Features.Majors.Queries.GetById;
 
 public class GetMajorByIdHandler(
     IMajorQueryRepository queryRepository

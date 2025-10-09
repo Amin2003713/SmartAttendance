@@ -1,10 +1,9 @@
-﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartAttendance.Application.Features.Majors.Commands.DeActive;
 using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Common.Exceptions;
-using SmartAttendance.Domain.Features.Majors;
 
-namespace SmartAttendance.Application.Features.Majors.Commands.DeActive;
+namespace SmartAttendance.RequestHandlers.Features.Majors.Commands.DeActive;
 
 public class DeActiveMajorCommandHandler(
     IMajorQueryRepository queryRepository ,

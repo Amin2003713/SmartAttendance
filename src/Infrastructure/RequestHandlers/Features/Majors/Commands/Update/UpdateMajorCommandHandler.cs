@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SmartAttendance.Application.Features.Majors.Commands.Update;
 using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Common.Exceptions;
 
-namespace SmartAttendance.Application.Features.Majors.Commands.Update;
+namespace SmartAttendance.RequestHandlers.Features.Majors.Commands.Update;
 
 public class UpdateMajorCommandHandler(
     IMajorQueryRepository queryRepository,

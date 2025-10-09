@@ -1,10 +1,10 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
-using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Application.Features.Majors.Queries.GetAll;
 using SmartAttendance.Application.Features.Majors.Responses;
+using SmartAttendance.Application.Interfaces.Majors;
 
-namespace SmartAttendance.Application.Features.Majors.Queries.GetAll;
+namespace SmartAttendance.RequestHandlers.Features.Majors.Queries.GetAll;
 
 public class GetAllMajorQueryHandler(
     IMajorQueryRepository queryRepository

@@ -1,8 +1,8 @@
 ﻿using SmartAttendance.Application.Interfaces.Base;
 using SmartAttendance.Common.Utilities.InjectionHelpers;
-using SmartAttendance.Domain.Features.Plans;
+using SmartAttendance.Domain.Features.PlanEnrollments;
 
 namespace SmartAttendance.Application.Interfaces.Plans;
 
-public interface IPlanCommandRepository : ICommandRepository<Plan>,
+public interface IPlanEnrollmentCommandRepository : ICommandRepository<PlanEnrollment>,
     IScopedDependency { }
