@@ -12,7 +12,7 @@ using SmartAttendance.Persistence.Db;
 namespace SmartAttendance.Persistence.Migrations.@base
 {
     [DbContext(typeof(SmartAttendanceTenantDbContext))]
-    [Migration("20250930174056_Initial")]
+    [Migration("20251009113358_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -90,22 +90,11 @@ namespace SmartAttendance.Persistence.Migrations.@base
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FatherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsLeader")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -204,10 +193,6 @@ namespace SmartAttendance.Persistence.Migrations.@base
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
