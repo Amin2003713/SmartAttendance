@@ -55,6 +55,7 @@ public class CreateSubjectCommandHandler(
             {
                 TeacherId = a,
                 Name = request.Name.Trim(),
+                MajorId = request.MajorId
             };
 
             return ns;
