@@ -12,8 +12,8 @@ using SmartAttendance.Persistence.Db;
 namespace SmartAttendance.Persistence.Migrations.feat
 {
     [DbContext(typeof(SmartAttendanceDbContext))]
-    [Migration("20251009065201_asdagfrertg")]
-    partial class asdagfrertg
+    [Migration("20251009110943_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -458,6 +458,58 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.ToTable("Notifications", (string)null);
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Features.PlanEnrollments.PlanEnrollment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AttendanceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasMaxLength(50)
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("PlanEnrollments", (string)null);
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.Plan", b =>
                 {
                     b.Property<Guid>("Id")
@@ -518,58 +570,6 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.ToTable("Plans", (string)null);
                 });
 
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.PlanEnrollment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AttendanceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("EnrolledAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlanId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("PlanEnrollments", (string)null);
-                });
-
             modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Subject", b =>
                 {
                     b.Property<Guid>("Id")
@@ -591,6 +591,9 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("MajorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
@@ -605,6 +608,8 @@ namespace SmartAttendance.Persistence.Migrations.feat
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MajorId");
 
                     b.HasIndex("TeacherId");
 
@@ -1096,7 +1101,7 @@ namespace SmartAttendance.Persistence.Migrations.feat
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Attendances.Attendance", b =>
                 {
-                    b.HasOne("SmartAttendance.Domain.Features.Plans.PlanEnrollment", "Enrollment")
+                    b.HasOne("SmartAttendance.Domain.Features.PlanEnrollments.PlanEnrollment", "Enrollment")
                         .WithOne("Attendance")
                         .HasForeignKey("SmartAttendance.Domain.Features.Attendances.Attendance", "EnrollmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1147,7 +1152,7 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.HasOne("SmartAttendance.Domain.Features.Majors.Major", "Major")
                         .WithMany("Subjects")
                         .HasForeignKey("MajorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SmartAttendance.Domain.Features.Subjects.Subject", "Subject")
@@ -1170,6 +1175,25 @@ namespace SmartAttendance.Persistence.Migrations.feat
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SmartAttendance.Domain.Features.PlanEnrollments.PlanEnrollment", b =>
+                {
+                    b.HasOne("SmartAttendance.Domain.Features.Plans.Plan", "Plan")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartAttendance.Domain.Users.User", "Student")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.Plan", b =>
@@ -1209,32 +1233,21 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.Navigation("Major");
                 });
 
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.PlanEnrollment", b =>
-                {
-                    b.HasOne("SmartAttendance.Domain.Features.Plans.Plan", "Plan")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("PlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SmartAttendance.Domain.Users.User", "Student")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Plan");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Subject", b =>
                 {
+                    b.HasOne("SmartAttendance.Domain.Features.Majors.Major", "Major")
+                        .WithMany()
+                        .HasForeignKey("MajorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SmartAttendance.Domain.Users.User", "Teacher")
                         .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Major");
 
                     b.Navigation("Teacher");
                 });
@@ -1328,6 +1341,11 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.Navigation("Subjects");
                 });
 
+            modelBuilder.Entity("SmartAttendance.Domain.Features.PlanEnrollments.PlanEnrollment", b =>
+                {
+                    b.Navigation("Attendance");
+                });
+
             modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.Plan", b =>
                 {
                     b.Navigation("Enrollments");
@@ -1335,12 +1353,6 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.Navigation("Subjects");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Plans.PlanEnrollment", b =>
-                {
-                    b.Navigation("Attendance")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>
