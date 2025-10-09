@@ -12,7 +12,6 @@ public class PlanEnrollment : BaseEntity
     public EnrollmentStatus Status { get; set; }
     public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
 
-    // Navigation
     public Plan Plan { get; set; } = null!;
     public User Student { get; set; } = null!;
     public Attendance Attendance { get; set; } = null!;

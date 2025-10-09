@@ -20,9 +20,8 @@ public class ExcuseConfiguration : IEntityTypeConfiguration<Excuse>
             .WithMany(u => u.Excuses)
             .HasForeignKey(p => p.StudentId);
 
-        builder.HasOne(p => p.Plan)
-            .WithMany()
-            .HasForeignKey(p => p.PlanId);
+        builder.HasOne(p => p.Attendance)
+            .WithOne(p => p.Excuse);
 
         builder.HasOne(p => p.Attachment)
             .WithMany()

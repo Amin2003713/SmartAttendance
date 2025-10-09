@@ -1,5 +1,4 @@
-﻿using SmartAttendance.Application.Features.Calendars.Request.Queries.GetHoliday;
-
+﻿
 namespace SmartAttendance.Persistence.Repositories.Tenants.Calendars;
 
 public class CalendarQueryRepository(
@@ -52,38 +51,9 @@ public class CalendarQueryRepository(
         }
     }
 
-    public async Task<List<GetHolidayResponse>> GetHolidaysForMonth(
-        DateTime          startAt,
-        DateTime          endAt,
-        CancellationToken cancellationToken)
-    {
-        try
-        {
-            logger.LogInformation("Fetching holidays from {Start} to {End} ",
-                startAt,
-                endAt);
-
-            var publicHolidays = await db.TenantCalendars.Where(e => e.Date >= startAt && e.Date <= endAt && e.IsHoliday)
-                .Select(e => new GetHolidayResponse
-                {
-                    Date     = e.Date,
-                    Message  = e.Details,
-                    IsCustom = false,
-                    Id       = e.Id
-                })
-                .ToListAsync(cancellationToken);
-
-            return publicHolidays.OrderBy(h => h.Date).ToList();
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error fetching holidays for month range: {Start} - {End}", startAt, endAt);
-            throw new InvalidOperationException(localizer["An error occurred while retrieving holidays."]);
-        }
-    }
 
 
-    public async Task<TenantCalendar> Getday(Guid id, CancellationToken cancellationToken)
+    public async Task<TenantCalendar> GetDay(Guid id, CancellationToken cancellationToken)
     {
         try
         {

@@ -13,7 +13,4 @@ public class GetAttendanceInfoResponse
     public DateTime RecordedAt { get; set; }
 
     public GetExcuseInfoResponse? Excuse { get; set; }
-
-    public List<GetEnrollmentResponse> Enrollments { get; set; } = [];
-
 }

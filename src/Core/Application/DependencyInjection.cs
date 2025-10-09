@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SmartAttendance.Application.Base.Universities.Commands.InitialUniversity;
 using SmartAttendance.Application.Base.Universities.Responses.GetCompanyInfo;
+using SmartAttendance.Application.Features.Attachments.Responses;
 using SmartAttendance.Application.Features.Attendances.Responses;
 using SmartAttendance.Application.Features.Excuses.Responses;
 using SmartAttendance.Application.Features.Majors.Responses;
@@ -16,8 +17,13 @@ using SmartAttendance.Application.Features.Users.Queries.GetUserTenants;
 using SmartAttendance.Application.Features.Users.Requests.Queries.GetUserInfo.GetById;
 using SmartAttendance.Common.Common.Responses.GetLogPropertyInfo.OperatorLogs;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
+using SmartAttendance.Common.General.Enums.Plans.Enrollment;
 using SmartAttendance.Common.Utilities.TypeConverters;
+using SmartAttendance.Domain.Features.Attendances;
+using SmartAttendance.Domain.Features.Excuses;
+using SmartAttendance.Domain.Features.Majors;
 using SmartAttendance.Domain.Features.Plans;
+using SmartAttendance.Domain.Features.Subjects;
 using SmartAttendance.Domain.Tenants;
 using SmartAttendance.Domain.Users;
 
@@ -43,8 +49,55 @@ public static class DependencyInjection
         OtherAdaptor();
         UserAdaptor();
         PlanAdaptor();
+        MajorAdaptor();
+        SubjectAdaptor();
+        EnrollmentAdaptor();
+        AttendanceAdaptor();
+        ExcuseAdaptor();
     }
 
+    private static void ExcuseAdaptor()
+    {
+        TypeAdapterConfig<Excuse, GetExcuseInfoResponse>.NewConfig()
+            .Map(dest => dest.Attachment,
+                src => src.Attachment.Adapt<GetAttachmentInfoResponse>()
+            );
+    }
+
+    private static void AttendanceAdaptor()
+    {
+        TypeAdapterConfig<Attendance, GetAttendanceInfoResponse>.NewConfig()
+            .Map(dest => dest.Student,
+                src => src.Enrollment.Student.Adapt<GetAttendanceInfoResponse>()
+            )
+            .Map(dest => dest.Excuse,
+                src => src.Excuse.Adapt<GetExcuseInfoResponse>()
+            )
+            .Map(dest => dest.Excuse,
+                src => src.Excuse.Adapt<GetExcuseInfoResponse>()
+            );
+    }
+
+    private static void EnrollmentAdaptor()
+    {
+        TypeAdapterConfig<PlanEnrollment, GetEnrollmentResponse>.NewConfig()
+            .Map(dest => dest.Attendance,
+                src => src.Attendance.Adapt<GetAttendanceInfoResponse>()
+            )
+            .Map(dest => dest.Student,
+                src => src.Student.Adapt<GetUserResponse>()
+            );
+    }
+
+    private static void SubjectAdaptor() { }
+
+    private static void MajorAdaptor()
+    {
+        TypeAdapterConfig<Major, GetMajorInfoResponse>.NewConfig()
+            .Map(dest => dest.Subjects,
+                src => src.Subjects.Any() ? src.Subjects.Select(a => a.Adapt<GetSubjectInfoResponse>()) : null
+            );
+    }
 
 
     private static void PlanAdaptor()
@@ -52,48 +105,20 @@ public static class DependencyInjection
         TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
             .Map(dest => dest.Major,
                 src => src.Major != null
-                    ? new GetMajorInfoResponse()
-                    {
-                        Id = src.Major.Id,
-                        Name = src.Major.Name,
-                    }
-                    : null)
-            .Map(dest => dest.Attendances,
-                src => src.Attendances.Count != 0
-                    ? src.Attendances.Select(a =>
-                        new GetAttendanceInfoResponse()
-                        {
-                            Excuse = a.Excuse.Adapt<GetExcuseInfoResponse>(),
-                            RecordedAt = a.RecordedAt,
-                            Status = a.Status,
-                            Student = a.Student.Adapt<GetUserResponse>()
-                        }
-                    )
-                    : null)
-            .Map(dest => dest.Enrollments,
-                src => src.Enrollments.Count != 0
-                    ? src.Enrollments.Select(a =>
-                        new GetEnrollmentResponse()
-                        {
-                            Id = a.Id
-                        }
-                    )
+                    ? src.Major.Adapt<GetMajorInfoResponse>()
                     : null)
             .Map(dest => dest.Teacher,
                 src => src.Teacher.Count != 0
                     ? src.Teacher.Select(a => a.Adapt<GetUserResponse>())
                     : null)
+            .Map(dest => dest.Enrollments,
+                src => src.Enrollments.Count != 0
+                    ? src.Enrollments.Select(a => a.Adapt<GetEnrollmentResponse>())
+                    : null)
             .Map(dest => dest.Subjects,
                 src => src.Subjects.Any()
-                    ? src.Subjects.Select(a =>
-                        new GetSubjectInfoResponse()
-                        {
-                            Id = a.Subject.Id,
-                            Name = a.Subject.Name,
-                        }
-                    )
-                    : null)
-            ;
+                    ? src.Subjects.Adapt<List<GetSubjectInfoResponse>>()
+                    : null);
     }
 
     private static void UserAdaptor()
