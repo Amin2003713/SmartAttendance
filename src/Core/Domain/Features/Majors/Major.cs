@@ -9,5 +9,5 @@ public class Major : BaseEntity
     public User? HeadMaster { get; set; }
     public Guid? HeadMasterId { get; set; }
 
-    public List<MajorSubject> Subjects { get; set; }
+    public ICollection<MajorSubject>? Subjects { get; set; }
 }

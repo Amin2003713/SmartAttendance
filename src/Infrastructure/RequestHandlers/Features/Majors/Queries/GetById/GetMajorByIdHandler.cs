@@ -13,12 +13,9 @@ public class GetMajorByIdHandler(
 {
     public async Task<GetMajorInfoResponse> Handle(GetMajorById request, CancellationToken cancellationToken)
     {
-        var major = await queryRepository.TableNoTracking
+        var major = await queryRepository.TableNoTracking.ProjectToType<GetMajorInfoResponse>()
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
-        if (major is null)
-            throw SmartAttendanceException.NotFound("Major not found");
-
-        return major.Adapt<GetMajorInfoResponse>();
+        return major ?? throw SmartAttendanceException.NotFound("Major not found");
     }
 }

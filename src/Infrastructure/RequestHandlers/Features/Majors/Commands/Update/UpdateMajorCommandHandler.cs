@@ -1,12 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SmartAttendance.Application.Features.Majors.Commands.Update;
 using SmartAttendance.Application.Interfaces.Majors;
 using SmartAttendance.Common.Exceptions;
+using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Domain.Users;
 
 namespace SmartAttendance.RequestHandlers.Features.Majors.Commands.Update;
 
 public class UpdateMajorCommandHandler(
     IMajorQueryRepository queryRepository,
+    UserManager<User> userManager       ,
     IMajorCommandRepository commandRepository
 ) : IRequestHandler<UpdateMajorCommand>
 {
@@ -28,6 +32,10 @@ public class UpdateMajorCommandHandler(
 
         if (conflict)
             throw SmartAttendanceException.Conflict("Another major with the same name exists for this headmaster");
+
+        var user = await userManager.FindByIdAsync(request.HeadMasterId.ToString() ?? string.Empty);
+        if (user == null || !(await userManager.GetRolesAsync(user))[0].Equals(nameof(Roles.HeadMaster) , StringComparison.OrdinalIgnoreCase))
+            throw SmartAttendanceException.Forbidden("fob");
 
         // Map the updated values
         major.Name = request.Name.Trim();

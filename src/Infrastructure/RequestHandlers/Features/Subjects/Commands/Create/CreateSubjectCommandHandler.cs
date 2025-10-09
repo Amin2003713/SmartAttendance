@@ -49,7 +49,17 @@ public class CreateSubjectCommandHandler(
             throw SmartAttendanceException.NotFound();
 
 
-        var newSub = request.Adapt<Subject>();
-        await commandRepository.AddAsync(newSub , cancellationToken);
+        var newSub = request.TeacherIds.Select(a =>
+        {
+            var ns = new Subject
+            {
+                TeacherId = a,
+                Name = request.Name.Trim(),
+            };
+
+            return ns;
+        });
+
+        await commandRepository.AddRangeAsync(newSub , cancellationToken);
     }
 }

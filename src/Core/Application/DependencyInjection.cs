@@ -96,7 +96,11 @@ public static class DependencyInjection
     {
         TypeAdapterConfig<Major, GetMajorInfoResponse>.NewConfig()
             .Map(dest => dest.Subjects,
-                src => src.Subjects.Any() ? src.Subjects.Select(a => a.Adapt<GetSubjectInfoResponse>()) : null
+                src => src.Subjects.Select(s => new GetSubjectInfoResponse
+                {
+                    Id = s.SubjectId,
+                    Name = s.Subject.Name,
+                })
             );
     }
 
