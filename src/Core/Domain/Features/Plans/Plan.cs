@@ -2,6 +2,7 @@
 using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Domain.Features.Attendances;
 using SmartAttendance.Domain.Features.Majors;
+using SmartAttendance.Domain.Features.PlanEnrollments;
 using SmartAttendance.Domain.Features.Subjects;
 
 namespace SmartAttendance.Domain.Features.Plans;

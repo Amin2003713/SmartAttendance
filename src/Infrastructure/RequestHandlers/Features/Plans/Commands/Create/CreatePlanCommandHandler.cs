@@ -2,6 +2,7 @@
 using SmartAttendance.Application.Features.Majors.Queries.GetById;
 using SmartAttendance.Application.Features.Plans.Commands.Create;
 using SmartAttendance.Application.Features.Subjects.Queries;
+using SmartAttendance.Application.Features.Subjects.Queries.ByIds;
 using SmartAttendance.Application.Features.Users.Queries.GetByIds;
 using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Common.Exceptions;
@@ -22,7 +23,7 @@ public class CreatePlanCommandHandler(
             throw SmartAttendanceException.NotFound("Major not found");
 
 
-        var subjects = await mediator.Send(new GetSubjectByIds(request.SubjectIds), cancellationToken);
+        var subjects = await mediator.Send(new GetSubjectByIdsQuery(request.SubjectIds), cancellationToken);
         if (subjects.Count != request.SubjectIds.Count)
             throw SmartAttendanceException.NotFound("one of the subjects not found");
 

@@ -22,6 +22,7 @@ using SmartAttendance.Common.Utilities.TypeConverters;
 using SmartAttendance.Domain.Features.Attendances;
 using SmartAttendance.Domain.Features.Excuses;
 using SmartAttendance.Domain.Features.Majors;
+using SmartAttendance.Domain.Features.PlanEnrollments;
 using SmartAttendance.Domain.Features.Plans;
 using SmartAttendance.Domain.Features.Subjects;
 using SmartAttendance.Domain.Tenants;

@@ -1,8 +1,9 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Plans.Enrollment;
 using SmartAttendance.Domain.Features.Attendances;
+using SmartAttendance.Domain.Features.Plans;
 
-namespace SmartAttendance.Domain.Features.Plans;
+namespace SmartAttendance.Domain.Features.PlanEnrollments;
 
 public class PlanEnrollment : BaseEntity
 {

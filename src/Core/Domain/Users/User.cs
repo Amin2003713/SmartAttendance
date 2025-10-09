@@ -2,7 +2,9 @@
 using SmartAttendance.Common.General.Enums.Genders;
 using SmartAttendance.Domain.Features.Attendances;
 using SmartAttendance.Domain.Features.Excuses;
+using SmartAttendance.Domain.Features.Majors;
 using SmartAttendance.Domain.Features.Notifications;
+using SmartAttendance.Domain.Features.PlanEnrollments;
 using SmartAttendance.Domain.Features.Plans;
 using SmartAttendance.Domain.Features.Subjects;
 
@@ -24,7 +26,6 @@ public class User : IdentityUser<Guid>,
     public string? Address { get; set; }
     public DateTime? LastActionOnServer { get; set; }
     public DateTime? BirthDate { get; set; }
-
     public ICollection<SubjectTeacher> SubjectTaught { get; set; } = new List<SubjectTeacher>();
     public ICollection<PlanEnrollment> Enrollments { get; set; } = new List<PlanEnrollment>();
     public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();

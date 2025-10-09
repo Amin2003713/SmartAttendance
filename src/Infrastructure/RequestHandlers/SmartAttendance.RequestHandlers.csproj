@@ -17,7 +17,6 @@
         <Folder Include="Features\Attachments\"/>
         <Folder Include="Features\Attendances\"/>
         <Folder Include="Features\Excuses\"/>
-        <Folder Include="Features\Subjects\"/>
         <Folder Include="Features\Notifications\"/>
     </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using SmartAttendance.Application.Interfaces.Plans;
+using SmartAttendance.Domain.Features.PlanEnrollments;
 using SmartAttendance.Domain.Features.Plans;
 
 namespace SmartAttendance.Persistence.Repositories.Features.Plans;

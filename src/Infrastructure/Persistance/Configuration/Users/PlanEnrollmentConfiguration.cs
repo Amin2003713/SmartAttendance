@@ -1,4 +1,5 @@
-﻿using SmartAttendance.Domain.Features.Plans;
+﻿using SmartAttendance.Domain.Features.PlanEnrollments;
+using SmartAttendance.Domain.Features.Plans;
 
 namespace SmartAttendance.Persistence.Configuration.Users;
 

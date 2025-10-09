@@ -1,6 +1,7 @@
 ﻿using SmartAttendance.Common.General.BaseClasses;
 using SmartAttendance.Common.General.Enums.Attendance;
 using SmartAttendance.Domain.Features.Excuses;
+using SmartAttendance.Domain.Features.PlanEnrollments;
 using SmartAttendance.Domain.Features.Plans;
 
 namespace SmartAttendance.Domain.Features.Attendances;

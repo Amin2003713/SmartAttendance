@@ -1,7 +1,7 @@
 ﻿using SmartAttendance.Application.Features.Subjects.Responses;
 
-namespace SmartAttendance.Application.Features.Subjects.Queries;
+namespace SmartAttendance.Application.Features.Subjects.Queries.ByIds;
 
-public class GetSubjectByIds(
+public record GetSubjectByIdsQuery(
     List<Guid> Ids
 ) : IRequest<List<GetSubjectInfoResponse>>;
