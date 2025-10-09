@@ -2,6 +2,6 @@
 
 namespace SmartAttendance.Application.Features.Users.Queries.GetByIds;
 
-public class GetTeacherByIds(
+public record GetTeacherByIds(
     List<Guid> Ids
 ) : IRequest<List<GetUserResponse>>;

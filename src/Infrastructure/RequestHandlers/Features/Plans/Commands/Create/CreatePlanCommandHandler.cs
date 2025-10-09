@@ -13,7 +13,7 @@ namespace SmartAttendance.RequestHandlers.Features.Plans.Commands.Create;
 
 public class CreatePlanCommandHandler(
     IPlanCommandRepository commandRepository ,
-    Mediator mediator
+    IMediator mediator
 ) : IRequestHandler<CreatePlanCommand>
 {
     public async Task Handle(CreatePlanCommand request, CancellationToken cancellationToken)
