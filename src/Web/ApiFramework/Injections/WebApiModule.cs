@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog.Enrichers.Correlate;
 using SmartAttendance.ApiFramework.Attributes;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Filters;
@@ -53,6 +54,8 @@ public static class WebApiModule
         tenantStoreConnection ??= ApplicationConstant.AppOptions.TenantStore;
         swaggerTitle          ??= $"Web Api service of {Assembly.GetCallingAssembly().GetName().Name}";
 
+
+        services.AddCorrelationContextEnricher();
 
         services.AddSingleton<IMultiTenantContext<TTenantInfo>, MultiTenantContext<TTenantInfo>>();
         services.AddHttpContextAccessor();

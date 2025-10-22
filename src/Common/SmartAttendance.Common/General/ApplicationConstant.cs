@@ -1,4 +1,6 @@
-﻿namespace SmartAttendance.Common.General;
+﻿using OpenTelemetry.Exporter;
+
+namespace SmartAttendance.Common.General;
 
 public abstract class ApplicationConstant
 {
@@ -8,6 +10,16 @@ public abstract class ApplicationConstant
 
     public static string ServiceName => Assembly.GetEntryAssembly()!.GetName().Name?.ToLowerInvariant()?.Split(".")[0] ?? "service";
 
+    public static class Aspire
+    {
+        public readonly static string OtelEndpoint = (  "http://10.0.2.2:17011")!;
+
+
+        public static Action<OtlpExporterOptions> OtlpExporter => options =>
+        {
+            options.Endpoint = new Uri(OtelEndpoint);
+        };
+    }
 
     public static class Sql
     {

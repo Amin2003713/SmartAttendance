@@ -1,8 +1,10 @@
 using Autofac;
+using Ipa.Framework.Apis.Analytics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using SmartAttendance.ApiFramework;
 using SmartAttendance.ApiFramework.Configuration;
 using SmartAttendance.ApiFramework.Injections;
@@ -29,6 +31,7 @@ public class Startup
     /// </summary>
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddSerilogLogging();
         // Register core WebAPI setup using a shared generic setup method
         services.AddWebApi<
             User,                           // User entity model
@@ -73,7 +76,7 @@ public class Startup
 
         // Use centralized JWT exception handler
         app.UseMiddleware<JwtExceptionHandlingMiddleware>();
-
+        app.UseSerilogRequestLogging();
 
         // Register shared WebAPI conventions including Swagger and resource tracking
         app.UseWebApi<Empty>("Tenant API Reference");

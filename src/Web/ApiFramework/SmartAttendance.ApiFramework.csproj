@@ -30,11 +30,44 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
 
 
-        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0" />
-        <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.10.0" />
+        <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="9.5.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="9.0.6" />
         <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.10" />
+
+
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.1" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.13.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.13.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.13.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Hangfire" Version="1.12.0-beta.1" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNet.TelemetryHttpModule" Version="1.11.0-beta.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.1-dev-02317" />
+        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
+        <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.6.0" />
+        <PackageReference Include="Serilog.Enrichers.Correlate" Version="1.0.0" />
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+        <PackageReference Include="Serilog.Enrichers.Process" Version="3.0.0" />
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+        <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
+
+        <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+        <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
+        <PackageReference Include="OpenTelemetry.Api.ProviderBuilderExtensions" Version="1.13.1" />
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.13.1" />
+        <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.13.1-beta.1" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" Version="1.13.0-beta.1" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" Version="1.13.0-beta.1" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.13.0-beta.1" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.13.1" />
+
+
+        <PackageReference Include="Serilog.Sinks.Http" Version="9.2.0" />
     </ItemGroup>
 
 

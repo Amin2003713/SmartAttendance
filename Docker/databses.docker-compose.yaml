@@ -56,7 +56,7 @@ services:
           memory: 512M
 
   redis:
-    image: redis:7.0-alpine
+    image: redis
     container_name: redis
     command:
       - "redis-server"
