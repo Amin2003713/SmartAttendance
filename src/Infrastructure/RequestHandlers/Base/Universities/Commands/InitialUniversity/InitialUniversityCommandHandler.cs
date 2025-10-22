@@ -91,9 +91,6 @@ public class InitialUniversityCommandHandler(
                 var path = await mediator.Send(new UploadHubFileCommand
                     {
                         File = request.Logo.MediaFile,
-                        ReportDate = DateTime.Now,
-                        RowId =    new Guid(University.Id!),
-                        RowType = FileStorageType.UniversityLogo
                     },
                     cancellationToken);
 

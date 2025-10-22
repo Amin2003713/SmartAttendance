@@ -11,6 +11,4 @@ public class HubFile : BaseEntity
     public FileType Type { get; set; }
 
     public Guid ReferenceId { get; set; }
-    public FileStorageType ReferenceIdType { get; set; }
-    public DateTime ReportDate { get; set; }
 }

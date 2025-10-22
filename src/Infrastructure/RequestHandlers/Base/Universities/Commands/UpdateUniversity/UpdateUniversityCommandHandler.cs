@@ -82,9 +82,6 @@ public class UpdateUniversityCommandHandler(
                 var uploadCommand = new UploadHubFileCommand
                 {
                     File       = request.Logo.MediaFile,
-                    ReportDate = DateTime.UtcNow,
-                    RowType    = FileStorageType.UniversityLogo,
-                    RowId      = new Guid(University.Id)
                 };
 
                 var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);

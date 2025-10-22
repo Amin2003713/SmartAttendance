@@ -23,16 +23,12 @@ public class HubFileQueryRepository(
     public async Task<FileTransferResponse> GetHubFile(
         Guid              rowId,
         FileType          fileType,
-        FileStorageType   storageType,
         CancellationToken cancellationToken)
     {
-        logger.LogInformation("Retrieving hub file. FileId: {FileId}, FileType: {FileType}, StorageType: {StorageType}",
-            rowId,
-            fileType,
-            storageType);
+     
 
         var file = await TableNoTracking.FirstOrDefaultAsync(
-            a => a.Id == rowId && a.Type == fileType && a.ReferenceIdType == storageType,
+            a => a.Id == rowId && a.Type == fileType,
             cancellationToken);
 
         if (file == null)
@@ -56,12 +52,10 @@ public class HubFileQueryRepository(
 
         var files = await DbContext.Set<HubFile>()
             .Where(a =>
-                // a.ProjectId == zipfile.ProjectId &&
-                a.ReferenceIdType == zipfile.RowType  &&
-                a.ReportDate      >= zipfile.FromDate &&
-                a.ReportDate      <= zipfile.ToDate)
+                a.CreatedAt      >= zipfile.FromDate &&
+                a.CreatedAt      <= zipfile.ToDate)
             .GroupBy(a => a.Name)
-            .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
+            .Select(a => a.OrderByDescending(w => w.CreatedAt).FirstOrDefault())
             .ToListAsync(cancellationToken);
 
         logger.LogInformation("ZIP files retrieved. Count: {Count}", files.Count);
@@ -81,15 +75,12 @@ public class HubFileQueryRepository(
 
         var path = $"tenant-{tenantContext.MultiTenantContext.TenantInfo?.Identifier}";
 
-        if (request.RowType == FileStorageType.ProfilePicture)
-            return Path.Combine(path, "User-Profiles").ToLower();
 
 
         var finalPath = Path.Combine(
                 path,
                 $"Date-{DateTime.UtcNow:yyyy-MM-dd}",
-                $"User-{userId}",
-                request.RowType.GetEnglishName()
+                $"User-{userId}"
             )
             .ToLower();
 

@@ -9,10 +9,6 @@ public class UploadHubFileRequestExample : IExamplesProvider<UploadHubFileReques
         return new UploadHubFileRequest
         {
             File = null!,
-
-            ReportDate = DateTime.UtcNow,
-            RowId      = Guid.NewGuid(),
-            RowType    = FileStorageType.Material
         };
     }
 }

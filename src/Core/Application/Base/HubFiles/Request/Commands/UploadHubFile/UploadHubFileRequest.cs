@@ -8,10 +8,7 @@ public class UploadHubFileRequest
 {
     public IFormFile File { get; set; }
 
-    public DateTime ReportDate { get; set; }
-    public FileStorageType RowType { get; set; }
-
-    public Guid RowId { get; set; }
+    public Guid AttendanceId { get; set; }
 
 
     public string FileExtension()

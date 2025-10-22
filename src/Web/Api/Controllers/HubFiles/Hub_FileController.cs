@@ -35,7 +35,6 @@ public class Hub_FileController : SmartAttendanceBaseController
     public async Task<FileContentResult> GetHubFile(
         Guid              fileId,
         FileType          type,
-        FileStorageType   referenceType,
         bool              compress,
         CancellationToken cancellationToken)
     {
@@ -45,7 +44,7 @@ public class Hub_FileController : SmartAttendanceBaseController
                               _            => "application/octet-stream"
                           };
 
-        var file = await Mediator.Send(GetHubFileQuery.Create(fileId, type, referenceType, compress),
+        var file = await Mediator.Send(GetHubFileQuery.Create(fileId, type, compress),
             cancellationToken);
 
         Response.Headers.Append("Content-Disposition", $"attachment; filename={WebUtility.UrlEncode(file.FileName)}");

@@ -8,6 +8,5 @@ public class UploadFileRequest
     public IFormFile File { get; set; }
 
     public Guid RowId { get; set; }
-    public DateTime ReportDate { get; set; }
-    public FileStorageType RowType { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

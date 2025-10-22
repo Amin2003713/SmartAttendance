@@ -56,10 +56,6 @@ public class ZipExportCommandHandler(
         var dto = new ZipExportCommandResponse
         {
             File = zip,
-
-            RowType    = FileStorageType.ZipExports,
-            RowId      = Guid.NewGuid(),
-            ReportDate = DateTime.UtcNow
         };
 
         var fileCommand = dto.Adapt<UploadHubFileCommand>();

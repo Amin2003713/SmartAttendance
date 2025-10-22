@@ -54,9 +54,6 @@ public class UpdateEmployeeCommandHandler (
             var uploadCommand = new UploadHubFileCommand
             {
                 File       = request.ProfilePicture.MediaFile,
-                ReportDate = DateTime.UtcNow,
-                RowType    = FileStorageType.ProfilePicture,
-                RowId      = user.Id
             };
 
             var uploadResponse = await mediator.Send(uploadCommand, cancellationToken);

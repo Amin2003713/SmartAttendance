@@ -57,18 +57,16 @@ public class HubFileCommandRepository(
         // logger.LogInformation("Generating ZIP file for ProjectId: {ProjectId}", Zipfile.ProjectId);
 
         var files = await TableNoTracking.Where(a =>
-                // a.ProjectId == Zipfile.ProjectId &&
-                a.ReferenceIdType == Zipfile.RowType  &&
-                a.ReportDate      >= Zipfile.FromDate &&
-                a.ReportDate      <= Zipfile.ToDate)
+                a.CreatedAt      >= Zipfile.FromDate &&
+                a.CreatedAt      <= Zipfile.ToDate)
             .GroupBy(a => a.Name)
-            .Select(a => a.OrderByDescending(w => w.ReportDate).FirstOrDefault())
+            .Select(a => a.OrderByDescending(w => w.CreatedAt).FirstOrDefault())
             .ToListAsync(cancellationToken);
 
         if (files.Count == 0)
         {
             // logger.LogWarning("No files found to include in ZIP. ProjectId: {ProjectId}", Zipfile.ProjectId);
-            // return null!;
+             return null!;
         }
 
         var zip = await CreateZipFromFiles(files, cancellationToken);
@@ -76,17 +74,13 @@ public class HubFileCommandRepository(
         var dto = new ZipExportCommandResponse
         {
             File = zip,
-
-            RowType    = FileStorageType.ZipExports,
-            RowId      = Guid.NewGuid(),
-            ReportDate = DateTime.UtcNow
         };
 
         var zipexport = dto.Adapt<UploadFileRequest>();
         var path      = await PostFile(zipexport, cancellationToken);
 
         DeleteFileJob(path.Path, 45);
-        return GetUrlPath(path.Id, FileType.Zip, FileStorageType.ZipExports);
+        return GetUrlPath(path.Id, FileType.Zip);
     }
 
 
@@ -102,7 +96,7 @@ public class HubFileCommandRepository(
 
             FileName = file.FileName,
             RowId    = Guid.NewGuid(),
-            RowType  = FileStorageType.PdfExports
+           
         };
 
         var files = new UploadPdfCommand
@@ -111,7 +105,6 @@ public class HubFileCommandRepository(
 
             FileName   = file.FileName,
             RowId      = Guid.NewGuid(),
-            RowType    = FileStorageType.PdfExports,
             FileUpload = uploadPdfRequest,
             Path       = minioPath,
             UserId     = Guid.Empty
@@ -126,7 +119,7 @@ public class HubFileCommandRepository(
             await AddAsync(path, cancellationToken);
             logger.LogInformation("PDF file metadata saved successfully. FileId: {FileId}", path.Id);
 
-            return GetUrlPath(path.Id, FileType.Pdf, FileStorageType.PdfExports);
+            return GetUrlPath(path.Id, FileType.Pdf);
         }
         catch (Exception ex)
         {
@@ -246,19 +239,13 @@ public class HubFileCommandRepository(
     {
         var path = $"tenant-{tenantContext.Identifier}";
 
-        if (uploadFileRequest.RowType is FileStorageType.UniversityLogo or FileStorageType.ProfilePicture
-                                                                        or FileStorageType.UniversityMessage
-                                                                        or FileStorageType.ZipExports or FileStorageType.PdfExports)
-            return Path.Combine(path, uploadFileRequest.RowType.GetEnglishName()).ToLower();
-
-
-        return Path.Combine(path, uploadFileRequest.RowType.GetEnglishName(), $"Date-{DateTime.UtcNow:yyyyMMdd}").ToLower();
+        return Path.Combine(path, $"Date-{DateTime.UtcNow:yyyyMMdd}").ToLower();
     }
 
-    private string GetUrlPath(Guid id, FileType fileType, FileStorageType storageType, bool compress = false)
+    private string GetUrlPath(Guid id, FileType fileType, bool compress = false)
     {
         return
-            $"{tenantContext.Identifier}.{ApplicationConstant.Const.BaseDomain}/api/minio/hub-file/{id}?Type={fileType}&ReferenceType={storageType}&compress={compress}";
+            $"{tenantContext.Identifier}.{ApplicationConstant.Const.BaseDomain}/api/minio/hub-file/{id}?Type={fileType}&compress={compress}";
     }
 
     private async Task<IFormFile> CreateZipFromFiles(List<HubFile> filePaths, CancellationToken cancellationToken)

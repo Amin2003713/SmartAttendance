@@ -16,7 +16,6 @@ public interface IHubFileQueryRepository : IQueryRepository<HubFile>,
     Task<FileTransferResponse> GetHubFile(
         Guid              rowId,
         FileType          fileType,
-        FileStorageType   referenceType,
         CancellationToken cancellationToken);
 
     Task<string> GetBucketPath(UploadHubFileCommand request, Guid? userId, CancellationToken cancellationToken);

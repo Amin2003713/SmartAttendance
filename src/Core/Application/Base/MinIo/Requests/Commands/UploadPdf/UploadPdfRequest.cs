@@ -9,5 +9,4 @@ public class UploadPdfRequest
 
     public Guid RowId { get; set; } = Guid.CreateVersion7();
 
-    public FileStorageType RowType { get; set; } = FileStorageType.PdfExports;
 }

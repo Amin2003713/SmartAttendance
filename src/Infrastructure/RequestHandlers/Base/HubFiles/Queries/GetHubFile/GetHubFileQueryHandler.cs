@@ -13,7 +13,6 @@ public class GetHubFileQueryHandler(
     {
         return await hubFileQueryRepository.GetHubFile(request.FileId,
             request.FileType,
-            request.ReferenceType,
             cancellationToken);
     }
 }

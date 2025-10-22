@@ -54,10 +54,6 @@ public class UpdateUserCommandHandler(
                 var uploadCommand = new UploadHubFileCommand
                 {
                     File = request.ProfilePicture.MediaFile,
-
-                    ReportDate = DateTime.UtcNow,
-                    RowType    = FileStorageType.ProfilePicture,
-                    RowId      = userId
                 };
 
                 var uploadImageResponse = await mediator.Send(uploadCommand, cancellationToken);

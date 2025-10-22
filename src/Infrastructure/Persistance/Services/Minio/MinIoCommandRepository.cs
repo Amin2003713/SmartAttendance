@@ -61,8 +61,6 @@ public class MinIoCommandRepository(
                 Path = file.Path,
 
                 Name            = file.File.FileName,
-                ReferenceIdType = file.RowType,
-                ReportDate      = file.ReportDate,
                 ReferenceId     = file.RowId,
                 Type            = fileType
             };
@@ -96,8 +94,6 @@ public class MinIoCommandRepository(
             Path = file.Path,
 
             Name            = file.FileName,
-            ReferenceIdType = file.RowType,
-            ReportDate      = DateTime.UtcNow,
             ReferenceId     = file.RowId,
             Type = extension switch
                    {
@@ -138,8 +134,6 @@ public class MinIoCommandRepository(
             Path = file.Path,
 
             Name            = file.FileName,
-            ReferenceIdType = file.RowType,
-            ReportDate      = DateTime.UtcNow,
             ReferenceId     = file.RowId,
             Type            = FileType.Excel
         };
@@ -166,8 +160,7 @@ public class MinIoCommandRepository(
             Path = file.Path,
 
             Name            = file.FileName,
-            ReferenceIdType = file.RowType,
-            ReportDate      = DateTime.UtcNow,
+
             ReferenceId     = file.RowId,
             Type            = FileType.Xml
         };

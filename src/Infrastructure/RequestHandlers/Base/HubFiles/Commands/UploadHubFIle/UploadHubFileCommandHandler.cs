@@ -24,11 +24,8 @@ public class UploadHubFileCommandHandler(
     public async Task<MediaFileStorage> Handle(UploadHubFileCommand request, CancellationToken cancellationToken)
     {
         var userId = identityService.GetUserId();
-        // logger.LogInformation("User {UserId} is uploading a file for ProjectId {ProjectId}.", userId, request.ProjectId);
 
         ValidateRequestFile(request);
-
-        var fileSizeMb = request.File.Length.BytesToMegabytes();
 
 
         var bucketPath = await hubFileQueryRepository.GetBucketPath(request, userId, cancellationToken);
@@ -61,7 +58,7 @@ public class UploadHubFileCommandHandler(
             await hubFileCommandRepository.AddAsync(path, cancellationToken);
             logger.LogInformation("File record added successfully. Id: {Id}", path.Id);
 
-            var fileUrl = BuildFileUrl(path.Id, path.Type, path.ReferenceIdType);
+            var fileUrl = BuildFileUrl(path.Id, path.Type);
             var type    = request.File.GetFileType();
 
             return new MediaFileStorage
@@ -84,10 +81,10 @@ public class UploadHubFileCommandHandler(
         }
     }
 
-    private string BuildFileUrl(Guid id, FileType fileType, FileStorageType storageType)
+    private string BuildFileUrl(Guid id, FileType fileType)
     {
         return
-            $"{identityService.TenantInfo!.Identifier}.{ApplicationConstant.Const.BaseDomain}/api/minio/hub-file/{id}?Type={fileType}&ReferenceType={storageType}&compress=False";
+            $"{identityService.TenantInfo!.Identifier}.{ApplicationConstant.Const.BaseDomain}/api/minio/hub-file/{id}?Type={fileType}&compress=False";
     }
 
     public static IFormFile ToFormFile(byte[] bytes, string fileName, string contentType = "application/octet-stream")
