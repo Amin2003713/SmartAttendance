@@ -7,45 +7,45 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AWSSDK.S3" Version="4.0.6.3"/>
-        <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="9.2.2"/>
-        <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="9.2.2"/>
-        <PackageReference Include="Hangfire.Core" Version="1.8.20"/>
-        <PackageReference Include="Mapster" Version="7.4.0"/>
-        <PackageReference Include="MD.PersianDateTime.Standard" Version="2.5.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.7">
+        <PackageReference Include="AWSSDK.S3" Version="4.0.7.13" />
+        <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="9.2.2" />
+        <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="9.4.1" />
+        <PackageReference Include="Hangfire.Core" Version="1.8.21" />
+        <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="MD.PersianDateTime.Standard" Version="2.6.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.13.0"/>
-        <PackageReference Include="Minio" Version="6.0.5"/>
-        <PackageReference Include="PolyCache" Version="1.2.1"/>
-        <PackageReference Include="QuestPDF" Version="2025.7.0"/>
-        <PackageReference Include="SharpCompress" Version="0.40.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.14.0" />
+        <PackageReference Include="Minio" Version="6.0.5" />
+        <PackageReference Include="PolyCache" Version="1.2.1" />
+        <PackageReference Include="QuestPDF" Version="2025.7.0" />
+        <PackageReference Include="SharpCompress" Version="0.41.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Core\Application\SmartAttendance.Application.csproj"/>
+        <ProjectReference Include="..\..\Core\Application\SmartAttendance.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Mongo\Documents\AttendanceDocument.cs"/>
-        <Compile Remove="Mongo\Documents\DocumentDocument.cs"/>
-        <Compile Remove="Mongo\Documents\NotificationDocument.cs"/>
-        <Compile Remove="Mongo\Documents\PlanDocument.cs"/>
-        <Compile Remove="Mongo\Documents\RoleDocument.cs"/>
-        <Compile Remove="Mongo\Repositories\MongoAttendanceRepository.cs"/>
-        <Compile Remove="Mongo\Repositories\MongoDocumentRepository.cs"/>
-        <Compile Remove="Mongo\Repositories\MongoNotificationRepository.cs"/>
-        <Compile Remove="Mongo\Repositories\MongoPlanRepository.cs"/>
-        <Compile Remove="Mongo\Repositories\MongoRoleRepository.cs"/>
+        <Compile Remove="Mongo\Documents\AttendanceDocument.cs" />
+        <Compile Remove="Mongo\Documents\DocumentDocument.cs" />
+        <Compile Remove="Mongo\Documents\NotificationDocument.cs" />
+        <Compile Remove="Mongo\Documents\PlanDocument.cs" />
+        <Compile Remove="Mongo\Documents\RoleDocument.cs" />
+        <Compile Remove="Mongo\Repositories\MongoAttendanceRepository.cs" />
+        <Compile Remove="Mongo\Repositories\MongoDocumentRepository.cs" />
+        <Compile Remove="Mongo\Repositories\MongoNotificationRepository.cs" />
+        <Compile Remove="Mongo\Repositories\MongoPlanRepository.cs" />
+        <Compile Remove="Mongo\Repositories\MongoRoleRepository.cs" />
     </ItemGroup>
 
     <ItemGroup>

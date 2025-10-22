@@ -9,32 +9,32 @@
     <ItemGroup>
 
 
-        <PackageReference Include="Hangfire" Version="1.8.20"/>
+        <PackageReference Include="Hangfire" Version="1.8.21" />
 
 
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.7.0"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.7.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.10.0" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.10.0" />
 
-        <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1"/>
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
-
-
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.7"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3"/>
+        <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.9.0" />
 
 
-        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0"/>
-        <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="9.0.3"/>
-        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.7"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.10" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+
+
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.7.0" />
+        <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="9.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="9.0.6" />
+        <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.10" />
     </ItemGroup>
 
 
@@ -65,7 +65,7 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Infrastructure\RequestHandlers\SmartAttendance.RequestHandlers.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\RequestHandlers\SmartAttendance.RequestHandlers.csproj" />
     </ItemGroup>
 
 

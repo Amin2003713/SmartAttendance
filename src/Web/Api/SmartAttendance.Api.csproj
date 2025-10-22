@@ -15,18 +15,18 @@
     <ItemGroup>
 
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
 
-        <PackageReference Include="Hangfire" Version="1.8.20"/>
+        <PackageReference Include="Hangfire" Version="1.8.21" />
 
 
-        <PackageReference Include="Riviera.ZarinPal" Version="3.0.0-preview.4"/>
+        <PackageReference Include="Riviera.ZarinPal" Version="3.0.0-preview.4" />
 
 
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.9.0" />
 
 
     </ItemGroup>
@@ -57,7 +57,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ApiFramework\SmartAttendance.ApiFramework.csproj"/>
+        <ProjectReference Include="..\ApiFramework\SmartAttendance.ApiFramework.csproj" />
     </ItemGroup>
 
     <PropertyGroup>

@@ -7,20 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DNTPersianUtils.Core" Version="6.7.0"/>
-        <PackageReference Include="FluentValidation" Version="12.0.0"/>
-        <PackageReference Include="MediatR" Version="13.0.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.7"/>
-        <PackageReference Include="Pluralize.NET" Version="1.0.2"/>
-        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.10"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.3"/>
+        <PackageReference Include="DNTPersianUtils.Core" Version="6.7.0" />
+        <PackageReference Include="FluentValidation" Version="12.0.0" />
+        <PackageReference Include="Hangfire.Core" Version="1.8.21" />
+        <PackageReference Include="Hangfire.SqlServer" Version="1.8.21" />
+        <PackageReference Include="MediatR" Version="13.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.10" />
+        <PackageReference Include="Pluralize.NET" Version="1.0.2" />
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.6" />
+        <PackageReference Include="VaultSharp" Version="1.17.5.1" />
     </ItemGroup>
 
 </Project>

@@ -8,67 +8,67 @@
 
     <ItemGroup>
 
-        <PackageReference Include="Finbuckle.MultiTenant" Version="9.2.2"/>
+        <PackageReference Include="Finbuckle.MultiTenant" Version="9.4.1" />
 
-        <PackageReference Include="Mapster" Version="7.4.0"/>
+        <PackageReference Include="Mapster" Version="7.4.0" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.7"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="System.Security.Permissions" Version="9.0.7"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.10" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+        <PackageReference Include="System.Security.Permissions" Version="9.0.10" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Common\SmartAttendance.Common\SmartAttendance.Common.csproj"/>
+        <ProjectReference Include="..\..\Common\SmartAttendance.Common\SmartAttendance.Common.csproj" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <Compile Remove="AttendanceAggregate\AttendanceAggregate.cs"/>
-        <Compile Remove="Common\AggregateRoot.cs"/>
-        <Compile Remove="Common\AttendanceId.cs"/>
-        <Compile Remove="Common\BusinessRuleViolationException.cs"/>
-        <Compile Remove="Common\DocumentId.cs"/>
-        <Compile Remove="Common\DomainException.cs"/>
-        <Compile Remove="Common\Entity.cs"/>
-        <Compile Remove="Common\ForbiddenOperationException.cs"/>
-        <Compile Remove="Common\IDomainEvent.cs"/>
-        <Compile Remove="Common\PlanId.cs"/>
-        <Compile Remove="Common\RoleId.cs"/>
-        <Compile Remove="DocumentAggregate\Document.cs"/>
-        <Compile Remove="Events\AttendanceRecordedEvent.cs"/>
-        <Compile Remove="Events\DocumentApprovedEvent.cs"/>
-        <Compile Remove="Events\DocumentRejectedEvent.cs"/>
-        <Compile Remove="Events\EnrollmentCanceledEvent.cs"/>
-        <Compile Remove="Events\ExcusalApprovedEvent.cs"/>
-        <Compile Remove="Events\FailedLoginRegisteredEvent.cs"/>
-        <Compile Remove="Events\GPSValidatedEvent.cs"/>
-        <Compile Remove="Events\NotificationMarkedAsReadEvent.cs"/>
-        <Compile Remove="Events\OfflineSyncPerformedEvent.cs"/>
-        <Compile Remove="Events\PlanCapacityReachedEvent.cs"/>
-        <Compile Remove="Events\PointsCalculatedEvent.cs"/>
-        <Compile Remove="Events\QRValidatedEvent.cs"/>
-        <Compile Remove="Events\RoleAssignedEvent.cs"/>
-        <Compile Remove="Events\RoleRemovedEvent.cs"/>
-        <Compile Remove="Events\StudentRegisteredToPlanEvent.cs"/>
-        <Compile Remove="Events\UserLockedEvent.cs"/>
-        <Compile Remove="Services\IAttendanceValidationService.cs"/>
-        <Compile Remove="Services\IOfflineSyncService.cs"/>
-        <Compile Remove="UserAggregate\Role.cs"/>
-        <Compile Remove="ValueObjects\AttendanceStatus.cs"/>
-        <Compile Remove="ValueObjects\EmailAddress.cs"/>
-        <Compile Remove="ValueObjects\GPSCoordinate.cs"/>
-        <Compile Remove="ValueObjects\NationalCode.cs"/>
-        <Compile Remove="ValueObjects\PhoneNumber.cs"/>
-        <Compile Remove="ValueObjects\PlanCapacity.cs"/>
+        <Compile Remove="AttendanceAggregate\AttendanceAggregate.cs" />
+        <Compile Remove="Common\AggregateRoot.cs" />
+        <Compile Remove="Common\AttendanceId.cs" />
+        <Compile Remove="Common\BusinessRuleViolationException.cs" />
+        <Compile Remove="Common\DocumentId.cs" />
+        <Compile Remove="Common\DomainException.cs" />
+        <Compile Remove="Common\Entity.cs" />
+        <Compile Remove="Common\ForbiddenOperationException.cs" />
+        <Compile Remove="Common\IDomainEvent.cs" />
+        <Compile Remove="Common\PlanId.cs" />
+        <Compile Remove="Common\RoleId.cs" />
+        <Compile Remove="DocumentAggregate\Document.cs" />
+        <Compile Remove="Events\AttendanceRecordedEvent.cs" />
+        <Compile Remove="Events\DocumentApprovedEvent.cs" />
+        <Compile Remove="Events\DocumentRejectedEvent.cs" />
+        <Compile Remove="Events\EnrollmentCanceledEvent.cs" />
+        <Compile Remove="Events\ExcusalApprovedEvent.cs" />
+        <Compile Remove="Events\FailedLoginRegisteredEvent.cs" />
+        <Compile Remove="Events\GPSValidatedEvent.cs" />
+        <Compile Remove="Events\NotificationMarkedAsReadEvent.cs" />
+        <Compile Remove="Events\OfflineSyncPerformedEvent.cs" />
+        <Compile Remove="Events\PlanCapacityReachedEvent.cs" />
+        <Compile Remove="Events\PointsCalculatedEvent.cs" />
+        <Compile Remove="Events\QRValidatedEvent.cs" />
+        <Compile Remove="Events\RoleAssignedEvent.cs" />
+        <Compile Remove="Events\RoleRemovedEvent.cs" />
+        <Compile Remove="Events\StudentRegisteredToPlanEvent.cs" />
+        <Compile Remove="Events\UserLockedEvent.cs" />
+        <Compile Remove="Services\IAttendanceValidationService.cs" />
+        <Compile Remove="Services\IOfflineSyncService.cs" />
+        <Compile Remove="UserAggregate\Role.cs" />
+        <Compile Remove="ValueObjects\AttendanceStatus.cs" />
+        <Compile Remove="ValueObjects\EmailAddress.cs" />
+        <Compile Remove="ValueObjects\GPSCoordinate.cs" />
+        <Compile Remove="ValueObjects\NationalCode.cs" />
+        <Compile Remove="ValueObjects\PhoneNumber.cs" />
+        <Compile Remove="ValueObjects\PlanCapacity.cs" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <None Remove="Docs\BusinessRules.md"/>
-        <None Remove="Docs\README.md"/>
-        <None Remove="Docs\TestingGuide.md"/>
+        <None Remove="Docs\BusinessRules.md" />
+        <None Remove="Docs\README.md" />
+        <None Remove="Docs\TestingGuide.md" />
     </ItemGroup>
 
 </Project>
