@@ -8,8 +8,7 @@ public class Attachment : BaseEntity
     public string Url { get; set; } = default!;
     public string ContentType { get; set; } = default!;
 
-    public Guid UploadedBy { get; set; }
 
-    // Navigation
+    public Guid UploadedBy { get; set; }
     public User Uploader { get; set; } = default!;
 }

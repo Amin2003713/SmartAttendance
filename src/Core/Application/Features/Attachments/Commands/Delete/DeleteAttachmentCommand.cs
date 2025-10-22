@@ -1,3 +1,3 @@
 ﻿namespace SmartAttendance.Application.Features.Attachments.Commands.Delete;
 
-public class DeleteAttachmentCommand { }
+public record DeleteAttachmentCommand(List<Guid> Ids) : IRequest { }
