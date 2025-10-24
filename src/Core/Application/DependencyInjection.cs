@@ -96,11 +96,14 @@ public static class DependencyInjection
     {
         TypeAdapterConfig<Major, GetMajorInfoResponse>.NewConfig()
             .Map(dest => dest.Subjects,
-                src => src.Subjects.Select(s => new GetSubjectInfoResponse
-                {
-                    Id = s.SubjectId,
-                    Name = s.Subject.Name,
-                })
+                src => src.Subjects != null && src.Subjects.Any()
+                    ? src.Subjects.Select(s => new GetSubjectInfoResponse
+                        {
+                            Id = s.SubjectId,
+                            Name = s.Subject.Name,
+                        })
+                        .ToList()
+                    : null
             );
     }
 
@@ -110,20 +113,72 @@ public static class DependencyInjection
         TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
             .Map(dest => dest.Major,
                 src => src.Major != null
-                    ? src.Major.Adapt<GetMajorInfoResponse>()
+                    ? new GetMajorInfoResponse
+                    {
+                        Id = src.Major.Id,
+                        Name = src.Major.Name,
+                        Subjects = src.Major.Subjects != null && src.Major.Subjects.Any()
+                            ? src.Major.Subjects.Select(s => new MajorSubjectResponse(
+                                    s.SubjectId,
+                                    s.Subject.Name
+                                ))
+                                .ToList()
+                            : new List<MajorSubjectResponse>()
+                    }
                     : null)
+
+            // Map Teacher manually
             .Map(dest => dest.Teacher,
-                src => src.Teacher.Count != 0
-                    ? src.Teacher.Select(a => a.Adapt<GetUserResponse>())
-                    : null)
+                src => src.Teacher != null && src.Teacher.Any()
+                    ? src.Teacher.Select(u => new GetUserResponse
+                        {
+                            Id = u.Id,
+                            FullName = u.Teacher.FullName(),
+                            ProfilePicture = u.Teacher.ProfilePicture != null ? u.Teacher.ProfilePicture.BuildImageUrl(false) : null,
+                        })
+                        .ToList()
+                    : new List<GetUserResponse>())
+
+            // Map Enrollments manually
             .Map(dest => dest.Enrollments,
-                src => src.Enrollments.Count != 0
-                    ? src.Enrollments.Select(a => a.Adapt<GetEnrollmentResponse>())
-                    : null)
+                src => src.Enrollments != null && src.Enrollments.Any()
+                    ? src.Enrollments.Select(e => new GetEnrollmentResponse
+                        {
+                            Id = e.Id,
+                            Student = new GetUserResponse
+                            {
+                                Id = e.Student.Id,
+                                FullName = e.Student.FullName(),
+                                ProfilePicture = e.Student.ProfilePicture != null ? e.Student.ProfilePicture.BuildImageUrl(false) : null
+                            },
+                            Attendance = (e.Attendance != null
+                                ? new GetAttendanceInfoResponse
+                                {
+                                    Id = e.Attendance.Id,
+                                    RecordedAt = e.Attendance.RecordedAt,
+                                    Excuse = e.Attendance.Excuse != null
+                                        ? new GetExcuseInfoResponse
+                                        {
+                                            Id = e.Attendance.Excuse.Id,
+                                            Reason = e.Attendance.Excuse.Reason
+                                        }
+                                        : null
+                                }
+                                : null)
+                        })
+                        .ToList()
+                    : new List<GetEnrollmentResponse>())
+
+            // Map Subjects manually
             .Map(dest => dest.Subjects,
-                src => src.Subjects.Any()
-                    ? src.Subjects.Adapt<List<GetSubjectInfoResponse>>()
-                    : null);
+                src => src.Subjects != null && src.Subjects.Any()
+                    ? src.Subjects.Select(s => new GetSubjectInfoResponse
+                        {
+                            Id = s.SubjectId,
+                            Name = s.Subject.Name
+                        })
+                        .ToList()
+                    : new List<GetSubjectInfoResponse>());
     }
 
     private static void UserAdaptor()

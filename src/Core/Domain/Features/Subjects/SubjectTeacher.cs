@@ -9,5 +9,5 @@ public class SubjectTeacher  : BaseEntity
 
 
     public Guid SubjectId { get; set; }
-    public User Subject { get; set; } = default!;
+    public Subject Subject { get; set; } = default!;
 }

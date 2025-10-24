@@ -10,6 +10,6 @@ public class GetEnrollmentResponse
     public Guid PlanId { get; set; }
     public EnrollmentStatus Status { get; set; }
     public DateTime EnrolledAt { get; set; } 
-    public GetAttendanceInfoResponse Attendance { get; set; } = null!;
+    public GetAttendanceInfoResponse? Attendance { get; set; } = null!;
     public GetUserResponse Student { get; init; }
 }

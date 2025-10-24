@@ -10,6 +10,5 @@ public class Subject  : BaseEntity
     public Guid MajorId { get; set; }
     public Major Major { get; set; } = default!;
 
-    public Guid TeacherId { get; set; }
-    public User Teacher { get; set; } = default!;
+    public List<SubjectTeacher> Teachers { get; set; }
 }

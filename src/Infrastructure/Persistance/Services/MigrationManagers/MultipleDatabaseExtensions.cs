@@ -32,7 +32,6 @@ public static class MultipleDatabaseExtensions
             if (tenantsInDb.Count == 0)
                 return;
 
-            // 2. Loop through tenants
             foreach (var tenant in tenantsInDb)
             {
                 try

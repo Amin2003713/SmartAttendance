@@ -7,6 +7,7 @@ namespace SmartAttendance.Application.Features.Attendances.Responses;
 
 public class GetAttendanceInfoResponse
 {
+    public Guid Id { get; set; }
     public GetUserResponse Student { get; set; }
 
     public AttendanceStatus Status { get; set; }

@@ -277,7 +277,10 @@ public static class WebApiModule
     private static void AddServiceControllers(this IServiceCollection services)
     {
         services.Configure<JsonOptions>(options =>
-            options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+        {
+            options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            options.SerializerOptions.DefaultIgnoreCondition =  JsonIgnoreCondition.WhenWritingNull;
+        });
 
         services.AddControllers(options =>
             {

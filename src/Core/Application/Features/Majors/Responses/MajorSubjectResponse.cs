@@ -1,6 +1,6 @@
 ﻿namespace SmartAttendance.Application.Features.Majors.Responses;
 
-internal record MajorSubjectResponse(
+public record MajorSubjectResponse(
     Guid Id ,
     string Name
 )              ;

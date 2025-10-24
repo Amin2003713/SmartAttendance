@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartAttendance.Persistence.Db;
 
@@ -11,9 +12,11 @@ using SmartAttendance.Persistence.Db;
 namespace SmartAttendance.Persistence.Migrations.feat
 {
     [DbContext(typeof(SmartAttendanceDbContext))]
-    partial class SmartAttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251023092150_pedns")]
+    partial class pedns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -601,9 +604,14 @@ namespace SmartAttendance.Persistence.Migrations.feat
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MajorId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Subjects");
                 });
@@ -1227,7 +1235,15 @@ namespace SmartAttendance.Persistence.Migrations.feat
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SmartAttendance.Domain.Users.User", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Major");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.SubjectPlans", b =>
@@ -1251,8 +1267,8 @@ namespace SmartAttendance.Persistence.Migrations.feat
 
             modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.SubjectTeacher", b =>
                 {
-                    b.HasOne("SmartAttendance.Domain.Features.Subjects.Subject", "Subject")
-                        .WithMany("Teachers")
+                    b.HasOne("SmartAttendance.Domain.Users.User", "Subject")
+                        .WithMany()
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1331,11 +1347,6 @@ namespace SmartAttendance.Persistence.Migrations.feat
                     b.Navigation("Subjects");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("SmartAttendance.Domain.Features.Subjects.Subject", b =>
-                {
-                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("SmartAttendance.Domain.Users.User", b =>
