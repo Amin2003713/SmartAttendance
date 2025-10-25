@@ -132,7 +132,7 @@ public static class DependencyInjection
                 src => src.Teacher != null && src.Teacher.Any()
                     ? src.Teacher.Select(u => new GetUserResponse
                         {
-                            Id = u.Id,
+                            Id = u.Teacher.Id,
                             FullName = u.Teacher.FullName(),
                             ProfilePicture = u.Teacher.ProfilePicture != null ? u.Teacher.ProfilePicture.BuildImageUrl(false) : null,
                         })
