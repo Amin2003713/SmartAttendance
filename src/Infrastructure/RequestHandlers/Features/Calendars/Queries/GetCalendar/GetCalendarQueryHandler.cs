@@ -14,14 +14,14 @@ using SmartAttendance.Persistence.Services.Identities;
 namespace SmartAttendance.RequestHandlers.Features.Calendars.Queries.GetCalendar;
 
 public class GetCalendarQueryHandler(
-    IdentityService                  identityService,
+    IdentityService identityService,
     IMediator mediator,
-    ICalendarQueryRepository         calendarQueryRepository,
+    ICalendarQueryRepository calendarQueryRepository,
     ILogger<GetCalendarQueryHandler> logger
 ) : IRequestHandler<GetCalendarQuery, List<GetCalendarResponse>>
 {
     public async Task<List<GetCalendarResponse>> Handle(
-        GetCalendarQuery  request,
+        GetCalendarQuery request,
         CancellationToken cancellationToken)
     {
         var currentUserId = identityService.GetUserId<Guid>();
@@ -33,22 +33,29 @@ public class GetCalendarQueryHandler(
             currentUserId);
 
         var monthStartGregorian =
-            new PersianDateTime(request.Year, request.Month, 1).ToString().ToGregorianDateTime()!.Value;
+            new PersianDateTime(request.Year, request.Month, 1)
+                .ToString()
+                .ToGregorianDateTime()!.Value;
 
-        var monthEndGregorian = monthStartGregorian.GetPersianMonthStartAndEndDates()!.EndDate;
+        var monthEndGregorian = monthStartGregorian
+            .GetPersianMonthStartAndEndDates()!.EndDate;
 
-        var publicCalendarEntries = await calendarQueryRepository.GetPublicCalendarEvents(calendar =>
-                                            calendar.Date >= monthStartGregorian &&
-                                            calendar.Date <= monthEndGregorian   &&
-                                            calendar.IsActive                    &&
-                                            (calendar.IsHoliday ||
-                                             calendar.IsWeekend ||
-                                             calendar.Details != null),
-                                        cancellationToken) ??
-                                    [];
+        var publicCalendarEntries =
+            await calendarQueryRepository.GetPublicCalendarEvents(
+                c => c.Date >= monthStartGregorian &&
+                     c.Date <= monthEndGregorian &&
+                     c.IsActive &&
+                     (c.IsHoliday || c.IsWeekend || c.Details != null),
+                cancellationToken
+            ) ??
+            [];
 
+        var publicCalendarByDate = publicCalendarEntries
+            .GroupBy(c => c.Key)
+            .ToDictionary(g => g.Key, g => g.ToList());
 
-        var userPlans = (await mediator.Send(new GetPlanByDateRangeQuery
+        var userPlans = (await mediator.Send(
+                new GetPlanByDateRangeQuery
                 {
                     From = monthStartGregorian,
                     To = monthEndGregorian
@@ -57,43 +64,32 @@ public class GetCalendarQueryHandler(
             .GroupBy(a => a.StartTime.Date)
             .ToDictionary(g => g.Key, g => g.ToList());
 
+        var allDates = userPlans.Keys
+            .Union(publicCalendarByDate.Keys)
+            .Distinct()
+            .OrderBy(d => d)
+            .ToList();
 
-        var dates = userPlans.Select(a => a.Key).Intersect(publicCalendarEntries.Select(a => a.Key)).ToList();
+        var calendarResponses = new List<GetCalendarResponse>(allDates.Count);
 
-        var calendarResponses = new List<GetCalendarResponse>(dates.Count);
-
-        foreach (var date in dates.OrderBy(d => d))
+        foreach (var date in allDates)
         {
-            publicCalendarEntries.TryGetValue(date, out var publicEntry);
+            publicCalendarByDate.TryGetValue(date, out var publicEntry);
+            userPlans.TryGetValue(date, out var planEntry);
 
-            var isPublicHolidayOrWeekend = IsPublicHolidayOrWeekend(publicEntry ?? []);
-
-            userPlans.TryGetValue(date, out var customEntry);
-
-
-            if (!isPublicHolidayOrWeekend &&
-                customEntry is { Count: 0 })
-                continue;
-
+            var isHolidayOrWeekend = publicEntry?.Any(c => c.Value.Any(a => a.IsHoliday) || c.Value.Any(a => a.IsWeekend)) ?? false;
 
             calendarResponses.Add(new GetCalendarResponse
             {
-                Date            = date,
-                IsHoliday       = isPublicHolidayOrWeekend,
-                PlanInfos = customEntry ?? []
+                Date = date,
+                IsHoliday = isHolidayOrWeekend,
+                PlanInfos = planEntry?.Adapt<List<GetPlanInfoCalendarResponse>>() ?? []    ,
+                Details = publicEntry!.SelectMany(a => a.Value.Select(a => a.Details)) .ToList()
             });
         }
 
-        logger.LogInformation(
-            "Calendar built with {Count} days ",
-            calendarResponses.Count);
+        logger.LogInformation("Calendar built with {Count} days", calendarResponses.Count);
 
         return calendarResponses;
-    }
-
-
-    private bool IsPublicHolidayOrWeekend(List<TenantCalendar> publicEntries)
-    {
-        return publicEntries is not { Count: 0 } && publicEntries.Any(a => a.IsHoliday || a.IsWeekend);
     }
 }

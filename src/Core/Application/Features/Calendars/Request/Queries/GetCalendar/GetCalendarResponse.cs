@@ -6,5 +6,6 @@ public class GetCalendarResponse
 {
     public DateTime Date { get; set; }
     public bool IsHoliday { get; set; }
-    public List<GetPlanInfoResponse> PlanInfos { get; set; }
+    public List<GetPlanInfoCalendarResponse> PlanInfos { get; set; } = [] ;
+    public List<string> Details { get; set; }     = [];
 }
