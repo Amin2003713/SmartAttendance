@@ -12,10 +12,11 @@ public class GetAllMajorQueryHandler(
 {
     public async Task<List<GetMajorInfoResponse>> Handle(GetAllMajorQuery request, CancellationToken cancellationToken)
     {
-        var majors = await queryRepository.TableNoTracking
-            .OrderBy(m => m.Name)
-            .ProjectToType<GetMajorInfoResponse>()
-            .ToListAsync(cancellationToken);
+        var majors = (await queryRepository.TableNoTracking.Include(a => a.Subjects)
+                .OrderBy(m => m.Name)
+                .ToListAsync(cancellationToken))
+            .Adapt<List<GetMajorInfoResponse>>();
+
 
         return majors;
     }

@@ -25,8 +25,6 @@ public class HubFileQueryRepository(
         FileType          fileType,
         CancellationToken cancellationToken)
     {
-     
-
         var file = await TableNoTracking.FirstOrDefaultAsync(
             a => a.Id == rowId && a.Type == fileType,
             cancellationToken);
@@ -73,14 +71,13 @@ public class HubFileQueryRepository(
         //     userId,
         //     request.RowType);
 
-        var path = $"tenant-{tenantContext.MultiTenantContext.TenantInfo?.Identifier}";
-
+        var path = $"tenant{tenantContext.MultiTenantContext.TenantInfo?.Identifier}";
 
 
         var finalPath = Path.Combine(
                 path,
-                $"Date-{DateTime.UtcNow:yyyy-MM-dd}",
-                $"User-{userId}"
+                $"Date{DateTime.UtcNow:yyyy-MM-dd}",
+                $"User{userId}"
             )
             .ToLower();
 

@@ -6,5 +6,6 @@ public class GetMajorInfoResponse
 {
     public string Name { get; set; }
     public Guid Id { get; set; }
+    public Guid HeadMasterId { get; set; }
     public List<MajorSubjectResponse> Subjects { get; set; }
 }

@@ -99,8 +99,8 @@ public static class DependencyInjection
                 src => src.Subjects != null && src.Subjects.Any()
                     ? src.Subjects.Select(s => new GetSubjectInfoResponse
                         {
-                            Id = s.SubjectId,
-                            Name = s.Subject.Name,
+                            Id = s.Id,
+                            Name = s.Name,
                         })
                         .ToList()
                     : null
@@ -119,8 +119,8 @@ public static class DependencyInjection
                         Name = src.Major.Name,
                         Subjects = src.Major.Subjects != null && src.Major.Subjects.Any()
                             ? src.Major.Subjects.Select(s => new MajorSubjectResponse(
-                                    s.SubjectId,
-                                    s.Subject.Name
+                                    s.Id,
+                                    s.Name
                                 ))
                                 .ToList()
                             : new List<MajorSubjectResponse>()

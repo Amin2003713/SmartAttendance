@@ -3,7 +3,12 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="composeProjectName" value="dbs" />
-        <option name="envFilePath" value="E:\Personal\SmartAttendance\Docker\.env.development.local" />
+        <option name="envFilePath" value="D:\Persoanl\SmartAttendance\Docker\.env.development.local" />
+        <option name="envFilePaths">
+          <list>
+            <option value="D:\Persoanl\SmartAttendance\Docker\.env.development.local" />
+          </list>
+        </option>
         <option name="commandLineOptions" value="--build" />
         <option name="sourceFilePath" value="Docker/databses.docker-compose.yaml" />
         <option name="upRemoveOrphans" value="true" />

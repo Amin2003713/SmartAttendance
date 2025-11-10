@@ -64,7 +64,7 @@ public class PanelController : SmartAttendanceBaseController
         [FromForm] InitialUniversityRequest request,
         CancellationToken                cancellationToken)
     {
-        return await Mediator.Send(request.Adapt<InitialUniversityCommand>(), cancellationToken);
+        return await Mediator.Send(request.Adapt<InitialUniversityCommand>().AddFile(request.Logo), cancellationToken);
     }
 
     /// <summary>

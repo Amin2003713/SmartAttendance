@@ -8,6 +8,7 @@ using SmartAttendance.Application.Features.Plans.Responses;
 using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Application.Interfaces.Tenants.Calendars;
 using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.TypeConverters;
 using SmartAttendance.Domain.Tenants;
 using SmartAttendance.Persistence.Services.Identities;
 
@@ -83,8 +84,16 @@ public class GetCalendarQueryHandler(
             {
                 Date = date,
                 IsHoliday = isHolidayOrWeekend,
-                PlanInfos = planEntry?.Adapt<List<GetPlanInfoCalendarResponse>>() ?? []    ,
-                Details = publicEntry!.SelectMany(a => a.Value.Select(a => a.Details)) .ToList()
+                PlanInfos = planEntry?.Adapt<List<GetPlanInfoCalendarResponse>>() ?? new List<GetPlanInfoCalendarResponse>(),
+                Details = publicEntry?
+                              .SelectMany(a => a.Value?
+                                                   .Where(w => !string.IsNullOrWhiteSpace(w.Details))
+                                                   .Select(w => w.Details!) ??
+                                               Enumerable.Empty<string>())
+                              .Where(d => !string.IsNullOrWhiteSpace(d))
+                              .Distinct()
+                              .ToList() ??
+                          new List<string>()
             });
         }
 

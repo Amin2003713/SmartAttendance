@@ -55,7 +55,9 @@ public class UploadHubFileCommandHandler(
     {
         try
         {
-            await hubFileCommandRepository.AddAsync(path, cancellationToken);
+            if (identityService?.TenantInfo?.Identifier  != null)
+                await hubFileCommandRepository.AddAsync(path, cancellationToken);
+
             logger.LogInformation("File record added successfully. Id: {Id}", path.Id);
 
             var fileUrl = BuildFileUrl(path.Id, path.Type);

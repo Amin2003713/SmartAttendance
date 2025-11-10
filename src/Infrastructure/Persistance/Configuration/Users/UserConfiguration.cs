@@ -32,3 +32,11 @@ public class SubjectTeacherConfiguration : IEntityTypeConfiguration<SubjectTeach
             .IsRequired();
     }
 }
+
+public class SubjectsConfiguration : IEntityTypeConfiguration<Subject>
+{
+    public void Configure(EntityTypeBuilder<Subject> builder)
+    {
+        builder.HasQueryFilter(a => a.IsActive);
+    }
+}

@@ -7,10 +7,10 @@ public class GetUserResponse
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string UserName { get; set; }
 
     public string FatherName { get; set; }
 
-    
 
     public GenderType Gender { get; set; }
 
