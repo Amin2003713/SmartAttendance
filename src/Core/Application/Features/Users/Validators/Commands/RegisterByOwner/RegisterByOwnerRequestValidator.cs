@@ -37,7 +37,7 @@ public class RegisterByOwnerRequestValidator : AbstractValidator<RegisterByOwner
             .WithMessage(localizer["BirthDate must be in the past."]);
 
         RuleFor(x => x.ProfilePicture)
-            .Must(file => file == null || file.MediaFile?.Length <= 20 * 1024 * 1024) // max 2MB
+            .Must(file => file == null || file.MediaFile?.Length <= 200 * 1024 * 1024) // max 2MB
             .WithMessage(localizer["Profile image must be smaller than 2MB."]);
 
         RuleFor(x => x.IsActive)

@@ -39,9 +39,8 @@ public class GetPlanByDateRangeQueryHandler(
                     };
 
 
-            return await query
-                .ProjectToType<GetPlanInfoResponse>()
-                .ToListAsync(cancellationToken);
+            return (await query.ToListAsync(cancellationToken))
+                .Adapt<List<GetPlanInfoResponse>>();
         }
         catch (Exception e)
         {

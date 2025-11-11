@@ -48,9 +48,9 @@ public static class StringExtensions
     {
         return string.IsNullOrEmpty(url)
             ? null
-            : compress
+            : (compress
                 ? $"https://{url!.Replace("&compress=False", "&compress=True")}"
-                : $"https://{url}";
+                : $"https://{url}").Replace("https://https://" , "http://");
     }
 
     public static List<string?> BuildImageUrls(this IEnumerable<string?> urls)

@@ -3,8 +3,6 @@ using Mapster;
 
 namespace SmartAttendance.Api.Controllers.Plans;
 
-[Route("api/[controller]")]
-[ApiController]
 public class PlanEnrollmentController : SmartAttendanceBaseController
 {
     /// <summary>
