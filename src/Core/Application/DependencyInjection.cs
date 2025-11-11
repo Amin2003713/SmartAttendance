@@ -83,11 +83,38 @@ public static class DependencyInjection
     {
         TypeAdapterConfig<PlanEnrollment, GetEnrollmentResponse>.NewConfig()
             .Map(dest => dest.Attendance,
-                src => src.Attendance.Adapt<GetAttendanceInfoResponse>()
-            )
-            .Map(dest => dest.Student,
-                src => src.Student.Adapt<GetUserResponse>()
-            );
+                e => new GetEnrollmentResponse
+                {
+                    PlanId = e.PlanId,
+                    Student = e.Student == null
+                        ? null
+                        : new GetUserResponse
+                        {
+                            Id = e.Student.Id,
+                            FullName = e.Student.FullName(),
+                            ProfilePicture = e.Student.ProfilePicture.BuildImageUrl(false)
+                        },
+                    Attendance = e.Attendance == null
+                        ? null
+                        : new GetAttendanceInfoResponse
+                        {
+                            Id = e.Attendance.Id,
+                            RecordedAt = e.Attendance.RecordedAt,
+                            Excuse = e.Attendance.Excuse == null
+                                ? null
+                                : new GetExcuseInfoResponse
+                                {
+                                    Id = e.Attendance.Excuse.Id,
+                                    Reason = e.Attendance.Excuse.Reason
+                                }
+                        },
+                    Address = e.Plan.Address,
+                    End = e.Plan.EndTime,
+                    PlanName = e.Plan.CourseName,
+                    Start = e.Plan.StartTime,
+                    Status = e.Status,
+                    EnrolledAt = e.EnrolledAt
+                });
     }
 
     private static void SubjectAdaptor() { }
@@ -144,7 +171,7 @@ public static class DependencyInjection
                 src => src.Enrollments != null && src.Enrollments.Any()
                     ? src.Enrollments.Select(e => new GetEnrollmentResponse
                         {
-                            Id = e.Id,
+                            PlanId = e.PlanId,
                             Student = new GetUserResponse
                             {
                                 Id = e.Student.Id,
@@ -164,7 +191,13 @@ public static class DependencyInjection
                                         }
                                         : null
                                 }
-                                : null)
+                                : null)   ,
+                            Address = e.Plan.Address,
+                            End = e.Plan.EndTime,
+                            PlanName = e.Plan.CourseName,
+                            Start = e.Plan.StartTime,
+                            Status = e.Status,
+                            EnrolledAt = e.EnrolledAt
                         })
                         .ToList()
                     : new List<GetEnrollmentResponse>())

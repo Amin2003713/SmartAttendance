@@ -1,5 +1,4 @@
-﻿using SmartAttendance.Domain.Features.Majors;
-using SmartAttendance.Domain.Features.Plans;
+﻿using SmartAttendance.Domain.Features.Plans;
 using SmartAttendance.Domain.Features.Subjects;
 
 namespace SmartAttendance.Persistence.Configuration.Users;
@@ -32,17 +31,6 @@ public class PlanConfiguration : IEntityTypeConfiguration<Plan>
         builder.HasMany(p => p.Subjects)
             .WithOne(u => u.Plan)
             .HasForeignKey(p => p.PlanId)
-            .OnDelete(DeleteBehavior.Restrict);
-    }
-}
-
-public class MajorConfiguration : IEntityTypeConfiguration<Major>
-{
-    public void Configure(EntityTypeBuilder<Major> builder)
-    {
-        builder.HasMany(p => p.Subjects)
-            .WithOne(u => u.Major)
-            .HasForeignKey(p => p.MajorId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

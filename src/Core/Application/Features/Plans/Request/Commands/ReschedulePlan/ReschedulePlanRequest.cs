@@ -1,7 +1,6 @@
 ﻿namespace SmartAttendance.Application.Features.Plans.Request.Commands.ReschedulePlan;
 
-public class ReschedulePlanRequest :
-    IRequest
+public class ReschedulePlanRequest 
 {
     public Guid Id { get; init; }
     public DateTime Start { get; init; }

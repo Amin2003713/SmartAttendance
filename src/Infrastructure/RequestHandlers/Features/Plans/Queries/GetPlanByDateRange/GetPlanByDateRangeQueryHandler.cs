@@ -38,7 +38,7 @@ public class GetPlanByDateRangeQueryHandler(
                         _                => Enumerable.Empty<Plan>().AsQueryable()
                     };
 
-            
+
             return await query
                 .ProjectToType<GetPlanInfoResponse>()
                 .ToListAsync(cancellationToken);

@@ -7,7 +7,7 @@ public class Attachment : BaseEntity
     public string FileName { get; set; } = default!;
     public string Url { get; set; } = default!;
     public string ContentType { get; set; } = default!;
-
+    public Guid RowId { get; set; }
 
     public Guid UploadedBy { get; set; }
     public User Uploader { get; set; } = default!;
