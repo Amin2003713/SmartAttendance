@@ -13,7 +13,6 @@ public class UpdateUniversityRequestExample : IExamplesProvider<UpdateUniversity
             Address      = "No. 10, Some Street, Some City",
             Name         = "Tech Solutions Ltd.",
             LegalName    = "Tech Solutions Legal",
-            NationalCode = "1234567890",
             City         = "Tehran",
             Province     = "Tehran",
             Town         = "Some Town",

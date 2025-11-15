@@ -23,11 +23,6 @@ public class UpdateUniversityRequestValidator : AbstractValidator<UpdateUniversi
             .MaximumLength(100)
             .WithMessage(localizer["Legal name must not exceed 100 characters"].Value);
 
-        RuleFor(x => x.NationalCode)
-            .NotEmpty()
-            .WithMessage(localizer["National Code is required"].Value)
-            .Matches(@"^\d{10}$")
-            .WithMessage(localizer["National Code must be a 10-digit number"].Value);
 
         RuleFor(x => x.PhoneNumber)
             .NotEmpty()

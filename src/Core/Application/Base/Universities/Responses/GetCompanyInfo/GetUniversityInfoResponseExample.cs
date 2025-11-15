@@ -14,7 +14,6 @@ public class GetUniversityInfoResponseExample : IExamplesProvider<GetUniversityI
             Domain       = "iau-esfahan",
             Name         = "Islamic Azad University, Esfahan (Khorasgan) Branch",
             LegalName    = "Islamic Azad University",
-            NationalCode = "14001234567", // نمونه کد ملی/شناسه حقوقی
             City         = "Esfahan",
             Province     = "Esfahan",
             Town         = "Khorasgan",
