@@ -24,7 +24,14 @@ public class GetPlanByDateRangeQueryHandler(
             var fromDate = request.From.Date;
             var toDate   = request.To.Date;
 
-            var query = planQueryRepository.TableNoTracking
+            var query = planQueryRepository.TableNoTracking.Include(a => a.Enrollments)
+                .ThenInclude(a => a.Attendance)
+                .ThenInclude(a => a.Excuse)
+                .Include(a => a.Subjects)
+                .ThenInclude(a => a.Subject)
+                .Include(a => a.Major)
+                .Include(a => a.Teacher)
+                .ThenInclude(a => a.Teacher)
                 .Where(p => p.IsActive &&
                             p.StartTime.Date >= fromDate &&
                             p.StartTime.Date <= toDate);

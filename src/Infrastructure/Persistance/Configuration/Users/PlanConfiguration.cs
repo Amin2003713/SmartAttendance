@@ -32,5 +32,7 @@ public class PlanConfiguration : IEntityTypeConfiguration<Plan>
             .WithOne(u => u.Plan)
             .HasForeignKey(p => p.PlanId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(a => a.IsActive);
     }
 }

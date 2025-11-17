@@ -9,6 +9,7 @@ namespace SmartAttendance.Application.Features.Plans.Responses;
 public class GetPlanInfoResponse
 {
     public string CourseName { get; set; } = default!;
+    public Guid Id { get; set; } = default!;
 
     public string Description { get; set; } = default!;
     public Location Location { get; set; } = default!;
