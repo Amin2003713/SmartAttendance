@@ -14,7 +14,7 @@ public class DeletePlanEnrollmentCommandHandler(
 {
     public async Task Handle(DeletePlanEnrollmentCommand request, CancellationToken cancellationToken)
     {
-        var enrollment = await enrollmentQueryRepo.Table
+        var enrollment = await enrollmentQueryRepo.Table.Include(a=>a.Plan)
             .FirstOrDefaultAsync(e => e.PlanId == request.PlanId && e.StudentId == request.StudentId, cancellationToken);
 
         if (enrollment == null)
@@ -22,18 +22,17 @@ public class DeletePlanEnrollmentCommandHandler(
 
         // Delete enrollment
         await enrollmentCommandRepo.DeleteAsync(enrollment, cancellationToken);
-
         // Notify student about deletion
         await mediator.Send(new NotifyEnrollmentStatusChangedCommand
             {
                 StudentId = request.StudentId,
-                PlanId = request.PlanId,
+                PlanId = enrollment.Plan.CourseName,
                 Status = EnrollmentStatus.Cancelled
             },
             cancellationToken);
 
         // Promote oldest waitlisted enrollment if exists
-        var oldestWaitlisted = await enrollmentQueryRepo.Table
+        var oldestWaitlisted = await enrollmentQueryRepo.Table.Include(a=>a.Plan)
             .Where(e => e.PlanId == request.PlanId && e.Status == EnrollmentStatus.Waitlisted)
             .OrderBy(e => e.EnrolledAt)
             .FirstOrDefaultAsync(cancellationToken);
@@ -46,7 +45,7 @@ public class DeletePlanEnrollmentCommandHandler(
             await mediator.Send(new NotifyEnrollmentStatusChangedCommand
                 {
                     StudentId = oldestWaitlisted.StudentId,
-                    PlanId = oldestWaitlisted.PlanId,
+                    PlanId = oldestWaitlisted.Plan.CourseName,
                     Status = EnrollmentStatus.Active
                 },
                 cancellationToken);

@@ -12,5 +12,5 @@ public class GetAttachmentInfoResponse
     public Guid UploadedBy { get; set; }
 
     // Navigation
-    public GetUserResponse Uploader { get; set; } = default!;
+    public GetUserResponse? Uploader { get; set; } = default!;
 }

@@ -20,5 +20,8 @@ public class PlanEnrollmentConfiguration : IEntityTypeConfiguration<PlanEnrollme
         builder.HasOne(p => p.Student)
             .WithMany(u => u.Enrollments)
             .HasForeignKey(p => p.StudentId);
+
+        builder.HasQueryFilter(a => a.IsActive);
+
     }
 }

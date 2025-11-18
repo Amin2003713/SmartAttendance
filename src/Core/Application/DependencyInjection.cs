@@ -84,37 +84,69 @@ public static class DependencyInjection
         TypeAdapterConfig<PlanEnrollment, GetEnrollmentResponse>.NewConfig()
             .Map(dest => dest.Attendance,
                 e => new GetEnrollmentResponse
-                {
-                    PlanId = e.PlanId,
-                    Student = e.Student == null
-                        ? null
-                        : new GetUserResponse
                         {
-                            Id = e.Student.Id,
-                            FullName = e.Student.FullName(),
-                            ProfilePicture = e.Student.ProfilePicture.BuildImageUrl(false)
-                        },
-                    Attendance = e.Attendance == null
-                        ? null
-                        : new GetAttendanceInfoResponse
-                        {
-                            Id = e.Attendance.Id,
-                            RecordedAt = e.Attendance.RecordedAt,
-                            Excuse = e.Attendance.Excuse == null
-                                ? null
-                                : new GetExcuseInfoResponse
+                             
+                            Student = new GetUserResponse
+                            {
+                                Id             = e.Student.Id,
+                                FullName       = e.Student.FullName() ?? "دانشجو حذف شده",
+                                ProfilePicture = e.Student.ProfilePicture != null
+                                    ? e.Student.ProfilePicture.BuildImageUrl(false)
+                                    : null,
+                                FirstName = e.Student.FirstName ?? string.Empty,
+                                LastName  = e.Student.LastName ?? string.Empty,
+                            },
+                         
+                            Start      = e.Plan.StartTime ,
+                            End        = e.Plan.EndTime ,
+                            Address    = e.Plan.Address ?? string.Empty,
+                            PlanName   = e.Plan.CourseName ?? "بدون عنوان",
+
+                            Attendance = e.Attendance != null
+                                ? new GetAttendanceInfoResponse
                                 {
-                                    Id = e.Attendance.Excuse.Id,
-                                    Reason = e.Attendance.Excuse.Reason
+                                    Id      = e.Attendance.Id,
+                                    Student = new GetUserResponse
+                                    {
+                                        Id             = e.Student.Id,
+                                        FullName       = e.Student.FullName() ?? "نامشخص",
+                                        ProfilePicture = e.Student.ProfilePicture != null
+                                            ? e.Student.ProfilePicture.BuildImageUrl(false)
+                                            : null
+                                    },
+                                    Status     = e.Attendance.Status,
+                                    RecordedAt = e.Attendance.RecordedAt,
+
+                                    Excuse = e.Attendance.Excuse != null
+                                        ? new GetExcuseInfoResponse
+                                        {
+                                            Id          = e.Attendance.Excuse.Id,
+                                            Status      = e.Attendance.Excuse.Status,
+                                            SubmittedAt = e.Attendance.Excuse.SubmittedAt,
+                                            Reason      = e.Attendance.Excuse.Reason ?? string.Empty,
+
+                                            Attachment = e.Attendance.Excuse.Attachment != null
+                                                ? new GetAttachmentInfoResponse
+                                                {
+                                                    Id          = e.Attendance.Excuse.Attachment.Id,
+                                                    FileName    = e.Attendance.Excuse.Attachment.FileName ?? "Unknown",
+                                                    Url         = e.Attendance.Excuse.Attachment.Url ?? string.Empty,
+                                                    ContentType = e.Attendance.Excuse.Attachment.ContentType ?? "application/octet-stream",
+                                                    UploadedBy  = e.Attendance.Excuse.Attachment.UploadedBy,
+                                                    Uploader    = e.Attendance.Excuse.Attachment.Uploader != null
+                                                        ? new GetUserResponse
+                                                        {
+                                                            Id       = e.Attendance.Excuse.Attachment.Uploader.Id,
+                                                            FullName = e.Attendance.Excuse.Attachment.Uploader.FullName() ?? "سیستم"
+                                                        }
+                                                        : null
+                                                }
+                                                : null
+                                        }
+                                        : null
                                 }
-                        },
-                    Address = e.Plan.Address,
-                    End = e.Plan.EndTime,
-                    PlanName = e.Plan.CourseName,
-                    Start = e.Plan.StartTime,
-                    Status = e.Status,
-                    EnrolledAt = e.EnrolledAt
-                });
+                                : null
+                        });
     }
 
     private static void SubjectAdaptor() { }
@@ -135,115 +167,138 @@ public static class DependencyInjection
     }
 
 
-private static void PlanAdaptor()
-{
-    TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
+    private static void PlanAdaptor()
+    {
+        TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
 
-        // Major
-        .Map(dest => dest.Major,
-            src => src.Major != null
-                ? new GetMajorInfoResponse
-                {
-                    Id = src.Major.Id,
-                    Name = src.Major.Name ?? string.Empty,
-                    HeadMasterId = src.Major.HeadMasterId,
-                    Subjects = src.Major.Subjects
-                        .Where(s => s != null)
-                        .Select(s => new MajorSubjectResponse(s.Id, s.Name ?? string.Empty))
-                        .ToList() ?? new List<MajorSubjectResponse>()
-                }
-                : null)
-
-        // Teachers
-        .Map(dest => dest.Teacher,
-            src => src.Teacher
-                .Where(t => t.Teacher != null)
-                .Select(t => new GetUserResponse
-                {
-                    Id = t.Teacher.Id,
-                    FullName = t.Teacher.FullName() ?? "نامشخص",
-                    ProfilePicture = t.Teacher.ProfilePicture.BuildImageUrl(false),
-                    FirstName = t.Teacher.FirstName ?? string.Empty,
-                    LastName = t.Teacher.LastName ?? string.Empty,
-                    UserName = t.Teacher.UserName ?? string.Empty
-                    // بقیه فیلدها رو هم می‌تونی اضافه کنی اگر نیازه
-                })
-                .ToList() ?? new List<GetUserResponse>())
-
-        // Enrollments (مهم‌ترین قسمت — خیلی حساس به null)
-        .Map(dest => dest.Enrollments,
-            src => src.Enrollments
-                .Where(e => e != null && e.Student != null)
-                .Select(e => new GetEnrollmentResponse
-                {
-                    PlanId = e.PlanId,
-                    Student = new GetUserResponse
+            // Major
+            .Map(dest => dest.Major,
+                src => src.Major == null
+                    ? null
+                    : new GetMajorInfoResponse
                     {
-                        Id = e.Student.Id,
-                        FullName = e.Student.FullName() ?? "دانشجو حذف شده",
-                        ProfilePicture = e.Student.ProfilePicture!.BuildImageUrl(false),
-                        FirstName = e.Student.FirstName ?? string.Empty,
-                        LastName = e.Student.LastName ?? string.Empty,
-                    },
-                    Status = e.Status,
-                    EnrolledAt = e.EnrolledAt,
-                    Start = e.Plan.StartTime,
-                    End = e.Plan.EndTime,
-                    Address = e.Plan.Address ?? string.Empty,
-                    PlanName = e.Plan.CourseName ?? "بدون عنوان",
+                        Id          = src.Major.Id,
+                        Name        = src.Major.Name ?? string.Empty,
+                        HeadMasterId = src.Major.HeadMasterId,
+                        Subjects    = src.Major.Subjects != null
+                            ? src.Major.Subjects
+                                .Where(s => s != null)
+                                .Select(s => new MajorSubjectResponse(
+                                    s.Id,
+                                    s.Name ?? string.Empty
+                                ))
+                                .ToList()
+                            : new List<MajorSubjectResponse>()
+                    })
 
-                    Attendance = e.Attendance != null
-                        ? new GetAttendanceInfoResponse
+            // Teachers
+            .Map(dest => dest.Teacher,
+                src => src.Teacher != null
+                    ? src.Teacher
+                        .Where(t => t != null && t.Teacher != null)
+                        .Select(t => new GetUserResponse
                         {
-                            Id = e.Attendance.Id,
+                            Id             = t.Teacher.Id,
+                            FullName       = t.Teacher.FullName() ?? "نامشخص",
+                            ProfilePicture = t.Teacher.ProfilePicture != null
+                                ? t.Teacher.ProfilePicture.BuildImageUrl(false)
+                                : null,
+                            FirstName   = t.Teacher.FirstName ?? string.Empty,
+                            LastName    = t.Teacher.LastName ?? string.Empty,
+                            UserName    = t.Teacher.UserName ?? string.Empty,
+                            // سایر فیلدها در صورت نیاز پر شوند
+                        })
+                        .ToList()
+                    : new List<GetUserResponse>())
+
+            // Enrollments (خیلی حساس به null)
+            .Map(dest => dest.Enrollments,
+                src => src.Enrollments != null
+                    ? src.Enrollments
+                        .Where(e => e != null && e.Student != null)
+                        .Select(e => new GetEnrollmentResponse
+                        {
+                            PlanId = e.PlanId,
+                             
                             Student = new GetUserResponse
                             {
-                                Id = e.Student.Id ,
-                                FullName = e.Student.FullName() ?? "نامشخص",
-                                ProfilePicture = e.Student.ProfilePicture!.BuildImageUrl(false)
+                                Id             = e.Student.Id,
+                                FullName       = e.Student.FullName() ?? "دانشجو حذف شده",
+                                ProfilePicture = e.Student.ProfilePicture != null
+                                    ? e.Student.ProfilePicture.BuildImageUrl(false)
+                                    : null,
+                                FirstName = e.Student.FirstName ?? string.Empty,
+                                LastName  = e.Student.LastName ?? string.Empty,
                             },
-                            Status = e.Attendance.Status,
-                            RecordedAt = e.Attendance.RecordedAt,
-                            Excuse = e.Attendance.Excuse != null
-                                ? new GetExcuseInfoResponse
+                            Status     = e.Status,
+                            EnrolledAt = e.EnrolledAt,
+                            Start      = e.Plan.StartTime ,
+                            End        = e.Plan.EndTime ,
+                            Address    = e.Plan.Address ?? string.Empty,
+                            PlanName   = e.Plan.CourseName ?? "بدون عنوان",
+
+                            Attendance = e.Attendance != null
+                                ? new GetAttendanceInfoResponse
                                 {
-                                    Id = e.Attendance.Excuse.Id,
-                                    Status = e.Attendance.Excuse.Status,
-                                    SubmittedAt = e.Attendance.Excuse.SubmittedAt,
-                                    Reason = e.Attendance.Excuse.Reason ?? string.Empty,
-                                    Attachment = e.Attendance.Excuse.Attachment != null
-                                        ? new GetAttachmentInfoResponse
+                                    Id      = e.Attendance.Id,
+                                    Student = new GetUserResponse
+                                    {
+                                        Id             = e.Student.Id,
+                                        FullName       = e.Student.FullName() ?? "نامشخص",
+                                        ProfilePicture = e.Student.ProfilePicture != null
+                                            ? e.Student.ProfilePicture.BuildImageUrl(false)
+                                            : null
+                                    },
+                                    Status     = e.Attendance.Status,
+                                    RecordedAt = e.Attendance.RecordedAt,
+
+                                    Excuse = e.Attendance.Excuse != null
+                                        ? new GetExcuseInfoResponse
                                         {
-                                            Id = e.Attendance.Excuse.Attachment.Id,
-                                            FileName = e.Attendance.Excuse.Attachment.FileName ?? "Unknown",
-                                            Url = e.Attendance.Excuse.Attachment.Url ?? string.Empty,
-                                            ContentType = e.Attendance.Excuse.Attachment.ContentType ?? "application/octet-stream",
-                                            UploadedBy = e.Attendance.Excuse.Attachment.UploadedBy,
-                                            Uploader = new GetUserResponse
-                                            {
-                                                Id = e.Attendance.Excuse.Attachment.Uploader.Id ,
-                                                FullName = e.Attendance.Excuse.Attachment.Uploader.FullName() ?? "سیستم"
-                                            }
+                                            Id          = e.Attendance.Excuse.Id,
+                                            Status      = e.Attendance.Excuse.Status,
+                                            SubmittedAt = e.Attendance.Excuse.SubmittedAt,
+                                            Reason      = e.Attendance.Excuse.Reason ?? string.Empty,
+
+                                            Attachment = e.Attendance.Excuse.Attachment != null
+                                                ? new GetAttachmentInfoResponse
+                                                {
+                                                    Id          = e.Attendance.Excuse.Attachment.Id,
+                                                    FileName    = e.Attendance.Excuse.Attachment.FileName ?? "Unknown",
+                                                    Url         = e.Attendance.Excuse.Attachment.Url ?? string.Empty,
+                                                    ContentType = e.Attendance.Excuse.Attachment.ContentType ?? "application/octet-stream",
+                                                    UploadedBy  = e.Attendance.Excuse.Attachment.UploadedBy,
+                                                    Uploader    = e.Attendance.Excuse.Attachment.Uploader != null
+                                                        ? new GetUserResponse
+                                                        {
+                                                            Id       = e.Attendance.Excuse.Attachment.Uploader.Id,
+                                                            FullName = e.Attendance.Excuse.Attachment.Uploader.FullName() ?? "سیستم"
+                                                        }
+                                                        : null
+                                                }
+                                                : null
                                         }
                                         : null
                                 }
                                 : null
-                        }
-                        : null
-                })
-                .ToList() ?? new List<GetEnrollmentResponse>())
+                        })
+                        .ToList()
+                    : new List<GetEnrollmentResponse>())
 
-        // Subjects
-        .Map(dest => dest.Subjects,
-            src => src.Subjects
-                .Where(s => s.Subject != null)
-                .Select(s => new GetSubjectInfoResponse
-                {
-                    Id = s.SubjectId,
-                    Name = s.Subject.Name ?? "بدون نام"
-                })
-                .ToList() ?? new List<GetSubjectInfoResponse>());
-}
+            // Subjects
+            .Map(dest => dest.Subjects,
+                src => src.Subjects != null
+                    ? src.Subjects
+                        .Where(s => s != null && s.Subject != null)
+                        .Select(s => new GetSubjectInfoResponse
+                        {
+                            Id   = s.SubjectId,
+                            Name = s.Subject.Name ?? "بدون نام"
+                        })
+                        .ToList()
+                    : new List<GetSubjectInfoResponse>());
+    }
+
 
     private static void UserAdaptor()
     {

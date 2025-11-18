@@ -35,17 +35,15 @@ public class CreatePlanEnrollmentCommandHandler(
 
         await enrollmentCommandRepo.AddAsync(enrollment, cancellationToken);
 
-        // Notify student if Active
-        if (status == EnrollmentStatus.Active)
-        {
+        
             await mediator.Send(new NotifyEnrollmentStatusChangedCommand
                 {
                     StudentId = request.StudentId,
-                    PlanId = request.PlanId,
+                    PlanId = plan.CourseName,
                     Status = status
                 },
                 cancellationToken);
-        }
+        
 
         return enrollment.Id;
     }

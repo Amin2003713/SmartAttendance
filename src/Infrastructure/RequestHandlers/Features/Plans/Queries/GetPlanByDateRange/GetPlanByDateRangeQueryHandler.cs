@@ -40,7 +40,7 @@ public class GetPlanByDateRangeQueryHandler(
             query = role switch
                     {
                         Roles.Admin      => query,
-                        Roles.Student    => query.Where(p => p.Enrollments.Any(e => e.StudentId == userId)),
+                        Roles.Student    => query,
                         Roles.Teacher    => query.Where(p => p.Teacher.Any(t => t.TeacherId == userId)),
                         Roles.HeadMaster => query.Where(p => p.Major == null || p.Major.HeadMasterId == userId),
                         _                => Enumerable.Empty<Plan>().AsQueryable()

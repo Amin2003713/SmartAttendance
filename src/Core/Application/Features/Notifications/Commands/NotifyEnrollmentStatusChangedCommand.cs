@@ -5,6 +5,6 @@ namespace SmartAttendance.Application.Features.Notifications.Commands;
 public class NotifyEnrollmentStatusChangedCommand : IRequest
 {
     public Guid StudentId { get; set; }
-    public Guid PlanId { get; set; }
+    public string PlanId { get; set; }
     public EnrollmentStatus Status { get; set; }
 }

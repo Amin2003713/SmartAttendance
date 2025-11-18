@@ -62,6 +62,7 @@ public class GetCalendarQueryHandler(
                     To = monthEndGregorian
                 },
                 cancellationToken))
+            .Where(a=> identityService.GetRoles() != Roles.Student || a.Enrollments.Any(a=>a.Student.Id == currentUserId) )
             .GroupBy(a => a.StartTime.Date)
             .ToDictionary(g => g.Key, g => g.ToList());
 
