@@ -135,84 +135,115 @@ public static class DependencyInjection
     }
 
 
-    private static void PlanAdaptor()
-    {
-        TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
-            .Map(dest => dest.Major,
-                src => src.Major != null
-                    ? new GetMajorInfoResponse
+private static void PlanAdaptor()
+{
+    TypeAdapterConfig<Plan, GetPlanInfoResponse>.NewConfig()
+
+        // Major
+        .Map(dest => dest.Major,
+            src => src.Major != null
+                ? new GetMajorInfoResponse
+                {
+                    Id = src.Major.Id,
+                    Name = src.Major.Name ?? string.Empty,
+                    HeadMasterId = src.Major.HeadMasterId,
+                    Subjects = src.Major.Subjects
+                        .Where(s => s != null)
+                        .Select(s => new MajorSubjectResponse(s.Id, s.Name ?? string.Empty))
+                        .ToList() ?? new List<MajorSubjectResponse>()
+                }
+                : null)
+
+        // Teachers
+        .Map(dest => dest.Teacher,
+            src => src.Teacher
+                .Where(t => t.Teacher != null)
+                .Select(t => new GetUserResponse
+                {
+                    Id = t.Teacher.Id,
+                    FullName = t.Teacher.FullName() ?? "نامشخص",
+                    ProfilePicture = t.Teacher.ProfilePicture.BuildImageUrl(false),
+                    FirstName = t.Teacher.FirstName ?? string.Empty,
+                    LastName = t.Teacher.LastName ?? string.Empty,
+                    UserName = t.Teacher.UserName ?? string.Empty
+                    // بقیه فیلدها رو هم می‌تونی اضافه کنی اگر نیازه
+                })
+                .ToList() ?? new List<GetUserResponse>())
+
+        // Enrollments (مهم‌ترین قسمت — خیلی حساس به null)
+        .Map(dest => dest.Enrollments,
+            src => src.Enrollments
+                .Where(e => e != null && e.Student != null)
+                .Select(e => new GetEnrollmentResponse
+                {
+                    PlanId = e.PlanId,
+                    Student = new GetUserResponse
                     {
-                        Id = src.Major.Id,
-                        Name = src.Major.Name,
-                        Subjects = src.Major.Subjects != null && src.Major.Subjects.Any()
-                            ? src.Major.Subjects.Select(s => new MajorSubjectResponse(
-                                    s.Id,
-                                    s.Name
-                                ))
-                                .ToList()
-                            : new List<MajorSubjectResponse>()
-                    }
-                    : null)
+                        Id = e.Student.Id,
+                        FullName = e.Student.FullName() ?? "دانشجو حذف شده",
+                        ProfilePicture = e.Student.ProfilePicture!.BuildImageUrl(false),
+                        FirstName = e.Student.FirstName ?? string.Empty,
+                        LastName = e.Student.LastName ?? string.Empty,
+                    },
+                    Status = e.Status,
+                    EnrolledAt = e.EnrolledAt,
+                    Start = e.Plan.StartTime,
+                    End = e.Plan.EndTime,
+                    Address = e.Plan.Address ?? string.Empty,
+                    PlanName = e.Plan.CourseName ?? "بدون عنوان",
 
-            // Map Teacher manually
-            .Map(dest => dest.Teacher,
-                src => src.Teacher != null && src.Teacher.Any()
-                    ? src.Teacher.Select(u => new GetUserResponse
+                    Attendance = e.Attendance != null
+                        ? new GetAttendanceInfoResponse
                         {
-                            Id = u.Teacher.Id,
-                            FullName = u.Teacher.FullName(),
-                            ProfilePicture = u.Teacher.ProfilePicture != null ? u.Teacher.ProfilePicture.BuildImageUrl(false) : null,
-                        })
-                        .ToList()
-                    : new List<GetUserResponse>())
-
-            // Map Enrollments manually
-            .Map(dest => dest.Enrollments,
-                src => src.Enrollments != null && src.Enrollments.Any()
-                    ? src.Enrollments.Select(e => new GetEnrollmentResponse
-                        {
-                            PlanId = e.PlanId,
+                            Id = e.Attendance.Id,
                             Student = new GetUserResponse
                             {
-                                Id = e.Student.Id,
-                                FullName = e.Student.FullName(),
-                                ProfilePicture = e.Student.ProfilePicture != null ? e.Student.ProfilePicture.BuildImageUrl(false) : null
+                                Id = e.Student.Id ,
+                                FullName = e.Student.FullName() ?? "نامشخص",
+                                ProfilePicture = e.Student.ProfilePicture!.BuildImageUrl(false)
                             },
-                            Attendance = (e.Attendance != null
-                                ? new GetAttendanceInfoResponse
+                            Status = e.Attendance.Status,
+                            RecordedAt = e.Attendance.RecordedAt,
+                            Excuse = e.Attendance.Excuse != null
+                                ? new GetExcuseInfoResponse
                                 {
-                                    Id = e.Attendance.Id,
-                                    RecordedAt = e.Attendance.RecordedAt,
-                                    Excuse = e.Attendance.Excuse != null
-                                        ? new GetExcuseInfoResponse
+                                    Id = e.Attendance.Excuse.Id,
+                                    Status = e.Attendance.Excuse.Status,
+                                    SubmittedAt = e.Attendance.Excuse.SubmittedAt,
+                                    Reason = e.Attendance.Excuse.Reason ?? string.Empty,
+                                    Attachment = e.Attendance.Excuse.Attachment != null
+                                        ? new GetAttachmentInfoResponse
                                         {
-                                            Id = e.Attendance.Excuse.Id,
-                                            Reason = e.Attendance.Excuse.Reason
+                                            Id = e.Attendance.Excuse.Attachment.Id,
+                                            FileName = e.Attendance.Excuse.Attachment.FileName ?? "Unknown",
+                                            Url = e.Attendance.Excuse.Attachment.Url ?? string.Empty,
+                                            ContentType = e.Attendance.Excuse.Attachment.ContentType ?? "application/octet-stream",
+                                            UploadedBy = e.Attendance.Excuse.Attachment.UploadedBy,
+                                            Uploader = new GetUserResponse
+                                            {
+                                                Id = e.Attendance.Excuse.Attachment.Uploader.Id ,
+                                                FullName = e.Attendance.Excuse.Attachment.Uploader.FullName() ?? "سیستم"
+                                            }
                                         }
                                         : null
                                 }
-                                : null)   ,
-                            Address = e.Plan.Address,
-                            End = e.Plan.EndTime,
-                            PlanName = e.Plan.CourseName,
-                            Start = e.Plan.StartTime,
-                            Status = e.Status,
-                            EnrolledAt = e.EnrolledAt
-                        })
-                        .ToList()
-                    : new List<GetEnrollmentResponse>())
+                                : null
+                        }
+                        : null
+                })
+                .ToList() ?? new List<GetEnrollmentResponse>())
 
-            // Map Subjects manually
-            .Map(dest => dest.Subjects,
-                src => src.Subjects != null && src.Subjects.Any()
-                    ? src.Subjects.Select(s => new GetSubjectInfoResponse
-                        {
-                            Id = s.SubjectId,
-                            Name = s.Subject.Name
-                        })
-                        .ToList()
-                    : new List<GetSubjectInfoResponse>());
-    }
+        // Subjects
+        .Map(dest => dest.Subjects,
+            src => src.Subjects
+                .Where(s => s.Subject != null)
+                .Select(s => new GetSubjectInfoResponse
+                {
+                    Id = s.SubjectId,
+                    Name = s.Subject.Name ?? "بدون نام"
+                })
+                .ToList() ?? new List<GetSubjectInfoResponse>());
+}
 
     private static void UserAdaptor()
     {

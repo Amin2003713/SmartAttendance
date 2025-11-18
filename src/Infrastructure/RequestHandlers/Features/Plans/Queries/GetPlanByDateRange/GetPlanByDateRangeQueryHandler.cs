@@ -24,7 +24,8 @@ public class GetPlanByDateRangeQueryHandler(
             var fromDate = request.From.Date;
             var toDate   = request.To.Date;
 
-            var query = planQueryRepository.TableNoTracking.Include(a => a.Enrollments)
+            var query = planQueryRepository.TableNoTracking.Include(a => a.Enrollments).ThenInclude(a=>a.Student)
+                .Include(a => a.Enrollments)
                 .ThenInclude(a => a.Attendance)
                 .ThenInclude(a => a.Excuse)
                 .Include(a => a.Subjects)
@@ -46,8 +47,12 @@ public class GetPlanByDateRangeQueryHandler(
                     };
 
 
-            return (await query.ToListAsync(cancellationToken))
-                .Adapt<List<GetPlanInfoResponse>>();
+            var qRes = (await query.ToListAsync(cancellationToken));
+
+            if (qRes.Count == 0)
+                return [];
+
+            return qRes.Adapt<List<GetPlanInfoResponse>>();
         }
         catch (Exception e)
         {

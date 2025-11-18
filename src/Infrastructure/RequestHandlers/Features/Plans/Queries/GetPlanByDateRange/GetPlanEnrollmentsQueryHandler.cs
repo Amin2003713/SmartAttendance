@@ -12,6 +12,9 @@ public class GetPlanEnrollmentsQueryHandler(
     {
         var enrollments = await enrollmentQueryRepo.TableNoTracking
             .Include(e => e.Plan)
+            .Include(a => a.Attendance)
+            .ThenInclude(a => a.Excuse)
+            .Include(a => a.Student)
             .Where(e => e.PlanId == request.PlanId)
             .ToListAsync(cancellationToken);
 
