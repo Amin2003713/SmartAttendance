@@ -16,7 +16,7 @@ public class AttendanceController : SmartAttendanceBaseController
         return await Mediator.Send(request, cancellationToken);
     }
 
-    [HttpPatch("{attendanceId:guid}/status")]
+    [HttpPut("{attendanceId:guid}/status")]
     [ProducesResponseType(200)]
     public async Task UpdateStatus(Guid attendanceId, [FromBody] UpdateAttendanceStatusCommand request, CancellationToken cancellationToken)
     {
