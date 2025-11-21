@@ -117,4 +117,22 @@ public class PlanController : SmartAttendanceBaseController
             },
             cancellationToken);
     }
+
+  
+    [HttpGet("admin")]
+    [ProducesResponseType(typeof(GetDashboardDataResponse), StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetDashboardDataResponse>> GetDashboard(
+        [FromQuery] DateTime? from,
+        [FromQuery] DateTime? to,
+        CancellationToken ct)
+    {
+        var result = await Mediator.Send(new GetDashboardDataQuery
+            {
+                From = from,
+                To   = to
+            },
+            ct);
+
+        return Ok(result);
+    }
 }

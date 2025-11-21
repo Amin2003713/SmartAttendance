@@ -181,7 +181,7 @@ public static class WebApiModule
                 //UserName Settings
                 identityOptions.User.RequireUniqueEmail = false;
 
-                identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
+                identityOptions.SignIn.RequireConfirmedPhoneNumber = false;
 
                 identityOptions.Lockout.AllowedForNewUsers      = true;
                 identityOptions.Lockout.MaxFailedAccessAttempts = 5;

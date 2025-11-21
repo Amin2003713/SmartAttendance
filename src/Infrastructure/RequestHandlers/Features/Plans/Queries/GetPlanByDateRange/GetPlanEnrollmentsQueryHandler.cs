@@ -6,17 +6,27 @@ using SmartAttendance.Application.Features.Excuses.Responses;
 using SmartAttendance.Application.Interfaces.Plans;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
 using SmartAttendance.Common.General.Enums;
+using SmartAttendance.Common.Utilities.InjectionHelpers;
 using SmartAttendance.Common.Utilities.TypeConverters;
+using SmartAttendance.Domain.Features.Attendances;
+using SmartAttendance.Domain.Features.PlanEnrollments;
+using SmartAttendance.Domain.Features.Plans;
+using SmartAttendance.Persistence.Db;
 using SmartAttendance.Persistence.Services.Identities;
+using SmartAttendance.Persistence.Services.Taskes;
 
 namespace SmartAttendance.RequestHandlers.Features.Plans.Queries.GetPlanByDateRange;
 
-public class GetPlanEnrollmentsQueryHandler(  IdentityService identityService,
-    IPlanEnrollmentQueryRepository enrollmentQueryRepo
+public class GetPlanEnrollmentsQueryHandler(
+    IdentityService identityService,
+    IPlanEnrollmentQueryRepository enrollmentQueryRepo   ,
+    AutoMarkAbsentJob absentJob
 ) : IRequestHandler<GetPlanEnrollmentsQuery, List<GetEnrollmentResponse>>
 {
     public async Task<List<GetEnrollmentResponse>> Handle(GetPlanEnrollmentsQuery request, CancellationToken cancellationToken)
     {
+        //await absentJob.RunForEndedPlans(request.PlanId , cancellationToken);
+
         var enrollments = await enrollmentQueryRepo.TableNoTracking
             .Include(e => e.Plan)
             .Include(a => a.Attendance)
@@ -93,6 +103,8 @@ public class GetPlanEnrollmentsQueryHandler(  IdentityService identityService,
             })
             .ToListAsync(cancellationToken);
 
+
         return enrollments;
     }
 }
+

@@ -1,5 +1,6 @@
 ﻿using SmartAttendance.Application.Features.Attendances.Responses;
 using SmartAttendance.Application.Features.Majors.Responses;
+using SmartAttendance.Application.Features.Plans.Queries.GetByDate;
 using SmartAttendance.Application.Features.Subjects.Responses;
 using SmartAttendance.Common.Common.Requests;
 using SmartAttendance.Common.Common.Responses.Users.Queries.Base;
@@ -26,4 +27,10 @@ public class GetPlanInfoResponse
     public List<GetUserResponse> Teacher { get; set; } = [];
 
     public List<GetEnrollmentResponse>? Enrollments { get; set; } = [];
+}
+
+public class GetDashboardDataQuery : IRequest<GetDashboardDataResponse>
+{
+    public DateTime? From { get; set; }
+    public DateTime? To { get; set; }
 }
