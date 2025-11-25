@@ -10,5 +10,7 @@ public class MajorConfiguration : IEntityTypeConfiguration<Major>
             .WithOne(u => u.Major)
             .HasForeignKey(p => p.MajorId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasQueryFilter(a => a.IsActive);
     }
 }

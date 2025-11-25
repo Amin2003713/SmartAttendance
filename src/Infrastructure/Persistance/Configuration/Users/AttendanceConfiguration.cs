@@ -20,5 +20,7 @@ public class AttendanceConfiguration : IEntityTypeConfiguration<Attendance>
         builder.HasOne(p => p.Excuse)
             .WithOne(u => u.Attendance)
             .HasForeignKey<Attendance>(a => a.ExcuseId);
+
+        builder.HasQueryFilter(a => a.IsActive);
     }
 }

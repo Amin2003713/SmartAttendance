@@ -15,5 +15,7 @@ public class SubjectTeacherConfiguration : IEntityTypeConfiguration<SubjectTeach
             .WithMany(u => u.SubjectTaught)
             .HasForeignKey(st => st.TeacherId)
             .IsRequired();
+
+        builder.HasQueryFilter(a => a.IsActive);
     }
 }

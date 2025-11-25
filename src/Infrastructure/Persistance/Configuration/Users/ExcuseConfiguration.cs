@@ -27,5 +27,7 @@ public class ExcuseConfiguration : IEntityTypeConfiguration<Excuse>
             .WithMany()
             .HasForeignKey(p => p.AttachmentId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasQueryFilter(a => a.IsActive);
     }
 }
